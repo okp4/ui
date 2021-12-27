@@ -22,13 +22,15 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rimraf dist",
-    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --max-warnings=0",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "keywords": [],
   "dependencies": {
+    "classnames": "^2.3.1",
+    "node-sass": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -39,7 +41,9 @@
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addons": "^6.4.9",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.4.9",
     "@storybook/theming": "^6.4.9",
     "@types/react": "^17.0.5",
@@ -47,6 +51,7 @@
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
     "babel-loader": "^8.2.3",
+    "css-loader": "5.2.6",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -60,6 +65,12 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
-    "typescript": "^4.2.4"
+    "sass": "^1.45.1",
+    "sass-loader": "10.1.1",
+    "storybook-css-modules-preset": "^1.1.1",
+    "style-loader": "2.0.0",
+    "typed-scss-modules": "^4.1.1",
+    "typescript": "^4.2.4",
+    "typescript-plugin-css-modules": "^3.4.0"
   }
 }
