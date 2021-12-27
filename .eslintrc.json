@@ -19,6 +19,8 @@
   },
   "rules": {
     "react/prop-types": 0,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "no-console": 0,
     "prettier/prettier": 2
   }
