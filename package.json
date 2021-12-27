@@ -22,7 +22,7 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rimraf dist",
-    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --max-warnings=0",
+    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && stylelint './src/**/*.scss'",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -69,6 +69,9 @@
     "sass-loader": "10.1.1",
     "storybook-css-modules-preset": "^1.1.1",
     "style-loader": "2.0.0",
+    "stylelint": "^14.2.0",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "stylelint-scss": "^4.1.0",
     "typed-scss-modules": "^4.1.1",
     "typescript": "^4.2.4",
     "typescript-plugin-css-modules": "^3.4.0"
