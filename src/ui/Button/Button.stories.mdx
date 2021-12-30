@@ -1,45 +1,53 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import {
+  ArgsTable,
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks'
 import { Button } from './Button'
 
-<Meta 
-    title="Components/Button" 
-    component={Button}
-    parameters={{ actions: { argTypesRegex: '^on.\*' } }} />
+<Meta
+  title="Components/Button"
+  component={Button}
+  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+/>
 
 # Button
 
-> Communicate _actions_ that users can take. 
+> Communicate _actions_ that users can take.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Overview
 
-
 ### Description
 
-Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find the most important actions throughout UI and enables them to 
+Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find the most important actions throughout UI and enables them to
 perform these actions.
 
 The `label` is used to clearly indicate to the user what action will be triggered. Buttons allow users to commit a change, complete steps in a task, or make choices.
 
------
-<Story
-    name="sample"
-    argTypes={{
-        type: {
-            control: {
-                type: 'inline-radio'
-            }
-        }
-    }}
-    args={{
-        label: 'Click-me !'
-    }}
->
-    {args => <div style={{ textAlign: 'center', padding: '10px 0 10px' }}><Button {...args} /></div>}
-</Story>
+---
 
------
+<Canvas>
+  <Story
+    name="sample"
+    argTypes={{}}
+    args={{
+      label: 'Click-me !',
+    }}
+  >
+    {(args) => (
+      <div style={{ textAlign: 'center', padding: '10px 0 10px' }}>
+        <Button {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+---
 
 ### Properties
 
