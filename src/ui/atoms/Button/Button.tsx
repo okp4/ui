@@ -23,7 +23,7 @@ export type TButtonProps = Readonly<{
 }>
 
 /**
- * Primary UI component for user interaction
+ * Primary UI component for user interaction.
  */
 export const Button = ({
   primary = false,
