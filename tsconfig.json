@@ -15,7 +15,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "public/*": ["./public/*"],
+      "ui/*": ["./src/ui/*"],
+      "hook/*": ["./src/hook/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": [
@@ -24,5 +29,6 @@
     "src/packages/**/tests/*.spec.tsx",
     "src/packages/**/tests/*.test.tsx",
     "src/packages/**/stories/*.stories.tsx",
+    "src/packages/**/stories/*.samples.tsx"
   ]
 }
