@@ -8,11 +8,11 @@ declare module '!!raw-loader!*' {
   export = contents
 }
 declare module '*.png' {
-  const value: any
+  const value: never
   export = value
 }
 
 declare module '*.jpg' {
-  const value: any
+  const value: never
   export = value
 }

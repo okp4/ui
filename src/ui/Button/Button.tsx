@@ -16,7 +16,8 @@ export type TButtonProps = Readonly<{
   label: string
   /**
    * The callback function called when button is clicked.
-   * The `onClick` function is an event handler attached to the button just like a normal HTML `<button>`.
+   * The `onClick` function is an event handler attached to the button just like a normal HTML
+   * `<button>`.
    */
   onClick?: () => void
 }>
