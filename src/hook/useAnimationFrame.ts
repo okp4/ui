@@ -6,16 +6,19 @@ export type TAnimationFrameCallback = (deltaTime: number) => void
  * A hook to deal with requestAnimationFrame() in React.
  *
  * @param callback the callback function to call when it's time to update the animation.
+ * @param animated tells if a requestAnimationFrame
  */
-export const useAnimationFrame: (callbacl: TAnimationFrameCallback) => void = (
-  callback: TAnimationFrameCallback
-) => {
+export const useAnimationFrame: (
+  callback: TAnimationFrameCallback,
+  animated?: boolean
+) => void = (callback: TAnimationFrameCallback, animated = true) => {
   const requestRef = useRef<number>()
   const previousTimeRef = useRef<number>()
 
   const animate = (time: DOMHighResTimeStamp) => {
-    if (previousTimeRef.current != undefined) {
+    if (previousTimeRef.current) {
       const deltaTime = time - previousTimeRef.current
+
       callback(deltaTime)
     }
     previousTimeRef.current = time
@@ -23,10 +26,17 @@ export const useAnimationFrame: (callbacl: TAnimationFrameCallback) => void = (
   }
 
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate)
+    if (animated) {
+      requestRef.current = requestAnimationFrame(animate)
+    } else {
+      requestRef.current && cancelAnimationFrame(requestRef.current)
+      requestRef.current = undefined
+      previousTimeRef.current = undefined
+    }
+
     return () => {
       requestRef.current && cancelAnimationFrame(requestRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [animated])
 }
