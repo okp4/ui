@@ -10,7 +10,7 @@ import { Canvas as CanvasComponent } from 'ui/atoms/Canvas/Canvas'
 
 <Meta
   title="Atoms/Canvas"
-  component={Canvas}
+  component={CanvasComponent}
   parameters={{ actions: { argTypesRegex: '^on.*' } }}
 />
 
@@ -59,7 +59,7 @@ export const CanvasStory = (args) => (
 
 <Canvas>
   <Story
-    name="sample"
+    name="Overview"
     args={{
       onRender: draw,
       disableScrolling: false,
@@ -73,4 +73,4 @@ export const CanvasStory = (args) => (
 
 ### Properties
 
-<ArgsTable story="sample" />
+<ArgsTable story="Overview" />

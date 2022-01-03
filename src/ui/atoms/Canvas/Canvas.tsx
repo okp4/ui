@@ -31,6 +31,11 @@ export type TCanvasProps = Readonly<{
   disableScrolling?: boolean
 
   /**
+   * Specifies if the rendering should be performed.
+   */
+  animated?: boolean
+
+  /**
    * Called when canvas is created. Can be used to configure the canvas aftewards.
    */
   onCanvasCreated?: TCanvasCreatedCallback
@@ -41,7 +46,7 @@ export type TCanvasProps = Readonly<{
   onCanvasDestroyed?: TCanvasDestroyedCallback
 
   /**
-   * Called when rendering.
+   * Called when rendering (if `animated` is set to true)
    */
   onRender?: TRenderCanvasCallback
 }>
@@ -54,6 +59,7 @@ export const Canvas = ({
   disableScrolling = true,
   width,
   height,
+  animated = true,
   onCanvasCreated,
   onCanvasDestroyed,
   onRender,
@@ -99,7 +105,7 @@ export const Canvas = ({
     if (canvasRef.current && onRender) {
       onRender(canvasRef.current, deltaTime)
     }
-  })
+  }, animated)
 
   const opts: Record<string, string | number> = {}
 
@@ -112,9 +118,5 @@ export const Canvas = ({
     opts['height'] = height
   }
 
-  return (
-    <div>
-      <canvas ref={canvasRef} {...props} {...opts} />
-    </div>
-  )
+  return <canvas ref={canvasRef} {...props} {...opts} />
 }
