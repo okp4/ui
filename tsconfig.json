@@ -22,7 +22,7 @@
       "hook/*": ["./src/hook/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "stories/atoms/samples"],
   "exclude": [
     "node-modules",
     "lib",
