@@ -1,11 +1,11 @@
 {
-  "name": "@okp4/okp4-ui",
+  "name": "@okp4/ui",
   "version": "1.0.0",
   "private": false,
-  "repository": "git@github.com:okp4/okp4-ui.git",
+  "repository": "git@github.com:okp4/ui.git",
   "license": "BSD-3-Clause",
   "description": "UI Components used @okp4.com",
-  "homepage": "https://github.com/okp4/okp4-ui",
+  "homepage": "https://github.com/okp4/ui",
   "author": {
     "name": "OKP4",
     "web": "https://okp4.com"

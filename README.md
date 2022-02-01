@@ -32,14 +32,14 @@ yarn storybook
 
 ### Use
 
-To get started using `okp4-ui` first add or install the module to your existing React project using either `yarn` or `npm`.
+To get started using `@okp4/ui` first add or install the module to your existing React project using either `yarn` or `npm`.
 
 ```sh
-yarn add @okp4/okp4-ui
+yarn add @okp4/ui
 ```
 
 or
 
 ```sh
-npm install --save @okp4/okp4-ui
+npm install --save @okp4/ui
 ```
