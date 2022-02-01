@@ -1,0 +1,82 @@
+{
+  "name": "@okp4/okp4-ui",
+  "version": "1.0.0",
+  "private": false,
+  "repository": "git@github.com:okp4/okp4-ui.git",
+  "license": "BSD-3-Clause",
+  "description": "UI Components used @okp4.com",
+  "homepage": "https://github.com/okp4/okp4-ui",
+  "author": {
+    "name": "OKP4",
+    "web": "https://okp4.com"
+  },
+  "engines": {
+    "node": "~16.13.1",
+    "yarn": "~1.22.0"
+  },
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rimraf dist",
+    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && stylelint './src/**/*.scss'",
+    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "keywords": [],
+  "dependencies": {
+    "classnames": "^2.3.1",
+    "node-sass": "^7.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/inspector": "^4.2.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.1.1",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addons": "^6.4.9",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.4.9",
+    "@storybook/theming": "^6.4.9",
+    "@types/react": "^17.0.5",
+    "@types/react-dom": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "babel-loader": "^8.2.3",
+    "css-loader": "5.2.6",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-storybook": "^0.5.5",
+    "nanoid": "^3.1.23",
+    "postcss": "^8.4.5",
+    "prettier": "^2.3.0",
+    "raw-loader": "^4.0.2",
+    "rollup": "^2.62.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "sass": "^1.45.1",
+    "sass-loader": "10.1.1",
+    "storybook-css-modules-preset": "^1.1.1",
+    "style-loader": "2.0.0",
+    "stylelint": "^14.2.0",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "stylelint-scss": "^4.1.0",
+    "typed-scss-modules": "^4.1.1",
+    "typescript": "^4.2.4",
+    "typescript-plugin-css-modules": "^3.4.0"
+  }
+}
