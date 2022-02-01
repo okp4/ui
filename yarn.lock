@@ -11501,10 +11501,10 @@ type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typed-scss-modules@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/typed-scss-modules/-/typed-scss-modules-4.1.1.tgz#eab12f25511a329f8e4837842c3b484ffd66b449"
-  integrity sha512-eVRej2pMRRbrMQ7oyLNR+GcMCD4Tmc+MMzq+6qo8pTXiz2GQR1dTaYTs9vDeoCE7iJv9JZ7U36fATbIVECJ+fQ==
+typed-scss-modules@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/typed-scss-modules/-/typed-scss-modules-5.0.0.tgz#23ecaf2c6e2ab49e65a08f68f58b3ce5b6b120f1"
+  integrity sha512-etRLDmalISFpUaLKAbwyVL3xP5riEesByBYF9BBg5zKbgE/7L15xxwYshiYsFvvKK0T5+1DXBBbByrbi+ppD7A==
   dependencies:
     camelcase "^5.0.0"
     chalk "^3.0.0"
