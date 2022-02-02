@@ -14,7 +14,7 @@ The OKP4 Design System serves as a reference or source of truth for the teams wo
 
 ## Get started
 
-The OKP4 Design System contains a collection of [React](https://reactjs.org) components that can be used to build accessible and performant React applications consistent with [OKP4](https://www.ubleam.com) brand guidelines.
+The OKP4 Design System contains a collection of [React](https://reactjs.org) components that can be used to build accessible and performant React applications consistent with [OKP4](https://www.okp4.com) brand guidelines.
 
 ### Build
 
