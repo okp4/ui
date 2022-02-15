@@ -21,7 +21,7 @@ jobs:
       - name: Setup node environment (for building)
         uses: actions/setup-node@v2
         with:
-          node-version: 16.13.1
+          node-version: 16.14.0
 
       - name: Fetch dependencies
         run: |

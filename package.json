@@ -11,8 +11,8 @@
     "web": "https://okp4.com"
   },
   "engines": {
-    "node": "~16.13.1",
-    "yarn": "~1.22.0"
+    "node": "~16.14.0",
+    "yarn": "~1.22.17"
   },
   "main": "lib/index.js",
   "module": "lib/index.es.js",
