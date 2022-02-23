@@ -50,3 +50,40 @@ jobs:
           push: true
           tags: ${{ steps.docker_metadata.outputs.tags }}
           labels: ${{ steps.docker_metadata.outputs.labels }}
+
+  publish-npm-package:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up context
+        id: project_context
+        uses: FranzDiebold/github-env-vars-action@v2.3.1
+
+      - name: Setup node environment (for publishing)
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.14.0
+          registry-url: "https://npm.pkg.github.com"
+          scope: '@okp4'
+          access: "restricted"
+
+      - name: Publish package
+        run: |
+          yarn && yarn build
+
+          publish=(yarn publish --no-git-tag-version --non-interactive)
+
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            :
+          elif [[ $GITHUB_EVENT_NAME == pull_request ]]; then
+            publish+=(--tag ${{ env.CI_ACTION_REF_NAME_SLUG }})
+          else
+            publish+=(--tag nightly)
+          fi
+
+          echo "🚀 Publishing npm package with following command line: ${publish[@]}"
+          "${publish[@]}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
