@@ -72,7 +72,7 @@
     "sass-loader": "10.1.1",
     "storybook-css-modules-preset": "^1.1.1",
     "style-loader": "2.0.0",
-    "stylelint": "^14.2.0",
+    "stylelint": "^14.5.2",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-scss": "^4.1.0",
     "typed-scss-modules": "^4.1.1",
