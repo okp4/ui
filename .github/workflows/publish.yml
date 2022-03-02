@@ -67,7 +67,6 @@ jobs:
           node-version: 16.14.0
           registry-url: "https://npm.pkg.github.com"
           scope: '@okp4'
-          access: "restricted"
 
       - name: Publish package
         run: |
@@ -80,7 +79,7 @@ jobs:
           elif [[ $GITHUB_EVENT_NAME == pull_request ]]; then
             publish+=(--tag ${{ env.CI_ACTION_REF_NAME_SLUG }})
           else
-            publish+=(--tag nightly)
+            publish+=(--tag next)
           fi
 
           echo "🚀 Publishing npm package with following command line: ${publish[@]}"
