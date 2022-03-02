@@ -2,11 +2,11 @@ name: Publish
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*' ]
+    branches: [main]
+    tags: ['v*']
 
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   workflow_dispatch:
 
@@ -65,7 +65,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.14.0
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
           scope: '@okp4'
 
       - name: Publish package
