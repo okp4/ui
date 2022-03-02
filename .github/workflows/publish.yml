@@ -13,6 +13,9 @@ on:
 jobs:
   publish-docker-images:
     runs-on: ubuntu-20.04
+    concurrency:
+      group: publish-docker-images-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -53,6 +56,9 @@ jobs:
 
   publish-npm-package:
     runs-on: ubuntu-20.04
+    concurrency:
+      group: publish-npm-package-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
