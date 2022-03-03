@@ -94,3 +94,38 @@ jobs:
           "${publish[@]}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
+
+  publish-storybook:
+    concurrency:
+      group: publish-storybook-${{ github.ref }}
+      cancel-in-progress: true
+    timeout-minutes: 10
+    runs-on: ubuntu-20.04
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup node environment (for publishing)
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.14.0
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@okp4'
+
+      - name: Build storybook
+        run: |
+          yarn
+          yarn build-storybook
+
+      - name: Deploy storybook
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages
+          folder: dist
+          clean: true
+          token: ${{ secrets.OKP4_TOKEN }}
+          git-config-name: ${{ secrets.OKP4_BOT_GIT_AUTHOR_NAME }}
+          git-config-email: ${{ secrets.OKP4_BOT_GIT_COMMITTER_EMAIL }}
+          commit-message: |
+            feat: update storybook site (auto)
