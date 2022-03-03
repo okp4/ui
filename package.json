@@ -64,7 +64,7 @@
     "postcss": "^8.4.5",
     "prettier": "^2.3.0",
     "raw-loader": "^4.0.2",
-    "rollup": "^2.62.0",
+    "rollup": "^2.69.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
