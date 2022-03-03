@@ -35,7 +35,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
+    "@babel/core": "^7.17.5",
     "@babylonjs/core": "^4.2.1",
     "@babylonjs/inspector": "^4.2.1",
     "@rollup/plugin-commonjs": "^21.0.1",
@@ -72,7 +72,7 @@
     "sass-loader": "10.1.1",
     "storybook-css-modules-preset": "^1.1.1",
     "style-loader": "2.0.0",
-    "stylelint": "^14.2.0",
+    "stylelint": "^14.5.3",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-scss": "^4.1.0",
     "typed-scss-modules": "^6.2.0",
