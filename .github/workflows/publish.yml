@@ -62,7 +62,7 @@ jobs:
         uses: FranzDiebold/github-env-vars-action@v2.3.1
 
       - name: Setup node environment (for publishing)
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
           registry-url: "https://npm.pkg.github.com"
