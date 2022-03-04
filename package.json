@@ -76,7 +76,7 @@
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-scss": "^4.1.0",
     "typed-scss-modules": "^6.2.0",
-    "typescript": "^4.2.4",
+    "typescript": "^4.6.2",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }
