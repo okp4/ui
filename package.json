@@ -67,7 +67,7 @@
     "rollup": "^2.69.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-typescript2": "^0.31.1",
+    "rollup-plugin-typescript2": "^0.31.2",
     "sass": "^1.45.1",
     "sass-loader": "10.1.1",
     "storybook-css-modules-preset": "^1.1.1",
