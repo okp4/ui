@@ -2,11 +2,13 @@
 
 > Implementation of [OKP4]([okp4.com](https://okp4.com)) UI components in CSS, [Typescript](https://www.typescriptlang.org), and HTML.
 
-[![lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
-[![build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
-[![conventional commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
+[![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/test_coverage)](https://codeclimate.com/github/okp4/ui/test_coverage)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
-[![license](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 ## Our vision
 
