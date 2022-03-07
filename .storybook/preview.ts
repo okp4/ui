@@ -10,4 +10,10 @@ export const parameters = {
     expanded: true,
   },
   layout: 'centered',
+  options: {
+    storySort: {
+      method: 'alphabetical',
+      order: ['Welcome', 'Philosophy', 'Atoms'],
+    },
+  },
 }
