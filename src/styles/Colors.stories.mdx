@@ -1,0 +1,28 @@
+import {
+  ArgsTable,
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks'
+import { StorybookColorSet } from '../../.storybook/components/ColorSet'
+import { colorsSet } from '../../.storybook/components/utils'
+
+<Meta title="Brand Identity/Colors" component={StorybookColorSet} />
+
+# Colors
+
+> The colors palette defined at OKP4.
+
+## White based colors
+
+<StorybookColorSet colorKeys={colorsSet('white')} />
+
+## Grey based colors
+
+<StorybookColorSet colorKeys={colorsSet('gray')} />
+
+## Blue based colors
+
+<StorybookColorSet colorKeys={colorsSet('blue')} />
