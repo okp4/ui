@@ -1,5 +1,5 @@
 import React from 'react'
-import { StorybookColor } from './Color'
+import { StorybookColor } from './Color.stories'
 import { ColorKey } from './utils'
 
 import './index.scss'
