@@ -4,7 +4,10 @@
   "rules": {
     "indentation": 2,
     "color-hex-length": "long",
-    "color-named": "never",
+    "color-named": [
+      "always-where-possible",
+      { "ignoreProperties": ["$color-pure-white"] }
+    ],
     "scss/at-import-partial-extension-blacklist": null,
     "order/properties-alphabetical-order": null,
     "max-nesting-depth": 4,
