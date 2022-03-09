@@ -4,7 +4,7 @@ import colors from './_exports.module.scss'
 
 export type StorybookColorProps = {
     /**
-     * References the key of expoted the variable in the color palette.
+     * References the key of the exported variable in the color palette.
      */
     colorKey: ColorKey
 }
