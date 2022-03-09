@@ -1,0 +1,34 @@
+.storybook {
+  &.color-set {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 175px));
+    grid-gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  &.color {
+    list-style-type: none;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 5px;
+
+    .swatch {
+      display: block;
+      height: 4em;
+      margin-bottom: 0.3em;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+    }
+
+    .name {
+      text-transform: capitalize;
+      display: block;
+      margin: 10px 0px 10px;
+      font-weight: 500;
+    }
+
+    .variable {
+      display: block;
+    }
+  }
+}
