@@ -124,7 +124,7 @@ jobs:
         run: |
           yarn && yarn build
 
-          publish=(yarn publish --no-git-tag-version --non-interactive)
+          publish=(yarn publish --access=public --no-git-tag-version --non-interactive)
           publish+=(--tag latest)
 
           echo "🚀 Publishing npm package with following command line: ${publish[@]}"
