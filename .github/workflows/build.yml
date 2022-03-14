@@ -23,7 +23,7 @@ jobs:
 
       - name: Fetch dependencies
         run: |
-          yarn
+          yarn --frozen-lockfile
 
       - name: Build project
         run: |
