@@ -32,6 +32,7 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
+            @semantic-release/npm
         env:
           GITHUB_TOKEN: ${{ secrets.OKP4_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.OKP4_BOT_GIT_AUTHOR_NAME }}
