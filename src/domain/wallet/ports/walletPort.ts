@@ -1,7 +1,8 @@
 import { ConnectionError } from '../entities/errors'
-import { ChainId } from '../entities/wallet'
+import { Accounts, ChainId } from '../entities/wallet'
 
 export type WalletPort = {
-  enable: (chainId: ChainId) => Promise<void | ConnectionError>
+  connect: (chainId: ChainId) => Promise<void | ConnectionError>
   isConnected: () => boolean
+  getAccounts: (chainId: ChainId) => Promise<Accounts>
 }
