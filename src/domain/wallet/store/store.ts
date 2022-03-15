@@ -41,11 +41,12 @@ export function createAction<T extends string, P>(
   payload?: P
 ): ActionWithPayload<T, P>
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createAction<T extends string, P>(type: T, payload?: P) {
   return payload === undefined ? { type } : { type, payload }
 }
 
-type FunctionType = (...args: any[]) => any
+type FunctionType = (...args: never[]) => unknown
 type ActionCreatorsMapObject = { [actionCreator: string]: FunctionType }
 
 export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<

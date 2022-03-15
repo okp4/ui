@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ActionsUnion, createAction } from '../../store/store'
-import { ChainId } from '../../entities/wallet'
+import { Accounts, ChainId } from '../../entities/wallet'
 
 export const EnableWalletActions = {
-  walletEnabled: (chaindId: ChainId) =>
-    createAction('wallet/walletEnabled', { chaindId }),
+  walletConnected: (chaindId: ChainId) =>
+    createAction('wallet/walletConnected', { chaindId }),
+  accountsRetrieved: (chainId: ChainId, accounts: Accounts) =>
+    createAction('wallet/accountsRetrieved', { chainId, accounts }),
 }
 
 export type EnableWalletActionTypes = ActionsUnion<typeof EnableWalletActions>
