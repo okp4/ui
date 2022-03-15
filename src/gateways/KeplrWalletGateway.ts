@@ -1,15 +1,26 @@
 import { ConnectionError } from 'domain/wallet/entities/errors'
-import { WalletPort } from '../domain/wallet/ports/walletPort'
-import { ChainId } from '../domain/wallet/entities/wallet'
+import { WalletPort } from 'domain/wallet/ports/walletPort'
+import { Account, Accounts, ChainId } from 'domain/wallet/entities/wallet'
+import { KeplrAccountDTO } from './DTO/keplrDTO'
+import { KeplrAccountMapper } from './mappers/account.mapper'
 
 export class KeplrWalletGateway implements WalletPort {
   public isConnected = (): boolean =>
     !!window.Keplr.getOfflineSigner && !!window.Keplr
 
-  public enable = (chainId: ChainId): Promise<void | ConnectionError> => {
+  public connect = (chainId: ChainId): Promise<void | ConnectionError> => {
     if (!this.isConnected) {
       return Promise.resolve(new ConnectionError())
     }
     return window.Keplr.enable(chainId)
+  }
+
+  public getAccounts = async (chainId: ChainId): Promise<Accounts> => {
+    const offlineSigner = window.Keplr.getOfflineSigner(chainId)
+    const accounts = await offlineSigner.getAccounts()
+    return accounts.map(
+      (account: KeplrAccountDTO): Account =>
+        KeplrAccountMapper.mapAccount(account)
+    )
   }
 }
