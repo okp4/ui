@@ -10,7 +10,6 @@ export const enableWallet =
     try {
       const result = await walletGateway.enable(chainId)
       if (isError(result)) {
-        console.log('here')
         dispatch(ErrorWalletActions.walletFailed(result))
       } else {
         dispatch(EnableWalletActions.walletEnabled(chainId))
