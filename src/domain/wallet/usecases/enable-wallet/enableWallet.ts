@@ -3,20 +3,22 @@ import {
   UnspecifiedError,
 } from 'domain/wallet/entities/errors'
 import { Accounts, ChainId } from 'domain/wallet/entities/wallet'
+import { WalletId } from 'domain/wallet/ports/walletPort'
 import { ReduxStore, ThunkResult } from '../../store/store'
 import { ErrorWalletActions } from '../actionCreators'
 import { EnableWalletActions } from './actionCreators'
 
 export const enableWallet =
-  (chainId: ChainId): ThunkResult<Promise<void>> =>
-  async (dispatch, getState, { walletGateway }) => {
+  (walletId: WalletId, chainId: ChainId): ThunkResult<Promise<void>> =>
+  async (dispatch, getState, { walletRegistryGateway }) => {
     try {
-      const result = await walletGateway.connect(chainId)
+      const gateway = walletRegistryGateway.get(walletId)
+      const result = await gateway.connect(chainId)
       if (isError(result)) {
         dispatchError(result, dispatch)
       } else {
         dispatchConnectionStatuses(chainId, dispatch)
-        const accounts = await walletGateway.getAccounts(chainId)
+        const accounts = await gateway.getAccounts(chainId)
         dispatchAccounts(accounts, chainId, dispatch)
       }
     } catch (error) {
