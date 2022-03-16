@@ -4,10 +4,10 @@ import thunk, { ThunkAction, ThunkDispatch, ThunkMiddleware } from 'redux-thunk'
 
 import { AppState } from '../store/appState'
 import rootReducer from './reducers/wallet.reducer'
-import { WalletPort } from '../ports/walletPort'
+import { WalletRegistryPort } from '../ports/walletPort'
 
 interface Dependencies {
-  walletGateway: WalletPort
+  walletRegistryGateway: WalletRegistryPort
 }
 
 export const configureStore = (
