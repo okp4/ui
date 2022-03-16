@@ -1,10 +1,10 @@
 import { ConnectionError } from 'domain/wallet/entities/errors'
-import { WalletPort } from 'domain/wallet/ports/walletPort'
+import { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 import { Account, Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import { KeplrAccountDTO } from './DTO/keplrDTO'
 import { KeplrAccountMapper } from './mappers/account.mapper'
 
-export class KeplrWalletGateway implements WalletPort {
+export class KeplrWallet implements Wallet {
   public isConnected = (): boolean =>
     !!window.Keplr.getOfflineSigner && !!window.Keplr
 
@@ -23,4 +23,6 @@ export class KeplrWalletGateway implements WalletPort {
         KeplrAccountMapper.mapAccount(account)
     )
   }
+
+  public id = (): WalletId => 'keplr'
 }

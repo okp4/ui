@@ -1,8 +1,8 @@
 import { ConnectionError } from 'domain/wallet/entities/errors'
 import { Accounts, ChainId } from 'domain/wallet/entities/wallet'
-import { WalletPort } from 'domain/wallet/ports/walletPort'
+import { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 
-export class InMemoryWalletGateway implements WalletPort {
+export class InMemoryWalletGateway implements Wallet {
   private _isConnected = false
   private _accounts: Map<ChainId, Accounts> = new Map()
 
@@ -27,4 +27,6 @@ export class InMemoryWalletGateway implements WalletPort {
   public setAccounts = (chainId: ChainId, accounts: Accounts): void => {
     this._accounts.set(chainId, accounts)
   }
+
+  public id = (): WalletId => 'in-memory'
 }
