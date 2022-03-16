@@ -1,7 +1,6 @@
 import { ConnectionError } from 'domain/wallet/entities/errors'
 import { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 import { Account, Accounts, ChainId } from 'domain/wallet/entities/wallet'
-import { KeplrAccountDTO } from './DTO/keplrDTO'
 import { KeplrAccountMapper } from './mappers/account.mapper'
 
 export class KeplrWallet implements Wallet {
@@ -19,8 +18,7 @@ export class KeplrWallet implements Wallet {
     const offlineSigner = window.Keplr.getOfflineSigner(chainId)
     const accounts = await offlineSigner.getAccounts()
     return accounts.map(
-      (account: KeplrAccountDTO): Account =>
-        KeplrAccountMapper.mapAccount(account)
+      (account): Account => KeplrAccountMapper.mapAccount(account)
     )
   }
 
