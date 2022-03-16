@@ -9,11 +9,13 @@ import {
   AccountsByChainId,
 } from 'domain/wallet/entities/wallet'
 import { AccountBuilder } from 'domain/wallet/builders/account.builder'
+import { WalletRegistryGateway } from '../../../../gateways/WalletRegistryGateway'
 
 describe('Enable wallet', () => {
   let store: ReduxStore
-  let walletGateway: InMemoryWalletGateway
+  let walletRegistryGateway: WalletRegistryGateway
   let initialState: AppState
+  const inMemoryGateway = new InMemoryWalletGateway()
   const chainId1 = 'chainId#1'
   const chainId2 = 'chainId#2'
   const publicKey1: Uint8Array = new Uint8Array()
@@ -33,21 +35,22 @@ describe('Enable wallet', () => {
     .build()
 
   beforeEach(() => {
-    walletGateway = new InMemoryWalletGateway()
-    store = configureStore({ walletGateway })
+    walletRegistryGateway = new WalletRegistryGateway()
+    walletRegistryGateway.register(inMemoryGateway)
+    store = configureStore({ walletRegistryGateway })
     initialState = store.getState()
   })
 
   it('should report a ConnectionError if not connected', async () => {
-    walletGateway.setConnected(false)
+    inMemoryGateway.setConnected(false)
     await dispatchEnableWallet(chainId1)
     const error = new ConnectionError()
     expectEnabledWallet({}, {}, error)
   })
 
   it('should connect to wallet with a single chainId and retrieve one account', async () => {
-    walletGateway.setConnected(true)
-    walletGateway.setAccounts(chainId1, [account1])
+    inMemoryGateway.setConnected(true)
+    inMemoryGateway.setAccounts(chainId1, [account1])
     await dispatchEnableWallet(chainId1)
     const statuses: ConnectionStatuses = {
       [chainId1]: 'connected',
@@ -59,8 +62,8 @@ describe('Enable wallet', () => {
   })
 
   it('should connect to wallet with a single chainId and retrieve multiple accounts', async () => {
-    walletGateway.setConnected(true)
-    walletGateway.setAccounts(chainId1, [account1, account2])
+    inMemoryGateway.setConnected(true)
+    inMemoryGateway.setAccounts(chainId1, [account1, account2])
     await dispatchEnableWallet(chainId1)
     const statuses: ConnectionStatuses = {
       [chainId1]: 'connected',
@@ -72,9 +75,9 @@ describe('Enable wallet', () => {
   })
 
   it('should connect to wallet with multiple chainIds and retrieve multiple accounts', async () => {
-    walletGateway.setConnected(true)
-    walletGateway.setAccounts(chainId1, [account1, account2])
-    walletGateway.setAccounts(chainId2, [account3])
+    inMemoryGateway.setConnected(true)
+    inMemoryGateway.setAccounts(chainId1, [account1, account2])
+    inMemoryGateway.setAccounts(chainId2, [account3])
     await dispatchEnableWallet(chainId1)
     await dispatchEnableWallet(chainId2)
     const statuses: ConnectionStatuses = {
@@ -89,7 +92,7 @@ describe('Enable wallet', () => {
   })
 
   const dispatchEnableWallet = async (chainId: string) => {
-    await store.dispatch(enableWallet(chainId))
+    await store.dispatch(enableWallet(inMemoryGateway.id(), chainId))
   }
 
   const expectEnabledWallet = (
