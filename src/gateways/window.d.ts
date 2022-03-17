@@ -1,7 +1,5 @@
-import { Keplr } from '@keplr-wallet/types'
-
-export declare global {
-  interface Window {
-    Keplr: Keplr
-  }
+import { Window as KeplrWindow } from '@keplr-wallet/types'
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface Window extends KeplrWindow {}
 }
