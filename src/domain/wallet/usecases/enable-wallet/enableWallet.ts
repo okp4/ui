@@ -10,36 +10,41 @@ import { EnableWalletActions } from './actionCreators'
 
 export const enableWallet =
   (walletId: WalletId, chainId: ChainId): ThunkResult<Promise<void>> =>
-  async (dispatch, getState, { walletRegistryGateway }) => {
+  async (dispatch, _getState, { walletRegistryGateway }) => {
     try {
       const gateway = walletRegistryGateway.get(walletId)
+      if (isError(gateway)) {
+        dispatchError(gateway, dispatch)
+        return
+      }
       const result = await gateway.connect(chainId)
       if (isError(result)) {
         dispatchError(result, dispatch)
-      } else {
-        dispatchConnectionStatuses(chainId, dispatch)
-        const accounts = await gateway.getAccounts(chainId)
-        dispatchAccounts(accounts, chainId, dispatch)
+        return
       }
+      dispatchConnectionStatuses(chainId, dispatch)
+      const accounts = await gateway.getAccounts(chainId)
+      dispatchAccounts(accounts, chainId, dispatch)
     } catch (error) {
       dispatchError(error, dispatch)
     }
   }
 
-const isError = (result: ConnectionError | void): result is ConnectionError =>
-  result instanceof ConnectionError
+const isError = (result: unknown): result is Error => result instanceof Error
 
 const dispatchAccounts = (
-  accounts: Accounts,
+  accounts: Accounts | ConnectionError,
   chainId: ChainId,
   dispatch: ReduxStore['dispatch']
 ) => {
-  dispatch(EnableWalletActions.accountsRetrieved(chainId, accounts))
+  isError(accounts)
+    ? dispatchError(accounts, dispatch)
+    : dispatch(EnableWalletActions.accountsRetrieved(chainId, accounts))
 }
 
 const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']) => {
   const errorToDispatch =
-    error instanceof Error ? new ConnectionError() : new UnspecifiedError()
+    error instanceof Error ? error : new UnspecifiedError()
   dispatch(ErrorWalletActions.walletFailed(errorToDispatch))
 }
 
