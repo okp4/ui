@@ -12,18 +12,14 @@ export const enableWallet =
   (walletId: WalletId, chainId: ChainId): ThunkResult<Promise<void>> =>
   async (dispatch, _getState, { walletRegistryGateway }) => {
     try {
-      const gateway = walletRegistryGateway.get(walletId)
-      if (isError(gateway)) {
-        dispatchError(gateway, dispatch)
+      const wallet = walletRegistryGateway.get(walletId)
+      if (isError(wallet)) {
+        dispatchError(wallet, dispatch)
         return
       }
-      const result = await gateway.connect(chainId)
-      if (isError(result)) {
-        dispatchError(result, dispatch)
-        return
-      }
-      dispatchConnectionStatuses(chainId, dispatch)
-      const accounts = await gateway.getAccounts(chainId)
+      const result = await wallet.connect(chainId)
+      dispatchConnectionStatuses(result, chainId, dispatch)
+      const accounts = await wallet.getAccounts(chainId)
       dispatchAccounts(accounts, chainId, dispatch)
     } catch (error) {
       dispatchError(error, dispatch)
@@ -49,8 +45,11 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']) => {
 }
 
 const dispatchConnectionStatuses = (
+  result: void | ConnectionError,
   chainId: ChainId,
   dispatch: ReduxStore['dispatch']
 ) => {
-  dispatch(EnableWalletActions.walletConnected(chainId))
+  isError(result)
+    ? dispatchError(result, dispatch)
+    : dispatch(EnableWalletActions.walletConnected(chainId))
 }
