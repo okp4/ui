@@ -6,6 +6,7 @@ export class KeplrAccountMapper {
   public static mapAccount = (account: AccountData): Account =>
     new AccountBuilder()
       .withAddress(account.address)
+      .withAlgorithm(account.algo)
       .withPublicKey(account.pubkey)
       .build()
 }
