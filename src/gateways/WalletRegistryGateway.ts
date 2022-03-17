@@ -1,17 +1,22 @@
+import { GatewayError } from 'domain/wallet/entities/errors'
 import { Wallet, WalletRegistryPort } from 'domain/wallet/ports/walletPort'
 
 export class WalletRegistryGateway implements WalletRegistryPort {
   private wallets: Record<string, Wallet> = {}
 
-  get = (id: string): Wallet => this.wallets[id]
+  public get = (id: string): Wallet | GatewayError =>
+    this.wallets[id] ??
+    new GatewayError(
+      `Ooops ... No gateway was found with this wallet id : ${id}`
+    )
 
-  register = (...wallets: Wallet[]): void => {
+  public register = (...wallets: Wallet[]): void => {
     wallets.forEach((wallet) => (this.wallets[wallet.id()] = wallet))
   }
 
-  clear = (): void => {
+  public clear = (): void => {
     this.wallets = {}
   }
 
-  names = (): string[] => Object.keys(this.wallets)
+  public names = (): string[] => Object.keys(this.wallets)
 }
