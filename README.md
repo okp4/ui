@@ -47,3 +47,9 @@ or
 ```sh
 npm install --save @okp4/ui
 ```
+
+## Contributing
+
+So you want to contribute? Great. We appreciate any help you're willing to give. Don't hesitate to open issues and/or submit pull requests.
+
+Remember that this is the Design System we use at [OKP4](https://github.com/okp4). This is why we may have to refuse change requests simply because they do not comply with our internal requirements, and not because they are not relevant.
