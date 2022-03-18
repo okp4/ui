@@ -8,17 +8,15 @@ export class InMemoryWalletGateway implements Wallet {
   private _accounts: Map<ChainId, Accounts> = new Map()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public connect = (_chainId: string): Promise<void | ConnectionError> => {
+  public connect = (_chainId: string): Promise<void> => {
     if (!this.isAvailable() || !this.isConnected()) {
-      return this.handleConnectionError()
+      throw new ConnectionError()
     }
     return Promise.resolve()
   }
-  public getAccounts = (
-    chainId: string
-  ): Promise<Accounts | ConnectionError> => {
+  public getAccounts = (chainId: string): Promise<Accounts> => {
     if (!this.isConnected()) {
-      return this.handleConnectionError()
+      throw new ConnectionError()
     }
     const accounts = this._accounts.get(chainId) ?? []
     return Promise.resolve(accounts)
@@ -41,7 +39,4 @@ export class InMemoryWalletGateway implements Wallet {
   }
 
   public id = (): WalletId => 'in-memory'
-
-  private handleConnectionError = (): Promise<ConnectionError> =>
-    Promise.resolve(new ConnectionError())
 }

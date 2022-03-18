@@ -12,12 +12,10 @@ export class KeplrWallet implements Wallet {
 
   public isConnected = (): boolean => this._isConnected
 
-  public connect = (chainId: ChainId): Promise<void | ConnectionError> => {
+  public connect = (chainId: ChainId): Promise<void> => {
     if (!this.isAvailable()) {
-      return Promise.resolve(
-        new ConnectionError(
-          `Ooops... Keplr extension is not available in window object`
-        )
+      throw new ConnectionError(
+        `Ooops... Keplr extension is not available in window object`
       )
     }
     return (window.keplr as Keplr)
@@ -25,27 +23,21 @@ export class KeplrWallet implements Wallet {
       .then(() => {
         this.setConnected(true)
       })
-      .catch(() =>
-        Promise.resolve(
-          new ConnectionError(
-            `Ooops... Keplr can't enable extension, please check provided chainId: ${chainId}`
-          )
+      .catch(() => {
+        throw new ConnectionError(
+          `Ooops... Keplr can't enable extension, please check provided chainId: ${chainId}`
         )
-      )
+      })
   }
 
-  public getAccounts = async (
-    chainId: ChainId
-  ): Promise<Accounts | ConnectionError> => {
+  public getAccounts = async (chainId: ChainId): Promise<Accounts> => {
     if (this.isConnected()) {
       const offlineSigner = (window.keplr as Keplr).getOfflineSigner(chainId)
       const accounts = await offlineSigner.getAccounts()
       return accounts.map(KeplrAccountMapper.mapAccount)
     }
-    return Promise.resolve(
-      new ConnectionError(
-        "Oops ... Account can't be retrieved because extension is not connected..."
-      )
+    throw new ConnectionError(
+      "Oops ... Account can't be retrieved because extension is not connected..."
     )
   }
 
