@@ -1,8 +1,5 @@
-import {
-  ConnectionError,
-  UnspecifiedError,
-} from 'domain/wallet/entities/errors'
-import { Accounts, ChainId } from 'domain/wallet/entities/wallet'
+import { UnspecifiedError } from 'domain/wallet/entities/errors'
+import { ChainId } from 'domain/wallet/entities/wallet'
 import { WalletId } from 'domain/wallet/ports/walletPort'
 import { ReduxStore, ThunkResult } from '../../store/store'
 import { ErrorWalletActions } from '../actionCreators'
@@ -13,43 +10,17 @@ export const enableWallet =
   async (dispatch, _getState, { walletRegistryGateway }) => {
     try {
       const wallet = walletRegistryGateway.get(walletId)
-      if (isError(wallet)) {
-        dispatchError(wallet, dispatch)
-        return
-      }
-      const result = await wallet.connect(chainId)
-      dispatchConnectionStatuses(result, chainId, dispatch)
+      await wallet.connect(chainId)
+      dispatch(EnableWalletActions.walletConnected(chainId))
       const accounts = await wallet.getAccounts(chainId)
-      dispatchAccounts(accounts, chainId, dispatch)
+      dispatch(EnableWalletActions.accountsRetrieved(chainId, accounts))
     } catch (error) {
       dispatchError(error, dispatch)
     }
   }
 
-const isError = (result: unknown): result is Error => result instanceof Error
-
-const dispatchAccounts = (
-  accounts: Accounts | ConnectionError,
-  chainId: ChainId,
-  dispatch: ReduxStore['dispatch']
-) => {
-  isError(accounts)
-    ? dispatchError(accounts, dispatch)
-    : dispatch(EnableWalletActions.accountsRetrieved(chainId, accounts))
-}
-
 const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']) => {
   const errorToDispatch =
     error instanceof Error ? error : new UnspecifiedError()
   dispatch(ErrorWalletActions.walletFailed(errorToDispatch))
-}
-
-const dispatchConnectionStatuses = (
-  result: void | ConnectionError,
-  chainId: ChainId,
-  dispatch: ReduxStore['dispatch']
-) => {
-  isError(result)
-    ? dispatchError(result, dispatch)
-    : dispatch(EnableWalletActions.walletConnected(chainId))
 }
