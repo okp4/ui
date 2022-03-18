@@ -2,6 +2,7 @@
 
 > Implementation of [OKP4]([okp4.com](https://okp4.com)) UI components in CSS, [Typescript](https://www.typescriptlang.org), and HTML.
 
+[![Version](https://img.shields.io/github/v/release/okp4/ui)](https://github.com/okp4/ui/releases)
 [![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
