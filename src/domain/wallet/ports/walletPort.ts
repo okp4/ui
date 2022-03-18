@@ -1,17 +1,16 @@
-import { ConnectionError, GatewayError } from '../entities/errors'
 import { Accounts, ChainId } from '../entities/wallet'
 
 export type WalletRegistryPort = {
-  get: (id: WalletId) => Wallet | GatewayError
+  get: (id: WalletId) => Wallet
   names: () => string[]
 }
 
 export type Wallet = {
   id: () => WalletId
   isAvailable: () => boolean
-  connect: (chainId: ChainId) => Promise<void | ConnectionError>
+  connect: (chainId: ChainId) => Promise<void>
   isConnected: () => boolean
-  getAccounts: (chainId: ChainId) => Promise<Accounts | ConnectionError>
+  getAccounts: (chainId: ChainId) => Promise<Accounts>
 }
 
 export type WalletId = string
