@@ -2,6 +2,7 @@
 
 > Implementation of [OKP4]([okp4.com](https://okp4.com)) UI components in CSS, [Typescript](https://www.typescriptlang.org), and HTML.
 
+[![Version](https://img.shields.io/github/v/release/okp4/ui)](https://github.com/okp4/ui/releases)
 [![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
@@ -47,3 +48,9 @@ or
 ```sh
 npm install --save @okp4/ui
 ```
+
+## Contributing
+
+So you want to contribute? Great. We appreciate any help you're willing to give. Don't hesitate to open issues and/or submit pull requests.
+
+Remember that this is the Design System we use at [OKP4](https://github.com/okp4). This is why we may have to refuse change requests simply because they do not comply with our internal requirements, and not because they are not relevant.
