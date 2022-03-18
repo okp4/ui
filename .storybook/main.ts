@@ -1,15 +1,13 @@
 const path = require('path')
 
 module.exports = {
-  stories: [
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(ts|tsx)',
-  ],
+  stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(ts|tsx)'],
   addons: [
     '@storybook/preset-scss',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
   ],
+  staticDirs: ['../public'],
   framework: '@storybook/react',
   webpackFinal: async (config, { configType }) => {
     config.resolve.modules = [

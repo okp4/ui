@@ -131,6 +131,7 @@ jobs:
           "${publish[@]}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIC_REGISTRY_TOKEN }}
+
   publish-storybook:
     concurrency:
       group: publish-storybook-${{ github.ref }}
