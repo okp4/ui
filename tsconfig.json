@@ -19,7 +19,9 @@
     "paths": {
       "public/*": ["./public/*"],
       "ui/*": ["./src/ui/*"],
-      "hook/*": ["./src/hook/*"]
+      "hook/*": ["./src/hook/*"],
+      "domain/*": ["./src/domain/*"],
+      "cosmjs/*": ["./node_modules/@cosmjs/*"]
     }
   },
   "include": ["src/**/*", "stories/atoms/samples"],

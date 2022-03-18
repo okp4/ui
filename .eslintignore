@@ -2,3 +2,4 @@ node_modules
 lib
 .vscode
 .cache
+jest.config.js
