@@ -4,12 +4,12 @@ import { AccountBuilder } from './account.builder'
 
 describe('Build an Account', () => {
   const buildAccount = (
-    adress: string,
+    address: string,
     pubKey: Uint8Array,
     algorithm: Algorithm
   ) =>
     new AccountBuilder()
-      .withAddress(adress)
+      .withAddress(address)
       .withPublicKey(pubKey)
       .withAlgorithm(algorithm)
       .build()
