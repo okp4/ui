@@ -7,45 +7,40 @@ describe('Build an Account', () => {
     address: string,
     pubKey: Uint8Array,
     algorithm: Algorithm
-  ) =>
-    new AccountBuilder()
-      .withAddress(address)
-      .withPublicKey(pubKey)
-      .withAlgorithm(algorithm)
-      .build()
+  ) => {
+    const builder = new AccountBuilder()
 
-  describe('Given that address is empty', () => {
-    const address = ''
-    const pubKey = new Uint8Array(1)
-    const algorithm: Algorithm = 'sr25519'
-    describe('When building account', () => {
-      const account = () => buildAccount(address, pubKey, algorithm)
-      test('Then, expect builder to throw an UnspecifiedError ', () => {
-        expect(account).toThrowError(UnspecifiedError)
-      })
-    })
-  })
+    if (address) {
+      builder.withAddress(address)
+    }
 
-  describe('Given that publicKey is empty', () => {
-    const address = 'address1'
-    const pubKey = new Uint8Array(0)
-    const algorithm: Algorithm = 'sr25519'
-    describe('When building account', () => {
-      const account = () => buildAccount(address, pubKey, algorithm)
-      test('Then, expect builder to throw an UnspecifiedError ', () => {
-        expect(account).toThrowError(UnspecifiedError)
-      })
-    })
-  })
+    if (pubKey) {
+      builder.withPublicKey(pubKey)
+    }
 
-  describe('Given that no adress and no publicKey are provided', () => {
-    describe('When building account', () => {
-      const account = () => new AccountBuilder().build()
-      test('Then, expect builder to throw an UnspecifiedError ', () => {
-        expect(account).toThrowError(UnspecifiedError)
+    if (algorithm) {
+      builder.withAlgorithm(algorithm)
+    }
+
+    return builder.build()
+  }
+
+  describe.each`
+    address       | pubKey               | algorithm
+    ${''}         | ${new Uint8Array(1)} | ${'sr25519'}
+    ${'address1'} | ${new Uint8Array(0)} | ${'sr25519'}
+    ${undefined}  | ${undefined}         | ${undefined}
+  `(
+    'Given that address is <$address>, public key is <$pubKey> and algorithm is <$algorithm>',
+    ({ address, pubKey, algorithm }) => {
+      describe('When building account', () => {
+        const account = () => buildAccount(address, pubKey, algorithm)
+        test('Then, expect builder to throw an UnspecifiedError ', () => {
+          expect(account).toThrowError(UnspecifiedError)
+        })
       })
-    })
-  })
+    }
+  )
 
   describe('Given that address, publicKey and algorithm are correctly provided', () => {
     const address = 'address2'
