@@ -8,14 +8,14 @@ export type TAnimationFrameCallback = (deltaTime: number) => void
  * @param callback the callback function to call when it's time to update the animation.
  * @param animated tells if a requestAnimationFrame
  */
-export const useAnimationFrame: (
+export const useAnimationFrame: (callback: TAnimationFrameCallback, animated?: boolean) => void = (
   callback: TAnimationFrameCallback,
-  animated?: boolean
-) => void = (callback: TAnimationFrameCallback, animated = true) => {
+  animated: boolean = true
+) => {
   const requestRef = useRef<number>()
   const previousTimeRef = useRef<number>()
 
-  const animate = (time: DOMHighResTimeStamp) => {
+  const animate = (time: DOMHighResTimeStamp): void => {
     if (previousTimeRef.current) {
       const deltaTime = time - previousTimeRef.current
 
