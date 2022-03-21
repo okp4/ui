@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ActionsUnion, createAction } from '../store/store'
-import {
-  ConnectionError,
-  UnspecifiedError,
-} from 'domain/wallet/entities/errors'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import type { ActionsUnion } from '../store/store'
+import { createAction } from '../store/store'
+import type { ConnectionError, UnspecifiedError } from 'domain/wallet/entities/errors'
+import type { DeepReadonly } from '../../../superTypes'
 
 export const ErrorWalletActions = {
-  walletFailed: (error: ConnectionError | UnspecifiedError) =>
-    createAction('wallet/walletFailed', { error }),
+  walletFailed: (error: DeepReadonly<ConnectionError> | DeepReadonly<UnspecifiedError>) =>
+    createAction('wallet/walletFailed', { error })
 }
 
 export type ErrorWalletActionTypes = ActionsUnion<typeof ErrorWalletActions>

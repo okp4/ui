@@ -1,7 +1,7 @@
-import { ConnectionStatuses, AccountsByChainId } from '../entities/wallet'
+import type { ConnectionStatuses, AccountsByChainId } from '../entities/wallet'
 
 export interface AppState {
-  connectionStatuses: ConnectionStatuses
-  accounts: AccountsByChainId
-  error: Error | null
+  readonly connectionStatuses: ConnectionStatuses
+  readonly accounts: AccountsByChainId
+  readonly error: Error | null
 }
