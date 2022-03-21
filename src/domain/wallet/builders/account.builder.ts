@@ -1,36 +1,47 @@
-import { Account, Algorithm } from 'domain/wallet/entities/wallet'
+import type { Account, Algorithm } from 'domain/wallet/entities/wallet'
+import type { DeepReadonly } from '../../../superTypes'
 import { UnspecifiedError } from '../entities/errors'
 
 export class AccountBuilder {
   private readonly account: Account
 
-  constructor() {
-    this.account = {
-      address: '',
-      algorithm: 'secp256k1',
-      publicKey: new Uint8Array(),
+  constructor(account?: DeepReadonly<Account>) {
+    if (account) {
+      this.account = account
+    } else {
+      this.account = {
+        address: '',
+        algorithm: 'secp256k1',
+        publicKey: new Uint8Array()
+      }
     }
   }
 
-  public withAddress(address: string): AccountBuilder {
+  public withAddress(address?: string): AccountBuilder {
+    if (!address) {
+      return this
+    }
     if (!address.length) {
       throw new UnspecifiedError()
     }
-    this.account.address = address
-    return this
+    return new AccountBuilder({ ...this.account, address })
   }
 
-  public withAlgorithm(algorithm: Algorithm): AccountBuilder {
-    this.account.algorithm = algorithm
-    return this
+  public withAlgorithm(algorithm?: Algorithm): AccountBuilder {
+    if (!algorithm) {
+      return this
+    }
+    return new AccountBuilder({ ...this.account, algorithm })
   }
 
-  public withPublicKey(key: Uint8Array): AccountBuilder {
-    if (!key.length) {
+  public withPublicKey(publicKey?: DeepReadonly<Uint8Array>): AccountBuilder {
+    if (!publicKey) {
+      return this
+    }
+    if (!publicKey.length) {
       throw new UnspecifiedError()
     }
-    this.account.publicKey = key
-    return this
+    return new AccountBuilder({ ...this.account, publicKey })
   }
 
   public build(): Account {

@@ -1,29 +1,19 @@
+import type { DeepReadonly } from '../../../superTypes'
 import { UnspecifiedError } from '../entities/errors'
-import { Algorithm } from '../entities/wallet'
+import type { Account, Algorithm } from '../entities/wallet'
 import { AccountBuilder } from './account.builder'
 
 describe('Build an Account', () => {
   const buildAccount = (
-    address: string,
-    pubKey: Uint8Array,
-    algorithm: Algorithm
-  ) => {
-    const builder = new AccountBuilder()
-
-    if (address) {
-      builder.withAddress(address)
-    }
-
-    if (pubKey) {
-      builder.withPublicKey(pubKey)
-    }
-
-    if (algorithm) {
-      builder.withAlgorithm(algorithm)
-    }
-
-    return builder.build()
-  }
+    address?: string,
+    publicKey?: DeepReadonly<Uint8Array>,
+    algorithm?: Algorithm
+  ): Account =>
+    new AccountBuilder()
+      .withAddress(address)
+      .withPublicKey(publicKey)
+      .withAlgorithm(algorithm)
+      .build()
 
   describe.each`
     address       | pubKey               | algorithm
@@ -32,9 +22,9 @@ describe('Build an Account', () => {
     ${undefined}  | ${undefined}         | ${undefined}
   `(
     'Given that address is <$address>, public key is <$pubKey> and algorithm is <$algorithm>',
-    ({ address, pubKey, algorithm }) => {
+    ({ address, publicKey, algorithm }: DeepReadonly<Account>): void => {
       describe('When building account', () => {
-        const account = () => buildAccount(address, pubKey, algorithm)
+        const account = (): Account => buildAccount(address, publicKey, algorithm)
         test('Then, expect builder to throw an UnspecifiedError ', () => {
           expect(account).toThrowError(UnspecifiedError)
         })
@@ -52,7 +42,7 @@ describe('Build an Account', () => {
         expect(account).toEqual({
           address: 'address2',
           algorithm: 'ed25519',
-          publicKey: new Uint8Array(2),
+          publicKey: new Uint8Array(2)
         })
       })
     })
