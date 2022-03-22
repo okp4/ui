@@ -1,22 +1,20 @@
 import { ConnectionError } from 'domain/wallet/entities/errors'
-import { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
-import { Accounts, ChainId } from 'domain/wallet/entities/wallet'
+import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
+import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import { KeplrAccountMapper } from './mappers/account.mapper'
-import { Keplr } from '@keplr-wallet/types'
+import type { Keplr } from '@keplr-wallet/types'
+import { List } from 'immutable'
 
 export class KeplrWallet implements Wallet {
-  private _isConnected = false
+  private _isConnected: boolean = false
 
-  public isAvailable = (): boolean =>
-    !!window.keplr && !!window.keplr.getOfflineSigner
+  public readonly isAvailable = (): boolean => !!window.keplr && !!window.keplr.getOfflineSigner
 
-  public isConnected = (): boolean => this._isConnected
+  public readonly isConnected = (): boolean => this._isConnected
 
-  public connect = (chainId: ChainId): Promise<void> => {
+  public readonly connect = async (chainId: ChainId): Promise<void> => {
     if (!this.isAvailable()) {
-      throw new ConnectionError(
-        `Ooops... Keplr extension is not available in window object`
-      )
+      throw new ConnectionError(`Ooops... Keplr extension is not available in window object`)
     }
     return (window.keplr as Keplr)
       .enable(chainId)
@@ -30,20 +28,20 @@ export class KeplrWallet implements Wallet {
       })
   }
 
-  public getAccounts = async (chainId: ChainId): Promise<Accounts> => {
+  public readonly getAccounts = async (chainId: ChainId): Promise<Accounts> => {
     if (this.isConnected()) {
       const offlineSigner = (window.keplr as Keplr).getOfflineSigner(chainId)
       const accounts = await offlineSigner.getAccounts()
-      return accounts.map(KeplrAccountMapper.mapAccount)
+      return List(accounts.map(KeplrAccountMapper.mapAccount))
     }
     throw new ConnectionError(
       "Oops ... Account can't be retrieved because extension is not connected..."
     )
   }
 
-  public id = (): WalletId => 'keplr'
+  public readonly id = (): WalletId => 'keplr'
 
-  private setConnected = (connected: boolean): void => {
+  private readonly setConnected = (connected: boolean): void => {
     this._isConnected = connected
   }
 }

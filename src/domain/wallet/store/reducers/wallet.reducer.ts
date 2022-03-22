@@ -1,43 +1,38 @@
+import { Map } from 'immutable'
 import { combineReducers } from 'redux'
-import {
-  ConnectionError,
-  UnspecifiedError,
-} from 'domain/wallet/entities/errors'
-import {
-  AccountsByChainId,
-  ConnectionStatuses,
-} from 'domain/wallet/entities/wallet'
-import { EnableWalletActionTypes } from '../../usecases/enable-wallet/actionCreators'
-import { ErrorWalletActionTypes } from '../../usecases/actionCreators'
+import type { AccountsByChainId, ConnectionStatuses } from 'domain/wallet/entities/wallet'
+import type { EnableWalletActionTypes } from '../../usecases/enable-wallet/actionCreators'
+import type { ErrorWalletActionTypes } from '../../usecases/actionCreators'
+import type { DeepReadonly } from '../../../../superTypes'
 
 const connectionStatuses = (
-  state: ConnectionStatuses = {},
-  action: EnableWalletActionTypes
-) => {
+  state: Readonly<ConnectionStatuses> = Map(),
+  action: DeepReadonly<EnableWalletActionTypes>
+): ConnectionStatuses => {
   switch (action.type) {
     case 'wallet/walletConnected':
-      return { ...state, [action.payload.chaindId]: 'connected' }
+      return state.set(action.payload.chaindId, 'connected')
     default:
       return state
   }
 }
 
 const accounts = (
-  state: AccountsByChainId = {},
-  action: EnableWalletActionTypes
-) => {
+  state: Readonly<AccountsByChainId> = Map(),
+  action: DeepReadonly<EnableWalletActionTypes>
+): AccountsByChainId => {
   switch (action.type) {
     case 'wallet/accountsRetrieved':
-      return { ...state, [action.payload.chainId]: action.payload.accounts }
+      return state.set(action.payload.chainId, action.payload.accounts)
     default:
       return state
   }
 }
 
 const error = (
-  state: ConnectionError | UnspecifiedError | null = null,
-  action: ErrorWalletActionTypes
-) => {
+  state: DeepReadonly<Error> | null = null,
+  action: DeepReadonly<ErrorWalletActionTypes>
+): Error | null => {
   switch (action.type) {
     case 'wallet/walletFailed':
       return action.payload.error

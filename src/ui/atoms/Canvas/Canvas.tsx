@@ -1,9 +1,12 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useAnimationFrame } from 'hook/useAnimationFrame'
+import type { DeepReadonly } from '../../../superTypes'
 
+// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export type TCanvasCreatedCallback = (canvas: HTMLCanvasElement) => void
 export type TCanvasDestroyedCallback = () => void
 export type TRenderCanvasCallback = (
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   canvas: HTMLCanvasElement,
   deltaTime: number
 ) => void
@@ -12,43 +15,43 @@ export type TCanvasProps = Readonly<{
   /**
    * Width of the canvas.
    */
-  width?: number
+  readonly width?: number
 
   /**
    * Height of the canvas.
    */
-  height?: number
+  readonly height?: number
 
   /**
    * Defines if "touch-action: 'none'" is on the canvas.
    */
-  touchActionNone?: boolean
+  readonly touchActionNone?: boolean
 
   /**
    * Disable scrolling on the canvas element so that it doesn't interfere with
    * zoom in/out actions.
    */
-  disableScrolling?: boolean
+  readonly disableScrolling?: boolean
 
   /**
    * Specifies if the rendering should be performed.
    */
-  animated?: boolean
+  readonly animated?: boolean
 
   /**
    * Called when canvas is created. Can be used to configure the canvas aftewards.
    */
-  onCanvasCreated?: TCanvasCreatedCallback
+  readonly onCanvasCreated?: TCanvasCreatedCallback
 
   /**
    * Called when canvas is about to be destroyed.
    */
-  onCanvasDestroyed?: TCanvasDestroyedCallback
+  readonly onCanvasDestroyed?: TCanvasDestroyedCallback
 
   /**
    * Called when rendering (if `animated` is set to true)
    */
-  onRender?: TRenderCanvasCallback
+  readonly onRender?: TRenderCanvasCallback
 }>
 
 /**
@@ -67,20 +70,16 @@ export const Canvas = ({
 }: TCanvasProps): JSX.Element => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   // const windowSize = useWindowSize()
-  const wheelEventListenerFnRef =
-    useRef<EventListenerOrEventListenerObject | null>()
+  const wheelEventListenerFnRef = useRef<EventListenerOrEventListenerObject | null>()
 
   useEffect(() => {
     if (wheelEventListenerFnRef.current) {
-      canvasRef.current?.removeEventListener(
-        'wheel',
-        wheelEventListenerFnRef.current
-      )
+      canvasRef.current?.removeEventListener('wheel', wheelEventListenerFnRef.current)
       wheelEventListenerFnRef.current = null
     }
 
     if (disableScrolling) {
-      const onWheel: EventListenerOrEventListenerObject = (evt) =>
+      const onWheel: EventListenerOrEventListenerObject = (evt: DeepReadonly<Event>) =>
         evt.preventDefault()
       wheelEventListenerFnRef.current = onWheel
       canvasRef.current?.addEventListener('wheel', onWheel)
@@ -101,7 +100,7 @@ export const Canvas = ({
     }
   }, [canvasRef, onCanvasCreated, onCanvasDestroyed])
 
-  useAnimationFrame((deltaTime) => {
+  useAnimationFrame((deltaTime: number) => {
     if (canvasRef.current && onRender) {
       onRender(canvasRef.current, deltaTime)
     }
@@ -109,7 +108,7 @@ export const Canvas = ({
 
   const opts: Record<string, string | number> = {}
 
-  if (touchActionNone !== false) {
+  if (touchActionNone) {
     opts['touch-action'] = 'none'
   }
 
