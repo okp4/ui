@@ -1,0 +1,77 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { Logo } from 'ui/atoms/Logo/Logo'
+
+<Meta
+  title="Atoms/Logo/Sizes"
+  component={Logo}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' }
+  }}
+/>
+
+## Sizes
+
+The logo comes with threw different sizes to allow its use according to its location within the interface
+
+### Small
+
+Particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
+
+<Canvas>
+  <Story
+    name="Small"
+    args={{
+      variant: 'logo',
+      theme: 'light',
+      size: 'small'
+    }}
+  >
+    {args => (
+      <div>
+        <Logo {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+### Medium
+
+This size makes it possible to adapt to a greater number of uses, both to represent the brand and to be used in content elements.
+
+<Canvas>
+  <Story
+    name="Medium"
+    args={{
+      variant: 'logo',
+      theme: 'light',
+      size: 'medium'
+    }}
+  >
+    {args => (
+      <div>
+        <Logo {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+### Large
+
+Particularly allows to affix the OKP4 brand within an interface and to set the tone of the visual used. Should not be used in content elements.
+
+<Canvas>
+  <Story
+    name="Large"
+    args={{
+      variant: 'logo',
+      theme: 'light',
+      size: 'large'
+    }}
+  >
+    {args => (
+      <div>
+        <Logo {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
