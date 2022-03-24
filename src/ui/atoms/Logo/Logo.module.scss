@@ -1,12 +1,15 @@
 .core {
   height: auto;
+
   &.large {
     &.logo {
       width: 320px;
     }
+
     &.logotype {
       width: 160px;
     }
+
     &.logomark,
     &.slogan {
       width: 280px;
@@ -17,9 +20,11 @@
     &.logo {
       width: 270px;
     }
+
     &.logotype {
       width: 120px;
     }
+
     &.logomark,
     &.slogan {
       width: 220px;
@@ -30,9 +35,11 @@
     &.logo {
       width: 220px;
     }
+
     &.logotype {
       width: 80px;
     }
+
     &.logomark,
     &.slogan {
       width: 160px;
