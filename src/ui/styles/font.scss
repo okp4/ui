@@ -1,0 +1,44 @@
+$fonts: ('secondary', 'brand');
+
+$weight: ('light', 'medium', 'bold', 'black');
+
+@font-face {
+  font-family: secondary-bold;
+  src: url('/public/fonts/NotoSansMono-Bold.ttf');
+}
+@font-face {
+  font-family: secondary-black;
+  src: url('/public/fonts/NotoSansMono-Black.ttf');
+}
+@font-face {
+  font-family: secondary-light;
+  src: url('/public/fonts/NotoSansMono-Light.ttf');
+}
+@font-face {
+  font-family: secondary-medium;
+  src: url('/public/fonts/NotoSansMono-Medium.ttf');
+}
+@font-face {
+  font-family: secondary-bold;
+  src: url('/public/fonts/NotoSansMono-Bold.ttf');
+}
+@font-face {
+  font-family: secondary-black;
+  src: url('/public/fonts/NotoSansMono-Black.ttf');
+}
+@font-face {
+  font-family: brand-bold;
+  src: url('/public/fonts/Gotham-Bold.otf');
+}
+@font-face {
+  font-family: brand-black;
+  src: url('/public/fonts/Gotham-Black.otf');
+}
+@font-face {
+  font-family: brand-medium;
+  src: url('/public/fonts/GothamMedium.ttf');
+}
+@font-face {
+  font-family: brand-light;
+  src: url('/public/fonts/Gotham-Light.otf');
+}

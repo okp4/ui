@@ -1,5 +1,6 @@
 export * from './atoms/button/Button'
 export * from './atoms/canvas/Canvas'
 export * from './atoms/logo/Logo'
+export * from './atoms/text/Text'
 export * from './atoms/theme/ThemeProvider'
 export * from './atoms/theme/ThemeSwitcher'
