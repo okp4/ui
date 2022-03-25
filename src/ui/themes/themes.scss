@@ -67,3 +67,5 @@ $themes: (
     @error 'ERROR: Specified key does not exist in themes';
   }
 }
+
+$text-color-keys: ('text', 'highlighted-text', 'success', 'warning', 'error', 'info');

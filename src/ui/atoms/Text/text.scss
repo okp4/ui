@@ -1,0 +1,62 @@
+@import '/src/ui/styles/font.scss';
+@import '/src/ui/themes/themes.scss';
+
+.okp4-text-main {
+  margin: 0.5em 1em;
+  padding: 0.25em 1em;
+
+  font-family: content-medium;
+  text-align: left;
+
+  @each $f in $fonts {
+    @each $w in $weight {
+      &.#{$f}-#{$w} {
+        font-family: '#{$f}-#{$w}';
+      }
+    }
+
+    @each $k in $text-color-keys {
+      @include with-theme() {
+        &.#{$k} {
+          color: themed(#{$k});
+        }
+      }
+    }
+
+    &.align-left {
+      text-align: left;
+    }
+
+    &.align-center {
+      text-align: center;
+    }
+
+    &.align-right {
+      text-align: right;
+    }
+
+    &.align-justify {
+      text-align: justify;
+    }
+
+    &.x-small {
+      font-size: 12px;
+    }
+
+    &.small {
+      font-size: 16px;
+    }
+
+    &.medium {
+      font-size: 26px;
+    }
+
+    &.large {
+      font-size: 34px;
+    }
+
+    &.x-large {
+      font-size: 40px;
+    }
+  }
+}

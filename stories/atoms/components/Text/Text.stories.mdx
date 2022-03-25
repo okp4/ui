@@ -1,0 +1,63 @@
+import {
+  ArgsTable,
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks'
+import { Text } from 'ui/atoms/Text/text'
+
+<Meta
+  title="Atoms/Text"
+  component={Text}
+  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+/>
+
+
+# Text
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Usage
+
+### Description
+
+Text is the primitive component to display some text or pure html.
+
+---
+<Canvas>
+  <Story
+    name="Usage"
+    argTypes={{ 
+      children:{
+        name: 'html content',
+      options: [  'Lorem', 'Html'],
+     table: {
+      type: { summary: 'HTML object' },
+      defaultValue: { summary: 'Your text content...' },
+    },
+      mapping: {
+        Lorem: <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pretium sodales mi, quis ultricies sapien convallis sed. Vivamus accumsan tortor quis molestie tempus. Curabitur nec lorem quis erat ultrices sagittis non et lectus. Praesent sem nisl, volutpat eget felis et, consequat auctor augue. Nam faucibus ultrices risus ut porttitor. Proin ut eleifend enim. Nullam in molestie lorem, at consequat odio. </div>,
+        Html: <div>This is a content with <b>HTML <i>tags</i></b> in it</div>,
+      },
+    }
+    }}
+    args={{
+      children: 'Your text content...',
+      as: 'p',
+    }}
+  >
+    {(args) => (
+      <div className='theme--light' style={{ textAlign: 'center', padding: '10px 0 10px' }}>
+        <Text {...args } />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+---
+
+### Properties
+
+<ArgsTable story="Usage" />
