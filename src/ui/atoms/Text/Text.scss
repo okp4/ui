@@ -1,0 +1,53 @@
+@import url('/src/ui/styles/font.scss');
+
+$fonts: ('content', 'brand');
+
+$weight: ('light', 'medium', 'bold', 'black');
+
+.core {
+  margin: 0.5em 1em;
+  padding: 0.25em 1em;
+  color: beige;
+  font-family: content-medium;
+  text-align: left;
+
+  @each $f in $fonts {
+    @each $w in $weight {
+      &.#{$f}-#{$w} {
+        font-family: '#{$f}-#{$w}';
+      }
+    }
+  }
+  
+  &.align-left {
+    text-align: left;
+  }
+
+  &.align-center {
+    text-align: center;
+  }
+
+  &.align-right {
+    text-align: right;
+  }
+
+  &.x-small {
+    font-size: 12px;
+  }
+
+  &.small {
+    font-size: 16px;
+  }
+
+  &.medium {
+    font-size: 26px;
+  }
+
+  &.large {
+    font-size: 34px;
+  }
+  
+  &.x-large {
+    font-size: 40px;
+  }
+}
