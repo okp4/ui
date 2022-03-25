@@ -1,0 +1,159 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { TextInput } from 'ui/atoms/textInput/TextInput'
+import { Text } from 'ui/atoms/text/Text'
+import './textInputStory.scss'
+
+<Meta
+  title="Atoms/TextInput"
+  component={TextInput}
+  parameters={{
+    actions: {
+      argTypesRegex: '^on.*'
+    },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div>
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# TextInput component
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+**Text input** is a minimalist text input component that integrates easily with OKP4 design system.
+
+## Usage
+
+<Story
+  name="Usage"
+  argTypes={{
+    helperText: {
+      name: 'healperText',
+      table: {
+        type: { summary: 'Node' }
+      },
+      control: {
+        type: 'text'
+      }
+    }
+  }}
+  args={{
+    helperText: <div></div>
+  }}
+>
+  {args => (
+    <div className="textinput-story-main">
+      <TextInput {...args} />
+    </div>
+  )}
+</Story>
+
+### Properties
+
+<ArgsTable story="Usage" />
+
+## Sizes
+
+Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
+
+<Canvas isColumn>
+  <Story name="Size : x-small" argTypes={{}} args={{}}>
+    {args => (
+      <div>
+        <TextInput size="x-small" placeholder="x-small" {...args} />
+        <TextInput size="small" placeholder="small" {...args} />
+        <TextInput size="medium" placeholder="medium" {...args} />
+        <TextInput size="large" placeholder="large" {...args} />
+        <TextInput size="x-large" placeholder="x-large" {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Disabling the input
+
+The input can be disabled by setting the `disabled` property to `true`.
+
+<Canvas isColumn>
+  <Story name="Disabled" argTypes={{}} args={{}}>
+    {args => <TextInput disabled={true} placeholder="This input is disabled" {...args} />}
+  </Story>
+</Canvas>
+
+## There's an input error
+
+If `error` is set to `true`, the input will be displayed in the theme error color.
+`helperText` can be set to display a message below the input.
+
+<Canvas isColumn>
+  <Story name="Error" argTypes={{}} args={{}}>
+    {args => (
+      <TextInput
+        defaultValue="My phone is broken"
+        error={true}
+        helperText={
+          <Text
+            as="div"
+            size="x-small"
+            color="error"
+            fontFamily="secondary"
+            style={{
+              margin: 0
+            }}
+          >
+            Please enter a valid phone number
+          </Text>
+        }
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Using onChange() callback
+
+`onChange` is called when the input value changes. Ex:
+
+```js:
+<TextInput onChange={( onChange: (event) => {
+        console.log(event.target.value)
+      }} />
+```
+
+Then, everytime the input value changes, a log message displays the content of the value. Check your console!
+
+<Canvas isColumn>
+  <Story
+    name="onchange"
+    argTypes={{}}
+    args={{
+      onChange: event => {
+        console.log(`onChange : ${event.target.value}`)
+      }
+    }}
+  >
+    {args => (
+      <TextInput
+        onChange={event => {
+          console.log(`onChange : ${event.target.value}`)
+        }}
+        {...args}
+      />
+    )}
+  </Story>
+</Canvas>

@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import type { DeepReadonly } from '../../../superTypes'
 import './text.scss'
+import '../../styles/font.scss'
 
 export type TextProps = DeepReadonly<{
   /**
@@ -45,7 +46,7 @@ export const Text: React.FC<TextProps> = ({
   color = 'text',
   ...props
 }: TextProps): JSX.Element => {
-  const textClass = classNames('okp4-text-main', size, color, {
+  const textClass = classNames('okp4-text-main okp4-font-size', size, color, {
     [`${fontFamily}-${fontWeight}`]: true
   })
   return React.createElement(as, { ...props, className: textClass }, props.children)
