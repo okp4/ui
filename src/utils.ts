@@ -1,5 +1,3 @@
 import type { DeepReadonly } from './superTypes'
 
-export function toImmutable<T>(o: T): DeepReadonly<T> {
-  return o as DeepReadonly<T>
-}
+export const toImmutable = <T>(o: T): DeepReadonly<T> => o as DeepReadonly<T>
