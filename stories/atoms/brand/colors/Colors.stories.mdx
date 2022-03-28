@@ -1,0 +1,51 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { StorybookColorSet } from './ColorSet.stories'
+import { colorsSet } from './utils'
+
+<Meta title="Atoms/Brand Identity/Colors" component={StorybookColorSet} />
+
+# Colors
+
+> The colors palette defined at OKP4.
+
+## Dark theme
+
+This is the main theme used at OKP4 for all user interfaces, called "Blue Stone".  
+This theme is rigorously modern, mystical and captivating, and symbolizes all the power and depth relating to our protocol.
+
+### Primary colors
+
+<StorybookColorSet colorKeys={colorsSet('dark', 'primary')} />
+
+### Secondary colors
+
+<StorybookColorSet colorKeys={colorsSet('dark', 'secondary')} />
+
+### Neutral colors
+
+<StorybookColorSet colorKeys={colorsSet('dark', 'neutral')} />
+
+### Semantic colors
+
+<StorybookColorSet colorKeys={colorsSet('dark', 'semantic')} />
+
+## Light theme
+
+This is the secondary theme used at OKP4 for all user interfaces, called "Light Stone".  
+This theme was designed to provide the user with a clearer atmosphere, while maintaining the visual markers carried by the Blue Stone theme.
+
+### Primary colors
+
+<StorybookColorSet colorKeys={colorsSet('light', 'primary')} />
+
+### Secondary colors
+
+<StorybookColorSet colorKeys={colorsSet('light', 'secondary')} />
+
+### Neutral colors
+
+<StorybookColorSet colorKeys={colorsSet('light', 'neutral')} />
+
+### Semantic colors
+
+<StorybookColorSet colorKeys={colorsSet('light', 'semantic')} />

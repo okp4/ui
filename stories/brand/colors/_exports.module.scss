@@ -1,25 +1,0 @@
-@import '../../src/ui/styles/palette.scss';
-
-/**
- * Export color variables for use in Webpack.
- * 
- * By putting `.module.` into the filename, we don't need to adjust the default modules config for css-loader and webpack. 
-*/
-:export {
-  white: {
-    pure: $color-pure-white;
-  }
-
-  blue: {
-    lavander: $color-lavander-blue;
-    sapphire: $color-sapphire-blue;
-    azure: $color-azure-blue;
-    space: $color-space-blue;
-    denim: $color-denim-blue;
-  }
-
-  gray: {
-    cloud: $color-cloud-gray;
-    metal: $color-metal-gray;
-  }
-}

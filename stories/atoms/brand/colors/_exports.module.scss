@@ -1,0 +1,63 @@
+@import '../../src/ui/styles/palette.scss';
+
+/**
+ * Export color variables for use in Webpack.
+ * 
+ * By putting `.module.` into the filename, we don't need to adjust the default modules config for css-loader and webpack. 
+*/
+:export {
+  light: {
+    primary: {
+      primary-brand: $color-light-primary-brand;
+      primary-variant: $color-light-primary-variant;
+    }
+    secondary: {
+      secondary-button: $color-light-secondary-button;
+      secondary-selected: $color-light-secondary-selected;
+    }
+    neutral: {
+      text: $color-light-text;
+      highlighted-text: $color-light-highlighted-text;
+      field: $color-light-field;
+      border: $color-light-border;
+      primary-background: $color-light-background;
+      secondary-background: $color-light-background-variant;
+      header-background: $gradient-light-background-header;
+      footer-background: $gradient-light-background-footer;
+      footer-block-background: $color-light-background-footer-block;
+    }
+    semantic: {
+      success: $color-light-success;
+      warning: $color-light-warning;
+      error: $color-light-error;
+      info: $color-light-info;
+    }
+  }
+  dark: {
+    primary: {
+      primary-brand: $color-dark-primary-brand;
+      primary-variant: $color-dark-primary-variant;
+    }
+    secondary: {
+      secondary-button: $color-dark-secondary-button;
+      secondary-selected: $color-dark-secondary-selected;
+    }
+    neutral: {
+      text: $color-dark-text;
+      highlighted-text: $color-dark-highlighted-text;
+      field: $color-dark-field;
+      border: $color-dark-border;
+      primary-background: $color-dark-background;
+      secondary-background: $color-dark-background-variant;
+      header-background: $gradient-dark-background-header;
+      footer-background: $gradient-dark-background-footer;
+      footer-block-background: $gradient-dark-background-footer-block;
+    }
+    semantic: {
+      success: $color-light-success;
+      warning: $color-light-warning;
+      error: $color-light-error;
+      info: $color-light-info;
+    }
+  }
+}
