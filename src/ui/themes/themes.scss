@@ -41,7 +41,7 @@ $themes: (
   )
 );
 
-@mixin withTheme() {
+@mixin with-theme() {
   @each $theme, $map in $themes {
     .theme--#{$theme} & {
       $theme-map: () !global;
@@ -64,6 +64,6 @@ $themes: (
   @if (map-has-key($theme-map, $key)) {
     @return map-get($theme-map, $key);
   } @else {
-    @error "ERROR: Specified key does not exist in themes";
+    @error 'ERROR: Specified key does not exist in themes';
   }
 }
