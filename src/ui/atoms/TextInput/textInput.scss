@@ -1,0 +1,54 @@
+@import '/src/ui/styles/font.scss';
+@import '/src/ui/themes/themes.scss';
+
+.okp4-textinput-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  // flex-flow: row-reverse;
+  // border-style: solid;
+  // border-width: 0.1em;
+  padding: 0.2em;
+}
+
+.okp4-textinput-icon {
+  @include with-theme() {
+    color: themed('text');
+    background: themed('field');
+  }
+  height: auto;
+  padding: 0px;
+  margin: 0px;
+}
+
+.okp4-textinput-core {
+  @include with-theme() {
+    color: themed('text');
+    background: themed('field');
+  }
+
+  font-family: content-medium;
+  text-align: left;
+  border: none;
+  width: 100%;
+
+  &.x-small {
+    font-size: 12px;
+  }
+
+  &.small {
+    font-size: 16px;
+  }
+
+  &.medium {
+    font-size: 26px;
+  }
+
+  &.large {
+    font-size: 34px;
+  }
+
+  &.x-large {
+    font-size: 40px;
+  }
+}

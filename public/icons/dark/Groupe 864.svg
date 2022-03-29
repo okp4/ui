@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15.045" height="60" viewBox="0 0 15.045 60">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_607" data-name="Rectangle 607" width="15.045" height="8.912" transform="translate(0 0)" fill="none" stroke="#4d6699" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Groupe_864" data-name="Groupe 864" transform="translate(-554.977 -59)">
+    <g id="Icone_FlecheBas" transform="translate(554.978 59)">
+      <g id="Groupe_813" data-name="Groupe 813" clip-path="url(#clip-path)">
+        <line id="Ligne_293" data-name="Ligne 293" x1="7.498" y1="7.498" transform="translate(0.707 0.707)" fill="none" stroke="#4d6699" stroke-linejoin="bevel" stroke-width="2"/>
+        <line id="Ligne_294" data-name="Ligne 294" y1="3.857" x2="3.857" transform="translate(10.481 0.707)" fill="none" stroke="#4d6699" stroke-linejoin="bevel" stroke-width="2"/>
+      </g>
+    </g>
+    <g id="Icone_FlecheBas-2" data-name="Icone_FlecheBas" transform="translate(570.022 119) rotate(180)">
+      <g id="Groupe_813-2" data-name="Groupe 813" clip-path="url(#clip-path)">
+        <line id="Ligne_293-2" data-name="Ligne 293" x1="7.498" y1="7.498" transform="translate(0.707 0.707)" fill="none" stroke="#4d6699" stroke-linejoin="bevel" stroke-width="2"/>
+        <line id="Ligne_294-2" data-name="Ligne 294" y1="3.857" x2="3.857" transform="translate(10.481 0.707)" fill="none" stroke="#4d6699" stroke-linejoin="bevel" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

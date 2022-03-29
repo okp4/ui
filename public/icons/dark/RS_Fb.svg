@@ -1,0 +1,11 @@
+<svg id="RS_Fb" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62" height="62" viewBox="0 0 62 62">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_628" data-name="Rectangle 628" width="62" height="62" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Groupe_839" data-name="Groupe 839" clip-path="url(#clip-path)">
+    <path id="Tracé_1920" data-name="Tracé 1920" d="M24.161,26.2h2.93V23.353c0-1.256.032-3.193.944-4.392a5.214,5.214,0,0,1,4.55-2.134,18.421,18.421,0,0,1,5.253.527L37.106,21.7a9.907,9.907,0,0,0-2.361-.353c-1.14,0-2.16.408-2.16,1.547V26.2h4.673l-.326,4.241H32.585V45.174H27.091V30.442h-2.93Z" fill="#fff"/>
+    <path id="Tracé_1921" data-name="Tracé 1921" d="M61,61H1V16.119L16.119,1H61Z" fill="none" stroke="#fff" stroke-linejoin="bevel" stroke-width="2"/>
+  </g>
+</svg>

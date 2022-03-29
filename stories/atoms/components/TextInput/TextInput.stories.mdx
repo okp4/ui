@@ -1,0 +1,94 @@
+import {
+  ArgsTable,
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks'
+import { TextInput } from 'ui/atoms/TextInput/textInput'
+
+<Meta
+  title="Atoms/TextInput"
+  component={TextInput}
+  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+/>
+
+
+# Text input
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Usage
+
+### Description
+
+Text input is a text input component...
+
+---
+<Canvas>
+  <Story
+    name="Usage"
+    argTypes={{ 
+    }}
+    args={{
+      icon: 'Search'
+    }}
+  >
+    {(args) => (
+      <div className='theme--light' style={{ width: '340px', padding: '10px 0 10px' }}>
+        <TextInput {...args } />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+---
+
+### Properties
+
+<ArgsTable story="Usage" />
+
+## Usage dark
+
+---
+<Canvas>
+  <Story
+    name="Usage Dark"
+    argTypes={{ 
+    }}
+    args={{
+      icon: 'Meetup'
+    }}
+  >
+    {(args) => (
+      <div className='theme--dark' style={{ width: '340px', padding: '10px 0 10px' }}>
+        <TextInput {...args } />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+---
+
+## Without icon
+
+---
+<Canvas>
+  <Story
+    name="No icons"
+    argTypes={{ 
+    }}
+    args={{
+      icon: undefined,
+      placeholder: 'Search...',
+      size: 'small'
+    }}
+  >
+    {(args) => (
+      <div className='theme--light' style={{ width: '340px', padding: '10px 0 10px' }}>
+        <TextInput {...args } />
+      </div>
+    )}
+  </Story>
+</Canvas>
