@@ -1,0 +1,45 @@
+@import '../../themes/themes.scss';
+
+.okp4-theme-switcher-main {
+  @include with-theme() {
+    all: unset;
+    cursor: pointer;
+    width: 56px;
+    height: 25px;
+    background-color: themed('secondary-button');
+    border-radius: 9999px;
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    .okp4-theme-switcher-icon {
+      position: absolute;
+      top: 20%;
+
+      > svg {
+        color: themed('field');
+      }
+
+      &.light {
+        right: 7px;
+      }
+      &.dark {
+        right: 34px;
+      }
+    }
+
+    .okp4-theme-switcher-thumb {
+      display: block;
+      width: 21px;
+      height: 21px;
+      background-color: themed('field');
+      border-radius: 9999px;
+      transition: transform 300ms;
+      transform: translateX(2px);
+      will-change: transform;
+
+      &[data-state='checked'] {
+        transform: translateX(33px);
+      }
+    }
+  }
+}
