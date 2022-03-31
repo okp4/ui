@@ -1,19 +1,24 @@
 export const parameters = {
   actions: {
-    argTypesRegex: '^on[A-Z].*',
+    argTypesRegex: '^on[A-Z].*'
   },
   controls: {
     matchers: {
       color: /(background|color)$/i,
-      date: /Date$/,
+      date: /Date$/
     },
-    expanded: true,
+    expanded: true
   },
   layout: 'centered',
   options: {
     storySort: {
       method: 'alphabetical',
-      order: ['Welcome', 'Philosophy', 'Atoms'],
-    },
+      order: ['Welcome', 'Philosophy', 'Atoms']
+    }
   },
+  previewTabs: {
+    canvas: {
+      hidden: true
+    }
+  }
 }

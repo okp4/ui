@@ -1,0 +1,69 @@
+@import '../styles/palette.scss';
+
+$themes: (
+  light: (
+    primary-brand: $color-light-primary-brand,
+    primary-variant: $color-light-primary-variant,
+    secondary-button: $color-light-secondary-button,
+    secondary-selected: $color-light-secondary-selected,
+    text: $color-light-text,
+    highlighted-text: $color-light-highlighted-text,
+    field: $color-light-field,
+    border: $color-light-border,
+    primary-background: $color-light-background,
+    secondary-background: $color-light-background-variant,
+    header-background: $gradient-light-background-header,
+    footer-background: $gradient-light-background-footer,
+    footer-block-background: $color-light-background-footer-block,
+    success: $color-light-success,
+    warning: $color-light-warning,
+    error: $color-light-error,
+    info: $color-light-info
+  ),
+  dark: (
+    primary-brand: $color-dark-primary-brand,
+    primary-variant: $color-dark-primary-variant,
+    secondary-button: $color-dark-secondary-button,
+    secondary-selected: $color-dark-secondary-selected,
+    text: $color-dark-text,
+    highlighted-text: $color-dark-highlighted-text,
+    field: $color-dark-field,
+    border: $color-dark-border,
+    primary-background: $color-dark-background,
+    secondary-background: $color-dark-background-variant,
+    header-background: $gradient-dark-background-header,
+    footer-background: $gradient-dark-background-footer,
+    footer-block-background: $gradient-dark-background-footer-block,
+    success: $color-light-success,
+    warning: $color-light-warning,
+    error: $color-light-error,
+    info: $color-light-info
+  )
+);
+
+@mixin with-theme() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @if (map-has-key($theme-map, $key)) {
+    @return map-get($theme-map, $key);
+  } @else {
+    @error 'ERROR: Specified key does not exist in themes';
+  }
+}

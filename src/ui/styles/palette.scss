@@ -1,16 +1,66 @@
-// White color variables
+/**
+* Blue stone theme
+**/
 
-$color-pure-white: #ffffff;
+// Primary colors
+$color-dark-primary-brand: #1f4799;
+$color-dark-primary-variant: #395180;
 
-// Blue color variables
+// Secondary colors
+$color-dark-secondary-button: #293d66;
+$color-dark-secondary-selected: #4d6699;
 
-$color-lavander-blue: #d4d7f5;
-$color-sapphire-blue: #545baa;
-$color-azure-blue: #222c96;
-$color-space-blue: #181c49;
-$color-denim-blue: #13173c;
+// Neutral colors
+$color-dark-text: #ced2d9;
+$color-dark-highlighted-text: white;
+$color-dark-field: #13264d;
+$color-dark-border: #395180;
+$color-dark-background: #0f224a;
+$color-dark-background-variant: #0f1e3d;
 
-// Gray color variables
+// Semantic colors
+$color-dark-success: #15cc86;
+$color-dark-warning: #fb6800;
+$color-dark-error: #e62331;
+$color-dark-info: #cecfd9;
 
-$color-cloud-gray: #cecfd9;
-$color-metal-gray: #00000040;
+// Gradients
+$gradient-dark-background-header: transparent linear-gradient(180deg, #0c1529 0%, #0f224a 100%) 0%
+  0% no-repeat padding-box;
+$gradient-dark-background-footer: transparent linear-gradient(180deg, #102040 0%, #061126 100%) 0%
+  0% no-repeat padding-box;
+$gradient-dark-background-footer-block: transparent
+  linear-gradient(180deg, #122a59 0%, #5678be 100%) 0% 0% no-repeat padding-box;
+
+/**
+* Clear stone theme
+**/
+
+// Primary colors
+$color-light-primary-brand: #fb6700;
+$color-light-primary-variant: #867a62;
+
+// Secondary colors
+$color-light-secondary-button: #293d66;
+$color-light-secondary-selected: #966a13;
+
+// Neutral colors
+$color-light-text: #181c49;
+$color-light-highlighted-text: #493918;
+$color-light-field: #d8d0c6;
+$color-light-border: #ccc2b4;
+$color-light-background: white;
+$color-light-background-variant: #493918;
+$color-light-background-footer-block: #e8e2da;
+
+// Semantic colors
+$color-light-success: #15cc86;
+$color-light-warning: #fb6800;
+$color-light-error: #e62331;
+$color-light-info: #877b65;
+
+// Gradients
+$gradient-light-background-header: transparent linear-gradient(180deg, #faf8f4 0%, white 100%) 0% 0%
+  no-repeat padding-box;
+$gradient-light-background-footer: transparent linear-gradient(212deg, #181c49 0%, #343869 100%) 0%
+  0% no-repeat padding-box;
