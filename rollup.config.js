@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import postcss from 'rollup-plugin-postcss'
+import copy from 'rollup-plugin-copy'
 
 import * as packageJson from './package.json'
 
@@ -21,6 +22,12 @@ export default {
     }
   ],
   plugins: [
+    copy({
+      targets: [
+        { src: ['src/ui/styles/palette.scss', 'src/ui/styles/themes.scss'], dest: 'lib/scss' }
+      ],
+      verbose: true
+    }),
     peerDepsExternal(),
     resolve(),
     commonjs(),
