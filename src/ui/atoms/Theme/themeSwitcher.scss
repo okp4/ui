@@ -1,37 +1,40 @@
-@import '../../themes/themes.scss';
+@import '../../styles/themes.scss';
 
 .okp4-theme-switcher-main {
   @include with-theme() {
     all: unset;
     cursor: pointer;
     width: 56px;
-    height: 25px;
-    background-color: themed('secondary-button');
+    height: 28px;
+    background: themed('primary-brand');
     border-radius: 9999px;
     position: relative;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     .okp4-theme-switcher-icon {
       position: absolute;
-      top: 20%;
+      top: 18%;
 
       > svg {
-        color: themed('field');
+        color: white;
+        height: 18px;
+        width: 18px;
       }
 
       &.light {
-        right: 7px;
+        right: 6px;
       }
+
       &.dark {
-        right: 34px;
+        right: 30px;
       }
     }
 
     .okp4-theme-switcher-thumb {
       display: block;
-      width: 21px;
-      height: 21px;
-      background-color: themed('field');
+      width: 24px;
+      height: 24px;
+      background-color: white;
       border-radius: 9999px;
       transition: transform 300ms;
       transform: translateX(2px);
