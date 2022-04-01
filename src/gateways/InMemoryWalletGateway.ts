@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable'
-import { ConnectionError } from 'domain/wallet/entities/errors'
-import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
-import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
+import { ConnectionError } from '../domain/wallet/entities/errors'
+import type { Accounts, ChainId } from '../domain/wallet/entities/wallet'
+import type { Wallet, WalletId } from '../domain/wallet/ports/walletPort'
 import type { DeepReadonly } from '../superTypes'
 
 export class InMemoryWalletGateway implements Wallet {

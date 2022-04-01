@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
 import { combineReducers } from 'redux'
-import type { AccountsByChainId, ConnectionStatuses } from 'domain/wallet/entities/wallet'
+import type { AccountsByChainId, ConnectionStatuses } from '../../entities/wallet'
 import type { EnableWalletActionTypes } from '../../usecases/enable-wallet/actionCreators'
 import type { ErrorWalletActionTypes } from '../../usecases/actionCreators'
 import type { DeepReadonly } from '../../../../superTypes'

@@ -4,6 +4,7 @@
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "rootDir": "src",
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "lib",
@@ -19,13 +20,7 @@
     "isolatedModules": true,
     "noUnusedLocals": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "public/*": ["./public/*"],
-      "ui/*": ["./src/ui/*"],
-      "domain/*": ["./src/domain/*"],
-      "cosmjs/*": ["./node_modules/@cosmjs/*"]
-    }
+    "jsx": "react-jsx"
   },
   "include": ["src", "stories/**/*.tsx"],
   "exclude": ["node-modules", "lib"]

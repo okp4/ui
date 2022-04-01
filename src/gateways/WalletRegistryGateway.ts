@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
-import { GatewayError } from 'domain/wallet/entities/errors'
-import type { Wallet, WalletRegistryPort } from 'domain/wallet/ports/walletPort'
+import { GatewayError } from '../domain/wallet/entities/errors'
+import type { Wallet, WalletRegistryPort } from '../domain/wallet/ports/walletPort'
 
 export class WalletRegistryGateway implements WalletRegistryPort {
   private wallets: Map<string, Wallet> = Map()
