@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useAnimationFrame } from 'hook/useAnimationFrame'
+import { useAnimationFrame } from '@hooks/useAnimationFrame'
 import type { DeepReadonly } from '../../../superTypes'
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -57,7 +57,7 @@ export type TCanvasProps = Readonly<{
 /**
  * Canvas react component.
  */
-export const Canvas = ({
+export const Canvas: React.FC<TCanvasProps> = ({
   touchActionNone = true,
   disableScrolling = true,
   width,
