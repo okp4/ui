@@ -1,7 +1,7 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from '@rollup/plugin-typescript'
+import typescript from 'rollup-plugin-typescript2'
 import postcss from 'rollup-plugin-postcss'
 import copy from 'rollup-plugin-copy'
 import svgr from '@svgr/rollup'
@@ -31,9 +31,9 @@ export default {
     }),
     peerDepsExternal(),
     svgr(),
+    typescript({ useTsconfigDeclarationDir: true, clean: true, check: true, verbosity: 3 }),
     resolve(),
     commonjs(),
-    typescript(),
     postcss()
   ]
 }

@@ -4,7 +4,6 @@
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "rootDir": "src",
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "lib",
@@ -22,6 +21,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "stories/**/*.tsx"],
+  "include": ["src/**/*", "stories/**/*.tsx"],
   "exclude": ["node-modules", "lib"]
 }
