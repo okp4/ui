@@ -23,8 +23,8 @@
     "jsx": "react-jsx",
     "paths": {
       "public/*": ["public/*"],
-      "@ui/*": ["src/ui/*"],
-      "@hooks/*": ["src/hooks/*"],
+      "ui/*": ["src/ui/*"],
+      "hooks/*": ["src/hooks/*"],
       "domain/*": ["src/domain/*"],
       "cosmjs/*": ["node_modules/@cosmjs/*"]
     }

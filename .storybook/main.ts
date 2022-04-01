@@ -12,12 +12,6 @@ module.exports = {
     const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'))
     fileLoaderRule.exclude = pathToInlineSvg
 
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@hooks': path.resolve(__dirname, '../src/hooks'),
-      '@ui': path.resolve(__dirname, '../src/ui')
-    }
-
     config.module.rules.push(
       {
         test: [/\.scss$/, /\.module.scss$/],

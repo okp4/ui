@@ -3,7 +3,7 @@ import * as Switch from '@radix-ui/react-switch'
 import MoonIcon from '../../../assets/icons/moonIcon.svg'
 import SunIcon from '../../../assets/icons/sunIcon.svg'
 import type { ThemeContextType } from './themeContext'
-import { useTheme } from '@hooks/useTheme'
+import { useTheme } from '../../../hooks/useTheme'
 import './themeSwitcher.scss'
 
 export const ThemeSwitcher: React.FC = () => {
