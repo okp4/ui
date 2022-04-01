@@ -1,19 +1,24 @@
 const path = require('path')
+const pathToInlineSvg = path.resolve(__dirname, '../src/assets/icons')
 
 module.exports = {
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(ts|tsx)'],
-  addons: [
-    '@storybook/preset-scss',
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-  ],
+  addons: ['@storybook/preset-scss', '@storybook/addon-links', '@storybook/addon-essentials'],
   staticDirs: ['../public'],
   framework: '@storybook/react',
   webpackFinal: async (config, { configType }) => {
-    config.resolve.modules = [
-      ...(config.resolve.modules || []),
-      path.resolve('./src'),
-    ]
+    config.resolve.modules = [...(config.resolve.modules || []), path.resolve('./src')]
+
+    const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'))
+    fileLoaderRule.exclude = pathToInlineSvg
+
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@assets': path.resolve(__dirname, '../src/assets'),
+      '@hooks': path.resolve(__dirname, '../src/hooks'),
+      '@ui': path.resolve(__dirname, '../src/ui'),
+      '@superTypes': path.resolve(__dirname, '../src/superTypes.ts')
+    }
 
     config.module.rules.push(
       {
@@ -26,16 +31,28 @@ module.exports = {
               '\n\n\n\npath.resolve(__dirname, "src/sass/")',
               path.resolve(__dirname, '../src/')
             ),
-            includePaths: [path.resolve(__dirname, 'src/')],
-          },
-        },
+            includePaths: [path.resolve(__dirname, 'src/')]
+          }
+        }
       },
       {
         test: [/\.frag$/, /\.vert$/],
-        use: 'raw-loader',
+        use: 'raw-loader'
+      },
+      {
+        test: /\.svg$/i,
+        include: pathToInlineSvg,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              icon: true
+            }
+          }
+        ]
       }
     )
 
     return config
-  },
+  }
 }

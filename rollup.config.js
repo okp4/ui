@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import postcss from 'rollup-plugin-postcss'
 import copy from 'rollup-plugin-copy'
+import svgr from '@svgr/rollup'
 
 import * as packageJson from './package.json'
 
@@ -29,6 +30,7 @@ export default {
       verbose: true
     }),
     peerDepsExternal(),
+    svgr(),
     resolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
