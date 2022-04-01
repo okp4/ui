@@ -1,0 +1,56 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { ThemeProvider } from '@ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from '@ui/atoms/theme/ThemeSwitcher'
+import themes from '@ui/styles/_exports.module.scss'
+import { useTheme } from '@hooks/useTheme'
+
+<Meta
+  title="Atoms/Brand Identity/Theme"
+  component={ThemeProvider}
+  parameters={{ actions: { argTypesRegex: '^on.*' }, sidebar: { disable: true } }}
+/>
+
+# Theme
+
+> Communicate _actions_ that users can take.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+### Description
+
+Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find the most important actions throughout UI and enables them to
+perform these actions.
+
+The `label` is used to clearly indicate to the user what action will be triggered. Buttons allow users to commit a change, complete steps in a task, or make choices.
+
+---
+
+<Story
+  name="Theme"
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <Story />
+      </ThemeProvider>
+    )
+  ]}
+>
+  {args => {
+    const { theme } = useTheme()
+    return (
+      <div
+        style={{
+          padding: '30px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          background: themes[`${theme}-header-background`]
+        }}
+      >
+        <ThemeSwitcher />
+      </div>
+    )
+  }}
+</Story>
