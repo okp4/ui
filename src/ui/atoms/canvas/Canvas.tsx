@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useAnimationFrame } from '../../../hooks/useAnimationFrame'
+import { useAnimationFrame } from 'hooks/useAnimationFrame'
 import type { DeepReadonly } from '../../../superTypes'
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types

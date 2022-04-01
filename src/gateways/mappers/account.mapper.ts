@@ -1,5 +1,5 @@
-import { AccountBuilder } from '../../domain/wallet/builders/account.builder'
-import type { Account } from '../../domain/wallet/entities/wallet'
+import { AccountBuilder } from 'domain/wallet/builders/account.builder'
+import type { Account } from 'domain/wallet/entities/wallet'
 import type { AccountData } from '@cosmjs/launchpad'
 import type { DeepReadonly } from '../../superTypes'
 

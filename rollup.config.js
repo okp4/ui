@@ -31,7 +31,7 @@ export default {
     }),
     peerDepsExternal(),
     svgr(),
-    typescript({ useTsconfigDeclarationDir: true, clean: true, check: true, verbosity: 3 }),
+    typescript({ useTsconfigDeclarationDir: true }),
     resolve(),
     commonjs(),
     postcss()

@@ -19,7 +19,13 @@
     "isolatedModules": true,
     "noUnusedLocals": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "public/*": ["./public/*"],
+      "ui/*": ["./src/ui/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "domain/*": ["./src/domain/*"]
+    }
   },
   "include": ["src/**/*", "stories/**/*.tsx"],
   "exclude": ["node-modules", "lib"]
