@@ -14,10 +14,8 @@ module.exports = {
 
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@assets': path.resolve(__dirname, '../src/assets'),
       '@hooks': path.resolve(__dirname, '../src/hooks'),
-      '@ui': path.resolve(__dirname, '../src/ui'),
-      '@superTypes': path.resolve(__dirname, '../src/superTypes.ts')
+      '@ui': path.resolve(__dirname, '../src/ui')
     }
 
     config.module.rules.push(

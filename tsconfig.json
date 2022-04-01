@@ -3,6 +3,7 @@
     "outDir": "lib",
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".",
     "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
@@ -21,13 +22,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "public/*": ["./public/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@ui/*": ["./src/ui/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "domain/*": ["./src/domain/*"],
-      "cosmjs/*": ["./node_modules/@cosmjs/*"],
-      "@superTypes": ["./src/superTypes.ts"]
+      "public/*": ["public/*"],
+      "@ui/*": ["src/ui/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "domain/*": ["src/domain/*"],
+      "cosmjs/*": ["node_modules/@cosmjs/*"]
     }
   },
   "include": ["src", "stories/**/*.tsx"],
