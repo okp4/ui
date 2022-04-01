@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Theme } from './themeContext'
 import ThemeContext from './themeContext'
-import type { DeepReadonly } from '@superTypes'
+import type { DeepReadonly } from '../../../superTypes'
 
 type ThemeProviderProps = DeepReadonly<{
   children: React.ReactNode
