@@ -17,23 +17,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noUnusedLocals": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
       "public/*": ["./public/*"],
-      "ui/*": ["./src/ui/*"],
-      "hook/*": ["./src/hook/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@ui/*": ["./src/ui/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "domain/*": ["./src/domain/*"],
-      "cosmjs/*": ["./node_modules/@cosmjs/*"]
+      "cosmjs/*": ["./node_modules/@cosmjs/*"],
+      "@superTypes": ["./src/superTypes.ts"]
     }
   },
-  "include": ["src/**/*", "stories/atoms/samples"],
-  "exclude": [
-    "node-modules",
-    "lib",
-    "src/packages/**/tests/*.spec.tsx",
-    "src/packages/**/tests/*.test.tsx",
-    "src/packages/**/stories/*.stories.tsx",
-    "src/packages/**/stories/*.samples.tsx"
-  ]
+  "include": ["src", "stories/**/*.tsx"],
+  "exclude": ["node-modules", "lib"]
 }
