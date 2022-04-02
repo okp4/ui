@@ -52,7 +52,7 @@ This component can be integrated anywhere in the application, and allows you to 
 Before any use of the `<ThemeSwitcher />` component, it is first mandatory to inject the OKP4 `<ThemeProvider/>` at the highest level in the application.
 This will allow in particular to activate the reactivity linked to the theme change by the user.
 
-#### **`main.ts`**
+##### **`main.ts`**
 
 ```tsx
 <React.StrictMode>
@@ -67,7 +67,7 @@ This will allow in particular to activate the reactivity linked to the theme cha
 The `<ThemeSwitcher />` component can be invoked anywhere in your application.
 As an example, you could insert it in your header component to display it near toolbar actions :
 
-#### **`header.tsx`**
+##### **`header.tsx`**
 
 ```tsx
 <>
@@ -84,7 +84,7 @@ Optionally, you may also want to force its change by invoking the `setTheme` met
 
 As an example, if you want to retrieve the theme value to inline style your component :
 
-#### **`example.tsx`**
+##### **`example.tsx`**
 
 ```tsx
 import { useTheme } from '@okp4/ui'
