@@ -2,39 +2,53 @@ import React, { useCallback, useEffect } from 'react'
 import * as Switch from '@radix-ui/react-switch'
 import MoonIcon from '../../../assets/icons/moonIcon.svg'
 import SunIcon from '../../../assets/icons/sunIcon.svg'
-import type { Theme, ThemeContextType } from 'context/themeContext'
+import type { ThemeContextType } from 'context/themeContext'
 import { useTheme } from 'hook/useTheme'
 import './themeSwitcher.scss'
+import { useLocalStorage } from 'hook/useLocalStorage'
+import type { LocalStorageState } from 'hook/useLocalStorage'
+import { useMediaType } from 'hook/useMediaType'
 
-export const ThemeSwitcher: React.FC = () => {
+export type ThemeSwitcherProps = Readonly<{
+  /**
+   * Tells if the theme should be saved to (and restored from) the local storage.
+   */
+  readonly saveToLocalStorage?: boolean
+  /**
+   * The key to use for fetching the theme from the local storage.
+   */
+  readonly localStorageKey?: string
+}>
+
+export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
+  localStorageKey = 'okp4-theme',
+  saveToLocalStorage = true
+}: ThemeSwitcherProps) => {
   const { theme, setTheme }: ThemeContextType = useTheme()
-  const isDarkTheme = theme === 'dark'
+  const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey, 'light')
+  const prefersColorDark: boolean = useMediaType('(prefers-color-scheme: dark)')
 
-  const saveTheme = useCallback(
-    (newTheme: Theme): void => {
-      setTheme(newTheme)
-      localStorage.setItem('okp4UserTheme', newTheme)
-    },
-    [setTheme]
-  )
+  const isDarkTheme = theme === 'dark'
 
   const handleCheck = useCallback(
     (checked: boolean): void => {
-      saveTheme(checked ? 'dark' : 'light')
+      const selectedTheme = checked ? 'dark' : 'light'
+      setTheme(selectedTheme)
+
+      if (saveToLocalStorage) {
+        setValue(selectedTheme)
+      }
     },
-    [saveTheme]
+    [setTheme, setValue, saveToLocalStorage]
   )
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      saveTheme('dark')
+    if (prefersColorDark) {
+      setTheme('dark')
       return
     }
-    const loadedTheme = localStorage.getItem('userTheme')
-    if (loadedTheme && loadedTheme === 'dark') {
-      saveTheme(loadedTheme)
-    }
-  }, [saveTheme, setTheme])
+    setTheme(value === 'dark' ? 'dark' : 'light')
+  }, [prefersColorDark, setTheme, value])
 
   const switchIcon = isDarkTheme ? <SunIcon /> : <MoonIcon />
 
