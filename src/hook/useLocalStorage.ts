@@ -1,19 +1,19 @@
 import React from 'react'
 
-export type UseLocalStorageType = [string, React.Dispatch<React.SetStateAction<string>>]
+export type LocalStorageState = [string, (value: string) => void]
 
 const getLocalStorageValue = (key: string, defaultValue: string): string => {
   const saved = localStorage.getItem(key)
   return saved ? saved : defaultValue
 }
 
-export const useLocalStorage = (key: string, defaultValue: string): UseLocalStorageType => {
-  const [value, setValue]: UseLocalStorageType = React.useState(() =>
+export const useLocalStorage = (key: string, defaultValue: string): LocalStorageState => {
+  const [value, setValue]: LocalStorageState = React.useState(() =>
     getLocalStorageValue(key, defaultValue)
   )
 
   React.useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value))
+    localStorage.setItem(key, value)
   }, [key, value])
 
   return [value, setValue]
