@@ -57,7 +57,7 @@ export type TCanvasProps = Readonly<{
 /**
  * Canvas react component.
  */
-export const Canvas = ({
+export const Canvas: React.FC<TCanvasProps> = ({
   touchActionNone = true,
   disableScrolling = true,
   width,

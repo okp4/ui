@@ -1,0 +1,48 @@
+@import '../../styles/themes.scss';
+
+.okp4-theme-switcher-main {
+  @include with-theme() {
+    all: unset;
+    cursor: pointer;
+    width: 56px;
+    height: 28px;
+    background: themed('primary-brand');
+    border-radius: 9999px;
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    .okp4-theme-switcher-icon {
+      position: absolute;
+      top: 5px;
+
+      > svg {
+        color: white;
+        height: 18px;
+        width: 18px;
+      }
+
+      &.light {
+        right: 6px;
+      }
+
+      &.dark {
+        right: 30px;
+      }
+    }
+
+    .okp4-theme-switcher-thumb {
+      display: block;
+      width: 24px;
+      height: 24px;
+      background-color: white;
+      border-radius: 9999px;
+      transition: transform 300ms;
+      transform: translateX(2px);
+      will-change: transform;
+
+      &[data-state='checked'] {
+        transform: translateX(30px);
+      }
+    }
+  }
+}

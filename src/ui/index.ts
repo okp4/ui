@@ -1,2 +1,4 @@
-export * from './atoms/Button/Button'
-export * from './atoms/Canvas/Canvas'
+export * from './atoms/button/Button'
+export * from './atoms/canvas/Canvas'
+export * from './atoms/theme/ThemeProvider'
+export * from './atoms/theme/ThemeSwitcher'

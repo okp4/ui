@@ -1,12 +1,5 @@
-import {
-  ArgsTable,
-  Meta,
-  Story,
-  Canvas,
-  Preview,
-  Props,
-} from '@storybook/addon-docs/blocks'
-import { Canvas as CanvasComponent } from 'ui/atoms/Canvas/Canvas'
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { Canvas as CanvasComponent } from 'ui/atoms/canvas/Canvas'
 
 <Meta
   title="Atoms/Canvas"
@@ -51,7 +44,7 @@ export const draw = (canvas, deltaCount) => {
   ctx.fill()
 }
 
-export const CanvasStory = (args) => (
+export const CanvasStory = args => (
   <div style={{ textAlign: 'center', padding: '10px 0 10px' }}>
     <CanvasComponent {...args} />
   </div>
@@ -64,7 +57,7 @@ export const CanvasStory = (args) => (
       onRender: draw,
       disableScrolling: false,
       width: 400,
-      height: 200,
+      height: 200
     }}
   >
     {CanvasStory.bind({})}

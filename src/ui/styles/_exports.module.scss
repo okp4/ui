@@ -1,0 +1,10 @@
+@import './palette.scss';
+@import './themes.scss';
+
+:export {
+  @each $theme, $map in $themes {
+    @each $key, $submap in $map {
+      #{unquote($theme)}-#{unquote($key)}: $submap;
+    }
+  }
+}

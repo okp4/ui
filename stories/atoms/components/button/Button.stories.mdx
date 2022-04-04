@@ -1,12 +1,5 @@
-import {
-  ArgsTable,
-  Meta,
-  Story,
-  Canvas,
-  Preview,
-  Props,
-} from '@storybook/addon-docs/blocks'
-import { Button } from 'ui/atoms/Button/Button'
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { Button } from 'ui/atoms/button/Button'
 
 <Meta
   title="Atoms/Button"
@@ -36,10 +29,10 @@ The `label` is used to clearly indicate to the user what action will be triggere
     name="Overview"
     argTypes={{}}
     args={{
-      label: 'Click-me !',
+      label: 'Click-me !'
     }}
   >
-    {(args) => (
+    {args => (
       <div style={{ textAlign: 'center', padding: '10px 0 10px' }}>
         <Button {...args} />
       </div>

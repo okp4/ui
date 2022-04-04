@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
-type Primitive = undefined | null | boolean | string | number | Function
-type DeepReadonlyMap<K, V> = ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
-type DeepReadonlyObject<T> = {
+export type Primitive = undefined | null | boolean | string | number | Function
+export type DeepReadonlyMap<K, V> = ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
+export type DeepReadonlyObject<T> = {
   readonly [K in keyof T]: DeepReadonly<T[K]>
 }
+export type DeepReadonlyArray<T> = ReadonlyArray<DeepReadonly<T>>
+export type DeepReadonlySet<T> = ReadonlySet<DeepReadonly<T>>
 
 export type DeepReadonly<T> = T extends Primitive
   ? T
@@ -11,4 +13,8 @@ export type DeepReadonly<T> = T extends Primitive
   ? DeepReadonlyMap<K, V>
   : T extends object
   ? DeepReadonlyObject<T>
+  : T extends Array<infer U>
+  ? DeepReadonlyArray<U>
+  : T extends Set<infer M>
+  ? DeepReadonlySet<M>
   : unknown

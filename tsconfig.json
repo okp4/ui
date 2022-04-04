@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "outDir": "lib",
+    "baseUrl": ".",
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
-    "declarationDir": "lib",
+    "declarationDir": "types",
+    "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -17,23 +19,15 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "public/*": ["./public/*"],
-      "ui/*": ["./src/ui/*"],
-      "hook/*": ["./src/hook/*"],
-      "domain/*": ["./src/domain/*"],
-      "cosmjs/*": ["./node_modules/@cosmjs/*"]
+      "public/*": ["public/*"],
+      "ui/*": ["src/ui/*"],
+      "hook/*": ["src/hook/*"],
+      "context/*": ["src/context/*"],
+      "domain/*": ["src/domain/*"]
     }
   },
-  "include": ["src/**/*", "stories/atoms/samples"],
-  "exclude": [
-    "node-modules",
-    "lib",
-    "src/packages/**/tests/*.spec.tsx",
-    "src/packages/**/tests/*.test.tsx",
-    "src/packages/**/stories/*.stories.tsx",
-    "src/packages/**/stories/*.samples.tsx"
-  ]
+  "include": ["src/**/*", "stories/**/*.tsx"],
+  "exclude": ["node-modules", "lib"]
 }

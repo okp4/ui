@@ -26,7 +26,7 @@ export type TButtonProps = Readonly<{
 /**
  * Primary UI component for user interaction.
  */
-export const Button = ({
+export const Button: React.FC<TButtonProps> = ({
   primary = false,
   size = 'medium',
   label,
