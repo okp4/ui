@@ -8,7 +8,7 @@ import './themeStory.scss'
 
 <Meta
   title="Atoms/Brand Identity/Theming"
-  component={ThemeProvider}
+  component={ThemeSwitcher}
   parameters={{ actions: { argTypesRegex: '^on.*' }, sidebar: { disable: true } }}
 />
 
@@ -37,11 +37,15 @@ This component can be integrated anywhere in the application, and allows you to 
     const { theme } = useTheme()
     return (
       <div className="theme-story-main">
-        <ThemeSwitcher />
+        <ThemeSwitcher {...args}/>
       </div>
     )
   }}
 </Story>
+
+## Properties
+
+<ArgsTable story="Theming" />
 
 ## Usage
 
