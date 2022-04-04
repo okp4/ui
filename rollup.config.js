@@ -9,8 +9,11 @@ import dts from 'rollup-plugin-dts'
 import del from 'rollup-plugin-delete'
 import analyze from 'rollup-plugin-analyzer'
 import { terser } from 'rollup-plugin-terser'
+import fs from 'fs'
 
 import * as packageJson from './package.json'
+
+const tsConfig = JSON.parse(fs.readFileSync(__dirname + '/tsconfig.json', 'utf8'))
 
 export default [
   {
@@ -55,6 +58,14 @@ export default [
     input: 'lib/types/src/index.d.ts',
     output: [{ file: 'lib/index.d.ts', format: 'esm' }],
     external: [/\.scss$/],
-    plugins: [dts(), del({ hook: 'buildEnd', targets: './lib/types' })]
+    plugins: [
+      dts({
+        compilerOptions: {
+          baseUrl: '.',
+          paths: tsConfig.compilerOptions.paths
+        }
+      }),
+      del({ hook: 'buildEnd', targets: './lib/types' })
+    ]
   }
 ]

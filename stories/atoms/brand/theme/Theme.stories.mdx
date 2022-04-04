@@ -2,7 +2,7 @@ import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import themes from 'ui/styles/_exports.module.scss'
-import { useTheme } from 'hooks/useTheme'
+import { useTheme } from 'hook/useTheme'
 
 import './themeStory.scss'
 
@@ -65,7 +65,7 @@ This will allow in particular to activate the reactivity linked to the theme cha
 ### Theme Switcher
 
 The `<ThemeSwitcher />` component can be invoked anywhere in your application.
-As an example, you could insert it in your header component to display it near toolbar actions :
+As an example, you could insert it in your header component to display it near toolbar actions:
 
 ##### **`header.tsx`**
 
@@ -88,7 +88,7 @@ As an example, if you want to retrieve the theme value to inline style your comp
 
 ```tsx
 import { useTheme } from '@okp4/ui'
-import themes from 'ui/styles/_exports.module.scss' // the theme object
+import themes from '@okp4/ui/lib/scss/_exports.module.scss' // the theme object
 
 export const MyExampleComponent: React.FC = ({ title }: string) => {
   const { theme, setTheme } = useTheme()

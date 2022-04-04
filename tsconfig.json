@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "lib",
+    "baseUrl": ".",
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -20,10 +21,11 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "paths": {
-      "public/*": ["./public/*"],
-      "ui/*": ["./src/ui/*"],
-      "hooks/*": ["./src/hooks/*"],
-      "domain/*": ["./src/domain/*"]
+      "public/*": ["public/*"],
+      "ui/*": ["src/ui/*"],
+      "hook/*": ["src/hook/*"],
+      "context/*": ["src/context/*"],
+      "domain/*": ["src/domain/*"]
     }
   },
   "include": ["src/**/*", "stories/**/*.tsx"],

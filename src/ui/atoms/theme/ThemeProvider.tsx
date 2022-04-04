@@ -1,6 +1,6 @@
 import React from 'react'
-import type { Theme } from './themeContext'
-import ThemeContext from './themeContext'
+import type { Theme } from 'context/themeContext'
+import ThemeContext from 'context/themeContext'
 import type { DeepReadonly } from '../../../superTypes'
 
 type ThemeProviderProps = DeepReadonly<{

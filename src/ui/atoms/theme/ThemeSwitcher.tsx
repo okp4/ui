@@ -2,8 +2,8 @@ import React, { useCallback, useEffect } from 'react'
 import * as Switch from '@radix-ui/react-switch'
 import MoonIcon from '../../../assets/icons/moonIcon.svg'
 import SunIcon from '../../../assets/icons/sunIcon.svg'
-import type { Theme, ThemeContextType } from './themeContext'
-import { useTheme } from 'hooks/useTheme'
+import type { Theme, ThemeContextType } from 'context/themeContext'
+import { useTheme } from 'hook/useTheme'
 import './themeSwitcher.scss'
 
 export const ThemeSwitcher: React.FC = () => {
