@@ -21,8 +21,8 @@
   ],
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "yarn clean & rollup -c",
-    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "clean": "rimraf dist",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && stylelint './src/**/*.scss'",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006",

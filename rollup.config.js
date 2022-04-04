@@ -31,11 +31,18 @@ export default [
       peerDepsExternal(),
       copy({
         targets: [
-          { src: ['src/ui/styles/palette.scss', 'src/ui/styles/themes.scss'], dest: 'lib/scss' }
+          {
+            src: [
+              'src/ui/styles/palette.scss',
+              'src/ui/styles/themes.scss',
+              'src/ui/styles/_exports.module.scss'
+            ],
+            dest: 'lib/scss'
+          }
         ],
         verbose: true
       }),
-      svgr(),
+      svgr({ dimensions: false }),
       resolve(),
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
