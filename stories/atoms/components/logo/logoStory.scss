@@ -2,7 +2,7 @@
 
 .logo-story-main {
   @include with-theme {
-    padding: 20px 30px;
+    padding: 20px 30px 35px 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;

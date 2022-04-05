@@ -28,7 +28,7 @@ export type TLogoProps = Readonly<{
 export const Logo: React.FC<TLogoProps> = ({ size = 'medium', type = 'logo' }: TLogoProps) => {
   const { theme }: ThemeContextType = useTheme()
 
-  const imageSrc = useCallback((): string => {
+  const getElement = useCallback(() => {
     switch (type) {
       case 'logo':
         return theme === 'dark' ? DarkLogo : LightLogo
@@ -51,5 +51,7 @@ export const Logo: React.FC<TLogoProps> = ({ size = 'medium', type = 'logo' }: T
     slogan: type === 'slogan'
   })
 
-  return <img className={imageClassname} src={imageSrc()} />
+  const Element = getElement()
+
+  return <Element className={imageClassname} />
 }
