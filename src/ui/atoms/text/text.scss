@@ -14,32 +14,61 @@ $text-color-keys: ('text', 'highlighted-text', 'success', 'warning', 'error', 'i
     margin: 0.5em 1em;
     padding: 0.25em 1em;
 
-    @each $f in $fonts {
-      @each $w in $weight {
-        &.#{$f}-#{$w} {
-          font-family: '#{$f}-#{$w}';
-        }
-      }
+    &.x-small {
+      font-size: 12px;
+    }
 
-      &.x-small {
-        font-size: 12px;
-      }
+    &.small {
+      font-size: 16px;
+    }
 
-      &.small {
-        font-size: 16px;
-      }
+    &.medium {
+      font-size: 26px;
+    }
 
-      &.medium {
-        font-size: 26px;
-      }
+    &.large {
+      font-size: 34px;
+    }
 
-      &.large {
-        font-size: 34px;
-      }
+    &.x-large {
+      font-size: 40px;
+    }
 
-      &.x-large {
-        font-size: 40px;
-      }
+    &.brand-light {
+      font-family: 'Gotham light';
+    }
+
+    &.brand-medium {
+      font-family: 'Gotham';
+    }
+
+    &.brand-bold {
+      font-family: 'Gotham';
+      font-weight: 500;
+    }
+
+    &.brand-black {
+      font-family: 'Gotham';
+      font-weight: 900;
+    }
+
+    &.secondary-light {
+      font-family: 'Noto-Sans-Mono';
+      font-weight: 300;
+    }
+
+    &.secondary-medium {
+      font-family: 'Noto-Sans-Mono';
+    }
+
+    &.secondary-bold {
+      font-family: 'Noto-Sans-Mono';
+      font-weight: 600;
+    }
+    
+    &.secondary-black {
+      font-family: 'Noto-Sans-Mono';
+      font-weight: 900;
     }
   }
 }

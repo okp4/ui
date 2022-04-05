@@ -46,6 +46,7 @@ export const Text: React.FC<TTextProps> = ({
   color = 'text',
   ...props
 }: TTextProps): JSX.Element => {
+
   const textClass = classNames('okp4-text-main', size, color, {
     [`${fontFamily}-${fontWeight}`]: true
   })
