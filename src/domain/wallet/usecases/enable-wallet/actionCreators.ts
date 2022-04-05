@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import type { ActionsUnion } from '../../store/store'
-import { createAction } from '../../store/store'
+import type { ActionsUnion } from '../../../helpers/store.helper'
+import { createAction } from '../../../helpers/store.helper'
 import type { Accounts, ChainId } from '../../entities/wallet'
 
 export const EnableWalletActions = {
