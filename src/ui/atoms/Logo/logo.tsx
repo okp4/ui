@@ -1,14 +1,15 @@
 import classNames from 'classnames'
 import React, { useCallback } from 'react'
-
-import DarkLogo from '../../../../assets/logos/logo-okp4-dark.svg'
-import LightLogo from '../../../../assets/logos/logo-okp4-light.svg'
-import LightSlogan from '../../../../assets/logos/slogan-okp4-light.svg'
-import DarkSlogan from '../../../../assets/logos/slogan-okp4-dark.svg'
-import LightLogotype from '../../../../assets/logos/logotype-okp4-light.svg'
-import DarkLogotype from '../../../../assets/logos/logotype-okp4-dark.svg'
-import LightLogomark from '../../../../assets/logos/logomark-okp4-light.svg'
-import DarkLogomark from '../../../../assets/logos/logomark-okp4-dark.svg'
+import type { ThemeContextType } from 'context/themeContext'
+import { useTheme } from 'hook/useTheme'
+import DarkLogo from '../../../assets/logos/logo-okp4-dark.svg'
+import LightLogo from '../../../assets/logos/logo-okp4-light.svg'
+import LightSlogan from '../../../assets/logos/slogan-okp4-light.svg'
+import DarkSlogan from '../../../assets/logos/slogan-okp4-dark.svg'
+import LightLogotype from '../../../assets/logos/logotype-okp4-light.svg'
+import DarkLogotype from '../../../assets/logos/logotype-okp4-dark.svg'
+import LightLogomark from '../../../assets/logos/logomark-okp4-light.svg'
+import DarkLogomark from '../../../assets/logos/logomark-okp4-dark.svg'
 
 import './logo.scss'
 
@@ -18,33 +19,27 @@ export type TLogoProps = Readonly<{
    */
   readonly size?: 'small' | 'medium' | 'large'
   /**
-   * The variant of the logo, depending on the theme used.
-   */
-  readonly variant?: 'light' | 'dark'
-  /**
    * The type of the logo, flexible according to use and location.
    * By default, the standalone logo including the logotype, the logomark and the slogan..
    */
   readonly type?: 'logo' | 'logotype' | 'logomark' | 'slogan'
 }>
 
-export const Logo: React.FC<TLogoProps> = ({
-  size = 'medium',
-  variant = 'dark',
-  type = 'logo'
-}: TLogoProps) => {
-  const getElementToRender = useCallback((): string => {
+export const Logo: React.FC<TLogoProps> = ({ size = 'medium', type = 'logo' }: TLogoProps) => {
+  const { theme }: ThemeContextType = useTheme()
+
+  const imageSrc = useCallback((): string => {
     switch (type) {
       case 'logo':
-        return variant === 'dark' ? DarkLogo : LightLogo
+        return theme === 'dark' ? DarkLogo : LightLogo
       case 'slogan':
-        return variant === 'dark' ? DarkSlogan : LightSlogan
+        return theme === 'dark' ? DarkSlogan : LightSlogan
       case 'logotype':
-        return variant === 'dark' ? DarkLogotype : LightLogotype
+        return theme === 'dark' ? DarkLogotype : LightLogotype
       case 'logomark':
-        return variant === 'dark' ? DarkLogomark : LightLogomark
+        return theme === 'dark' ? DarkLogomark : LightLogomark
     }
-  }, [variant, type])
+  }, [theme, type])
 
   const imageClassname = classNames('okp4-logo-main', {
     small: size === 'small',
@@ -55,7 +50,6 @@ export const Logo: React.FC<TLogoProps> = ({
     logomark: type === 'logomark',
     slogan: type === 'slogan'
   })
-  const imageSrc = getElementToRender()
 
-  return <img className={imageClassname} src={imageSrc} />
+  return <img className={imageClassname} src={imageSrc()} />
 }
