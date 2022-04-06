@@ -103,11 +103,11 @@ You can also choose to use a secondary font called `NotoSansMono`.
   args={{}}
 >
   {args => (
-      <Text as="div" fontFamily="secondary">
-        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-        <p>abcdefghijklmnopqrstuvwxyz</p>
-        <p>123456789 !?.;:</p>
-      </Text>
+    <Text as="div" fontFamily="secondary">
+      <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+      <p>abcdefghijklmnopqrstuvwxyz</p>
+      <p>123456789 !?.;:</p>
+    </Text>
   )}
 </Story>
 
@@ -116,11 +116,7 @@ You can also choose to use a secondary font called `NotoSansMono`.
 Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
 
 <Canvas>
-  <Story
-    name="Sizes"
-    argTypes={{}}
-    args={{}}
-  >
+  <Story name="Sizes" argTypes={{}} args={{}}>
     {args => (
       <div>
         <Text as="div" size="x-small" fontFamily="brand">
@@ -148,11 +144,7 @@ Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
 The different colors available are: `text` (default), `highlighted-text`, `info`, `success`, `warning`, `error`.
 
 <Canvas>
-  <Story
-    name="Colors"
-    argTypes={{}}
-    args={{}}
-  >
+  <Story name="Colors" argTypes={{}} args={{}}>
     {args => (
       <div>
         <Text as="div" color="highlighted-text" fontFamily="brand">
@@ -181,11 +173,7 @@ Depending on the need, the font weight can be modified. The values are `light`, 
 Internally, this parameter will actually select a variant of the selected font.
 
 <Canvas>
-  <Story
-    name="Font weight"
-    argTypes={{}}
-    args={{}}
-  >
+  <Story name="Font weight" argTypes={{}} args={{}}>
     {args => (
       <div>
         <Text as="div" fontWeight="light" fontFamily="brand">
