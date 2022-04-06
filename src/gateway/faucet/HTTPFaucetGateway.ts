@@ -9,7 +9,7 @@ export class HTTPFaucetGateway implements FaucetPort {
     this.faucetUrl = faucetUrl
   }
 
-  public askTokens = async (address: string): Promise<void> => {
+  public requestFunds = async (address: string): Promise<void> => {
     await axios
       .get(this.faucetUrl, {
         params: {
@@ -20,7 +20,9 @@ export class HTTPFaucetGateway implements FaucetPort {
         if (axios.isAxiosError(error)) {
           throw new GatewayError(error.message)
         } else {
-          throw new UnspecifiedError('Oooops... An unspecified error occured while asking tokens..')
+          throw new UnspecifiedError(
+            'Oooops... An unspecified error occured while requesting funds..'
+          )
         }
       })
   }

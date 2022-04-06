@@ -11,7 +11,7 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void =
 }
 
 export const enableWallet =
-  (walletId: WalletId, chainId: ChainId): ThunkResult<Promise<void>> =>
+  (walletId: WalletId, chainId: ChainId): ThunkResult<Promise<string | undefined>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, _getState, { walletRegistryGateway }) => {
     try {
@@ -20,6 +20,7 @@ export const enableWallet =
       dispatch(EnableWalletActions.walletConnected(chainId))
       const accounts = await wallet.getAccounts(chainId)
       dispatch(EnableWalletActions.accountsRetrieved(chainId, accounts))
+      return accounts.get(0)?.address
     } catch (error: unknown) {
       dispatchError(error, dispatch)
     }
