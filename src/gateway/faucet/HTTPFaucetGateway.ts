@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { GatewayError, UnspecifiedError } from 'domain/faucet/entities/error'
-import type { FaucetPort } from 'domain/faucet/ports/faucetPort'
+import { GatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
+import type { FaucetPort } from 'domain/faucet/port/faucetPort'
 
 export class HTTPFaucetGateway implements FaucetPort {
   private readonly faucetUrl: string = ''

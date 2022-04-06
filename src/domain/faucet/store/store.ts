@@ -5,8 +5,8 @@ import type { ThunkAction, ThunkDispatch, ThunkMiddleware } from 'redux-thunk'
 import thunk from 'redux-thunk'
 
 import type { AppState } from '../store/appState'
-import rootReducer from './reducers/faucet.reducer'
-import type { FaucetPort } from '../ports/faucetPort'
+import rootReducer from './reducer/faucet.reducer'
+import type { FaucetPort } from '../port/faucetPort'
 
 export interface Dependencies {
   readonly faucetGateway: FaucetPort

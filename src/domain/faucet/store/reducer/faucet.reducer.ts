@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import type { AskTokensActionTypes } from '../../usecases/ask-tokens/actionCreators'
+import type { AskTokensActionTypes } from '../../usecase/ask-tokens/actionCreators'
 import type { DeepReadonly } from '../../../../superTypes'
 import type { FaucetStatus } from '../appState'
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/typedef */
-import { GatewayError, ValidationError } from 'domain/faucet/entities/error'
+import { GatewayError, ValidationError } from 'domain/faucet/entity/error'
 import type { AppState, FaucetStatus } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'

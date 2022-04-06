@@ -1,6 +1,6 @@
 import { decode } from 'bech32-buffer'
 import type bech32 from 'bech32-buffer'
-import { ValidationError } from '../entities/error'
+import { ValidationError } from '../entity/error'
 
 export const checkOKP4Address = (address: string): void => {
   try {

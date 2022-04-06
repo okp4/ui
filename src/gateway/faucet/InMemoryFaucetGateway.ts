@@ -1,5 +1,5 @@
-import { GatewayError } from 'domain/faucet/entities/error'
-import type { FaucetPort } from 'domain/faucet/ports/faucetPort'
+import { GatewayError } from 'domain/faucet/entity/error'
+import type { FaucetPort } from 'domain/faucet/port/faucetPort'
 
 export class InMemoryFaucetGateway implements FaucetPort {
   private error: GatewayError | null = null
