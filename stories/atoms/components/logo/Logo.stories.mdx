@@ -1,0 +1,115 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { Logo } from 'ui/atoms/logo/Logo'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import './logoStory.scss'
+
+<Meta
+  title="Atoms/Logo"
+  component={Logo}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: { source: { type: 'code', langauge: 'jsx', format: true } }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="logo-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Logo
+
+> Represents the brand of OKP4.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+The logo helps our users identify our brand when using our services. It must have the best possible readability.
+
+---
+
+<Story
+  name="Overview"
+  argTypes={{}}
+  parameters={{ docs: { source: { type: 'code', langauge: 'jsx', format: true } } }}
+>
+  {args => (
+    <div
+      style={{
+        display: 'flex',
+        alignSelf: 'center'
+      }}
+    >
+      <Logo {...args} />
+    </div>
+  )}
+</Story>
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## Sizes
+
+The logo comes with three different sizes to allow its use according to its location within the interface.
+
+- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
+- **Medium**: makes it possible to adapt to a greater number of uses, both to represent the brand and to be used in content elements.
+- **Large**: particularly allows to affix the OKP4 brand within an interface and to set the tone of the visual used. Should not be used in content elements.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Logo type="logo" size="small" />
+        <Logo type="logo" size="medium" />
+        <Logo type="logo" size="large" />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Types
+
+The logo comes with a property called `type` which allows to directly use the standalone logo or to freely compose destructured logo's elements.
+
+- **Logo**: the standalone logo, mainly designed to mark the visual identity of OKP4. Can be used in a header for example.
+- **Logotype**: has an immediate visual impact on the perception of the company, can be used in particular in cards or as a favicon.
+- **Logomark**: represents the OKP4 name in order to mark the membership and not to weigh down the interface by being smoothed with the elements of content.
+- **Slogan**: the slogan is used to add strength to OKP4 content, especially in terms of protocol usage. It can be used in presentation elements to assert the visual impact of the interface.
+
+<Canvas>
+  <Story name="Types">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '35px'
+        }}
+      >
+        <Logo size="medium" type="logo" />
+        <Logo size="medium" type="logotype" />
+        <Logo size="medium" type="logomark" />
+        <Logo size="medium" type="slogan" />
+      </div>
+    )}
+  </Story>
+</Canvas>

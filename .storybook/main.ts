@@ -1,5 +1,6 @@
 const path = require('path')
-const pathToInlineSvg = path.resolve(__dirname, '../src/assets/icons')
+const iconDirectoryPath = path.resolve(__dirname, '../src/assets/icons')
+const logoDirectoryPath = path.resolve(__dirname, '../src/assets/logos')
 
 module.exports = {
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(ts|tsx)'],
@@ -10,7 +11,7 @@ module.exports = {
     config.resolve.modules = [...(config.resolve.modules || []), path.resolve('./src')]
 
     const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'))
-    fileLoaderRule.exclude = pathToInlineSvg
+    fileLoaderRule.exclude = [logoDirectoryPath, iconDirectoryPath]
 
     config.module.rules.push(
       {
@@ -33,12 +34,13 @@ module.exports = {
       },
       {
         test: /\.svg$/i,
-        include: pathToInlineSvg,
+        include: [logoDirectoryPath, iconDirectoryPath],
         use: [
           {
             loader: '@svgr/webpack',
             options: {
-              icon: true
+              icon: true,
+              dimensions: false
             }
           }
         ]

@@ -18,8 +18,8 @@ declare module '*.jpg' {
 }
 
 declare module '*.svg' {
-  import type React from 'react'
-  export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>
-  const src: string
-  export default src
+  import type { ReactElement, SVGProps } from 'react'
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  const content: (props: SVGProps<SVGElement>) => ReactElement
+  export default content
 }
