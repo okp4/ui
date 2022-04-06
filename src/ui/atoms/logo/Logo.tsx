@@ -13,19 +13,18 @@ import DarkLogomark from '../../../assets/logos/logomark-okp4-dark.svg'
 
 import './logo.scss'
 
-export type TLogoProps = Readonly<{
+export type LogoProps = Readonly<{
   /**
    * The size of the logo, must be determined according to its use and location.
    */
   readonly size?: 'small' | 'medium' | 'large'
   /**
    * The type of the logo, flexible according to use and location.
-   * By default, the standalone logo including the logotype, the logomark and the slogan..
    */
   readonly type?: 'logo' | 'logotype' | 'logomark' | 'slogan'
 }>
 
-export const Logo: React.FC<TLogoProps> = ({ size = 'medium', type = 'logo' }: TLogoProps) => {
+export const Logo: React.FC<LogoProps> = ({ size = 'medium', type = 'logo' }: LogoProps) => {
   const { theme }: ThemeContextType = useTheme()
 
   const getElement = useCallback(() => {
