@@ -2,18 +2,42 @@
 @import 'src/ui/styles/themes.scss';
 
 $text-color-keys: ('text', 'highlighted-text', 'success', 'warning', 'error', 'info');
+$families: ('secondary', 'brand');
+$weights: (
+  'light': 300,
+  'normal': 400,
+  'bold': 700,
+  'black': 900
+);
 
 .okp4-text-main {
   @include with-theme() {
-    @each $k in $text-color-keys {
-      &.#{$k} {
-        color: themed(#{$k});
-      }
-    }
-
     margin: 0.5em 1em;
     padding: 0.25em 1em;
     line-height: 1.2em;
+    
+    @each $colorKey in $text-color-keys {
+      &.#{$colorKey} {
+        color: themed(#{$colorKey});
+      }
+    }
+
+    @each $family in $families {
+      @each $weightKey, $weightValue in $weights {
+        &.#{$family}-#{$weightKey} {
+          @if ($family == 'secondary') {
+            font-family: 'Noto Sans Mono';
+          } @else {
+            @if ($weightValue == 900) {
+              font-family: 'Gotham black';
+            } @else {
+              font-family: 'Gotham';
+            }
+          }
+          font-weight: $weightValue;
+        }
+      }
+    }
 
     &.x-small {
       font-size: 12px;
@@ -33,43 +57,6 @@ $text-color-keys: ('text', 'highlighted-text', 'success', 'warning', 'error', 'i
 
     &.x-large {
       font-size: 40px;
-    }
-
-    &.brand-light {
-      font-family: 'Gotham light';
-    }
-
-    &.brand-medium {
-      font-family: 'Gotham';
-    }
-
-    &.brand-bold {
-      font-family: 'Gotham';
-      font-weight: 500;
-    }
-
-    &.brand-black {
-      font-family: 'Gotham';
-      font-weight: 900;
-    }
-
-    &.secondary-light {
-      font-family: 'Noto-Sans-Mono';
-      font-weight: 300;
-    }
-
-    &.secondary-medium {
-      font-family: 'Noto-Sans-Mono';
-    }
-
-    &.secondary-bold {
-      font-family: 'Noto-Sans-Mono';
-      font-weight: 600;
-    }
-    
-    &.secondary-black {
-      font-family: 'Noto-Sans-Mono';
-      font-weight: 900;
     }
   }
 }

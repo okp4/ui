@@ -3,7 +3,7 @@ import React from 'react'
 import type { DeepReadonly } from '../../../superTypes'
 import './text.scss'
 
-export type TTextProps = DeepReadonly<{
+export type TextProps = DeepReadonly<{
   /**
    * Prop used to switch out what's being ultimately rendered. By default, a `span` component.
    */
@@ -21,15 +21,15 @@ export type TTextProps = DeepReadonly<{
   /**
    * The different font weights declared for each font-face. By default, medium font-weight is applied.
    */
-  readonly fontWeight?: 'light' | 'medium' | 'bold' | 'black'
+  readonly fontWeight?: 'light' | 'normal' | 'bold' | 'black'
   /**
-   * The color applied to the final rendering of the typography, 
-   * regarding the current theme and following semantic color naming. 
+   * The color applied to the final rendering of the typography,
+   * regarding the current theme and following semantic color naming.
    * By default, `text` color is applied.
    */
   readonly color?: 'text' | 'highlighted-text' | 'success' | 'warning' | 'error' | 'info'
   /**
-   * The elements passed as children of the Text component. 
+   * The elements passed as children of the Text component.
    * As an example, directly the text itself.
    */
   readonly children: React.ReactNode
@@ -38,15 +38,14 @@ export type TTextProps = DeepReadonly<{
 /**
  * Primary UI component for displaying text
  */
-export const Text: React.FC<TTextProps> = ({
+export const Text: React.FC<TextProps> = ({
   as = 'span',
   size = 'medium',
-  fontWeight = 'medium',
+  fontWeight = 'normal',
   fontFamily = 'brand',
   color = 'text',
   ...props
-}: TTextProps): JSX.Element => {
-
+}: TextProps): JSX.Element => {
   const textClass = classNames('okp4-text-main', size, color, {
     [`${fontFamily}-${fontWeight}`]: true
   })
