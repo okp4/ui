@@ -27,7 +27,8 @@
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o dist/",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "yarn test --coverage --watchAll=false --silent --ci"
   },
   "keywords": [],
   "peerDependencies": {
