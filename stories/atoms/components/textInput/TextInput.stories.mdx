@@ -3,7 +3,7 @@ import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { TextInput } from 'ui/atoms/textInput/TextInput'
 import { Text } from 'ui/atoms/text/Text'
-import './textInputStory.scss'
+import '../component.scss'
 
 <Meta
   title="Atoms/TextInput"
@@ -21,7 +21,7 @@ import './textInputStory.scss'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div>
+        <div className="component-story-main">
           <ThemeSwitcher />
           <Story />
         </div>
@@ -58,7 +58,7 @@ import './textInputStory.scss'
   }}
 >
   {args => (
-    <div className="textinput-story-main">
+    <div>
       <TextInput {...args} />
     </div>
   )}
@@ -73,14 +73,24 @@ import './textInputStory.scss'
 Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
 
 <Canvas isColumn>
-  <Story name="Size : x-small" argTypes={{}} args={{}}>
+  <Story name="Sizes" argTypes={{}} args={{}}>
     {args => (
       <div>
-        <TextInput size="x-small" placeholder="x-small" {...args} />
-        <TextInput size="small" placeholder="small" {...args} />
-        <TextInput size="medium" placeholder="medium" {...args} />
-        <TextInput size="large" placeholder="large" {...args} />
-        <TextInput size="x-large" placeholder="x-large" {...args} />
+        <TextInput
+          style={{ marginBottom: '10px' }}
+          size="x-small"
+          placeholder="x-small"
+          {...args}
+        />
+        <TextInput style={{ marginBottom: '10px' }} size="small" placeholder="small" {...args} />
+        <TextInput style={{ marginBottom: '10px' }} size="medium" placeholder="medium" {...args} />
+        <TextInput style={{ marginBottom: '10px' }} size="large" placeholder="large" {...args} />
+        <TextInput
+          style={{ marginBottom: '10px' }}
+          size="x-large"
+          placeholder="x-large"
+          {...args}
+        />
       </div>
     )}
   </Story>

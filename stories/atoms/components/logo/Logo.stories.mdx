@@ -2,7 +2,7 @@ import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon
 import { Logo } from 'ui/atoms/logo/Logo'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import './logoStory.scss'
+import '../component.scss'
 
 <Meta
   title="Atoms/Logo"
@@ -14,7 +14,7 @@ import './logoStory.scss'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="logo-story-main">
+        <div className="component-story-main">
           <ThemeSwitcher />
           <Story />
         </div>
