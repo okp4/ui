@@ -5,27 +5,26 @@ import './text.scss'
 
 export type TextProps = DeepReadonly<{
   /**
-   * Prop used to switch out what's being ultimately rendered. By default, a `span` component.
+   * Prop used to switch out what's being ultimately rendered.
    */
   readonly as?: 'div' | 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'pre' | 'ul' | 'li'
   /**
-   * The size of the rendered text. By default, medium size is applied.
+   * The size of the rendered text.
    */
   readonly size?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
    * `brand` (Gotham) is the main font for ØKP4 branding,
-   * therefore it is mainly used for all UI interfaces. By default, brand font is applied.
+   * therefore it is mainly used for all UI interfaces.
    * The `secondary` font is Noto Sans Mono.
    */
   readonly fontFamily?: 'brand' | 'secondary'
   /**
-   * The different font weights declared for each font-face. By default, medium font-weight is applied.
+   * The different font weights declared for each font-face.
    */
   readonly fontWeight?: 'light' | 'normal' | 'bold' | 'black'
   /**
    * The color applied to the final rendering of the typography,
    * regarding the current theme and following semantic color naming.
-   * By default, `text` color is applied.
    */
   readonly color?: 'text' | 'highlighted-text' | 'success' | 'warning' | 'error' | 'info'
   /**
