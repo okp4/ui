@@ -1,11 +1,11 @@
 import { ConnectionError } from 'domain/wallet/entities/errors'
 import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
-import { KeplrAccountMapper } from './mappers/account.mapper'
+import { KeplrAccountMapper } from './mapper/account.mapper'
 import type { Keplr } from '@keplr-wallet/types'
 import { List } from 'immutable'
-import type { DeepReadonly } from '../superTypes'
-import { asMutable } from '../utils'
+import type { DeepReadonly } from '../../superTypes'
+import { asMutable } from '../../utils'
 
 export type Currency = {
   readonly coinDenom: string
