@@ -27,4 +27,4 @@ jobs:
 
       - name: Test typescript
         run: |
-          yarn jest
+          yarn coverage
