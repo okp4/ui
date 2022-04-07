@@ -62,7 +62,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   inputRef,
   ...props
 }: TextInputProps): JSX.Element => {
-  const inputClass = classNames('okp4-textinput-core okp4-font-size', size, { ['error']: error })
+  const inputClass = classNames(`okp4-textinput-core okp4-font-${size}` , { ['error']: error })
 
   return (
     <div>

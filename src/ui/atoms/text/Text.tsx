@@ -46,7 +46,7 @@ export const Text: React.FC<TextProps> = ({
   color = 'text',
   ...props
 }: TextProps): JSX.Element => {
-  const textClass = classNames('okp4-text-main okp4-font-size', size, color, {
+  const textClass = classNames(`okp4-text-main okp4-font-${size}`, color, {
     [`${fontFamily}-${fontWeight}`]: true
   })
   return React.createElement(as, { ...props, className: textClass }, props.children)
