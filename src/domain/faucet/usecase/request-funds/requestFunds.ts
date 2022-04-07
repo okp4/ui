@@ -3,7 +3,7 @@ import type { ReduxStore, ThunkResult } from '../../store/store'
 import { RequestFundsActions } from './actionCreators'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
 
-const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
+const dispatchRequestFundsError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
   const errorToDispatch = error instanceof Error ? error : new UnspecifiedError()
   dispatch(RequestFundsActions.requestFundsFailed(errorToDispatch))
 }
@@ -18,6 +18,6 @@ export const requestFunds =
       await faucetGateway.requestFunds(address)
       dispatch(RequestFundsActions.requestFundsSucceeded())
     } catch (error: unknown) {
-      dispatchError(error, dispatch)
+      dispatchRequestFundsError(error, dispatch)
     }
   }
