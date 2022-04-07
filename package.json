@@ -27,7 +27,8 @@
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o dist/",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "yarn test --coverage --watchAll=false --silent --ci"
   },
   "keywords": [],
   "peerDependencies": {
@@ -37,7 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babylonjs/core": "^4.2.1",
-    "@babylonjs/inspector": "^4.2.2",
+    "@babylonjs/inspector": "^5.1.0",
     "@keplr-wallet/types": "^0.9.12",
     "@okp4/eslint-config": "^1.0.0",
     "@radix-ui/react-switch": "^0.1.5",

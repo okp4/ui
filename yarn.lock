@@ -1118,59 +1118,67 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.2.2", "@babylonjs/core@^4.2.1":
+"@babylonjs/core@^4.2.1":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.2.2.tgz#e37f95298700e1f2fc9a6403e297e112b2444d0b"
   integrity sha512-gAgetSyoxFZ/xzMVVnGPKaP941NHA59Ho8GGKFW98OTEp8yZcnzJjNOD2zfF1eKmlvR/6WwSmcrKWTJtPF1pyA==
   dependencies:
     tslib ">=1.10.0"
 
-"@babylonjs/gui@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-4.2.2.tgz#55715a7f875611f874a7778eb8a59530004eb065"
-  integrity sha512-iFKnSb0m9Zz7oeD1LTZWE9Hxcp0QMytXZenLNgrbHOm8mo2V+Y6OiVEP9SpvZRqks6bTDTFrpfjMTy1DrZyTGQ==
+"@babylonjs/core@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.1.0.tgz#54cdd93cbc3f7bb054b14092c240b20ac3f5cff7"
+  integrity sha512-yHC+k2pbpjcFOkhAFcXYLLv/WbXLZlPTVdOcC3/ExC+WlnsrmiulT26AhU8ghzZCcTpil3WsyTxqB0GYMtvwcA==
   dependencies:
-    "@babylonjs/core" "4.2.2"
-    tslib ">=1.10.0"
+    tslib "^2.3.1"
 
-"@babylonjs/inspector@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-4.2.2.tgz#7dd49e0b848ad41ee1ac3c3d41f96cb1e75d5bc2"
-  integrity sha512-aTK9u+wKv9pvL+/ftRMQxIiwyvxUs4AF0RaN/WQgDRqLKdYf+NGCjc2NX5P4Krcs5hU6CD7CjyOIhhtJXGRk7g==
+"@babylonjs/gui@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-5.1.0.tgz#ea7f8f82f9038f715a49099bb82e259695291d69"
+  integrity sha512-iIhEdgyM+fdV0Auo2Jzxjb/Ds0xu51ZKafPpE/qV02YKYjNKvmvOcuPeALMuUGYTik24VS9MWTobaorauaifrw==
   dependencies:
-    "@babylonjs/core" "4.2.2"
-    "@babylonjs/gui" "4.2.2"
-    "@babylonjs/loaders" "4.2.2"
-    "@babylonjs/materials" "4.2.2"
-    "@babylonjs/serializers" "4.2.2"
-    babylonjs-gltf2interface "4.2.2"
-    tslib ">=1.10.0"
+    "@babylonjs/core" "^5.1.0"
+    tslib "^2.3.1"
 
-"@babylonjs/loaders@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-4.2.2.tgz#b57d096a050af3aa34a8dfb9952de322c216125b"
-  integrity sha512-Qk8r4xp4eOznbX3AsNYv8HgwS+tzGu6TwSpDX4il3g0B+k1N5k6KE5ghrnwDytoxUDVjGZ/VKk2cQqiHsg/NLg==
+"@babylonjs/inspector@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.1.0.tgz#4e218c2ada152d40cdd1a53e4f617e9373df85cc"
+  integrity sha512-h8Dy4NQZOPnM7AYzSgDBQRv3e+xBpK2DAZIlpqH93MNBk0WWVKQiVauPLmaCThAOnXKl8lKBzLWyMKOtUN5Xag==
   dependencies:
-    "@babylonjs/core" "4.2.2"
-    babylonjs-gltf2interface "4.2.2"
-    tslib ">=1.10.0"
+    "@babylonjs/core" "^5.1.0"
+    "@babylonjs/gui" "^5.1.0"
+    "@babylonjs/loaders" "^5.1.0"
+    "@babylonjs/materials" "^5.1.0"
+    "@babylonjs/serializers" "^5.1.0"
+    "@fortawesome/fontawesome-svg-core" "^6.1.0"
+    "@fortawesome/free-regular-svg-icons" "^6.0.0"
+    "@fortawesome/free-solid-svg-icons" "^6.0.0"
 
-"@babylonjs/materials@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-4.2.2.tgz#3ad9e5aea9a5883785edc0bea9a88cdf25b448ee"
-  integrity sha512-Y7umjVEYV5ZsLYVxgrkb5+4lPsz35acgOEqiZErFBdGXJw3AHJLJmalcmL5WXqUBR2SzyShFLCJOdbFQbkmaxg==
+"@babylonjs/loaders@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.1.0.tgz#3069ba684dd01e02ab82381a5c5730ab69ede86e"
+  integrity sha512-1GFZHoo6ntCguRxyahWVzsCEfBJ5TXHwqPSPMF3I3jgivXbBUkskt9xRef/piSrFuiIQnlJGYkjmXwOj9X6Irw==
   dependencies:
-    "@babylonjs/core" "4.2.2"
-    tslib ">=1.10.0"
+    "@babylonjs/core" "^5.1.0"
+    babylonjs-gltf2interface "^5.1.0"
+    tslib "^2.3.1"
 
-"@babylonjs/serializers@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-4.2.2.tgz#8659cd4016e23374bd225fa966e660a0ef923d46"
-  integrity sha512-PEW09qqScaWV5c9UA44uY2YuF9aQJ6gYTMvjopul9YsiPoJolL4QrHO9OxikaYWQb7rgll3XukoRejhZ+HanTQ==
+"@babylonjs/materials@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-5.1.0.tgz#ce5ab54bf44bdc7b092a1992867c073f417db658"
+  integrity sha512-BwMT5C5bw48Hm3QCUsV2r43BBZ2i3ORkAtND3uVjU7B8HB1kO4SkCjwJ7K4vu7E387OlQcGvrKZw+w4bVs6CgA==
   dependencies:
-    "@babylonjs/core" "4.2.2"
-    babylonjs-gltf2interface "4.2.2"
-    tslib ">=1.10.0"
+    "@babylonjs/core" "^5.1.0"
+    tslib "^2.3.1"
+
+"@babylonjs/serializers@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.1.0.tgz#a24647deea2f523461185a13d7c47420720b1e28"
+  integrity sha512-PsT7vL/LzadgcTSfsJ8Vx1F5TC5BhKUAC0raE4p4/5beIyUyoagsF6fLgFe+0I3dG9hvuIOLvmPbCSUSnKrsJw==
+  dependencies:
+    "@babylonjs/core" "^5.1.0"
+    babylonjs-gltf2interface "^5.1.0"
+    tslib "^2.3.1"
 
 "@base2/pretty-print-object@1.0.1":
   version "1.0.1"
@@ -1392,6 +1400,32 @@
     js-yaml "^4.1.0"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@fortawesome/fontawesome-common-types@6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.1.1.tgz#7dc996042d21fc1ae850e3173b5c67b0549f9105"
+  integrity sha512-wVn5WJPirFTnzN6tR95abCx+ocH+3IFLXAgyavnf9hUmN0CfWoDjPT/BAWsUVwSlYYVBeCLJxaqi7ZGe4uSjBA==
+
+"@fortawesome/fontawesome-svg-core@^6.1.0":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.1.1.tgz#3424ec6182515951816be9b11665d67efdce5b5f"
+  integrity sha512-NCg0w2YIp81f4V6cMGD9iomfsIj7GWrqmsa0ZsPh59G7PKiGN1KymZNxmF00ssuAlo/VZmpK6xazsGOwzKYUMg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.1.1"
+
+"@fortawesome/free-regular-svg-icons@^6.0.0":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-6.1.1.tgz#3f2f58262a839edf0643cbacee7a8a8230061c98"
+  integrity sha512-xXiW7hcpgwmWtndKPOzG+43fPH7ZjxOaoeyooptSztGmJxCAflHZxXNK0GcT0uEsR4jTGQAfGklDZE5NHoBhKg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.1.1"
+
+"@fortawesome/free-solid-svg-icons@^6.0.0":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.1.1.tgz#3369e673f8fe8be2fba30b1ec274d47490a830a6"
+  integrity sha512-0/5exxavOhI/D4Ovm2r3vxNojGZioPwmFrKg0ZUH69Q68uFhFPs6+dhAToh6VEQBntxPRYPuT5Cg1tpNa9JUPg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.1.1"
 
 "@gar/promisify@^1.0.1":
   version "1.1.3"
@@ -1995,14 +2029,6 @@
     is-reference "^1.2.1"
     magic-string "^0.25.7"
     resolve "^1.17.0"
-
-"@rollup/plugin-image@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-image/-/plugin-image-2.1.1.tgz#898d6b59ac0025d7971ef45640ab330cb0663b0c"
-  integrity sha512-AgP4U85zuQJdUopLUCM+hTf45RepgXeTb8EJsleExVy99dIoYpt3ZlDYJdKmAc2KLkNntCDg6BPJvgJU3uGF+g==
-  dependencies:
-    "@rollup/pluginutils" "^3.1.0"
-    mini-svg-data-uri "^1.2.3"
 
 "@rollup/plugin-node-resolve@^13.1.3":
   version "13.1.3"
@@ -4341,10 +4367,10 @@ babel-preset-jest@^27.5.1:
     babel-plugin-jest-hoist "^27.5.1"
     babel-preset-current-node-syntax "^1.0.0"
 
-babylonjs-gltf2interface@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-4.2.2.tgz#365daf43110ec98b52379e6a9081e06b6835588b"
-  integrity sha512-LCQgW1lM+EpKK4yWMiPEgi6ONwJ7W4JrSu3t9JixNRgvnic72OnN2f0bt91rE30EJr1ZaokvkXD/aEiBp/Juyg==
+babylonjs-gltf2interface@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-5.1.0.tgz#90106ab1ae07066ca80c640a8757d9ed96e7ab55"
+  integrity sha512-E98En5Rb5uIPtD4wxQDXA/ww2qjPgymqjsYP+M8+AM/ZUeXJ2xKlhM4fmkFym7+i439qHdefCSUZWBI6k7fPOA==
 
 bail@^1.0.0:
   version "1.0.5"
@@ -9600,11 +9626,6 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-mini-svg-data-uri@^1.2.3:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
-  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
-
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
@@ -13037,7 +13058,7 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@>=1.10.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.3.0:
+tslib@>=1.10.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.3.0, tslib@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
