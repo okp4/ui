@@ -4,9 +4,87 @@ import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import { KeplrAccountMapper } from './mappers/account.mapper'
 import type { Keplr } from '@keplr-wallet/types'
 import { List } from 'immutable'
+import type { DeepReadonly } from '../superTypes'
+import { asMutable } from '../utils'
+
+export type Currency = {
+  readonly coinDenom: string
+  readonly coinMinimalDenom: string
+  readonly coinDecimals: number
+  readonly coinGeckoId?: string
+  readonly coinImageUrl?: string
+}
+export type CW20Currency = Currency & {
+  readonly type: 'cw20'
+  readonly contractAddress: string
+}
+export type Secret20Currency = Currency & {
+  readonly type: 'secret20'
+  readonly contractAddress: string
+  readonly viewingKey: string
+}
+
+export type IBCCurrency = Currency & {
+  readonly paths: {
+    portId: string
+    channelId: string
+  }[]
+  readonly originChainId: string | undefined
+  readonly originCurrency: Currency | CW20Currency | Secret20Currency | undefined
+}
+
+export type AppCurrency = Currency | CW20Currency | Secret20Currency | IBCCurrency
+
+export type ChainInfo = {
+  readonly rpc: string
+  readonly rest: string
+  readonly chainId: string
+  readonly chainName: string
+  readonly stakeCurrency: Currency
+  readonly walletUrl?: string
+  readonly walletUrlForStaking?: string
+  readonly bip44: BIP44
+  readonly alternativeBIP44s?: BIP44[]
+  readonly bech32Config: Bech32Config
+  readonly currencies: AppCurrency[]
+  readonly feeCurrencies: Currency[]
+  readonly coinType?: number
+  readonly gasPriceStep?: {
+    low: number
+    average: number
+    high: number
+  }
+  readonly features?: string[]
+  readonly beta?: boolean
+}
+
+export type BIP44 = {
+  readonly coinType: number
+}
+
+export type Bech32Config = {
+  readonly bech32PrefixAccAddr: string
+  readonly bech32PrefixAccPub: string
+  readonly bech32PrefixValAddr: string
+  readonly bech32PrefixValPub: string
+  readonly bech32PrefixConsAddr: string
+  readonly bech32PrefixConsPub: string
+}
 
 export class KeplrWallet implements Wallet {
   private _isConnected: boolean = false
+  private readonly chainInfos: DeepReadonly<Record<ChainId, ChainInfo>>
+
+  constructor(chainInfos?: DeepReadonly<Array<ChainInfo>>) {
+    this.chainInfos =
+      chainInfos?.reduce(
+        (acc: DeepReadonly<Record<ChainId, ChainInfo>>, chainInfo: DeepReadonly<ChainInfo>) => ({
+          ...acc,
+          [chainInfo.chainId]: chainInfo
+        }),
+        {}
+      ) ?? {}
+  }
 
   public readonly isAvailable = (): boolean => !!window.keplr && !!window.keplr.getOfflineSigner
 
@@ -14,18 +92,27 @@ export class KeplrWallet implements Wallet {
 
   public readonly connect = async (chainId: ChainId): Promise<void> => {
     if (!this.isAvailable()) {
-      throw new ConnectionError(`Ooops... Keplr extension is not available in window object`)
+      throw new ConnectionError(`Ooops... No Keplr extension available`)
     }
-    return (window.keplr as Keplr)
-      .enable(chainId)
-      .then(() => {
-        this.setConnected(true)
-      })
-      .catch(() => {
-        throw new ConnectionError(
-          `Ooops... Keplr can't enable extension, please check provided chainId: ${chainId}`
-        )
-      })
+
+    return window.keplr
+      ?.enable(chainId)
+      .catch(async () =>
+        this.suggestChain(chainId)
+          .catch(() => {
+            throw new ConnectionError(
+              `Ooops... Failed to suggest chain ${chainId} to Keplr extension, please check configuration`
+            )
+          })
+          .then(() =>
+            window.keplr?.enable(chainId).catch(() => {
+              throw new ConnectionError(
+                `Ooops... Failed to enable chain ${chainId} to Keplr extension, please check configuration`
+              )
+            })
+          )
+      )
+      .then(() => this.setConnected(true))
   }
 
   public readonly getAccounts = async (chainId: ChainId): Promise<Accounts> => {
@@ -44,4 +131,11 @@ export class KeplrWallet implements Wallet {
   private readonly setConnected = (connected: boolean): void => {
     this._isConnected = connected
   }
+
+  private readonly suggestChain = async (chainId: string): Promise<void> =>
+    chainId in this.chainInfos && window.keplr
+      ? window.keplr.experimentalSuggestChain(asMutable(this.chainInfos[chainId]))
+      : Promise.reject(
+          new ConnectionError(`Ooops... Failed to suggest chain ${chainId} to Keplr extension`)
+        )
 }
