@@ -28,3 +28,10 @@ jobs:
       - name: Test typescript
         run: |
           yarn coverage
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v2
+        if: github.actor != 'dependabot[bot]'
+        with:
+          files: ./coverage/clover.xml
+          verbose: true
