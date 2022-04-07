@@ -3,7 +3,7 @@ import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { useTheme } from 'hook/useTheme'
 import themes from 'ui/styles/_exports.module.scss'
-import './textStory.scss'
+import '../component.scss'
 import { Text } from 'ui/atoms/text/Text'
 
 <Meta
@@ -20,7 +20,7 @@ import { Text } from 'ui/atoms/text/Text'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="text-story-main">
+        <div className="component-story-main">
           <ThemeSwitcher />
           <Story />
         </div>

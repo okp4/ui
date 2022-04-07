@@ -1,0 +1,23 @@
+@import 'src/ui/styles/font.scss';
+@import 'src/ui/styles/themes.scss';
+
+.okp4-textinput-core {
+  @include with-theme() {
+    font-family: content-medium;
+    text-align: left;
+    border: 0;
+    padding: 20px 20px 20px 22px;
+
+    color: themed('text');
+    background: themed('field');
+
+    &.error {
+      color: themed('error');
+      border: 1px solid themed('error');
+    }
+  }
+}
+
+.okp4-textinput-core:focus {
+  outline: none;
+}
