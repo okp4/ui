@@ -1,7 +1,6 @@
-@import 'src/ui/styles/font.scss';
 @import 'src/ui/styles/themes.scss';
 
-$text-color-keys: ('text', 'highlighted-text', 'success', 'warning', 'error', 'info');
+$colors: ('text', 'highlighted-text', 'success', 'warning', 'error', 'info');
 $families: ('secondary', 'brand');
 $weights: (
   'light': 300,
@@ -12,29 +11,33 @@ $weights: (
 
 .okp4-text-main {
   @include with-theme() {
-    margin: 0.5em 1em;
-    padding: 0.25em 1em;
-    line-height: 1.2em;
-    
-    @each $colorKey in $text-color-keys {
-      &.#{$colorKey} {
-        color: themed(#{$colorKey});
+    line-height: 1.6em;
+
+    &.text-wrap-disabled {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    @each $color in $colors {
+      &.text-color-#{$color} {
+        color: themed(#{$color});
       }
     }
 
     @each $family in $families {
-      @each $weightKey, $weightValue in $weights {
-        &.#{$family}-#{$weightKey} {
+      @each $weight-key, $weight-value in $weights {
+        &.#{$family}-#{$weight-key} {
           @if ($family == 'secondary') {
             font-family: 'Noto Sans Mono';
           } @else {
-            @if ($weightValue == 900) {
+            @if ($weight-value == 900) {
               font-family: 'Gotham black';
             } @else {
               font-family: 'Gotham';
             }
           }
-          font-weight: $weightValue;
+          font-weight: $weight-value;
         }
       }
     }

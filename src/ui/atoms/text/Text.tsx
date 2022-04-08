@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import type { DeepReadonly } from '../../../superTypes'
 import './text.scss'
-import '../../styles/font.scss'
+import '../../styles/main.scss'
 
 export type TextProps = DeepReadonly<{
   /**
@@ -12,7 +12,7 @@ export type TextProps = DeepReadonly<{
   /**
    * The size of the rendered text.
    */
-  readonly size?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
+  readonly fontSize?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
    * `brand` (Gotham) is the main font for ØKP4 branding,
    * therefore it is mainly used for all UI interfaces.
@@ -20,7 +20,7 @@ export type TextProps = DeepReadonly<{
    */
   readonly fontFamily?: 'brand' | 'secondary'
   /**
-   * The different font weights declared for each font-face.
+   * The different font weights declared for each font-family.
    */
   readonly fontWeight?: 'light' | 'normal' | 'bold' | 'black'
   /**
@@ -29,25 +29,32 @@ export type TextProps = DeepReadonly<{
    */
   readonly color?: 'text' | 'highlighted-text' | 'success' | 'warning' | 'error' | 'info'
   /**
+   * Handles the `white-space` property in the element.
+   * If true, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+   */
+  readonly noWrap?: boolean
+  /**
    * The elements passed as children of the Text component.
    * As an example, directly the text itself.
    */
   readonly children: React.ReactNode
 }>
 
-/**
- * Primary UI component for displaying text
- */
 export const Text: React.FC<TextProps> = ({
   as = 'span',
-  size = 'medium',
+  noWrap = false,
   fontWeight = 'normal',
   fontFamily = 'brand',
   color = 'text',
+  fontSize,
+  children,
   ...props
 }: TextProps): JSX.Element => {
-  const textClass = classNames(`okp4-text-main okp4-font-${size}`, color, {
+  const textClass = classNames(`okp4-text-main`, {
+    [`okp4-font-size-${fontSize}`]: fontSize !== undefined,
+    [`text-color-${color}`]: true,
+    'text-wrap-disabled': !!noWrap,
     [`${fontFamily}-${fontWeight}`]: true
   })
-  return React.createElement(as, { ...props, className: textClass }, props.children)
+  return React.createElement(as, { ...props, className: textClass }, children)
 }
