@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import type { ChainInfo } from 'gateway/wallet/KeplrWalletGateway'
 import { FaucetContext, WalletContext } from './context'
 import { createFaucetStore, createWalletStore } from './store/index'
 import { FaucetView } from './view/FaucetView'
-import type { DeepReadonly } from '../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 
 type FaucetProps = DeepReadonly<{
   chainId: string
   faucetUrl: string
-  chainInfo: Array<Record<string, unknown>>
+  chainInfo: Array<ChainInfo>
 }>
 
 export const Faucet: React.FC<FaucetProps> = ({ faucetUrl, chainId, chainInfo }: FaucetProps) => {

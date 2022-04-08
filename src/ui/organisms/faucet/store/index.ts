@@ -6,9 +6,10 @@ import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
 import { configureStore as configureWalletStore } from 'domain/wallet/store/store'
 import type { AppState as WalletAppState } from 'domain/wallet/store/appState'
 import { HTTPFaucetGateway } from 'gateway/faucet/HTTPFaucetGateway'
+import type { ChainInfo } from 'gateway/wallet/KeplrWalletGateway'
 import { KeplrWalletGateway } from 'gateway/wallet/KeplrWalletGateway'
 import { WalletRegistryGateway } from 'gateway/wallet/WalletRegistryGateway'
-import type { DeepReadonly } from '../../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 
 /**
  * Faucet store initialization, create custom hooks to avoid collision
@@ -32,7 +33,7 @@ export const useWalletDispatch = createDispatchHook(WalletContext)
 export const useWalletSelector = createSelectorHook(WalletContext)
 
 export const createWalletStore = (
-  chainInfo: DeepReadonly<Array<Record<string, unknown>>>
+  chainInfo: DeepReadonly<Array<ChainInfo>>
 ): Store<WalletAppState, AnyAction> => {
   const walletRegistryGateway = new WalletRegistryGateway()
   const keplrGateway = new KeplrWalletGateway(chainInfo)
