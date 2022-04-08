@@ -1,10 +1,9 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs/blocks'
+import { Text } from 'ui/atoms/text/Text'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import { useTheme } from 'hook/useTheme'
 import themes from 'ui/styles/_exports.module.scss'
 import '../component.scss'
-import { Text } from 'ui/atoms/text/Text'
 
 <Meta
   title="Atoms/Text"
@@ -29,20 +28,22 @@ import { Text } from 'ui/atoms/text/Text'
   ]}
 />
 
-# Text component
+# Text
+
+> ØKP4 typography component.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
-## Description
+## Overview
 
 **Text** is the primitive component to display some text or pure HTML. It comes with limited styling capabilities to be easily integrated with OKP4 design system.
 
-Any possible combination of the following propeties can be used and are detailed below.
+Any possible combination of the following properties can be used and are detailed below.
 
-## Usage
+---
 
 <Story
-  name="Usage"
+  name="Overview"
   argTypes={{
     children: {
       name: 'node',
@@ -64,9 +65,11 @@ Any possible combination of the following propeties can be used and are detailed
   {args => <Text {...args} />}
 </Story>
 
+---
+
 ### Properties
 
-<ArgsTable story="Usage" />
+<ArgsTable story="Overview" />
 
 ## Fonts
 
@@ -76,63 +79,57 @@ The text component can be styled with two font families:
 
 The main font is `Gotham`, it is also the default one.
 
-<Story name="Main font" argTypes={{}} args={{}}>
-  {args => (
-    <Text as="div" fontFamily="brand">
-      <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-      <p>abcdefghijklmnopqrstuvwxyz</p>
-      <p>123456789 !?.;:</p>
-    </Text>
-  )}
-</Story>
+<Canvas>
+  <Story name="Main font">
+    {args => (
+      <Text as="div" fontFamily="brand" fontSize="medium">
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>123456789 !?.;:</p>
+      </Text>
+    )}
+  </Story>
+</Canvas>
 
 ### Secondary font
 
 You can also choose to use a secondary font called `NotoSansMono`.
 
-<Story
-  decorators={[
-    Story => (
-      <ThemeProvider>
-        <Story />
-      </ThemeProvider>
-    )
-  ]}
-  name="Secondary font"
-  argTypes={{}}
-  args={{}}
->
-  {args => (
-    <Text as="div" fontFamily="secondary">
-      <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-      <p>abcdefghijklmnopqrstuvwxyz</p>
-      <p>123456789 !?.;:</p>
-    </Text>
-  )}
-</Story>
+<Canvas>
+  <Story name="Secondary font">
+    {args => (
+      <Text as="div" fontFamily="secondary" fontSize="medium">
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>123456789 !?.;:</p>
+      </Text>
+    )}
+  </Story>
+</Canvas>
 
 ## Sizes
 
-Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
+Size options are `x-small`, `small`, `medium`, `large`, `x-large`.  
+There is no default size to preserve what's being ultimately rendered.
 
 <Canvas>
-  <Story name="Sizes" argTypes={{}} args={{}}>
+  <Story name="Sizes">
     {args => (
       <div>
-        <Text as="div" size="x-small" fontFamily="brand">
-          <b>x-small</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontSize="x-small" fontFamily="brand">
+          x-small - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" size="small" fontFamily="brand">
-          <b>small</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontSize="small" fontFamily="brand">
+          small - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" size="medium" fontFamily="brand">
-          <b>medium</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontSize="medium" fontFamily="brand">
+          medium - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" size="large" fontFamily="brand">
-          <b>large</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontSize="large" fontFamily="brand">
+          large - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" size="x-large" fontFamily="brand">
-          <b>x-large</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontSize="x-large" fontFamily="brand">
+          x-large - OKP4 - At the core of the stakes of data valorisation
         </Text>
       </div>
     )}
@@ -141,26 +138,27 @@ Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
 
 ## Colors
 
-The different colors available are: `text` (default), `highlighted-text`, `info`, `success`, `warning`, `error`.
+The different colors available are: `text` (default), `highlighted-text`, `info`, `success`, `warning`, `error` which
+all refer to ØKP4 palette and theming.
 
 <Canvas>
-  <Story name="Colors" argTypes={{}} args={{}}>
+  <Story name="Colors">
     {args => (
       <div>
-        <Text as="div" color="highlighted-text" fontFamily="brand">
-          <b>highlighted-text</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
+          highlighted-text - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" color="info" fontFamily="brand">
-          <b>info</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" color="info" fontFamily="brand" fontSize="medium">
+          info - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" color="success" fontFamily="brand">
-          <b>success</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" color="success" fontFamily="brand" fontSize="medium">
+          success - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" color="warning" fontFamily="brand">
-          <b>warning</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" color="warning" fontFamily="brand" fontSize="medium">
+          warning - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" color="error" fontFamily="brand">
-          <b>error</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" color="error" fontFamily="brand" fontSize="medium">
+          error - OKP4 - At the core of the stakes of data valorisation
         </Text>
       </div>
     )}
@@ -173,20 +171,38 @@ Depending on the need, the font weight can be modified. The values are `light`, 
 Internally, this parameter will actually select a variant of the selected font.
 
 <Canvas>
-  <Story name="Font weight" argTypes={{}} args={{}}>
+  <Story name="Font weight">
     {args => (
       <div>
-        <Text as="div" fontWeight="light" fontFamily="brand">
-          <b>light</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
+          light - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" fontWeight="normal" fontFamily="brand">
-          <b>normal</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontWeight="normal" fontFamily="brand" fontSize="medium">
+          normal - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" fontWeight="bold" fontFamily="brand">
-          <b>bold</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
+          bold - OKP4 - At the core of the stakes of data valorisation
         </Text>
-        <Text as="div" fontWeight="black" fontFamily="brand">
-          <b>black</b> - OKP4 - At the core of the stakes of data valorisation
+        <Text as="div" fontWeight="black" fontFamily="brand" fontSize="medium">
+          black - OKP4 - At the core of the stakes of data valorisation
+        </Text>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Text-wrap
+
+By default, the element rendered will automatically wrap : newline characters in the source are handled the same as other white space. Lines are broken as necessary to fill line boxes.
+If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+
+<Canvas>
+  <Story name="Text wrap">
+    {args => (
+      <div>
+        <Text as="div" fontWeight="light" fontFamily="brand" fontSize="medium" noWrap={true}>
+          At the core of the stakes of data valorisation. OKP4 offers an integrated solution that is
+          perfectly adapted to your use and your needs.
         </Text>
       </div>
     )}
