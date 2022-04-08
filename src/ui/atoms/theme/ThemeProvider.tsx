@@ -12,7 +12,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }: ThemeP
   const [theme, setTheme] = React.useState<Theme>('light')
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={`theme--${theme}`}>{children}</div>
+      <div className={`theme--${theme}`} style={{ width: '100%' }}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   )
 }
