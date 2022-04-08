@@ -1,7 +1,8 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
-import { Faucet } from 'ui/organisms/faucet/Faucet'
+import { Faucet } from 'ui/organisms/faucet/index'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { env } from './env'
 
 <Meta
   title="Organisms/Faucet"
@@ -10,40 +11,34 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
     actions: { argTypesRegex: '^on.*' },
     docs: { source: { type: 'code', langauge: 'jsx', format: true } }
   }}
-  decorators={[
-    Story => (
-      <ThemeProvider>
-        <div className="logo-story-main">
-          <ThemeSwitcher />
-          <Story />
-        </div>
-      </ThemeProvider>
-    )
-  ]}
 />
 
-# Logo
+# ØKP4 Faucet
 
-> Represents the brand of OKP4.
+> Request funds from ØKP4 official Testnet.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Overview
 
-The logo helps our users identify our brand when using our services. It must have the best possible readability.
+The ØKP4 Faucet allows a user to claim funds from the official ØKP4 Testnet.  
+To do this, you just need to have a ØKP4 address or connect via a Cosmos cryptocurrency wallet. (Keplr)
 
 ---
 
 <Story
   name="Overview"
   argTypes={{}}
+  args={{ faucetUrl: env.faucetUrl, chainId: env.chainId, chainInfo: env.kepkrChainInfo }}
   parameters={{ docs: { source: { type: 'code', langauge: 'jsx', format: true } } }}
 >
   {args => (
     <div
       style={{
         display: 'flex',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        width: '100%',
+        height: '100%'
       }}
     >
       <Faucet {...args} />
