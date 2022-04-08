@@ -33,6 +33,6 @@
       "utils": ["src/utils.ts"]
     }
   },
-  "include": ["src/**/*", "stories/**/*.tsx"],
+  "include": ["src/**/*", "stories/**/*.ts"],
   "exclude": ["node-modules", "lib"]
 }
