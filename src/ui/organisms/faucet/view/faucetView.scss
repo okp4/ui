@@ -1,0 +1,54 @@
+@import '../../../styles/themes.scss';
+
+.okp4-faucet-main {
+  @include with-theme() {
+    width: 100%;
+    padding-top: 20px;
+    background: themed('header-background');
+    height: 500px;
+    padding: 20px;
+
+    .okp4-faucet-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 12%;
+
+      .okp4-faucet-header-right {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .okp4-faucet-content {
+      height: 88%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .okp4-faucet-content-action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > button {
+          margin-left: 30px;
+        }
+      }
+    }
+
+    .action-button {
+      background-color: themed('primary-brand');
+      width: 100px;
+      height: 35px;
+      border: unset;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+}
