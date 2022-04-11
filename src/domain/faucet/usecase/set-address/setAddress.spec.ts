@@ -2,7 +2,7 @@
 import type { AppState } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
-import type { DeepReadonly } from '../../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 import { setAddress } from './setAddress'
 
 interface InitialProps {

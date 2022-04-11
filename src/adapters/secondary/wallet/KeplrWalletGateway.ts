@@ -4,8 +4,8 @@ import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import { KeplrAccountMapper } from './mapper/account.mapper'
 import type { Keplr } from '@keplr-wallet/types'
 import { List } from 'immutable'
-import type { DeepReadonly } from '../../superTypes'
-import { asMutable } from '../../utils'
+import type { DeepReadonly } from 'superTypes'
+import { asMutable } from 'utils'
 
 export type Currency = {
   readonly coinDenom: string
@@ -71,7 +71,7 @@ export type Bech32Config = {
   readonly bech32PrefixConsPub: string
 }
 
-export class KeplrWallet implements Wallet {
+export class KeplrWalletGateway implements Wallet {
   private _isConnected: boolean = false
   private readonly chainInfos: DeepReadonly<Record<ChainId, ChainInfo>>
 

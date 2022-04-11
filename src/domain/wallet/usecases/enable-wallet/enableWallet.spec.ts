@@ -3,12 +3,12 @@ import type { ReduxStore } from '../../store/store'
 import { configureStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
 import { enableWallet } from './enableWallet'
-import { InMemoryWalletGateway } from '../../../../gateway/wallet/InMemoryWalletGateway'
+import { InMemoryWalletGateway } from 'adapters/secondary/wallet/InMemoryWalletGateway'
 import { ConnectionError, GatewayError } from 'domain/wallet/entities/errors'
 import type { ConnectionStatuses, Account, AccountsByChainId } from 'domain/wallet/entities/wallet'
 import { AccountBuilder } from 'domain/wallet/builders/account.builder'
-import { WalletRegistryGateway } from '../../../../gateway/wallet/WalletRegistryGateway'
-import type { DeepReadonly } from '../../../../superTypes'
+import { WalletRegistryGateway } from 'adapters/secondary/wallet/WalletRegistryGateway'
+import type { DeepReadonly } from 'superTypes'
 
 interface InitialProps {
   walletRegistryGateway: WalletRegistryGateway

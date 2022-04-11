@@ -4,8 +4,8 @@ import type { AppState, FaucetStatus } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
 import { requestFunds } from './requestFunds'
-import type { DeepReadonly } from '../../../../superTypes'
-import { InMemoryFaucetGateway } from '../../../../gateway/faucet/InMemoryFaucetGateway'
+import type { DeepReadonly } from 'superTypes'
+import { InMemoryFaucetGateway } from 'adapters/secondary/faucet/InMemoryFaucetGateway'
 
 interface InitialProps {
   store: ReduxStore

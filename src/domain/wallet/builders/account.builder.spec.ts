@@ -1,4 +1,4 @@
-import type { DeepReadonly } from '../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 import { UnspecifiedError } from '../entities/errors'
 import type { Account, Algorithm } from '../entities/wallet'
 import { AccountBuilder } from './account.builder'
