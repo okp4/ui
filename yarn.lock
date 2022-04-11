@@ -6576,6 +6576,11 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
+eventemitter2@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-5.0.1.tgz#6197a095d5fb6b57e8942f6fd7eaad63a09c9452"
+  integrity sha1-YZegldX7a1folC9v1+qtY6CclFI=
+
 eventemitter3@^4.0.4:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
@@ -13014,6 +13019,13 @@ trough@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/trough/-/trough-1.0.5.tgz#b8b639cefad7d0bb2abd37d433ff8293efa5f406"
   integrity sha512-rvuRbTarPXmMb79SmzEp8aqXNKcK+y0XaB298IXueQ8I2PsrATcPBCSPyK/dDNa2iWOhKlfNnOjdAOTBU/nkFA==
+
+ts-bus@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/ts-bus/-/ts-bus-2.3.1.tgz#a7805ad76b97813d6a0cdb8594af1826cc35036d"
+  integrity sha512-ZoiVKzctxeJvQ0ZB7Fc/wpbEEA5NEjdZWebisXk8raFfEFigDmwl1fKTcr+jNRfEcwFl1QJ4oiirxGR0YnPq1w==
+  dependencies:
+    eventemitter2 "^5.0.1"
 
 ts-dedent@^2.0.0:
   version "2.2.0"
