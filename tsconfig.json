@@ -25,7 +25,11 @@
       "ui/*": ["src/ui/*"],
       "hook/*": ["src/hook/*"],
       "context/*": ["src/context/*"],
-      "domain/*": ["src/domain/*"]
+      "domain/*": ["src/domain/*"],
+      "adapters/*": ["src/adapters/*"],
+      "saga/*": ["src/saga/*"],
+      "superTypes": ["src/superTypes.ts"],
+      "utils": ["src/utils.ts"]
     }
   },
   "include": ["src/**/*", "stories/**/*.tsx"],

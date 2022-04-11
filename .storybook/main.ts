@@ -8,7 +8,15 @@ module.exports = {
   staticDirs: ['../public'],
   framework: '@storybook/react',
   webpackFinal: async (config, { configType }) => {
-    config.resolve.modules = [...(config.resolve.modules || []), path.resolve('./src')]
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      adapters: path.resolve(__dirname, '../src/adapters')
+    }
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      path.resolve(__dirname, '..', 'src'),
+      'node_modules'
+    ]
 
     const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'))
     fileLoaderRule.exclude = [logoDirectoryPath, iconDirectoryPath]
