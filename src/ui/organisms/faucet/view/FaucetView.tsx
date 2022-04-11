@@ -1,16 +1,8 @@
 import React, { useCallback } from 'react'
-import {
-  useFaucetStore,
-  useFaucetDispatch,
-  useFaucetSelector,
-  useWalletStore,
-  useWalletSelector
-} from '../store/index'
+import { useFaucetDispatch, useFaucetSelector } from '../store/index'
 import { setAddress } from 'domain/faucet/usecase/set-address/setAddress'
 import { requestFunds } from 'domain/faucet/usecase/request-funds/requestFunds'
 import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
-import type { AppState as WalletAppState } from 'domain/wallet/store/appState'
-import { retrieveAddress } from 'saga/retrieve-address/retrieveAddress'
 import type { DeepReadonly } from 'superTypes'
 import { Logo } from 'ui/atoms/logo/Logo'
 import { Text } from 'ui/atoms/text/Text'
@@ -24,17 +16,9 @@ type FaucetViewProps = Readonly<{
 }>
 
 export const FaucetView: React.FC<FaucetViewProps> = ({ chainId }: FaucetViewProps) => {
-  const walletStore = useWalletStore()
-  const faucetStore = useFaucetStore()
   const faucetDispatch = useFaucetDispatch()
   const address = useFaucetSelector((state: DeepReadonly<FaucetAppState>) => state.address)
   const requestError = useFaucetSelector((state: DeepReadonly<FaucetAppState>) => state.error)
-  const walletConnectionStatus = useWalletSelector(
-    (state: DeepReadonly<WalletAppState>) => state.connectionStatuses
-  )
-  const walletAddress = useWalletSelector(
-    (state: DeepReadonly<WalletAppState>) => state.accounts.get(chainId)?.get(0)?.address
-  )
 
   const handleChange = useCallback(
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -51,11 +35,9 @@ export const FaucetView: React.FC<FaucetViewProps> = ({ chainId }: FaucetViewPro
     faucetDispatch(setAddress(''))
   }, [address, faucetDispatch])
 
-  const handleConnect = useCallback(() => {
-    retrieveAddress('keplr', chainId, { walletStore, faucetStore })
-  }, [chainId, faucetStore, walletStore])
-
-  const isWalletConnected = (): boolean => walletConnectionStatus.get(chainId, '') === 'connected'
+  // const handleConnect = useCallback(() => {
+  //   retrieveAddress('keplr', chainId, { walletStore, faucetStore })
+  // }, [chainId, faucetStore, walletStore])
 
   return (
     <div className="okp4-faucet-main">
@@ -66,17 +48,7 @@ export const FaucetView: React.FC<FaucetViewProps> = ({ chainId }: FaucetViewPro
           <Text color="highlighted-text" fontWeight="bold" size="small">
             Christophe Camel
           </Text>
-          {isWalletConnected() ? (
-            <Text color="highlighted-text" fontWeight="bold" size="x-small">
-              {walletAddress}
-            </Text>
-          ) : (
-            <button className="action-button" onClick={handleConnect}>
-              <Text color="highlighted-text" fontWeight="bold" size="x-small">
-                Connect
-              </Text>
-            </button>
-          )}
+          {/** TBD INSERT WALLET */}
         </div>
       </div>
       <div className="okp4-faucet-content">
