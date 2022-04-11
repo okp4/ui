@@ -1,4 +1,5 @@
 import { Map, List } from 'immutable'
+import { EventBus } from 'ts-bus'
 import type { ReduxStore } from '../../store/store'
 import { configureStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
@@ -15,6 +16,7 @@ interface InitialProps {
   inMemoryGateway1: InMemoryWalletGateway
   store: ReduxStore
   initialState: AppState
+  eventBus: EventBus
 }
 
 describe('Enable wallet', () => {
@@ -39,10 +41,11 @@ describe('Enable wallet', () => {
   const init = (): InitialProps => {
     const walletRegistryGateway = new WalletRegistryGateway()
     const inMemoryGateway1 = new InMemoryWalletGateway()
+    const eventBus = new EventBus()
     walletRegistryGateway.register(inMemoryGateway1)
-    const store = configureStore({ walletRegistryGateway })
+    const store = configureStore({ walletRegistryGateway }, eventBus)
     const initialState = store.getState()
-    return { walletRegistryGateway, inMemoryGateway1, store, initialState }
+    return { walletRegistryGateway, inMemoryGateway1, store, initialState, eventBus }
   }
 
   const dispatchEnableWallet = async (
@@ -95,6 +98,17 @@ describe('Enable wallet', () => {
     expectEnabledWallet(store, initialState)(Map(), Map(), error)
   })
 
+  it('should not produce a wallet/walletConnected event if connection has failed', async () => {
+    const { inMemoryGateway1, store, eventBus }: InitialProps = init()
+    const handleSubscription = jest.fn()
+    eventBus.subscribe('wallet/walletConnected', handleSubscription)
+    inMemoryGateway1.setAvailable(true)
+    inMemoryGateway1.setConnected(false)
+    await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
+    expect(handleSubscription.mock.calls).toEqual([])
+    expect(handleSubscription.mock.calls.length).toBe(0)
+  })
+
   it('should connect to wallet with a single chainId and retrieve one account', async () => {
     const { inMemoryGateway1, store, initialState }: InitialProps = init()
     inMemoryGateway1.setAvailable(true)
@@ -142,5 +156,24 @@ describe('Enable wallet', () => {
       [chainId2]: List([account3])
     })
     expectEnabledWallet(store, initialState)(statuses, accountsByChainId, null)
+  })
+
+  it('should produce an event to notify the retrieval of accounts', async () => {
+    const { inMemoryGateway1, store, eventBus }: InitialProps = init()
+    const handleSubscription = jest.fn()
+    inMemoryGateway1.setAvailable(true)
+    inMemoryGateway1.setConnected(true)
+    inMemoryGateway1.setAccounts(chainId1, List([account1]))
+    eventBus.subscribe('wallet/accountsRetrieved', handleSubscription)
+    await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
+    expect(handleSubscription.mock.calls.length).toBe(1)
+    expect(handleSubscription.mock.calls).toEqual([
+      [
+        {
+          type: 'wallet/accountsRetrieved',
+          payload: { chainId: chainId1, accounts: List([account1]) }
+        }
+      ]
+    ])
   })
 })

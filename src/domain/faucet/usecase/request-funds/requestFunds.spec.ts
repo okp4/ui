@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/typedef */
+import { EventBus } from 'ts-bus'
 import { GatewayError, ValidationError } from 'domain/faucet/entity/error'
 import type { AppState, FaucetStatus } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
@@ -11,14 +12,16 @@ interface InitialProps {
   store: ReduxStore
   initialState: AppState
   faucetGateway: InMemoryFaucetGateway
+  eventBus: EventBus
 }
 
 describe('Request funds from faucet', () => {
   const init = (): InitialProps => {
     const faucetGateway = new InMemoryFaucetGateway()
-    const store = configureStore({ faucetGateway })
+    const eventBus = new EventBus()
+    const store = configureStore({ faucetGateway }, eventBus)
     const initialState = store.getState()
-    return { store, initialState, faucetGateway }
+    return { store, initialState, faucetGateway, eventBus }
   }
 
   const dispatchRequestFundsUsecase = async (

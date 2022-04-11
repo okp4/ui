@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/typedef */
+import { EventBus } from 'ts-bus'
 import type { AppState } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
@@ -8,13 +9,15 @@ import { setAddress } from './setAddress'
 interface InitialProps {
   store: ReduxStore
   initialState: AppState
+  eventBus: EventBus
 }
 
 describe('Set an address', () => {
   const init = (): InitialProps => {
-    const store = configureStore({})
+    const eventBus = new EventBus()
+    const store = configureStore({}, eventBus)
     const initialState = store.getState()
-    return { store, initialState }
+    return { store, initialState, eventBus }
   }
 
   const dispatchSetAddressUsecase = async (
