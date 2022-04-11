@@ -21,7 +21,7 @@ type ActionCreatorsMapObject = Record<string, FunctionType>
 
 export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<A[keyof A]>
 
-export function createEventBusMiddleware<T>(eventBus: DeepReadonly<EventBus>): Middleware {
+export function eventBusMiddleware<T>(eventBus: DeepReadonly<EventBus>): Middleware {
   return function () {
     return function (next: Dispatch<AnyAction>) {
       // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types

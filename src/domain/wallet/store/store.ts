@@ -9,7 +9,7 @@ import rootReducer from './reducers/wallet.reducer'
 import type { WalletRegistryPort } from '../ports/walletPort'
 import type { EnableWalletActionTypes } from '../usecases/enable-wallet/actionCreators'
 import type { ErrorWalletActionTypes } from '../usecases/actionCreators'
-import { createEventBusMiddleware } from 'domain/helpers/store.helper'
+import { eventBusMiddleware } from 'domain/helpers/store.helper'
 import type { DeepReadonly } from 'superTypes'
 
 export interface Dependencies {
@@ -25,7 +25,7 @@ export const configureStore = (
     composeWithDevTools(
       applyMiddleware(
         thunk.withExtraArgument(dependencies) as ThunkMiddleware<AppState, Action, Dependencies>,
-        createEventBusMiddleware<EnableWalletActionTypes | ErrorWalletActionTypes>(eventBus)
+        eventBusMiddleware<EnableWalletActionTypes | ErrorWalletActionTypes>(eventBus)
       )
     )
   )
