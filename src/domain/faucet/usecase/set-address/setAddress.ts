@@ -5,5 +5,5 @@ export const setAddress =
   (address: string): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async dispatch => {
-    dispatch(SetAddressActions.setAddress(address))
+    dispatch(SetAddressActions.addressSet(address))
   }

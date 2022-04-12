@@ -3,7 +3,7 @@ import type { ActionsUnion } from '../../../helpers/store.helper'
 import { createAction } from '../../../helpers/store.helper'
 
 export const SetAddressActions = {
-  setAddress: (address: string) => createAction('faucet/setAddress', { address })
+  addressSet: (address: string) => createAction('faucet/addressSet', { address })
 }
 
 export type SetAddressActionTypes = ActionsUnion<typeof SetAddressActions>
