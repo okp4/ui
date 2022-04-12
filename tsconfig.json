@@ -22,7 +22,7 @@
     "jsx": "react-jsx",
     "paths": {
       "public/*": ["public/*"],
-      "event/*": ["src/event/*"],
+      "eventBus/*": ["src/eventBus/*"],
       "ui/*": ["src/ui/*"],
       "hook/*": ["src/hook/*"],
       "context/*": ["src/context/*"],
