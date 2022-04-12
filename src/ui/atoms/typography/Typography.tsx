@@ -1,16 +1,16 @@
 import classNames from 'classnames'
 import React from 'react'
 import type { DeepReadonly } from '../../../superTypes'
-import './text.scss'
+import './typography.scss'
 import '../../styles/main.scss'
 
-export type TextProps = DeepReadonly<{
+export type TypographyProps = DeepReadonly<{
   /**
    * Prop used to switch out what's being ultimately rendered.
    */
   readonly as?: 'div' | 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'pre' | 'ul' | 'li'
   /**
-   * The size of the rendered text.
+   * The size of the rendered typography.
    */
   readonly fontSize?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
@@ -34,13 +34,13 @@ export type TextProps = DeepReadonly<{
    */
   readonly noWrap?: boolean
   /**
-   * The elements passed as children of the Text component.
+   * The elements passed as children of the Typography component.
    * As an example, directly the text itself.
    */
   readonly children: React.ReactNode
 }>
 
-export const Text: React.FC<TextProps> = ({
+export const Typography: React.FC<TypographyProps> = ({
   as = 'span',
   noWrap = false,
   fontWeight = 'normal',
@@ -49,12 +49,12 @@ export const Text: React.FC<TextProps> = ({
   fontSize,
   children,
   ...props
-}: TextProps): JSX.Element => {
-  const textClass = classNames(`okp4-text-main`, {
+}: TypographyProps): JSX.Element => {
+  const typographyClass = classNames(`okp4-typography-main`, {
     [`okp4-font-size-${fontSize}`]: fontSize !== undefined,
     [`text-color-${color}`]: true,
     'text-wrap-disabled': !!noWrap,
     [`${fontFamily}-${fontWeight}`]: true
   })
-  return React.createElement(as, { ...props, className: textClass }, children)
+  return React.createElement(as, { ...props, className: typographyClass }, children)
 }

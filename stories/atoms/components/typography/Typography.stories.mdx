@@ -1,13 +1,13 @@
 import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs/blocks'
-import { Text } from 'ui/atoms/text/Text'
+import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import themes from 'ui/styles/_exports.module.scss'
 import '../component.scss'
 
 <Meta
-  title="Atoms/Text"
-  component={Text}
+  title="Atoms/Typography"
+  component={Typography}
   parameters={{
     actions: { argTypesRegex: '^on.*' },
     docs: {
@@ -28,7 +28,7 @@ import '../component.scss'
   ]}
 />
 
-# Text
+# Typography
 
 > ØKP4 typography component.
 
@@ -36,7 +36,7 @@ import '../component.scss'
 
 ## Overview
 
-**Text** is the primitive component to display some text or pure HTML. It comes with limited styling capabilities to be easily integrated with OKP4 design system.
+**Typography** is the primitive component to display some text or pure HTML. It comes with limited styling capabilities to be easily integrated with OKP4 design system.
 
 Any possible combination of the following properties can be used and are detailed below.
 
@@ -46,7 +46,6 @@ Any possible combination of the following properties can be used and are detaile
   name="Overview"
   argTypes={{
     children: {
-      name: 'node',
       table: {
         type: { summary: 'Node' }
       },
@@ -62,7 +61,7 @@ Any possible combination of the following properties can be used and are detaile
     as: 'div'
   }}
 >
-  {args => <Text {...args} />}
+  {args => <Typography {...args} />}
 </Story>
 
 ---
@@ -73,7 +72,7 @@ Any possible combination of the following properties can be used and are detaile
 
 ## Fonts
 
-The text component can be styled with two font families:
+The Typography component can be styled with two font families:
 
 ### Main font
 
@@ -82,11 +81,11 @@ The main font is `Gotham`, it is also the default one.
 <Canvas>
   <Story name="Main font">
     {args => (
-      <Text as="div" fontFamily="brand" fontSize="medium">
+      <Typography as="div" fontFamily="brand" fontSize="medium">
         <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
         <p>abcdefghijklmnopqrstuvwxyz</p>
         <p>123456789 !?.;:</p>
-      </Text>
+      </Typography>
     )}
   </Story>
 </Canvas>
@@ -98,11 +97,11 @@ You can also choose to use a secondary font called `NotoSansMono`.
 <Canvas>
   <Story name="Secondary font">
     {args => (
-      <Text as="div" fontFamily="secondary" fontSize="medium">
+      <Typography as="div" fontFamily="secondary" fontSize="medium">
         <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
         <p>abcdefghijklmnopqrstuvwxyz</p>
         <p>123456789 !?.;:</p>
-      </Text>
+      </Typography>
     )}
   </Story>
 </Canvas>
@@ -116,21 +115,21 @@ There is no default size to preserve what's being ultimately rendered.
   <Story name="Sizes">
     {args => (
       <div>
-        <Text as="div" fontSize="x-small" fontFamily="brand">
+        <Typography as="div" fontSize="x-small" fontFamily="brand">
           x-small - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontSize="small" fontFamily="brand">
+        </Typography>
+        <Typography as="div" fontSize="small" fontFamily="brand">
           small - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontSize="medium" fontFamily="brand">
+        </Typography>
+        <Typography as="div" fontSize="medium" fontFamily="brand">
           medium - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontSize="large" fontFamily="brand">
+        </Typography>
+        <Typography as="div" fontSize="large" fontFamily="brand">
           large - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontSize="x-large" fontFamily="brand">
+        </Typography>
+        <Typography as="div" fontSize="x-large" fontFamily="brand">
           x-large - OKP4 - At the core of the stakes of data valorisation
-        </Text>
+        </Typography>
       </div>
     )}
   </Story>
@@ -145,21 +144,21 @@ all refer to ØKP4 palette and theming.
   <Story name="Colors">
     {args => (
       <div>
-        <Text as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
+        <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
           highlighted-text - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" color="info" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
           info - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" color="success" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
           success - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" color="warning" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
           warning - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" color="error" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
           error - OKP4 - At the core of the stakes of data valorisation
-        </Text>
+        </Typography>
       </div>
     )}
   </Story>
@@ -174,18 +173,18 @@ Internally, this parameter will actually select a variant of the selected font.
   <Story name="Font weight">
     {args => (
       <div>
-        <Text as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
+        <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
           light - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontWeight="normal" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" fontWeight="normal" fontFamily="brand" fontSize="medium">
           normal - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
           bold - OKP4 - At the core of the stakes of data valorisation
-        </Text>
-        <Text as="div" fontWeight="black" fontFamily="brand" fontSize="medium">
+        </Typography>
+        <Typography as="div" fontWeight="black" fontFamily="brand" fontSize="medium">
           black - OKP4 - At the core of the stakes of data valorisation
-        </Text>
+        </Typography>
       </div>
     )}
   </Story>
@@ -200,10 +199,10 @@ If `true`, the text will not wrap, but instead will truncate with a text overflo
   <Story name="Text wrap">
     {args => (
       <div>
-        <Text as="div" fontWeight="light" fontFamily="brand" fontSize="medium" noWrap={true}>
+        <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium" noWrap={true}>
           At the core of the stakes of data valorisation. OKP4 offers an integrated solution that is
           perfectly adapted to your use and your needs.
-        </Text>
+        </Typography>
       </div>
     )}
   </Story>
