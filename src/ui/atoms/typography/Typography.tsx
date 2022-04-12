@@ -22,7 +22,7 @@ export type TypographyProps = DeepReadonly<{
   /**
    * The different font weights declared for each font-family.
    */
-  readonly fontWeight?: 'light' | 'normal' | 'bold' | 'black'
+  readonly fontWeight?: 'xlight' | 'light' | 'bold' | 'black'
   /**
    * The color applied to the final rendering of the typography,
    * regarding the current theme and following semantic color naming.
@@ -43,15 +43,14 @@ export type TypographyProps = DeepReadonly<{
 export const Typography: React.FC<TypographyProps> = ({
   as = 'span',
   noWrap = false,
-  fontWeight = 'normal',
+  fontWeight = 'light',
   fontFamily = 'brand',
   color = 'text',
-  fontSize,
+  fontSize = 'medium',
   children,
   ...props
 }: TypographyProps): JSX.Element => {
-  const typographyClass = classNames(`okp4-typography-main`, {
-    [`okp4-font-size-${fontSize}`]: fontSize !== undefined,
+  const typographyClass = classNames(`okp4-typography-main okp4-font-size-${fontSize}`, {
     [`text-color-${color}`]: true,
     'text-wrap-disabled': !!noWrap,
     [`${fontFamily}-${fontWeight}`]: true

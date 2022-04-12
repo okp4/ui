@@ -166,17 +166,20 @@ all refer to ØKP4 palette and theming.
 
 ## Font weight
 
-Depending on the need, the font weight can be modified. The values are `light`, `medium` (default), `bold`, `black`.
+Depending on the need, the font weight can be modified. The values are `xlight`, `light` (default), `medium`, `bold`, `black`.
 Internally, this parameter will actually select a variant of the selected font.
 
 <Canvas>
   <Story name="Font weight">
     {args => (
       <div>
+        <Typography as="div" fontWeight="xlight" fontFamily="brand" fontSize="medium">
+          light - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
         <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
           light - OKP4 - At the core of the stakes of data valorisation
         </Typography>
-        <Typography as="div" fontWeight="normal" fontFamily="brand" fontSize="medium">
+        <Typography as="div" fontWeight="medium" fontFamily="brand" fontSize="medium">
           normal - OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
