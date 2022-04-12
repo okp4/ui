@@ -6,7 +6,7 @@ import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
 import { requestFunds } from './requestFunds'
 import type { DeepReadonly } from 'superTypes'
-import { InMemoryFaucetGateway } from 'adapters/secondary/faucet/InMemoryFaucetGateway'
+import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/InMemoryFaucetGateway'
 
 interface InitialProps {
   store: ReduxStore
