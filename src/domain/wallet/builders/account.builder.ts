@@ -1,5 +1,5 @@
 import type { Account, Algorithm } from 'domain/wallet/entities/wallet'
-import type { DeepReadonly } from '../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 import { UnspecifiedError } from '../entities/errors'
 
 export class AccountBuilder {

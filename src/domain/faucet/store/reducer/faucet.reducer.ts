@@ -7,7 +7,7 @@ import type { ErrorFaucetActionTypes } from 'domain/faucet/usecase/actionCreator
 
 const address = (state: string = '', action: DeepReadonly<SetAddressActionTypes>): string => {
   switch (action.type) {
-    case 'faucet/setAddress':
+    case 'faucet/addressSet':
       return action.payload.address
     default:
       return state

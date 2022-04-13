@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { ConnectionError } from 'domain/wallet/entities/errors'
-import { KeplrWallet } from './KeplrWalletGateway'
+import { KeplrWalletGateway } from './KeplrWalletGateway'
 import type { OfflineSigner } from '@cosmjs/launchpad'
 import type { OfflineDirectSigner } from '@cosmjs/proto-signing'
 import type { ChainInfo, Keplr } from '@keplr-wallet/types'
@@ -11,12 +11,12 @@ const offlineSignerFaked = (): ((_chainId: string) => OfflineSigner & OfflineDir
     (_chainId: string): OfflineSigner & OfflineDirectSigner =>
       ({} as OfflineSigner & OfflineDirectSigner)
   )
-  
+
 describe('Given that no Keplr extension is installed', () => {
   const keplr = undefined
 
   describe('Given a Keplr gateway instance', () => {
-    const wallet = new KeplrWallet()
+    const wallet = new KeplrWalletGateway()
 
     describe('When connecting to a chain', () => {
       test('Then expect the Keplr gateway to report an error', async () => {
@@ -41,7 +41,7 @@ describe(`Given a Keplr extension so that:
   } as Keplr
 
   describe('Given a Keplr gateway instance', () => {
-    const wallet = new KeplrWallet()
+    const wallet = new KeplrWalletGateway()
 
     describe('When checking for availability', () => {
       test('Then result returned is <true>', () => {
@@ -82,7 +82,7 @@ describe(`Given a Keplr extension so that:
   } as ChainInfo
 
   describe('Given a Keplr gateway instance', () => {
-    const wallet = new KeplrWallet([chainInfo])
+    const wallet = new KeplrWalletGateway([chainInfo])
 
     describe('When connecting to a chain', () => {
       test('Then expect the Keplr gateway to succeed', async () => {
@@ -114,7 +114,7 @@ describe(`Given a Keplr extension so that:
   } as ChainInfo
 
   describe('Given a Keplr gateway instance', () => {
-    const wallet = new KeplrWallet([chainInfo])
+    const wallet = new KeplrWalletGateway([chainInfo])
 
     describe('When connecting to a chain', () => {
       test('Then expect the Keplr gateway to fail', async () => {
@@ -153,7 +153,7 @@ describe(`Given a Keplr extension so that:
   } as ChainInfo
 
   describe('Given a Keplr gateway instance', () => {
-    const wallet = new KeplrWallet([chainInfo])
+    const wallet = new KeplrWalletGateway([chainInfo])
 
     describe('When connecting to a chain', () => {
       test('Then expect the Keplr gateway to fail', async () => {
