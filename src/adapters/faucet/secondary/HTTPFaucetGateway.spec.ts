@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { UnspecifiedError } from 'domain/wallet/entities/errors'
+import type { AxiosError } from 'axios'
+import { GatewayError, UnspecifiedError } from 'domain/wallet/entities/errors'
 import { HTTPFaucetGateway } from './HTTPFaucetGateway'
 
-jest.mock('axios')
-const mockedAxios = axios as jest.Mocked<typeof axios>
+const mockedAxiosGet = jest.spyOn(axios, 'get')
 const testUrl = 'http://my-test-fake-url.com'
 
 afterEach(() => {
@@ -12,32 +12,46 @@ afterEach(() => {
 
 describe('Given an HTTPFaucetGateway instance', () => {
   const gateway = new HTTPFaucetGateway(testUrl)
-  describe('When requesting funds', () => {
-    mockedAxios.get.mockResolvedValueOnce(testUrl)
-    test('Then expect the HTTPFaucetGateway to succeed', async () => {
+  describe('When Axios returns a response ', () => {
+    mockedAxiosGet.mockResolvedValueOnce(testUrl)
+    test('Then expect requestFunds to succeed', async () => {
       const result = await gateway.requestFunds(testUrl)
-      expect(mockedAxios.get).toHaveBeenCalledWith(testUrl, {
+      expect(mockedAxiosGet).toHaveBeenCalledWith(testUrl, {
         params: {
           address: testUrl
         }
       })
       expect(result).toEqual(undefined)
-      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+      expect(mockedAxiosGet).toHaveBeenCalledTimes(1)
     })
   })
 })
 
 describe('Given an HTTPFaucetGateway instance', () => {
   const gateway = new HTTPFaucetGateway(testUrl)
-  describe('When requesting funds', () => {
-    const error = new UnspecifiedError(
-      'Oooops... An unspecified error occured while requesting funds..'
-    )
-    mockedAxios.get.mockRejectedValueOnce(error)
-    test('Then expect the HTTPFaucetGateway to fail', async () => {
+  describe('When Axios fails with an AxiosError ', () => {
+    const error = new Error('Network Error') as AxiosError
+    error.isAxiosError = true
+    mockedAxiosGet.mockRejectedValueOnce(error)
+    test('Then expect requestFunds to throw a GatewayError', async () => {
+      const gatewayError = new GatewayError('Network Error')
       const result = gateway.requestFunds(testUrl)
-      await expect(result).rejects.toEqual(error)
-      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+      await expect(result).rejects.toEqual(gatewayError)
+      await expect(result).rejects.toThrow(gatewayError)
+      expect(mockedAxiosGet).toHaveBeenCalledTimes(1)
+    })
+  })
+  describe('When Axios fails with a non AxiosError ', () => {
+    const error = new Error()
+    mockedAxiosGet.mockRejectedValueOnce(error)
+    test('Then expect requestFunds to throw a UnspecifiedError', async () => {
+      const unspecifiedError = new UnspecifiedError(
+        'Oooops... An unspecified error occured while requesting funds..'
+      )
+      const result = gateway.requestFunds(testUrl)
+      await expect(result).rejects.toEqual(unspecifiedError)
+      await expect(result).rejects.toThrow(unspecifiedError)
+      expect(mockedAxiosGet).toHaveBeenCalledTimes(1)
     })
   })
 })
