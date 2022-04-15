@@ -32,7 +32,7 @@ $weights: (
             font-family: Noto Sans Mono, sans-serif;
             font-weight: $weight-value;
           } @else {
-            font-family: Gotham #{$weight-key}, sans-serif;
+            font-family: 'Gotham #{$weight-key}', sans-serif;
             @if ($weight-key == 'bold') {
               font-family: Gotham, sans-serif;
               font-weight: 700;
