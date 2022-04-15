@@ -2,7 +2,7 @@ import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { TextInput } from 'ui/atoms/textInput/TextInput'
-import { Text } from 'ui/atoms/text/Text'
+import { Typography } from 'ui/atoms/typography/Typography'
 import '../component.scss'
 
 <Meta
@@ -118,7 +118,7 @@ If `error` is set to `true`, the input will be displayed in the theme error colo
         defaultValue="My phone is broken"
         error={true}
         helperText={
-          <Text
+          <Typography
             as="div"
             size="x-small"
             color="error"
@@ -128,7 +128,7 @@ If `error` is set to `true`, the input will be displayed in the theme error colo
             }}
           >
             Please enter a valid phone number
-          </Text>
+          </Typography>
         }
       />
     )}

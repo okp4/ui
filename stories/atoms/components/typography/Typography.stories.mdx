@@ -1,0 +1,209 @@
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs/blocks'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import themes from 'ui/styles/_exports.module.scss'
+import '../component.scss'
+
+<Meta
+  title="Atoms/Typography"
+  component={Typography}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Typography
+
+> ØKP4 typography component.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+**Typography** is the primitive component to display some text or pure HTML. It comes with limited styling capabilities to be easily integrated with OKP4 design system.
+
+Any possible combination of the following properties can be used and are detailed below.
+
+---
+
+<Story
+  name="Overview"
+  argTypes={{
+    children: {
+      table: {
+        type: { summary: 'Node' }
+      },
+      control: {
+        type: 'text'
+      }
+    }
+  }}
+  args={{
+    children:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pretium sodales mi, quis\
+      ultricies sapien convallis sed. Vivamus accumsan tortor quis molestie tempus.',
+    as: 'div'
+  }}
+>
+  {args => <Typography {...args} />}
+</Story>
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## Fonts
+
+The Typography component can be styled with two font families:
+
+### Main font
+
+The main font is `Gotham`, it is also the default one.
+
+<Canvas>
+  <Story name="Main font">
+    {args => (
+      <Typography as="div" fontFamily="brand" fontSize="medium">
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>123456789 !?.;:</p>
+      </Typography>
+    )}
+  </Story>
+</Canvas>
+
+### Secondary font
+
+You can also choose to use a secondary font called `NotoSansMono`.
+
+<Canvas>
+  <Story name="Secondary font">
+    {args => (
+      <Typography as="div" fontFamily="secondary" fontSize="medium">
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>123456789 !?.;:</p>
+      </Typography>
+    )}
+  </Story>
+</Canvas>
+
+## Sizes
+
+Size options are `x-small`, `small`, `medium`, `large`, `x-large`.  
+There is no default size to preserve what's being ultimately rendered.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div>
+        <Typography as="div" fontSize="x-small" fontFamily="brand">
+          x-small - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="small" fontFamily="brand">
+          small - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="medium" fontFamily="brand">
+          medium - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="large" fontFamily="brand">
+          large - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="x-large" fontFamily="brand">
+          x-large - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Colors
+
+The different colors available are: `text` (default), `highlighted-text`, `info`, `success`, `warning`, `error` which
+all refer to ØKP4 palette and theming.
+
+<Canvas>
+  <Story name="Colors">
+    {args => (
+      <div>
+        <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
+          highlighted-text - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
+          info - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
+          success - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
+          warning - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
+          error - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Font weights
+
+Depending on the need, the font weight can be modified. The values are `xlight`, `light` (default), `bold`, `black`.
+Internally, this parameter will actually select a variant of the selected font.
+
+<Canvas>
+  <Story name="Font weight">
+    {args => (
+      <div>
+        <Typography as="div" fontWeight="xlight" fontFamily="brand" fontSize="medium">
+          xlight - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
+          light - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
+          bold - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontWeight="black" fontFamily="brand" fontSize="medium">
+          black - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Text-wrap
+
+By default, the element rendered will automatically wrap : newline characters in the source are handled the same as other white space. Lines are broken as necessary to fill line boxes.
+If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+
+<Canvas>
+  <Story name="Text wrap">
+    {args => (
+      <div>
+        <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium" noWrap={true}>
+          At the core of the stakes of data valorisation. OKP4 offers an integrated solution that is
+          perfectly adapted to your use and your needs.
+        </Typography>
+      </div>
+    )}
+  </Story>
+</Canvas>

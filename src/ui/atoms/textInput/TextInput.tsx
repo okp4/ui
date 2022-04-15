@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import type { RefObject } from 'react'
 import React from 'react'
 import './textInput.scss'
-import '../../styles/font.scss'
+import '../../styles/main.scss'
 
 export type TextInputProps = Readonly<{
   /**
@@ -62,7 +62,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   inputRef,
   ...props
 }: TextInputProps): JSX.Element => {
-  const inputClass = classNames(`okp4-textinput-core okp4-font-${size}` , { ['error']: error })
+  const inputClass = classNames(`okp4-textinput-core okp4-font-size-${size}`, { ['error']: error })
 
   return (
     <div>

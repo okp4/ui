@@ -1,0 +1,45 @@
+@import 'src/ui/styles/themes.scss';
+
+$colors: ('text', 'highlighted-text', 'success', 'warning', 'error', 'info');
+$families: ('secondary', 'brand');
+$weights: (
+  'xlight': 300,
+  'light': 400,
+  'bold': 700,
+  'black': 900
+);
+
+.okp4-typography-main {
+  @include with-theme() {
+    line-height: 1.1em;
+
+    &.text-wrap-disabled {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    @each $color in $colors {
+      &.text-color-#{$color} {
+        color: themed(#{$color});
+      }
+    }
+
+    @each $family in $families {
+      @each $weight-key, $weight-value in $weights {
+        &.#{$family}-#{$weight-key} {
+          @if ($family == 'secondary') {
+            font-family: Noto Sans Mono, sans-serif;
+            font-weight: $weight-value;
+          } @else {
+            font-family: Gotham #{$weight-key}, sans-serif;
+            @if ($weight-key == 'bold') {
+              font-family: Gotham, sans-serif;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@import url('https://fonts.cdnfonts.com/css/gotham');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@300;400;500;700;900&display=swap');
+
+$font-sizes: (
+  'x-small': 12px,
+  'small': 16px,
+  'medium': 26px,
+  'large': 34px,
+  'x-large': 40px
+);
+
+@each $font-size-key, $font-size-value in $font-sizes {
+  .okp4-font-size-#{$font-size-key} {
+    font-size: $font-size-value;
+  }
+}
