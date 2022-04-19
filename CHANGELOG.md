@@ -1,5 +1,72 @@
 # ØKP4 UI changelog
 
+# [1.2.0](https://github.com/okp4/ui/compare/v1.1.0...v1.2.0) (2022-04-19)
+
+
+### Bug Fixes
+
+* **config:** add rootDir to tsconfig ([91aa393](https://github.com/okp4/ui/commit/91aa3933a7d0ba3b69421810b2ac35c9e0658c87))
+* **config:** remove all alliases to prevent tsc crash ([bb5b61f](https://github.com/okp4/ui/commit/bb5b61f7b06f3fc6ac895e4d2e020a78e40ec012))
+* **config:** reverse rollup typescript plugin ([a7622b8](https://github.com/okp4/ui/commit/a7622b8d784afbe9d6584ed4472b31294cf81869))
+* **config:** revert baseurl from tsconfig ([f813179](https://github.com/okp4/ui/commit/f8131791528d4933980da89994d9339f0a760bbf))
+* export all superTypes to be compiled by tsc ([6ebe84a](https://github.com/okp4/ui/commit/6ebe84a924bd01c2d400e7e51924aa18fa4920b0))
+* **lint:** add empty lines to separate scss rules in Logo.module.scss ([33dad9b](https://github.com/okp4/ui/commit/33dad9b8fb6ba9750d87ea29ffe67dd65ce043dc))
+* **style:** adjust stylelint config + fix format issues ([d851277](https://github.com/okp4/ui/commit/d851277748542bb3aeda07aca1ca4c03f17cfc7b))
+* **style:** decrease tranlateX value for switch thumb in dark mode ([93dd2de](https://github.com/okp4/ui/commit/93dd2deee9963ad7d90b60f085fb5814b85107b1))
+* use https in gotham url ([852e704](https://github.com/okp4/ui/commit/852e704fd87e83710b0ec905c1be48226dc4a976))
+* wrap Gotham black fontWeight into quotes ([6ab9ef5](https://github.com/okp4/ui/commit/6ab9ef5d6e3f29b7af944ca8f99d090e5d5d4437))
+
+
+### Features
+
+* **adapters:** implement faucet http and inmemory gateways ([38de580](https://github.com/okp4/ui/commit/38de580b398fed8e530aa4dae09b40f04ab61d00))
+* **adapters:** implement primary adapater for faucet + declare wallet types ([bb3c48e](https://github.com/okp4/ui/commit/bb3c48ed2c9f98d07acaeb224e62060a2ce8b873))
+* add a new (minimal) hook for fetching mediaTypes ([a0b401f](https://github.com/okp4/ui/commit/a0b401f6f255d5a88a44c0ae3ec62a2d4ccdcc32))
+* add asMutable function (as the inverse of asImmutable) ([19d319d](https://github.com/okp4/ui/commit/19d319d23f2378092655835f4e34269f8b42505b))
+* add properties to specify options for localstorage ([6ba5f6c](https://github.com/okp4/ui/commit/6ba5f6c14a3440c69b03bea59f4aaeed6e5d602a))
+* add support for chain suggestion to Keplr extension ([f8d7348](https://github.com/okp4/ui/commit/f8d7348b6e905ae2b14f2fbf45fc66b2b64e30e1))
+* add text component line height ([0ac699d](https://github.com/okp4/ui/commit/0ac699d3b24babf9103b93eb774cd0809b99b9f2))
+* **assets:** add logos files in svg format ([460f32b](https://github.com/okp4/ui/commit/460f32b0d1653e086d72deacf1ef9a3e78e0f909))
+* **assets:** move svg logos into dedicated folder ([34e18e3](https://github.com/okp4/ui/commit/34e18e3e7ba674f441638c47667fcd47308cedce))
+* **component:** add svg icons and use them as react components in theme switcher ([a01741f](https://github.com/okp4/ui/commit/a01741fd214f8ba6ab7270d2e0ecfcaf1de364dc))
+* **component:** implement Logo UI component and associated styles ([4a18dc2](https://github.com/okp4/ui/commit/4a18dc20ad4c3a492efab558b92bd87370517d82))
+* **component:** load last saved theme at mount ([4c08db5](https://github.com/okp4/ui/commit/4c08db5db2437a29354080fd6d84c041e020b763))
+* **component:** modify default exports from index files ([abae77b](https://github.com/okp4/ui/commit/abae77b9d49b592abe0276b7300a8d1568dcfc68))
+* **config:** add new paths in tsconfig & adjust jest config ([f27f6ba](https://github.com/okp4/ui/commit/f27f6ba62a00fd07dbe5355da4ce04b8cce57603))
+* **config:** configure copy plugin in rollup config ([dfa0636](https://github.com/okp4/ui/commit/dfa0636be5d3a9b67107e17ec97d02d386d20683))
+* **config:** configure rollup typescript plugin + tsconfig ([42b6361](https://github.com/okp4/ui/commit/42b636193b4883bcf376ca2170e94b0dc877952d))
+* **config:** disable canvas tab for all stories ([2c2fbe5](https://github.com/okp4/ui/commit/2c2fbe58b4ccf3dd77e2e00f044abbda5a617d75))
+* **config:** enhance rollup + storybook configs ([aa84e1c](https://github.com/okp4/ui/commit/aa84e1c3e6a7bdf57bf262a2b5cb911a0634c7b6))
+* **core:** add faucet port and entity ([ce02957](https://github.com/okp4/ui/commit/ce0295707e87ab8a839b1ac85ba158c7d1434eda))
+* **core:** add new retrieve-address saga ([7c8b853](https://github.com/okp4/ui/commit/7c8b853305e2d3421e8758ad78c90c22e6885ece))
+* **core:** add service to check bech32 address ([bb34c59](https://github.com/okp4/ui/commit/bb34c59ec246ef195627a6a1999308f151cc1a97))
+* **core:** implement askTokens usecase ([aa2eb82](https://github.com/okp4/ui/commit/aa2eb8233dccbe700653dad45b15c33d62c321f1))
+* **core:** implement setAddress usecase ([2eb8ce5](https://github.com/okp4/ui/commit/2eb8ce5cfee5ee77d05eccb726b5b3627fc1892f))
+* **hook:** add useLocalStorage hook ([aca01d7](https://github.com/okp4/ui/commit/aca01d797a450bf866da239c73cab935297c59f5))
+* **hooks:** export useTheme hook to be bundled by rollup ([a420136](https://github.com/okp4/ui/commit/a4201367b6055912ddf3bb904ede8ce0df13f4be))
+* implement text input component and associated story [#99](https://github.com/okp4/ui/issues/99) ([dde6080](https://github.com/okp4/ui/commit/dde6080e34f7d984d9111335089cf63ffbabc2c3))
+* implement typography component and associated story [#98](https://github.com/okp4/ui/issues/98) ([1da3750](https://github.com/okp4/ui/commit/1da37503235fc410c713af5926c2062e925f06ec))
+* **logo:** improve svg imports and logo style ([c7a6d8e](https://github.com/okp4/ui/commit/c7a6d8ed865670f2387cc66e259a0b3a9b9dd183))
+* **palette:** implement new colors by theme ([e85cc06](https://github.com/okp4/ui/commit/e85cc064f110229972e99fce4e4b8b45ba9d2c34))
+* **project:** add more types to be exported to lib folder ([7f75982](https://github.com/okp4/ui/commit/7f7598293cb0fda5b0735221b102c22f834f3fa6))
+* **project:** export Logo component to lib ([b5db024](https://github.com/okp4/ui/commit/b5db024be3d6dcaae9f860a4f4218f8fc8b9134b))
+* **project:** remove useTheme from exports ([918e7b4](https://github.com/okp4/ui/commit/918e7b41c70a45a5a41587489b4078bca5ced618))
+* **redux:** configure faucet store and reducers ([56fc80e](https://github.com/okp4/ui/commit/56fc80e0c7d7f04e79e6cd880e2471fe7956fab0))
+* **redux:** create redux middleware to inject eventBus dispatch ([5c47017](https://github.com/okp4/ui/commit/5c47017bd3294021c63d7e81a6f75d9a1a25dda5))
+* remove default values in props comment ([1bae98b](https://github.com/okp4/ui/commit/1bae98b85e5e4651283901d4c2870c1ffa9aa479))
+* **rollup:** exclude logos folder from file loader rule + svg rule include ([c7190b3](https://github.com/okp4/ui/commit/c7190b33b5051ba5559f2f2d28df9ea40ceafb46))
+* **stories:** add Logo associated stories ([03e2541](https://github.com/okp4/ui/commit/03e2541c96b8fa727c84f6650c59cd3f8ebe7e5b))
+* **stories:** enhance logo story + add its own stylesheet ([e1947c0](https://github.com/okp4/ui/commit/e1947c0c784ad5183fa0a69286d106cc49ddb664))
+* **stories:** enhance theme story and add custom stylesheet ([17b8eaa](https://github.com/okp4/ui/commit/17b8eaa0a703ef74dbab6f2d0af0d6051717052e))
+* **stories:** expose properties for the component ThemeSwitcher ([d5c66a6](https://github.com/okp4/ui/commit/d5c66a68462a092e8c488f21a016158eed3588d2))
+* **stories:** first theme story implementation ([2a47f93](https://github.com/okp4/ui/commit/2a47f933696addde6fd8f19ff35076ba81b753d0))
+* **stories:** move folders + implement new colors stories ([7d7eff2](https://github.com/okp4/ui/commit/7d7eff293070f52c2a4c6b5641913e3ddd5670d8))
+* **style:** export themes variables + enhance theme switcher css ([99e4482](https://github.com/okp4/ui/commit/99e4482e9e143c94d9ff7e8221ec19dc7d050e90))
+* **text:** add new noWrap property & adjust classNames ([765c1c5](https://github.com/okp4/ui/commit/765c1c5a84a2047ba721ff4f52fcbf05c0d38db9))
+* **theme:** declare themes and functions to themify rules ([63cc039](https://github.com/okp4/ui/commit/63cc0394688e0614b987fe9556a8ef9b87b4cfa2))
+* **theme:** implement theme components and export them ([22a8ea9](https://github.com/okp4/ui/commit/22a8ea9da2a73d701866a8df34440dd2df31320a))
+* use fonts as external url ([5894674](https://github.com/okp4/ui/commit/5894674a6571a1ea6e46697af9c47d2250e7e7c3))
+
 # [1.1.0](https://github.com/okp4/ui/compare/v1.0.0...v1.1.0) (2022-03-22)
 
 
