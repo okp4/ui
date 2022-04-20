@@ -18,7 +18,8 @@ $themes: (
     success: $color-light-success,
     warning: $color-light-warning,
     error: $color-light-error,
-    info: $color-light-info
+    info: $color-light-info,
+    disabled: $color-light-disabled
   ),
   dark: (
     primary-brand: $color-dark-primary-brand,
@@ -34,10 +35,11 @@ $themes: (
     header-background: $gradient-dark-background-header,
     footer-background: $gradient-dark-background-footer,
     footer-block-background: $gradient-dark-background-footer-block,
-    success: $color-light-success,
-    warning: $color-light-warning,
-    error: $color-light-error,
-    info: $color-light-info
+    success: $color-dark-success,
+    warning: $color-dark-warning,
+    error: $color-dark-error,
+    info: $color-dark-info,
+    disabled: $color-dark-disabled
   )
 );
 
