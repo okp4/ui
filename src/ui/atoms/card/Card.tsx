@@ -40,19 +40,22 @@ export const Card: React.FC<TCardProps> = ({
   background = 'primary',
   withBorder = false,
   ...props
-}: TCardProps): JSX.Element => (
-  <div
-    className={classNames('okp4-card-main', {
-      "okp4-card-small": size == 'small',
-      "okp4-card-medium": size == 'medium',
-      "okp4-card-large": size == 'large',
-      "okp4-card-with-border": withBorder
-    })}
-    {...props}
-  >
-      {footer}
-      <div>{background}</div>
-      {content}
-      {header}
-  </div>
-)
+}: TCardProps): JSX.Element => {
+  const classnames = classNames('okp4-card-main okp4-card-main:after', {
+    "okp4-card-small": size == 'small',
+    "okp4-card-medium": size == 'medium',
+    "okp4-card-large": size == 'large',
+    "okp4-card-with-border": withBorder,
+  });
+  return (
+    <div
+      className={classnames}
+      {...props}
+    >
+        {footer}
+        <div>{background}</div>
+        {content}
+        {header}
+    </div>
+  );
+}
