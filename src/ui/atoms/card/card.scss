@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 
   &.okp4-card-small {
     width: 275px;
@@ -23,6 +25,22 @@
   }
 
   &.okp4-card-with-border {
+    border: 1px solid white;
+  }
+
+  /**
+   * Interesting code examples on "How to create fancy corners with CSS" 
+   * found at https://blog.logrocket.com/how-to-create-fancy-corners-in-css/
+   */
+
+  &::after {
+    content: '';
+    position: absolute;
+    margin: -14px;
+    width: 24px;
+    height: 24px;
+    transform: rotate(45deg);
+    background-color: red;
     border: 1px solid white;
   }
 }
