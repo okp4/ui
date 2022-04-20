@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import type { RefObject } from 'react'
 import React from 'react'
-import './textInput.scss'
+import './textField.scss'
 import '../../styles/main.scss'
 
-export type TextInputProps = Readonly<{
+export type TextFieldProps = Readonly<{
   /**
    * How large should the font size be.
    */
@@ -50,7 +50,7 @@ export type TextInputProps = Readonly<{
  * Primary UI component for text input
  */
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-export const TextInput: React.FC<TextInputProps> = ({
+export const TextField: React.FC<TextFieldProps> = ({
   size = 'medium',
   placeholder = 'Placeholder',
   disabled = false,
@@ -61,7 +61,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   helperText,
   inputRef,
   ...props
-}: TextInputProps): JSX.Element => {
+}: TextFieldProps): JSX.Element => {
   const inputClass = classNames(`okp4-textinput-core okp4-font-size-${size}`, { ['error']: error })
 
   return (
