@@ -1,13 +1,13 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import { TextInput } from 'ui/atoms/textInput/TextInput'
+import { TextField } from 'ui/atoms/textField/TextField'
 import { Typography } from 'ui/atoms/typography/Typography'
 import '../component.scss'
 
 <Meta
-  title="Atoms/TextInput"
-  component={TextInput}
+  title="Atoms/TextField"
+  component={TextField}
   parameters={{
     actions: {
       argTypesRegex: '^on.*'
@@ -30,13 +30,13 @@ import '../component.scss'
   ]}
 />
 
-# TextInput component
+# TextField component
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
-**Text input** is a minimalist text input component that integrates easily with OKP4 design system.
+**TextField** is a minimalist text input component that integrates easily with OKP4 design system.
 
 ## Usage
 
@@ -76,16 +76,16 @@ Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
   <Story name="Sizes" argTypes={{}} args={{}}>
     {args => (
       <div>
-        <TextInput
+        <TextField
           style={{ marginBottom: '10px' }}
           size="x-small"
           placeholder="x-small"
           {...args}
         />
-        <TextInput style={{ marginBottom: '10px' }} size="small" placeholder="small" {...args} />
-        <TextInput style={{ marginBottom: '10px' }} size="medium" placeholder="medium" {...args} />
-        <TextInput style={{ marginBottom: '10px' }} size="large" placeholder="large" {...args} />
-        <TextInput
+        <TextField style={{ marginBottom: '10px' }} size="small" placeholder="small" {...args} />
+        <TextField style={{ marginBottom: '10px' }} size="medium" placeholder="medium" {...args} />
+        <TextField style={{ marginBottom: '10px' }} size="large" placeholder="large" {...args} />
+        <TextField
           style={{ marginBottom: '10px' }}
           size="x-large"
           placeholder="x-large"
@@ -96,25 +96,25 @@ Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
   </Story>
 </Canvas>
 
-## Disabling the input
+## Disabling the text field
 
-The input can be disabled by setting the `disabled` property to `true`.
+The text field can be disabled by setting the `disabled` property to `true`.
 
 <Canvas isColumn>
   <Story name="Disabled" argTypes={{}} args={{}}>
-    {args => <TextInput disabled={true} placeholder="This input is disabled" {...args} />}
+    {args => <TextField disabled={true} placeholder="This text field is disabled" {...args} />}
   </Story>
 </Canvas>
 
 ## There's an input error
 
-If `error` is set to `true`, the input will be displayed in the theme error color.
-`helperText` can be set to display a message below the input.
+If `error` is set to `true`, the text field will be displayed in the theme error color.
+`helperText` can be set to display a message below the text field.
 
 <Canvas isColumn>
   <Story name="Error" argTypes={{}} args={{}}>
     {args => (
-      <TextInput
+      <TextField
         defaultValue="My phone is broken"
         error={true}
         helperText={
@@ -140,7 +140,7 @@ If `error` is set to `true`, the input will be displayed in the theme error colo
 `onChange` is called when the input value changes. Ex:
 
 ```js:
-<TextInput onChange={( onChange: (event) => {
+<TextField onChange={( onChange: (event) => {
         console.log(event.target.value)
       }} />
 ```
@@ -158,7 +158,7 @@ Then, everytime the input value changes, a log message displays the content of t
     }}
   >
     {args => (
-      <TextInput
+      <TextField
         onChange={event => {
           console.log(`onChange : ${event.target.value}`)
         }}
