@@ -1,0 +1,28 @@
+@import 'src/ui/styles/themes.scss';
+
+.okp4-card-main {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.okp4-card-small {
+    width: 275px;
+    height: 235px;
+  }
+
+  &.okp4-card-medium {
+    width: 425px;
+    height: 235px;
+  }
+
+  &.okp4-card-large {
+    width: 653px;
+    height: 550px;
+  }
+
+  &.okp4-card-with-border {
+    border: 1px solid white;
+  }
+}
