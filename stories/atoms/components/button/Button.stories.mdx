@@ -1,10 +1,29 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
 import { Button } from 'ui/atoms/button/Button'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 <Meta
   title="Atoms/Button"
   component={Button}
-  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
 />
 
 # Button
@@ -29,11 +48,18 @@ The `label` is used to clearly indicate to the user what action will be triggere
     name="Overview"
     argTypes={{}}
     args={{
-      label: 'Click-me !'
+      label: 'Connect wallet'
     }}
   >
     {args => (
-      <div style={{ textAlign: 'center', padding: '10px 0 10px' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
         <Button {...args} />
       </div>
     )}
@@ -45,3 +71,104 @@ The `label` is used to clearly indicate to the user what action will be triggere
 ### Properties
 
 <ArgsTable story="Overview" />
+
+## Variants
+
+The `Button` component is available in two style versions:
+
+- **Primary**: a rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
+- **Secondary**: a rounded version, softer, allowing to adapt in particular to smaller screens.
+
+<Canvas>
+  <Story name="Variants">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
+        <Button backgroundColor="primary" variant="secondary" label="Secondary" size="medium" />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Sizes
+
+The `Button` component comes with three different sizes to allow its use according to its location within the interface.
+
+- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
+- **Medium**: makes it possible to adapt to a greater number of uses.
+- **Large**: particularly suitable for large screens or to embed icons befor or after.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Button backgroundColor="primary" variant="primary" label="Small" size="small" />
+        <Button backgroundColor="primary" variant="primary" label="Medium" size="medium" />
+        <Button backgroundColor="primary" variant="primary" label="Large" size="large" />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Background colors
+
+The background color of the `Button` component is declined according to the selected theme and allows to better mark a user action.
+
+<Canvas>
+  <Story name="Background colors">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px',
+          flexWrap: 'wrap'
+        }}
+      >
+        <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
+        <Button backgroundColor="secondary" variant="primary" label="Secondary" size="medium" />
+        <Button backgroundColor="success" variant="primary" label="Success" size="medium" />
+        <Button backgroundColor="error" variant="primary" label="Error" size="medium" />
+        <Button backgroundColor="warning" variant="primary" label="Warning" size="medium" />
+        <Button backgroundColor="info" variant="primary" label="Info" size="medium" />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Disabled
+
+The `Button` component can be disabled at any time, thus preventing any user interaction.
+
+<Canvas>
+  <Story name="Disabled">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px',
+          flexWrap: 'wrap'
+        }}
+      >
+        <Button disabled variant="primary" label="I'm disabled" size="medium" />
+      </div>
+    )}
+  </Story>
+</Canvas>
