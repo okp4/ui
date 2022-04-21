@@ -36,29 +36,31 @@ $borders-colors: ('white', 'transparent');
     height: 550px;
   }
 
-  @include with-theme() {
-    @each $color in $colors {
-      @each $borders-color in $borders-colors {
-        &.okp4-card-beveled-#{$color}-#{$borders-color} {
-          --b: #{$borders-color};
-          --all: 0; // i.e. 0px
-          --top-left: 16px;
-          border: 1px solid var(--b);
-          background:
-            linear-gradient(45deg, var(--b) 0 2px, transparent 0) bottom left /50% 50%,
-            linear-gradient(-45deg, var(--b) 0 2px, transparent 0) bottom right/50% 50%,
-            linear-gradient(135deg, var(--b) 0 17px, transparent 0) top left    /50% 50%,
-            linear-gradient(-135deg, var(--b) 0 2px , transparent 0) top right   /50% 50%,
-            var(--img, themed(#{$color}));
-          background-origin: border-box;
-          background-repeat: no-repeat;
-          -webkit-mask:
-            linear-gradient(45deg, transparent 0 var(--bottom-left, var(--all)), white 0) bottom left,
-            linear-gradient(-45deg, transparent 0 var(--bottom-right, var(--all)), white 0) bottom right,
-            linear-gradient(135deg, transparent 0 var(--top-left, var(--all)), white 0) top left,
-            linear-gradient(-135deg, transparent 0 var(--top-right, var(--all)), white 0) top right;
-          -webkit-mask-size: 50.5% 50.5%;
-          -webkit-mask-repeat: no-repeat;
+  &.okp4-card-beveled {
+    @include with-theme() {
+      @each $color in $colors {
+        @each $borders-color in $borders-colors {
+          &.okp4-card-beveled-#{$color}-#{$borders-color} {
+            --b: #{$borders-color};
+            --all: 0; // i.e. 0px
+            --top-left: 16px;
+            border: 1px solid var(--b);
+            background:
+              linear-gradient(45deg, var(--b) 0 0px, transparent 0) bottom left /50% 50%,
+              linear-gradient(-45deg, var(--b) 0 0px, transparent 0) bottom right/50% 50%,
+              linear-gradient(135deg, var(--b) 0 17px, transparent 0) top left    /50% 50%,
+              linear-gradient(-135deg, var(--b) 0 0px , transparent 0) top right   /50% 50%,
+              var(--img, themed(#{$color}));
+            background-origin: border-box;
+            background-repeat: no-repeat;
+            -webkit-mask:
+              linear-gradient(45deg, transparent 0 var(--bottom-left, var(--all)), white 0) bottom left,
+              linear-gradient(-45deg, transparent 0 var(--bottom-right, var(--all)), white 0) bottom right,
+              linear-gradient(135deg, transparent 0 var(--top-left, var(--all)), white 0) top left,
+              linear-gradient(-135deg, transparent 0 var(--top-right, var(--all)), white 0) top right;
+            -webkit-mask-size: 50.5% 50.5%;
+            -webkit-mask-repeat: no-repeat;
+          }
         }
       }
     }

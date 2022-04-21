@@ -33,12 +33,12 @@ export type TCardProps = Readonly<{
  * Primary UI component for user interaction.
  */
 export const Card: React.FC<TCardProps> = ({
-  content,
-  footer,
-  header,
   size = 'medium',
   background = 'primary',
   withBorder = false,
+  content,
+  footer,
+  header,
   ...props
 }: TCardProps): JSX.Element => {
   const bordersColor = withBorder ? 'white' : 'transparent';
