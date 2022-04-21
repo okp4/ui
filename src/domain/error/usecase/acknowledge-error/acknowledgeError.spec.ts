@@ -32,8 +32,8 @@ describe('Acknowledge an error', () => {
   it('should acknowledge an error which has been reported and handled by user', async () => {
     const { store }: InitialProps = init()
     store.dispatch(ReportErrorActions.errorReported(error))
-    expect(store.getState().hasErrorUnseen).toBe(true)
+    expect(store.getState().unseenErrorId).toEqual(error.id)
     await store.dispatch(acknowledgeError())
-    expect(store.getState().hasErrorUnseen).toBe(false)
+    expect(store.getState().unseenErrorId).toEqual('')
   })
 })

@@ -31,7 +31,7 @@ const init = (): InitialProps => {
 describe('Report an error', () => {
   it('should not have any error when there are not reported one', () => {
     const { store, initialState }: InitialProps = init()
-    expect(store.getState()).toEqual({ ...initialState, errors: Map(), hasErrorUnseen: false })
+    expect(store.getState()).toEqual({ ...initialState, errors: Map(), unseenErrorId: '' })
   })
 
   it('should report a validation error and mark it as unseen', async () => {
@@ -40,7 +40,7 @@ describe('Report an error', () => {
     expect(store.getState()).toEqual({
       ...initialState,
       errors: Map().set(error.id, error),
-      hasErrorUnseen: true
+      unseenErrorId: error.id
     })
   })
 })
