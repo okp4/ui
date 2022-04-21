@@ -43,12 +43,12 @@ $borders-colors: ('white', 'transparent');
           &.okp4-card-beveled-#{$color}-#{$borders-color} {
             --b: #{$borders-color};
             --all: 0; // i.e. 0px
-            --top-left: 16px;
+            --top-left: 21px;
             border: 1px solid var(--b);
             background:
               linear-gradient(45deg, var(--b) 0 0px, transparent 0) bottom left /50% 50%,
               linear-gradient(-45deg, var(--b) 0 0px, transparent 0) bottom right/50% 50%,
-              linear-gradient(135deg, var(--b) 0 17px, transparent 0) top left    /50% 50%,
+              linear-gradient(135deg, var(--b) 0 calc(var(--top-left) + 1px), transparent 0) top left    /50% 50%,
               linear-gradient(-135deg, var(--b) 0 0px , transparent 0) top right   /50% 50%,
               var(--img, themed(#{$color}));
             background-origin: border-box;
