@@ -36,9 +36,9 @@ export const Card: React.FC<TCardProps> = ({
   size = 'medium',
   background = 'primary',
   withBorder = false,
+  header,
   content,
   footer,
-  header,
   ...props
 }: TCardProps): JSX.Element => {
   const bordersColor = withBorder ? 'white' : 'transparent';
@@ -57,9 +57,9 @@ export const Card: React.FC<TCardProps> = ({
       className={classnames}
       {...props}
     >
-      {footer}
-      {content}
       {header}
+      {content}
+      {footer}
     </div>
   );
 }
