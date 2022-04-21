@@ -10,9 +10,13 @@ import type { ReportErrorActionTypes } from '../usecase/report-error/actionCreat
 import { eventBusMiddleware } from 'domain/helpers/store.helper'
 import type { DeepReadonly } from 'superTypes'
 
-export const configureStore = (eventBus: DeepReadonly<EventBus>): Store<AppState> =>
+export const configureStore = (
+  eventBus: DeepReadonly<EventBus>,
+  preloadedState?: DeepReadonly<AppState>
+): Store<AppState> =>
   createStore(
     rootReducer,
+    preloadedState,
     composeWithDevTools(
       applyMiddleware(
         thunk as ThunkMiddleware<AppState, Action>,
