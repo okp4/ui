@@ -46,10 +46,10 @@ $borders-colors: ('white', 'transparent');
             --top-left: 21px;
             border: 1px solid var(--b);
             background:
-              linear-gradient(45deg, var(--b) 0 0px, transparent 0) bottom left /50% 50%,
-              linear-gradient(-45deg, var(--b) 0 0px, transparent 0) bottom right/50% 50%,
+              linear-gradient(45deg, var(--b) 0 0, transparent 0) bottom left /50% 50%,
+              linear-gradient(-45deg, var(--b) 0 0, transparent 0) bottom right/50% 50%,
               linear-gradient(135deg, var(--b) 0 calc(var(--top-left) + 1px), transparent 0) top left    /50% 50%,
-              linear-gradient(-135deg, var(--b) 0 0px , transparent 0) top right   /50% 50%,
+              linear-gradient(-135deg, var(--b) 0 0 , transparent 0) top right   /50% 50%,
               var(--img, themed(#{$color}));
             background-origin: border-box;
             background-repeat: no-repeat;
