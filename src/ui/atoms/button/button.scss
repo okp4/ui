@@ -1,0 +1,50 @@
+@import '../../styles/themes.scss';
+
+$background-colors: (
+  'primary': 'primary-brand',
+  'secondary': 'secondary-button',
+  'success': 'success',
+  'warning': 'warning',
+  'error': 'error',
+  'info': 'info'
+);
+
+.okp4-button-main {
+  @include with-theme {
+    cursor: pointer;
+    text-decoration: unset;
+    border: unset;
+    height: 40px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &.variant-secondary {
+      border-radius: 50px;
+    }
+
+    @each $background-color-key, $background-color-value in $background-colors {
+      &.background-color-#{$background-color-key} {
+        background: themed($background-color-value);
+      }
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      background: themed('disabled');
+    }
+
+    &.size-small {
+      width: 140px;
+    }
+
+    &.size-medium {
+      width: 200px;
+    }
+
+    &.size-large {
+      width: 290px;
+    }
+  }
+}

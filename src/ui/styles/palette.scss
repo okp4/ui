@@ -23,6 +23,7 @@ $color-dark-success: #15cc86;
 $color-dark-warning: #fb6800;
 $color-dark-error: #e62331;
 $color-dark-info: #cecfd9;
+$color-dark-disabled: #999999;
 
 // Gradients
 $gradient-dark-background-header: transparent linear-gradient(180deg, #0c1529 0%, #0f224a 100%) 0%
@@ -46,7 +47,7 @@ $color-light-secondary-selected: #966a13;
 
 // Neutral colors
 $color-light-text: #181c49;
-$color-light-highlighted-text: #493918;
+$color-light-highlighted-text: white;
 $color-light-field: #d8d0c6;
 $color-light-border: #ccc2b4;
 $color-light-background: white;
@@ -58,6 +59,7 @@ $color-light-success: #15cc86;
 $color-light-warning: #fb6800;
 $color-light-error: #e62331;
 $color-light-info: #877b65;
+$color-light-disabled: #999999;
 
 // Gradients
 $gradient-light-background-header: transparent linear-gradient(180deg, #faf8f4 0%, white 100%) 0% 0%
