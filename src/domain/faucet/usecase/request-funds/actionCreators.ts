@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import type { ActionsUnion } from '../../../helpers/store.helper'
-import { createAction } from '../../../helpers/store.helper'
+import type { ActionsUnion } from 'domain/common/store.helper'
+import { createAction } from 'domain/common/store.helper'
 import type { ValidationError, GatewayError } from 'domain/faucet/entity/error'
-import type { DeepReadonly } from '../../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 
 export const RequestFundsActions = {
   requestFundsProceeded: () => createAction('faucet/requestFundsProceeded'),

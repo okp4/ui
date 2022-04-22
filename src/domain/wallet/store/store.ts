@@ -7,7 +7,7 @@ import type { EventBus } from 'ts-bus'
 import type { AppState } from '../store/appState'
 import rootReducer from './reducers/wallet.reducer'
 import type { WalletRegistryPort } from '../ports/walletPort'
-import { eventBusMiddleware } from 'domain/helpers/store.helper'
+import { eventBusMiddleware } from 'domain/common/store.helper'
 import type { DeepReadonly } from 'superTypes'
 
 export interface Dependencies {

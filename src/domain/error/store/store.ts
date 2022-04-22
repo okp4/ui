@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import type { EventBus } from 'ts-bus'
 import type { AppState } from './appState'
 import rootReducer from './reducer/error.reducer'
-import { eventBusMiddleware } from 'domain/helpers/store.helper'
+import { eventBusMiddleware } from 'domain/common/store.helper'
 import type { DeepReadonly } from 'superTypes'
 
 export const configureStore = (

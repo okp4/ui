@@ -1,5 +1,4 @@
 import { Map } from 'immutable'
-import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
 import type { Error } from 'domain/error/entity/error'
 import { reportError } from './reportError'
@@ -14,7 +13,7 @@ type InitialProps = Readonly<{
 }>
 
 const error: Error = {
-  id: short.generate(),
+  id: '#id-1',
   name: 'Validation Error',
   message: 'Address prefix does not begin with OKP4',
   timestamp: new Date(1995, 11, 17),
