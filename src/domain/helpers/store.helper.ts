@@ -21,12 +21,12 @@ type ActionCreatorsMapObject = Record<string, FunctionType>
 
 export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<A[keyof A]>
 
-export function eventBusMiddleware<T>(eventBus: DeepReadonly<EventBus>): Middleware {
+export function eventBusMiddleware(eventBus: DeepReadonly<EventBus>): Middleware {
   return function () {
     return function (next: Dispatch<AnyAction>) {
       // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-      return function (action: DeepReadonly<Action<string> | ActionWithPayload<string, T>>) {
-        const payload = (action as ActionWithPayload<string, T>).payload || null
+      return function (action: DeepReadonly<Action<string> | ActionWithPayload<string, unknown>>) {
+        const payload = (action as ActionWithPayload<string, unknown>).payload || null
         const event = { type: action.type, payload: payload }
         eventBus.publish(event)
         return next(action)
