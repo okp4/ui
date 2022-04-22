@@ -12,7 +12,7 @@
  */
 
 $colors: ('primary-background', 'secondary-background', 'header-background', 'footer-background');
-$borders-colors: ('white', 'transparent');
+$has-border-values: ('true', 'false');
 
 .okp4-card-main {
   margin: 0;
@@ -39,9 +39,9 @@ $borders-colors: ('white', 'transparent');
   &.okp4-card-beveled {
     @include with-theme() {
       @each $color in $colors {
-        @each $borders-color in $borders-colors {
-          &.okp4-card-beveled-#{$color}-#{$borders-color} {
-            --b: #{$borders-color};
+        @each $has-border in $has-border-values {
+          &.okp4-card-beveled-#{$color}-#{$has-border} {
+            --b: #{if($has-border == 'true', themed(border), transparent)};
             --all: 0; // i.e. 0px
             --top-left: 21px;
             border: 1px solid var(--b);

@@ -41,7 +41,7 @@ export const Card: React.FC<TCardProps> = ({
   footer,
   ...props
 }: TCardProps): JSX.Element => {
-  const bordersColor = withBorder ? 'white' : 'transparent';
+  const bordersColor = withBorder ? 'true' : 'false';
   const classnames = classNames(
     'okp4-card-main okp4-card-beveled', 
     {
