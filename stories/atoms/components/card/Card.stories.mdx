@@ -91,51 +91,120 @@ Default is `medium`.
         alignItems: 'center'
         }}
       >
-        <div>
-          <Card          
-            size='small'
-            background='primary'
-            withBorder={false}
-            header={<Typography as="div" fontFamily="brand" fontSize="small">
-                <p style={{ textAlign: 'right'}}>ABC</p>
-              </Typography>}
-            content={<Typography as="div" fontFamily="brand" fontSize="medium">
-                <p style={{ textAlign: 'center'}}>small</p>
-              </Typography>}
-            footer={<Typography as="div" fontFamily="brand" fontSize="small">
-                <p style={{ textAlign: 'left'}}>ABC</p>
-              </Typography>}
-          />
-        </div>
-        <Card
-          size='medium'
-          background='primary'
-          withBorder={false}
-          header={<Typography as="div" fontFamily="brand" fontSize="small">
-              <p style={{ textAlign: 'right'}}>ABC</p>
-            </Typography>}
-          content={<Typography as="div" fontFamily="brand" fontSize="medium">
-              <p style={{ textAlign: 'center'}}>medium</p>
-            </Typography>}
-          footer={<Typography as="div" fontFamily="brand" fontSize="small">
-              <p style={{ textAlign: 'left'}}>ABC</p>
-            </Typography>}
+        <CardWithTypographies
+          contentText='small'
+          cardSize='small'
+          cardBackground='primary'
+          isWithBorder={false}
         />
-        <Card
-          size='large'
-          background='primary'
-          withBorder={false}
-          header={<Typography as="div" fontFamily="brand" fontSize="small">
-              <p style={{ textAlign: 'right'}}>ABC</p>
-            </Typography>}
-          content={<Typography as="div" fontFamily="brand" fontSize="medium">
-              <p style={{ textAlign: 'center'}}>large</p>
-            </Typography>}
-          footer={<Typography as="div" fontFamily="brand" fontSize="small">
-              <p style={{ textAlign: 'left'}}>ABC</p>
-            </Typography>}
+        <CardWithTypographies
+          contentText='medium'
+          cardSize='medium'
+          cardBackground='primary'
+          isWithBorder={false}
+        />
+        <CardWithTypographies
+          contentText='large'
+          cardSize='large'
+          cardBackground='primary'
+          isWithBorder={false}
         />
       </div>
     )}
   </Story>
 </Canvas>
+
+## Backgrounds
+
+Available background themes are `primary`, `secondary`, `header`, and `footer`.  
+Default is `primary`.
+
+<Canvas>
+  <Story name="Backgrounds">
+    {args => (
+      <div style={{
+        display: 'flex', 
+        justifyContent:'space-between', 
+        flexDirection: 'column', 
+        alignItems: 'center'
+        }}
+      >
+        <CardWithTypographies
+          contentText='medium'
+          cardSize='medium'
+          cardBackground='primary'
+          isWithBorder={false}
+        />
+        <CardWithTypographies
+          contentText='medium'
+          cardSize='medium'
+          cardBackground='secondary'
+          isWithBorder={false}
+        />
+        <CardWithTypographies
+          contentText='medium'
+          cardSize='medium'
+          cardBackground='header'
+          isWithBorder={false}
+        />
+        <CardWithTypographies
+          contentText='medium'
+          cardSize='medium'
+          cardBackground='footer'
+          isWithBorder={false}
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Border
+
+Card border is optional.
+
+<Canvas>
+  <Story name="IsWithBorder">
+    {args => (
+      <div style={{
+        display: 'flex', 
+        justifyContent:'space-between', 
+        flexDirection: 'column', 
+        alignItems: 'center'
+        }}
+      >
+        <CardWithTypographies
+          contentText='with border'
+          cardSize='medium'
+          cardBackground='primary'
+          isWithBorder={true}
+        />
+        <CardWithTypographies
+          contentText='without border'
+          cardSize='medium'
+          cardBackground='primary'
+          isWithBorder={false}
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+
+export const CardWithTypographies = args => (
+  <div style={{marginBottom: '10px', marginTop: '10px'}}>
+    <Card          
+      size={args.cardSize}
+      background={args.cardBackground}
+      withBorder={args.isWithBorder}
+      header={<Typography as="div" fontFamily="brand" fontSize="small">
+          <p style={{ textAlign: 'right'}}>ABC</p>
+        </Typography>}
+      content={<Typography as="div" fontFamily="brand" fontSize="medium">
+          <p style={{ textAlign: 'center'}}>{args.contentText}</p>
+        </Typography>}
+      footer={<Typography as="div" fontFamily="brand" fontSize="small">
+          <p style={{ textAlign: 'left'}}>ABC</p>
+        </Typography>}
+    />
+  </div>
+)
