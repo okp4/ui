@@ -46,7 +46,7 @@ describe.each`
   ${state1} | ${'id#broken'} | ${undefined}  | ${false}            | ${undefined}
   ${state2} | ${'id#1'}      | ${error1}     | ${true}             | ${'Ooops .. An unspecified error occurred'}
 `(
-  'Given that state is <$state>',
+  'Given that state is <$state> and errorId is <$errorId>',
   ({
     state,
     errorId,
@@ -55,7 +55,6 @@ describe.each`
     expectedUnseenErrorMessage
   }: Data): void => {
     const store = configureStore(eventBus, state)
-    console.log({ state })
     describe('When performing selection getErrorById', () => {
       const v = getErrorById(store.getState(), errorId)
 
