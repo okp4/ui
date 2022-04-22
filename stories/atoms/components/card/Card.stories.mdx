@@ -1,5 +1,6 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
 import { Card } from 'ui/atoms/card/Card'
+import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
@@ -47,16 +48,26 @@ Card is a component laid out on the page. A card can have a content, a header an
     size: 'medium',
     background: 'primary',
     withBorder: false,
-    header: <div>header</div>,
-    content: <div>content</div>,
-    footer: <div>footer</div>,
+    header: <Typography as="div" fontFamily="brand" fontSize="small">
+        <p style={{ textAlign: 'right'}}>ABC</p>
+      </Typography>,
+    content: <Typography as="div" fontFamily="brand" fontSize="medium">
+        <p style={{ textAlign: 'center'}}>ABC</p>
+      </Typography>,
+    footer: <Typography as="div" fontFamily="brand" fontSize="small">
+        <p style={{ textAlign: 'left'}}>ABC</p>
+      </Typography>,
   }}
 >
-  {args => (
-    <div style={{ padding: '10px 0 10px' }}>
-      <Card {...args} />
-    </div>
-  )}
+  {
+    args => { 
+      return (
+        <div style={{ padding: '10px 0 10px' }}>
+          <Card {...args} />
+        </div>
+      );
+    }
+  }
 </Story>
 
 ---
@@ -64,3 +75,67 @@ Card is a component laid out on the page. A card can have a content, a header an
 ### Properties
 
 <ArgsTable story="Overview" />
+
+## Sizes
+
+Size options are `small`, `medium` and `large`.  
+Default is `medium`.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div style={{
+        display: 'flex', 
+        justifyContent:'space-between', 
+        flexDirection: 'column', 
+        alignItems: 'center'
+        }}
+      >
+        <div>
+          <Card          
+            size='small'
+            background='primary'
+            withBorder={false}
+            header={<Typography as="div" fontFamily="brand" fontSize="small">
+                <p style={{ textAlign: 'right'}}>ABC</p>
+              </Typography>}
+            content={<Typography as="div" fontFamily="brand" fontSize="medium">
+                <p style={{ textAlign: 'center'}}>small</p>
+              </Typography>}
+            footer={<Typography as="div" fontFamily="brand" fontSize="small">
+                <p style={{ textAlign: 'left'}}>ABC</p>
+              </Typography>}
+          />
+        </div>
+        <Card
+          size='medium'
+          background='primary'
+          withBorder={false}
+          header={<Typography as="div" fontFamily="brand" fontSize="small">
+              <p style={{ textAlign: 'right'}}>ABC</p>
+            </Typography>}
+          content={<Typography as="div" fontFamily="brand" fontSize="medium">
+              <p style={{ textAlign: 'center'}}>medium</p>
+            </Typography>}
+          footer={<Typography as="div" fontFamily="brand" fontSize="small">
+              <p style={{ textAlign: 'left'}}>ABC</p>
+            </Typography>}
+        />
+        <Card
+          size='large'
+          background='primary'
+          withBorder={false}
+          header={<Typography as="div" fontFamily="brand" fontSize="small">
+              <p style={{ textAlign: 'right'}}>ABC</p>
+            </Typography>}
+          content={<Typography as="div" fontFamily="brand" fontSize="medium">
+              <p style={{ textAlign: 'center'}}>large</p>
+            </Typography>}
+          footer={<Typography as="div" fontFamily="brand" fontSize="small">
+              <p style={{ textAlign: 'left'}}>ABC</p>
+            </Typography>}
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
