@@ -42,8 +42,7 @@ export const Button: React.FC<TButtonProps> = ({
   backgroundColor = 'primary',
   disabled = false,
   label,
-  onClick,
-  ...props
+  onClick
 }: TButtonProps): JSX.Element => (
   <button
     className={classNames('okp4-button-main', {
@@ -56,7 +55,6 @@ export const Button: React.FC<TButtonProps> = ({
     onClick={onClick}
     title={label}
     type="button"
-    {...props}
   >
     <Typography as="div" color="highlighted-text" fontSize="small" fontWeight="light" noWrap>
       {label}
