@@ -41,15 +41,14 @@ export const Card: React.FC<TCardProps> = ({
   footer,
   ...props
 }: TCardProps): JSX.Element => {
-  const bordersColor = withBorder ? 'true' : 'false';
+  const isWithBorders = withBorder ? 'true' : 'false';
   const classnames = classNames(
     'okp4-card-main okp4-card-beveled', 
     {
-      [`okp4-card-beveled-${background}-background-${bordersColor}`]: true,
+      [`okp4-card-beveled-${background}-background-${isWithBorders}`]: true,
       "okp4-card-small": size == 'small',
       "okp4-card-medium": size == 'medium',
       "okp4-card-large": size == 'large',
-      "okp4-card-with-border": withBorder,
     }
   );
   return (
