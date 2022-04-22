@@ -17,7 +17,7 @@ const error: Error = {
   id: short.generate(),
   name: 'Validation Error',
   message: 'Address prefix does not begin with OKP4',
-  timeStamp: new Date(1995, 11, 17),
+  timestamp: new Date(1995, 11, 17),
   type: 'type#validation-error'
 }
 

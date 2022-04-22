@@ -18,14 +18,14 @@ const error1: Error = {
   id: short.generate(),
   name: 'Unspecified Error',
   message: 'Ooops .. An unspecified error occurred',
-  timeStamp: new Date(1996, 12, 25),
+  timestamp: new Date(1996, 12, 25),
   type: 'type#unspecified-error'
 }
 const error2: Error = {
   id: short.generate(),
   name: 'Validation Error',
   message: 'Address prefix does not begin with OKP4',
-  timeStamp: new Date(1995, 11, 17),
+  timestamp: new Date(1995, 11, 17),
   type: 'type#validation-error'
 }
 

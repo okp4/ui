@@ -6,7 +6,7 @@ export type Error = Entity<
   {
     readonly name: string
     readonly message: string
-    readonly timeStamp: Date
+    readonly timestamp: Date
     readonly type: string
   },
   Id
