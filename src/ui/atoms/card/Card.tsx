@@ -34,29 +34,46 @@ export type CardProps = Readonly<{
  */
 export const Card: React.FC<CardProps> = ({
   size = 'medium',
-  background = 'primary',
-  withBorder = false,
+  // background = 'primary',
+  withBorder = true,
   header,
   content,
   footer
 }: CardProps): JSX.Element => {
-  const isWithBorders = withBorder ? 'true' : 'false';
-  const classnames = classNames(
-    'okp4-card-main beveled', 
+  // const isWithBorders = withBorder ? 'true' : 'false';
+  // const classnames = classNames(
+  //   'okp4-card-main', 
+  //   {
+  //     [`${background}-background-${isWithBorders}`]: true,
+  //     "small": size == 'small',
+  //     "medium": size == 'medium',
+  //     "large": size == 'large',
+  //   }
+  // );
+  const wrapperClasses = classNames(
+    'okp4-card-wrapper',
     {
-      [`${background}-background-${isWithBorders}`]: true,
-      "small": size == 'small',
-      "medium": size == 'medium',
-      "large": size == 'large',
+      "small": size === 'small',
+      "medium": size === 'medium',
+      "large": size === 'large',
+      "border": withBorder,
+    }
+  );
+  const containerClasses = classNames(
+    'okp4-card-container',
+    {
+      "small": size === 'small',
+      "medium": size === 'medium',
+      "large": size === 'large',
     }
   );
   return (
-    <div
-      className={classnames}
-    >
-      {header}
-      {content}
-      {footer}
+    <div className={wrapperClasses}>
+      <div className={containerClasses}>
+        <div>{header}</div>
+        <div>{content}</div>
+        <div>{footer}</div>
+      </div>
     </div>
   );
 }

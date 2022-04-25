@@ -3,55 +3,77 @@
 $colors: ('primary-background', 'secondary-background', 'header-background', 'footer-background');
 $has-border-values: ('true', 'false');
 
-.okp4-card-main {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+$small-width: 275px;
+$medium-width: 425px;
+$large-width: 653px;
+$small-height: 235px;
+$medium-height: 235px;
+$large-height: 550px;  
+
+.okp4-card-wrapper {
+  @include with-theme() {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+    -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+
+    --small-width: #{$small-width};
+    --medium-width: #{$medium-width};
+    --large-width: #{$large-width};
+    --small-height: #{$small-height};
+    --medium-height: #{$medium-height};
+    --large-height: #{$large-height};
+    
+    &.small {
+      width: var(--small-width);
+      height: var(--small-height);
+    }
+
+    &.medium {
+      width: var(--medium-width);
+      height: var(--medium-height);
+    }
+
+    &.large {
+      width: var(--large-width);
+      height: var(--large-height);
+    }
+
+    &.border {
+      background: themed(border);
+    }
+  }
+}
+
+.okp4-card-container {
+  background: blue;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+
+  --small-width: #{$small-width};
+  --medium-width: #{$medium-width};
+  --large-width: #{$large-width};
+  --small-height: #{$small-height};
+  --medium-height: #{$medium-height};
+  --large-height: #{$large-height};
 
   &.small {
-    width: 275px;
-    height: 235px;
+    width: calc(var(--small-width) - 2px);
+    height: calc(var(--small-height) - 2px);
   }
 
   &.medium {
-    width: 425px;
-    height: 235px;
+    width: calc(var(--medium-width) - 2px);
+    height: calc(var(--medium-height) - 2px);
   }
 
   &.large {
-    width: 653px;
-    height: 550px;
-  }
+    width: calc(var(--large-width) - 2px);
+    height: calc(var(--large-height) - 2px);
+  }  
 
-  &.beveled {
-    @include with-theme() {
-      @each $color in $colors {
-        @each $has-border in $has-border-values {
-          &.#{$color}-#{$has-border} {
-            --b: #{if($has-border == 'true', themed(border), transparent)};
-            --all: 0; // i.e. 0px
-            --top-left: 21px;
-            border: 1px solid var(--b);
-            background:
-              linear-gradient(45deg, var(--b) 0 0, transparent 0) bottom left /50% 50%,
-              linear-gradient(-45deg, var(--b) 0 0, transparent 0) bottom right/50% 50%,
-              linear-gradient(135deg, var(--b) 0 calc(var(--top-left) + 1px), transparent 0) top left    /50% 50%,
-              linear-gradient(-135deg, var(--b) 0 0 , transparent 0) top right   /50% 50%,
-              var(--img, themed(#{$color}));
-            background-origin: border-box;
-            background-repeat: no-repeat;
-            -webkit-mask:
-              linear-gradient(45deg, transparent 0 var(--bottom-left, var(--all)), white 0) bottom left,
-              linear-gradient(-45deg, transparent 0 var(--bottom-right, var(--all)), white 0) bottom right,
-              linear-gradient(135deg, transparent 0 var(--top-left, var(--all)), white 0) top left,
-              linear-gradient(-135deg, transparent 0 var(--top-right, var(--all)), white 0) top right;
-            -webkit-mask-size: 50.5% 50.5%;
-            -webkit-mask-repeat: no-repeat;
-          }
-        }
-      }
-    }
-  }
+  clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+  -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
 }
