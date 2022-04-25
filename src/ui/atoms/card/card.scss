@@ -1,16 +1,5 @@
 @import 'src/ui/styles/themes.scss';
 
-/**
- * Code snippet with background linear gradients found at:
- * https://stackoverflow.com/questions/7324722/cut-corners-using-css
- * Approach is effective at rendering beveled corners with borders.
- *
- * The bevel can alternatively be drawn with an after pseudo class. 
- * However, the border of the div in the beveled corner is not hidden. 
- * Example code found at:
- * https://blog.logrocket.com/how-to-create-fancy-corners-in-css/
- */
-
 $colors: ('primary-background', 'secondary-background', 'header-background', 'footer-background');
 $has-border-values: ('true', 'false');
 
@@ -21,26 +10,26 @@ $has-border-values: ('true', 'false');
   flex-direction: column;
   justify-content: space-between;
 
-  &.okp4-card-small {
+  &.small {
     width: 275px;
     height: 235px;
   }
 
-  &.okp4-card-medium {
+  &.medium {
     width: 425px;
     height: 235px;
   }
 
-  &.okp4-card-large {
+  &.large {
     width: 653px;
     height: 550px;
   }
 
-  &.okp4-card-beveled {
+  &.beveled {
     @include with-theme() {
       @each $color in $colors {
         @each $has-border in $has-border-values {
-          &.okp4-card-beveled-#{$color}-#{$has-border} {
+          &.#{$color}-#{$has-border} {
             --b: #{if($has-border == 'true', themed(border), transparent)};
             --all: 0; // i.e. 0px
             --top-left: 21px;

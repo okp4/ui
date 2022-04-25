@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import './card.scss'
 
-export type TCardProps = Readonly<{
+export type CardProps = Readonly<{
   /**
    * Card content
    */
@@ -32,29 +32,27 @@ export type TCardProps = Readonly<{
 /**
  * Primary UI component for user interaction.
  */
-export const Card: React.FC<TCardProps> = ({
+export const Card: React.FC<CardProps> = ({
   size = 'medium',
   background = 'primary',
   withBorder = false,
   header,
   content,
-  footer,
-  ...props
-}: TCardProps): JSX.Element => {
+  footer
+}: CardProps): JSX.Element => {
   const isWithBorders = withBorder ? 'true' : 'false';
   const classnames = classNames(
-    'okp4-card-main okp4-card-beveled', 
+    'okp4-card-main beveled', 
     {
-      [`okp4-card-beveled-${background}-background-${isWithBorders}`]: true,
-      "okp4-card-small": size == 'small',
-      "okp4-card-medium": size == 'medium',
-      "okp4-card-large": size == 'large',
+      [`${background}-background-${isWithBorders}`]: true,
+      "small": size == 'small',
+      "medium": size == 'medium',
+      "large": size == 'large',
     }
   );
   return (
     <div
       className={classnames}
-      {...props}
     >
       {header}
       {content}
