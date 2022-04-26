@@ -47,33 +47,40 @@ $large-height: 550px;
 }
 
 .okp4-card-container {
-  background: blue;
-  position: absolute;
-  top: 1px;
-  left: 1px;
+  @include with-theme() {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    --small-width: #{$small-width};
+    --medium-width: #{$medium-width};
+    --large-width: #{$large-width};
+    --small-height: #{$small-height};
+    --medium-height: #{$medium-height};
+    --large-height: #{$large-height};
 
-  --small-width: #{$small-width};
-  --medium-width: #{$medium-width};
-  --large-width: #{$large-width};
-  --small-height: #{$small-height};
-  --medium-height: #{$medium-height};
-  --large-height: #{$large-height};
-
-  &.small {
-    width: calc(var(--small-width) - 2px);
-    height: calc(var(--small-height) - 2px);
+    background: themed(footer-block-background);
+  
+    &.small {
+      width: calc(var(--small-width) - 2px);
+      height: calc(var(--small-height) - 2px);
+    }
+  
+    &.medium {
+      width: calc(var(--medium-width) - 2px);
+      height: calc(var(--medium-height) - 2px);
+    }
+  
+    &.large {
+      width: calc(var(--large-width) - 2px);
+      height: calc(var(--large-height) - 2px);
+    }  
+  
+    clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+    -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
   }
 
-  &.medium {
-    width: calc(var(--medium-width) - 2px);
-    height: calc(var(--medium-height) - 2px);
-  }
-
-  &.large {
-    width: calc(var(--large-width) - 2px);
-    height: calc(var(--large-height) - 2px);
-  }  
-
-  clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-  -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
 }
