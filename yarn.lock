@@ -1126,12 +1126,19 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.2.2", "@babylonjs/core@^4.2.1":
+"@babylonjs/core@4.2.2":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.2.2.tgz#e37f95298700e1f2fc9a6403e297e112b2444d0b"
   integrity sha512-gAgetSyoxFZ/xzMVVnGPKaP941NHA59Ho8GGKFW98OTEp8yZcnzJjNOD2zfF1eKmlvR/6WwSmcrKWTJtPF1pyA==
   dependencies:
     tslib ">=1.10.0"
+
+"@babylonjs/core@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.3.0.tgz#1a83829cb85add3d9c59c4b38f825834c7acc0ab"
+  integrity sha512-MSvYdnsSbrZmmh2lJUQx/DMpxjXpj8EkbT/jeKYoK+LlFVjxy5LZZDEh6GIe8PFysui6i/6X40EDhJ+C0qfRng==
+  dependencies:
+    tslib "^2.3.1"
 
 "@babylonjs/gui@4.2.2":
   version "4.2.2"
@@ -13119,10 +13126,10 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@>=1.10.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.3.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
-  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+tslib@>=1.10.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.3.0, tslib@^2.3.1:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tslib@^1.8.1:
   version "1.14.1"
@@ -13199,9 +13206,9 @@ type-tagger@^1.0.0:
   integrity sha512-FIPqqpmDgdaulCnRoKv1/d3U4xVBUrYn42QXWNP3XYmgfPUDuBUsgFOb9ntT0aIe0UsUP+lknpQ5d9Kn36RssA==
 
 typed-scss-modules@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/typed-scss-modules/-/typed-scss-modules-6.2.0.tgz#30adfb24e9f2651278ed1aa4c42777275b077f69"
-  integrity sha512-2OrxgivyfWZvXZ3LkFljBN8x5kzPVI8xKJxEkfNNcEkyPpVp60msl5O44UAYUgLN3O2rO41fWuLJsc2f1NCBmQ==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/typed-scss-modules/-/typed-scss-modules-6.2.1.tgz#d25f1741991586064b0955643cefe4f072717ceb"
+  integrity sha512-kBBUORAC6n5lfe68xvE+Ma7xNNUrXxLTaPjag92i61VIoQlpbyQeZfrVGxarVDrHGlkVpANB+J4+1t3MjCrj4w==
   dependencies:
     bundle-require "^3.0.4"
     camelcase "^6.3.0"
