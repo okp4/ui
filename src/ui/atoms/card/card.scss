@@ -82,7 +82,7 @@ $large-height: 550px;
       -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
 
       &.#{$color-key} {
-        background: themed(footer-block-background);
+        background: themed(#{$color-value});
       }
     }  
   }
