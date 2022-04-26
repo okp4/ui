@@ -1,13 +1,13 @@
-import { UnspecifiedError } from 'domain/wallet/entities/errors'
 import type { ChainId } from 'domain/wallet/entities/wallet'
 import type { WalletId } from 'domain/wallet/ports/walletPort'
-import type { ReduxStore, ThunkResult } from '../../store/store'
-import { ErrorWalletActions } from '../actionCreators'
+import type { ReduxStore, ThunkResult } from 'domain/wallet/store/store'
+import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { EnableWalletActions } from './actionCreators'
+import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 
 const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
-  const errorToDispatch = error instanceof Error ? error : new UnspecifiedError()
-  dispatch(ErrorWalletActions.walletFailed(errorToDispatch))
+  const errorToDispatch = ErrorMapper.mapRawErrorToEntity(error)
+  dispatch(ThrowErrorActions.errorThrown(errorToDispatch))
 }
 
 export const enableWallet =
