@@ -2,8 +2,6 @@ import { combineReducers } from 'redux'
 import type { RequestFundsActionTypes } from '../../usecase/request-funds/actionCreators'
 import type { SetAddressActionTypes } from '../../usecase/set-address/actionCreators'
 import type { DeepReadonly } from '../../../../superTypes'
-import type { FaucetStatus } from '../appState'
-import type { ErrorFaucetActionTypes } from 'domain/faucet/usecase/actionCreators'
 
 const address = (state: string = '', action: DeepReadonly<SetAddressActionTypes>): string => {
   switch (action.type) {
@@ -14,36 +12,20 @@ const address = (state: string = '', action: DeepReadonly<SetAddressActionTypes>
   }
 }
 
-const error = (
-  state: DeepReadonly<Error> | null = null,
-  action: DeepReadonly<ErrorFaucetActionTypes> | DeepReadonly<RequestFundsActionTypes>
-): Error | null => {
-  switch (action.type) {
-    case 'faucet/faucetFailed':
-      return action.payload.error
-    case 'faucet/RequestFundsFailed':
-      return action.payload.error
-    default:
-      return state
-  }
-}
-
-const status = (
-  state: FaucetStatus = 'idle',
+const isProcessing = (
+  state: boolean = false,
   action: DeepReadonly<RequestFundsActionTypes>
-): FaucetStatus => {
+): boolean => {
   switch (action.type) {
     case 'faucet/requestFundsProceeded':
-      return 'processing'
-    case 'faucet/RequestFundsFailed':
-      return 'error'
+      return true
     case 'faucet/requestFundsSucceeded':
-      return 'success'
+      return false
     default:
       return state
   }
 }
 
-const rootReducer = combineReducers({ address, status, error })
+const rootReducer = combineReducers({ address, isProcessing })
 
 export default rootReducer
