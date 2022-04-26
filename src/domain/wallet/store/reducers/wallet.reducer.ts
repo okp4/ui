@@ -1,9 +1,8 @@
 import { Map } from 'immutable'
 import { combineReducers } from 'redux'
 import type { AccountsByChainId, ConnectionStatuses } from 'domain/wallet/entities/wallet'
-import type { EnableWalletActionTypes } from '../../usecases/enable-wallet/actionCreators'
-import type { ErrorWalletActionTypes } from '../../usecases/actionCreators'
-import type { DeepReadonly } from '../../../../superTypes'
+import type { EnableWalletActionTypes } from 'domain/wallet/usecases/enable-wallet/actionCreators'
+import type { DeepReadonly } from 'superTypes'
 
 const connectionStatuses = (
   state: Readonly<ConnectionStatuses> = Map(),
@@ -29,17 +28,6 @@ const accounts = (
   }
 }
 
-const error = (
-  state: DeepReadonly<Error> | null = null,
-  action: DeepReadonly<ErrorWalletActionTypes>
-): Error | null => {
-  switch (action.type) {
-    case 'wallet/walletFailed':
-      return action.payload.error
-    default:
-      return state
-  }
-}
-const rootReducer = combineReducers({ connectionStatuses, accounts, error })
+const rootReducer = combineReducers({ connectionStatuses, accounts })
 
 export default rootReducer
