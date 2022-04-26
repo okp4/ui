@@ -1,11 +1,10 @@
-import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
-import type { Error } from 'domain/error/entity/error'
 import { ReportErrorActions } from '../report-error/actionCreators'
 import { acknowledgeError } from './acknowledgeError'
 import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
+import { ErrorBuilder } from 'domain/error/builder/error.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -13,13 +12,13 @@ type InitialProps = Readonly<{
   eventBus: EventBus
 }>
 
-const error: Error = {
-  id: short.generate(),
-  name: 'Validation Error',
-  message: 'Address prefix does not begin with OKP4',
-  timestamp: new Date(1995, 11, 17),
-  type: 'type#validation-error'
-}
+const error = new ErrorBuilder()
+  .withId('#id-1')
+  .withTimestamp(new Date(1996, 12, 25))
+  .withMessageKey('domain.error.validation-error')
+  .withType('validation-error')
+  .withContext({ stack: new Error().stack })
+  .build()
 
 const init = (): InitialProps => {
   const eventBus = new EventBus()

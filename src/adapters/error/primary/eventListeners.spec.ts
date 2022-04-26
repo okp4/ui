@@ -1,12 +1,13 @@
 import { Map } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { BusEvent } from 'ts-bus/types'
-import type { Error } from 'domain/error/entity/error'
+import type { Error as EntityError } from 'domain/error/entity/error'
 import { configureStore } from 'domain/error/store/store'
 import type { ReduxStore } from 'domain/error/store/store'
 import type { AppState } from 'domain/error/store/appState'
 import { initErrorEventListeners } from 'adapters/error/primary/eventListeners'
 import type { DeepReadonly } from 'superTypes'
+import { ErrorBuilder } from 'domain/error/builder/error.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -18,13 +19,13 @@ type Data = DeepReadonly<{
   expectedState: AppState
 }>
 
-const error: Error = {
-  id: '#id-1',
-  name: 'Validation Error',
-  message: 'Address prefix does not begin with OKP4',
-  timestamp: new Date(1995, 11, 17),
-  type: 'type#validation-error'
-}
+const error = new ErrorBuilder()
+  .withId('#id-1')
+  .withTimestamp(new Date(1995, 11, 17))
+  .withMessageKey('domain.error.validation-error')
+  .withType('validation-error')
+  .withContext({ stack: new Error().stack })
+  .build()
 
 const init = (): InitialProps => {
   const eventBus = new EventBus()
@@ -45,7 +46,7 @@ describe.each`
   event                                            | expectedState
   ${undefined}                                     | ${expectedState(Map(), '')}
   ${{ type: 'error/fooBar', payload: error }}      | ${expectedState(Map(), '')}
-  ${{ type: 'error/errorThrown', payload: error }} | ${expectedState(Map<string, Error>().set(error.id, error), error.id)}
+  ${{ type: 'error/errorThrown', payload: error }} | ${expectedState(Map<string, EntityError>().set(error.id, error), error.id)}
 `('Given that event is <$event>', ({ event, expectedState }: Data): void => {
   const { store, eventBus }: InitialProps = init()
 
