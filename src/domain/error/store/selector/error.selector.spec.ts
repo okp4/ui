@@ -1,10 +1,11 @@
 import { Map } from 'immutable'
 import { EventBus } from 'ts-bus'
-import type { Error, Id } from 'domain/error/entity/error'
+import type { Error as EntityError, Id } from 'domain/error/entity/error'
 import { configureStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
 import { getErrorById, hasUnseenError, unseenErrorMessage } from './error.selector'
 import type { DeepReadonly } from 'superTypes'
+import { ErrorBuilder } from 'domain/error/builder/error.builder'
 
 type Data = DeepReadonly<{
   state: AppState
@@ -16,35 +17,35 @@ type Data = DeepReadonly<{
 
 const eventBus = new EventBus()
 
-const error1: Error = {
-  id: 'id#1',
-  name: 'Unspecified Error',
-  message: 'Ooops .. An unspecified error occurred',
-  timestamp: new Date(1996, 12, 25),
-  type: 'type#unspecified-error'
-}
-const error2: Error = {
-  id: 'id#2',
-  name: 'Validation Error',
-  message: 'Address prefix does not begin with OKP4',
-  timestamp: new Date(1995, 11, 17),
-  type: 'type#validation-error'
-}
+const error1 = new ErrorBuilder()
+  .withId('#id-1')
+  .withTimestamp(new Date(1996, 12, 25))
+  .withMessageKey('domain.error.unspecified-error')
+  .withType('unspecified-error')
+  .withContext({ stack: new Error().stack })
+  .build()
+const error2 = new ErrorBuilder()
+  .withId('#id-2')
+  .withTimestamp(new Date(1995, 11, 17))
+  .withMessageKey('domain.error.validation-error')
+  .withType('validation-error')
+  .withContext({ stack: new Error().stack })
+  .build()
 
 const state1: AppState = {
-  errors: Map<Id, Error>().set(error1.id, error1),
+  errors: Map<Id, EntityError>().set(error1.id, error1),
   unseenErrorId: ''
 }
 const state2: AppState = {
-  errors: Map<Id, Error>().set(error1.id, error1).set(error2.id, error2),
-  unseenErrorId: 'id#1'
+  errors: Map<Id, EntityError>().set(error1.id, error1).set(error2.id, error2),
+  unseenErrorId: '#id-1'
 }
 
 describe.each`
   state     | errorId        | expectedError | expectedUnseenError | expectedUnseenErrorMessage
-  ${{}}     | ${'id#1'}      | ${undefined}  | ${false}            | ${undefined}
+  ${{}}     | ${'#id-1'}     | ${undefined}  | ${false}            | ${undefined}
   ${state1} | ${'id#broken'} | ${undefined}  | ${false}            | ${undefined}
-  ${state2} | ${'id#1'}      | ${error1}     | ${true}             | ${'Ooops .. An unspecified error occurred'}
+  ${state2} | ${'#id-1'}     | ${error1}     | ${true}             | ${error1.messageKey}
 `(
   'Given that state is <$state> and errorId is <$errorId>',
   ({
