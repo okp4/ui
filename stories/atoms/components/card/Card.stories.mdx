@@ -66,18 +66,20 @@ Card is a component laid out on the page. A card can have a content, a header an
   args={{
     size: 'medium',
     background: 'primary',
-    withBorder: false,
-    header: <Typography as="div" fontFamily="brand" fontSize="small">
-        <span style={{ float: 'right'}}>ABC</span>
+    withBorder: true,
+    header: <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+        <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Prim'Holstein</span>
       </Typography>,
-    content: <Typography as="div" fontFamily="brand" fontSize="medium">
-        <span style={{ textAlign: 'center'}}>
-          Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional. Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional.          Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional. Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional.          Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional. Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional.          Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional. Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional.
-        </span>
-      </Typography>,
-    footer: <Typography as="div" fontFamily="brand" fontSize="small">
-        <span style={{ textAlign: 'left'}}>ABC</span>
-      </Typography>,
+    content: <Typography 
+        as="div" 
+        fontFamily="secondary" 
+        fontSize="x-large" 
+        fontWeight="xlight"
+        color="highlighted-text"
+      >MVL</Typography>,
+    footer: <div style={{ marginBottom: '4px' }}><Typography as="div" fontFamily="brand" fontSize="medium" fontWeight="bold" color="success">
+        <span style={{ textAlign: 'left' }}>Mes vaches laitières</span>
+      </Typography></div>,
   }}
 >
   {

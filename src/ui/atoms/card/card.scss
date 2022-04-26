@@ -103,16 +103,18 @@ $large-padding: 34px;
 
   overflow: hidden;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &.small {
-    max-height: calc(var(--small-height) - 56px);
+    max-height: calc(var(--small-height) - 68px);
   }
 
   &.medium {
-    max-height: calc(var(--medium-height) - 56px);
+    max-height: calc(var(--medium-height) - 68px);
   }
 
   &.large {
-    max-height: calc(var(--large-height) - 56px);
+    max-height: calc(var(--large-height) - 68px);
   } 
 }
