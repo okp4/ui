@@ -43,7 +43,26 @@ Card is a component laid out on the page. A card can have a content, a header an
 
 <Story
   name="Overview"
-  argTypes={{}}
+  argTypes={{
+    header: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      },
+    },
+    content: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      },
+    },
+    footer: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      },
+    },
+  }}
   args={{
     size: 'medium',
     background: 'primary',
