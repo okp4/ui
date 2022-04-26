@@ -79,8 +79,7 @@ $large-padding: 34px;
         width: calc(var(--medium-width) - 2px);
         height: calc(var(--medium-height) - 2px);
         padding-left: var(--medium-padding);
-        padding-right: var(--medium-padding); 
-
+        padding-right: var(--medium-padding);
       }
     
       &.large {
@@ -95,4 +94,25 @@ $large-padding: 34px;
       }
     }  
   }
+}
+
+.okp4-card-content {
+  --small-height: #{$small-height};
+  --medium-height: #{$medium-height};
+  --large-height: #{$large-height};
+
+  overflow: hidden;
+  display: flex;
+
+  &.small {
+    max-height: calc(var(--small-height) - 56px);
+  }
+
+  &.medium {
+    max-height: calc(var(--medium-height) - 56px);
+  }
+
+  &.large {
+    max-height: calc(var(--large-height) - 56px);
+  } 
 }
