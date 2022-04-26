@@ -22,7 +22,7 @@ export type CardProps = Readonly<{
   /**
    * Background theme
    */
-  readonly background?: 'primary' | 'secondary' | 'header' | 'footer'
+  readonly background?: 'primary' | 'secondary'
   /**
    * Whether card has a border
    */
@@ -38,18 +38,9 @@ export const Card: React.FC<CardProps> = ({
   withBorder = true,
   header,
   content,
-  footer
+  footer,
+  background
 }: CardProps): JSX.Element => {
-  // const isWithBorders = withBorder ? 'true' : 'false';
-  // const classnames = classNames(
-  //   'okp4-card-main', 
-  //   {
-  //     [`${background}-background-${isWithBorders}`]: true,
-  //     "small": size == 'small',
-  //     "medium": size == 'medium',
-  //     "large": size == 'large',
-  //   }
-  // );
   const wrapperClasses = classNames(
     'okp4-card-wrapper',
     {
@@ -60,11 +51,11 @@ export const Card: React.FC<CardProps> = ({
     }
   );
   const containerClasses = classNames(
-    'okp4-card-container secondary',
+    `okp4-card-container ${background}`,
     {
       "small": size === 'small',
       "medium": size === 'medium',
-      "large": size === 'large',
+      "large": size === 'large'
     }
   );
   return (
