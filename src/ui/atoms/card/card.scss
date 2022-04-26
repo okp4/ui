@@ -1,6 +1,6 @@
 @import 'src/ui/styles/themes.scss';
 
-$colors: ('primary-background', 'secondary-background', 'header-background', 'footer-background');
+$colors: ('primary': 'primary-background', 'secondary': 'footer-block-background');
 $has-border-values: ('true', 'false');
 
 $small-width: 275px;
@@ -48,39 +48,42 @@ $large-height: 550px;
 
 .okp4-card-container {
   @include with-theme() {
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    @each $color-key, $color-value in $colors {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      
+      --small-width: #{$small-width};
+      --medium-width: #{$medium-width};
+      --large-width: #{$large-width};
+      --small-height: #{$small-height};
+      --medium-height: #{$medium-height};
+      --large-height: #{$large-height};
+  
+      &.small {
+        width: calc(var(--small-width) - 2px);
+        height: calc(var(--small-height) - 2px);
+      }
     
-    --small-width: #{$small-width};
-    --medium-width: #{$medium-width};
-    --large-width: #{$large-width};
-    --small-height: #{$small-height};
-    --medium-height: #{$medium-height};
-    --large-height: #{$large-height};
+      &.medium {
+        width: calc(var(--medium-width) - 2px);
+        height: calc(var(--medium-height) - 2px);
+      }
+    
+      &.large {
+        width: calc(var(--large-width) - 2px);
+        height: calc(var(--large-height) - 2px);
+      }  
+    
+      clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+      -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
 
-    background: themed(footer-block-background);
-  
-    &.small {
-      width: calc(var(--small-width) - 2px);
-      height: calc(var(--small-height) - 2px);
-    }
-  
-    &.medium {
-      width: calc(var(--medium-width) - 2px);
-      height: calc(var(--medium-height) - 2px);
-    }
-  
-    &.large {
-      width: calc(var(--large-width) - 2px);
-      height: calc(var(--large-height) - 2px);
+      &.#{$color-key} {
+        background: themed(footer-block-background);
+      }
     }  
-  
-    clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-    -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
   }
-
 }

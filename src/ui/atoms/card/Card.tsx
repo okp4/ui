@@ -60,7 +60,7 @@ export const Card: React.FC<CardProps> = ({
     }
   );
   const containerClasses = classNames(
-    'okp4-card-container',
+    'okp4-card-container secondary',
     {
       "small": size === 'small',
       "medium": size === 'medium',
