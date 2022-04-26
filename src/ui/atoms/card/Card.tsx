@@ -33,8 +33,8 @@ export type CardProps = Readonly<{
  * Primary UI component for user interaction.
  */
 export const Card: React.FC<CardProps> = ({
-  size = 'large',
-  withBorder = true,
+  size='large',
+  withBorder,
   header,
   content,
   footer,

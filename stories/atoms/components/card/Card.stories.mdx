@@ -29,15 +29,15 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 # Card
 
-> Communicate _actions_ that users can take.
+> OKP4 UI Card component.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Overview
 
-### Description
-
-Card is a component laid out on the page. A card can have a content, a header and a footer. All are optional.
+Card is a component laid out on the page. A card can have a content, a header and a footer, all optional. 
+Content, header and footer must be react components. Any component picked from OPK4 UI library e.g. Typography 
+gets styled with colors of the current theme setting.
 
 ---
 
@@ -114,23 +114,38 @@ Default is `medium`.
         alignItems: 'center'
         }}
       >
-        <CardWithTypographies
-          contentText='small'
-          cardSize='small'
-          cardBackground='primary'
-          isWithBorder={false}
+        <Card          
+          size="small"
+          background="primary"
+          withBorder="true"
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>
+          }
+          content={<Typography fontSize="x-large">small</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
-        <CardWithTypographies
-          contentText='medium'
-          cardSize='medium'
-          cardBackground='primary'
-          isWithBorder={false}
+        <div style={{height: '36px'}}></div>
+        <Card          
+          size="medium"
+          background="primary"
+          withBorder="true"
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>}
+          content={<Typography fontSize="x-large">medium</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
-        <CardWithTypographies
-          contentText='large'
-          cardSize='large'
-          cardBackground='primary'
-          isWithBorder={false}
+        <div style={{height: '36px'}}></div>
+        <Card          
+          size="large"
+          background="primary"
+          withBorder="true"
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>}
+          content={<Typography fontSize="x-large">medium</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
       </div>
     )}
@@ -139,8 +154,7 @@ Default is `medium`.
 
 ## Backgrounds
 
-Available background themes are `primary`, `secondary`, `header`, and `footer`.  
-Default is `primary`.
+Available background themes are `primary` and `secondary`. Default is `primary`.
 
 <Canvas>
   <Story name="Backgrounds">
@@ -152,29 +166,26 @@ Default is `primary`.
         alignItems: 'center'
         }}
       >
-        <CardWithTypographies
-          contentText='primary'
-          cardSize='medium'
-          cardBackground='primary'
-          isWithBorder={false}
+        <Card          
+          size="medium"
+          background="primary"
+          withBorder="true"
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>}
+          content={<Typography fontSize="x-large">medium</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
-        <CardWithTypographies
-          contentText='secondary'
-          cardSize='medium'
-          cardBackground='secondary'
-          isWithBorder={false}
-        />
-        <CardWithTypographies
-          contentText='header'
-          cardSize='medium'
-          cardBackground='header'
-          isWithBorder={false}
-        />
-        <CardWithTypographies
-          contentText='footer'
-          cardSize='medium'
-          cardBackground='footer'
-          isWithBorder={false}
+        <div style={{height: '36px'}}></div>
+        <Card          
+          size="medium"
+          background="secondary"
+          withBorder="true"
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>}
+          content={<Typography fontSize="x-large">medium</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
       </div>
     )}
@@ -195,39 +206,28 @@ Card border is optional.
         alignItems: 'center'
         }}
       >
-        <CardWithTypographies
-          contentText='with border'
-          cardSize='medium'
-          cardBackground='primary'
-          isWithBorder={true}
+        <Card          
+          size='medium'
+          background='primary'
+          withBorder={false}
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>}
+          content={<Typography fontSize="x-large">medium</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
-        <CardWithTypographies
-          contentText='without border'
-          cardSize='medium'
-          cardBackground='primary'
-          isWithBorder={false}
+        <div style={{height: '36px'}}></div>
+        <Card          
+          size='medium'
+          background='primary'
+          withBorder={true}
+          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+            </Typography>}
+          content={<Typography fontSize="x-large">medium</Typography>}
+          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
         />
       </div>
     )}
   </Story>
 </Canvas>
-
-
-export const CardWithTypographies = args => (
-  <div style={{marginBottom: '10px', marginTop: '10px'}}>
-    <Card          
-      size={args.cardSize}
-      background={args.cardBackground}
-      withBorder={args.isWithBorder}
-      header={<Typography as="div" fontFamily="brand" fontSize="small">
-          <p style={{ textAlign: 'right'}}>ABC</p>
-        </Typography>}
-      content={<Typography as="div" fontFamily="brand" fontSize="medium">
-          <p style={{ textAlign: 'center'}}>{args.contentText}</p>
-        </Typography>}
-      footer={<Typography as="div" fontFamily="brand" fontSize="small">
-          <p style={{ textAlign: 'left'}}>ABC</p>
-        </Typography>}
-    />
-  </div>
-)
