@@ -9,22 +9,22 @@ $large-width: 653px;
 $small-height: 235px;
 $medium-height: 235px;
 $large-height: 550px;  
+$small-padding: 16px;
+$medium-padding: 26px;
+$large-padding: 34px;
 
 .okp4-card-wrapper {
   @include with-theme() {
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-    -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-
     --small-width: #{$small-width};
     --medium-width: #{$medium-width};
     --large-width: #{$large-width};
     --small-height: #{$small-height};
     --medium-height: #{$medium-height};
     --large-height: #{$large-height};
-    
+
+    position: relative;
+    clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+
     &.small {
       width: var(--small-width);
       height: var(--small-height);
@@ -49,37 +49,46 @@ $large-height: 550px;
 .okp4-card-container {
   @include with-theme() {
     @each $color-key, $color-value in $colors {
-      position: absolute;
-      top: 1px;
-      left: 1px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      
       --small-width: #{$small-width};
       --medium-width: #{$medium-width};
       --large-width: #{$large-width};
       --small-height: #{$small-height};
       --medium-height: #{$medium-height};
       --large-height: #{$large-height};
-  
+      --small-padding: #{$small-padding};
+      --medium-padding: #{$medium-padding};
+      --large-padding: #{$large-padding};
+
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+
       &.small {
         width: calc(var(--small-width) - 2px);
         height: calc(var(--small-height) - 2px);
+        padding-left: var(--small-padding);
+        padding-right: var(--small-padding);  
       }
     
       &.medium {
         width: calc(var(--medium-width) - 2px);
         height: calc(var(--medium-height) - 2px);
+        padding-left: var(--medium-padding);
+        padding-right: var(--medium-padding); 
+
       }
     
       &.large {
         width: calc(var(--large-width) - 2px);
         height: calc(var(--large-height) - 2px);
-      }  
-    
-      clip-path:          polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-      -webkit-clip-path:  polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+        padding-left: var(--large-padding);
+        padding-right: var(--large-padding); 
+      } 
 
       &.#{$color-key} {
         background: themed(#{$color-value});
