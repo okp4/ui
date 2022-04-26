@@ -20,5 +20,5 @@ export const hasUnseenError: (state: DeepReadonly<AppState>) => boolean = create
 export const unseenErrorMessage: (state: DeepReadonly<AppState>) => string | undefined =
   createSelector(
     (state: DeepReadonly<AppState>): AppState => state,
-    (state: DeepReadonly<AppState>) => getErrorById(state, state.unseenErrorId)?.message
+    (state: DeepReadonly<AppState>) => getErrorById(state, state.unseenErrorId)?.messageKey
   )
