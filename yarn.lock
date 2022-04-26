@@ -13199,9 +13199,9 @@ type-tagger@^1.0.0:
   integrity sha512-FIPqqpmDgdaulCnRoKv1/d3U4xVBUrYn42QXWNP3XYmgfPUDuBUsgFOb9ntT0aIe0UsUP+lknpQ5d9Kn36RssA==
 
 typed-scss-modules@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/typed-scss-modules/-/typed-scss-modules-6.2.0.tgz#30adfb24e9f2651278ed1aa4c42777275b077f69"
-  integrity sha512-2OrxgivyfWZvXZ3LkFljBN8x5kzPVI8xKJxEkfNNcEkyPpVp60msl5O44UAYUgLN3O2rO41fWuLJsc2f1NCBmQ==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/typed-scss-modules/-/typed-scss-modules-6.2.1.tgz#d25f1741991586064b0955643cefe4f072717ceb"
+  integrity sha512-kBBUORAC6n5lfe68xvE+Ma7xNNUrXxLTaPjag92i61VIoQlpbyQeZfrVGxarVDrHGlkVpANB+J4+1t3MjCrj4w==
   dependencies:
     bundle-require "^3.0.4"
     camelcase "^6.3.0"
