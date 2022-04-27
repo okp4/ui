@@ -41,7 +41,7 @@ export const Card: React.FC<CardProps> = ({
   background
 }: CardProps): JSX.Element => {
   const wrapperClasses = classNames(
-    'okp4-card-wrapper',
+    'okp4-card-main',
     {
       "small": size === 'small',
       "medium": size === 'medium',
@@ -52,18 +52,18 @@ export const Card: React.FC<CardProps> = ({
   const containerClasses = classNames(
     `okp4-card-container ${background}`,
     {
-      "small": size === 'small',
-      "medium": size === 'medium',
-      "large": size === 'large'
+      "small-container": size === 'small',
+      "medium-container": size === 'medium',
+      "large-container": size === 'large'
     }   
   )
   const contentClasses = classNames(
     'okp4-card-content',
     {
-      "small": size === 'small',
-      "medium": size === 'medium',
-      "large": size === 'large'
-    }   
+      "small-content": size === 'small',
+      "medium-content": size === 'medium',
+      "large-content": size === 'large'
+    }
   );
   return (
     <div className={wrapperClasses}>

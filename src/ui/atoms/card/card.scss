@@ -2,119 +2,75 @@
 
 $colors: ('primary': 'primary-background', 'secondary': 'footer-block-background');
 $has-border-values: ('true', 'false');
+$sizes: ('small', 'medium', 'large');
 
-$small-width: 275px;
-$medium-width: 425px;
-$large-width: 653px;
-$small-height: 235px;
-$medium-height: 235px;
-$large-height: 550px;  
-$small-padding: 16px;
-$medium-padding: 26px;
-$large-padding: 34px;
+$sizes-map: (
+  small-width: 275px,
+  medium-width: 425px,
+  large-width: 653px,
+  small-height: 235px,
+  medium-height: 235px,
+  large-height: 550px,
+  small-padding: 16px,
+  medium-padding: 26px,
+  large-padding: 34px,
+);
 
-.okp4-card-wrapper {
-  @include with-theme() {
-    --small-width: #{$small-width};
-    --medium-width: #{$medium-width};
-    --large-width: #{$large-width};
-    --small-height: #{$small-height};
-    --medium-height: #{$medium-height};
-    --large-height: #{$large-height};
-
+.okp4-card-main {
+  @include with-theme() {  
     position: relative;
     clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+    width: 400px;
+    height: 400px;
 
-    &.small {
-      width: var(--small-width);
-      height: var(--small-height);
-    }
-
-    &.medium {
-      width: var(--medium-width);
-      height: var(--medium-height);
-    }
-
-    &.large {
-      width: var(--large-width);
-      height: var(--large-height);
+    @each $size in $sizes {
+      &.#{$size} {
+        width: map-get($sizes-map, #{$size}-width);
+        height: map-get($sizes-map, #{$size}-height);
+      }
     }
 
     &.border {
       background: themed(border);
     }
+
+    .okp4-card-container {
+      @each $color-key, $color-value in $colors {    
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+        clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+
+        @each $size in $sizes {
+          &.#{$size}-container {
+            width: map-get($sizes-map, #{$size}-width) - 2px;
+            height: map-get($sizes-map, #{$size}-height) - 2px;
+            padding-left: map-get($sizes-map, #{$size}-padding);
+            padding-right: map-get($sizes-map, #{$size}-padding);  
+          }
+        }
+
+        &.#{$color-key} {
+          background: themed(#{$color-value});
+        }
+
+        .okp4-card-content {
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          @each $size in $sizes {
+            &.#{$size}-content {
+              max-height: map-get($sizes-map, #{$size}-height) - 68px;
+            }
+          }
+        }
+      }  
+    }
   }
-}
-
-.okp4-card-container {
-  @include with-theme() {
-    @each $color-key, $color-value in $colors {
-      --small-width: #{$small-width};
-      --medium-width: #{$medium-width};
-      --large-width: #{$large-width};
-      --small-height: #{$small-height};
-      --medium-height: #{$medium-height};
-      --large-height: #{$large-height};
-      --small-padding: #{$small-padding};
-      --medium-padding: #{$medium-padding};
-      --large-padding: #{$large-padding};
-
-      position: absolute;
-      top: 1px;
-      left: 1px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-sizing: border-box;
-      clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-
-      &.small {
-        width: calc(var(--small-width) - 2px);
-        height: calc(var(--small-height) - 2px);
-        padding-left: var(--small-padding);
-        padding-right: var(--small-padding);  
-      }
-    
-      &.medium {
-        width: calc(var(--medium-width) - 2px);
-        height: calc(var(--medium-height) - 2px);
-        padding-left: var(--medium-padding);
-        padding-right: var(--medium-padding);
-      }
-    
-      &.large {
-        width: calc(var(--large-width) - 2px);
-        height: calc(var(--large-height) - 2px);
-        padding-left: var(--large-padding);
-        padding-right: var(--large-padding); 
-      } 
-
-      &.#{$color-key} {
-        background: themed(#{$color-value});
-      }
-    }  
-  }
-}
-
-.okp4-card-content {
-  --small-height: #{$small-height};
-  --medium-height: #{$medium-height};
-  --large-height: #{$large-height};
-
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &.small {
-    max-height: calc(var(--small-height) - 68px);
-  }
-
-  &.medium {
-    max-height: calc(var(--medium-height) - 68px);
-  }
-
-  &.large {
-    max-height: calc(var(--large-height) - 68px);
-  } 
 }
