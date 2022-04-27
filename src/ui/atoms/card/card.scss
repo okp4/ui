@@ -20,8 +20,6 @@ $sizes-map: (
   @include with-theme() {  
     position: relative;
     clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-    width: 400px;
-    height: 400px;
 
     @each $size in $sizes {
       &.#{$size} {
@@ -46,7 +44,7 @@ $sizes-map: (
         clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
 
         @each $size in $sizes {
-          &.#{$size}-container {
+          &.#{$size} {
             width: map-get($sizes-map, #{$size}-width) - 2px;
             height: map-get($sizes-map, #{$size}-height) - 2px;
             padding-left: map-get($sizes-map, #{$size}-padding);
@@ -65,7 +63,7 @@ $sizes-map: (
           align-items: center;
 
           @each $size in $sizes {
-            &.#{$size}-content {
+            &.#{$size} {
               max-height: map-get($sizes-map, #{$size}-height) - 68px;
             }
           }
