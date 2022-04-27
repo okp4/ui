@@ -85,7 +85,13 @@ gets styled with colors of the current theme setting.
   {
     args => { 
       return (
-        <div style={{ padding: '10px 0 10px' }}>
+        <div style={{ 
+            padding: '10px 0 10px', 
+            display: 'flex', 
+            flexDirection: 'row', 
+            justifyContent: 'center' 
+          }}
+        >
           <Card {...args} />
         </div>
       );
