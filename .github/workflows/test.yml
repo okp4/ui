@@ -35,10 +35,3 @@ jobs:
         with:
           files: ./coverage/lcov.info
           verbose: true
-
-      - name: Comment test coverage on pull request
-        uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.actor != 'dependabot[bot]'
-        with:
-          package-manager: yarn
-          test-script: yarn coverage
