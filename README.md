@@ -6,7 +6,7 @@
 [![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/test_coverage)](https://codeclimate.com/github/okp4/ui/test_coverage)
+[![Test Coverage](https://codecov.io/gh/okp4/ui/branch/main/graph/badge.svg?token=WHLU66SCC2)](https://codecov.io/gh/okp4/ui)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
