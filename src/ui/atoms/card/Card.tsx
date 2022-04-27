@@ -33,38 +33,18 @@ export type CardProps = Readonly<{
  * Primary UI component for user interaction.
  */
 export const Card: React.FC<CardProps> = ({
-  size='large',
+  size = 'large',
   withBorder,
   header,
   content,
   footer,
   background
 }: CardProps): JSX.Element => {
-  const wrapperClasses = classNames(
-    'okp4-card-main',
-    {
-      "small": size === 'small',
-      "medium": size === 'medium',
-      "large": size === 'large',
-      "border": withBorder,
-    }
-  );
-  const containerClasses = classNames(
-    `okp4-card-container ${background}`,
-    {
-      "small-container": size === 'small',
-      "medium-container": size === 'medium',
-      "large-container": size === 'large'
-    }   
-  )
-  const contentClasses = classNames(
-    'okp4-card-content',
-    {
-      "small-content": size === 'small',
-      "medium-content": size === 'medium',
-      "large-content": size === 'large'
-    }
-  );
+  const wrapperClasses = classNames(`okp4-card-main ${size}`, {
+    border: withBorder
+  })
+  const containerClasses = `okp4-card-container ${background} ${size}`
+  const contentClasses = `okp4-card-content ${size}`
   return (
     <div className={wrapperClasses}>
       <div className={containerClasses}>
@@ -73,5 +53,5 @@ export const Card: React.FC<CardProps> = ({
         <div>{footer}</div>
       </div>
     </div>
-  );
+  )
 }
