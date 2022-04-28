@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import type { ActionsUnion } from '../../../helpers/store.helper'
-import { createAction } from '../../../helpers/store.helper'
-import type { Accounts, ChainId } from '../../entities/wallet'
+import type { ActionsUnion } from 'domain/common/store.helper'
+import { createAction } from 'domain/common/store.helper'
+import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 
 export const EnableWalletActions = {
   walletConnected: (chaindId: ChainId) => createAction('wallet/walletConnected', { chaindId }),

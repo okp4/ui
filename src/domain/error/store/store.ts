@@ -6,8 +6,7 @@ import thunk from 'redux-thunk'
 import type { EventBus } from 'ts-bus'
 import type { AppState } from './appState'
 import rootReducer from './reducer/error.reducer'
-import type { ReportErrorActionTypes } from '../usecase/report-error/actionCreators'
-import { eventBusMiddleware } from 'domain/helpers/store.helper'
+import { eventBusMiddleware } from 'domain/common/store.helper'
 import type { DeepReadonly } from 'superTypes'
 
 export const configureStore = (
@@ -18,10 +17,7 @@ export const configureStore = (
     rootReducer,
     preloadedState,
     composeWithDevTools(
-      applyMiddleware(
-        thunk as ThunkMiddleware<AppState, Action>,
-        eventBusMiddleware<ReportErrorActionTypes>(eventBus)
-      )
+      applyMiddleware(thunk as ThunkMiddleware<AppState, Action>, eventBusMiddleware(eventBus))
     )
   )
 

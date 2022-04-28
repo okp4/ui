@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/typedef */
 import { EventBus } from 'ts-bus'
-import { GatewayError, ValidationError } from 'domain/faucet/entity/error'
-import type { AppState, FaucetStatus } from 'domain/faucet/store/appState'
+import type { AppState } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
 import { requestFunds } from './requestFunds'
@@ -12,16 +10,29 @@ interface InitialProps {
   store: ReduxStore
   initialState: AppState
   faucetGateway: InMemoryFaucetGateway
-  eventBus: EventBus
 }
+
+interface Data {
+  hasGatewayError: boolean
+  address: string
+  expectedPayloadType: string
+  expectedPayloadMessageKey: string
+  expectedHaveBeenCalledTimes: number
+}
+
+const eventBus = new EventBus()
+const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
+
+afterEach(() => {
+  jest.clearAllMocks()
+})
 
 describe('Request funds from faucet', () => {
   const init = (): InitialProps => {
     const faucetGateway = new InMemoryFaucetGateway()
-    const eventBus = new EventBus()
     const store = configureStore({ faucetGateway }, eventBus)
     const initialState = store.getState()
-    return { store, initialState, faucetGateway, eventBus }
+    return { store, initialState, faucetGateway }
   }
 
   const dispatchRequestFundsUsecase = async (
@@ -33,44 +44,52 @@ describe('Request funds from faucet', () => {
 
   const expectRequestFunds =
     (store: DeepReadonly<ReduxStore>, initialState: DeepReadonly<AppState>) =>
-    (status: Readonly<FaucetStatus>, error: DeepReadonly<Error> | null): void => {
+    (isProcessing: boolean): void => {
       expect(store.getState()).toEqual({
         ...initialState,
-        status,
-        error
+        isProcessing
       })
     }
 
-  it('should report a ValidationError if provided address is too short', async () => {
-    const { store, initialState }: InitialProps = init()
-    await dispatchRequestFundsUsecase('123', store)
-    expectRequestFunds(store, initialState)(
-      'error',
-      new ValidationError('Data part of the message too short (at least 6 chars expected)')
-    )
-  })
-
-  it('should report a ValidationError if provided address does not begin with okp4', async () => {
-    const { store, initialState }: InitialProps = init()
-    await dispatchRequestFundsUsecase('cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy', store)
-    expectRequestFunds(store, initialState)(
-      'error',
-      new ValidationError('Address prefix does not begin with OKP4')
-    )
-  })
-
-  it('should report a GatewayError if something went wrong while requesting funds', async () => {
-    const { store, initialState, faucetGateway }: InitialProps = init()
-    faucetGateway.setError()
-    await dispatchRequestFundsUsecase('okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l', store)
-    expectRequestFunds(store, initialState)('error', new GatewayError())
-  })
+  describe.each`
+    hasGatewayError | address                                            | expectedPayloadType   | expectedPayloadMessageKey          | expectedHaveBeenCalledTimes
+    ${false}        | ${'123'}                                           | ${'validation-error'} | ${'domain.error.validation-error'} | ${1}
+    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${'validation-error'} | ${'domain.error.validation-error'} | ${1}
+    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${'gateway-error'}    | ${'domain.error.gateway-error'}    | ${2}
+  `(
+    'Given that hasGatewayError is <$hasGatewayError> and address is <$address>',
+    ({
+      hasGatewayError,
+      address,
+      expectedPayloadType,
+      expectedPayloadMessageKey,
+      expectedHaveBeenCalledTimes
+    }: Readonly<Data>): void => {
+      const { store, faucetGateway }: InitialProps = init()
+      hasGatewayError && faucetGateway.setError()
+      describe('When requesting funds', () => {
+        test('Then, expect an error event to be published', async () => {
+          await dispatchRequestFundsUsecase(address, store)
+          expect(mockedEventBusPublish).toHaveBeenCalledTimes(expectedHaveBeenCalledTimes)
+          expect(mockedEventBusPublish).toHaveBeenCalledWith(
+            expect.objectContaining({
+              type: 'error/errorThrown',
+              payload: expect.objectContaining({
+                type: expectedPayloadType,
+                messageKey: expectedPayloadMessageKey
+              })
+            })
+          )
+        })
+      })
+    }
+  )
 
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  it('should be aware of the processing status', done => {
+  it('should be aware of the processing status', (done: jest.DoneCallback) => {
     const { store, initialState }: InitialProps = init()
     const unsubscribe = store.subscribe(() => {
-      expectRequestFunds(store, initialState)('processing', null)
+      expectRequestFunds(store, initialState)(true)
       unsubscribe()
       done()
     })
@@ -78,9 +97,9 @@ describe('Request funds from faucet', () => {
     dispatchRequestFundsUsecase('okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l', store)
   })
 
-  it('should report a sucess status after requesting for funds', async () => {
+  it('should not process anymore after requesting for funds', async () => {
     const { store, initialState }: InitialProps = init()
     await dispatchRequestFundsUsecase('okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l', store)
-    expectRequestFunds(store, initialState)('success', null)
+    expectRequestFunds(store, initialState)(false)
   })
 })

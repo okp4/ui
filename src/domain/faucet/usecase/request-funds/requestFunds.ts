@@ -1,11 +1,12 @@
-import { UnspecifiedError } from 'domain/faucet/entity/error'
-import type { ReduxStore, ThunkResult } from '../../store/store'
+import { ThrowErrorActions } from 'domain/common/actionCreators'
+import { ErrorMapper } from 'domain/error/mapper/error.mapper'
+import type { ReduxStore, ThunkResult } from 'domain/faucet/store/store'
 import { RequestFundsActions } from './actionCreators'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
 
 const dispatchRequestFundsError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
-  const errorToDispatch = error instanceof Error ? error : new UnspecifiedError()
-  dispatch(RequestFundsActions.requestFundsFailed(errorToDispatch))
+  const errorToDispatch = ErrorMapper.mapRawErrorToEntity(error)
+  dispatch(ThrowErrorActions.errorThrown(errorToDispatch))
 }
 
 export const requestFunds =

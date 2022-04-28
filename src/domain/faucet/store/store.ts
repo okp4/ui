@@ -7,9 +7,7 @@ import type { EventBus } from 'ts-bus'
 import type { AppState } from '../store/appState'
 import rootReducer from './reducer/faucet.reducer'
 import type { FaucetPort } from '../port/faucetPort'
-import type { RequestFundsActionTypes } from '../usecase/request-funds/actionCreators'
-import type { ErrorFaucetActionTypes } from '../usecase/actionCreators'
-import { eventBusMiddleware } from 'domain/helpers/store.helper'
+import { eventBusMiddleware } from 'domain/common/store.helper'
 import type { DeepReadonly } from 'superTypes'
 
 export interface Dependencies {
@@ -24,7 +22,7 @@ export const configureStore = (
     composeWithDevTools(
       applyMiddleware(
         thunk.withExtraArgument(dependencies) as ThunkMiddleware<AppState, Action, Dependencies>,
-        eventBusMiddleware<RequestFundsActionTypes | ErrorFaucetActionTypes>(eventBus)
+        eventBusMiddleware(eventBus)
       )
     )
   )
