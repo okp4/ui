@@ -17,14 +17,13 @@ $sizes-map: (
 );
 
 .okp4-card-main {
-  @include with-theme() {  
-    position: relative;
+  @include with-theme() {
     clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+    padding: 1px;
 
     @each $size in $sizes {
       &.#{$size} {
         width: map-get($sizes-map, #{$size}-width);
-        height: map-get($sizes-map, #{$size}-height);
       }
     }
 
@@ -34,19 +33,17 @@ $sizes-map: (
 
     .okp4-card-container {
       @each $color-key, $color-value in $colors {    
-        position: absolute;
-        top: 1px;
-        left: 1px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         box-sizing: border-box;
         clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+        max-height: map-get($sizes-map, large-height) - 2px;
+        overflow: auto;
 
         @each $size in $sizes {
           &.#{$size} {
-            width: map-get($sizes-map, #{$size}-width) - 2px;
-            height: map-get($sizes-map, #{$size}-height) - 2px;
+            min-height: map-get($sizes-map, #{$size}-height) - 2px;
             padding-left: map-get($sizes-map, #{$size}-padding);
             padding-right: map-get($sizes-map, #{$size}-padding);  
           }
@@ -57,16 +54,9 @@ $sizes-map: (
         }
 
         .okp4-card-content {
-          overflow: hidden;
           display: flex;
           flex-direction: column;
           align-items: center;
-
-          @each $size in $sizes {
-            &.#{$size} {
-              max-height: map-get($sizes-map, #{$size}-height) - 68px;
-            }
-          }
         }
       }  
     }
