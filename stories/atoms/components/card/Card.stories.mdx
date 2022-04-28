@@ -35,8 +35,8 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 ## Overview
 
-Card is a component laid out on the page. A card can have a content, a header and a footer, all optional. 
-Content, header and footer must be react components. Any component picked from OPK4 UI library e.g. Typography 
+Card is a component laid out on the page. A card can have a content, a header and a footer, all optional.
+Content, header and footer must be react components. Any component picked from OPK4 UI library e.g. Typography
 gets styled with colors of the current theme setting.
 
 ---
@@ -48,55 +48,66 @@ gets styled with colors of the current theme setting.
       control: false,
       table: {
         type: { summary: 'Node' }
-      },
+      }
     },
     content: {
       control: false,
       table: {
         type: { summary: 'Node' }
-      },
+      }
     },
     footer: {
       control: false,
       table: {
         type: { summary: 'Node' }
-      },
-    },
+      }
+    }
   }}
   args={{
     size: 'medium',
     background: 'primary',
     withBorder: true,
-    header: <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-        <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Prim'Holstein</span>
-      </Typography>,
-    content: <Typography 
-        as="div" 
-        fontFamily="secondary" 
-        fontSize="x-large" 
+    header: (
+      <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+        <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+          Prim'Holstein
+        </span>
+      </Typography>
+    ),
+    content: (
+      <Typography
+        as="div"
+        fontFamily="secondary"
+        fontSize="x-large"
         fontWeight="xlight"
         color="highlighted-text"
-      >MVL</Typography>,
-    footer: <div style={{ marginBottom: '4px' }}><Typography as="div" fontFamily="brand" fontSize="medium" fontWeight="bold" color="success">
-        <span style={{ textAlign: 'left' }}>Mes vaches laitières</span>
-      </Typography></div>,
+      >
+        MVL
+      </Typography>
+    ),
+    footer: (
+      <div style={{ marginBottom: '4px' }}>
+        <Typography as="div" fontFamily="brand" fontSize="medium" fontWeight="bold" color="success">
+          <span style={{ textAlign: 'left' }}>Mes vaches laitières</span>
+        </Typography>
+      </div>
+    )
   }}
 >
-  {
-    args => { 
-      return (
-        <div style={{ 
-            padding: '10px 0 10px', 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center',
-          }}
-        >
-          <Card {...args} />
-        </div>
-      );
-    }
-  }
+  {args => {
+    return (
+      <div
+        style={{
+          padding: '10px 0 10px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Card {...args} />
+      </div>
+    )
+  }}
 </Story>
 
 ---
@@ -113,45 +124,69 @@ Default is `medium`.
 <Canvas>
   <Story name="Sizes">
     {args => (
-      <div style={{
-        display: 'flex', 
-        justifyContent:'space-between', 
-        flexDirection: 'column', 
-        alignItems: 'center',
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
-        <Card          
+        <Card
           size="small"
           background="primary"
           withBorder="true"
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
             </Typography>
           }
           content={<Typography fontSize="x-large">small</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
-        <div style={{height: '36px'}}></div>
-        <Card          
+        <div style={{ height: '36px' }}></div>
+        <Card
           size="medium"
           background="primary"
           withBorder="true"
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
-            </Typography>}
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
+            </Typography>
+          }
           content={<Typography fontSize="x-large">medium</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
-        <div style={{height: '36px'}}></div>
-        <Card          
+        <div style={{ height: '36px' }}></div>
+        <Card
           size="large"
           background="primary"
           withBorder="true"
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
-            </Typography>}
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
+            </Typography>
+          }
           content={<Typography fontSize="x-large">large</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
       </div>
     )}
@@ -165,33 +200,50 @@ Available background themes are `primary` and `secondary`. Default is `primary`.
 <Canvas>
   <Story name="Backgrounds">
     {args => (
-      <div style={{
-        display: 'flex', 
-        justifyContent:'space-between', 
-        flexDirection: 'column', 
-        alignItems: 'center'
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
-        <Card          
+        <Card
           size="medium"
           background="primary"
           withBorder="true"
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
-            </Typography>}
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
+            </Typography>
+          }
           content={<Typography fontSize="x-large">primary</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
-        <div style={{height: '36px'}}></div>
-        <Card          
+        <div style={{ height: '36px' }}></div>
+        <Card
           size="medium"
           background="secondary"
           withBorder="true"
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
-            </Typography>}
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
+            </Typography>
+          }
           content={<Typography fontSize="x-large">secondary</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
       </div>
     )}
@@ -205,33 +257,50 @@ Card border is optional.
 <Canvas>
   <Story name="Border">
     {args => (
-      <div style={{
-        display: 'flex', 
-        justifyContent:'space-between', 
-        flexDirection: 'column', 
-        alignItems: 'center'
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
-        <Card          
-          size='medium'
-          background='primary'
+        <Card
+          size="medium"
+          background="primary"
           withBorder={false}
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
-            </Typography>}
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
+            </Typography>
+          }
           content={<Typography fontSize="x-large">without border</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
-        <div style={{height: '36px'}}></div>
-        <Card          
-          size='medium'
-          background='primary'
+        <div style={{ height: '36px' }}></div>
+        <Card
+          size="medium"
+          background="primary"
           withBorder={true}
-          header={<Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
-              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>Triticum vulgare</span>
-            </Typography>}
+          header={
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="light">
+              <span style={{ float: 'right', border: 'solid 1px', padding: '4px 8px' }}>
+                Triticum vulgare
+              </span>
+            </Typography>
+          }
           content={<Typography fontSize="x-large">with border</Typography>}
-          footer={<Typography fontSize="small" fontWeight="light">Wheat varieties</Typography>}
+          footer={
+            <Typography fontSize="small" fontWeight="light">
+              Wheat varieties
+            </Typography>
+          }
         />
       </div>
     )}
