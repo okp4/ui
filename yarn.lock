@@ -1802,10 +1802,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@okp4/eslint-config@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@okp4/eslint-config/-/eslint-config-1.0.0.tgz#ef601feb48554305a97709c838ac84eebbe273e4"
-  integrity sha512-oXZ2gWv9MKm+E8MMQvvYrUWN7Z3zoaL3fS1svBLiw5EzVn2HeNredDjidoAnITvCQjKvTPRI9Ja+SA574Ff0dw==
+"@okp4/eslint-config@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@okp4/eslint-config/-/eslint-config-1.0.1.tgz#e111e95b5f5a3563fb322be31ab2f9985ceefb34"
+  integrity sha512-UVV+LWzxgpQFqoI65Wj99r9gajZwvR9cGuKCvFxp8PJBXyIzerXedGDjdQ428SGIVoRPo5Plbm1Q0xxGNia8fQ==
   dependencies:
     "@typescript-eslint/parser" ">=5.14.0"
     tsutils ">=3.21.0"
