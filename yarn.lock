@@ -1126,12 +1126,19 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.2.2", "@babylonjs/core@^4.2.1":
+"@babylonjs/core@4.2.2":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.2.2.tgz#e37f95298700e1f2fc9a6403e297e112b2444d0b"
   integrity sha512-gAgetSyoxFZ/xzMVVnGPKaP941NHA59Ho8GGKFW98OTEp8yZcnzJjNOD2zfF1eKmlvR/6WwSmcrKWTJtPF1pyA==
   dependencies:
     tslib ">=1.10.0"
+
+"@babylonjs/core@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.4.0.tgz#84481462df73fab0cb34a1ba4947cf15f3349bf1"
+  integrity sha512-d3y7HE/5kMRnn2dBab26+kaEpYwlowf/mg1dy+MNufmSQCURaXxSUkalUSWs634XBJVe6K/NAbVszIT8RMXKVg==
+  dependencies:
+    tslib "^2.3.1"
 
 "@babylonjs/gui@4.2.2":
   version "4.2.2"
@@ -13119,10 +13126,10 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@>=1.10.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.3.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
-  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+tslib@>=1.10.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.3.0, tslib@^2.3.1:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tslib@^1.8.1:
   version "1.14.1"
