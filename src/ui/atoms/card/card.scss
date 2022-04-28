@@ -1,9 +1,10 @@
 @import 'src/ui/styles/themes.scss';
 
-$colors: ('primary': 'primary-background', 'secondary': 'footer-block-background');
-$has-border-values: ('true', 'false');
+$colors: (
+  'primary': 'primary-background',
+  'secondary': 'footer-block-background'
+);
 $sizes: ('small', 'medium', 'large');
-
 $sizes-map: (
   small-width: 275px,
   medium-width: 425px,
@@ -13,7 +14,7 @@ $sizes-map: (
   large-height: 550px,
   small-padding: 16px,
   medium-padding: 26px,
-  large-padding: 34px,
+  large-padding: 34px
 );
 
 .okp4-card-main {
@@ -21,44 +22,36 @@ $sizes-map: (
     clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
     padding: 1px;
 
-    @each $size in $sizes {
-      &.#{$size} {
-        width: map-get($sizes-map, #{$size}-width);
-      }
-    }
-
     &.border {
       background: themed(border);
     }
 
     .okp4-card-container {
-      @each $color-key, $color-value in $colors {    
+      @each $color-key, $color-value in $colors {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        gap: 10px;
         box-sizing: border-box;
         clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
         max-height: map-get($sizes-map, large-height) - 2px;
+        max-width: map-get($sizes-map, large-width) - 2px;
         overflow: auto;
+        word-break: break-word;
 
         @each $size in $sizes {
           &.#{$size} {
             min-height: map-get($sizes-map, #{$size}-height) - 2px;
+            min-width: map-get($sizes-map, #{$size}-width) - 2px;
             padding-left: map-get($sizes-map, #{$size}-padding);
-            padding-right: map-get($sizes-map, #{$size}-padding);  
+            padding-right: map-get($sizes-map, #{$size}-padding);
           }
         }
 
         &.#{$color-key} {
           background: themed(#{$color-value});
         }
-
-        .okp4-card-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-      }  
+      }
     }
   }
 }
