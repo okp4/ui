@@ -1,74 +1,91 @@
+import short from 'short-uuid'
 import type { DeepReadonly } from 'superTypes'
-import { Error, UnspecifiedError } from '../entity/error'
-import type { Id } from '../entity/error'
+import { UnspecifiedError } from '../entity/error'
+import type { Error, Id } from '../entity/error'
 import { ErrorBuilder } from './error.builder'
 
-type Data = Readonly<{
-  isFullError: boolean
-  id: Id
-  timestamp: Readonly<Date>
-  messageKey: string
-  type: string
-  context: DeepReadonly<Record<string, unknown>>
-}>
+type Data = Readonly<
+  Partial<{
+    initialError: Error
+    id: Id
+    timestamp: Readonly<Date>
+    messageKey: string
+    type: string
+    context: DeepReadonly<Record<string, unknown>>
+  }> & {
+    expectedStatus: boolean
+  }
+>
 
 describe('Build an error', () => {
-  const buildFullError = (
-    id: Id,
-    timestamp: Readonly<Date>,
-    messageKey: string,
-    type: string,
-    context?: DeepReadonly<Record<string, unknown>>
-  ): Error =>
-    new ErrorBuilder()
-      .withId(id)
-      .withTimestamp(timestamp)
-      .withMessageKey(messageKey)
-      .withType(type)
-      .withContext(context)
-      .build()
+  const aDate = new Date(1995, 11, 17)
+  const aBadDate = {}
+  const fakedDate = new Date(2022, 1, 1)
+  const fakedUuid = 'foobar'
 
-  const buildPartialError = (messageKey: string): Error =>
-    new ErrorBuilder().withMessageKey(messageKey).build()
+  beforeAll(() => {
+    short.generate = jest.fn(() => fakedUuid as short.SUUID)
+
+    jest.useFakeTimers('modern')
+    jest.setSystemTime(fakedDate)
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
 
   describe.each`
-    isFullError | id        | timestamp     | messageKey                          | type                  | context
-    ${true}     | ${''}     | ${new Date()} | ${'dommain.error.connection-error'} | ${'connection-error'} | ${{ stack: new Error().stack }}
-    ${true}     | ${'#id1'} | ${undefined}  | ${'dommain.error.connection-error'} | ${'connection-error'} | ${{ stack: new Error().stack }}
-    ${true}     | ${'#id1'} | ${new Date()} | ${''}                               | ${'connection-error'} | ${{ stack: new Error().stack }}
-    ${true}     | ${'#id1'} | ${new Date()} | ${'dommain.error.connection-error'} | ${''}                 | ${{}}
-    ${false}    | ${'#id1'} | ${new Date()} | ${'dommain.error.connection-error'} | ${'connection-error'} | ${{}}
+    initialError          | id           | timestamp    | messageKey                         | type                  | context           | expectedStatus
+    ${undefined}          | ${'#id1'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${true}
+    ${undefined}          | ${'#id2'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{ foo: 'bar' }} | ${true}
+    ${undefined}          | ${'#id3'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${null}           | ${true}
+    ${undefined}          | ${undefined} | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${true}
+    ${undefined}          | ${'#id5'}    | ${undefined} | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${true}
+    ${undefined}          | ${''}        | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${false}
+    ${undefined}          | ${'#id7'}    | ${aDate}     | ${''}                              | ${'validation-error'} | ${{}}             | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${'domain.error.validation-error'} | ${''}                 | ${{}}             | ${false}
+    ${{ messageKey: '' }} | ${'#id8'}    | ${undefined} | ${undefined}                       | ${undefined}          | ${{}}             | ${false}
+    ${undefined}          | ${'#id8'}    | ${aBadDate}  | ${'domain.error.validation-error'} | ${''}                 | ${{}}             | ${false}
   `(
-    'Given that isFullError is <$isFullError>, id is <$id>, timestamp is <$timestamp>, messageKey is <$messageKey>, type is <$type> and context is <$context>',
-    ({ isFullError, id, timestamp, messageKey, type, context }: Data) => {
-      describe('When building error ', () => {
-        const error = (): Error =>
-          isFullError
-            ? buildFullError(id, timestamp, messageKey, type, context)
-            : buildPartialError(messageKey)
-        test('Then, expect ErrorBuilder to throw an UnspecifiedError', () => {
-          expect(error).toThrowError(UnspecifiedError)
+    'Given that id is <$id>, timestamp is <$timestamp>, messageKey is <$messageKey>, type is <$type> and context is <$context>',
+    ({ initialError, id, timestamp, messageKey, type, context, expectedStatus }: Data) => {
+      describe('When building error', () => {
+        const error = (): Error => {
+          // eslint-disable-next-line functional/no-let
+          let errorBuilder = new ErrorBuilder(initialError)
+
+          if (id !== undefined) {
+            errorBuilder = errorBuilder.withId(id)
+          }
+          if (timestamp !== undefined) {
+            errorBuilder = errorBuilder.withTimestamp(timestamp)
+          }
+          if (messageKey !== undefined) {
+            errorBuilder = errorBuilder.withMessageKey(messageKey)
+          }
+          if (type !== undefined) {
+            errorBuilder = errorBuilder.withType(type)
+          }
+          if (context !== undefined) {
+            errorBuilder = errorBuilder.withContext(context)
+          }
+          return errorBuilder.build()
+        }
+
+        test(`Then, expect ErrorBuilder to ${expectedStatus ? 'succeed' : 'fail'}`, () => {
+          if (expectedStatus) {
+            expect(error()).toEqual({
+              id: id === undefined ? fakedUuid : id,
+              timestamp: timestamp === undefined ? fakedDate : timestamp,
+              messageKey,
+              type,
+              context: !context || !Object.keys(context).length ? {} : context
+            })
+          } else {
+            expect(error).toThrowError(UnspecifiedError)
+          }
         })
       })
     }
   )
-
-  describe('Given that id, timestamp, messageKey, type and context are correctly provided', () => {
-    const id = '#id12'
-    const timestamp = new Date(1995, 11, 17)
-    const messageKey = 'domain.error.validation-error'
-    const type = 'validation-error'
-    describe('When building account', () => {
-      const account = buildFullError(id, timestamp, messageKey, type)
-      test('Then, expect builder to construct a valid Error ', () => {
-        expect(account).toEqual({
-          id,
-          timestamp,
-          messageKey,
-          type,
-          context: {}
-        })
-      })
-    })
-  })
 })
