@@ -30,7 +30,7 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 # Toast
 
-> Communicate _actions_ that users can take.
+> Displays information following a user action.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
@@ -38,45 +38,56 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 ### Description
 
-Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find the most important actions throughout UI and enables them to
-perform these actions.
-
-The `label` is used to clearly indicate to the user what action will be triggered. Buttons allow users to commit a change, complete steps in a task, or make choices.
+A Toast is a modern display component that allows information to be displayed discreetly and non-intrusively following a user action.
+Several severity levels make it possible to fully configure the type of message to convey to the user.
 
 ---
 
 <Canvas>
-  <Story name="Overview" argTypes={{}} args={{}}>
+  <Story
+    name="Overview"
+    argTypes={{ isOpened: { control: false } }}
+    args={{
+      title: 'Transaction',
+      description: 'Your data space has been successfully created!',
+      severityLevel: 'success'
+    }}
+  >
     {args => {
-      const [isOpened, setIsOpened] = useState(false)
       return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '25px'
-          }}
-        >
-          <Button
-            variant="secondary"
-            size="medium"
-            label="Click-me!"
-            onClick={() => setIsOpened(true)}
-          />
-          <Toast
-            title="Hello you.."
-            description="Nice to meet you, I'm a Toast component <3"
-            isOpened={isOpened}
-            onOpenChange={() => setIsOpened(false)}
-            swipeDirection="right"
-          />
-        </div>
+        <ToastComponent
+          title={args.title}
+          severityLevel={args.severityLevel}
+          description={args.description}
+        />
       )
     }}
     }
   </Story>
 </Canvas>
+
+export const ToastComponent = ({ title, description, severityLevel }) => {
+  const [isOpened, setIsOpened] = useState(false)
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '25px'
+      }}
+    >
+      <Button label="Click-me!" onClick={() => setIsOpened(true)} />
+      <Toast
+        description={description}
+        isOpened={isOpened}
+        onOpenChange={() => setIsOpened(false)}
+        title={title}
+        severityLevel={severityLevel}
+      />
+    </div>
+  )
+}
 
 ---
 
