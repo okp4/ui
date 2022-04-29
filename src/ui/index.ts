@@ -1,5 +1,6 @@
 export * from './atoms/button/Button'
 export * from './atoms/canvas/Canvas'
+export * from './atoms/card/Card'
 export * from './atoms/logo/Logo'
 export * from './atoms/typography/Typography'
 export * from './atoms/textInput/TextInput'
