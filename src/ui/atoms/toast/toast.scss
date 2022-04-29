@@ -1,3 +1,7 @@
+@import 'src/ui/styles/themes';
+
+$background-colors: ("success", "error", "warning", "info");
+
 .okp4-toast-viewport {
   position: fixed;
   bottom: 0;
@@ -14,37 +18,44 @@
   outline: none;
 
   .okp4-toast-root {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-    padding: 15px;
-    display: grid;
-    grid-template-areas: "title action" "description action";
-    grid-template-columns: auto max-content;
-    column-gap: 15px;
-    align-items: center;
+    @include with-theme() {
+      @each $background-color in $background-colors {
+        &.#{$background-color} {
+        background-color: themed($background-color);
+        }
+      }
+      border-radius: 6px;
+      box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+        hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+      padding: 15px;
+      display: grid;
+      row-gap: 3px;
 
-    &[data-state="open"] {
-      animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+      &[data-state='open'] {
+        animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      &[data-state='closed'] {
+        animation: swipeOut 150ms ease-in forwards;
+      }
+
+      &[data-swipe='move'] {
+        transform: translateX(var(--radix-toast-swipe-move-x));
+      }
+
+      &[data-swipe='cancel'] {
+        transform: translateX(0);
+        transition: transform 200ms ease-out;
+      }
+
+      &[data-swipe='end'] {
+        animation: swipeOut 100ms ease-out forwards;
+      }
     }
 
-    &[data-state="closed"] {
-      animation: hide 100ms ease-in forwards ;
+    .okp4-toast-description {
+      word-break: break-word;
     }
-
-    &[data-swipe="move"] {
-      transform: translateX(var(--radix-toast-swipe-move-x))
-    }
-
-    &[data-swipe="cancel"] {
-      transform: translateX(0);
-      transition: transform 200ms ease-out;
-    }
-
-    &[data-swipe="end"] {
-      animation: swipeOut 100ms ease-out forwards;
-    }
-
   }
 }
 
@@ -63,14 +74,5 @@
   }
   to {
     transform: translateX(calc(100% + 25px));
-  }
-}
-
-@keyframes hide {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 }
