@@ -13,7 +13,7 @@ type ToastProps = Readonly<{
 }>
 
 export const Toast: React.FC<ToastProps> = ({
-  isOpened = false,
+  isOpened,
   autoDuration = 3000,
   severityLevel,
   title,
