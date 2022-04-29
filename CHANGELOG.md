@@ -1,5 +1,48 @@
 # ØKP4 UI changelog
 
+# [1.3.0](https://github.com/okp4/ui/compare/v1.2.0...v1.3.0) (2022-04-29)
+
+
+### Bug Fixes
+
+* invert gradient-dark-background-footer-block colours ([35ae041](https://github.com/okp4/ui/commit/35ae041fbbe67d785dfb598376655a21b4e6e662))
+* remove other props notion from component ([c51e49e](https://github.com/okp4/ui/commit/c51e49ebe4d87a36bbbd925f80c773592c9622c4))
+
+
+### Features
+
+* **adapter:** add eventListener primary adapter ([bfcf505](https://github.com/okp4/ui/commit/bfcf505af2cef8dce8b8dedcda66d0a1d7ec6761))
+* add background class ([e7d0089](https://github.com/okp4/ui/commit/e7d0089312bfb90b9c19a6f0905cedeaf028835b))
+* add border to card ([394214c](https://github.com/okp4/ui/commit/394214cfa607aa83d2287cbafc6ca5499f6c842a))
+* add card beveled with background properties ([c6022ab](https://github.com/okp4/ui/commit/c6022abbb43ee90fd84dc5d9967171d398216d98))
+* add card color ([0ea8ecc](https://github.com/okp4/ui/commit/0ea8ecc0b4e6836597d5213d98e5b645d672b414))
+* add content max height ([7ed4eb2](https://github.com/okp4/ui/commit/7ed4eb2c2d2db531da19da0114550dc9bd72dad0))
+* add left and right padding ([67cdfcd](https://github.com/okp4/ui/commit/67cdfcd9fa3d8d88ab1b19eaf7b9f6d996d9df50))
+* add theme border color ([11a1b53](https://github.com/okp4/ui/commit/11a1b5311c1710a1ea5e147e9fb93011bf825241))
+* **core:** add error domain entity ([7dd3fd2](https://github.com/okp4/ui/commit/7dd3fd2456f639bee396b6451480cd364bd845ae))
+* **core:** add error domain usecases ([dcd4dfa](https://github.com/okp4/ui/commit/dcd4dfad5889a884ec01fb06c683cd19956e84a6))
+* **core:** add new type folder with entity declaration type ([22fd8e5](https://github.com/okp4/ui/commit/22fd8e5cde80520cfdd6dcd33a63607ff7ad0d4d))
+* **core:** add ThrowErrorActions to common folder ([29907a6](https://github.com/okp4/ui/commit/29907a641ef38d51e5300e0865cee73e9f1d0bb5))
+* **core:** implement error.builder ([748b573](https://github.com/okp4/ui/commit/748b5733f95a847ed7b97256de6d07cad465e86f))
+* **core:** implement error.mapper ([64c4b5d](https://github.com/okp4/ui/commit/64c4b5d7f551664575214358a6b598289abd0f19))
+* **core:** remove own error management into faucet domain ([2cc4d7c](https://github.com/okp4/ui/commit/2cc4d7c3ad6e01c3a718c253aa81a3706ad6118c))
+* **core:** remove own error management into wallet domain ([c7fd876](https://github.com/okp4/ui/commit/c7fd876f6754df62229fbe7c704808e94bd053d1))
+* export Card component to main lib ([9928c62](https://github.com/okp4/ui/commit/9928c62d941ce2d98456cddebfb1e9b43b8e498c))
+* initiated card and the story ([c0d5d3d](https://github.com/okp4/ui/commit/c0d5d3dd7c9f0c284c70af58af1d936094ae676e))
+* make card extensible ([804a436](https://github.com/okp4/ui/commit/804a436e6f8c18c02e12774d8088d2edfc862847))
+* notched corner ([6841bb5](https://github.com/okp4/ui/commit/6841bb5c12c47172d916fcf3facefdfd6827f237))
+* notched corner operational ([c70a002](https://github.com/okp4/ui/commit/c70a002dc8ddb10014970934550831959b798603))
+* **redux:** create error selectors ([21608b9](https://github.com/okp4/ui/commit/21608b9836e319de309a5dfbbeb4fb6e2987d322))
+* **redux:** create redux store and reducers for error domain ([525bb3a](https://github.com/okp4/ui/commit/525bb3a3826d752dea2e4f6cab6947df5cabf469))
+* **redux:** remove own error management from faucet store ([d25e3a9](https://github.com/okp4/ui/commit/d25e3a975a012c51d9c6a5718951258f8442f0b0))
+* **redux:** remove own error management from wallet store ([0359886](https://github.com/okp4/ui/commit/0359886291b1e13a2556cd23393e50d4fc83e483))
+* **redux:** remove typing from eventBus middleware ([fe87c96](https://github.com/okp4/ui/commit/fe87c968d6a8000ed7b7fb6743212e2ff2f2c170))
+* style featured card ([8ea93d9](https://github.com/okp4/ui/commit/8ea93d934ce95b01760b8052c0b14a287cc17444))
+* **style:** add disabled variables to palette and theme stylesheets ([f9b93b2](https://github.com/okp4/ui/commit/f9b93b2f7b144a27f5255554827b32ab50653ba0))
+* tune bevel width ([e8f6bfc](https://github.com/okp4/ui/commit/e8f6bfc4680c421bf21d7620a278aa0bf8076df3))
+* **ui:** enhance button component and associated style ([3dab86c](https://github.com/okp4/ui/commit/3dab86c95249259fbb8b0817a9a9010ee22f0824))
+* variabilize background ([0175a98](https://github.com/okp4/ui/commit/0175a98f0ed673b7db85fcd889b76a0bebf01d6e))
+
 # [1.2.0](https://github.com/okp4/ui/compare/v1.1.0...v1.2.0) (2022-04-19)
 
 
