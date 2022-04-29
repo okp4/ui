@@ -1,6 +1,6 @@
 @import 'src/ui/styles/themes';
 
-$background-colors: ("success", "error", "warning", "info");
+$background-colors: ('success', 'error', 'warning', 'info');
 
 .okp4-toast-viewport {
   position: fixed;
@@ -21,12 +21,12 @@ $background-colors: ("success", "error", "warning", "info");
     @include with-theme() {
       @each $background-color in $background-colors {
         &.#{$background-color} {
-        background-color: themed($background-color);
+          background-color: themed($background-color);
         }
       }
       border-radius: 6px;
-      box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
-        hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+      box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px,
+        hsl(206 22% 7% / 20%) 0 10px 20px -15px;
       padding: 15px;
       display: grid;
       row-gap: 3px;
@@ -63,6 +63,7 @@ $background-colors: ("success", "error", "warning", "info");
   from {
     transform: translateX(calc(100% + 25px));
   }
+
   to {
     transform: translateX(0);
   }
@@ -72,6 +73,7 @@ $background-colors: ("success", "error", "warning", "info");
   from {
     transform: translateX(var(--radix-toast-swipe-end-x));
   }
+
   to {
     transform: translateX(calc(100% + 25px));
   }
