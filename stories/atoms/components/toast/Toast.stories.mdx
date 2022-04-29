@@ -1,0 +1,85 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { useState } from 'react'
+import { Button } from 'ui/atoms/button/Button'
+import { Toast } from 'ui/atoms/toast/Toast'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+
+<Meta
+  title="Atoms/Toast"
+  component={Toast}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Toast
+
+> Communicate _actions_ that users can take.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+### Description
+
+Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find the most important actions throughout UI and enables them to
+perform these actions.
+
+The `label` is used to clearly indicate to the user what action will be triggered. Buttons allow users to commit a change, complete steps in a task, or make choices.
+
+---
+
+<Canvas>
+  <Story name="Overview" argTypes={{}} args={{}}>
+    {args => {
+      const [isOpened, setIsOpened] = useState(false)
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px'
+          }}
+        >
+          <Button
+            variant="secondary"
+            size="medium"
+            label="Click-me!"
+            onClick={() => setIsOpened(true)}
+          />
+          <Toast
+            title="Hello you.."
+            description="Nice to meet you, I'm a Toast component <3"
+            isOpened={isOpened}
+            onOpenChange={() => setIsOpened(false)}
+            swipeDirection="right"
+          />
+        </div>
+      )
+    }}
+    }
+  </Story>
+</Canvas>
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />
