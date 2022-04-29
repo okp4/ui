@@ -1,0 +1,448 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
+import { Card } from 'ui/atoms/card/Card'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+
+<Meta
+  title="Atoms/Card"
+  component={Card}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code',
+        format: true,
+        language: 'jsx'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Card
+
+> ØKP4 UI Card component.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+Card is a component laid out on the page. A card can have a content, a header and a footer, all optional.
+Content, header and footer accepts React components to ensure maximum flexibility.
+Any component picked from OPK4 UI library e.g. Typography gets styled with colors of the current theme setting.
+
+---
+
+<Story
+  name="Overview"
+  argTypes={{
+    header: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      }
+    },
+    content: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      }
+    },
+    footer: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      }
+    }
+  }}
+  args={{
+    header: (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Typography
+          as="div"
+          fontFamily="brand"
+          fontSize="small"
+          fontWeight="light"
+          style={{ border: 'solid 1px', padding: '4px 8px' }}
+        >
+          Prim'Holstein
+        </Typography>
+      </div>
+    ),
+    content: (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography as="div" fontFamily="secondary" fontSize="x-large" fontWeight="xlight">
+          MVL
+        </Typography>
+      </div>
+    ),
+    footer: (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          marginBottom: '4px'
+        }}
+      >
+        <Typography as="div" fontFamily="brand" fontSize="medium" fontWeight="bold">
+          Mes vaches laitières
+        </Typography>
+      </div>
+    )
+  }}
+>
+  {args => {
+    return (
+      <div
+        style={{
+          padding: '10px 0 10px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Card {...args} />
+      </div>
+    )
+  }}
+</Story>
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## Sizes
+
+Size options are `small`, `medium` and `large`.
+Default is `medium`.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '40px'
+        }}
+      >
+        <Card
+          size="small"
+          background="primary"
+          withBorder="true"
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">small</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+        <Card
+          size="medium"
+          background="primary"
+          withBorder="true"
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">medium</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+        <Card
+          size="large"
+          background="primary"
+          withBorder="true"
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">large</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Backgrounds
+
+Available background themes are `primary` and `secondary`. Default is `primary`.
+
+<Canvas>
+  <Story name="Backgrounds">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '40px'
+        }}
+      >
+        <Card
+          size="medium"
+          background="primary"
+          withBorder="true"
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">primary</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+        <Card
+          size="medium"
+          background="secondary"
+          withBorder="true"
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">secondary</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Border
+
+Card border is optional.
+
+<Canvas>
+  <Story name="Border">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '40px'
+        }}
+      >
+        <Card
+          size="medium"
+          background="primary"
+          withBorder={false}
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">without border</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+        <Card
+          size="medium"
+          background="primary"
+          withBorder={true}
+          header={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Typography
+                as="div"
+                fontFamily="brand"
+                fontSize="small"
+                fontWeight="light"
+                style={{ border: 'solid 1px', padding: '4px 8px' }}
+              >
+                Triticum vulgare
+              </Typography>
+            </div>
+          }
+          content={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography fontSize="x-large">with border</Typography>
+            </div>
+          }
+          footer={
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '4px'
+              }}
+            >
+              <Typography fontSize="small" fontWeight="light">
+                Wheat varieties
+              </Typography>
+            </div>
+          }
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
