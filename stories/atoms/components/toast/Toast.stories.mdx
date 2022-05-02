@@ -38,35 +38,40 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 ### Description
 
-A Toast is a modern display component that allows information to be displayed discreetly and non-intrusively following a user action.
+A Toast is a modern display component that allows information to be displayed discreetly and non-intrusively following a user action.  
 Several severity levels make it possible to fully configure the type of message to convey to the user.
 
 ---
 
-<Canvas>
-  <Story
-    name="Overview"
-    argTypes={{ isOpened: { control: false } }}
-    args={{
-      title: 'Transaction',
-      description: 'Your data space has been successfully created!',
-      severityLevel: 'success'
-    }}
-  >
-    {args => {
-      return (
-        <ToastComponent
-          title={args.title}
-          severityLevel={args.severityLevel}
-          description={args.description}
-        />
-      )
-    }}
-    }
-  </Story>
-</Canvas>
+<Story
+  name="Overview"
+  argTypes={{ isOpened: { control: false } }}
+  args={{
+    title: 'Transaction',
+    description: 'Your data space has been successfully created!',
+    severityLevel: 'success'
+  }}
+>
+  {args => {
+    return (
+      <ToastComponent
+        title={args.title}
+        severityLevel={args.severityLevel}
+        description={args.description}
+        buttonLabel="Click-me!"
+      />
+    )
+  }}
+  }
+</Story>
 
-export const ToastComponent = ({ title, description, severityLevel }) => {
+export const ToastComponent = ({
+  title,
+  description,
+  severityLevel,
+  buttonLabel,
+  backgroundColor
+}) => {
   const [isOpened, setIsOpened] = useState(false)
   return (
     <div
@@ -77,7 +82,11 @@ export const ToastComponent = ({ title, description, severityLevel }) => {
         gap: '25px'
       }}
     >
-      <Button label="Click-me!" onClick={() => setIsOpened(true)} />
+      <Button
+        label={buttonLabel}
+        onClick={() => setIsOpened(true)}
+        backgroundColor={backgroundColor}
+      />
       <Toast
         description={description}
         isOpened={isOpened}
@@ -94,3 +103,208 @@ export const ToastComponent = ({ title, description, severityLevel }) => {
 ### Properties
 
 <ArgsTable story="Overview" />
+
+## Severity Levels
+
+The `Toast` component can be configured with multiple severity levels that follows theming' conventional naming:
+
+- **Success**: informs the user about any task that has succeeded in the system.
+- **Error**: reports to the user an error related to any failed task in the system.
+- **Warning**: reports to the user an error related to any task that may result in an error in the system.
+- **Info**: sends back to the user related information of any kind.
+
+<Canvas>
+  <Story name="Severity levels">
+    {args => {
+      const [state, setState] = useState({ name: '', isOpened: false })
+      const handleState = (name, isOpened) => () => {
+        setState({ name: name, isOpened: isOpened })
+      }
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px'
+          }}
+        >
+          <div>
+            <Button
+              label="I'm a success level!"
+              onClick={handleState('success', true)}
+              backgroundColor="success"
+            />
+            <Toast
+              description="Your own success message here"
+              isOpened={Object.values(state).includes('success') ? state['isOpened'] : false}
+              onOpenChange={handleState('success', false)}
+              title="Success"
+              severityLevel="success"
+            />
+          </div>
+          <div>
+            <Button
+              label="I'm an error level!"
+              onClick={handleState('error', true)}
+              backgroundColor="error"
+            />
+            <Toast
+              description="Your own error message here"
+              isOpened={Object.values(state).includes('error') ? state['isOpened'] : false}
+              onOpenChange={handleState('error', false)}
+              title="Error"
+              severityLevel="error"
+            />
+          </div>
+          <div>
+            <Button
+              label="I'm a warning level!"
+              onClick={handleState('warning', true)}
+              backgroundColor="warning"
+            />
+            <Toast
+              description="Your own warning message here"
+              isOpened={Object.values(state).includes('warning') ? state['isOpened'] : false}
+              onOpenChange={handleState('warning', false)}
+              title="Warning"
+              severityLevel="warning"
+            />
+          </div>
+          <div>
+            <Button
+              label="I'm an info level!"
+              onClick={handleState('info', true)}
+              backgroundColor="info"
+            />
+            <Toast
+              description="Your own info message here"
+              isOpened={Object.values(state).includes('info') ? state['isOpened'] : false}
+              onOpenChange={handleState('info', false)}
+              title="Info"
+              severityLevel="info"
+            />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Duration
+
+The `Toast` component comes with an `autoDuration` property that is the time in milliseconds that should elapse before automatically closing the toast.
+
+<Canvas>
+  <Story name="Duration">
+    {args => {
+      const [state, setState] = useState({ name: '', isOpened: false })
+      const handleState = (name, isOpened) => () => {
+        setState({ name: name, isOpened: isOpened })
+      }
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px'
+          }}
+        >
+          <div>
+            <Button
+              label="Short auto-duration!"
+              onClick={handleState('short', true)}
+              backgroundColor="secondary"
+            />
+            <Toast
+              description="My auto-duration is 1000ms"
+              isOpened={Object.values(state).includes('short') ? state['isOpened'] : false}
+              onOpenChange={handleState('short', false)}
+              title="Short auto-duration"
+              severityLevel="success"
+              autoDuration={1000}
+            />
+          </div>
+          <div>
+            <Button
+              label="Long auto-duration!"
+              onClick={handleState('long', true)}
+              backgroundColor="primary"
+            />
+            <Toast
+              description="My auto-duration is 7000ms"
+              isOpened={Object.values(state).includes('long') ? state['isOpened'] : false}
+              onOpenChange={handleState('long', false)}
+              title="Long auto-duration"
+              severityLevel="success"
+              autoDuration={7000}
+            />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Content
+
+The `Toast` component has a flexible content which notably allows the user to indicate a `title` and a `description`.  
+These two elements are optional and are not inter-related.
+
+<Canvas>
+  <Story
+    name="Content"
+    parameters={{
+      docs: {
+        source: {
+          type: 'code'
+        }
+      }
+    }}
+  >
+    {args => {
+      const [state, setState] = useState({ name: '', isOpened: false })
+      const handleState = (name, isOpened) => () => {
+        setState({ name: name, isOpened: isOpened })
+      }
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px'
+          }}
+        >
+          <div>
+            <Button
+              label="Title only"
+              onClick={handleState('title', true)}
+              backgroundColor="secondary"
+            />
+            <Toast
+              isOpened={Object.values(state).includes('title') ? state['isOpened'] : false}
+              onOpenChange={handleState('title', false)}
+              title="Title only"
+              severityLevel="success"
+            />
+          </div>
+          <div>
+            <Button
+              label="Description only!"
+              onClick={handleState('desc', true)}
+              backgroundColor="primary"
+            />
+            <Toast
+              description="I only have a description"
+              isOpened={Object.values(state).includes('desc') ? state['isOpened'] : false}
+              onOpenChange={handleState('desc', false)}
+              severityLevel="success"
+            />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
