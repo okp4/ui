@@ -1,5 +1,14 @@
 # ØKP4 UI changelog
 
+# [1.4.0](https://github.com/okp4/ui/compare/v1.3.0...v1.4.0) (2022-05-02)
+
+
+### Features
+
+* **component:** add comments to props to build documentation ([1f42280](https://github.com/okp4/ui/commit/1f42280e7c34f82b6bcf429103dd40a3d81daab3))
+* **component:** add severityLevel prop & enhance component ([50632c3](https://github.com/okp4/ui/commit/50632c31d3ad685441e764d538c42d1f262a4b2d))
+* implement new toast component ([5f00e77](https://github.com/okp4/ui/commit/5f00e771262be866d1a93e9d6eb396233dadf71e))
+
 # [1.3.0](https://github.com/okp4/ui/compare/v1.2.0...v1.3.0) (2022-04-29)
 
 
