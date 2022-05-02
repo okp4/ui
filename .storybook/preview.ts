@@ -1,3 +1,6 @@
+import prettier from 'prettier/standalone'
+import prettierBabel from 'prettier/parser-babel'
+
 export const parameters = {
   actions: {
     argTypesRegex: '^on[A-Z].*'
@@ -21,5 +24,12 @@ export const parameters = {
       hidden: true
     }
   },
-  viewMode: 'docs'
+  viewMode: 'docs',
+  docs: {
+    transformSource: (input: string) =>
+      prettier.format(input, {
+        parser: 'babel',
+        plugins: [prettierBabel]
+      })
+  }
 }
