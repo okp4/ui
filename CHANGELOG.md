@@ -1,5 +1,12 @@
 # ØKP4 UI changelog
 
+## [1.4.1](https://github.com/okp4/ui/compare/v1.4.0...v1.4.1) (2022-05-02)
+
+
+### Bug Fixes
+
+* **project:** export Toast component to library ([5ecfc9e](https://github.com/okp4/ui/commit/5ecfc9ee5dbce38beda7ad650e1288b241af9e55))
+
 # [1.4.0](https://github.com/okp4/ui/compare/v1.3.0...v1.4.0) (2022-05-02)
 
 
