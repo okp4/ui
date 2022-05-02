@@ -1,15 +1,15 @@
 import React from 'react'
 import * as ToastPrimitive from '@radix-ui/react-toast'
-import './toast.scss'
 import { Typography } from 'ui/atoms/typography/Typography'
+import './toast.scss'
 
 type ToastProps = Readonly<{
   /**
-   * Indicates if the toast must be displayed or not
+   * Indicates if the toast must be displayed or not.
    */
   readonly isOpened: boolean
   /**
-   * The severity level of the carried information, influences the final rendering of the toast
+   * The severity level of the carried information, influences the final rendering of the toast.
    */
   readonly severityLevel: 'error' | 'success' | 'info' | 'warning'
   /**
@@ -61,7 +61,7 @@ export const Toast: React.FC<ToastProps> = ({
           </ToastPrimitive.Title>
         )}
         {description && (
-          <ToastPrimitive.Description className="okp4-toast-description">
+          <ToastPrimitive.Description asChild className="okp4-toast-description">
             <Typography as="span" color="highlighted-text" fontSize="small" fontWeight="light">
               {description}
             </Typography>
