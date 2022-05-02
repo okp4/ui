@@ -4,12 +4,30 @@ import './toast.scss'
 import { Typography } from 'ui/atoms/typography/Typography'
 
 type ToastProps = Readonly<{
-  isOpened: boolean
-  severityLevel: 'error' | 'success' | 'info' | 'warning'
-  autoDuration?: number
-  title?: string
-  description?: string
-  onOpenChange?: (isOpened: boolean) => void
+  /**
+   * Indicates if the toast must be displayed or not
+   */
+  readonly isOpened: boolean
+  /**
+   * The severity level of the carried information, influences the final rendering of the toast
+   */
+  readonly severityLevel: 'error' | 'success' | 'info' | 'warning'
+  /**
+   * The time in milliseconds that should elapse before automatically closing the toast.
+   */
+  readonly autoDuration?: number
+  /**
+   * An optional title for the toast.
+   */
+  readonly title?: string
+  /**
+   * An optional description for the toast.
+   */
+  readonly description?: string
+  /**
+   * Event handler called when the open state of the dialog changes.
+   */
+  readonly onOpenChange?: (isOpened: boolean) => void
 }>
 
 export const Toast: React.FC<ToastProps> = ({
