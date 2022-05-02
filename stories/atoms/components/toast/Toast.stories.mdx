@@ -53,13 +53,26 @@ Several severity levels make it possible to fully configure the type of message 
   }}
 >
   {args => {
+    const [isOpened, setIsOpened] = useState(false)
     return (
-      <ToastComponent
-        title={args.title}
-        severityLevel={args.severityLevel}
-        description={args.description}
-        buttonLabel="Click-me!"
-      />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Button label="Click-me!" onClick={() => setIsOpened(true)} />
+        <Toast
+          description={args.description}
+          isOpened={isOpened}
+          onOpenChange={() => setIsOpened(false)}
+          title={args.title}
+          severityLevel={args.severityLevel}
+          autoDuration={args.autoDuration}
+        />
+      </div>
     )
   }}
   }
