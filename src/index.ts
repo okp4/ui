@@ -1,4 +1,6 @@
 export * from './ui/index'
 export * from './hook/index'
 export * from './context/index'
+export * from './i18n/utils'
+export * as i18n from './i18n/index'
 export type { DeepReadonly } from './superTypes'
