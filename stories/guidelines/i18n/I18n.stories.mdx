@@ -1,6 +1,4 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
-import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
-import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Meta } from '@storybook/addon-docs/blocks'
 
 <Meta title="Guidelines/Internationalization" />
 
@@ -45,7 +43,7 @@ It is thus quite possible to update this value according to a user interaction a
 For example:
 
 ```typescript
-import i18n from "@okp4/ui"
+import i18n from '@okp4/ui'
 
 const updateLanguage = (user: { name: string; language: string }): void => {
   const previousLanguage = localStorage.getItem('i18nextLng')
