@@ -2,7 +2,6 @@ import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { TextField } from 'ui/atoms/textField/TextField'
-import { Typography } from 'ui/atoms/typography/Typography'
 import '../component.scss'
 
 <Meta
@@ -43,26 +42,33 @@ import '../component.scss'
 <Story
   name="Usage"
   argTypes={{
-    helperText: {
-      name: 'healperText',
-      table: {
-        type: { summary: 'Node' }
-      },
-      control: {
-        type: 'text'
-      }
+    onChange: {
+      control: false
+    },
+    inputRef: {
+      control: false
     }
   }}
   args={{
-    helperText: <div></div>
+    placeholder: "I'm a placeholder!",
+    defaultValue: "I'm set with a default value"
   }}
 >
   {args => (
-    <div>
-      <TextInput {...args} />
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '25px'
+      }}
+    >
+      <TextField {...args} />
     </div>
   )}
 </Story>
+
+---
 
 ### Properties
 
@@ -73,97 +79,90 @@ import '../component.scss'
 Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
 
 <Canvas isColumn>
-  <Story name="Sizes" argTypes={{}} args={{}}>
-    {args => (
-      <div>
-        <TextField
-          style={{ marginBottom: '10px' }}
-          size="x-small"
-          placeholder="x-small"
-          {...args}
-        />
-        <TextField style={{ marginBottom: '10px' }} size="small" placeholder="small" {...args} />
-        <TextField style={{ marginBottom: '10px' }} size="medium" placeholder="medium" {...args} />
-        <TextField style={{ marginBottom: '10px' }} size="large" placeholder="large" {...args} />
-        <TextField
-          style={{ marginBottom: '10px' }}
-          size="x-large"
-          placeholder="x-large"
-          {...args}
-        />
-      </div>
-    )}
+  <Story name="Sizes">
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        alignItems: 'center'
+      }}
+    >
+      <TextField size="x-small" placeholder="x-small" />
+      <TextField size="small" placeholder="small" />
+      <TextField size="medium" placeholder="medium" />
+      <TextField size="large" placeholder="large" />
+      <TextField size="x-large" placeholder="x-large" />
+    </div>
   </Story>
 </Canvas>
 
 ## Disabling the text field
 
-The text field can be disabled by setting the `disabled` property to `true`.
+The `TextField` component can be disabled by setting the `disabled` property to `true`.
 
 <Canvas isColumn>
-  <Story name="Disabled" argTypes={{}} args={{}}>
-    {args => <TextField disabled={true} placeholder="This text field is disabled" {...args} />}
+  <Story name="Disabled">
+    {args => (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <TextField disabled defaultValue="This text field is disabled" {...args} />
+      </div>
+    )}
   </Story>
 </Canvas>
 
-## There's an input error
+## Helper text
 
-If `error` is set to `true`, the text field will be displayed in the theme error color.
-`helperText` can be set to display a message below the text field.
+The `TextField` component comes with a property called `helperText` which provides additional context to the input field.
+This property is optional and is displayed with an `info` semantic color (except if `hasError` has been set to `true`)
 
 <Canvas isColumn>
-  <Story name="Error" argTypes={{}} args={{}}>
-    {args => (
+  <Story name="Helper text">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <TextField
+        disabled
+        helperText="Phone number must begin with +33"
+        placeholder="Phone number"
+      />
+    </div>
+  </Story>
+</Canvas>
+
+## Error state
+
+If `hasError` property is set to `true`, the `TextField` component will be displayed with an `error` semantic color.
+In addition, the `helperText` property can be set to display an error message below the `TextField`.
+
+<Canvas isColumn>
+  <Story name="Error state">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <TextField
         defaultValue="My phone is broken"
-        error={true}
-        helperText={
-          <Typography
-            as="div"
-            size="x-small"
-            color="error"
-            fontFamily="secondary"
-            style={{
-              margin: 0
-            }}
-          >
-            Please enter a valid phone number
-          </Typography>
-        }
+        disabled
+        hasError
+        helperText="Please enter a valid phone number"
       />
-    )}
+    </div>
   </Story>
 </Canvas>
 
-## Using onChange() callback
+## Reacting to changes
 
-`onChange` is called when the input value changes. Ex:
+The `TextField` component provides an`onChange` property called when the input value changes.
 
-```js:
-<TextField onChange={( onChange: (event) => {
-        console.log(event.target.value)
-      }} />
+##### **`MyComponent.tsx`**
+
+```tsx
+import React from 'react'
+import type { ChangeEvent, FC } from 'react'
+import { TextField } from '@okp4/ui'
+
+const MyComponent: FC = () => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+  }
+  return <TextField onChange={handleChange} />
+}
 ```
 
-Then, everytime the input value changes, a log message displays the content of the value. Check your console!
-
-<Canvas isColumn>
-  <Story
-    name="onchange"
-    argTypes={{}}
-    args={{
-      onChange: event => {
-        console.log(`onChange : ${event.target.value}`)
-      }
-    }}
-  >
-    {args => (
-      <TextField
-        onChange={event => {
-          console.log(`onChange : ${event.target.value}`)
-        }}
-        {...args}
-      />
-    )}
-  </Story>
-</Canvas>
+Then, everytime the input value changes, a log message displays the content of the value.
