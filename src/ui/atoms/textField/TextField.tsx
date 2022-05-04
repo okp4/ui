@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import classNames from 'classnames'
 import type { RefObject } from 'react'
 import React from 'react'
+import { Typography } from '../typography/Typography'
 import './textField.scss'
-import '../../styles/main.scss'
 
 export type TextFieldProps = Readonly<{
   /**
-   * How large should the font size be.
+   * The size of the input field.
    */
   readonly size?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
@@ -14,9 +15,9 @@ export type TextFieldProps = Readonly<{
    */
   readonly placeholder?: string
   /**
-   * Define the callback called when the input value changes.
+   * Defines the callback called when the input value changes.
    */
-  readonly onChange?: React.ChangeEventHandler<HTMLInputElement>
+  readonly onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   /**
    * The value of the `input` element, required for a controlled component.
    */
@@ -25,47 +26,39 @@ export type TextFieldProps = Readonly<{
    * The default value. Use when the component is not controlled.
    */
   readonly defaultValue?: string
-
   /**
-   * Tells if the input can be edited.
+   * Indicates if the input area is disabled.
    */
   readonly disabled?: boolean
-
   /**
-   * Indicates that the input is not valid.
+   * If true, the TextField is displayed in an error state.
    */
-  readonly error?: boolean
+  readonly hasError?: boolean
   /**
-   * An helper message to display when the input is not valid.
+   * Displays a message to the user below the input area.
    */
-  readonly helperText?: React.ReactNode
-
+  readonly helperText?: string
   /**
-   * Reference to the object
+   * Pass a ref to the input element.
    */
   readonly inputRef?: RefObject<HTMLInputElement>
 }>
 
-/**
- * Primary UI component for text input
- */
-// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const TextField: React.FC<TextFieldProps> = ({
   size = 'medium',
-  placeholder = 'Placeholder',
   disabled = false,
-  error = false,
+  hasError = false,
+  placeholder,
   onChange,
   value,
   defaultValue,
   helperText,
-  inputRef,
-  ...props
+  inputRef
 }: TextFieldProps): JSX.Element => {
-  const inputClass = classNames(`okp4-textinput-core okp4-font-size-${size}`, { ['error']: error })
+  const inputClass = classNames(`okp4-text-field-core `, { error: hasError })
 
   return (
-    <div>
+    <div className={`okp4-text-field-main ${size}`}>
       <input
         className={inputClass}
         defaultValue={defaultValue}
@@ -74,9 +67,20 @@ export const TextField: React.FC<TextFieldProps> = ({
         placeholder={placeholder}
         ref={inputRef}
         value={value}
-        {...props}
       />
-      <div>{helperText}</div>
+      {helperText && (
+        <div>
+          <Typography
+            as="div"
+            color={hasError ? 'error' : 'info'}
+            fontSize="x-small"
+            fontWeight={'bold'}
+            noWrap
+          >
+            {helperText}
+          </Typography>
+        </div>
+      )}
     </div>
   )
 }
