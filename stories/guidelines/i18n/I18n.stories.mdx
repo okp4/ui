@@ -1,0 +1,118 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Guidelines/Internationalization" />
+
+# Internationalization
+
+## Description
+
+ØKP4 design system provides an internationalization service (i18n) that allows to change the text inside components
+and to support different languages or easily customize strings inside the web component.
+
+The components exposed by the library already have their own translations, which allows them to be used without any additional configuration.  
+However, it is quite possible for the user of our library to dynamically add their own files and translation keys in order,
+either to enhance the basic translations, or to create translations for high-level elements
+like a web page for example without having to configure a new i18n instance.
+
+## Language detection
+
+Our internationalization system is based on advanced user language detection.
+Indeed, there are multiple ways to determine the language used in order to be able to load the correct translations.
+So, we use in order:
+
+### URL parameter (query string parameter)
+
+It is possible to add a query string parameter in the url which responds to the following format:
+
+```
+https://my-awesome-webapp.com/home/?lng=EN
+```
+
+The handling of the `lng` parameter will generate a refresh of the i18n keys according to the language passed as query string parameter.
+
+### Local storage
+
+Each time the i18n instance is created or updated, a search in the local storage of the browser is carried out in order
+to retrieve a possible key whose value bears the user language:
+
+```
+i18nextLng=LANGUAGE
+```
+
+It is thus quite possible to update this value according to a user interaction and to force a refresh of the translations and i18n keys.
+For example:
+
+```typescript
+import i18n from '@okp4/ui'
+
+const updateLanguage = (user: { name: string; language: string }): void => {
+  const previousLanguage = localStorage.getItem('i18nextLng')
+  localStorage.setItem('i18nextLng', user.language)
+  if (previousLanguage && previousLanguage !== user.language) {
+    i18n.changeLanguage(user.language)
+  }
+}
+```
+
+### Browser
+
+If none of the previous detection elements have made it possible to recover the user language, the internationalization
+system will automatically recover the language of the browser in which the instance was launched and save it as the usual language,
+which will thus allow show translations in this language.  
+ There is no particular manipulation to operate to activate detection by browser language, this is done automatically.
+
+## Usage
+
+### Load dynamic translations
+
+The internationalization system offered by ØKP4 allows you to dynamically add translation files that can be used in any React component contained in the webapp.
+
+> **_NOTE:_** The merging behavior of translation resources follows the principle of extension and not overwriting.
+> If the given file targets an existing namespace, it will not be overwritten but the keys of multiple files will be merged.
+
+To do this, just use the `loadTranslations` method at the top level of the application witch accepts an array of translations as parameter.
+The given parameter must implement the following type:
+
+```typescript
+type I18nResource = Readonly<{
+  readonly lng: string
+  readonly namespace: string
+  readonly resource: JSONValue //the JSON file itself
+}>
+```
+
+##### **`main.ts`**
+
+```typescript
+import { loadTranslations } from "@okp4/ui"
+import type { I18nResource } from "@okp4/ui"
+import example1_en from './example1_en.json
+import example1_fr from './example1_fr.json
+
+const translationsToLoad : I18nResource[] = [
+  {lng: "EN", namespace: "example1", resource: example1_en},
+  {lng: "FR", namespace: "example1", resource: example1_fr}
+]
+
+loadTranslations(translationsToLoad)
+```
+
+### Translation service
+
+Once the translations have been added dynamically, it is possible to directly use the built-in `useTranslate` hook in the component:
+
+##### **`helloWorld.tsx`**
+
+```tsx
+import React from 'react'
+import { useTranslation } from '@okp4/ui'
+
+export const MyComponent: React.FC = () => {
+  const { t, i18n } = useTranslation()
+  return <p>{t('example1:common.hello.title')}</p>
+}
+```
+
+The `t` function accepts the translation key as parameter that could be prefixed by the namespace containing the key to translate.
+The `namespace` could also be passed as parameter to the `useTranslation` function if all the keys to be translated into the component
+belong to the same namespace.

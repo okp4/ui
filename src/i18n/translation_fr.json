@@ -1,0 +1,11 @@
+{
+  "domain": {
+    "error": {
+      "contact-us": "Veuillez réessayer ultérieurement ou nous contacter.",
+      "connection-error": "Oups, une erreur s'est produite lors de la tentative de connexion. $t(domain.error.contact-us)",
+      "unspecified-error": "Oups, une erreur inconnue est survenue. $t(domain.error.contact-us)",
+      "validation-error":  "Oups, une erreur s'est produite lors de la validation. $t(domain.error.contact-us)",
+      "gateway-error": "Oups, une erreur s'est produite lors de la tentative d'accès au service. $t(domain.error.contact-us)"
+    }
+  }
+}

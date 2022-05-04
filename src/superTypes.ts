@@ -18,3 +18,5 @@ export type DeepReadonly<T> = T extends Primitive
   : T extends Set<infer M>
   ? DeepReadonlySet<M>
   : unknown
+
+export type JSONValue = string | number | boolean | { [x: string]: JSONValue } | Array<JSONValue>

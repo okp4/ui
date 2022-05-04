@@ -9,6 +9,7 @@ import dts from 'rollup-plugin-dts'
 import del from 'rollup-plugin-delete'
 import analyze from 'rollup-plugin-analyzer'
 import { terser } from 'rollup-plugin-terser'
+import json from '@rollup/plugin-json'
 import fs from 'fs'
 
 import * as packageJson from './package.json'
@@ -48,6 +49,7 @@ export default [
       svgr({ dimensions: false }),
       resolve(),
       commonjs(),
+      json(),
       typescript({ tsconfig: './tsconfig.json' }),
       postcss(),
       terser(),
