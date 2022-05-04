@@ -1,22 +1,48 @@
 @import 'src/ui/styles/themes.scss';
+@import 'src/ui/styles/main';
 
-.okp4-textinput-core {
+$sizes: (
+  'x-small': 200px,
+  'small': 300px,
+  'medium': 350px,
+  'large': 450px,
+  'x-large': 550px
+);
+
+.okp4-text-field-main {
   @include with-theme() {
-    font-family: content-medium;
-    text-align: left;
-    border: 0;
-    padding: 20px 20px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-    color: themed('text');
-    background: themed('field');
+    @each $size-key, $size-value in $sizes {
+      &.#{$size-key} {
+        width: $size-value;
+      }
+    }
 
-    &.error {
-      color: themed('error');
-      border: 1px solid themed('error');
+    .okp4-text-field-core {
+      font-family: 'Gotham light', sans-serif;
+      text-align: left;
+      border: 0;
+      padding: 18px;
+      color: themed('text');
+      background: themed('field');
+      font-size: 20px;
+
+      &::placeholder {
+        color: themed('text');
+        opacity: 0.6;
+      }
+
+      &.error {
+        color: themed('error');
+        border: 1px solid themed('error');
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
-}
-
-.okp4-textinput-core:focus {
-  outline: none;
 }
