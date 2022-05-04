@@ -1,5 +1,17 @@
 # ØKP4 UI changelog
 
+# [1.5.0](https://github.com/okp4/ui/compare/v1.4.1...v1.5.0) (2022-05-04)
+
+
+### Features
+
+* **i18n:** add FR and EN main translations ([03ac0c0](https://github.com/okp4/ui/commit/03ac0c00d891a1a01c8965535545414d6790f276))
+* **i18n:** add useTranslation hook to ensure i18n is correctly bind ([53e460b](https://github.com/okp4/ui/commit/53e460bbc3bd56ca84692c575107d72daa6a438e))
+* **i18n:** init i18next instance and add dedicated configuration ([0699d94](https://github.com/okp4/ui/commit/0699d9493de58818e6437e2e9ba7e44ef487165a))
+* **i18n:** move resource upload from init to dedicated utils methods ([58a0967](https://github.com/okp4/ui/commit/58a09675bebea18a7e098c3cc1c2acebad9a020f))
+* **main:** export all i18n elements to library ([82ba728](https://github.com/okp4/ui/commit/82ba728639b2555d4aa0bef9b9274ca7d7a1bc67))
+* **project:** add new JSONValue type for JSON elements ([dcbcad4](https://github.com/okp4/ui/commit/dcbcad409fa6abe1a2e5a326e6732732bf16da89))
+
 ## [1.4.1](https://github.com/okp4/ui/compare/v1.4.0...v1.4.1) (2022-05-02)
 
 
