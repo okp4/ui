@@ -25,6 +25,7 @@
       "eventBus/*": ["src/eventBus/*"],
       "ui/*": ["src/ui/*"],
       "hook/*": ["src/hook/*"],
+      "i18n/*": ["src/i18n/*"],
       "context/*": ["src/context/*"],
       "domain/*": ["src/domain/*"],
       "adapters/*": ["src/adapters/*"],
