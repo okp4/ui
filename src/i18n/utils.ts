@@ -22,3 +22,10 @@ export const loadDefaultTranslations = (): void => {
     { lng: 'fr', namespace: 'translation', resource: translation_fr }
   ])
 }
+
+export const isCurrentLanguage = (lng: string): boolean =>
+  i18n.language.toLowerCase() === lng.toLowerCase()
+
+export const changeLanguage = (newLanguage: string): void => {
+  i18n.changeLanguage(newLanguage)
+}
