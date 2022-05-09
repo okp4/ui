@@ -1,5 +1,5 @@
 import type { Action, Store } from 'redux'
-import { applyMiddleware, createStore } from 'redux'
+import { applyMiddleware, legacy_createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import type { ThunkAction, ThunkDispatch, ThunkMiddleware } from 'redux-thunk'
 import thunk from 'redux-thunk'
@@ -17,7 +17,7 @@ export const configureStore = (
   dependencies: Partial<Dependencies>,
   eventBus: DeepReadonly<EventBus>
 ): Store<AppState> =>
-  createStore(
+  legacy_createStore(
     rootReducer,
     composeWithDevTools(
       applyMiddleware(
