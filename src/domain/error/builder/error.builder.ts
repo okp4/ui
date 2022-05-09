@@ -48,6 +48,13 @@ export class ErrorBuilder {
     return new ErrorBuilder({ ...this.error, type })
   }
 
+  public withInitiator(initiator: string): ErrorBuilder {
+    if (!initiator.length) {
+      throw new UnspecifiedError('Ooops... An initiator must be provided to build an error...')
+    }
+    return new ErrorBuilder({ ...this.error, initiator })
+  }
+
   public withContext(context?: DeepReadonly<Record<string, unknown>>): ErrorBuilder {
     if (!context) {
       return this
@@ -67,7 +74,8 @@ export class ErrorBuilder {
       this.error.id.length > 0 &&
       this.error.timestamp instanceof Date &&
       this.error.type.length > 0 &&
-      this.error.messageKey.length > 0
+      this.error.messageKey.length > 0 &&
+      (this.error.initiator ? this.error.initiator.length > 0 : true)
     )
   }
 }
