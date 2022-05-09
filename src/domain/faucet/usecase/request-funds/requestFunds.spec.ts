@@ -17,6 +17,7 @@ interface Data {
   address: string
   expectedPayloadType: string
   expectedPayloadMessageKey: string
+  expectedMetaInitiator: string
   expectedHaveBeenCalledTimes: number
 }
 
@@ -52,10 +53,10 @@ describe('Request funds from faucet', () => {
     }
 
   describe.each`
-    hasGatewayError | address                                            | expectedPayloadType   | expectedPayloadMessageKey          | expectedHaveBeenCalledTimes
-    ${false}        | ${'123'}                                           | ${'validation-error'} | ${'domain.error.validation-error'} | ${1}
-    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${'validation-error'} | ${'domain.error.validation-error'} | ${1}
-    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${'gateway-error'}    | ${'domain.error.gateway-error'}    | ${2}
+    hasGatewayError | address                                            | expectedPayloadType   | expectedPayloadMessageKey          | expectedMetaInitiator | expectedHaveBeenCalledTimes
+    ${false}        | ${'123'}                                           | ${'validation-error'} | ${'domain.error.validation-error'} | ${'domain:faucet'}    | ${1}
+    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${'validation-error'} | ${'domain.error.validation-error'} | ${'domain:faucet'}    | ${1}
+    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${'gateway-error'}    | ${'domain.error.gateway-error'}    | ${'domain:faucet'}    | ${2}
   `(
     'Given that hasGatewayError is <$hasGatewayError> and address is <$address>',
     ({
@@ -63,6 +64,7 @@ describe('Request funds from faucet', () => {
       address,
       expectedPayloadType,
       expectedPayloadMessageKey,
+      expectedMetaInitiator,
       expectedHaveBeenCalledTimes
     }: Readonly<Data>): void => {
       const { store, faucetGateway }: InitialProps = init()
@@ -78,6 +80,9 @@ describe('Request funds from faucet', () => {
                 type: expectedPayloadType,
                 messageKey: expectedPayloadMessageKey
               })
+            }),
+            expect.objectContaining({
+              initiator: expectedMetaInitiator
             })
           )
         })
