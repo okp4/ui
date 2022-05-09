@@ -7,6 +7,7 @@ export type Error = Entity<
     readonly messageKey: string
     readonly timestamp: Date
     readonly type: string
+    readonly initiator?: string
     readonly context?: Record<string, unknown>
   },
   Id
