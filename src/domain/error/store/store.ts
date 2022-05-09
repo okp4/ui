@@ -17,7 +17,10 @@ export const configureStore = (
     rootReducer,
     preloadedState,
     composeWithDevTools(
-      applyMiddleware(thunk as ThunkMiddleware<AppState, Action>, eventBusMiddleware(eventBus))
+      applyMiddleware(
+        thunk as ThunkMiddleware<AppState, Action>,
+        eventBusMiddleware(eventBus, 'domain:error')
+      )
     )
   )
 
