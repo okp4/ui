@@ -8,6 +8,7 @@ import type { AppState } from 'domain/error/store/appState'
 import { initErrorEventListeners } from 'adapters/error/primary/eventListeners'
 import type { DeepReadonly } from 'superTypes'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
+import type { EventMetadata } from 'eventBus/eventBus'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -26,6 +27,8 @@ const error = new ErrorBuilder()
   .withType('validation-error')
   .withContext({ stack: new Error().stack })
   .build()
+
+const meta: EventMetadata = { initiator: 'domain:test', timestamp: new Date() }
 
 const init = (): InitialProps => {
   const eventBus = new EventBus()
@@ -46,12 +49,12 @@ describe.each`
   event                                            | expectedState
   ${undefined}                                     | ${expectedState(Map(), '')}
   ${{ type: 'error/fooBar', payload: error }}      | ${expectedState(Map(), '')}
-  ${{ type: 'error/errorThrown', payload: error }} | ${expectedState(Map<string, EntityError>().set(error.id, error), error.id)}
+  ${{ type: 'error/errorThrown', payload: error }} | ${expectedState(Map<string, EntityError>().set(error.id, { ...error, initiator: meta.initiator }), error.id)}
 `('Given that event is <$event>', ({ event, expectedState }: Data): void => {
   const { store, eventBus }: InitialProps = init()
 
   describe("When publishing an 'error/errorThrown event", () => {
-    event && eventBus.publish(event)
+    event && eventBus.publish(event, meta)
 
     test(`Then, expect state to be ${expectedState}`, () => {
       expect(store.getState()).toEqual(expectedState)
