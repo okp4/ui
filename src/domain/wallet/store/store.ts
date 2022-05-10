@@ -23,7 +23,7 @@ export const configureStore = (
     composeWithDevTools(
       applyMiddleware(
         thunk.withExtraArgument(dependencies) as ThunkMiddleware<AppState, Action, Dependencies>,
-        eventBusMiddleware(eventBus)
+        eventBusMiddleware(eventBus, 'domain:wallet')
       )
     )
   )

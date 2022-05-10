@@ -29,6 +29,7 @@ interface Data {
   chainId: ChainId
   expectedPayloadType: string
   expectedPayloadMessageKey: string
+  expectedMetaInitiator: string
   expectedHaveBeenCalledTimes: number
 }
 
@@ -89,10 +90,10 @@ describe('Enable wallet', () => {
     }
 
   describe.each`
-    walletRegistryGatewayMustBeCleared | isWalletAvailable | isWalletConnected | chainId     | expectedPayloadType   | expectedPayloadMessageKey          | expectedHaveBeenCalledTimes
-    ${true}                            | ${false}          | ${false}          | ${chainId1} | ${'gateway-error'}    | ${'domain.error.gateway-error'}    | ${1}
-    ${false}                           | ${false}          | ${false}          | ${chainId1} | ${'connection-error'} | ${'domain.error.connection-error'} | ${1}
-    ${false}                           | ${true}           | ${false}          | ${chainId1} | ${'connection-error'} | ${'domain.error.connection-error'} | ${1}
+    walletRegistryGatewayMustBeCleared | isWalletAvailable | isWalletConnected | chainId     | expectedPayloadType   | expectedPayloadMessageKey          | expectedMetaInitiator | expectedHaveBeenCalledTimes
+    ${true}                            | ${false}          | ${false}          | ${chainId1} | ${'gateway-error'}    | ${'domain.error.gateway-error'}    | ${'domain:wallet'}    | ${1}
+    ${false}                           | ${false}          | ${false}          | ${chainId1} | ${'connection-error'} | ${'domain.error.connection-error'} | ${'domain:wallet'}    | ${1}
+    ${false}                           | ${true}           | ${false}          | ${chainId1} | ${'connection-error'} | ${'domain.error.connection-error'} | ${'domain:wallet'}    | ${1}
   `(
     'Given that chainId is <$chainId>',
     ({
@@ -102,6 +103,7 @@ describe('Enable wallet', () => {
       chainId,
       expectedPayloadType,
       expectedPayloadMessageKey,
+      expectedMetaInitiator,
       expectedHaveBeenCalledTimes
     }: Readonly<Data>): void => {
       const { store, inMemoryGateway1, walletRegistryGateway }: InitialProps = init()
@@ -126,6 +128,9 @@ describe('Enable wallet', () => {
                 type: expectedPayloadType,
                 messageKey: expectedPayloadMessageKey
               })
+            }),
+            expect.objectContaining({
+              initiator: expectedMetaInitiator
             })
           )
         })
@@ -189,9 +194,12 @@ describe('Enable wallet', () => {
     inMemoryGateway1.setAccounts(chainId1, List([account1]))
     await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
     expect(mockedEventBusPublish).toHaveBeenCalledTimes(2)
-    expect(mockedEventBusPublish).toHaveBeenCalledWith({
-      type: 'wallet/accountsRetrieved',
-      payload: { chainId: chainId1, accounts: List([account1]) }
-    })
+    expect(mockedEventBusPublish).toHaveBeenCalledWith(
+      {
+        type: 'wallet/accountsRetrieved',
+        payload: { chainId: chainId1, accounts: List([account1]) }
+      },
+      expect.objectContaining({ initiator: 'domain:wallet' })
+    )
   })
 })

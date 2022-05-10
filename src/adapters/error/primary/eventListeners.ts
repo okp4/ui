@@ -8,6 +8,6 @@ export const initErrorEventListeners = (
   store: DeepReadonly<ReduxStore>,
   eventBus: DeepReadonly<EventBus>
 ): (() => void) =>
-  eventBus.subscribe('error/errorThrown', (event: ErrorThrownEvent) => {
-    store.dispatch(reportError(event.payload))
+  eventBus.subscribe('error/errorThrown', (event: DeepReadonly<ErrorThrownEvent>) => {
+    store.dispatch(reportError({ ...event.payload, initiator: event.meta.initiator }))
   })

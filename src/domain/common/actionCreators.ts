@@ -2,6 +2,7 @@
 import type { Error } from 'domain/error/entity/error'
 import type { ActionsUnion } from 'domain/common/store.helper'
 import { createAction } from 'domain/common/store.helper'
+import type { TypedBusEvent } from 'eventBus/eventBus'
 import type { DeepReadonly } from 'superTypes'
 
 export const ThrowErrorActions = {
@@ -9,4 +10,6 @@ export const ThrowErrorActions = {
 }
 
 export type ThrowErrorActionTypes = ActionsUnion<typeof ThrowErrorActions>
-export type ErrorThrownEvent = DeepReadonly<ReturnType<typeof ThrowErrorActions['errorThrown']>>
+export type ErrorThrownEvent = TypedBusEvent<
+  DeepReadonly<ReturnType<typeof ThrowErrorActions['errorThrown']>>
+>

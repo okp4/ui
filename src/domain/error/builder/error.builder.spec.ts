@@ -11,6 +11,7 @@ type Data = Readonly<
     timestamp: Readonly<Date>
     messageKey: string
     type: string
+    initiator: string
     context: DeepReadonly<Record<string, unknown>>
   }> & {
     expectedStatus: boolean
@@ -35,20 +36,30 @@ describe('Build an error', () => {
   })
 
   describe.each`
-    initialError          | id           | timestamp    | messageKey                         | type                  | context           | expectedStatus
-    ${undefined}          | ${'#id1'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${true}
-    ${undefined}          | ${'#id2'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{ foo: 'bar' }} | ${true}
-    ${undefined}          | ${'#id3'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${null}           | ${true}
-    ${undefined}          | ${undefined} | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${true}
-    ${undefined}          | ${'#id5'}    | ${undefined} | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${true}
-    ${undefined}          | ${''}        | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${{}}             | ${false}
-    ${undefined}          | ${'#id7'}    | ${aDate}     | ${''}                              | ${'validation-error'} | ${{}}             | ${false}
-    ${undefined}          | ${'#id8'}    | ${aDate}     | ${'domain.error.validation-error'} | ${''}                 | ${{}}             | ${false}
-    ${{ messageKey: '' }} | ${'#id8'}    | ${undefined} | ${undefined}                       | ${undefined}          | ${{}}             | ${false}
-    ${undefined}          | ${'#id8'}    | ${aBadDate}  | ${'domain.error.validation-error'} | ${''}                 | ${{}}             | ${false}
+    initialError          | id           | timestamp    | messageKey                         | type                  | initiator | context           | expectedStatus
+    ${undefined}          | ${'#id1'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${{}}             | ${true}
+    ${undefined}          | ${'#id2'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${{ foo: 'bar' }} | ${true}
+    ${undefined}          | ${'#id3'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${null}           | ${true}
+    ${undefined}          | ${undefined} | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${{}}             | ${true}
+    ${undefined}          | ${'#id5'}    | ${undefined} | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${{}}             | ${true}
+    ${undefined}          | ${''}        | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${{}}             | ${false}
+    ${undefined}          | ${'#id7'}    | ${aDate}     | ${''}                              | ${'validation-error'} | ${'test'} | ${{}}             | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${'domain.error.validation-error'} | ${''}                 | ${'test'} | ${{}}             | ${false}
+    ${{ messageKey: '' }} | ${'#id8'}    | ${undefined} | ${undefined}                       | ${undefined}          | ${'test'} | ${{}}             | ${false}
+    ${undefined}          | ${'#id8'}    | ${aBadDate}  | ${'domain.error.validation-error'} | ${''}                 | ${'test'} | ${{}}             | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${''}     | ${{}}             | ${false}
   `(
-    'Given that id is <$id>, timestamp is <$timestamp>, messageKey is <$messageKey>, type is <$type> and context is <$context>',
-    ({ initialError, id, timestamp, messageKey, type, context, expectedStatus }: Data) => {
+    'Given that id is <$id>, timestamp is <$timestamp>, messageKey is <$messageKey>, type is <$type>, initiator is <$initiator> and context is <$context>',
+    ({
+      initialError,
+      id,
+      timestamp,
+      messageKey,
+      type,
+      initiator,
+      context,
+      expectedStatus
+    }: Data) => {
       describe('When building error', () => {
         const error = (): Error => {
           // eslint-disable-next-line functional/no-let
@@ -66,6 +77,9 @@ describe('Build an error', () => {
           if (type !== undefined) {
             errorBuilder = errorBuilder.withType(type)
           }
+          if (initiator !== undefined) {
+            errorBuilder = errorBuilder.withInitiator(initiator)
+          }
           if (context !== undefined) {
             errorBuilder = errorBuilder.withContext(context)
           }
@@ -79,6 +93,7 @@ describe('Build an error', () => {
               timestamp: timestamp === undefined ? fakedDate : timestamp,
               messageKey,
               type,
+              initiator,
               context: !context || !Object.keys(context).length ? {} : context
             })
           } else {
