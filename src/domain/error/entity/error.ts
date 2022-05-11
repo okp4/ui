@@ -1,5 +1,5 @@
 import type { Map } from 'immutable'
-import type { Entity } from 'domain/type/entity.type'
+import type { Entity } from 'domain/common/type'
 
 export type Id = string
 export type Error = Entity<

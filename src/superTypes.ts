@@ -20,3 +20,5 @@ export type DeepReadonly<T> = T extends Primitive
   : unknown
 
 export type JSONValue = string | number | boolean | { [x: string]: JSONValue } | Array<JSONValue>
+
+export type Pair<U, V> = [U, V]

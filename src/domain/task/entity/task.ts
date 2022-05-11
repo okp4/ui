@@ -1,5 +1,5 @@
 import type { List } from 'immutable'
-import type { Entity } from 'domain/type/entity.type'
+import type { Entity } from 'domain/common/type'
 
 export type TaskStatus = 'processing' | 'success' | 'error'
 
@@ -10,6 +10,7 @@ export type Task<T = string, I = string> = Entity<
     readonly type: T
     readonly status: TaskStatus
     readonly messageKey: string
+    readonly initiator?: string
   },
   I
 >
