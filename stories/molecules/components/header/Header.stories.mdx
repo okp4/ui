@@ -1,0 +1,46 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { Header } from 'ui/molecules/header/Header.tsx'
+import './header.scss'
+
+<Meta
+  title="Molecules/Header"
+  component={Header}
+  parameters={{
+    actions: {
+      argTypesRegex: '^on.*'
+    },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="header-story-main">
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Header component
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+**Header** is a header :)
+
+## Overview
+
+<Story name="Overview">
+  <div style={{ width: '100%' }}>
+    <Header />
+  </div>
+</Story>
+
+---
