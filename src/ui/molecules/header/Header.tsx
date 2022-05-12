@@ -6,12 +6,12 @@ import type { Breakpoints } from 'hook/useBreakpoint'
 import { useBreakpoint } from 'hook/useBreakpoint'
 
 export const Header: React.FC = (): JSX.Element => {
-  const { isXsmall }: Breakpoints = useBreakpoint()
+  const { isXSmall }: Breakpoints = useBreakpoint()
 
   return (
     <div className={`okp4-header-main`}>
       <div className="okp4-header-logo-container">
-        <Logo type={isXsmall ? 'logotype' : 'logo'} />
+        <Logo size={isXSmall ? 'small' : 'medium'} type={isXSmall ? 'logotype' : 'logo'} />
       </div>
       <div className="okp4-header-theme-switcher-container">
         <ThemeSwitcher />

@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { DeepReadonly } from 'superTypes'
 
 export const useMediaType = (query: string): boolean => {
   const [matches, setMatches]: [boolean, (value: boolean) => void] = useState<boolean>(false)
 
+  const handleChange = useCallback((event: DeepReadonly<MediaQueryListEvent>) => {
+    setMatches(event.matches)
+  }, [])
+
   useEffect(() => {
     const matchQueryList = window.matchMedia(query)
+    setMatches(matchQueryList.matches)
 
-    const handleMatch = (event: DeepReadonly<MediaQueryListEvent>): void => {
-      setMatches(event.matches)
-    }
-    matchQueryList.addEventListener('change', handleMatch)
+    matchQueryList.addEventListener('change', handleChange)
+
     return () => {
-      matchQueryList.removeEventListener('change', handleMatch)
+      matchQueryList.removeEventListener('change', handleChange)
     }
-  }, [query])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return matches
 }
