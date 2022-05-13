@@ -10,6 +10,7 @@ import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly, Pair } from 'superTypes'
 import type { EventMetadata } from 'eventBus/eventBus'
+import { TaskBuilder } from 'domain/task/builder/task.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -72,32 +73,33 @@ describe('Register a task', () => {
   const fakedDate = new Date(2022, 1, 1)
   const fakedUuid = 'foobar'
   const aDate = new Date()
-  const task1: Task = {
-    id: 'id1',
-    creationDate: aDate,
-    type: 'test',
-    status: 'processing',
-    messageKey: 'domain.task.test',
-    lastUpdateDate: aDate
-  }
 
-  const task2: Task = {
-    id: 'id2',
-    creationDate: aDate,
-    type: 'test',
-    status: 'processing',
-    messageKey: 'domain.task.test',
-    lastUpdateDate: aDate
-  }
+  const task1 = new TaskBuilder()
+    .withId('id1')
+    .withCreationDate(aDate)
+    .withLastUpdateDate(aDate)
+    .withMessageKey('domain.task.test')
+    .withType('task-test')
+    .withStatus('processing')
+    .build()
 
-  const task3: Task = {
-    id: 'id1',
-    creationDate: aDate,
-    type: 'test',
-    status: 'processing',
-    messageKey: 'domain.task.test',
-    lastUpdateDate: aDate
-  }
+  const task2 = new TaskBuilder()
+    .withId('id2')
+    .withCreationDate(aDate)
+    .withLastUpdateDate(aDate)
+    .withMessageKey('domain.task.test')
+    .withType('task-test')
+    .withStatus('processing')
+    .build()
+
+  const task3 = new TaskBuilder()
+    .withId('id1')
+    .withCreationDate(aDate)
+    .withLastUpdateDate(aDate)
+    .withMessageKey('domain.task.test')
+    .withType('task-test')
+    .withStatus('processing')
+    .build()
 
   const error = new ErrorBuilder()
     .withId(fakedUuid)
