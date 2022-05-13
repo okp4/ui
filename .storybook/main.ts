@@ -5,6 +5,9 @@ const logoDirectoryPath = path.resolve(__dirname, '../src/assets/logos')
 module.exports = {
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(ts|tsx)'],
   addons: ['@storybook/preset-scss', '@storybook/addon-links', '@storybook/addon-essentials'],
+  features: {
+    modernInlineRender: true
+  },
   staticDirs: ['../public'],
   framework: '@storybook/react',
   webpackFinal: async (config, { configType }) => {
