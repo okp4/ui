@@ -1,6 +1,7 @@
 import { OrderedSet, OrderedMap } from 'immutable'
 import { combineReducers } from 'redux'
 import type { Task } from 'domain/task/entity/task'
+import type { ClearTaskskActionTypes } from 'domain/task/usecase/clear-tasks/actionCreators'
 import type { RegisterTaskActionTypes } from 'domain/task/usecase/register-task/actionCreators'
 import type { DeepReadonly } from 'superTypes'
 import type { TaskState } from '../appState'
@@ -13,7 +14,7 @@ const initialTaskState: TaskState<string, string> = {
 const task = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   state: TaskState = initialTaskState,
-  action: DeepReadonly<RegisterTaskActionTypes>
+  action: DeepReadonly<RegisterTaskActionTypes | ClearTaskskActionTypes>
 ): TaskState => {
   switch (action.type) {
     case 'task/taskRegistered': {
@@ -29,6 +30,12 @@ const task = (
         )
       }
     }
+    case 'task/tasksCleared':
+      return {
+        ...state,
+        byId: state.byId.clear(),
+        byType: state.byType.clear()
+      }
     default:
       return state
   }
@@ -36,11 +43,13 @@ const task = (
 
 const unseenTaskId = (
   state: string | null = null,
-  action: DeepReadonly<RegisterTaskActionTypes>
+  action: DeepReadonly<RegisterTaskActionTypes | ClearTaskskActionTypes>
 ): string | null => {
   switch (action.type) {
     case 'task/taskRegistered':
       return action.payload.task.id
+    case 'task/tasksCleared':
+      return null
     default:
       return state
   }
