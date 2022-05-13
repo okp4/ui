@@ -45,13 +45,13 @@ const getExpectedState = (tasks: DeepReadonly<Task[]>, errorIndex?: number): App
                 ? acc.task.byType.set(cur.type, OrderedSet([cur.id]))
                 : acc.task.byType.set(cur.type, value.add(cur.id))
             },
-            unseenTaskId: cur.id
+            displayedTaskIds: acc.displayedTaskIds.add(cur.id)
           }
         : acc
     },
     {
       task: { byId: OrderedMap<string, Task>(), byType: OrderedMap<string, OrderedSet<string>>() },
-      unseenTaskId: null
+      displayedTaskIds: OrderedSet<string>()
     }
   )
 

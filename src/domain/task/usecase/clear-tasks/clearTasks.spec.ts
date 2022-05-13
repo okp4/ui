@@ -1,5 +1,4 @@
-import type { OrderedSet } from 'immutable'
-import { OrderedMap } from 'immutable'
+import { OrderedSet, OrderedMap } from 'immutable'
 import { EventBus } from 'ts-bus'
 import { RegisterTaskActions } from '../register-task/actionCreators'
 import { clearTasks } from './clearTasks'
@@ -49,7 +48,7 @@ describe('Clear all tasks', () => {
         byId: OrderedMap<string, Task>(),
         byType: OrderedMap<string, OrderedSet<string>>()
       },
-      unseenTaskId: null
+      displayedTaskIds: OrderedSet<string>()
     })
   })
 })
