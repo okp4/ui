@@ -1,6 +1,7 @@
 import { OrderedSet, OrderedMap } from 'immutable'
 import { combineReducers } from 'redux'
 import type { Task } from 'domain/task/entity/task'
+import type { ClearTaskActionTypes } from 'domain/task/usecase/clear-task/actionCreators'
 import type { ClearTaskskActionTypes } from 'domain/task/usecase/clear-tasks/actionCreators'
 import type { RegisterTaskActionTypes } from 'domain/task/usecase/register-task/actionCreators'
 import type { DeepReadonly } from 'superTypes'
@@ -14,7 +15,7 @@ const initialTaskState: TaskState<string, string> = {
 const task = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   state: TaskState = initialTaskState,
-  action: DeepReadonly<RegisterTaskActionTypes | ClearTaskskActionTypes>
+  action: DeepReadonly<RegisterTaskActionTypes | ClearTaskskActionTypes | ClearTaskActionTypes>
 ): TaskState => {
   switch (action.type) {
     case 'task/taskRegistered': {
@@ -30,6 +31,18 @@ const task = (
         )
       }
     }
+    case 'task/taskCleared': {
+      const foundTaskById = state.byId.get(action.payload)
+      return {
+        ...state,
+        ...(foundTaskById && {
+          byId: state.byId.remove(action.payload),
+          byType: state.byType
+            .map((value: Readonly<OrderedSet<string>>) => value.delete(action.payload))
+            .filter((value: Readonly<OrderedSet<string>>) => !value.isEmpty())
+        })
+      }
+    }
     case 'task/tasksCleared':
       return {
         ...state,
@@ -41,20 +54,22 @@ const task = (
   }
 }
 
-const unseenTaskId = (
-  state: string | null = null,
-  action: DeepReadonly<RegisterTaskActionTypes | ClearTaskskActionTypes>
-): string | null => {
+const displayedTaskIds = (
+  state: Readonly<OrderedSet<string>> = OrderedSet(),
+  action: DeepReadonly<RegisterTaskActionTypes | ClearTaskskActionTypes | ClearTaskActionTypes>
+): OrderedSet<string> => {
   switch (action.type) {
     case 'task/taskRegistered':
-      return action.payload.task.id
+      return state.add(action.payload.task.id)
     case 'task/tasksCleared':
-      return null
+      return state.clear()
+    case 'task/taskCleared':
+      return state.delete(action.payload)
     default:
       return state
   }
 }
 
-const rootReducer = combineReducers({ task, unseenTaskId })
+const rootReducer = combineReducers({ task, displayedTaskIds })
 
 export default rootReducer

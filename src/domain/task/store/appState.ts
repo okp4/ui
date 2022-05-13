@@ -3,7 +3,7 @@ import type { Task } from '../entity/task'
 
 export type AppState<T = string, I = string> = {
   readonly task: TaskState<T, I>
-  readonly unseenTaskId: I | null
+  readonly displayedTaskIds: OrderedSet<I>
 }
 
 export type TaskState<T = string, I = string> = {
