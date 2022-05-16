@@ -9,9 +9,11 @@ updates:
       - ccamel
       - fredericvilcot
       - ErikssonJoakim
+      - lolottetheclash
     assignees:
       - ccamel
       - fredericvilcot
+      - lolottetheclash
     open-pull-requests-limit: 5
   - package-ecosystem: npm
     directory: /
@@ -22,7 +24,9 @@ updates:
       - ccamel
       - fredericvilcot
       - ErikssonJoakim
+      - lolottetheclash
     assignees:
       - ccamel
       - fredericvilcot
+      - lolottetheclash
     open-pull-requests-limit: 5
