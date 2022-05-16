@@ -5,18 +5,16 @@ import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { registerTask } from './registerTask'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
-import type { Error } from 'domain/error/entity/error'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
-import type { DeepReadonly, Pair } from 'superTypes'
-import type { EventMetadata } from 'eventBus/eventBus'
+import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
+import type { EventParameter } from '../../helper/test.helper'
+import { getExpectedEventParameter } from '../../helper/test.helper'
 
 type InitialProps = Readonly<{
   store: ReduxStore
 }>
-
-type EventParameter = Pair<{ type: string; payload: Error | { task: Task } }, EventMetadata>
 
 type Data = {
   task: Task[]
@@ -54,20 +52,6 @@ const getExpectedState = (tasks: DeepReadonly<Task[]>, errorIndex?: number): App
       displayedTaskIds: OrderedSet<string>()
     }
   )
-
-const getExpectedEventParameter = (
-  type: string,
-  payload: Task | Error,
-  date: Readonly<Date>,
-  hasError?: boolean
-): EventParameter => {
-  const eventType = { type }
-  const eventPayload = {
-    payload: hasError ? (payload as Error) : { task: payload as Task }
-  }
-  const meta = { initiator: 'domain:task', timestamp: date }
-  return [{ ...eventType, ...eventPayload }, { ...meta }]
-}
 
 describe('Register a task', () => {
   const fakedDate = new Date(2022, 1, 1)
@@ -123,7 +107,7 @@ describe('Register a task', () => {
     ${[]}                    | ${getExpectedState([])}                       | ${[]}
     ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate)]}
     ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate)]}
-    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate), getExpectedEventParameter('error/errorThrown', error, fakedDate, true)]}
+    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate), getExpectedEventParameter('error/errorThrown', error, fakedDate)]}
   `(
     `Given that there are $task.length task(s) to register`,
     ({ task, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
