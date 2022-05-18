@@ -14,6 +14,7 @@ $sizes: (
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-width: 100%;
 
     @each $size-key, $size-value in $sizes {
       &.#{$size-key} {

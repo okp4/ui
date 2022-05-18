@@ -55,14 +55,7 @@ import '../component.scss'
   }}
 >
   {args => (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '25px'
-      }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField {...args} />
     </div>
   )}
@@ -76,7 +69,7 @@ import '../component.scss'
 
 ## Sizes
 
-Size options are `x-small`, `small`, `medium` (default), `large`, `x-large`.
+Size options are `x-small`, `small`, `medium` (default), `large`, `x-large` and will be automatically adjusted responsively to the screen size.
 
 <Canvas isColumn>
   <Story name="Sizes">
@@ -104,7 +97,7 @@ The `TextField` component can be disabled by setting the `disabled` property to 
 <Canvas isColumn>
   <Story name="Disabled">
     {args => (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
         <TextField disabled defaultValue="This text field is disabled" {...args} />
       </div>
     )}
@@ -118,7 +111,7 @@ This property is optional and is displayed with an `info` semantic color (except
 
 <Canvas isColumn>
   <Story name="Helper text">
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField
         disabled
         helperText="Phone number must begin with +33"
@@ -135,7 +128,7 @@ In addition, the `helperText` property can be set to display an error message be
 
 <Canvas isColumn>
   <Story name="Error state">
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField
         defaultValue="My phone is broken"
         disabled

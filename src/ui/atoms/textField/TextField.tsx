@@ -8,6 +8,7 @@ import './textField.scss'
 export type TextFieldProps = Readonly<{
   /**
    * The size of the input field.
+   * It will be automatically adjusted responsively to the screen size.
    */
   readonly size?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
