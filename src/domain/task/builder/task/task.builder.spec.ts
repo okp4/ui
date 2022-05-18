@@ -1,6 +1,6 @@
 import short from 'short-uuid'
-import { UnspecifiedError } from '../entity/error'
-import type { Task, TaskStatus } from '../entity/task'
+import { UnspecifiedError } from '../../entity/error'
+import type { Task, TaskStatus } from '../../entity/task'
 import { TaskBuilder } from './task.builder'
 
 type Data = Readonly<

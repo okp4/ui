@@ -1,7 +1,7 @@
 import short from 'short-uuid'
 import type { DeepReadonly } from 'superTypes'
-import { UnspecifiedError } from '../entity/error'
-import type { Task, TaskStatus } from '../entity/task'
+import { UnspecifiedError } from 'domain/task/entity/error'
+import type { Task, TaskStatus } from 'domain/task/entity/task'
 
 export class TaskBuilder {
   private readonly task: Task

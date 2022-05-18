@@ -8,7 +8,7 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly } from 'superTypes'
-import { TaskBuilder } from 'domain/task/builder/task.builder'
+import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 

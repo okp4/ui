@@ -3,7 +3,7 @@ import { EventBus } from 'ts-bus'
 import { acknowledgeTask } from './acknowledgeTask'
 import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
-import { TaskBuilder } from 'domain/task/builder/task.builder'
+import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 

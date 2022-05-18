@@ -4,7 +4,7 @@ import { RegisterTaskActions } from '../register-task/actionCreators'
 import { clearTasks } from './clearTasks'
 import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
-import { TaskBuilder } from 'domain/task/builder/task.builder'
+import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { Task } from 'domain/task/entity/task'
 
 type InitialProps = Readonly<{
