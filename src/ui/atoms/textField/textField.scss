@@ -19,6 +19,10 @@ $sizes: (
     @each $size-key, $size-value in $sizes {
       &.#{$size-key} {
         width: $size-value;
+
+        &.full-width {
+          width: 100%;
+        }
       }
     }
 
