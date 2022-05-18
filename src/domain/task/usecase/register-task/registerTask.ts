@@ -15,7 +15,12 @@ export const registerTask =
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
     if (getState().task.byId.has(task.id)) {
-      dispatchError(new UnspecifiedError(), dispatch)
+      dispatchError(
+        new UnspecifiedError(
+          `Oops.. The provided id '${task.id}' already exists, so we can't perform a task register..`
+        ),
+        dispatch
+      )
       return
     }
     dispatch(RegisterTaskActions.taskRegistered(task))
