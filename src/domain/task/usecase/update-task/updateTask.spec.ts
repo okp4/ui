@@ -8,9 +8,10 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task, UpdateTask } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly } from 'superTypes'
-import { TaskBuilder } from 'domain/task/builder/task.builder'
+import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
+import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 
 type Data = {
   state: AppState
@@ -59,30 +60,24 @@ describe('Update a task', () => {
     .withStatus('processing')
     .build()
 
-  const updatedTask1 = new TaskBuilder()
+  const updatedTask1 = new UpdateTaskBuilder()
     .withId(task1.id)
-    .withCreationDate(fakedDate)
     .withLastUpdateDate(aDate)
     .withMessageKey('domain.task.succeeded')
-    .withType('task-test')
     .withStatus('success')
     .build()
 
-  const updatedTask2 = new TaskBuilder()
+  const updatedTask2 = new UpdateTaskBuilder()
     .withId(task1.id)
-    .withCreationDate(fakedDate)
     .withLastUpdateDate(bDate)
-    .withMessageKey('domain.task.error')
-    .withType('task-test')
-    .withStatus('error')
+    .withMessageKey('domain.task.processing')
+    .withStatus('processing')
     .build()
 
-  const updatedTask3 = new TaskBuilder()
+  const updatedTask3 = new UpdateTaskBuilder()
     .withId(fakedUuid)
-    .withCreationDate(fakedDate)
     .withLastUpdateDate(aDate)
     .withMessageKey('domain.task.error')
-    .withType('task-test')
     .withStatus('error')
     .build()
 
