@@ -1,6 +1,7 @@
 import { OrderedSet, OrderedMap } from 'immutable'
 import { combineReducers } from 'redux'
 import type { Task, UpdateTask } from 'domain/task/entity/task'
+import type { AcknowledgeTaskActionTypes } from 'domain/task/usecase/acknowledge-task/actionCreators'
 import type { ClearTaskActionTypes } from 'domain/task/usecase/clear-task/actionCreators'
 import type { ClearTaskskActionTypes } from 'domain/task/usecase/clear-tasks/actionCreators'
 import type { RegisterTaskActionTypes } from 'domain/task/usecase/register-task/actionCreators'
@@ -66,7 +67,11 @@ const task = (
 const displayedTaskIds = (
   state: Readonly<OrderedSet<string>> = OrderedSet(),
   action: DeepReadonly<
-    RegisterTaskActionTypes | ClearTaskskActionTypes | ClearTaskActionTypes | UpdateTaskActionTypes
+    | RegisterTaskActionTypes
+    | ClearTaskskActionTypes
+    | ClearTaskActionTypes
+    | UpdateTaskActionTypes
+    | AcknowledgeTaskActionTypes
   >
 ): OrderedSet<string> => {
   switch (action.type) {
@@ -78,6 +83,8 @@ const displayedTaskIds = (
       return state.delete(action.payload)
     case 'task/taskUpdated':
       return state.add(action.payload.id)
+    case 'task/taskAcknowledged':
+      return state.remove(action.payload)
     default:
       return state
   }
