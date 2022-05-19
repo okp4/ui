@@ -33,7 +33,7 @@ import './header.scss'
 
 ## Description
 
-**Header** is a header :)
+**Header component** is a responsive component with two elements: `<Logo />` and `<ThemeSwitcher />`.
 
 ## Overview
 
@@ -44,3 +44,21 @@ import './header.scss'
 </Story>
 
 ---
+
+## Responsiveness
+
+The **header** component listens to changes in the viewport min- and max-width, and changes its grid template area, logo size, padding and content justification according to defined breakpoints.
+
+## Prerequisites
+
+It is mandatory to wrap the component in a `<ThemeProvider />` for the `<ThemeSwitcher />` to work, like in the code snippet below. See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
+
+##### **`header.tsx`**
+
+```tsx
+<React.StrictMode>
+  <ThemProvider>
+    <Header />
+  <ThemeProvider>
+</React.StrictMode>
+```
