@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title="Guidelines/Responsive web design" />
+
+# Responsive web design
+
+## Description
+
+Responsive web design is a concept that emerged from the need to adapt web sites to different viewport sizes as device screen
+sizes became more divers. The concept entails a set of practices to allow web pages to adapt its layout and appearance to different
+screen resolutions, width etc.
+
+### Responsive design techniques
+
+Responsive web design uses three principal techniques to render a page responsive :
+
+- **Fluid grids :** Grid layouts gives designers a rational, structured framework for organizing content and users a well-organized, easily-readable site.
+
+- **Fluid images :** Setting images to `max-width: 100%` makes them scale down if the container column is smaller than the intrinsic size of the image,
+  all while preventing the images from growing larger if the width of the column increases.
+
+- **Media queries :** CSS media queries allows to change the grid layout by function of the width of the viewport. By setting breakpoints we tell the
+  DOM how we want the content to render for specific viewport sizes.
+
+### ØKP4 responsive design
+
+**ØKP4** components have 5 set breakpoints: `isXSmall`, `isSmall`, `isMedium`, `isLarge` and `isXLarge` that will return true if their
+media queries match the min- and max-width of the viewport.
+
+```ts
+import { useMediaType } from './useMediaType'
+
+export type Breakpoints = {
+  isXSmall: boolean
+  isSmall: boolean
+  isMedium: boolean
+  isLarge: boolean
+  isXLarge: boolean
+}
+
+export const useBreakpoint = (): Breakpoints => ({
+  isXSmall: useMediaType('(max-width: 480px)'), // Mobile device.
+  isSmall: useMediaType('(min-width: 481px) and (max-width: 768px)'), // Tablette device.
+  isMedium: useMediaType('(min-width: 769px) and (max-width: 1024px)'), // Small laptop screen.
+  isLarge: useMediaType('(min-width: 1025px) and (max-width: 1200px)'), // desktop large screen.
+  isXLarge: useMediaType('(min-width: 1201px)') // Extra large screens.
+})
+```
+
+## Usage
+
+To use the **ØKP4 responsive design**, import the `useBreakpoint` hook and the `Breakpoints` type in your file and declare
+the breakingpoints that you want to use.
+
+```tsx
+import type { Breakpoints } from 'hook/useBreakpoint'
+import { useBreakpoint } from 'hook/useBreakpoint'
+
+const { isXSmall }: Breakpoints = useBreakpoint()
+```
