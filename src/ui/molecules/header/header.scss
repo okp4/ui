@@ -10,9 +10,17 @@
   grid-template-areas: 'logo themeswitch';
 
   @media screen and (max-width: 768px) {
-    padding: 45px 20px;
+    padding: 25px 20px;
     width: calc(100% - 40px);
     justify-content: space-evenly;
+  }
+
+  @media screen and (max-width: 400px) {
+    grid-template-areas:
+      'logo'
+      'themeswitch';
+    justify-items: center;
+    row-gap: 10px;
   }
 
   .okp4-header-logo-container {
