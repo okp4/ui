@@ -14,11 +14,14 @@ $background-colors: (
     cursor: pointer;
     text-decoration: unset;
     border: unset;
-    height: 40px;
+    min-height: 40px;
     padding: 10px 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    min-width: 65px;
+    max-width: 100%;
+    overflow: hidden;
 
     &.variant-secondary {
       border-radius: 50px;
@@ -44,7 +47,7 @@ $background-colors: (
     }
 
     &.size-large {
-      width: 290px;
+      width: 273px;
     }
   }
 }
