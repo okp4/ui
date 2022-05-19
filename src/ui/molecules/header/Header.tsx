@@ -11,7 +11,7 @@ export const Header: React.FC = (): JSX.Element => {
   return (
     <div className={`okp4-header-main`}>
       <div className="okp4-header-logo-container">
-        <Logo size={isXSmall ? 'small' : 'medium'} type={isXSmall ? 'logotype' : 'logo'} />
+        <Logo size={isXSmall ? 'small' : 'medium'} />
       </div>
       <div className="okp4-header-theme-switcher-container">
         <ThemeSwitcher />
