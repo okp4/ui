@@ -1,3 +1,11 @@
+/**
+* This is a hack to prevent Firefox to render story with a tiny height.
+* When storybook's features.modernInlineRender is enabled, a 70px height is set for story container,
+* instead of using automatic height, only in Firefox.
+* These lines of code below intercept the height from the container and force it to be in auto mode.
+* /!\ TBD: check for future storybook versions and remove this code if issue is fixed /!\
+*/
+
 .docs-story {
   > :nth-child(1) {
     > :nth-child(1) {
