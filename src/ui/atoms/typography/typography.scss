@@ -12,6 +12,8 @@ $weights: (
 .okp4-typography-main {
   @include with-theme() {
     line-height: 1.1em;
+    width: 100%;
+    word-break: break-word;
 
     &.text-wrap-disabled {
       overflow: hidden;
