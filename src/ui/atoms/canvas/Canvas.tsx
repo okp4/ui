@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { useEffect, useRef } from 'react'
 import { useAnimationFrame } from 'hook/useAnimationFrame'
 import type { DeepReadonly } from '../../../superTypes'
