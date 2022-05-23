@@ -1,6 +1,6 @@
 # OKP4 UI
 
-> Implementation of [OKP4]([okp4.com](https://okp4.com)) UI components in CSS, [Typescript](https://www.typescriptlang.org), and HTML.
+> Implementation of [ØKP4] UI components in CSS, [Typescript](https://www.typescriptlang.org), and HTML.
 
 [![Version](https://img.shields.io/github/v/release/okp4/ui)](https://github.com/okp4/ui/releases)
 [![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
@@ -14,13 +14,13 @@
 
 ## Our vision
 
-The [OKP4](https://okp4.com) Design System is a collection of clear guidelines, components, and resources that was created to aid in the design and development of our digital products - primarily our web apps or websites - for our customers.
+The [ØKP4] Design System is a collection of clear guidelines, components, and resources that was created to aid in the design and development of our digital products - primarily our web apps or websites - for our customers.
 
-The OKP4 Design System serves as a reference or source of truth for the teams working on [OKP4](https://www.okp4.com) digital products, enabling to design and develop with speed, consistency, and quality.
+The ØKP4 Design System serves as a reference or source of truth for the teams working on [ØKP4] digital products, enabling to design and develop with speed, consistency, and quality.
 
 ## Get started
 
-The OKP4 Design System contains a collection of [React](https://reactjs.org) components that can be used to build accessible and performant React applications consistent with [OKP4](https://www.okp4.com) brand guidelines.
+The OKP4 Design System contains a collection of [React](https://reactjs.org) components that can be used to build accessible and performant React applications consistent with [ØKP4] brand guidelines.
 
 ### Build
 
@@ -55,3 +55,5 @@ npm install --save @okp4/ui
 So you want to contribute? Great. We appreciate any help you're willing to give. Don't hesitate to open issues and/or submit pull requests.
 
 Remember that this is the Design System we use at [OKP4](https://github.com/okp4). This is why we may have to refuse change requests simply because they do not comply with our internal requirements, and not because they are not relevant.
+
+[ØKP4]: https://okp4.network
