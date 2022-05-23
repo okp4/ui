@@ -1,4 +1,4 @@
-# ØKP4 UI changelog
+# OKP4 UI changelog
 
 # [1.5.0](https://github.com/okp4/ui/compare/v1.4.1...v1.5.0) (2022-05-04)
 
