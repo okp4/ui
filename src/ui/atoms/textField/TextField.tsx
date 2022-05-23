@@ -8,6 +8,7 @@ import './textField.scss'
 export type TextFieldProps = Readonly<{
   /**
    * The size of the input field.
+   * It will be automatically adjusted responsively to the screen size.
    */
   readonly size?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
@@ -42,6 +43,10 @@ export type TextFieldProps = Readonly<{
    * Pass a ref to the input element.
    */
   readonly inputRef?: RefObject<HTMLInputElement>
+  /**
+   * If true, the TextField will take 100% of its parent's size
+   */
+  readonly fullWidth?: boolean
 }>
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -53,12 +58,14 @@ export const TextField: React.FC<TextFieldProps> = ({
   value,
   defaultValue,
   helperText,
-  inputRef
+  inputRef,
+  fullWidth = false
 }: TextFieldProps): JSX.Element => {
   const inputClass = classNames(`okp4-text-field-core `, { error: hasError })
+  const containerClass = classNames(`okp4-text-field-main ${size}`, { 'full-width': fullWidth })
 
   return (
-    <div className={`okp4-text-field-main ${size}`}>
+    <div className={containerClass}>
       <input
         className={inputClass}
         defaultValue={defaultValue}
