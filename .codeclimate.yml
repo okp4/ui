@@ -2,6 +2,9 @@ version: '2'
 exclude_patterns:
   - '**/*.d.ts'
   - '**/*.spec.ts'
+checks:
+  method-lines:
+    enabled: false
 plugins:
   duplication:
     enabled: true

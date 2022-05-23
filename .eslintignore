@@ -3,3 +3,4 @@ lib
 .vscode
 .cache
 jest.config.js
+**/*.spec.ts
