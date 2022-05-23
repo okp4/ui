@@ -56,7 +56,7 @@ export const Button: React.FC<TButtonProps> = ({
     title={label}
     type="button"
   >
-    <Typography as="div" color="highlighted-text" fontSize="small" fontWeight="light" noWrap>
+    <Typography as="div" color="highlighted-text" fontSize="small" fontWeight="light">
       {label}
     </Typography>
   </button>
