@@ -1,0 +1,27 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { LanguageSwitcher } from 'ui/atoms/languageSwitcher/LanguageSwitcher'
+
+<Meta
+  title="Atoms/LanguageSwitcher"
+  component={LanguageSwitcher}
+  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+/>
+
+<Canvas>
+  <Story
+    name="Overview"
+    argTypes={{}}
+  >
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <LanguageSwitcher />
+      </div>
+    )}
+  </Story>
+</Canvas>
