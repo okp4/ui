@@ -33,7 +33,10 @@ import './header.scss'
 
 ## Description
 
-**Header component** is a responsive component with two elements: `<Logo />` and `<ThemeSwitcher />`.
+**Header component** is a responsive component which embeds two main elements:
+
+- A `Logo` which must be part of the set of applications representing the ØKP4 brand.
+- A `ThemeSwitcher` which allows each application to automatically manage the themes offered by the ØKP4 design system (Blue Stone / Light Stone).
 
 ## Overview
 
@@ -47,18 +50,25 @@ import './header.scss'
 
 ## Responsiveness
 
-The **header** component listens to changes in the viewport min- and max-width, and changes its grid template area, logo size, padding and content justification according to defined breakpoints.
+The component was built according to the principles of Responsive Web Design (see <a href="?path=/docs/guidelines-responsive-web-design--page">dedicated guideline</a> ) in particular thanks to the use of media queries and a responsive grid.
+This allows the component to adapt to any screen size, from the smallest phone to a large desktop screen or television.
 
 ## Prerequisites
 
-It is mandatory to wrap the component in a `<ThemeProvider />` for the `<ThemeSwitcher />` to work, like in the code snippet below. See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
+It is mandatory to wrap the component in a `<ThemeProvider />` for the `<ThemeSwitcher />` to work, like in the code snippet below.  
+See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
 
-##### **`header.tsx`**
+##### **`app.tsx`**
 
 ```tsx
-<React.StrictMode>
-  <ThemProvider>
-    <Header />
-  <ThemeProvider>
-</React.StrictMode>
+import React from 'react'
+import { Header, ThemeProvider } from '@okp4/ui'
+
+export const App: React.FC = () => (
+  <React.StrictMode>
+    <ThemeProvider>
+      <Header />
+    </ThemeProvider>
+  </React.StrictMode>
+)
 ```

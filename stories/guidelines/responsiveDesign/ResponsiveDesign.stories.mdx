@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs'
 
-<Meta title="Guidelines/Responsive web design" />
+<Meta title="Guidelines/Responsive Web Design" />
 
 # Responsive web design
 
@@ -24,37 +24,38 @@ Responsive web design uses three principal techniques to render a page responsiv
 
 ### ØKP4 responsive design
 
-**ØKP4** components have 5 set breakpoints: `isXSmall`, `isSmall`, `isMedium`, `isLarge` and `isXLarge` that will return true if their
-media queries match the min- and max-width of the viewport.
+**ØKP4** design system relies on 5 main breakpoints:
 
-```ts
-import { useMediaType } from './useMediaType'
+- **`XSmall - (max-width: 480px)`** for a mobile phone screen.
+- **`Small - (min-width: 481px) and (max-width: 768px)`** for a tablet screen.
+- **`Medium - (min-width: 769px) and (max-width: 1024px)`** for a small laptop screen.
+- **`Large - (min-width: 1025px) and (max-width: 1200px)`** for a large desktop screen.
+- **`XLarge - (min-width: 1201px)`** for large screens like TV's.
 
-export type Breakpoints = {
-  isXSmall: boolean
-  isSmall: boolean
-  isMedium: boolean
-  isLarge: boolean
-  isXLarge: boolean
-}
-
-export const useBreakpoint = (): Breakpoints => ({
-  isXSmall: useMediaType('(max-width: 480px)'), // Mobile device.
-  isSmall: useMediaType('(min-width: 481px) and (max-width: 768px)'), // Tablette device.
-  isMedium: useMediaType('(min-width: 769px) and (max-width: 1024px)'), // Small laptop screen.
-  isLarge: useMediaType('(min-width: 1025px) and (max-width: 1200px)'), // desktop large screen.
-  isXLarge: useMediaType('(min-width: 1201px)') // Extra large screens.
-})
-```
+These breakpoints make it possible to adapt each component to the size of the screen used, which considerably enriches the User eXperience as well as the ability to navigate in a fluid environment.
 
 ## Usage
 
-To use the **ØKP4 responsive design**, import the `useBreakpoint` hook and the `Breakpoints` type in your file and declare
-the breakingpoints that you want to use.
+To use the **ØKP4 responsive design** in your React component, just import the `useBreakpoint` hook and the `Breakpoints` type in your file and declare
+the breakpoints you want to use.
+
+##### **`example.tsx`**
 
 ```tsx
-import type { Breakpoints } from 'hook/useBreakpoint'
-import { useBreakpoint } from 'hook/useBreakpoint'
+import React from 'react'
+import type { Breakpoints } from '@okp4/ui'
+import { useBreakpoint } from '@okp4/ui'
 
-const { isXSmall }: Breakpoints = useBreakpoint()
+export const Example: React.FC = () => {
+  const { isXSmall }: Breakpoints = useBreakpoint()
+  return (
+    <div>
+      <img
+        alt="example"
+        src="./myExampleImage.png"
+        style={{ width: isXSmall ? '100px' : '100%' }}
+      />
+    </div>
+  )
+}
 ```
