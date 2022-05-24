@@ -17,8 +17,7 @@ export const useMediaType = (query: string): boolean => {
     return () => {
       matchQueryList.removeEventListener('change', handleChange)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [handleChange, query, setMatches])
 
   return matches
 }
