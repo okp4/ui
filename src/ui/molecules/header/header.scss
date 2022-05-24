@@ -1,8 +1,8 @@
 @import 'ui/styles/main.scss';
 
 .okp4-header-main {
-  width: calc(100% - 156px);
-  padding: 45px 78px;
+  width: calc(100% - 120px);
+  padding: 45px 60px;
   justify-content: space-between;
   align-items: center;
   column-gap: 10px;
@@ -10,12 +10,12 @@
   grid-template-areas: 'logo themeswitch';
 
   @media screen and (max-width: 768px) {
-    padding: 25px 20px;
-    width: calc(100% - 40px);
+    padding: 25px 10px;
+    width: calc(100% - 20px);
     justify-content: space-evenly;
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 360px) {
     grid-template-areas:
       'logo'
       'themeswitch';
