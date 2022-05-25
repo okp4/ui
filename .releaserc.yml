@@ -6,7 +6,7 @@ plugins:
   - "@semantic-release/release-notes-generator"
   - - "@semantic-release/changelog"
     - changelogFile: CHANGELOG.md
-      changelogTitle: "# ØKP4 UI changelog"
+      changelogTitle: "# OKP4 UI changelog"
   - - "@semantic-release/npm"
     - npmPublish: false
       tarballDir: "false"
