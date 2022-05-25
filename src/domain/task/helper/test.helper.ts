@@ -12,10 +12,10 @@ type Payload = Error | Task | UpdateTask
 export const getExpectedEventParameter = (
   type: string,
   payload: Payload,
-  date: Readonly<Date>
+  initiator: string
 ): EventParameter => {
   return [
     { ...{ type }, ...{ payload } },
-    { initiator: 'domain:task', timestamp: date }
+    { initiator, timestamp: new Date() }
   ]
 }

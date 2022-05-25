@@ -22,9 +22,51 @@ type Data = {
   expectedEventParameters: EventParameter[]
 }
 
+const fakedDate = new Date(2022, 1, 1)
+const fakedUuid = 'foobar'
+const aDate = new Date()
+const initiator = 'domain:task'
 const eventBus = new EventBus()
+
+jest.useFakeTimers('modern')
+jest.setSystemTime(fakedDate)
+short.generate = jest.fn(() => fakedUuid as short.SUUID)
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 jest.mock('../../entity/error')
+
+const task1 = new TaskBuilder()
+  .withId('id1')
+  .withCreationDate(aDate)
+  .withLastUpdateDate(aDate)
+  .withMessageKey('domain.task.test')
+  .withType('task-test')
+  .withStatus('processing')
+  .build()
+
+const task2 = new TaskBuilder()
+  .withId('id2')
+  .withCreationDate(aDate)
+  .withLastUpdateDate(aDate)
+  .withMessageKey('domain.task.test')
+  .withType('task-test')
+  .withStatus('processing')
+  .build()
+
+const task3 = new TaskBuilder()
+  .withId('id1')
+  .withCreationDate(aDate)
+  .withLastUpdateDate(aDate)
+  .withMessageKey('domain.task.test')
+  .withType('task-test')
+  .withStatus('processing')
+  .build()
+
+const error = new ErrorBuilder()
+  .withId(fakedUuid)
+  .withTimestamp(fakedDate)
+  .withMessageKey('domain.error.unspecified-error')
+  .withType('unspecified-error')
+  .build()
 
 const init = (): InitialProps => {
   const store = configureStore(eventBus)
@@ -54,50 +96,6 @@ const getExpectedState = (tasks: DeepReadonly<Task[]>, errorIndex?: number): App
   )
 
 describe('Register a task', () => {
-  const fakedDate = new Date(2022, 1, 1)
-  const fakedUuid = 'foobar'
-  const aDate = new Date()
-
-  const task1 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
-    .build()
-
-  const task2 = new TaskBuilder()
-    .withId('id2')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
-    .build()
-
-  const task3 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
-    .build()
-
-  const error = new ErrorBuilder()
-    .withId(fakedUuid)
-    .withTimestamp(fakedDate)
-    .withMessageKey('domain.error.unspecified-error')
-    .withType('unspecified-error')
-    .build()
-
-  beforeAll(() => {
-    jest.useFakeTimers('modern')
-    jest.setSystemTime(fakedDate)
-    short.generate = jest.fn(() => fakedUuid as short.SUUID)
-  })
-
   afterAll(() => {
     jest.useRealTimers()
   })
@@ -105,9 +103,9 @@ describe('Register a task', () => {
   describe.each`
     task                     | expectedState                                 | expectedEventParameters
     ${[]}                    | ${getExpectedState([])}                       | ${[]}
-    ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate)]}
-    ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate)]}
-    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate), getExpectedEventParameter('error/errorThrown', error, fakedDate)]}
+    ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator)]}
+    ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator), getExpectedEventParameter('task/taskRegistered', task2, initiator)]}
+    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator), getExpectedEventParameter('task/taskRegistered', task2, initiator), getExpectedEventParameter('error/errorThrown', error, initiator)]}
   `(
     `Given that there are $task.length task(s) to register`,
     ({ task, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {

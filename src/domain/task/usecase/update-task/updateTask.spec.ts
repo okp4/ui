@@ -20,9 +20,63 @@ type Data = {
   expectedEventParameters: EventParameter[]
 }
 
+const initiator = 'domain:task'
+const fakedDate = new Date(2022, 1, 1)
+const fakedUuid = 'foobar'
+const aDate = new Date()
+const bDate = new Date()
 const eventBus = new EventBus()
+
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 jest.mock('../../entity/error')
+jest.useFakeTimers('modern')
+jest.setSystemTime(fakedDate)
+short.generate = jest.fn(() => fakedUuid as short.SUUID)
+
+const task1 = new TaskBuilder()
+  .withId('id1')
+  .withCreationDate(fakedDate)
+  .withLastUpdateDate(fakedDate)
+  .withMessageKey('domain.task.test')
+  .withType('task-test')
+  .withStatus('processing')
+  .build()
+
+const updatedTask1 = new UpdateTaskBuilder()
+  .withId(task1.id)
+  .withLastUpdateDate(aDate)
+  .withMessageKey('domain.task.succeeded')
+  .withStatus('success')
+  .build()
+
+const updatedTask2 = new UpdateTaskBuilder()
+  .withId(task1.id)
+  .withLastUpdateDate(bDate)
+  .withMessageKey('domain.task.processing')
+  .withStatus('processing')
+  .build()
+
+const updatedTask3 = new UpdateTaskBuilder()
+  .withId(fakedUuid)
+  .withLastUpdateDate(aDate)
+  .withMessageKey('domain.task.error')
+  .withStatus('error')
+  .build()
+
+const initialState: AppState = {
+  task: {
+    byId: OrderedMap<string, Task>().set(task1.id, task1),
+    byType: OrderedMap<string, OrderedSet<string>>().set(task1.type, OrderedSet<string>([task1.id]))
+  },
+  displayedTaskIds: OrderedSet<string>([task1.id])
+}
+
+const error = new ErrorBuilder()
+  .withId(fakedUuid)
+  .withTimestamp(fakedDate)
+  .withMessageKey('domain.error.unspecified-error')
+  .withType('unspecified-error')
+  .build()
 
 const getExpectedState = (
   iniialState: DeepReadonly<AppState>,
@@ -46,74 +100,15 @@ const getExpectedState = (
   )
 
 describe('Update a task', () => {
-  const fakedDate = new Date(2022, 1, 1)
-  const fakedUuid = 'foobar'
-  const aDate = new Date()
-  const bDate = new Date()
-
-  const task1 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(fakedDate)
-    .withLastUpdateDate(fakedDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
-    .build()
-
-  const updatedTask1 = new UpdateTaskBuilder()
-    .withId(task1.id)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.succeeded')
-    .withStatus('success')
-    .build()
-
-  const updatedTask2 = new UpdateTaskBuilder()
-    .withId(task1.id)
-    .withLastUpdateDate(bDate)
-    .withMessageKey('domain.task.processing')
-    .withStatus('processing')
-    .build()
-
-  const updatedTask3 = new UpdateTaskBuilder()
-    .withId(fakedUuid)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.error')
-    .withStatus('error')
-    .build()
-
-  const initialState: AppState = {
-    task: {
-      byId: OrderedMap<string, Task>().set(task1.id, task1),
-      byType: OrderedMap<string, OrderedSet<string>>().set(
-        task1.type,
-        OrderedSet<string>([task1.id])
-      )
-    },
-    displayedTaskIds: OrderedSet<string>([task1.id])
-  }
-
-  const error = new ErrorBuilder()
-    .withId(fakedUuid)
-    .withTimestamp(fakedDate)
-    .withMessageKey('domain.error.unspecified-error')
-    .withType('unspecified-error')
-    .build()
-
-  beforeAll(() => {
-    jest.useFakeTimers('modern')
-    jest.setSystemTime(fakedDate)
-    short.generate = jest.fn(() => fakedUuid as short.SUUID)
-  })
-
   afterAll(() => {
     jest.useRealTimers()
   })
 
   describe.each`
     state           | updatedTask                     | expectedState                                                   | expectedEventParameters
-    ${initialState} | ${[updatedTask1]}               | ${getExpectedState(initialState, [updatedTask1])}               | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, fakedDate)]}
-    ${initialState} | ${[updatedTask1, updatedTask2]} | ${getExpectedState(initialState, [updatedTask1, updatedTask2])} | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, fakedDate), getExpectedEventParameter('task/taskUpdated', updatedTask2, fakedDate)]}
-    ${initialState} | ${[updatedTask3]}               | ${getExpectedState(initialState, [updatedTask3], 0)}            | ${[getExpectedEventParameter('error/errorThrown', error, fakedDate)]}
+    ${initialState} | ${[updatedTask1]}               | ${getExpectedState(initialState, [updatedTask1])}               | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator)]}
+    ${initialState} | ${[updatedTask1, updatedTask2]} | ${getExpectedState(initialState, [updatedTask1, updatedTask2])} | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator), getExpectedEventParameter('task/taskUpdated', updatedTask2, initiator)]}
+    ${initialState} | ${[updatedTask3]}               | ${getExpectedState(initialState, [updatedTask3], 0)}            | ${[getExpectedEventParameter('error/errorThrown', error, initiator)]}
   `(
     `Given that there are $updatedTask.length task(s) to update`,
     ({ state, updatedTask, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
