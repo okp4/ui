@@ -1154,68 +1154,68 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@^5.5.5", "@babylonjs/core@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.5.6.tgz#adfbaade8ca9a55a89c83d61f9cc51b22520d0d8"
-  integrity sha512-0QgN1ugUxYsWoXX8oHL8TKn5dbKYJrjYKPfvyoid9J5WjWLn4JDLM7laNQqfjuOVmHiDZ8gE+BjV6kbSkdL0fg==
+"@babylonjs/core@^5.5.5", "@babylonjs/core@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.7.0.tgz#6325fd3d2bab7ccc80138064e3d5c4ba02fcacdd"
+  integrity sha512-8JnN5TXJHmfMS2Uv/dNWAaQkzU4aHIBzGZpSZb+uH3IDnSAV8Q6ZWJGs6ujLijHu5fWnRG3RsPXdpZTwBffITg==
   dependencies:
     tslib "^2.3.1"
 
-"@babylonjs/gui-editor@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui-editor/-/gui-editor-5.5.6.tgz#66bd9e1bde202be37869f8e9757c51a7945234fd"
-  integrity sha512-cXu+qSvj+GAXiaYequcI6qB2gj/vXwtPmOPWpp70KQ5GZchmaet6VBhw4Yc5KVjQCiSo91fhqSARdzATkjqnXg==
+"@babylonjs/gui-editor@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui-editor/-/gui-editor-5.7.0.tgz#22089d433c8457385fbef370863bfaa519647a75"
+  integrity sha512-f4co393dP4Ol9vS5UqT24rwLbPObL6EKI16Nzmrph48TQJdYpj5+HM8g69AEmfMNrX1qH65nRINvydSfIaEuFA==
   dependencies:
-    "@babylonjs/core" "^5.5.6"
-    "@babylonjs/gui" "^5.5.6"
+    "@babylonjs/core" "^5.7.0"
+    "@babylonjs/gui" "^5.7.0"
 
-"@babylonjs/gui@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-5.5.6.tgz#e1c1be9a59c28dbd4e7f74e0a9cd9dfc346da27c"
-  integrity sha512-U7rS04UrmBe9MuSld76zObqQVEVNh2el6cK8zXmXtd57f/HrgDjzhpIPULLne7GpUYjtL4EkdeapXI/NuR0oHQ==
+"@babylonjs/gui@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-5.7.0.tgz#efd95233a7f84b7034b21653ff86f0bac38c15ee"
+  integrity sha512-d50NU5EnLP6Qec6wx6J6GPa6QQ1TeFPRRHg9xyEFWCWJwONUv9MTYYhj6BfQvsaZuB0U5YuZaS79uF7EGn4iTw==
   dependencies:
-    "@babylonjs/core" "^5.5.6"
+    "@babylonjs/core" "^5.7.0"
     tslib "^2.3.1"
 
 "@babylonjs/inspector@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.5.6.tgz#e8e9374e1ee3e47a3a90ec559a9a1c3859459247"
-  integrity sha512-8gFfY2R4i3/640+0mm7RR/f5DWLzYYI8a5sGdd/hjKWeyjuwsxvgQJlBm7umSoNln//KnPRlzNjjTK/VCPZtJA==
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.7.0.tgz#483482f7a1d28dba704ea80a9b299c8b5be92494"
+  integrity sha512-twKBgwoK5pgexQXDtxG/8shdE9PBhqNNLnHaQmTpAl0+CtmrHdZV8XBclubGu1Q7bn6lF20L83KSlVxZp66sSA==
   dependencies:
-    "@babylonjs/core" "^5.5.6"
-    "@babylonjs/gui" "^5.5.6"
-    "@babylonjs/gui-editor" "^5.5.6"
-    "@babylonjs/loaders" "^5.5.6"
-    "@babylonjs/materials" "^5.5.6"
-    "@babylonjs/serializers" "^5.5.6"
+    "@babylonjs/core" "^5.7.0"
+    "@babylonjs/gui" "^5.7.0"
+    "@babylonjs/gui-editor" "^5.7.0"
+    "@babylonjs/loaders" "^5.7.0"
+    "@babylonjs/materials" "^5.7.0"
+    "@babylonjs/serializers" "^5.7.0"
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
     "@fortawesome/free-solid-svg-icons" "^6.0.0"
 
-"@babylonjs/loaders@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.5.6.tgz#aa07236b046037cc06ae7e06d6e0c49f177f11f0"
-  integrity sha512-Xg9jwNACth/XiFRAA1QGOk4QjbfVaFstlVI+EPZx8w3vsIMwTUlNAm3O9HsNXfX327AmgsrGs+dbJMI21CtSbQ==
+"@babylonjs/loaders@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.7.0.tgz#d3bce4f245e2fda70339d31fa8f213a2837f33e0"
+  integrity sha512-RGdB8TdEx3TNcKcl2pD1Yl2Pg0ffe1l186YdDcI0+L7wrgYmsEZmjTnJhrtX8VISdVm6rXNaE+NGukTz2gicmg==
   dependencies:
-    "@babylonjs/core" "^5.5.6"
-    babylonjs-gltf2interface "^5.5.6"
+    "@babylonjs/core" "^5.7.0"
+    babylonjs-gltf2interface "^5.7.0"
     tslib "^2.3.1"
 
-"@babylonjs/materials@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-5.5.6.tgz#9596d7d39880251ba43d26b503dd021572853d15"
-  integrity sha512-yXgGJhUCWJUOZv9ighrA7Eu2U3vtycBHGOiuIZRpuZj///dgGCqNeVQo4AV6GqSqO/pEtsfXh0s3AYmmajHJIg==
+"@babylonjs/materials@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-5.7.0.tgz#5b3c56df6f04d71c3aec824b0748a794449d51e6"
+  integrity sha512-1TquLf3hvP0ktYDK5e90j5Jn2297Wn9nLYyQX2LF9W+eFHz1mAwa0lfHJh3giFcPKgxnkULOSQ3aAIYL2O2ckQ==
   dependencies:
-    "@babylonjs/core" "^5.5.6"
+    "@babylonjs/core" "^5.7.0"
     tslib "^2.3.1"
 
-"@babylonjs/serializers@^5.5.6":
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.5.6.tgz#7ec77f427c0f6b96b86d0a894cdefa5ba11d28c1"
-  integrity sha512-jFZQnzrdigxVYz3oFOTWkTcpbLxnvuRgolPx8/GQTWJR1PBIhYNy+bvp+Xuv1lXOs1nsECk8aydz7VZLm6LTwg==
+"@babylonjs/serializers@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.7.0.tgz#f824a30ec685ec1723326b9834e5b5df9d11e4a0"
+  integrity sha512-/4BMyIZ2SrGE8hDhKRo0KjBfzqiFBu/4Pc2+36LSwwKoJ1BmlTYj8HB0LQTgmcqfH9McCHWK8bxA0uEyO4MRGQ==
   dependencies:
-    "@babylonjs/core" "^5.5.6"
-    babylonjs-gltf2interface "^5.5.6"
+    "@babylonjs/core" "^5.7.0"
+    babylonjs-gltf2interface "^5.7.0"
     tslib "^2.3.1"
 
 "@base2/pretty-print-object@1.0.1":
@@ -4519,10 +4519,10 @@ babel-preset-jest@^27.5.1:
     babel-plugin-jest-hoist "^27.5.1"
     babel-preset-current-node-syntax "^1.0.0"
 
-babylonjs-gltf2interface@^5.5.6:
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-5.5.6.tgz#eccc532791b689437fb60659b8d1070d65beed5a"
-  integrity sha512-fw6BtVPfnEIAJVWdrGKReXiurVPFNqtB1Wp4XGv9DTRCpbY9YG/FWvLlMLRtyjxSwmdLzqHYblI3xi3xDUSClA==
+babylonjs-gltf2interface@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-5.7.0.tgz#60a81de70017ca082650bfc91acc17b8cdc5f487"
+  integrity sha512-uEm6pjsdSMKGZ/M11vNpMWhTkULx8VvfhOUFMizjR+/AKrUv1WVk1lptvVY8jA0zdp6nAfvTIXx9pf3jgVQJQQ==
 
 bail@^1.0.0:
   version "1.0.5"
