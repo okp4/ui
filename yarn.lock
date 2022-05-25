@@ -1659,10 +1659,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@keplr-wallet/types@^0.9.12":
-  version "0.9.12"
-  resolved "https://registry.yarnpkg.com/@keplr-wallet/types/-/types-0.9.12.tgz#5771913343030a491c551a5a2eebb9cb0ad480f7"
-  integrity sha512-vtAczeD3+CgGExSZCnU9Wzs9Y8BpdbOii+UjIFHwCR57OXFQphbWHh2j15QFpV4CbebpDcBzIm+/4IAyLeI0Yw==
+"@keplr-wallet/types@^0.10.4":
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@keplr-wallet/types/-/types-0.10.4.tgz#907f1867cd8e5a19c39c4ac64f2a40818aae2124"
+  integrity sha512-D4qe5KrcOsEwtOZJl89Cmwj8VUUkMWkijVhgEpyYV7dohcrDKj6LTgYbAhLzWruc+OWKnT50tPPx7cgSCmeOPA==
   dependencies:
     "@cosmjs/launchpad" "^0.24.0-alpha.25"
     "@cosmjs/proto-signing" "^0.24.0-alpha.25"
