@@ -1,0 +1,77 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Footer } from 'ui/molecules/footer/Footer.tsx'
+import './footer.scss'
+
+<Meta
+  title="Molecules/Footer"
+  component={Footer}
+  parameters={{
+    actions: {
+      argTypesRegex: '^on.*'
+    },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="footer-story-main">
+          <div style={{ padding: '20px 30px' }}>
+            <ThemeSwitcher />
+          </div>
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Footer
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+**Footer** is a responsive component which embeds two main elements:
+
+- A `LanguageSwitcher` component which offers users the ability to change the language of the application.
+- A `Brand link` which links to the ØKP4 website.
+
+## Overview
+
+<Story name="Overview">
+  <div style={{ width: '100%' }}>
+    <Footer />
+  </div>
+</Story>
+
+---
+
+## Responsiveness
+
+The component was built according to the principles of Responsive Web Design (see <a href="?path=/docs/guidelines-responsive-web-design--page">dedicated guideline</a> ) in particular thanks to the use of media queries and a responsive grid.
+This allows the component to adapt to any screen size, from the smallest phone to a large desktop screen or television.
+
+## Prerequisites
+
+It is mandatory to wrap the component in a `<ThemeProvider />` for the theming to work, like in the code snippet below.  
+See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
+
+##### **`app.tsx`**
+
+```tsx
+import React from 'react'
+import { Footer } from '@okp4/ui'
+export const App: React.FC = () => (
+  <React.StrictMode>
+    <ThemeProvider>
+      <Footer />
+    </ThemeProvider>
+  </React.StrictMode>
+)
+```
