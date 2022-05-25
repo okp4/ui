@@ -1,0 +1,9 @@
+@import 'ui/styles/themes.scss';
+
+.header-story-main {
+  @include with-theme {
+    width: 100%;
+    min-width: 230px;
+    background: themed('header-background');
+  }
+}

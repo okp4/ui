@@ -1,0 +1,33 @@
+@import '../../styles/main.scss';
+
+.okp4-header-main {
+  width: calc(100% - 120px);
+  padding: 45px 60px;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  display: grid;
+  grid-template-areas: 'logo themeswitch';
+
+  @media screen and (max-width: 768px) {
+    padding: 25px 10px;
+    width: calc(100% - 20px);
+    justify-content: space-evenly;
+  }
+
+  @media screen and (max-width: 360px) {
+    grid-template-areas:
+      'logo'
+      'themeswitch';
+    justify-items: center;
+    row-gap: 10px;
+  }
+
+  .okp4-header-logo-container {
+    grid-area: logo;
+  }
+
+  .okp4-header-theme-switcher-container {
+    grid-area: themeswitch;
+  }
+}

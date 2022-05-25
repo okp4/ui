@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title="Guidelines/Responsive Web Design" />
+
+# Responsive web design
+
+## Description
+
+Responsive web design is a concept that emerged from the need to adapt web sites to different viewport sizes as device screen
+sizes became more divers. The concept entails a set of practices to allow web pages to adapt its layout and appearance to different
+screen resolutions, width etc.
+
+### Responsive design techniques
+
+Responsive web design uses three principal techniques to render a page responsive :
+
+- **Fluid grids :** Grid layouts gives designers a rational, structured framework for organizing content and users a well-organized, easily-readable site.
+
+- **Fluid images :** Setting images to `max-width: 100%` makes them scale down if the container column is smaller than the intrinsic size of the image,
+  while preventing the images from growing larger if the width of the column increases.
+
+- **Media queries :** CSS media queries allows to change the grid layout by function of the width of the viewport. By setting breakpoints we tell the
+  DOM how we want the content to render for specific viewport sizes.
+
+### ØKP4 responsive design
+
+**ØKP4** design system relies on 5 main breakpoints:
+
+- **`XSmall - (max-width: 480px)`** for a mobile phone screen.
+- **`Small - (min-width: 481px) and (max-width: 768px)`** for a tablet screen.
+- **`Medium - (min-width: 769px) and (max-width: 1024px)`** for a small laptop screen.
+- **`Large - (min-width: 1025px) and (max-width: 1200px)`** for a large desktop screen.
+- **`XLarge - (min-width: 1201px)`** for large screens like TV's.
+
+These breakpoints make it possible to adapt each component to the size of the screen used, which considerably enriches the User eXperience as well as the ability to navigate in a fluid environment.
+
+## Usage
+
+To use the **ØKP4 responsive design** in your React component, just import the `useBreakpoint` hook and the `Breakpoints` type in your file and declare
+the breakpoints you want to use.
+
+##### **`example.tsx`**
+
+```tsx
+import React from 'react'
+import type { Breakpoints } from '@okp4/ui'
+import { useBreakpoint } from '@okp4/ui'
+
+export const Example: React.FC = () => {
+  const { isXSmall }: Breakpoints = useBreakpoint()
+  return (
+    <div>
+      <img
+        alt="example"
+        src="./myExampleImage.png"
+        style={{ width: isXSmall ? '100px' : '100%' }}
+      />
+    </div>
+  )
+}
+```
