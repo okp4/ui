@@ -1,0 +1,42 @@
+@import '../../styles/themes.scss';
+
+.okp4-footer-main {
+  @include with-theme() {
+    background: themed(footer-background);
+    width: calc(100% - 80px);
+    padding: 45px 20px 45px 60px;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+    display: grid;
+    grid-template-areas: 'languages brand-link';
+
+    @media screen and (max-width: 768px) {
+      padding: 25px 10px;
+      width: calc(100% - 20px);
+      justify-content: space-evenly;
+    }
+
+    @media screen and (max-width: 374px) {
+      grid-template-areas:
+        'languages'
+        'brand-link';
+      justify-items: center;
+      row-gap: 10px;
+    }
+
+    .okp4-footer-language-container {
+      grid-area: languages;
+    }
+
+    .okp4-footer-brand-link-container {
+      display: inline-flex;
+      grid-area: brand-link;
+
+      a {
+        text-decoration: unset;
+        color: inherit;
+      }
+    }
+  }
+}
