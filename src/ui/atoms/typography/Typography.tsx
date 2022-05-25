@@ -14,7 +14,7 @@ export type TypographyProps = DeepReadonly<{
    */
   readonly fontSize?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
-   * `brand` (Gotham) is the main font for ØKP4 branding,
+   * `brand` (Gotham) is the main font for OKP4 branding,
    * therefore it is mainly used for all UI interfaces.
    * The `secondary` font is Noto Sans Mono.
    */
