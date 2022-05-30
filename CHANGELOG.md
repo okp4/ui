@@ -1,5 +1,62 @@
 # OKP4 UI changelog
 
+# [1.6.0](https://github.com/okp4/ui/compare/v1.5.0...v1.6.0) (2022-05-30)
+
+
+### Bug Fixes
+
+* **button-story:** add buttons wrapping ([382d35f](https://github.com/okp4/ui/commit/382d35f79b5a9cd46637805707d8ae8a824df842))
+* **button:** make button text wrap if needed ([24e6f53](https://github.com/okp4/ui/commit/24e6f532e6931d03560f1d8f415763932c15cee7))
+* **hook:** add missing dependencies to useMediaType effect ([24ae865](https://github.com/okp4/ui/commit/24ae8656953aec2824fae70dc97ecaf9ec13e433))
+* improve word breaking ([1d217de](https://github.com/okp4/ui/commit/1d217de2ab1de3ae3cc53bbca1ac996bcab29c84))
+* increase padding size due to polygon ([145b863](https://github.com/okp4/ui/commit/145b8634a52220b31c495b936eea18de50d1ae88))
+* remove useless width ([9bcfb41](https://github.com/okp4/ui/commit/9bcfb410d85330786b3412818eb6c27e354202d2))
+* **size:** add maxWidth to avoid text overflow ([46ad991](https://github.com/okp4/ui/commit/46ad99147a1f5348d25383436cf1f796f89ada3c))
+* **storybook:** add comment to explain css hack ([0ab5ece](https://github.com/okp4/ui/commit/0ab5ece11bde83e2d16e3856365e32af29b5ccf6))
+* **storybook:** enable features.modernInlineRender in main configuration ([1047e4b](https://github.com/okp4/ui/commit/1047e4b2863da8fd72db65b5d80472c340e05fac))
+* **storybook:** force height to auto mode for a targetted div ([512e9ee](https://github.com/okp4/ui/commit/512e9ee5cc9f648298e77c9f269a57031e5e9dec))
+* **story:** remove deprecated @storybook/addon-docs/blocks import ([cc8c37f](https://github.com/okp4/ui/commit/cc8c37f18214d3f4ed8bcdecf892e3d7588f6bdf))
+
+
+### Features
+
+* **adapter:** add task primary eventListeners ([371c2da](https://github.com/okp4/ui/commit/371c2da7b92d453fbf71d72abaa6f384bd2e967e))
+* **adapter:** integrate metadata in primary listeners event types ([2afb0a2](https://github.com/okp4/ui/commit/2afb0a28dddefdbed7245bde5233587a70f0d816))
+* add breakpoint & adjust padding ([1af7ac1](https://github.com/okp4/ui/commit/1af7ac1056ed0da7c4f8e1bcfa2487c357e864a8))
+* add event listener to media type handler ([a491efd](https://github.com/okp4/ui/commit/a491efdb132e690f01a6a094e34ed855f6f74bb5))
+* add header ui component with style ([f61408e](https://github.com/okp4/ui/commit/f61408ea25e3b2eb6053acbb4f1b472cf1cb7532))
+* add screen size handler ([55db0e0](https://github.com/okp4/ui/commit/55db0e04689f1bd1f1c689645b0f57f44223c7a2))
+* **builder:** add new TaskBuilder ([a2f2f75](https://github.com/okp4/ui/commit/a2f2f75e7f22b19bbaa19f45e525877988b22d11))
+* **builder:** add new UpdateTaskBuilder ([82a5a5f](https://github.com/okp4/ui/commit/82a5a5f5d171d46aa7cb8779074b5e3a304b55eb))
+* **builder:** add withInitiator method in error.builder and invariants ([bf802cf](https://github.com/okp4/ui/commit/bf802cf99b7a00964ee6d4e1656a4a48f7ad8ad0))
+* **buttons:** swap width change by padding ([5ff3fac](https://github.com/okp4/ui/commit/5ff3fac3299b5d437e42eb5a21894e12503bde81))
+* **core:** add acknowledgeTask usecase and actions ([9ea9834](https://github.com/okp4/ui/commit/9ea9834e3a3725130c0c79a843ad4d7c5b70a95d))
+* **core:** add clearTask usecase and actions ([ffb4825](https://github.com/okp4/ui/commit/ffb4825a77e3c86581614580f5a3dcc0ea859b8d))
+* **core:** add clearTasks usecase and actions ([06356c8](https://github.com/okp4/ui/commit/06356c8c3df46299fe2c81c9e30c5d28dc875e69))
+* **core:** add common event types for task actions ([158cdc3](https://github.com/okp4/ui/commit/158cdc3497d41890c2cb81b19a94f455eca8ede3))
+* **core:** add error entity ([ab0f6f0](https://github.com/okp4/ui/commit/ab0f6f040aa0b4bc1298bff5862ec9ffac1f71a6))
+* **core:** add initiator property to error entity ([cae83c8](https://github.com/okp4/ui/commit/cae83c8924232cd7a3b072a7c141474a2243fce5))
+* **core:** add registertask use case ([c89f05f](https://github.com/okp4/ui/commit/c89f05fea5060d7337cab5036a8796c937c2467c))
+* **core:** add task entity ([dcb0978](https://github.com/okp4/ui/commit/dcb0978c70d1dd9bdfc9ce384b129c228958ae86))
+* **core:** add task management in requestFunds usecase ([cb62a95](https://github.com/okp4/ui/commit/cb62a95ba637839b50448554363c4ea225550a0e))
+* **core:** add updateTask usecase and actions ([9906a56](https://github.com/okp4/ui/commit/9906a5680a76bd032e28a511ea8a9d2496add803))
+* **core:** create actions for registerTask use case ([c0bcdcf](https://github.com/okp4/ui/commit/c0bcdcfb6c506ec97c0a7bab0ac174e3f567c605))
+* **core:** dispatch new task events in requestFunds use-case ([368d2dd](https://github.com/okp4/ui/commit/368d2dd49255c51a9a5591669d02fa4ae08f9c9e))
+* **core:** type published events with TypedBusEvent ([520aa38](https://github.com/okp4/ui/commit/520aa389d2c39753dcdd748fedf1d6498185e2aa))
+* **evenBus:** add EventMetadata & TypedBusEvent types ([8836b78](https://github.com/okp4/ui/commit/8836b78ce8b344972294f1459240dfdad3d85cbb))
+* **redux:** add appState, store & reducers ([0908e13](https://github.com/okp4/ui/commit/0908e134ca3df1faa5410b70a41523bd0c11bd94))
+* **redux:** add initiator parameter to eventBusMiddleware method ([cbc94fc](https://github.com/okp4/ui/commit/cbc94fc107521698db92a00f243a8c9ecadf6982))
+* **redux:** add metadata property into eventBus middleware  publish method ([bd73949](https://github.com/okp4/ui/commit/bd73949fe9c04ba31d3c081ccc78a8748f6c835a))
+* **redux:** add reducer for task/taskAcknowledged action ([f269fdc](https://github.com/okp4/ui/commit/f269fdc2a0697e4dac1bb666638ccf9de54ff6d6))
+* **redux:** add reducer for task/tasksCleared action ([03143da](https://github.com/okp4/ui/commit/03143da1beeaf129e6e2e91f1056110ae896d0ad))
+* **redux:** add reducer for task/taskUpdated action ([8691d44](https://github.com/okp4/ui/commit/8691d44801653382de7320e6ea546fa0c2786c5e))
+* **redux:** add task appState ([167662a](https://github.com/okp4/ui/commit/167662ac01f387ea279514071db72361cce954a8))
+* **redux:** modify appState & handle task/taskCleared in reducer ([4d8eb53](https://github.com/okp4/ui/commit/4d8eb535147c08a98abf3404dd2e2f7f4b5ad4ef))
+* **redux:** remove isProcessing from state, reducer & actions ([9ecf583](https://github.com/okp4/ui/commit/9ecf5837a01e0b9cbb56d788aab69c9bece5fe95))
+* **textField:** add fullWidth property ([2d8749f](https://github.com/okp4/ui/commit/2d8749fe94b627f807a231af8c017b3e44f4f7e7))
+* **types:** move common types in domain/common & superTypes folders ([3e3afc7](https://github.com/okp4/ui/commit/3e3afc7e4b62632fe2ba21be0b783ba6cb5545c9))
+* **ui:** export Header component ([c5e6231](https://github.com/okp4/ui/commit/c5e623179d45945e14507f4eaed2037b2139c4d7))
+
 # [1.5.0](https://github.com/okp4/ui/compare/v1.4.1...v1.5.0) (2022-05-04)
 
 
