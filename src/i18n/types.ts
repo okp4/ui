@@ -1,7 +1,7 @@
 import type { DeepReadonly } from "superTypes"
 
 export type TLanguage = DeepReadonly<{
-    title: string,
+    name: string,
     value: string
 }>
 
