@@ -57,6 +57,7 @@ describe('Register a task', () => {
   const fakedDate = new Date(2022, 1, 1)
   const fakedUuid = 'foobar'
   const aDate = new Date()
+  const initiator = 'domain:task'
 
   const task1 = new TaskBuilder()
     .withId('id1')
@@ -105,9 +106,9 @@ describe('Register a task', () => {
   describe.each`
     task                     | expectedState                                 | expectedEventParameters
     ${[]}                    | ${getExpectedState([])}                       | ${[]}
-    ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate)]}
-    ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate)]}
-    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, fakedDate), getExpectedEventParameter('error/errorThrown', error, fakedDate)]}
+    ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate)]}
+    ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate)]}
+    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
     `Given that there are $task.length task(s) to register`,
     ({ task, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {

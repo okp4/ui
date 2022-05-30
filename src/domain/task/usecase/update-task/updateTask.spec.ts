@@ -50,6 +50,7 @@ describe('Update a task', () => {
   const fakedUuid = 'foobar'
   const aDate = new Date()
   const bDate = new Date()
+  const initiator = 'domain:task'
 
   const task1 = new TaskBuilder()
     .withId('id1')
@@ -104,16 +105,15 @@ describe('Update a task', () => {
     jest.setSystemTime(fakedDate)
     short.generate = jest.fn(() => fakedUuid as short.SUUID)
   })
-
   afterAll(() => {
     jest.useRealTimers()
   })
 
   describe.each`
     state           | updatedTask                     | expectedState                                                   | expectedEventParameters
-    ${initialState} | ${[updatedTask1]}               | ${getExpectedState(initialState, [updatedTask1])}               | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, fakedDate)]}
-    ${initialState} | ${[updatedTask1, updatedTask2]} | ${getExpectedState(initialState, [updatedTask1, updatedTask2])} | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, fakedDate), getExpectedEventParameter('task/taskUpdated', updatedTask2, fakedDate)]}
-    ${initialState} | ${[updatedTask3]}               | ${getExpectedState(initialState, [updatedTask3], 0)}            | ${[getExpectedEventParameter('error/errorThrown', error, fakedDate)]}
+    ${initialState} | ${[updatedTask1]}               | ${getExpectedState(initialState, [updatedTask1])}               | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator, fakedDate)]}
+    ${initialState} | ${[updatedTask1, updatedTask2]} | ${getExpectedState(initialState, [updatedTask1, updatedTask2])} | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator, fakedDate), getExpectedEventParameter('task/taskUpdated', updatedTask2, initiator, fakedDate)]}
+    ${initialState} | ${[updatedTask3]}               | ${getExpectedState(initialState, [updatedTask3], 0)}            | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
     `Given that there are $updatedTask.length task(s) to update`,
     ({ state, updatedTask, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {

@@ -1,110 +1,120 @@
+import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
-import type { AppState } from 'domain/faucet/store/appState'
+import { ErrorBuilder } from 'domain/error/builder/error.builder'
+import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/InMemoryFaucetGateway'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
+import { TaskBuilder } from 'domain/task/builder/task/task.builder'
+import { EventParameter, getExpectedEventParameter } from 'domain/task/helper/test.helper'
 import { requestFunds } from './requestFunds'
-import type { DeepReadonly } from 'superTypes'
-import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/InMemoryFaucetGateway'
+import { DeepReadonly } from 'superTypes'
+import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 
 interface InitialProps {
   store: ReduxStore
-  initialState: AppState
   faucetGateway: InMemoryFaucetGateway
 }
 
 interface Data {
   hasGatewayError: boolean
   address: string
-  expectedPayloadType: string
-  expectedPayloadMessageKey: string
-  expectedMetaInitiator: string
-  expectedHaveBeenCalledTimes: number
+  expectedEventParameters: EventParameter[]
 }
 
+const initiator = 'domain:faucet'
+const fakedUuid = 'foobar'
+const fakedDate = new Date(1992, 1, 1)
 const eventBus = new EventBus()
+
+jest.useFakeTimers('modern')
+jest.setSystemTime(fakedDate)
+short.generate = jest.fn(() => fakedUuid as short.SUUID)
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 
-afterEach(() => {
-  jest.clearAllMocks()
-})
+const task = new TaskBuilder()
+  .withId(fakedUuid)
+  .withCreationDate(fakedDate)
+  .withLastUpdateDate(fakedDate)
+  .withMessageKey('domain.task.proceeded')
+  .withType('faucet#request-funds')
+  .build()
+
+const updatedTask1 = new UpdateTaskBuilder()
+  .withId(fakedUuid)
+  .withLastUpdateDate(fakedDate)
+  .withMessageKey('domain.task.error')
+  .withStatus('error')
+  .build()
+
+const updatedTask2 = new UpdateTaskBuilder()
+  .withId(fakedUuid)
+  .withLastUpdateDate(fakedDate)
+  .withMessageKey('domain.task.success')
+  .withStatus('success')
+  .build()
+
+const validationError = new ErrorBuilder()
+  .withId(fakedUuid)
+  .withTimestamp(fakedDate)
+  .withMessageKey('domain.error.validation-error')
+  .withType('validation-error')
+  .build()
+
+const gatewayError = new ErrorBuilder()
+  .withId(fakedUuid)
+  .withTimestamp(fakedDate)
+  .withMessageKey('domain.error.gateway-error')
+  .withType('gateway-error')
+  .build()
+
+const init = (): InitialProps => {
+  const faucetGateway = new InMemoryFaucetGateway()
+  const store = configureStore({ faucetGateway }, eventBus)
+  return { store, faucetGateway }
+}
+
+/**
+ * This is a hack to force error's payload context to be cleaned up in the publish first parameter when called with error event.
+ * WHY? --> it's not possible to mock only the stack property of the error because the mock applies to the entire Error class
+ */
+const cleanErrorStack = (): void => {
+  const foundErrorEvent = mockedEventBusPublish.mock.calls
+    .flat()
+    .find(elt => elt.type === 'error/errorThrown')
+  if (foundErrorEvent?.payload?.context) {
+    foundErrorEvent.payload.context = {}
+  }
+}
 
 describe('Request funds from faucet', () => {
-  const init = (): InitialProps => {
-    const faucetGateway = new InMemoryFaucetGateway()
-    const store = configureStore({ faucetGateway }, eventBus)
-    const initialState = store.getState()
-    return { store, initialState, faucetGateway }
-  }
-
-  const dispatchRequestFundsUsecase = async (
-    address: string,
-    store: DeepReadonly<ReduxStore>
-  ): Promise<void> => {
-    await store.dispatch(requestFunds(address))
-  }
-
-  const expectRequestFunds =
-    (store: DeepReadonly<ReduxStore>, initialState: DeepReadonly<AppState>) =>
-    (isProcessing: boolean): void => {
-      expect(store.getState()).toEqual({
-        ...initialState,
-        isProcessing
-      })
-    }
+  afterAll(() => {
+    jest.useRealTimers()
+  })
 
   describe.each`
-    hasGatewayError | address                                            | expectedPayloadType   | expectedPayloadMessageKey          | expectedMetaInitiator | expectedHaveBeenCalledTimes
-    ${false}        | ${'123'}                                           | ${'validation-error'} | ${'domain.error.validation-error'} | ${'domain:faucet'}    | ${1}
-    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${'validation-error'} | ${'domain.error.validation-error'} | ${'domain:faucet'}    | ${1}
-    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${'gateway-error'}    | ${'domain.error.gateway-error'}    | ${'domain:faucet'}    | ${2}
+    hasGatewayError | address                                            | expectedEventParameters
+    ${false}        | ${'123'}                                           | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', validationError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
+    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', validationError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
+    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', gatewayError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
+    ${false}        | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask2, initiator, fakedDate)]}
   `(
-    'Given that hasGatewayError is <$hasGatewayError> and address is <$address>',
-    ({
-      hasGatewayError,
-      address,
-      expectedPayloadType,
-      expectedPayloadMessageKey,
-      expectedMetaInitiator,
-      expectedHaveBeenCalledTimes
-    }: Readonly<Data>): void => {
+    'Given that address is <$address>',
+    ({ hasGatewayError, address, expectedEventParameters }: Readonly<Data>): void => {
       const { store, faucetGateway }: InitialProps = init()
       hasGatewayError && faucetGateway.setError()
       describe('When requesting funds', () => {
-        test('Then, expect an error event to be published', async () => {
-          await dispatchRequestFundsUsecase(address, store)
-          expect(mockedEventBusPublish).toHaveBeenCalledTimes(expectedHaveBeenCalledTimes)
-          expect(mockedEventBusPublish).toHaveBeenCalledWith(
-            expect.objectContaining({
-              type: 'error/errorThrown',
-              payload: expect.objectContaining({
-                type: expectedPayloadType,
-                messageKey: expectedPayloadMessageKey
-              })
-            }),
-            expect.objectContaining({
-              initiator: expectedMetaInitiator
-            })
-          )
+        afterAll(() => {
+          jest.clearAllMocks()
+        })
+        test('Then, expect events to be published', async () => {
+          await store.dispatch(requestFunds(address))
+          expectedEventParameters.forEach((elt: DeepReadonly<EventParameter>, index: number) => {
+            const [first, second]: Readonly<EventParameter> = elt
+            cleanErrorStack()
+            expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
+          })
         })
       })
     }
   )
-
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  it('should be aware of the processing status', (done: jest.DoneCallback) => {
-    const { store, initialState }: InitialProps = init()
-    const unsubscribe = store.subscribe(() => {
-      expectRequestFunds(store, initialState)(true)
-      unsubscribe()
-      done()
-    })
-    expect.assertions(1)
-    dispatchRequestFundsUsecase('okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l', store)
-  })
-
-  it('should not process anymore after requesting for funds', async () => {
-    const { store, initialState }: InitialProps = init()
-    await dispatchRequestFundsUsecase('okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l', store)
-    expectRequestFunds(store, initialState)(false)
-  })
 })
