@@ -25,8 +25,11 @@ export const isCurrentLanguage = (lng: string): boolean => {
 
 export const updateLanguage = (language: string ): void => {
   const previousLanguage = localStorage.getItem('i18nextLng')
-  localStorage.setItem('i18nextLng', language)
   if (previousLanguage && previousLanguage !== language) {
-    i18n.changeLanguage(language)
+    i18n.changeLanguage(language).then(()=>
+    localStorage.setItem('i18nextLng', language))
   }
 }
+
+export const isCurrentLanguage = (lng: string): boolean =>
+  i18n.language.toLowerCase() === lng.toLowerCase()
