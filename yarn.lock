@@ -3121,7 +3121,7 @@
     read-pkg-up "^7.0.1"
     regenerator-runtime "^0.13.7"
 
-"@storybook/theming@6.5.4", "@storybook/theming@^6.5.4":
+"@storybook/theming@6.5.4":
   version "6.5.4"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.5.4.tgz#3be001bf425f682f6e16ce3581e8cd109c85f8ea"
   integrity sha512-J5ipCqKH8FfMVj8SuVsjxSIYgb9GN8NBsVAVvTakVjqyKnv5znR+w+h0lvyzRNaEnF5LQCy7Uj7DE6+Pbg/wPw==
@@ -3130,7 +3130,7 @@
     core-js "^3.8.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/theming@6.5.6":
+"@storybook/theming@6.5.6", "@storybook/theming@^6.5.6":
   version "6.5.6"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.5.6.tgz#519e1675a7ff5c780f5a41b05b4b679c37b62fe8"
   integrity sha512-JEKl9gdVD2Ef9xSwRtaq6EpjJD5xe7X2OP/4e61ucrp/rSOk7SOpYUZYQh6PhYLGhnGbgQkedVVc9CUhK8bs6Q==
