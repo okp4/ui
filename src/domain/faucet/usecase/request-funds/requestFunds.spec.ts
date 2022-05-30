@@ -26,7 +26,6 @@ const fakedUuid = 'foobar'
 const fakedDate = new Date(1992, 1, 1)
 const eventBus = new EventBus()
 
-// jest.mock('../../entity/error')
 jest.useFakeTimers('modern')
 jest.setSystemTime(fakedDate)
 short.generate = jest.fn(() => fakedUuid as short.SUUID)
@@ -74,9 +73,21 @@ const init = (): InitialProps => {
   return { store, faucetGateway }
 }
 
+/**
+ * This is a hack to force error's payload context to be cleaned up in the publish first parameter when called with error event.
+ * WHY? --> it's not possible to mock only the stack property of the error because the mock applies to the entire Error class
+ */
+const cleanErrorStack = (): void => {
+  const foundErrorEvent = mockedEventBusPublish.mock.calls
+    .flat()
+    .find(elt => elt.type === 'error/errorThrown')
+  if (foundErrorEvent?.payload?.context) {
+    foundErrorEvent.payload.context = {}
+  }
+}
+
 describe('Request funds from faucet', () => {
   afterAll(() => {
-    jest.clearAllMocks()
     jest.useRealTimers()
   })
 
@@ -99,12 +110,7 @@ describe('Request funds from faucet', () => {
           await store.dispatch(requestFunds(address))
           expectedEventParameters.forEach((elt: DeepReadonly<EventParameter>, index: number) => {
             const [first, second]: Readonly<EventParameter> = elt
-            const foundErrorContext = mockedEventBusPublish.mock.calls
-              .flat()
-              .find(elt => elt.type === 'error/errorThrown')
-            if (foundErrorContext?.payload?.context) {
-              foundErrorContext.payload.context = {}
-            }
+            cleanErrorStack()
             expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
           })
         })
