@@ -1,0 +1,5 @@
+mutation MSendTokens($input: SendInput!) {
+  send(input: $input) {
+    hash
+  }
+}
