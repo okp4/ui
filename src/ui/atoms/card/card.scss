@@ -18,13 +18,14 @@ $sizes-map: (
 );
 
 .okp4-card-main {
+  clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+  padding: 1px;
+  width: 100%;
+
   @include with-theme() {
     @each $size in $sizes {
       &.#{$size} {
-        clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-        padding: 1px;
-        width: 100%;
-        max-width: map-get($sizes-map, #{$size}-width) - 2px;
+        max-width: map-get($sizes-map, #{$size}-width);
 
         &.border {
           background: themed(border);
@@ -37,10 +38,10 @@ $sizes-map: (
           gap: 10px;
           box-sizing: border-box;
           clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
-          max-height: map-get($sizes-map, large-height) - 2px;
+          max-height: map-get($sizes-map, large-height);
           overflow: auto;
           word-break: break-word;
-          min-height: map-get($sizes-map, #{$size}-height) - 2px;
+          min-height: map-get($sizes-map, #{$size}-height);
           padding-left: map-get($sizes-map, #{$size}-padding);
           padding-right: map-get($sizes-map, #{$size}-padding);
 
