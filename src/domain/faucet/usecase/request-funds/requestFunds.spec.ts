@@ -1,7 +1,7 @@
 import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
-import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/InMemoryFaucetGateway'
+import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/graphQL/InMemoryFaucetGateway'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { configureStore } from 'domain/faucet/store/store'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
