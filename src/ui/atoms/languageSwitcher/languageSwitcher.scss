@@ -8,25 +8,23 @@
       'language'
       'language';
   }
-}
 
-.languages-translation {
-  color: white;
-  grid-area: languages;
-  white-space: nowrap;
-}
-
-.language {
-  color: white;
-  grid-area: language;
-  margin: 0 10px;
-  cursor: pointer;
-
-  &.is-selected {
-    opacity: 0.5;
+  .languages-translation {
+    grid-area: languages;
   }
-}
 
-.languages-divider {
-  color: white;
+  .language-container {
+    display: flex;
+    align-items: center;
+
+    .language {
+      grid-area: language;
+      margin: 0 10px;
+      cursor: pointer;
+
+      &.is-selected {
+        opacity: 0.5;
+      }
+    }
+  }
 }

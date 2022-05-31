@@ -34,21 +34,38 @@ export const LanguageSwitcher: React.FC = (): JSX.Element => {
 
   return (
     <div className="language-switcher-main">
-      <p className="languages-translation">{t('languages')}</p>
+      <div className="languages-translation">
+        <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
+          {t('languages')}
+        </Typography>
+      </div>
       {languages.map((language: Readonly<TLanguage>) => {
         const isLastLanguage = languages.indexOf(language) === languages.length - 1
+
         return (
-          <Typography as="p" fontSize="small" key={language.value} noWrap>
-            <span
+          <div className="language-container" key={language.value}>
+            <div
               className={classNames('language', {
                 'is-selected': isCurrentLanguage(language.value)
               })}
               onClick={handleLanguageUpdate(language.value)}
             >
-              {language.name}
-            </span>
-            {!isXSmall && !isLastLanguage && <span className="languages-divider">|</span>}
-          </Typography>
+              <Typography
+                as="p"
+                color="highlighted-text"
+                fontSize="x-small"
+                fontWeight="xlight"
+                noWrap
+              >
+                {language.name}
+              </Typography>
+            </div>
+            {!isXSmall && !isLastLanguage && (
+              <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight">
+                |
+              </Typography>
+            )}
+          </div>
         )
       })}
     </div>
