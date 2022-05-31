@@ -4,3 +4,4 @@ lib
 .cache
 jest.config.js
 **/*.spec.ts
+generated
