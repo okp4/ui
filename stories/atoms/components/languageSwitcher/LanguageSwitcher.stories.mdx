@@ -1,27 +1,63 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
 import { LanguageSwitcher } from 'ui/atoms/languageSwitcher/LanguageSwitcher'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 <Meta
   title="Atoms/LanguageSwitcher"
   component={LanguageSwitcher}
-  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main language-switcher">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
 />
 
+# Language Switcher
+
+> Allows the user to change the application language.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+### Description
+
+`LanguageSwitcher` component is used to offer mutli-languages support to the user in order to improve his experience on the application.
+
+It has no background color itself: it is proposed here with the background colors used by the footer.
+
+It is originally intended to appear in the footer but can also be used in other places to give the user a free choice.
+
 <Canvas>
-  <Story
-    name="Overview"
-    argTypes={{}}
-  >
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <LanguageSwitcher />
-      </div>
-    )}
+  <Story name="Overview">
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <LanguageSwitcher />
+    </div>
   </Story>
 </Canvas>
+
+## Responsiveness
+
+The component was built according to the principles of Responsive Web Design (see <a href="?path=/docs/guidelines-responsive-web-design--page">dedicated guideline</a> ) in particular thanks to the use of media queries and a responsive grid.
+This allows the component to adapt to any screen size, from the smallest phone to a large desktop screen or television.
+
+## Prerequisites
+
+`LanguageSwitcher` is designed to be used on dark backgrounds because of its white text color.
+
+## Notes
+
+`LanguageSwitcher` currently offers a set of two languages: English and French.
+It will be possible to add other languages at a later stage.
