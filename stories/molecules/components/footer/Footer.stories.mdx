@@ -7,16 +7,6 @@ import './footer.scss'
 <Meta
   title="Molecules/Footer"
   component={Footer}
-  parameters={{
-    actions: {
-      argTypesRegex: '^on.*'
-    },
-    docs: {
-      source: {
-        type: 'code'
-      }
-    }
-  }}
   decorators={[
     Story => (
       <ThemeProvider>
@@ -67,6 +57,8 @@ See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for 
 ```tsx
 import React from 'react'
 import { Footer } from '@okp4/ui'
+import { ThemeProvider } from '@okp4/ui'
+
 export const App: React.FC = () => (
   <React.StrictMode>
     <ThemeProvider>
