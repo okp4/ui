@@ -27,7 +27,8 @@ export const updateLanguage = (language: string ): void => {
   const previousLanguage = localStorage.getItem('i18nextLng')
   if (previousLanguage && previousLanguage !== language) {
     i18n.changeLanguage(language).then(()=>
-    localStorage.setItem('i18nextLng', language))
+      localStorage.setItem('i18nextLng', language)
+    )
   }
 }
 
