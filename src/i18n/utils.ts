@@ -32,5 +32,8 @@ export const updateLanguage = (language: string ): void => {
   }
 }
 
-export const isCurrentLanguage = (lng: string): boolean =>
-  i18n.language.toLowerCase() === lng.toLowerCase()
+export const isCurrentLanguage = (lng: string): boolean => { 
+  const languageValueRegex = new RegExp(i18n.language, 'i')
+  return languageValueRegex.test(lng)
+}
+
