@@ -1,8 +1,10 @@
 import type { DeepReadonly } from "superTypes"
 
-export type TLanguage = DeepReadonly<{
+type LngCode = string
+
+export type Language = DeepReadonly<{
     name: string,
-    value: string
+    value: LngCode
 }>
 
-export type TLanguages = TLanguage[]
+export type Languages = Language[]

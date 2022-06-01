@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { isCurrentLanguage, loadTranslations, updateLanguage } from '../../../i18n/utils'
 import type { I18nResource } from '../../../i18n/utils'
-import type { TLanguage, TLanguages } from '../../../i18n/types'
+import type { Language, Languages } from '../../../i18n/types'
 import { Typography } from '../typography/Typography'
 import languageSwitcher_en from './i18n/languageSwitcher_en.json'
 import languageSwitcher_fr from './i18n/languageSwitcher_fr.json'
@@ -18,7 +18,7 @@ const languagesTranslation: I18nResource[] = [
 
 loadTranslations(languagesTranslation)
 
-const languages: TLanguages = [
+const languages: Languages = [
   { name: 'English', value: 'en-EN' },
   { name: 'Français', value: 'fr-FR' }
 ]
@@ -39,7 +39,7 @@ export const LanguageSwitcher: React.FC = (): JSX.Element => {
           {t('languages')}
         </Typography>
       </div>
-      {languages.map((language: Readonly<TLanguage>) => {
+      {languages.map((language: Readonly<Language>) => {
         const isLastLanguage = languages.indexOf(language) === languages.length - 1
 
         return (
