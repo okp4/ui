@@ -1,4 +1,4 @@
-.language-switcher-main {
+.okp4-language-switcher-main {
   display: grid;
   grid-template-areas: 'languages language language';
   @media screen and (max-width: 480px) {
@@ -9,15 +9,15 @@
       'language';
   }
 
-  .languages-translation {
+  .okp4-languages-translation {
     grid-area: languages;
   }
 
-  .language-container {
+  .okp4-language-container {
     display: flex;
     align-items: center;
 
-    .language {
+    .okp4-language {
       grid-area: language;
       margin: 0 10px;
       cursor: pointer;

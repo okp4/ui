@@ -24,6 +24,7 @@ const languages: Languages = [
 ]
 
 export const LanguageSwitcher: React.FC = (): JSX.Element => {
+  // waiting for the useTranslation response missing type
   // eslint-disable-next-line @typescript-eslint/typedef
   const { t } = useTranslation('languageSwitcher')
   const { isXSmall }: Breakpoints = useBreakpoint()
@@ -33,8 +34,8 @@ export const LanguageSwitcher: React.FC = (): JSX.Element => {
   }
 
   return (
-    <div className="language-switcher-main">
-      <div className="languages-translation">
+    <div className="okp4-language-switcher-main">
+      <div className="okp4-languages-translation">
         <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
           {t('languages')}
         </Typography>
@@ -43,9 +44,9 @@ export const LanguageSwitcher: React.FC = (): JSX.Element => {
         const isLastLanguage = languages.indexOf(language) === languages.length - 1
 
         return (
-          <div className="language-container" key={language.value}>
+          <div className="okp4-language-container" key={language.value}>
             <div
-              className={classNames('language', {
+              className={classNames('okp4-language', {
                 'is-selected': isCurrentLanguage(language.value)
               })}
               onClick={handleLanguageUpdate(language.value)}
