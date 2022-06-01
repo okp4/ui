@@ -44,6 +44,7 @@
     "@graphql-codegen/typescript": "^2.4.11",
     "@graphql-codegen/typescript-operations": "^2.4.0",
     "@keplr-wallet/types": "^0.10.4",
+    "@okp4/cosmos-faucet-schema": "^1.0.0",
     "@okp4/eslint-config": "^1.1.0",
     "@radix-ui/react-switch": "^0.1.5",
     "@radix-ui/react-toast": "^0.1.1",

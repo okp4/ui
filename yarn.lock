@@ -2389,6 +2389,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@okp4/cosmos-faucet-schema@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@okp4/cosmos-faucet-schema/-/cosmos-faucet-schema-1.0.0.tgz#00769d2198e92e27091b71c89bcb910b4048f0c3"
+  integrity sha512-UsJLCo8UAdoOkcWs6xtdjBGE6BqBvBWzxK21epaWrns0M87xmgEgkyKsD0TtjA4HtcoeJz4eQXo76kCzoo1PuA==
+
 "@okp4/eslint-config@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@okp4/eslint-config/-/eslint-config-1.1.0.tgz#3236f92314c6902192489164bf142622754c697f"
