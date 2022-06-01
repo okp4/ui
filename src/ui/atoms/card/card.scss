@@ -39,8 +39,7 @@ $sizes-map: (
           box-sizing: border-box;
           clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
           overflow: auto;
-          max-height: map-get($sizes-map, #{$size}-height);
-          min-height: map-get($sizes-map, #{$size}-height);
+          height: map-get($sizes-map, #{$size}-height);
           padding: 0 map-get($sizes-map, #{$size}-padding);
           @each $color-key, $color-value in $colors {
             &.#{$color-key} {
