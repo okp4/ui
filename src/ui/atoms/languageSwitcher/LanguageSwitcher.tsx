@@ -19,8 +19,8 @@ const languagesTranslation: I18nResource[] = [
 loadTranslations(languagesTranslation)
 
 const languages: Languages = [
-  { name: 'English', value: 'en-EN' },
-  { name: 'Français', value: 'fr-FR' }
+  { name: 'English', iso: 'en' },
+  { name: 'Français', iso: 'fr' }
 ]
 
 export const LanguageSwitcher: React.FC = (): JSX.Element => {
@@ -44,12 +44,12 @@ export const LanguageSwitcher: React.FC = (): JSX.Element => {
         const isLastLanguage = languages.indexOf(language) === languages.length - 1
 
         return (
-          <div className="okp4-language-container" key={language.value}>
+          <div className="okp4-language-container" key={language.iso}>
             <div
               className={classNames('okp4-language', {
-                'is-selected': isCurrentLanguage(language.value)
+                'is-selected': isCurrentLanguage(language.iso)
               })}
-              onClick={handleLanguageUpdate(language.value)}
+              onClick={handleLanguageUpdate(language.iso)}
             >
               <Typography
                 as="p"

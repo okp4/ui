@@ -1,10 +1,10 @@
 import type { DeepReadonly } from "superTypes"
 
-type LngCode = string
+type isoLng = string
 
 export type Language = DeepReadonly<{
     name: string,
-    value: LngCode
+    iso: isoLng
 }>
 
 export type Languages = Language[]
