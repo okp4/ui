@@ -21,6 +21,7 @@ export type CardProps = Readonly<{
   readonly header?: Readonly<JSX.Element>
   /**
    * The size of the rendered card.
+   * It will be automatically adjusted responsively to the screen size.
    */
   readonly size?: 'small' | 'medium' | 'large'
   /**
@@ -37,10 +38,10 @@ export const Card: React.FC<CardProps> = ({
   content,
   footer
 }: CardProps): JSX.Element => {
-  const wrapperClasses = classNames('okp4-card-main', {
+  const wrapperClasses = classNames(`okp4-card-main ${size} `, {
     border: withBorder
   })
-  const containerClasses = `okp4-card-container ${background} ${size}`
+  const containerClasses = `okp4-card-container ${background}`
   return (
     <div className={wrapperClasses}>
       <div className={containerClasses}>
