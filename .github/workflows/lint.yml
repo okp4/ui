@@ -149,5 +149,6 @@ jobs:
         run: |
           if [[ $(git status -s) != "" ]]; then
             >&2 echo "❌ There is a diff between graphql generated file and source code"
+            >&2 git status
             exit 1
           fi
