@@ -1,3 +1,4 @@
+// @ts-ignore
 const path = require('path')
 const iconDirectoryPath = path.resolve(__dirname, '../src/assets/icons')
 const logoDirectoryPath = path.resolve(__dirname, '../src/assets/logos')
@@ -10,6 +11,7 @@ module.exports = {
   },
   staticDirs: ['../public'],
   framework: '@storybook/react',
+  // @ts-ignore
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -21,6 +23,7 @@ module.exports = {
       'node_modules'
     ]
 
+    // @ts-ignore
     const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'))
     fileLoaderRule.exclude = [logoDirectoryPath, iconDirectoryPath]
 
