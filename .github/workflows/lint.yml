@@ -126,7 +126,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.OKP4_TOKEN }}
 
-  lint-graphql-generated:
+  lint-generated:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -145,10 +145,10 @@ jobs:
         run: |
           yarn graphql:code-gen
 
-      - name: Check Git diff in generated file
+      - name: Check Git diff in generated files (graphql + yarn.lock)
         run: |
           if [[ $(git status -s) != "" ]]; then
-            >&2 echo "❌ There is a diff between graphql generated file and source code"
+            >&2 echo "❌ There is a diff between generated files and source code"
             >&2 git status
             exit 1
           fi
