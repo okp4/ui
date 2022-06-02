@@ -204,16 +204,18 @@ loadTranslations(translationsToLoad)
 
 ### Translation service
 
-Once the translations have been added dynamically, it is possible to directly use the built-in `useTranslate` hook in the component:
+Once the translations have been added dynamically, it is possible to directly use the built-in `UseTranslation` hook in the component.
+The hook returns a `UseTranslationResponse` which is exported by the library:
 
 ##### **`MyComponent.tsx`**
 
 ```tsx
 import React from 'react'
 import { useTranslation } from '@okp4/ui'
+import type { UseTranslationResponse } from '@okp4/ui'
 
 export const MyComponent: React.FC = () => {
-  const { t } = useTranslation()
+  const { t }: UseTranslationResponse = useTranslation()
   return <p>{t('languageSwitcher:all')}</p>
 }
 ```
@@ -229,9 +231,10 @@ So, it would look like this:
 ```tsx
 import React from 'react'
 import { useTranslation } from '@okp4/ui'
+import type { UseTranslationResponse } from '@okp4/ui'
 
 export const MyComponent: React.FC = () => {
-  const { t } = useTranslation('languageSwitcher')
+  const { t }: UseTranslationResponse = useTranslation('languageSwitcher')
   return <p>{t('all')}</p>
 }
 ```
