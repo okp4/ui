@@ -5,9 +5,6 @@ on:
     branches: [main]
     tags: ["v*"]
 
-  pull_request:
-    branches: [main]
-
 jobs:
   publish-docker-images:
     runs-on: ubuntu-20.04
@@ -88,8 +85,6 @@ jobs:
 
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
             publish+=(--tag latest)
-          elif [[ $GITHUB_EVENT_NAME == pull_request ]]; then
-            publish+=(--prerelease --preid ${{ env.CI_ACTION_REF_NAME_SLUG }}.$DATE --tag ${{ env.CI_ACTION_REF_NAME_SLUG }})
           else
             publish+=(--prerelease --preid next.$DATE --tag next)
           fi
@@ -138,7 +133,6 @@ jobs:
       cancel-in-progress: true
     timeout-minutes: 10
     runs-on: ubuntu-20.04
-    if: github.event_name != 'pull_request'
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
