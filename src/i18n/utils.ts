@@ -14,8 +14,8 @@ export const loadTranslations = (resources: Array<I18nResource>, overwrite?: boo
   )
 }
 
-export const updateLanguage = (language: string ): void => {
-  i18n.changeLanguage(language)
+export const updateLanguage = (lng: string ): void => {
+  i18n.changeLanguage(lng)
 }
 
 export const isCurrentLanguage = (lng: string): boolean => { 

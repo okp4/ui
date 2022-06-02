@@ -32,8 +32,8 @@ i18nextLng=LANGUAGE
 It is thus quite possible to update this value according to a user interaction and to force a refresh of the translations and i18n keys.
 For example:
 
-```jsx
-import updateLanguage from '@okp4/ui'
+```tsx
+import { updateLanguage } from '@okp4/ui'
 
 export const FrenchLanguageSwitcher: React.FC = (): JSX.Element => {
   const handleLanguageUpdate = (language: string) => (): void => {
@@ -53,17 +53,17 @@ export const FrenchLanguageSwitcher: React.FC = (): JSX.Element => {
 If none of the previous detection elements have made it possible to recover the user language, the internationalization
 system will automatically recover the language of the browser in which the instance was launched and save it as the usual language,
 which will thus allow show translations in this language.  
-There is no particular manipulation to operate to activate detection by browser language, this is done automatically.
+There is no particular manipulation required to activate detection by browser language, this is done automatically.
 
 ### Check current language
 
 ---
 
 The `isCurrentLanguage` method can be used to facilitate the detection of the currently used language and improve user experience.  
-This method takes a language as parameter and returns a boolean if the language detected is the current language.
+This method takes a language as a parameter and returns a boolean response depending on whether the detected language is the current language or not.
 
 ```ts
- const isCurrentLanguage = (lng: string): boolean
+const isCurrentLanguage = (lng: string) => boolean
 ```
 
 An example of usage in a React component:
@@ -72,6 +72,7 @@ An example of usage in a React component:
 
 ```tsx
 import React from 'react'
+import { isCurrentLanguage } from '@okp4/ui'
 
 export const MyComponent: React.FC = () => {
   return <p>{isCurrentLanguage('fr') ? 'French Language On' : 'French Language Off'}</p>
@@ -108,7 +109,7 @@ type I18nResource = Readonly<{
 
 #### The 3 ways to implement translations explained step by step
 
-The `LanguageSwitcher`component comes with its own translations which are stored in the `LanguageSwitcher_en.json` file.  
+Given an `AwesomeComponent` that comes with its own translations which are stored in the `AwesomeComponent_en.json` file.  
 It looks like this:
 
 ```json
@@ -119,7 +120,7 @@ It looks like this:
 
 ##### 1- First way: extension
 
-We want to add a new translation, so we have to create a new file which has to be named exactly like its file known translations file: `LanguageSwitcher_en.json`, but it will look like this now:
+We want to add a new translation, so we have to create a new file which has to be named exactly like its file known translations file: `AwesomeComponent_en.json`, but it will look like this now:
 
 ```json
 {
@@ -128,17 +129,17 @@ We want to add a new translation, so we have to create a new file which has to b
 }
 ```
 
-We now have to import our translations file `./LanguageSwitcher_en.json` and to use `loadTranslations` method at the top level of the application.
+We now have to import our translations file `./AwesomeComponent_en.json` and to use `loadTranslations` method at the top level of the application.
 
 ##### **`main.ts`**
 
 ```typescript
 import { loadTranslations } from '@okp4/ui'
 import type { I18nResource } from '@okp4/ui'
-import languageSwitcher_en from './LanguageSwitcher_en.json'
+import awesomeComponent_en from './AwesomeComponent_en.json'
 
 const translationsToLoad: I18nResource[] = [
-  { lng: 'en', namespace: 'languageSwitcher', resource: languageSwitcher_en }
+  { lng: 'en', namespace: 'awesomeComponent', resource: awesomeComponent_en }
 ]
 
 loadTranslations(translationsToLoad)
@@ -146,7 +147,7 @@ loadTranslations(translationsToLoad)
 
 ##### 2- Second way: overwrite
 
-We want to change an existing translation, so we have to create a new file which has to be named exactly like its file known translations file: `LanguageSwitcher_en.json`, but it will look like this now:
+We want to change an existing translation, so we have to create a new file which has to be named exactly like its file known translations file: `AwesomeComponent_en.json`, but it will look like this now:
 
 ```json
 {
@@ -155,7 +156,7 @@ We want to change an existing translation, so we have to create a new file which
 ```
 
 So, we kept the key but updated its translation.  
-We now have to import our translations file `./LanguageSwitcher_en.json` and to use `loadTranslations` method at the top level of the application.
+We now have to import our translations file `./AwesomeComponent_en.json` and to use `loadTranslations` method at the top level of the application.
 The only thing that will change from the extension method is that we have to add the `overwrite` parameter to `true` to the `loadTranslations` method
 so that the existing keys and their new translations are taken into account.
 
@@ -164,10 +165,10 @@ so that the existing keys and their new translations are taken into account.
 ```typescript
 import { loadTranslations } from '@okp4/ui'
 import type { I18nResource } from '@okp4/ui'
-import languageSwitcher_en from './LanguageSwitcher_en.json'
+import awesomeComponent_en from './AwesomeComponent_en.json'
 
 const translationsToLoad: I18nResource[] = [
-  { lng: 'en', namespace: 'languageSwitcher', resource: languageSwitcher_en }
+  { lng: 'en', namespace: 'awesomeComponent', resource: awesomeComponent_en }
 ]
 
 loadTranslations(translationsToLoad, true)
@@ -178,7 +179,7 @@ loadTranslations(translationsToLoad, true)
 We want to add a translation file in a new language that was not implemented, so we have to create a new file which has to be named exactly
 like its existing translations file, but with a new language extension.  
 Languages extensions must look like `es` for Spanish, `de` for German ... and so on.  
-For instance, if we want to add Spanish language translations, the new file will be named `LanguageSwitcher_es.json`, and it will look like this:
+For instance, if we want to add Spanish language translations, the new file will be named `AwesomeComponent_es.json`, and it will look like this:
 
 ```json
 {
@@ -186,17 +187,17 @@ For instance, if we want to add Spanish language translations, the new file will
 }
 ```
 
-We now have to import our translations file `./LanguageSwitcher_es.json` and to use `loadTranslations` method at the top level of the application.
+We now have to import our translations file `./AwesomeComponent_es.json` and to use `loadTranslations` method at the top level of the application.
 
 ##### **`main.ts`**
 
 ```typescript
 import { loadTranslations } from '@okp4/ui'
 import type { I18nResource } from '@okp4/ui'
-import languageSwitcher_es from './LanguageSwitcher_es.json'
+import awesomeComponent_es from './AwesomeComponent_es.json'
 
 const translationsToLoad: I18nResource[] = [
-  { lng: 'es', namespace: 'languageSwitcher', resource: languageSwitcher_es }
+  { lng: 'es', namespace: 'awesomeComponent', resource: awesomeComponent_es }
 ]
 
 loadTranslations(translationsToLoad)
@@ -216,7 +217,7 @@ import type { UseTranslationResponse } from '@okp4/ui'
 
 export const MyComponent: React.FC = () => {
   const { t }: UseTranslationResponse = useTranslation()
-  return <p>{t('languageSwitcher:all')}</p>
+  return <p>{t('languages:all')}</p>
 }
 ```
 
@@ -234,7 +235,7 @@ import { useTranslation } from '@okp4/ui'
 import type { UseTranslationResponse } from '@okp4/ui'
 
 export const MyComponent: React.FC = () => {
-  const { t }: UseTranslationResponse = useTranslation('languageSwitcher')
+  const { t }: UseTranslationResponse = useTranslation('languages')
   return <p>{t('all')}</p>
 }
 ```
