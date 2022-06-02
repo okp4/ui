@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import type { JSONValue } from 'superTypes'
 import i18n from '../i18n/index'
-import translation_en from './translation_en.json'
-import translation_fr from './translation_fr.json'
 
 export type I18nResource = Readonly<{
   readonly lng: string
@@ -10,15 +8,17 @@ export type I18nResource = Readonly<{
   readonly resource: JSONValue
 }>
 
-export const loadTranslations = (resources: Array<I18nResource>): void => {
+export const loadTranslations = (resources: Array<I18nResource>, overwrite?: boolean): void => {
   resources.forEach((resource: I18nResource) =>
-    i18n.addResourceBundle(resource.lng, resource.namespace, resource.resource, true)
+    i18n.addResourceBundle(resource.lng, resource.namespace, resource.resource, !overwrite, overwrite)
   )
 }
 
-export const loadDefaultTranslations = (): void => {
-  loadTranslations([
-    { lng: 'en', namespace: 'translation', resource: translation_en },
-    { lng: 'fr', namespace: 'translation', resource: translation_fr }
-  ])
+export const updateLanguage = (language: string ): void => {
+  i18n.changeLanguage(language)
+}
+
+export const isCurrentLanguage = (lng: string): boolean => { 
+  const languageValueRegex = new RegExp(lng, 'i')
+  return languageValueRegex.test(i18n.language)
 }
