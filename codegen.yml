@@ -1,0 +1,16 @@
+overwrite: true
+generates:
+  ./src/adapters/faucet/secondary/graphql/generated/types.ts:
+    schema: "node_modules/@okp4/cosmos-faucet-schema/graph/schema.graphqls"
+    documents: "src/adapters/faucet/secondary/graphql/documents/*.graphql"
+    plugins:
+      - typescript
+      - typescript-operations
+    config:
+      scalars:
+        Address: string
+        Long: BigUint64Array
+        UInt64: BigUint64Array
+      immutableTypes: true
+      strictScalars: true
+      useTypeImports: true

@@ -10,6 +10,7 @@ import del from 'rollup-plugin-delete'
 import analyze from 'rollup-plugin-analyzer'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
+import graphql from '@rollup/plugin-graphql'
 import fs from 'fs'
 
 import * as packageJson from './package.json'
@@ -47,11 +48,12 @@ export default [
         verbose: true
       }),
       svgr({ dimensions: false }),
-      resolve(),
+      resolve({ preferBuiltins: true, mainFields: ['browser'] }),
       commonjs(),
       json(),
       typescript({ tsconfig: './tsconfig.json' }),
       postcss(),
+      graphql(),
       terser(),
       analyze({ summaryOnly: true })
     ]
