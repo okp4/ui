@@ -1,3 +1,3 @@
 export type FaucetPort = {
-  readonly requestFunds: (address: string) => Promise<void>
+  readonly requestFunds: (address: string) => Promise<string>
 }

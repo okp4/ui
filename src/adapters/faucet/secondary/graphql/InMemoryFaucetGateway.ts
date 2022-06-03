@@ -5,11 +5,11 @@ export class InMemoryFaucetGateway implements FaucetPort {
   private _error: GatewayError | null = null
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public requestFunds = async (_address: string): Promise<void> => {
+  public requestFunds = async (_address: string): Promise<string> => {
     if (this._error) {
       throw new GatewayError()
     }
-    return Promise.resolve()
+    return Promise.resolve('hash#1')
   }
 
   public setError = (): void => {
