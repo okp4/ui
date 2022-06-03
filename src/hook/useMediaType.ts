@@ -9,13 +9,16 @@ export const useMediaType = (query: string): boolean => {
   }, [])
 
   useEffect(() => {
-    const matchQueryList = window.matchMedia(query)
-    setMatches(matchQueryList.matches)
+    // Guard DOM Access for SSR
+    if (typeof window !== 'undefined') {
+      const matchQueryList = window.matchMedia(query)
+      setMatches(matchQueryList.matches)
 
-    matchQueryList.addEventListener('change', handleChange)
+      matchQueryList.addEventListener('change', handleChange)
 
-    return () => {
-      matchQueryList.removeEventListener('change', handleChange)
+      return () => {
+        matchQueryList.removeEventListener('change', handleChange)
+      }
     }
   }, [handleChange, query, setMatches])
 

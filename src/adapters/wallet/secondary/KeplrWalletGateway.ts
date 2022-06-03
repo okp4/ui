@@ -86,7 +86,8 @@ export class KeplrWalletGateway implements Wallet {
       ) ?? {}
   }
 
-  public readonly isAvailable = (): boolean => !!window.keplr && !!window.keplr.getOfflineSigner
+  public readonly isAvailable = (): boolean =>
+    typeof window !== 'undefined' && !!window.keplr && !!window.keplr.getOfflineSigner
 
   public readonly isConnected = (): boolean => this._isConnected
 
