@@ -1,10 +1,8 @@
-import type { DeepReadonly } from "superTypes"
+type Lng = string
 
-type isoLng = string
-
-export type Language = DeepReadonly<{
-    name: string,
-    iso: isoLng
-}>
+export type Language = {
+  readonly name: string,
+  readonly iso: Lng
+}
 
 export type Languages = Language[]
