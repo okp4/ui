@@ -64,23 +64,23 @@ Here are the keys and their english translations :
 
 Example of translation replacement or insertion:
 
-- the file name must be the same, so here it will be `languageSwitcher_en.json`
+- the file name must be the same, so here it has to be `languageSwitcher_en.json`
 - the file format must be identical (same key names, curly brackets...)
-- translation can be replaced by your own
-- new key with associated translation can be added
+- translation can be replaced by your own (overwrite)
+- new key with associated translation can be added (extension)
 
 ##### **`languageSwitcher_en.json`**
 
 ```json
 {
-  "languages": "Update with your own translation here", // Translation replacement
-  "modify-language": "Write your own translation here" // New key with associated translation insertion
+  "languages": "Update with your own translation here", // Translation overwrite
+  "modify-language": "Write your own translation here" // Translation extension
 }
 ```
 
-Jsx usage:
+Tsx usage:
 
-```jsx
+```tsx
 <p>{t('languageSwitcher:languages')}</p>
 <p>{t('languageSwitcher:languages.modify-language')}</p>
 
@@ -91,8 +91,3 @@ The component was built according to the internationalization implementation: se
 ## Prerequisites
 
 `LanguageSwitcher` is designed to be used on dark backgrounds because of its white text color.
-
-## Notes
-
-`LanguageSwitcher` currently offers a set of two languages: English and French.
-It will be possible to add other languages at a later stage.
