@@ -7,6 +7,7 @@ import { Typography } from '../typography/Typography'
 import languageSwitcher_en from './i18n/languageSwitcher_en.json'
 import languageSwitcher_fr from './i18n/languageSwitcher_fr.json'
 import { useTranslation } from 'hook/useTranslation'
+import type { UseTranslationResponse } from 'hook/useTranslation'
 import type { Breakpoints } from 'hook/useBreakpoint'
 import { useBreakpoint } from 'hook/useBreakpoint'
 import './languageSwitcher.scss'
@@ -24,9 +25,7 @@ const languages: Languages = [
 ]
 
 export const LanguageSwitcher: React.FC = (): JSX.Element => {
-  // waiting for the useTranslation response missing type
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const { t } = useTranslation('languageSwitcher')
+  const { t }: UseTranslationResponse = useTranslation('languageSwitcher')
   const { isXSmall }: Breakpoints = useBreakpoint()
 
   const handleLanguageUpdate = (language: string) => (): void => {
