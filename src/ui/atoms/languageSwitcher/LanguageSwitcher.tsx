@@ -39,9 +39,11 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 
   return (
     <div className="okp4-language-switcher-main">
-      <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
-        {t('languages')}
-      </Typography>
+      <div className="okp4-languages">
+        <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
+          {t('languages')}
+        </Typography>
+      </div>
       {languages.map((language: Readonly<Language>) => {
         const isLastLanguage = languages.indexOf(language) === languages.length - 1
 

@@ -40,7 +40,11 @@ Its background color is transparent in order to offer an easy implementation.
     ]
   }}
 >
-  {args => <LanguageSwitcher {...args} />}
+  {args => (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <LanguageSwitcher {...args} />
+    </div>
+  )}
 </Story>
 
 ## Properties

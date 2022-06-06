@@ -1,24 +1,25 @@
 .okp4-language-switcher-main {
   display: grid;
-  grid-template-areas: 'languages language language';
+  justify-content: start;
+  min-width: 240px;
+  max-width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(80px, auto));
+
   @media screen and (max-width: 480px) {
-    justify-items: center;
-    grid-template-areas:
-      'languages'
-      'language'
-      'language';
+    grid-template-columns: none;
+    justify-content: center;
   }
 
-  .okp4-languages-translation {
-    grid-area: languages;
+  .okp4-languages {
+    justify-self: center;
   }
 
   .okp4-language-container {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
 
     .okp4-language {
-      grid-area: language;
+      justify-self: center;
       margin: 0 10px;
       cursor: pointer;
 
