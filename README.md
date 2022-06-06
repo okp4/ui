@@ -7,10 +7,11 @@
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
 [![Test Coverage](https://codecov.io/gh/okp4/ui/branch/main/graph/badge.svg?token=WHLU66SCC2)](https://codecov.io/gh/okp4/ui)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![Storybook](https://img.shields.io/badge/Storybook-BC6884?logo=storybook&logoColor=white)](https://okp4.github.io/ui)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
-[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 ## Our vision
 
