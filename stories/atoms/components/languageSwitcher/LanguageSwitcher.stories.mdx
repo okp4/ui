@@ -31,17 +31,58 @@ Its background color is transparent in order to offer an easy implementation.
 
 ## Overview
 
-<Story name="Overview">
-  <div
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-  >
-    <LanguageSwitcher />
-  </div>
+<Story
+  name="Overview"
+  args={{
+    languages: [
+      { name: 'English', lng: 'en' },
+      { name: 'Français', lng: 'fr' }
+    ]
+  }}
+>
+  {args => <LanguageSwitcher {...args} />}
 </Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Languages
+
+The `LanguageSwitcher` comes with a `languages` mandatory property.  
+This property must respect the `Languages` format which is an array of `Language`:
+
+```ts
+type Language = {
+  readonly name: string
+  readonly lng: string
+}
+```
+
+##### **`example.tsx`**
+
+```tsx
+import { Languages } from '@okp4/ui'
+
+export const MyExampleComponent: React.FC = () => {
+  const allLanguages: Languages = [
+    {
+      "name": "English",
+      "lng": "en"
+    },
+    {
+      "name": "Français",
+      "lng": "fr"
+    },
+      {
+      "name": "Italiano",
+      "lng": "it"
+    }
+  ]
+
+  return <LanguageSwitcher languages={allLanguages} />
+
+```
 
 ## Responsiveness
 
