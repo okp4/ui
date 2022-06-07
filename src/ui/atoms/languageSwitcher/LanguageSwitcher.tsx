@@ -44,35 +44,36 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           {t('languages')}
         </Typography>
       </div>
-      {languages.map((language: Readonly<Language>) => {
-        const isLastLanguage = languages.indexOf(language) === languages.length - 1
-
-        return (
-          <div className="okp4-language-container" key={language.lng}>
-            <div
-              className={classNames('okp4-language', {
-                'is-selected': isCurrentLanguage(language.lng)
-              })}
-              onClick={handleLanguageUpdate(language.lng)}
-            >
-              <Typography
-                as="p"
-                color="highlighted-text"
-                fontSize="x-small"
-                fontWeight="xlight"
-                noWrap
+      {languages.map(
+        (language: Readonly<Language>, i: number, { length }: Readonly<{ length: number }>) => {
+          const isLastLanguage = i === length - 1
+          return (
+            <div className="okp4-language-container" key={language.lng}>
+              <div
+                className={classNames('okp4-language', {
+                  'is-selected': isCurrentLanguage(language.lng)
+                })}
+                onClick={handleLanguageUpdate(language.lng)}
               >
-                {language.name}
-              </Typography>
+                <Typography
+                  as="p"
+                  color="highlighted-text"
+                  fontSize="x-small"
+                  fontWeight="xlight"
+                  noWrap
+                >
+                  {language.name}
+                </Typography>
+              </div>
+              {!isXSmall && !isLastLanguage && (
+                <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight">
+                  |
+                </Typography>
+              )}
             </div>
-            {!isXSmall && !isLastLanguage && (
-              <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight">
-                |
-              </Typography>
-            )}
-          </div>
-        )
-      })}
+          )
+        }
+      )}
     </div>
   )
 }
