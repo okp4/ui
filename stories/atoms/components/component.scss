@@ -7,5 +7,9 @@
     flex-direction: column;
     gap: 20px;
     background: themed('header-background');
+
+    &.language-switcher {
+      background: themed('footer-background');
+    }
   }
 }
