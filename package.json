@@ -21,7 +21,7 @@
   ],
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c --failAfterWarnings",
     "clean": "rimraf dist",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && stylelint './src/**/*.scss'",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
