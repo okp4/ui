@@ -35,13 +35,13 @@ export const Footer: React.FC = (): JSX.Element => {
         <LanguageSwitcher languages={languages} />
       </div>
       <div className="okp4-footer-brand-link-container">
-        <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
-          {t('footer:brand-link')}
-        </Typography>
-        <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="bold" noWrap>
-          <a href="https://okp4.network" rel="author noreferrer" target="_blank">
-            ØKP4
-          </a>
+        <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight">
+          {t('footer:brand-link')}{' '}
+          <Typography color="highlighted-text" fontSize="x-small" fontWeight="bold" noWrap>
+            <a href="https://okp4.network" rel="author noreferrer" target="_blank">
+              ØKP4
+            </a>
+          </Typography>
         </Typography>
       </div>
     </div>

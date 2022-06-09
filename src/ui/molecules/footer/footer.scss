@@ -22,7 +22,7 @@
         'languages'
         'brand-link';
       justify-items: center;
-      row-gap: 10px;
+      row-gap: 15px;
     }
 
     .okp4-footer-language-container {
@@ -30,9 +30,7 @@
     }
 
     .okp4-footer-brand-link-container {
-      display: inline-flex;
       grid-area: brand-link;
-      gap: 5px;
 
       a {
         text-decoration: unset;
