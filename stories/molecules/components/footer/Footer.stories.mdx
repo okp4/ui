@@ -2,7 +2,6 @@ import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { Footer } from 'ui/molecules/footer/Footer.tsx'
-import './footer.scss'
 
 <Meta
   title="Molecules/Footer"
@@ -10,12 +9,10 @@ import './footer.scss'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="footer-story-main">
-          <div style={{ padding: '20px 30px' }}>
-            <ThemeSwitcher />
-          </div>
-          <Story />
+        <div style={{ padding: '20px 30px' }}>
+          <ThemeSwitcher />
         </div>
+        <Story />
       </ThemeProvider>
     )
   ]}
