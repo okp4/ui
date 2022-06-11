@@ -10,6 +10,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
 [![Test Coverage](https://codecov.io/gh/okp4/ui/branch/main/graph/badge.svg?token=WHLU66SCC2)](https://codecov.io/gh/okp4/ui)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
+[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Sass](https://img.shields.io/badge/-Sass-CC6699?logo=sass&logoColor=ffffff)](https://sass-lang.com/)
 [![Storybook](https://img.shields.io/badge/Storybook-BC6884?logo=storybook&logoColor=white)](https://okp4.github.io/ui)
 [![Yarn](https://img.shields.io/badge/-Yarn-2C8EBB?logo=Yarn&logoColor=ffffff)](https://yarnpkg.com/)
