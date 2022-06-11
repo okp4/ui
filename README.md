@@ -10,6 +10,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
 [![Test Coverage](https://codecov.io/gh/okp4/ui/branch/main/graph/badge.svg?token=WHLU66SCC2)](https://codecov.io/gh/okp4/ui)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
+[![Sass](https://img.shields.io/badge/-Sass-CC6699?logo=sass&logoColor=ffffff)](https://sass-lang.com/)
 [![Storybook](https://img.shields.io/badge/Storybook-BC6884?logo=storybook&logoColor=white)](https://okp4.github.io/ui)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
