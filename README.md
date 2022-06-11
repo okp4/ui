@@ -4,6 +4,7 @@
 
 [![Version](https://img.shields.io/github/v/release/okp4/ui)](https://github.com/okp4/ui/releases)
 [![NPM](https://img.shields.io/npm/v/@okp4/ui)](https://www.npmjs.com/package/@okp4/ui)
+[![Install Size](https://packagephobia.com/badge?p=@okp4/ui)](https://packagephobia.com/result?p=%40okp4%2Fui)
 [![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
