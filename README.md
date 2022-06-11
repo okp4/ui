@@ -14,7 +14,7 @@
 [![Sass](https://img.shields.io/badge/-Sass-CC6699?logo=sass&logoColor=ffffff)](https://sass-lang.com/)
 [![Storybook](https://img.shields.io/badge/Storybook-BC6884?logo=storybook&logoColor=white)](https://okp4.github.io/ui)
 [![Yarn](https://img.shields.io/badge/-Yarn-2C8EBB?logo=Yarn&logoColor=ffffff)](https://yarnpkg.com/)
-[![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Prettier](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=white)](https://github.com/prettier/prettier)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
