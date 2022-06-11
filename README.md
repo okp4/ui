@@ -3,13 +3,13 @@
 > Implementation of [OKP4] UI components in CSS, [Typescript](https://www.typescriptlang.org), and HTML.
 
 [![Version](https://img.shields.io/github/v/release/okp4/ui)](https://github.com/okp4/ui/releases)
+[![NPM](https://img.shields.io/npm/v/@okp4/ui)](https://www.npmjs.com/package/@okp4/ui)
 [![Lint](https://github.com/okp4/ui/actions/workflows/lint.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/lint.yml)
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
-[![NPM](https://img.shields.io/npm/v/@okp4/ui)](https://www.npmjs.com/package/@okp4/ui)
 [![Test Coverage](https://codecov.io/gh/okp4/ui/branch/main/graph/badge.svg?token=WHLU66SCC2)](https://codecov.io/gh/okp4/ui)
-[![Storybook](https://img.shields.io/badge/Storybook-BC6884?logo=storybook&logoColor=white)](https://okp4.github.io/ui)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
+[![Storybook](https://img.shields.io/badge/Storybook-BC6884?logo=storybook&logoColor=white)](https://okp4.github.io/ui)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
