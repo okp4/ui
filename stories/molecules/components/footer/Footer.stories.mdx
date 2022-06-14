@@ -20,24 +20,38 @@ import { Footer } from 'ui/molecules/footer/Footer.tsx'
 
 # Footer
 
+> Helps users to find useful information and site functionality.
+
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
 **Footer** is a responsive component which embeds two main elements:
 
-- A `LanguageSwitcher` component which offers users the ability to change the language of the application.
-- A `Brand link` which links to the ØKP4 website.
+- A `LanguageSwitcher` component that offers users the ability to change the language of the application.
+- A `Typography` element which contains the link to the brand website and the brand name.
 
 ## Overview
 
-<Story name="Overview">
-  <div style={{ width: '100%' }}>
-    <Footer />
-  </div>
+<Story
+  name="Overview"
+  args={{
+    brandHyperLink: 'https://okp4.network',
+    brandName: 'ØKP4'
+  }}
+>
+  {args => (
+    <div style={{ width: '100%' }}>
+      <Footer {...args} />
+    </div>
+  )}
 </Story>
 
 ---
+
+### Properties
+
+<ArgsTable story="Overview" />
 
 ## Responsiveness
 
