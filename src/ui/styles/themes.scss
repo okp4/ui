@@ -1,4 +1,5 @@
 @import './palette.scss';
+@import './urls.scss';
 
 $themes: (
   light: (
@@ -13,6 +14,7 @@ $themes: (
     primary-background: $color-light-background,
     secondary-background: $color-light-background-variant,
     header-background: $gradient-light-background-header,
+    cosmos-header-background: url($cosmos-light-url) no-repeat #{','} $gradient-light-background-header,
     footer-background: $gradient-light-background-footer,
     footer-block-background: $color-light-background-footer-block,
     success: $color-light-success,
@@ -33,6 +35,7 @@ $themes: (
     primary-background: $color-dark-background,
     secondary-background: $color-dark-background-variant,
     header-background: $gradient-dark-background-header,
+    cosmos-header-background: url($cosmos-dark-url) no-repeat #{','} $gradient-dark-background-header,
     footer-background: $gradient-dark-background-footer,
     footer-block-background: $gradient-dark-background-footer-block,
     success: $color-dark-success,
