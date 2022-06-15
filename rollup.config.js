@@ -44,7 +44,8 @@ export default [
               'src/ui/styles/_exports.module.scss'
             ],
             dest: 'lib/scss'
-          }
+          },
+          { src: 'src/assets/images', dest: 'lib/assets/images' }
         ],
         verbose: true
       }),
