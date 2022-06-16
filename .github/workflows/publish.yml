@@ -5,13 +5,14 @@ on:
     branches: [main]
     tags: ["v*"]
 
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   publish-docker-images:
     runs-on: ubuntu-20.04
     if: github.event_name != 'pull_request'
-    concurrency:
-      group: publish-docker-images-${{ github.ref }}
-      cancel-in-progress: true
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -57,9 +58,6 @@ jobs:
 
   publish-npm-package-okp4:
     runs-on: ubuntu-20.04
-    concurrency:
-      group: publish-npm-package-okp4-${{ github.ref }}
-      cancel-in-progress: true
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -97,9 +95,6 @@ jobs:
   publish-npm-package-public:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-20.04
-    concurrency:
-      group: publish-npm-package-public-${{ github.ref }}
-      cancel-in-progress: true
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -128,9 +123,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIC_REGISTRY_TOKEN }}
 
   publish-storybook:
-    concurrency:
-      group: publish-storybook-${{ github.ref }}
-      cancel-in-progress: true
     timeout-minutes: 10
     runs-on: ubuntu-20.04
     steps:
