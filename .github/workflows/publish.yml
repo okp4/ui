@@ -77,6 +77,7 @@ jobs:
 
       - name: Publish package
         run: |
+          yarn && yarn build
           DATE=$(date +%Y%m%d%H%M%S)
           publish=(yarn publish --access=public --no-git-tag-version --non-interactive)
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
