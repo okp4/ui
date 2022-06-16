@@ -45,7 +45,7 @@ export default [
             ],
             dest: 'lib/scss'
           },
-          { src: 'src/assets/images', dest: 'lib/assets/images' }
+          { src: 'src/assets/images', dest: 'lib/assets' }
         ],
         verbose: true
       }),
