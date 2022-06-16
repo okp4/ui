@@ -12,6 +12,8 @@ import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
 import graphql from '@rollup/plugin-graphql'
 import fs from 'fs'
+import url from 'postcss-url'
+import path from 'path'
 
 import * as packageJson from './package.json'
 
@@ -54,7 +56,17 @@ export default [
       commonjs(),
       json(),
       typescript({ tsconfig: './tsconfig.json' }),
-      postcss(),
+      postcss({
+        extract: path.resolve('lib/styles.scss'),
+        plugins: [
+          url({
+            url: "inline",
+            maxSize: 10,
+            fallback: "copy", 
+          }),
+          
+        ],
+      }),      
       graphql(),
       terser(),
       analyze({ summaryOnly: true })
