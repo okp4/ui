@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint-commits:
     runs-on: ubuntu-20.04
@@ -53,13 +57,6 @@ jobs:
       - name: Lint dockerfile (hadolint)
         uses: hadolint/hadolint-action@v2.1.0
 
-      - name: Lint dockerfile (docker-lint)
-        uses: luke142367/Docker-Lint-Action@v1.1.1
-        with:
-          target: Dockerfile
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   lint-ts:
     runs-on: ubuntu-20.04
     steps:
@@ -86,7 +83,7 @@ jobs:
       - name: Check for new dependencies
         uses: hiwelo/new-dependencies-action@1.0.1
         with:
-          token: ${{ secrets.OKP4_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   lint-branch-name:
     runs-on: ubuntu-20.04

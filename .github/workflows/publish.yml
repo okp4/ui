@@ -5,13 +5,13 @@ on:
     branches: [main]
     tags: ["v*"]
 
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   publish-docker-images:
     runs-on: ubuntu-20.04
-    if: github.event_name != 'pull_request'
-    concurrency:
-      group: publish-docker-images-${{ github.ref }}
-      cancel-in-progress: true
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -33,7 +33,7 @@ jobs:
           labels: |
             org.opencontainers.image.vendor=OKP4
 
-      - name: Login to OKP4 Docker registry
+      - name: Login to GHCR
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -55,82 +55,41 @@ jobs:
           tags: ${{ steps.docker_metadata.outputs.tags }}
           labels: ${{ steps.docker_metadata.outputs.labels }}
 
-  publish-npm-package-okp4:
+  publish-npm-package:
     runs-on: ubuntu-20.04
-    concurrency:
-      group: publish-npm-package-okp4-${{ github.ref }}
-      cancel-in-progress: true
+    strategy:
+      matrix:
+        registry:
+          - url: "https://npm.pkg.github.com"
+            auth-token-secret: NPM_REGISTRY_TOKEN
+          - url: "https://registry.npmjs.org"
+            auth-token-secret: NPM_PUBLIC_REGISTRY_TOKEN
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-
-      - name: Set up context
-        id: project_context
-        uses: FranzDiebold/github-env-vars-action@v2.3.1
 
       - name: Setup node environment (for publishing)
         uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: ${{ matrix.registry.url }}
           scope: "@okp4"
 
       - name: Publish package
         run: |
           DATE=$(date +%Y%m%d%H%M%S)
-
-          yarn && yarn build
-
-          publish=(yarn publish --no-git-tag-version --non-interactive)
-
+          publish=(yarn publish --access=public --no-git-tag-version --non-interactive)
           if [[ $GITHUB_REF == refs/tags/v* ]]; then
             publish+=(--tag latest)
           else
             publish+=(--prerelease --preid next.$DATE --tag next)
           fi
-
           echo "🚀 Publishing npm package with following command line: ${publish[@]}"
           "${publish[@]}"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
-
-  publish-npm-package-public:
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-    runs-on: ubuntu-20.04
-    concurrency:
-      group: publish-npm-package-public-${{ github.ref }}
-      cancel-in-progress: true
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Set up context
-        id: project_context
-        uses: FranzDiebold/github-env-vars-action@v2.3.1
-
-      - name: Setup node environment (for publishing)
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.14.0
-          registry-url: "https://registry.npmjs.org"
-          scope: "@okp4"
-
-      - name: Publish package
-        run: |
-          yarn && yarn build
-
-          publish=(yarn publish --access=public --no-git-tag-version --non-interactive)
-          publish+=(--tag latest)
-
-          echo "🚀 Publishing npm package with following command line: ${publish[@]}"
-          "${publish[@]}"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIC_REGISTRY_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets[matrix.registry.auth-token-secret] }}
 
   publish-storybook:
-    concurrency:
-      group: publish-storybook-${{ github.ref }}
-      cancel-in-progress: true
     timeout-minutes: 10
     runs-on: ubuntu-20.04
     steps:
