@@ -1,4 +1,4 @@
-import { eventBus } from 'src/eventBus/eventBus'
+import { eventBus } from 'eventBus/eventBus'
 import type { WalletAccountsRetrievedEvent } from 'domain/wallet/type/event.type'
 import { setAddress } from 'domain/faucet/usecase/set-address/setAddress'
 import type { ReduxStore } from 'domain/faucet/store/store'
