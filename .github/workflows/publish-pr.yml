@@ -4,21 +4,23 @@ on:
   issue_comment:
     types: [created, edited]
 
-concurrency:
-  group: publish-pr-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   publish-docker-images:
     if: ${{ github.event.issue.pull_request && github.event.comment.body  == '/publish' }}
     runs-on: ubuntu-20.04
     steps:
+      - uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
 
-      - name: Set up context
-        id: project_context
-        uses: FranzDiebold/github-env-vars-action@v2.3.1
+      - uses: gacts/github-slug@v1
+        id: slug
+        with:
+          to-slug: ${{ steps.comment-branch.outputs.head_ref }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: docker_metadata
@@ -26,7 +28,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,enable=${{ !endsWith(github.ref, github.event.repository.default_branch) }},value=${{ env.CI_ACTION_REF_NAME_SLUG }}
+            type=raw,value=${{ steps.slug.outputs.slug }}
           labels: |
             org.opencontainers.image.vendor=OKP4
 
@@ -50,12 +52,18 @@ jobs:
     if: ${{ github.event.issue.pull_request && github.event.comment.body  == '/publish' }}
     runs-on: ubuntu-20.04
     steps:
+      - uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
 
-      - name: Set up context
-        id: project_context
-        uses: FranzDiebold/github-env-vars-action@v2.3.1
+      - uses: gacts/github-slug@v1
+        id: slug
+        with:
+          to-slug: ${{ steps.comment-branch.outputs.head_ref }}
 
       - name: Setup node environment (for publishing)
         uses: actions/setup-node@v3
@@ -69,7 +77,7 @@ jobs:
           DATE=$(date +%Y%m%d%H%M%S)
           yarn && yarn build
           publish=(yarn publish --no-git-tag-version --non-interactive)
-          publish+=(--prerelease --preid ${{ env.CI_ACTION_REF_NAME_SLUG }}.$DATE --tag ${{ env.CI_ACTION_REF_NAME_SLUG }})
+          publish+=(--prerelease --preid ${{ steps.slug.outputs.slug }}.$DATE --tag ${{ steps.slug.outputs.slug }})
           echo "🚀 Publishing npm package with following command line: ${publish[@]}"
           "${publish[@]}"
         env:
