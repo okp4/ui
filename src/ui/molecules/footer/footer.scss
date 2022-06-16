@@ -4,38 +4,24 @@
   @include with-theme() {
     background: themed(footer-background);
     width: calc(100% - 80px);
+    min-height: 40px;
     padding: 45px 20px 45px 60px;
-    justify-content: space-between;
+    align-content: center;
     align-items: center;
+    justify-content: space-around;
     column-gap: 10px;
-    display: grid;
-    grid-template-areas: 'languages brand-link';
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 15px;
 
     @media screen and (max-width: 768px) {
       padding: 25px 10px;
       width: calc(100% - 20px);
-      justify-content: space-evenly;
     }
 
-    @media screen and (max-width: 374px) {
-      grid-template-areas:
-        'languages'
-        'brand-link';
-      justify-items: center;
-      row-gap: 15px;
-    }
-
-    .okp4-footer-languages-container {
-      grid-area: languages;
-    }
-
-    .okp4-footer-brand-link-container {
-      grid-area: brand-link;
-
-      a {
-        text-decoration: unset;
-        color: inherit;
-      }
+    a {
+      text-decoration: unset;
+      color: inherit;
     }
   }
 }
