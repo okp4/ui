@@ -1,20 +1,40 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import { Footer } from 'ui/molecules/footer/Footer.tsx'
+import { Footer } from 'ui/molecules/footer/Footer'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { loadTranslations } from 'i18n/utils'
+import { useTranslation } from 'hook/useTranslation'
+import footer_en from './i18n/footer_en.json'
+import footer_fr from './i18n/footer_fr.json'
+import footer_se from './i18n/footer_se.json'
+import footer_it from './i18n/footer_it.json'
+import { Button } from 'ui/atoms/button/Button'
 
 <Meta
   title="Molecules/Footer"
   component={Footer}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code',
+        format: true,
+        language: 'jsx'
+      }
+    }
+  }}
   decorators={[
-    Story => (
-      <ThemeProvider>
-        <div style={{ padding: '20px 30px' }}>
-          <ThemeSwitcher />
-        </div>
-        <Story />
-      </ThemeProvider>
-    )
+    Story => {
+      return (
+        <ThemeProvider>
+          <div style={{ padding: '20px 30px' }}>
+            <ThemeSwitcher />
+          </div>
+          <Story />
+        </ThemeProvider>
+      )
+    }
   ]}
 />
 
@@ -29,29 +49,134 @@ import { Footer } from 'ui/molecules/footer/Footer.tsx'
 **Footer** is a responsive component which embeds two main elements:
 
 - A `LanguageSwitcher` component that offers users the ability to change the language of the application.
-- A `Typography` element which contains the link to the brand website and the brand name.
+- A `secondaryElement` Optional element that is positioned last in the reading flow.
 
 ## Overview
 
 <Story
   name="Overview"
+  argTypes={{
+    languages: {
+      control: false,
+      table: {
+        type: { summary: 'Languages' }
+      }
+    },
+    secondaryElement: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    }
+  }}
   args={{
-    brandHyperLink: 'https://okp4.network',
-    brandName: 'ØKP4'
+    languages: [
+      {
+        name: 'English',
+        lng: 'en'
+      },
+      {
+        name: 'Français',
+        lng: 'fr'
+      }
+    ]
   }}
 >
-  {args => (
-    <div style={{ width: '100%' }}>
-      <Footer {...args} />
-    </div>
-  )}
+  {args => {
+    const translationsToLoad = [
+      { lng: 'en', namespace: 'footer', resource: footer_en },
+      { lng: 'se', namespace: 'languageSwitcher', resource: footer_se },
+      { lng: 'it', namespace: 'languageSwitcher', resource: footer_it },
+      { lng: 'se', namespace: 'footer', resource: footer_se },
+      { lng: 'it', namespace: 'footer', resource: footer_it },
+      { lng: 'fr', namespace: 'footer', resource: footer_fr }
+    ]
+    loadTranslations(translationsToLoad)
+    const { t } = useTranslation()
+    const secondaryElement = renderSecondaryElement(t)
+    return (
+      <div style={{ width: '100%' }}>
+        <Footer {...args} secondaryElement={secondaryElement} />
+      </div>
+    )
+  }}
 </Story>
+
+export const renderSecondaryElement = t => (
+  <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
+    {t('footer:brand-link')}{' '}
+    <Typography color="highlighted-text" fontSize="x-small" fontWeight="bold">
+      <a href="https://okp4.network/" rel="author noreferrer" target="_blank">
+        ØKP4
+      </a>
+    </Typography>
+  </Typography>
+)
 
 ---
 
 ### Properties
 
 <ArgsTable story="Overview" />
+
+## Languages
+
+`languages` takes a list of languages to be implemented in the `language switcher`.
+See <a href="?path=/docs/guidelines-internationalization--page">internationalization</a>
+for information on how to load translations.
+
+<Canvas>
+  <Story name="Languages">
+    {args => (
+      <Footer
+        languages={[
+          {
+            name: 'English',
+            lng: 'en'
+          },
+          {
+            name: 'Français',
+            lng: 'fr'
+          },
+          {
+            name: 'Svenska',
+            lng: 'se'
+          },
+          {
+            name: 'Italiano',
+            lng: 'it'
+          }
+        ]}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Secondary element
+
+`secondaryElement` is an optional property to add an additional element to the component.
+
+<Canvas>
+  <Story name="Secondary element">
+    {args => (
+      <Footer
+        languages={[
+          {
+            name: 'English',
+            lng: 'en'
+          },
+          {
+            name: 'Français',
+            lng: 'fr'
+          }
+        ]}
+        secondaryElement={buttons}
+      />
+    )}
+  </Story>
+</Canvas>
+
+export const buttons = <Button label="ØKP4" />
 
 ## Responsiveness
 
@@ -60,21 +185,5 @@ This allows the component to adapt to any screen size, from the smallest phone t
 
 ## Prerequisites
 
-It is mandatory to wrap the component in a `<ThemeProvider />` for the theming to work, like in the code snippet below.  
+It is mandatory to wrap the component in a `ThemeProvider` for the theming to work.
 See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
-
-##### **`app.tsx`**
-
-```tsx
-import React from 'react'
-import { Footer } from '@okp4/ui'
-import { ThemeProvider } from '@okp4/ui'
-
-export const App: React.FC = () => (
-  <React.StrictMode>
-    <ThemeProvider>
-      <Footer />
-    </ThemeProvider>
-  </React.StrictMode>
-)
-```
