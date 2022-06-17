@@ -124,7 +124,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.OKP4_TOKEN }}
 
   lint-generated:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
