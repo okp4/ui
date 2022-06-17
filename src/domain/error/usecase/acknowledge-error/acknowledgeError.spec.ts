@@ -1,15 +1,14 @@
 import { EventBus } from 'ts-bus'
 import { ReportErrorActions } from '../report-error/actionCreators'
 import { acknowledgeError } from './acknowledgeError'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
+import { ErrorStoreBuilder } from 'domain/error/store/builder/store.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
   initialState: AppState
-  eventBus: EventBus
 }>
 
 const error = new ErrorBuilder()
@@ -21,10 +20,10 @@ const error = new ErrorBuilder()
   .build()
 
 const init = (): InitialProps => {
-  const eventBus = new EventBus()
-  const store = configureStore(eventBus)
+  const eventBusInstance = new EventBus()
+  const store = new ErrorStoreBuilder().withEventBus(eventBusInstance).build()
   const initialState = store.getState()
-  return { store, initialState, eventBus }
+  return { store, initialState }
 }
 
 describe('Acknowledge an error', () => {

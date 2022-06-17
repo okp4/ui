@@ -1,11 +1,11 @@
 import { Map } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { Error as EntityError, Id } from 'domain/error/entity/error'
-import { configureStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
 import { getErrorById, hasUnseenError, unseenErrorMessage } from './error.selector'
 import type { DeepReadonly } from 'superTypes'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
+import { ErrorStoreBuilder } from '../builder/store.builder'
 
 type Data = DeepReadonly<{
   state: AppState
@@ -14,8 +14,6 @@ type Data = DeepReadonly<{
   expectedUnseenError: ReturnType<typeof hasUnseenError>
   expectedUnseenErrorMessage: ReturnType<typeof unseenErrorMessage>
 }>
-
-const eventBus = new EventBus()
 
 const error1 = new ErrorBuilder()
   .withId('#id-1')
@@ -42,10 +40,10 @@ const state2: AppState = {
 }
 
 describe.each`
-  state     | errorId        | expectedError | expectedUnseenError | expectedUnseenErrorMessage
-  ${{}}     | ${'#id-1'}     | ${undefined}  | ${false}            | ${undefined}
-  ${state1} | ${'id#broken'} | ${undefined}  | ${false}            | ${undefined}
-  ${state2} | ${'#id-1'}     | ${error1}     | ${true}             | ${error1.messageKey}
+  state        | errorId        | expectedError | expectedUnseenError | expectedUnseenErrorMessage
+  ${undefined} | ${'#id-1'}     | ${undefined}  | ${false}            | ${undefined}
+  ${state1}    | ${'id#broken'} | ${undefined}  | ${false}            | ${undefined}
+  ${state2}    | ${'#id-1'}     | ${error1}     | ${true}             | ${error1.messageKey}
 `(
   'Given that state is <$state> and errorId is <$errorId>',
   ({
@@ -55,9 +53,16 @@ describe.each`
     expectedUnseenError,
     expectedUnseenErrorMessage
   }: Data): void => {
-    const store = configureStore(eventBus, state)
+    const store = () => {
+      const eventBusInstance = new EventBus()
+      let storeBuilder = new ErrorStoreBuilder()
+      if (state) {
+        storeBuilder = storeBuilder.withPreloadedState(state)
+      }
+      return storeBuilder.withEventBus(eventBusInstance).build()
+    }
     describe('When performing selection getErrorById', () => {
-      const v = getErrorById(store.getState(), errorId)
+      const v = getErrorById(store().getState(), errorId)
 
       test(`Then, expect value to be ${expectedError}`, () => {
         expect(v).toEqual(expectedError)
@@ -65,7 +70,7 @@ describe.each`
     })
 
     describe('When performing selection hasUnseenError', () => {
-      const v = hasUnseenError(store.getState())
+      const v = hasUnseenError(store().getState())
 
       test(`Then, expect value to be ${expectedUnseenError}`, () => {
         expect(v).toEqual(expectedUnseenError)
@@ -73,7 +78,7 @@ describe.each`
     })
 
     describe('When performing selection expectedUnseenErrorMessage', () => {
-      const v = unseenErrorMessage(store.getState())
+      const v = unseenErrorMessage(store().getState())
 
       test(`Then, expect value to be ${expectedUnseenErrorMessage}`, () => {
         expect(v).toEqual(expectedUnseenErrorMessage)

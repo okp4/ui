@@ -34,11 +34,11 @@ describe('Build an Error store', () => {
   describe.each`
     initialStoreParamters             | eventBus            | preloadedState | expectedStatus
     ${undefined}                      | ${eventBusInstance} | ${undefined}   | ${true}
-    ${undefined}                      | ${undefined}        | ${undefined}   | ${true}
-    ${undefined}                      | ${undefined}        | ${state1}      | ${true}
+    ${undefined}                      | ${eventBusInstance} | ${state1}      | ${true}
     ${{ eventBus: eventBusInstance }} | ${undefined}        | ${undefined}   | ${true}
     ${undefined}                      | ${eventBusInstance} | ${{}}          | ${false}
     ${undefined}                      | ${{}}               | ${undefined}   | ${false}
+    ${undefined}                      | ${undefined}        | ${undefined}   | ${false}
     ${{ preloadedState: {} }}         | ${undefined}        | ${undefined}   | ${false}
     ${{ eventBus: {} }}               | ${undefined}        | ${undefined}   | ${false}
   `(
