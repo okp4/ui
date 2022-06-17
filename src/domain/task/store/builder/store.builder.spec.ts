@@ -3,14 +3,14 @@ import type { Store, AnyAction } from 'redux'
 import { EventBus } from 'ts-bus'
 import { UnspecifiedError } from 'domain/task/entity/error'
 import { TaskStoreBuilder } from './store.builder'
-import type { StoreParameters } from './store.builder'
+import type { TaskStoreParameters } from './store.builder'
 import type { AppState } from '../appState'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import { Task } from 'domain/task/entity/task'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParamters: StoreParameters
+    initialStoreParamters: TaskStoreParameters
     eventBus: EventBus
     preloadedState: AppState
   }> & {

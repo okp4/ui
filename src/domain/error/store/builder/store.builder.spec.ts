@@ -2,14 +2,14 @@ import { Map } from 'immutable'
 import type { Store, AnyAction } from 'redux'
 import { Error as EntityError, Id, UnspecifiedError } from 'domain/error/entity/error'
 import { ErrorStoreBuilder } from './store.builder'
-import type { StoreParameters } from './store.builder'
+import type { ErrorStoreParameters } from './store.builder'
 import type { AppState } from '../appState'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import { EventBus } from 'ts-bus'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParamters: StoreParameters
+    initialStoreParamters: ErrorStoreParameters
     eventBus: EventBus
     preloadedState: AppState
   }> & {

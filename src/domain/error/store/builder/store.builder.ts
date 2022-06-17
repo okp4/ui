@@ -6,19 +6,17 @@ import type { AppState } from '../appState'
 import { configureStore } from '../store'
 import { UnspecifiedError } from 'domain/error/entity/error'
 
-export type StoreParameters = { preloadedState?: AppState; eventBus: EventBus | null }
+export type ErrorStoreParameters = { preloadedState?: AppState; eventBus: EventBus | null }
 
 export class ErrorStoreBuilder {
-  private readonly storeParameters: StoreParameters
+  private readonly errorStoreParameters: ErrorStoreParameters
 
-  constructor(storeParameters?: DeepReadonly<StoreParameters>) {
-    if (storeParameters) {
-      this.storeParameters = storeParameters
-    } else {
-      this.storeParameters = {
-        eventBus: null
-      }
+  constructor(
+    errorStoreParameters: DeepReadonly<ErrorStoreParameters> = {
+      eventBus: null
     }
+  ) {
+    this.errorStoreParameters = errorStoreParameters
   }
 
   public withPreloadedState(preloadedState: DeepReadonly<AppState>): ErrorStoreBuilder {
@@ -28,7 +26,7 @@ export class ErrorStoreBuilder {
       )
     }
     return new ErrorStoreBuilder({
-      ...this.storeParameters,
+      ...this.errorStoreParameters,
       preloadedState
     })
   }
@@ -40,7 +38,7 @@ export class ErrorStoreBuilder {
       )
     }
     return new ErrorStoreBuilder({
-      ...this.storeParameters,
+      ...this.errorStoreParameters,
       eventBus
     })
   }
@@ -52,20 +50,20 @@ export class ErrorStoreBuilder {
       )
     }
     const errorStore = configureStore(
-      this.storeParameters.eventBus as EventBus,
-      this.storeParameters.preloadedState ?? undefined
+      this.errorStoreParameters.eventBus as EventBus,
+      this.errorStoreParameters.preloadedState ?? undefined
     )
-    initErrorEventListeners(errorStore, this.storeParameters.eventBus as EventBus)
+    initErrorEventListeners(errorStore, this.errorStoreParameters.eventBus as EventBus)
     return errorStore
   }
 
   private invariant(): boolean {
     return (
-      (this.storeParameters.preloadedState
-        ? Object.keys(this.storeParameters.preloadedState).length > 0
+      (this.errorStoreParameters.preloadedState
+        ? Object.keys(this.errorStoreParameters.preloadedState).length > 0
         : true) &&
-      !!this.storeParameters.eventBus &&
-      this.storeParameters.eventBus instanceof EventBus
+      !!this.errorStoreParameters.eventBus &&
+      this.errorStoreParameters.eventBus instanceof EventBus
     )
   }
 }

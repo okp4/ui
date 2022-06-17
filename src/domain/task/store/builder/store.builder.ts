@@ -6,19 +6,17 @@ import type { AppState } from '../appState'
 import { configureStore } from '../store'
 import { UnspecifiedError } from 'domain/task/entity/error'
 
-export type StoreParameters = { preloadedState?: AppState; eventBus: EventBus | null }
+export type TaskStoreParameters = { preloadedState?: AppState; eventBus: EventBus | null }
 
 export class TaskStoreBuilder {
-  private readonly storeParameters: StoreParameters
+  private readonly taskStoreParameters: TaskStoreParameters
 
-  constructor(storeParameters?: DeepReadonly<StoreParameters>) {
-    if (storeParameters) {
-      this.storeParameters = storeParameters
-    } else {
-      this.storeParameters = {
-        eventBus: null
-      }
+  constructor(
+    taskStoreParameters: DeepReadonly<TaskStoreParameters> = {
+      eventBus: null
     }
+  ) {
+    this.taskStoreParameters = taskStoreParameters
   }
 
   public withPreloadedState(preloadedState: DeepReadonly<AppState>): TaskStoreBuilder {
@@ -28,7 +26,7 @@ export class TaskStoreBuilder {
       )
     }
     return new TaskStoreBuilder({
-      ...this.storeParameters,
+      ...this.taskStoreParameters,
       preloadedState
     })
   }
@@ -40,7 +38,7 @@ export class TaskStoreBuilder {
       )
     }
     return new TaskStoreBuilder({
-      ...this.storeParameters,
+      ...this.taskStoreParameters,
       eventBus
     })
   }
@@ -52,20 +50,20 @@ export class TaskStoreBuilder {
       )
     }
     const taskStore = configureStore(
-      this.storeParameters.eventBus as EventBus,
-      this.storeParameters.preloadedState ?? undefined
+      this.taskStoreParameters.eventBus as EventBus,
+      this.taskStoreParameters.preloadedState ?? undefined
     )
-    initTaskEventListeners(taskStore, this.storeParameters.eventBus as EventBus)
+    initTaskEventListeners(taskStore, this.taskStoreParameters.eventBus as EventBus)
     return taskStore
   }
 
   private invariant(): boolean {
     return (
-      (this.storeParameters.preloadedState
-        ? Object.keys(this.storeParameters.preloadedState).length > 0
+      (this.taskStoreParameters.preloadedState
+        ? Object.keys(this.taskStoreParameters.preloadedState).length > 0
         : true) &&
-      !!this.storeParameters.eventBus &&
-      this.storeParameters.eventBus instanceof EventBus
+      !!this.taskStoreParameters.eventBus &&
+      this.taskStoreParameters.eventBus instanceof EventBus
     )
   }
 }

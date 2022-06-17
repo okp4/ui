@@ -1,7 +1,6 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { updateTask } from './updateTask'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
@@ -12,6 +11,7 @@ import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
+import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 
 type Data = {
   state: AppState
@@ -117,7 +117,10 @@ describe('Update a task', () => {
   `(
     `Given that there are $updatedTask.length task(s) to update`,
     ({ state, updatedTask, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
-      const store: ReduxStore = configureStore(eventBus, state)
+      const store: ReduxStore = new TaskStoreBuilder()
+        .withEventBus(eventBus)
+        .withPreloadedState(state)
+        .build()
 
       describe('When updating a task', () => {
         afterAll(() => {

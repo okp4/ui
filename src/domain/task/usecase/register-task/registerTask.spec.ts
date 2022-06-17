@@ -11,6 +11,7 @@ import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
+import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -27,7 +28,7 @@ const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 jest.mock('../../entity/error')
 
 const init = (): InitialProps => {
-  const store = configureStore(eventBus)
+  const store = new TaskStoreBuilder().withEventBus(eventBus).build()
   return { store }
 }
 

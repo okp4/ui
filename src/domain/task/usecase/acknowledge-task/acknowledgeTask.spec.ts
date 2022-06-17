@@ -1,15 +1,13 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import { EventBus } from 'ts-bus'
 import { acknowledgeTask } from './acknowledgeTask'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
+import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 
-const eventBus = new EventBus()
 const aDate = new Date()
-
 const task1 = new TaskBuilder()
   .withId('id1')
   .withCreationDate(aDate)
@@ -38,10 +36,14 @@ const initialState: AppState = {
   },
   displayedTaskIds: OrderedSet<string>([task1.id, task2.id])
 }
+const eventBusInstance = new EventBus()
+const store: ReduxStore = new TaskStoreBuilder()
+  .withPreloadedState(initialState)
+  .withEventBus(eventBusInstance)
+  .build()
 
 describe('Acknowledge a task', () => {
   it('should acknowledge a registered task by its id', async () => {
-    const store: ReduxStore = configureStore(eventBus, initialState)
     await store.dispatch(acknowledgeTask(task1.id))
     expect(store.getState()).toEqual({
       ...initialState,
