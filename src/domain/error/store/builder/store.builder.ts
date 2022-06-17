@@ -5,9 +5,8 @@ import type { DeepReadonly } from 'superTypes'
 import type { AppState } from '../appState'
 import { configureStore } from '../store'
 import { UnspecifiedError } from 'domain/error/entity/error'
-import { eventBus } from 'eventBus/eventBus'
 
-export type StoreParameters = { preloadedState?: AppState; eventBus: EventBus }
+export type StoreParameters = { preloadedState?: AppState; eventBus: EventBus | null }
 
 export class ErrorStoreBuilder {
   private readonly storeParameters: StoreParameters
@@ -17,7 +16,7 @@ export class ErrorStoreBuilder {
       this.storeParameters = storeParameters
     } else {
       this.storeParameters = {
-        eventBus
+        eventBus: null
       }
     }
   }
@@ -37,7 +36,7 @@ export class ErrorStoreBuilder {
   public withEventBus(eventBus: DeepReadonly<EventBus>): ErrorStoreBuilder {
     if (!(eventBus instanceof EventBus)) {
       throw new UnspecifiedError(
-        'Ooops... A valid eventBus must be provided to build an Error store...'
+        'Ooops... A valid eventBus instance must be provided to build an Error store...'
       )
     }
     return new ErrorStoreBuilder({
@@ -53,10 +52,10 @@ export class ErrorStoreBuilder {
       )
     }
     const errorStore = configureStore(
-      this.storeParameters.eventBus,
+      this.storeParameters.eventBus as EventBus,
       this.storeParameters.preloadedState ?? undefined
     )
-    initErrorEventListeners(errorStore, this.storeParameters.eventBus)
+    initErrorEventListeners(errorStore, this.storeParameters.eventBus as EventBus)
     return errorStore
   }
 
@@ -64,7 +63,9 @@ export class ErrorStoreBuilder {
     return (
       (this.storeParameters.preloadedState
         ? Object.keys(this.storeParameters.preloadedState).length > 0
-        : true) && this.storeParameters.eventBus instanceof EventBus
+        : true) &&
+      !!this.storeParameters.eventBus &&
+      this.storeParameters.eventBus instanceof EventBus
     )
   }
 }
