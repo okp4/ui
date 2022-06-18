@@ -1,39 +1,47 @@
 import type { Store, AnyAction } from 'redux'
+import { EventBus } from 'ts-bus'
 import { initFaucetEventListeners } from 'adapters/faucet/primary/eventListeners'
-import { HTTPFaucetGateway } from 'adapters/faucet/secondary/graphql/HTTPFaucetGateway'
 import { UnspecifiedError } from 'domain/faucet/entity/error'
-import { eventBus } from 'eventBus/eventBus'
 import type { DeepReadonly } from 'superTypes'
 import type { AppState } from '../appState'
+import type { Dependencies } from '../store'
 import { configureStore } from '../store'
 
-export type StoreParameters = { url: string; initEventListeners: boolean }
+export type FaucetStoreParameters = {
+  dependencies: Dependencies | null
+  eventBus: EventBus | null
+}
 
 export class FaucetStoreBuilder {
-  private readonly storeParameters: StoreParameters
+  private readonly faucetStoreParameters: FaucetStoreParameters
 
-  constructor(storeParameters?: DeepReadonly<StoreParameters>) {
-    if (storeParameters) {
-      this.storeParameters = storeParameters
-    } else {
-      this.storeParameters = {
-        url: '',
-        initEventListeners: false
-      }
+  constructor(
+    faucetStoreParameters: DeepReadonly<FaucetStoreParameters> = {
+      dependencies: null,
+      eventBus: null
     }
+  ) {
+    this.faucetStoreParameters = faucetStoreParameters
   }
 
-  public withFaucetUrl(url: string): FaucetStoreBuilder {
-    if (!url.length) {
-      throw new UnspecifiedError('Ooops... An url must be provided to build a Faucet store...')
+  public withDependencies(dependencies: Dependencies): FaucetStoreBuilder {
+    if (!this.isDependencies(dependencies)) {
+      throw new UnspecifiedError(
+        'Ooops... Dependencies must be provided to build a Faucet store...'
+      )
     }
-    return new FaucetStoreBuilder({ ...this.storeParameters, url })
+    return new FaucetStoreBuilder({ ...this.faucetStoreParameters, dependencies })
   }
 
-  public withFaucetEventListeners(initEventListeners: boolean): FaucetStoreBuilder {
+  public withEventBus(eventBus: DeepReadonly<EventBus>): FaucetStoreBuilder {
+    if (!(eventBus instanceof EventBus)) {
+      throw new UnspecifiedError(
+        'Ooops... A valid eventBus instance must be provided to build a Faucet store...'
+      )
+    }
     return new FaucetStoreBuilder({
-      ...this.storeParameters,
-      initEventListeners
+      ...this.faucetStoreParameters,
+      eventBus
     })
   }
 
@@ -43,15 +51,26 @@ export class FaucetStoreBuilder {
         'Ooops... Something went wrong when trying to build a Faucet store...'
       )
     }
-    const faucetGateway = new HTTPFaucetGateway(this.storeParameters.url)
-    const faucetStore = configureStore({ faucetGateway }, eventBus)
-    if (this.storeParameters.initEventListeners) {
-      initFaucetEventListeners(faucetStore)
-    }
+    const faucetGateway = (this.faucetStoreParameters.dependencies as Dependencies).faucetGateway
+    const faucetStore = configureStore(
+      { faucetGateway },
+      this.faucetStoreParameters.eventBus as EventBus
+    )
+    initFaucetEventListeners(faucetStore, this.faucetStoreParameters.eventBus as EventBus)
     return faucetStore
   }
 
   private invariant(): boolean {
-    return this.storeParameters.url.length > 0
+    return (
+      !!this.faucetStoreParameters.dependencies &&
+      this.isDependencies(this.faucetStoreParameters.dependencies) &&
+      !!this.faucetStoreParameters.eventBus &&
+      this.faucetStoreParameters.eventBus instanceof EventBus
+    )
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private isDependencies(value: any): value is Dependencies {
+    return 'faucetGateway' in value
   }
 }
