@@ -1,39 +1,53 @@
 import type { Store, AnyAction } from 'redux'
+import { EventBus } from 'ts-bus'
+import { HTTPFaucetGateway } from 'adapters/faucet/secondary/graphql/HTTPFaucetGateway'
 import { UnspecifiedError } from 'domain/faucet/entity/error'
 import { FaucetStoreBuilder } from './store.builder'
-import type { StoreParameters } from './store.builder'
+import type { FaucetStoreParameters } from './store.builder'
 import type { AppState } from '../appState'
+import { Dependencies } from '../store'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParamters: StoreParameters
-    faucetUrl: string
-    initEventListeners: boolean
+    initialStoreParameters: FaucetStoreParameters
+    dependencies: Dependencies
+    eventBus: EventBus
   }> & {
     expectedStatus: boolean
   }
 >
 
+const eventBusInstance = new EventBus()
+const faucetGateway = new HTTPFaucetGateway('http://super-fake-faucet-url.network')
+
 describe('Build a Faucet store', () => {
   describe.each`
-    initialStoreParamters                              | faucetUrl                                 | initEventListeners | expectedStatus
-    ${undefined}                                       | ${'http://super-fake-faucet-url.network'} | ${true}            | ${true}
-    ${undefined}                                       | ${'http://super-fake-faucet-url.network'} | ${false}           | ${true}
-    ${{ url: 'http://super-fake-faucet-url.network' }} | ${undefined}                              | ${false}           | ${true}
-    ${undefined}                                       | ${''}                                     | ${true}            | ${false}
+    initialStoreParameters                                             | dependencies              | eventBus            | expectedStatus
+    ${undefined}                                                       | ${{ faucetGateway }}      | ${eventBusInstance} | ${true}
+    ${{ eventBus: eventBusInstance }}                                  | ${{ faucetGateway }}      | ${undefined}        | ${true}
+    ${{ eventBus: eventBusInstance, dependencies: { faucetGateway } }} | ${undefined}              | ${undefined}        | ${true}
+    ${{ dependencies: { faucetGateway } }}                             | ${undefined}              | ${eventBusInstance} | ${true}
+    ${undefined}                                                       | ${undefined}              | ${eventBusInstance} | ${false}
+    ${undefined}                                                       | ${undefined}              | ${{}}               | ${false}
+    ${undefined}                                                       | ${{ foo: faucetGateway }} | ${eventBusInstance} | ${false}
+    ${undefined}                                                       | ${{ faucetGateway }}      | ${undefined}        | ${false}
+    ${undefined}                                                       | ${undefined}              | ${undefined}        | ${false}
+    ${{ eventBus: {} }}                                                | ${undefined}              | ${undefined}        | ${false}
+    ${{ dependencies: {} }}                                            | ${undefined}              | ${undefined}        | ${false}
+    ${{ dependencies: { foo: faucetGateway } }}                        | ${undefined}              | ${undefined}        | ${false}
   `(
-    'Given that faucetUrl is <$faucetUrl> and initEventListeners is <$initEventListeners>',
-    ({ initialStoreParamters, faucetUrl, initEventListeners, expectedStatus }: Data) => {
+    'Given that dependencies are <$dependencies> and eventBus is <$eventBus>',
+    ({ initialStoreParameters, dependencies, eventBus, expectedStatus }: Data) => {
       describe('When building a Faucet Store', () => {
         const store = (): Store<AppState, AnyAction> => {
           // eslint-disable-next-line functional/no-let
-          let faucetStoreBuilder = new FaucetStoreBuilder(initialStoreParamters)
+          let faucetStoreBuilder = new FaucetStoreBuilder(initialStoreParameters)
 
-          if (faucetUrl !== undefined) {
-            faucetStoreBuilder = faucetStoreBuilder.withFaucetUrl(faucetUrl)
+          if (dependencies !== undefined) {
+            faucetStoreBuilder = faucetStoreBuilder.withDependencies(dependencies)
           }
-          if (initEventListeners !== undefined) {
-            faucetStoreBuilder = faucetStoreBuilder.withFaucetEventListeners(initEventListeners)
+          if (eventBus !== undefined) {
+            faucetStoreBuilder = faucetStoreBuilder.withEventBus(eventBus)
           }
           return faucetStoreBuilder.build()
         }
