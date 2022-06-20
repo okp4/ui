@@ -10,6 +10,7 @@ import { configureStore } from '../store'
 export type FaucetStoreParameters = {
   dependencies: Dependencies | null
   eventBus: EventBus | null
+  preloadedState?: AppState
 }
 
 export class FaucetStoreBuilder {
@@ -45,6 +46,18 @@ export class FaucetStoreBuilder {
     })
   }
 
+  public withPreloadedState(preloadedState: DeepReadonly<AppState>): FaucetStoreBuilder {
+    if (!Object.keys(preloadedState).length) {
+      throw new UnspecifiedError(
+        'Ooops... A valid preloadedState must be provided to build a Faucet store...'
+      )
+    }
+    return new FaucetStoreBuilder({
+      ...this.faucetStoreParameters,
+      preloadedState
+    })
+  }
+
   public build(): Store<AppState, AnyAction> {
     if (!this.invariant()) {
       throw new UnspecifiedError(
@@ -54,7 +67,8 @@ export class FaucetStoreBuilder {
     const faucetGateway = (this.faucetStoreParameters.dependencies as Dependencies).faucetGateway
     const faucetStore = configureStore(
       { faucetGateway },
-      this.faucetStoreParameters.eventBus as EventBus
+      this.faucetStoreParameters.eventBus as EventBus,
+      this.faucetStoreParameters.preloadedState ?? undefined
     )
     initFaucetEventListeners(faucetStore, this.faucetStoreParameters.eventBus as EventBus)
     return faucetStore
@@ -62,6 +76,9 @@ export class FaucetStoreBuilder {
 
   private invariant(): boolean {
     return (
+      (this.faucetStoreParameters.preloadedState
+        ? Object.keys(this.faucetStoreParameters.preloadedState).length > 0
+        : true) &&
       !!this.faucetStoreParameters.dependencies &&
       this.isDependencies(this.faucetStoreParameters.dependencies) &&
       !!this.faucetStoreParameters.eventBus &&
