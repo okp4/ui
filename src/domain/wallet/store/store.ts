@@ -16,10 +16,12 @@ export interface Dependencies {
 
 export const configureStore = (
   dependencies: Partial<Dependencies>,
-  eventBus: DeepReadonly<EventBus>
+  eventBus: DeepReadonly<EventBus>,
+  preloadedState?: DeepReadonly<AppState>
 ): Store<AppState> =>
   legacy_createStore(
     rootReducer,
+    preloadedState,
     composeWithDevTools(
       applyMiddleware(
         thunk.withExtraArgument(dependencies) as ThunkMiddleware<AppState, Action, Dependencies>,
