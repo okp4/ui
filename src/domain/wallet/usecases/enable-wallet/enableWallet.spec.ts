@@ -1,7 +1,6 @@
 import { Map, List } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { ReduxStore } from '../../store/store'
-import { configureStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
 import { enableWallet } from './enableWallet'
 import { InMemoryWalletGateway } from 'adapters/wallet/secondary/InMemoryWalletGateway'
@@ -14,6 +13,7 @@ import type {
 import { AccountBuilder } from 'domain/wallet/builders/account.builder'
 import { WalletRegistryGateway } from 'adapters/wallet/secondary/WalletRegistryGateway'
 import type { DeepReadonly } from 'superTypes'
+import { WalletStoreBuilder } from 'domain/wallet/store/builder/store.builder'
 
 interface InitialProps {
   walletRegistryGateway: WalletRegistryGateway
@@ -63,7 +63,10 @@ describe('Enable wallet', () => {
     const walletRegistryGateway = new WalletRegistryGateway()
     const inMemoryGateway1 = new InMemoryWalletGateway()
     walletRegistryGateway.register(inMemoryGateway1)
-    const store = configureStore({ walletRegistryGateway }, eventBus)
+    const store = new WalletStoreBuilder()
+      .withEventBus(eventBus)
+      .withDependencies({ walletRegistryGateway })
+      .build()
     const initialState = store.getState()
     return { walletRegistryGateway, inMemoryGateway1, store, initialState }
   }
