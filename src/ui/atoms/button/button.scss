@@ -29,7 +29,7 @@ $background-colors: (
 
     @each $background-color-key, $background-color-value in $background-colors {
       &.background-color-#{$background-color-key} {
-        background: themed($background-color-value);
+        background: themed('cosmos-header-background');
       }
     }
 

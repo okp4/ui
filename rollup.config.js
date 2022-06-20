@@ -61,10 +61,8 @@ export default [
         plugins: [
           url({
             url: "inline",
-            maxSize: 10,
-            fallback: "copy", 
-          }),
-          
+            fallback: "copy"
+          }),          
         ],
       }),      
       graphql(),

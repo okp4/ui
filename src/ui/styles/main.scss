@@ -14,3 +14,8 @@ $font-sizes: (
     font-size: $font-size-value;
   }
 }
+
+:root {
+  --light: url('/assets/images/cosmos-clear.png');
+  --dark: url('/assets/images/cosmos-dark.png');
+}
