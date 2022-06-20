@@ -12,6 +12,7 @@ type Data = Readonly<
     initialStoreParameters: FaucetStoreParameters
     dependencies: Dependencies
     eventBus: EventBus
+    preloadedState: AppState
   }> & {
     expectedStatus: boolean
   }
@@ -19,25 +20,30 @@ type Data = Readonly<
 
 const eventBusInstance = new EventBus()
 const faucetGateway = new HTTPFaucetGateway('http://super-fake-faucet-url.network')
+const state: AppState = {
+  address: '1234567890000'
+}
 
 describe('Build a Faucet store', () => {
   describe.each`
-    initialStoreParameters                                             | dependencies              | eventBus            | expectedStatus
-    ${undefined}                                                       | ${{ faucetGateway }}      | ${eventBusInstance} | ${true}
-    ${{ eventBus: eventBusInstance }}                                  | ${{ faucetGateway }}      | ${undefined}        | ${true}
-    ${{ eventBus: eventBusInstance, dependencies: { faucetGateway } }} | ${undefined}              | ${undefined}        | ${true}
-    ${{ dependencies: { faucetGateway } }}                             | ${undefined}              | ${eventBusInstance} | ${true}
-    ${undefined}                                                       | ${undefined}              | ${eventBusInstance} | ${false}
-    ${undefined}                                                       | ${undefined}              | ${{}}               | ${false}
-    ${undefined}                                                       | ${{ foo: faucetGateway }} | ${eventBusInstance} | ${false}
-    ${undefined}                                                       | ${{ faucetGateway }}      | ${undefined}        | ${false}
-    ${undefined}                                                       | ${undefined}              | ${undefined}        | ${false}
-    ${{ eventBus: {} }}                                                | ${undefined}              | ${undefined}        | ${false}
-    ${{ dependencies: {} }}                                            | ${undefined}              | ${undefined}        | ${false}
-    ${{ dependencies: { foo: faucetGateway } }}                        | ${undefined}              | ${undefined}        | ${false}
+    initialStoreParameters                                             | dependencies              | eventBus            | preloadedState | expectedStatus
+    ${undefined}                                                       | ${{ faucetGateway }}      | ${eventBusInstance} | ${state}       | ${true}
+    ${{ eventBus: eventBusInstance }}                                  | ${{ faucetGateway }}      | ${undefined}        | ${undefined}   | ${true}
+    ${{ eventBus: eventBusInstance, dependencies: { faucetGateway } }} | ${undefined}              | ${undefined}        | ${undefined}   | ${true}
+    ${{ dependencies: { faucetGateway } }}                             | ${undefined}              | ${eventBusInstance} | ${undefined}   | ${true}
+    ${undefined}                                                       | ${undefined}              | ${eventBusInstance} | ${undefined}   | ${false}
+    ${undefined}                                                       | ${undefined}              | ${{}}               | ${undefined}   | ${false}
+    ${undefined}                                                       | ${{ foo: faucetGateway }} | ${eventBusInstance} | ${undefined}   | ${false}
+    ${undefined}                                                       | ${{ faucetGateway }}      | ${undefined}        | ${undefined}   | ${false}
+    ${undefined}                                                       | ${undefined}              | ${undefined}        | ${undefined}   | ${false}
+    ${undefined}                                                       | ${undefined}              | ${undefined}        | ${{}}          | ${false}
+    ${{ preloadedState: {} }}                                          | ${undefined}              | ${undefined}        | ${undefined}   | ${false}
+    ${{ eventBus: {} }}                                                | ${undefined}              | ${undefined}        | ${undefined}   | ${false}
+    ${{ dependencies: {} }}                                            | ${undefined}              | ${undefined}        | ${undefined}   | ${false}
+    ${{ dependencies: { foo: faucetGateway } }}                        | ${undefined}              | ${undefined}        | ${undefined}   | ${false}
   `(
-    'Given that dependencies are <$dependencies> and eventBus is <$eventBus>',
-    ({ initialStoreParameters, dependencies, eventBus, expectedStatus }: Data) => {
+    'Given that dependencies are <$dependencies>, preloadedState is <$preloadedState> and eventBus is <$eventBus>',
+    ({ initialStoreParameters, dependencies, eventBus, expectedStatus, preloadedState }: Data) => {
       describe('When building a Faucet Store', () => {
         const store = (): Store<AppState, AnyAction> => {
           // eslint-disable-next-line functional/no-let
@@ -49,6 +55,9 @@ describe('Build a Faucet store', () => {
           if (eventBus !== undefined) {
             faucetStoreBuilder = faucetStoreBuilder.withEventBus(eventBus)
           }
+          if (preloadedState !== undefined) {
+            faucetStoreBuilder = faucetStoreBuilder.withPreloadedState(preloadedState)
+          }
           return faucetStoreBuilder.build()
         }
 
@@ -56,6 +65,9 @@ describe('Build a Faucet store', () => {
           if (expectedStatus) {
             expect(store()).toBeDefined()
             expect(store()).toHaveProperty('dispatch')
+            if (preloadedState) {
+              expect(store().getState()).toStrictEqual(state)
+            }
           } else {
             expect(store).toThrowError(UnspecifiedError)
           }
