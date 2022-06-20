@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/typedef */
 import { EventBus } from 'ts-bus'
 import type { AppState } from 'domain/faucet/store/appState'
 import type { ReduxStore } from 'domain/faucet/store/store'
-import { configureStore } from 'domain/faucet/store/store'
+import { FaucetStoreBuilder } from 'domain/faucet/store/builder/store.builder'
+import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/graphql/InMemoryFaucetGateway'
 import type { DeepReadonly } from 'superTypes'
 import { setAddress } from './setAddress'
 
@@ -15,7 +15,11 @@ interface InitialProps {
 describe('Set an address', () => {
   const init = (): InitialProps => {
     const eventBus = new EventBus()
-    const store = configureStore({}, eventBus)
+    const faucetGateway = new InMemoryFaucetGateway()
+    const store = new FaucetStoreBuilder()
+      .withEventBus(eventBus)
+      .withDependencies({ faucetGateway })
+      .build()
     const initialState = store.getState()
     return { store, initialState, eventBus }
   }

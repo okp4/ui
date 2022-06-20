@@ -1,7 +1,6 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { registerTask } from './registerTask'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
