@@ -1,5 +1,62 @@
 # OKP4 UI changelog
 
+# [1.7.0](https://github.com/okp4/ui/compare/v1.6.0...v1.7.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* **adapter:** wrong path for eventBus instance ([be0eeb9](https://github.com/okp4/ui/commit/be0eeb9df8c7dc3e9c27b02ed410fa405d1f3271))
+* add images copy into rollup config ([ad57c1b](https://github.com/okp4/ui/commit/ad57c1b41c2c20c1b6a5556c081a6e3f893e7c99))
+* add urls stylesheet to rollup config ([7eb7ae7](https://github.com/okp4/ui/commit/7eb7ae71214937210306f8fb5cafdfce9591a79f))
+* card responsiveness ([0515ed5](https://github.com/okp4/ui/commit/0515ed576bb74d68c0c793cd0c5c447ca6afe274))
+* ignore type checking for elements in main storybook config file ([9d65d69](https://github.com/okp4/ui/commit/9d65d691415f1f101f870d37f5d030cae5ab0d3f))
+* remove background images & affiliated urls ([8433f61](https://github.com/okp4/ui/commit/8433f6111ac095abbb9e08e5ac5a3c3ca48a4072))
+* remove images from destination path ([3182ff7](https://github.com/okp4/ui/commit/3182ff7203066df243da0a82f8cbbbe20d16a1f4))
+* remove undefined types ([8ccc350](https://github.com/okp4/ui/commit/8ccc3502ca20b56557055576cd1db5b5b1768045))
+
+
+### Features
+
+* **adapter:** create urql client for faucet gateway ([bb72676](https://github.com/okp4/ui/commit/bb726761757123b7e3dfa444bb011071dd9c77e3))
+* **adapter:** switch from rest implementation to graphql in HTTPFaucetGateway ([7d5e702](https://github.com/okp4/ui/commit/7d5e7025b99493ab6e07e8bb544a7827574f6e0e))
+* add cosmos images to assets ([d9db584](https://github.com/okp4/ui/commit/d9db5844e27b3102512ac562674d1ef52b54b9ee))
+* add footer component with stylesheet & en/fr translation ([99e7b03](https://github.com/okp4/ui/commit/99e7b033e82cb2942bab5e6333c81a5cd3472efe))
+* add internationalization to story ([704e957](https://github.com/okp4/ui/commit/704e95756889ac6b087fa90eaae26aacc25219c3))
+* add language functions to utils ([e678e1b](https://github.com/okp4/ui/commit/e678e1ba6498154c52c03ece78681c9c9a72b826))
+* add language method to utils ([c7559f8](https://github.com/okp4/ui/commit/c7559f807690a7999889c099e834144147a7ab42))
+* add language regex check ([da095e2](https://github.com/okp4/ui/commit/da095e2d862aa401e46d3b2ed3572e59f6f5ad2a))
+* add language switcher ([24c583e](https://github.com/okp4/ui/commit/24c583eaf84c601c2707a7365c23da490cd69f90))
+* add language switcher story ([e449a2f](https://github.com/okp4/ui/commit/e449a2f3a427ed5c3747f8a44a41cf1eb183c649))
+* add languages props to switcher ([a54cf0f](https://github.com/okp4/ui/commit/a54cf0f8b6b4c109cc5c71d5ea6d6b89231c10bb))
+* add new cosmos variables ([7d7ab2a](https://github.com/okp4/ui/commit/7d7ab2af9e6c728f1b34adf512fc737798b7a297))
+* add okp4 to classnames ([08840dd](https://github.com/okp4/ui/commit/08840dde1b8555ddd8be03df3b2ce3471e4525eb))
+* add UseTranslationResponse export type ([ec22f71](https://github.com/okp4/ui/commit/ec22f710ff7d576fd479d64b58a08f68fa82afde))
+* **builder:** add new ErrorStoreBuilder ([b061f86](https://github.com/okp4/ui/commit/b061f86075e8d7d35505677bb6ad57f5f6028796))
+* **builder:** add new FaucetStoreBuilder ([a35385a](https://github.com/okp4/ui/commit/a35385a635729a9b56e209f06a59b9ee9071af81))
+* **builder:** add new TaskStoreBuilder ([df1201f](https://github.com/okp4/ui/commit/df1201f931a19c480a9e2a444c7b3b31c4c8cf68))
+* **builder:** add new WalletStoreBuilder ([79d9bf3](https://github.com/okp4/ui/commit/79d9bf395fc78d561ac035a4b7d94ac53f304b35))
+* change display property to flex & add min-height ([e0bba1e](https://github.com/okp4/ui/commit/e0bba1e558737c11bc3a2247905453a29e19f9cc))
+* change flex display by grid ([b80425a](https://github.com/okp4/ui/commit/b80425a8cf2305ba42e3f5337de62fa305d6abe9))
+* complete story ([41436d2](https://github.com/okp4/ui/commit/41436d2da5f5b69143e0f22725d42391408f1429))
+* **context:** create store contexts and export them ([626b93d](https://github.com/okp4/ui/commit/626b93d1a0def53dfa1bf74ff970df5c64b7477a))
+* enforce language types ([efb079b](https://github.com/okp4/ui/commit/efb079b874cf68f58e5550c4fafc2d9557b33d16))
+* enforce typography usage ([479b3b7](https://github.com/okp4/ui/commit/479b3b754a93a95e863185270cb602572f709b0b))
+* generalise brand link & rename css class ([ae85cce](https://github.com/okp4/ui/commit/ae85cce4fc25dda10a554bd53a8ea7d07954c5f2))
+* generalise component ([f957265](https://github.com/okp4/ui/commit/f9572655a745cab94fb8d89e92f98548f245d832))
+* **hook:** create store hooks and export them ([a436da3](https://github.com/okp4/ui/commit/a436da3ad237d08120dbcc95fb8a7f6c572758bb))
+* improve internationalization story ([59825c2](https://github.com/okp4/ui/commit/59825c205a6cd2ad8f71cb2caedfde625b9b65f5))
+* improve language type ([c5971cd](https://github.com/okp4/ui/commit/c5971cdcb104aae05cc87364621fd292837f5258))
+* improve map usage ([ae05c3c](https://github.com/okp4/ui/commit/ae05c3c7ce801ac8a8366b03c1a032828f6429c4))
+* improve switcher tsx ([53670c8](https://github.com/okp4/ui/commit/53670c8db769402329a62524f82ae8b53dcf185b))
+* make switcher change language ([5fad121](https://github.com/okp4/ui/commit/5fad121d312a3c606e3d10c4e87e670acbd6f29b))
+* **redux:** add preloadedState parameter for faucet store ([3eb7592](https://github.com/okp4/ui/commit/3eb7592f86f9096af74172da056dee202a90fa86))
+* **redux:** add preloadedState parameter for wallet store ([ac4d229](https://github.com/okp4/ui/commit/ac4d2298e149eb79eb32a609d384f40308e26d30))
+* refine language property ([1323cd9](https://github.com/okp4/ui/commit/1323cd994c93a94126af12aa54933fc3a7dc135f))
+* remove i18n instance export ([fa0f185](https://github.com/okp4/ui/commit/fa0f1852ec820a319623b014051bcaa5c8720d1f))
+* remove query string from i18n ([d767520](https://github.com/okp4/ui/commit/d76752063646a2af34717c4be94303a15e2724df))
+* **ui:** add a store provider to handle multiple context injection ([e680e9e](https://github.com/okp4/ui/commit/e680e9e0f2174376f69a71af8bbbafc6ab00bc67))
+* update internationalization story ([4555ac0](https://github.com/okp4/ui/commit/4555ac0f5b952aa5de9373a84b9859ba8cb88520))
+
 # [1.6.0](https://github.com/okp4/ui/compare/v1.5.0...v1.6.0) (2022-05-30)
 
 
