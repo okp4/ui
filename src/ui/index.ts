@@ -9,4 +9,4 @@ export * from './atoms/theme/ThemeProvider'
 export * from './atoms/theme/ThemeSwitcher'
 export * from './molecules/header/Header'
 export * from './atoms/languageSwitcher/LanguageSwitcher'
-
+export * from './molecules/footer/Footer'

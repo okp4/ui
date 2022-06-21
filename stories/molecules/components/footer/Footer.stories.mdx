@@ -1,0 +1,189 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Footer } from 'ui/molecules/footer/Footer'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { loadTranslations } from 'i18n/utils'
+import { useTranslation } from 'hook/useTranslation'
+import footer_en from './i18n/footer_en.json'
+import footer_fr from './i18n/footer_fr.json'
+import languageSwitcher_sv from './i18n/languageSwitcher_sv.json'
+import languageSwitcher_it from './i18n/languageSwitcher_it.json'
+import { Button } from 'ui/atoms/button/Button'
+
+<Meta
+  title="Molecules/Footer"
+  component={Footer}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code',
+        format: true,
+        language: 'jsx'
+      }
+    }
+  }}
+  decorators={[
+    Story => {
+      return (
+        <ThemeProvider>
+          <div style={{ padding: '20px 30px' }}>
+            <ThemeSwitcher />
+          </div>
+          <Story />
+        </ThemeProvider>
+      )
+    }
+  ]}
+/>
+
+# Footer
+
+> Helps users to find useful information and site functionalities.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+**Footer** is a responsive component which embeds two main elements:
+
+- A `LanguageSwitcher` component that offers users the ability to change the language of the application.
+- A `lastElement` Optional element that is positioned last in the reading flow.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    languages: {
+      table: {
+        type: { summary: 'Languages' }
+      }
+    },
+    lastElement: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    }
+  }}
+  args={{
+    languages: [
+      {
+        name: 'English',
+        lng: 'en'
+      },
+      {
+        name: 'Français',
+        lng: 'fr'
+      }
+    ]
+  }}
+>
+  {args => <Footer {...args} lastElement={renderBrandLink()} />}
+</Story>
+
+export const renderBrandLink = () => {
+  const translationsToLoad = [
+    { lng: 'en', namespace: 'footer', resource: footer_en },
+    { lng: 'fr', namespace: 'footer', resource: footer_fr }
+  ]
+  loadTranslations(translationsToLoad)
+  const { t } = useTranslation()
+  return (
+    <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
+      {`${t('footer:brand-link')} `}
+      <Typography color="highlighted-text" fontSize="x-small" fontWeight="bold">
+        <a
+          href="https://okp4.network/"
+          rel="author noreferrer"
+          target="_blank"
+          style={{ textDecoration: 'unset', color: 'inherit' }}
+        >
+          ØKP4
+        </a>
+      </Typography>
+    </Typography>
+  )
+}
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## Languages
+
+`languages` takes a list of languages to be implemented in the `language switcher`.
+See <a href="?path=/docs/guidelines-internationalization--page">internationalization</a>
+for information on how to load translations.
+
+<Canvas>
+  <Story name="Languages">
+    {args => {
+      const translationsToLoad = [
+        { lng: 'it', namespace: 'languageSwitcher', resource: languageSwitcher_it },
+        { lng: 'sv', namespace: 'languageSwitcher', resource: languageSwitcher_sv }
+      ]
+      loadTranslations(translationsToLoad)
+      return (
+        <Footer
+          languages={[
+            {
+              name: 'English',
+              lng: 'en'
+            },
+            {
+              name: 'Français',
+              lng: 'fr'
+            },
+            {
+              name: 'Italiano',
+              lng: 'it'
+            },
+            {
+              name: 'Svenska',
+              lng: 'sv'
+            }
+          ]}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Last element
+
+`lastElement` is an optional property to add an additional element to the component.
+
+<Canvas>
+  <Story name="Last element">
+    {args => (
+      <Footer
+        languages={[
+          {
+            name: 'English',
+            lng: 'en'
+          },
+          {
+            name: 'Français',
+            lng: 'fr'
+          }
+        ]}
+        lastElement={<Button label="ØKP4" />}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Responsiveness
+
+The component was built according to the principles of Responsive Web Design (see <a href="?path=/docs/guidelines-responsive-web-design--page">dedicated guideline</a> ) in particular thanks to the use of media queries and a responsive grid.
+This allows the component to adapt to any screen size, from the smallest phone to a large desktop screen or television.
+
+## Prerequisites
+
+It is mandatory to wrap the component in a `ThemeProvider` for the theming to work.
+See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.

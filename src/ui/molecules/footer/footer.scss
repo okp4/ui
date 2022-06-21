@@ -1,0 +1,21 @@
+@import '../../styles/themes.scss';
+
+.okp4-footer-main {
+  @include with-theme() {
+    background: themed(footer-background);
+    width: calc(100% - 80px);
+    min-height: 40px;
+    padding: 45px 20px 45px 60px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 10px;
+
+    @media screen and (max-width: 768px) {
+      padding: 25px 10px;
+      width: calc(100% - 20px);
+      justify-content: space-around;
+    }
+  }
+}

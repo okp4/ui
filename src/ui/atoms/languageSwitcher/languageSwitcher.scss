@@ -8,6 +8,7 @@
   @media screen and (max-width: 480px) {
     grid-template-columns: none;
     justify-content: center;
+    min-width: unset;
   }
 
   .okp4-languages {
