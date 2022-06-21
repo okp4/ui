@@ -7,8 +7,8 @@ import { loadTranslations } from 'i18n/utils'
 import { useTranslation } from 'hook/useTranslation'
 import footer_en from './i18n/footer_en.json'
 import footer_fr from './i18n/footer_fr.json'
-import footer_se from './i18n/footer_se.json'
-import footer_it from './i18n/footer_it.json'
+import languageSwitcher_sv from './i18n/languageSwitcher_sv.json'
+import languageSwitcher_it from './i18n/languageSwitcher_it.json'
 import { Button } from 'ui/atoms/button/Button'
 
 <Meta
@@ -40,7 +40,7 @@ import { Button } from 'ui/atoms/button/Button'
 
 # Footer
 
-> Helps users to find useful information and site functionality.
+> Helps users to find useful information and site functionalities.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
@@ -49,7 +49,7 @@ import { Button } from 'ui/atoms/button/Button'
 **Footer** is a responsive component which embeds two main elements:
 
 - A `LanguageSwitcher` component that offers users the ability to change the language of the application.
-- A `secondaryElement` Optional element that is positioned last in the reading flow.
+- A `lastElement` Optional element that is positioned last in the reading flow.
 
 ## Overview
 
@@ -57,12 +57,11 @@ import { Button } from 'ui/atoms/button/Button'
   name="Overview"
   argTypes={{
     languages: {
-      control: false,
       table: {
         type: { summary: 'Languages' }
       }
     },
-    secondaryElement: {
+    lastElement: {
       control: false,
       table: {
         type: { summary: 'JSX.Element' }
@@ -82,36 +81,32 @@ import { Button } from 'ui/atoms/button/Button'
     ]
   }}
 >
-  {args => {
-    const translationsToLoad = [
-      { lng: 'en', namespace: 'footer', resource: footer_en },
-      { lng: 'se', namespace: 'languageSwitcher', resource: footer_se },
-      { lng: 'it', namespace: 'languageSwitcher', resource: footer_it },
-      { lng: 'se', namespace: 'footer', resource: footer_se },
-      { lng: 'it', namespace: 'footer', resource: footer_it },
-      { lng: 'fr', namespace: 'footer', resource: footer_fr }
-    ]
-    loadTranslations(translationsToLoad)
-    const { t } = useTranslation()
-    const secondaryElement = renderSecondaryElement(t)
-    return (
-      <div style={{ width: '100%' }}>
-        <Footer {...args} secondaryElement={secondaryElement} />
-      </div>
-    )
-  }}
+  {args => <Footer {...args} lastElement={renderBrandLink()} />}
 </Story>
 
-export const renderSecondaryElement = t => (
-  <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
-    {t('footer:brand-link')}{' '}
-    <Typography color="highlighted-text" fontSize="x-small" fontWeight="bold">
-      <a href="https://okp4.network/" rel="author noreferrer" target="_blank">
-        ØKP4
-      </a>
+export const renderBrandLink = () => {
+  const translationsToLoad = [
+    { lng: 'en', namespace: 'footer', resource: footer_en },
+    { lng: 'fr', namespace: 'footer', resource: footer_fr }
+  ]
+  loadTranslations(translationsToLoad)
+  const { t } = useTranslation()
+  return (
+    <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
+      {`${t('footer:brand-link')} `}
+      <Typography color="highlighted-text" fontSize="x-small" fontWeight="bold">
+        <a
+          href="https://okp4.network/"
+          rel="author noreferrer"
+          target="_blank"
+          style={{ textDecoration: 'unset', color: 'inherit' }}
+        >
+          ØKP4
+        </a>
+      </Typography>
     </Typography>
-  </Typography>
-)
+  )
+}
 
 ---
 
@@ -127,37 +122,44 @@ for information on how to load translations.
 
 <Canvas>
   <Story name="Languages">
-    {args => (
-      <Footer
-        languages={[
-          {
-            name: 'English',
-            lng: 'en'
-          },
-          {
-            name: 'Français',
-            lng: 'fr'
-          },
-          {
-            name: 'Svenska',
-            lng: 'se'
-          },
-          {
-            name: 'Italiano',
-            lng: 'it'
-          }
-        ]}
-      />
-    )}
+    {args => {
+      const translationsToLoad = [
+        { lng: 'it', namespace: 'languageSwitcher', resource: languageSwitcher_it },
+        { lng: 'sv', namespace: 'languageSwitcher', resource: languageSwitcher_sv }
+      ]
+      loadTranslations(translationsToLoad)
+      return (
+        <Footer
+          languages={[
+            {
+              name: 'English',
+              lng: 'en'
+            },
+            {
+              name: 'Français',
+              lng: 'fr'
+            },
+            {
+              name: 'Italiano',
+              lng: 'it'
+            },
+            {
+              name: 'Svenska',
+              lng: 'sv'
+            }
+          ]}
+        />
+      )
+    }}
   </Story>
 </Canvas>
 
-## Secondary element
+## Last element
 
-`secondaryElement` is an optional property to add an additional element to the component.
+`lastElement` is an optional property to add an additional element to the component.
 
 <Canvas>
-  <Story name="Secondary element">
+  <Story name="Last element">
     {args => (
       <Footer
         languages={[
@@ -170,13 +172,11 @@ for information on how to load translations.
             lng: 'fr'
           }
         ]}
-        secondaryElement={buttons}
+        lastElement={<Button label="ØKP4" />}
       />
     )}
   </Story>
 </Canvas>
-
-export const buttons = <Button label="ØKP4" />
 
 ## Responsiveness
 

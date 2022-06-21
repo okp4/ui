@@ -4,25 +4,25 @@ import { LanguageSwitcher } from '../../atoms/languageSwitcher/LanguageSwitcher'
 import type { DeepReadonly } from 'superTypes'
 import './footer.scss'
 
-type FooterProps = DeepReadonly<{
+export type FooterProps = DeepReadonly<{
   /**
    * The languages used for the translation service.
    */
   readonly languages: DeepReadonly<Languages>
   /**
-   * Secondary element used to render additional element(s).
+   * Last element used to render additional element(s).
    */
-  readonly secondaryElement?: DeepReadonly<JSX.Element>
+  readonly lastElement?: DeepReadonly<JSX.Element>
 }>
 
 export const Footer: React.FC<FooterProps> = ({
   languages,
-  secondaryElement
+  lastElement
 }: FooterProps): JSX.Element => {
   return (
     <div className="okp4-footer-main">
       <LanguageSwitcher languages={languages} />
-      {secondaryElement && secondaryElement}
+      {lastElement && lastElement}
     </div>
   )
 }

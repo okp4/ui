@@ -6,22 +6,16 @@
     width: calc(100% - 80px);
     min-height: 40px;
     padding: 45px 20px 45px 60px;
-    align-content: center;
     align-items: center;
-    justify-content: space-around;
-    column-gap: 10px;
+    justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
-    row-gap: 15px;
+    gap: 15px 10px;
 
     @media screen and (max-width: 768px) {
       padding: 25px 10px;
       width: calc(100% - 20px);
-    }
-
-    a {
-      text-decoration: unset;
-      color: inherit;
+      justify-content: space-around;
     }
   }
 }
