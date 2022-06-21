@@ -1,15 +1,14 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { BusEvent } from 'ts-bus/types'
-import { configureStore } from 'domain/task/store/store'
 import type { ReduxStore } from 'domain/task/store/store'
 import type { AppState } from 'domain/task/store/appState'
-import { initTaskEventListeners } from 'adapters/task/primary/eventListeners'
 import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventMetadata } from 'eventBus/eventBus'
 import type { Task } from 'domain/task/entity/task'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
+import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -62,8 +61,10 @@ const initialState: AppState = {
 
 const init = (): InitialProps => {
   const eventBus = new EventBus()
-  const store = configureStore(eventBus, initialState)
-  initTaskEventListeners(store, eventBus)
+  const store = new TaskStoreBuilder()
+    .withEventBus(eventBus)
+    .withPreloadedState(initialState)
+    .build()
   return { store, eventBus }
 }
 

@@ -3,12 +3,12 @@ import { EventBus } from 'ts-bus'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/graphql/InMemoryFaucetGateway'
 import type { ReduxStore } from 'domain/faucet/store/store'
-import { configureStore } from 'domain/faucet/store/store'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import { EventParameter, getExpectedEventParameter } from 'domain/task/helper/test.helper'
 import { requestFunds } from './requestFunds'
 import { DeepReadonly } from 'superTypes'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
+import { FaucetStoreBuilder } from 'domain/faucet/store/builder/store.builder'
 
 interface InitialProps {
   store: ReduxStore
@@ -69,7 +69,10 @@ const gatewayError = new ErrorBuilder()
 
 const init = (): InitialProps => {
   const faucetGateway = new InMemoryFaucetGateway()
-  const store = configureStore({ faucetGateway }, eventBus)
+  const store = new FaucetStoreBuilder()
+    .withEventBus(eventBus)
+    .withDependencies({ faucetGateway })
+    .build()
   return { store, faucetGateway }
 }
 

@@ -1,7 +1,6 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import short from 'short-uuid'
 import { EventBus } from 'ts-bus'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { registerTask } from './registerTask'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
@@ -11,6 +10,7 @@ import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
+import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -27,7 +27,7 @@ const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 jest.mock('../../entity/error')
 
 const init = (): InitialProps => {
-  const store = configureStore(eventBus)
+  const store = new TaskStoreBuilder().withEventBus(eventBus).build()
   return { store }
 }
 

@@ -1,10 +1,13 @@
-import { eventBus } from 'src/eventBus/eventBus'
+import type { EventBus } from 'ts-bus'
 import type { WalletAccountsRetrievedEvent } from 'domain/wallet/type/event.type'
 import { setAddress } from 'domain/faucet/usecase/set-address/setAddress'
 import type { ReduxStore } from 'domain/faucet/store/store'
 import type { DeepReadonly } from 'superTypes'
 
-export const initFaucetEventListeners = (store: DeepReadonly<ReduxStore>): (() => void) =>
+export const initFaucetEventListeners = (
+  store: DeepReadonly<ReduxStore>,
+  eventBus: DeepReadonly<EventBus>
+): (() => void) =>
   eventBus.subscribe(
     'wallet/accountsRetrieved',
     (event: DeepReadonly<WalletAccountsRetrievedEvent>) => {

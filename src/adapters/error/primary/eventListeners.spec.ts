@@ -2,17 +2,16 @@ import { Map } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { BusEvent } from 'ts-bus/types'
 import type { Error as EntityError } from 'domain/error/entity/error'
-import { configureStore } from 'domain/error/store/store'
 import type { ReduxStore } from 'domain/error/store/store'
 import type { AppState } from 'domain/error/store/appState'
-import { initErrorEventListeners } from 'adapters/error/primary/eventListeners'
 import type { DeepReadonly } from 'superTypes'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
-import type { EventMetadata } from 'eventBus/eventBus'
+import { EventMetadata } from 'eventBus/eventBus'
+import { ErrorStoreBuilder } from 'domain/error/store/builder/store.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
-  eventBus: EventBus
+  eventBusInstance: EventBus
 }>
 
 type Data = DeepReadonly<{
@@ -31,10 +30,9 @@ const error = new ErrorBuilder()
 const meta: EventMetadata = { initiator: 'domain:test', timestamp: new Date() }
 
 const init = (): InitialProps => {
-  const eventBus = new EventBus()
-  const store = configureStore(eventBus)
-  initErrorEventListeners(store, eventBus)
-  return { store, eventBus }
+  const eventBusInstance = new EventBus()
+  const store = new ErrorStoreBuilder().withEventBus(eventBusInstance).build()
+  return { store, eventBusInstance }
 }
 
 const expectedState = (
@@ -51,11 +49,12 @@ describe.each`
   ${{ type: 'error/fooBar', payload: error }}      | ${expectedState(Map(), '')}
   ${{ type: 'error/errorThrown', payload: error }} | ${expectedState(Map<string, EntityError>().set(error.id, { ...error, initiator: meta.initiator }), error.id)}
 `('Given that event is <$event>', ({ event, expectedState }: Data): void => {
-  const { store, eventBus }: InitialProps = init()
+  const { store, eventBusInstance }: InitialProps = init()
 
   describe("When publishing an 'error/errorThrown event", () => {
-    event && eventBus.publish(event, meta)
-
+    beforeEach(() => {
+      event && eventBusInstance.publish(event, meta)
+    })
     test(`Then, expect state to be ${expectedState}`, () => {
       expect(store.getState()).toEqual(expectedState)
     })

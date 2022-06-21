@@ -2,23 +2,12 @@ import { OrderedMap, OrderedSet } from 'immutable'
 import { EventBus } from 'ts-bus'
 import { RegisterTaskActions } from '../register-task/actionCreators'
 import { clearTask } from './clearTask'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { Task } from 'domain/task/entity/task'
+import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 
-type InitialProps = Readonly<{
-  store: ReduxStore
-  eventBus: EventBus
-}>
-
-const init = (): InitialProps => {
-  const eventBus = new EventBus()
-  const store = configureStore(eventBus)
-  return { store, eventBus }
-}
 const aDate = new Date()
-
 const task1 = new TaskBuilder()
   .withId('id1')
   .withCreationDate(aDate)
@@ -37,9 +26,11 @@ const task2 = new TaskBuilder()
   .withStatus('processing')
   .build()
 
+const eventBusInstance = new EventBus()
+const store: ReduxStore = new TaskStoreBuilder().withEventBus(eventBusInstance).build()
+
 describe('Clear a task', () => {
   it('should clear a registered task by its id', async () => {
-    const { store }: InitialProps = init()
     store.dispatch(RegisterTaskActions.taskRegistered(task1))
     store.dispatch(RegisterTaskActions.taskRegistered(task2))
     await store.dispatch(clearTask(task1.id))

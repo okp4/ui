@@ -1,13 +1,12 @@
 import { Map } from 'immutable'
 import { EventBus } from 'ts-bus'
 import { reportError } from './reportError'
-import { configureStore } from '../../store/store'
 import type { ReduxStore } from '../../store/store'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
+import { ErrorStoreBuilder } from 'domain/error/store/builder/store.builder'
 
 type InitialProps = Readonly<{
   store: ReduxStore
-  eventBus: EventBus
 }>
 
 const error = new ErrorBuilder()
@@ -19,9 +18,9 @@ const error = new ErrorBuilder()
   .build()
 
 const init = (): InitialProps => {
-  const eventBus = new EventBus()
-  const store = configureStore(eventBus)
-  return { store, eventBus }
+  const eventBusInstance = new EventBus()
+  const store = new ErrorStoreBuilder().withEventBus(eventBusInstance).build()
+  return { store }
 }
 
 describe('Report an error', () => {
