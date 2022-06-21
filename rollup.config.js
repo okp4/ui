@@ -40,7 +40,6 @@ export default [
             src: [
               'src/ui/styles/palette.scss',
               'src/ui/styles/themes.scss',
-              'src/ui/styles/urls.scss',
               'src/ui/styles/_exports.module.scss'
             ],
             dest: 'lib/scss'
