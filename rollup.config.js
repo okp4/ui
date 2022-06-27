@@ -12,7 +12,6 @@ import { builtinModules } from 'module'
 import alias from '@rollup/plugin-alias'
 
 import * as packageJson from './package.json'
-import tsconfig from './tsconfig.json'
 
 export default {
   input: 'src/index.ts',
@@ -30,6 +29,18 @@ export default {
   ],
   plugins: [
     peerDepsExternal(),
+    alias({
+      entries: [
+        { find: 'domain', replacement: 'src/domain' },
+        { find: 'eventBus', replacement: 'src/eventBus' },
+        { find: 'ui', replacement: 'src/ui' },
+        { find: 'context', replacement: 'src/context' },
+        { find: 'hook', replacement: 'src/hook' },
+        { find: 'adapters', replacement: 'src/adapters' },
+        { find: 'utils', replacement: 'src/utils.ts' },
+        { find: 'superTypes', replacement: 'src/superTypes.ts' }
+      ]
+    }),
     copy({
       targets: [
         {
@@ -49,13 +60,6 @@ export default {
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),
     graphql(),
-    alias({
-      resolve: ['.ts', 'tsx'],
-      entries: Object.entries(tsconfig.compilerOptions.paths).map(([find, [replacement]]) => ({
-        find,
-        replacement
-      }))
-    }),
     ts({
       transpiler: 'swc',
       browserslist: false,
