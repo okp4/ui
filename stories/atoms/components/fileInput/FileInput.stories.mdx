@@ -1,0 +1,151 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { FileInput } from 'ui/atoms/fileInput/FileInput'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+
+<Meta
+  title="Atoms/FileInput"
+  component={FileInput}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code',
+        format: true,
+        language: 'jsx'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# FileInput
+
+> Allows the user to drag and drop or browse one or several files.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview // description
+
+Allows the user to drag and drop or browse one or several files.
+
+---
+
+<Story
+  name="Overview"
+  argTypes={{
+    description: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
+      }
+    },
+    onDropped: {
+      control: false
+    }
+  }}
+  args={{
+    label: 'Drop your files here, or browse',
+    description: (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+          Supports : CSV, XLS, XLSX, ...
+        </Typography>
+      </div>
+    )
+    // onDropped: files => console.log('files dropped', files)
+  }}
+>
+  {args => {
+    return (
+      <div
+        style={{
+          padding: '10px 0',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <FileInput {...args} />
+      </div>
+    )
+  }}
+</Story>
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## Sizes
+
+Size options are `small`, `medium`(default) and `large`. The size also adjust itself according to the screen width.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '40px'
+        }}
+      >
+        <FileInput
+          // mauvais copier coller
+          // + map
+          size="small"
+          background="primary"
+          withBorder="true"
+          label="Upload files"
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                This is a `small` FileInput
+              </Typography>
+            </div>
+          }
+        />
+        <FileInput
+          size="medium"
+          background="primary"
+          withBorder="true"
+          label="Upload files"
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                This is a `medium` FileInput
+              </Typography>
+            </div>
+          }
+        />
+        <FileInput
+          size="large"
+          background="primary"
+          withBorder="true"
+          label="Upload files"
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                This is a `large` FileInput
+              </Typography>
+            </div>
+          }
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
