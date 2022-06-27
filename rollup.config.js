@@ -67,7 +67,7 @@ export default {
         outputPath: (path, kind) => (kind === 'declaration' ? './lib/index.d.ts' : path)
       }
     }),
-    // terser(),
+    terser(),
     analyze({ summaryOnly: true })
   ],
   external: [
