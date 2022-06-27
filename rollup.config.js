@@ -9,8 +9,10 @@ import json from '@rollup/plugin-json'
 import graphql from '@rollup/plugin-graphql'
 import ts from 'rollup-plugin-ts'
 import { builtinModules } from 'module'
+import alias from '@rollup/plugin-alias'
 
 import * as packageJson from './package.json'
+import tsconfig from './tsconfig.json'
 
 export default {
   input: 'src/index.ts',
@@ -47,6 +49,13 @@ export default {
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),
     graphql(),
+    alias({
+      resolve: ['.ts', 'tsx'],
+      entries: Object.entries(tsconfig.compilerOptions.paths).map(([find, [replacement]]) => ({
+        find,
+        replacement
+      }))
+    }),
     ts({
       transpiler: 'swc',
       browserslist: false,
@@ -54,7 +63,7 @@ export default {
         outputPath: (path, kind) => (kind === 'declaration' ? './lib/index.d.ts' : path)
       }
     }),
-    terser(),
+    // terser(),
     analyze({ summaryOnly: true })
   ],
   external: [
