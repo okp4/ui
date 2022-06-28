@@ -1,12 +1,13 @@
 import './fileInput.scss';
 
 import React, { useCallback } from 'react';
-import { DeepReadonly } from 'superTypes';
 
 import fileInputIcon from '../../../assets/images/file-input-icon.png';
 import { Typography } from '../typography/Typography';
 
-export type FileUploadProps = Readonly<{
+import type { DeepReadonly } from 'superTypes'
+
+export type FileUploadProps = DeepReadonly<{
   /**
    * The main title
    */
@@ -36,7 +37,6 @@ export type FileUploadProps = Readonly<{
    */
   readonly onDropped: (files: DeepReadonly<FileList>) => void
 }>
-
 export const FileInput: React.FC<FileUploadProps> = ({
   label,
   description,
@@ -46,7 +46,9 @@ export const FileInput: React.FC<FileUploadProps> = ({
   onDropped
 }: FileUploadProps): JSX.Element => {
   const handleOnChange = useCallback(
-    (event: DeepReadonly<React.ChangeEvent<HTMLInputElement>>) => {
+    // lint rule bypassed because of type 'Element' is not compatible with readonly
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files
       if (files) {
         onDropped(files)
