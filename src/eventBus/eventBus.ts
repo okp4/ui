@@ -8,4 +8,4 @@ export type EventMetadata = {
 
 export type TypedBusEvent<T> = Omit<Omit<BusEvent, 'payload'>, 'meta'> & { meta: EventMetadata } & T
 
-export const eventBus = new EventBus()
+export const createEventBusInstance = (): EventBus => new EventBus()

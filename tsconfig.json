@@ -2,12 +2,23 @@
   "compilerOptions": {
     "outDir": "lib",
     "baseUrl": ".",
-    "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es5",
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "es2019",
+      "es2020",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "lib",
     "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -28,11 +39,10 @@
       "context/*": ["src/context/*"],
       "domain/*": ["src/domain/*"],
       "adapters/*": ["src/adapters/*"],
-      "saga/*": ["src/saga/*"],
       "superTypes": ["src/superTypes.ts"],
       "utils": ["src/utils.ts"]
     }
   },
-  "include": ["src/**/*", "stories/**/*.tsx"],
+  "include": ["src/**/*.*", "stories/**/*.tsx"],
   "exclude": ["node-modules", "lib"]
 }
