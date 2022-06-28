@@ -3,9 +3,9 @@
 .okp4-footer-main {
   @include with-theme() {
     background: themed(footer-background);
-    width: calc(100% - 80px);
+    width: calc(100% - 50px);
     min-height: 40px;
-    padding: 45px 20px 45px 60px;
+    padding: 25px;
     align-items: center;
     justify-content: space-between;
     display: flex;
@@ -13,7 +13,7 @@
     gap: 15px 10px;
 
     @media screen and (max-width: 768px) {
-      padding: 25px 10px;
+      padding: 15px 10px;
       width: calc(100% - 20px);
       justify-content: space-around;
     }
