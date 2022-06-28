@@ -35,6 +35,7 @@
       "public/*": ["public/*"],
       "eventBus/*": ["src/eventBus/*"],
       "ui/*": ["src/ui/*"],
+      "i18n/*": ["src/i18n/*"],
       "hook/*": ["src/hook/*"],
       "context/*": ["src/context/*"],
       "domain/*": ["src/domain/*"],

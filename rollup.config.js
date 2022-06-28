@@ -36,6 +36,7 @@ export default {
         { find: 'ui', replacement: 'src/ui' },
         { find: 'context', replacement: 'src/context' },
         { find: 'hook', replacement: 'src/hook' },
+        { find: 'i18n', replacement: 'src/i18n' },
         { find: 'adapters', replacement: 'src/adapters' },
         { find: 'utils', replacement: 'src/utils.ts' },
         { find: 'superTypes', replacement: 'src/superTypes.ts' }
