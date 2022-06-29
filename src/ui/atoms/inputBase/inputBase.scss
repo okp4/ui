@@ -1,0 +1,27 @@
+@import 'src/ui/styles/themes.scss';
+
+.okp4-input-base {
+  @include with-theme() {
+    font-family: 'Gotham light', sans-serif;
+    text-align: left;
+    border: 0;
+    padding: 18px;
+    color: themed('text');
+    background: themed('field');
+    font-size: 20px;
+
+    &::placeholder {
+      color: themed('text');
+      opacity: 0.6;
+    }
+
+    &.error {
+      color: themed('error');
+      border: 1px solid themed('error');
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
