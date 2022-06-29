@@ -25,7 +25,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   saveToLocalStorage = true
 }: ThemeSwitcherProps) => {
   const { theme, setTheme }: ThemeContextType = useTheme()
-  const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey, 'light')
+  const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey)
   const prefersColorDark: boolean = useMediaType('(prefers-color-scheme: dark)')
 
   const isDarkTheme = theme === 'dark'
