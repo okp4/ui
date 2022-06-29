@@ -3,7 +3,10 @@
 module.exports = {
   testEnvironment: 'jsdom',
   moduleDirectories: ['node_modules'],
-  coveragePathIgnorePatterns: ['<rootDir>/src/adapters/faucet/secondary/graphql/documents/'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/adapters/faucet/secondary/graphql/documents/',
+    'index.ts'
+  ],
   globals: {
     window: {}
   },
