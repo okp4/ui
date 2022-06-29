@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import type { RefObject } from 'react'
 import React from 'react'
 import { Typography } from '../typography/Typography'
+import { InputBase } from '../inputBase/InputBase'
 import './textField.scss'
 
 export type TextFieldProps = Readonly<{
@@ -61,32 +62,29 @@ export const TextField: React.FC<TextFieldProps> = ({
   inputRef,
   fullWidth = false
 }: TextFieldProps): JSX.Element => {
-  const inputClass = classNames(`okp4-text-field-core `, { error: hasError })
   const containerClass = classNames(`okp4-text-field-main ${size}`, { 'full-width': fullWidth })
 
   return (
     <div className={containerClass}>
-      <input
-        className={inputClass}
+      <InputBase
         defaultValue={defaultValue}
         disabled={disabled}
+        hasError={hasError}
+        inputRef={inputRef}
         onChange={onChange}
         placeholder={placeholder}
-        ref={inputRef}
         value={value}
       />
       {helperText && (
-        <div>
-          <Typography
-            as="div"
-            color={hasError ? 'error' : 'info'}
-            fontSize="x-small"
-            fontWeight={'bold'}
-            noWrap
-          >
-            {helperText}
-          </Typography>
-        </div>
+        <Typography
+          as="div"
+          color={hasError ? 'error' : 'info'}
+          fontSize="x-small"
+          fontWeight="bold"
+          noWrap
+        >
+          {helperText}
+        </Typography>
       )}
     </div>
   )
