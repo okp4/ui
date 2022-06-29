@@ -16,7 +16,7 @@ type InitialProps = Readonly<{
 
 type Data = DeepReadonly<{
   event: BusEvent | undefined
-  expectedState: AppState
+  dispatched: boolean
 }>
 
 const address = 'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'
@@ -37,18 +37,25 @@ const init = (): InitialProps => {
 }
 
 describe.each`
-  event                                                                   | expectedState
-  ${undefined}                                                            | ${{ address: '' }}
-  ${{ type: 'task/fooBar', payload: { chainId, accounts } }}              | ${{ address: '' }}
-  ${{ type: 'wallet/accountsRetrieved', payload: { chainId, accounts } }} | ${{ address }}
-`('Given that event is <$event>', ({ event, expectedState }: Data): void => {
+  event                                                                   | dispatched
+  ${undefined}                                                            | ${false}
+  ${{ type: 'task/fooBar', payload: { chainId, accounts } }}              | ${false}
+  ${{ type: 'wallet/accountsRetrieved', payload: { chainId, accounts } }} | ${true}
+`('Given that event is <$event>', ({ event, dispatched }: Data): void => {
   const { store, eventBus }: InitialProps = init()
+  const mockedStoreDispatch = jest.spyOn(store, 'dispatch')
 
   describe(`When publishing ${!event ? 'no' : `a ${event.type}`} event`, () => {
     event && eventBus.publish(event, meta)
 
-    test(`Then, expect state to be ${expectedState}`, () => {
-      expect(store.getState()).toEqual(expectedState)
+    test(`Then, expect Faucet event listeners to ${
+      !dispatched ? 'not' : ''
+    } call store dispatch`, () => {
+      if (dispatched) {
+        expect(mockedStoreDispatch).toHaveBeenCalled()
+      } else {
+        expect(mockedStoreDispatch).not.toHaveBeenCalled()
+      }
     })
   })
 })
