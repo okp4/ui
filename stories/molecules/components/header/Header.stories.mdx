@@ -1,6 +1,10 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { Header } from 'ui/molecules/header/Header.tsx'
+import { Logo } from 'ui/atoms/logo/Logo.tsx'
+import BotAnikImage from '../../../assets/botanik-logo.png'
+import { Typography } from 'ui/atoms/typography/Typography.tsx'
+
 import './header.scss'
 
 <Meta
@@ -27,26 +31,62 @@ import './header.scss'
   ]}
 />
 
-# Header component
+# Header
+
+> Provides a consistent user experience and helps users navigate the site.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
-**Header component** is a responsive component which embeds two main elements:
+**Header** is a responsive component which embeds two main elements:
 
-- A `Logo` which must be part of the set of applications representing the ØKP4 brand.
+- A `firstElement` that comes first in the reading flow. Typically used for logos. Will resize if larger than max size.
 - A `ThemeSwitcher` which allows each application to automatically manage the themes offered by the ØKP4 design system (Blue Stone / Light Stone).
 
 ## Overview
 
-<Story name="Overview">
-  <div style={{ width: '100%' }}>
-    <Header />
-  </div>
+<Story
+  name="Overview"
+  argTypes={{
+    firstElement: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    }
+  }}
+>
+  <Header firstElement={<Logo />} />
 </Story>
 
 ---
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## First element
+
+**firstElement** allows the user to put any type of element in the `header`.  
+The size of the element is limited to a `max height` of `72px` and a responsive
+`max width` of `270px` and `220px` to limit its size, making sure injected
+elements conform to the layout.
+
+<Canvas>
+  <Story name="First element">
+    <Header
+      firstElement={
+        <div style={{ display: 'flex' }}>
+          <img src={BotAnikImage} alt="BotAnik image" />
+          <Typography as="h1" size="x-large" color="highlighted-text" fontWeight="black">
+            BotAnik Space
+          </Typography>
+        </div>
+      }
+    />
+  </Story>
+</Canvas>
 
 ## Responsiveness
 
@@ -62,12 +102,12 @@ See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for 
 
 ```tsx
 import React from 'react'
-import { Header, ThemeProvider } from '@okp4/ui'
+import { Header, ThemeProvider, Logo } from '@okp4/ui'
 
 export const App: React.FC = () => (
   <React.StrictMode>
     <ThemeProvider>
-      <Header />
+      <Header firstElement={<Logo />} />
     </ThemeProvider>
   </React.StrictMode>
 )
