@@ -7,7 +7,7 @@
   align-items: center;
   column-gap: 10px;
   display: grid;
-  grid-template-areas: 'logo themeswitch';
+  grid-template-areas: 'firstElement themeswitch';
 
   @media screen and (max-width: 768px) {
     padding: 15px 10px;
@@ -17,14 +17,25 @@
 
   @media screen and (max-width: 360px) {
     grid-template-areas:
-      'logo'
+      'firstElement'
       'themeswitch';
     justify-items: center;
     row-gap: 10px;
   }
 
-  .okp4-header-logo-container {
-    grid-area: logo;
+  .okp4-header-first-element-container {
+    grid-area: firstElement;
+
+    :first-child {
+      max-width: 270px;
+      max-height: 72px;
+    }
+
+    &.x-small {
+      :first-child {
+        max-width: 220px;
+      }
+    }
   }
 
   .okp4-header-theme-switcher-container {
