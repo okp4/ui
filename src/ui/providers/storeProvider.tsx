@@ -5,7 +5,9 @@ import { Provider } from 'react-redux'
 import type { Store } from 'redux'
 import type { DeepReadonly } from 'superTypes'
 
-export type StoreContext = React.Context<ReactReduxContextValue<unknown>>
+// Need any type for Action to allow Redux to dispatch async Thunks
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type StoreContext = React.Context<ReactReduxContextValue<any>>
 export type StoreParameter = [StoreContext, Store<unknown>]
 
 export type StoreProviderProps = DeepReadonly<{

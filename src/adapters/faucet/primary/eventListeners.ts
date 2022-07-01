@@ -1,8 +1,8 @@
 import type { EventBus } from 'ts-bus'
 import type { WalletAccountsRetrievedEvent } from 'domain/wallet/type/event.type'
 import type { ReduxStore } from 'domain/faucet/store/store'
+import { requestFunds } from 'domain/faucet/usecase/request-funds/requestFunds'
 import type { DeepReadonly } from 'superTypes'
-import { requestFunds } from 'domain/faucet'
 
 export const initFaucetEventListeners = (
   store: DeepReadonly<ReduxStore>,
