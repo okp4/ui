@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import keplrImage from '../../../../assets/images/keplr.png'
+import keplrImage from '../../../assets/images/keplr.png'
 import { acknowledgeError } from 'domain/error/usecase/acknowledge-error/acknowledgeError'
 import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
 import { setAddress } from 'domain/faucet/usecase/set-address/setAddress'
@@ -16,7 +16,7 @@ import { TextField } from 'ui/atoms/textField/TextField'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { Typography } from 'ui/atoms/typography/Typography'
 import type { DeepReadonly } from 'superTypes'
-import '../i18n/index'
+import './i18n/index'
 import './faucet.scss'
 
 export type FaucetProps = Readonly<{
