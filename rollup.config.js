@@ -10,6 +10,7 @@ import graphql from '@rollup/plugin-graphql'
 import ts from 'rollup-plugin-ts'
 import { builtinModules } from 'module'
 import alias from '@rollup/plugin-alias'
+import image from '@rollup/plugin-image'
 
 import * as packageJson from './package.json'
 
@@ -57,6 +58,7 @@ export default {
       verbose: true
     }),
     svgr({ dimensions: false }),
+    image(),
     json(),
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),
