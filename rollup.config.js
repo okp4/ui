@@ -58,7 +58,7 @@ export default {
       verbose: true
     }),
     svgr({ dimensions: false }),
-    image(),
+    image({ exclude: ['src/**/*.svg'] }),
     json(),
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),
