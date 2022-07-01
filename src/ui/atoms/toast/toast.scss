@@ -17,6 +17,10 @@ $background-colors: ('success', 'error', 'warning', 'info');
   z-index: 10000;
   outline: none;
 
+  @media screen and (max-width: 460px) {
+    width: auto;
+  }
+
   .okp4-toast-root {
     @include with-theme() {
       @each $background-color in $background-colors {
@@ -25,8 +29,7 @@ $background-colors: ('success', 'error', 'warning', 'info');
         }
       }
       border-radius: 6px;
-      box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px,
-        hsl(206 22% 7% / 20%) 0 10px 20px -15px;
+      box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0 10px 20px -15px;
       padding: 15px;
       display: grid;
       row-gap: 3px;
