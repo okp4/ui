@@ -17,12 +17,27 @@ $sizes-map: (
   width: 100%;
   height: 100%;
   display: flex;
+  position: relative;
 
   @include with-theme() {
     @each $size in $sizes {
       &.#{$size} {
         max-width: map-get($sizes-map, #{$size}-width);
         max-height: map-get($sizes-map, #{$size}-height);
+
+        &.dragging {
+          background: themed(primary-variant);
+        }
+
+        input[type='file'] {
+          display: none;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 0;
+        }
 
         .okp4-fileinput-container {
           position: relative;
@@ -36,19 +51,10 @@ $sizes-map: (
           background: transparent;
           border: dashed themed(text);
           overflow: hidden;
+          cursor: pointer;
 
-          input[type='file'] {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-          }
-
-          &:hover {
-            background: themed(primary-variant);
+          &.error {
+            border: dashed themed(error);
           }
 
           img {
