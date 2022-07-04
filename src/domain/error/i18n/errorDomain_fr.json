@@ -2,10 +2,12 @@
   "domain": {
     "error": {
       "contact-us": "Veuillez réessayer ultérieurement ou nous contacter.",
-      "connection-error": "Oups, une erreur s'est produite lors de la tentative de connexion. $t(errorDomain:domain.error.contact-us)",
+      "connection-error": "Oups, une erreur s'est produite lors de la tentative de connexion au portefeuille. $t(errorDomain:domain.error.contact-us)",
       "unspecified-error": "Oups, une erreur inconnue est survenue. $t(errorDomain:domain.error.contact-us)",
-      "validation-error": "Oups, une erreur s'est produite lors de la validation. $t(errorDomain:domain.error.contact-us)",
-      "gateway-error": "Oups, une erreur s'est produite lors de la tentative d'accès au service. $t(errorDomain:domain.error.contact-us)"
+      "validation-error": "Merci de saisir une adresse conforme au format bech32 et qui débute par okp4.",
+      "faucet-gateway-error": "Oups, une erreur s'est produite en vous envoyant votre Know. $t(errorDomain:domain.error.contact-us)",
+      "keplr-extention-no-available-error": "L'extension Keplr doit être installée et activée dans votre navigateur pour pouvoir l'utiliser.",
+      "chain-suggestion-error": "Échec de la suggestion de la chaîne. $t(errorDomain:domain.error.contact-us)"
     }
   }
 }
