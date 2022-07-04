@@ -44,7 +44,7 @@ export const InputBase = ({
   placeholder,
   value
 }: InputBaseProps): JSX.Element => {
-  const inputClass = classNames(`okp4-input-base`, { error: hasError })
+  const inputClass = classNames(`okp4-input-base-main`, { error: hasError })
   return (
     <input
       className={inputClass}
