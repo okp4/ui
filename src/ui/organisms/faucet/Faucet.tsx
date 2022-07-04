@@ -124,7 +124,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
         </div>
       </div>
       <Toast
-        autoDuration={3000}
+        autoDuration={4000}
         description={
           errorMessage
             ? t(`errorDomain:${errorMessage}`)

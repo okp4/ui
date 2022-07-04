@@ -1,4 +1,8 @@
-import { ConnectionError } from 'domain/wallet/entities/errors'
+import {
+  ConnectionError,
+  ChainSuggestionError,
+  KeplrExtentionNoAvailableError
+} from 'domain/wallet/entities/errors'
 import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import { KeplrAccountMapper } from './mapper/account.mapper'
@@ -92,7 +96,7 @@ export class KeplrWalletGateway implements Wallet {
 
   public readonly connect = async (chainId: ChainId): Promise<void> => {
     if (!this.isAvailable()) {
-      throw new ConnectionError(`Ooops... No Keplr extension available`)
+      throw new KeplrExtentionNoAvailableError(`Ooops... No Keplr extension available`)
     }
 
     return window.keplr
@@ -100,13 +104,13 @@ export class KeplrWalletGateway implements Wallet {
       .catch(async () =>
         this.suggestChain(chainId)
           .catch(() => {
-            throw new ConnectionError(
+            throw new ChainSuggestionError(
               `Ooops... Failed to suggest chain ${chainId} to Keplr extension, please check configuration`
             )
           })
           .then(() =>
             window.keplr?.enable(chainId).catch(() => {
-              throw new ConnectionError(
+              throw new ChainSuggestionError(
                 `Ooops... Failed to enable chain ${chainId} to Keplr extension, please check configuration`
               )
             })
@@ -136,6 +140,6 @@ export class KeplrWalletGateway implements Wallet {
     chainId in this.chainInfos && window.keplr
       ? window.keplr.experimentalSuggestChain(asMutable(this.chainInfos[chainId]))
       : Promise.reject(
-          new ConnectionError(`Ooops... Failed to suggest chain ${chainId} to Keplr extension`)
+          new ChainSuggestionError(`Ooops... Failed to suggest chain ${chainId} to Keplr extension`)
         )
 }

@@ -16,3 +16,17 @@ export class UnspecifiedError extends Error {
     this.name = 'UnspecifiedError'
   }
 }
+
+export class KeplrExtentionNoAvailableError extends Error {
+  constructor(message?: string) {
+    super(message)
+    this.name = 'KeplrExtentionNoAvailableError'
+  }
+}
+
+export class ChainSuggestionError extends Error {
+  constructor(message?: string) {
+    super(message)
+    this.name = 'ChainSuggestionError'
+  }
+}
