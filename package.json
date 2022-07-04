@@ -39,6 +39,7 @@
   "dependencies": {
     "@radix-ui/react-switch": "^0.1.5",
     "@radix-ui/react-toast": "^0.1.1",
+    "@urql/core": "^2.5.0",
     "bech32-buffer": "^0.2.0",
     "classnames": "^2.3.1",
     "i18next": "^21.6.16",
@@ -84,7 +85,6 @@
     "@types/react": "^18.0.5",
     "@types/react-dom": "^17.0.13",
     "@typescript-eslint/eslint-plugin": ">=5.14.0",
-    "@urql/core": "^2.5.0",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.3",
     "css-loader": "5.2.6",
