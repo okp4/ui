@@ -1,4 +1,5 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { useRef, useState } from 'react'
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { TextField } from 'ui/atoms/textField/TextField'
@@ -31,13 +32,15 @@ import '../component.scss'
 
 # TextField component
 
+> Allows the user to enter some text into a field.
+
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
-**TextField** is a minimalist text input component that integrates easily with OKP4 design system.
+`TextField` is a minimalist text input component that integrates easily with OKP4 design system.
 
-## Usage
+## Overview
 
 <Story
   name="Usage"
@@ -47,11 +50,16 @@ import '../component.scss'
     },
     inputRef: {
       control: false
+    },
+    value: {
+      control: { type: 'select' },
+      options: ['string', ['array', 'of', 'string']]
     }
   }}
   args={{
     placeholder: "I'm a placeholder!",
-    defaultValue: "I'm set with a default value"
+    defaultValue: "I'm set with a default value",
+    value: undefined
   }}
 >
   {args => (
@@ -139,23 +147,49 @@ In addition, the `helperText` property can be set to display an error message be
   </Story>
 </Canvas>
 
-## Reacting to changes
+## Controlled TextField
 
-The `TextField` component provides an`onChange` property called when the input value changes.
+When the component is controlled, the parent passes a value to the `TextField` which displays it.  
+Parent has its own state in order to control the value which is passed, and it also specify an `onChange` handler property which will be called when user updates the value.  
+In the example below, everytime the input value changes, current state is updated and a log message displays the content of the value.
 
-##### **`MyComponent.tsx`**
+<Canvas isColumn>
+  <Story name="Controlled">
+    {args => {
+      const [value, setValue] = useState('I am controlled: value is passed by my parent')
+      const handleChange = event => {
+        setValue(event.target.value)
+        console.log(`My new value is : ${event.target.value}`)
+      }
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+          <TextField value={value} onChange={handleChange} fullWidth />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
 
-```tsx
-import React from 'react'
-import type { ChangeEvent, FC } from 'react'
-import { TextField } from '@okp4/ui'
+## Uncontrolled TextField
 
-const MyComponent: FC = () => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-  }
-  return <TextField onChange={handleChange} />
-}
-```
+The `TextField` component comes with an optional property called `defaultValue`.  
+It can be used when the component in uncontrolled, which implies that no value is passed to `value` or `onChange`.  
+Data is handled by the DOM itself, this is the source of truth.
+If you want to access the value, you can use a ref to get value from the DOM, but it is recommended to interact with values by choosing a controlled component which is more appropriated.
 
-Then, everytime the input value changes, a log message displays the content of the value.
+<Canvas isColumn>
+  <Story name="Uncontrolled">
+    {args => {
+      const textFieldRef = useRef()
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+          <TextField
+            defaultValue="I am uncontrolled, I just have a default value"
+            fullWidth
+            ref={textFieldRef}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
