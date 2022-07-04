@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import * as Switch from '@radix-ui/react-switch'
 import MoonIcon from '../../../assets/icons/moonIcon.svg'
 import SunIcon from '../../../assets/icons/sunIcon.svg'
-import type { ThemeContextType } from 'context/themeContext'
+import type { Theme, ThemeContextType } from 'context/themeContext'
 import { useTheme } from 'hook/useTheme'
 import './themeSwitcher.scss'
 import { useLocalStorage } from 'hook/useLocalStorage'
@@ -25,7 +25,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   saveToLocalStorage = true
 }: ThemeSwitcherProps) => {
   const { theme, setTheme }: ThemeContextType = useTheme()
-  const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey, 'light')
+  const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey)
   const prefersColorDark: boolean = useMediaType('(prefers-color-scheme: dark)')
 
   const isDarkTheme = theme === 'dark'
@@ -43,11 +43,11 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   )
 
   useEffect(() => {
-    if (prefersColorDark) {
-      setTheme('dark')
+    if (!value) {
+      setTheme(prefersColorDark ? 'dark' : 'light')
       return
     }
-    setTheme(value === 'dark' ? 'dark' : 'light')
+    setTheme(value as Theme)
   }, [prefersColorDark, setTheme, value])
 
   const switchIcon = isDarkTheme ? <SunIcon /> : <MoonIcon />
