@@ -53,18 +53,18 @@ const updatedTask2 = new UpdateTaskBuilder()
   .withStatus('success')
   .build()
 
-const validationError = new ErrorBuilder()
+const bech32Error = new ErrorBuilder()
   .withId(fakedUuid)
   .withTimestamp(fakedDate)
-  .withMessageKey('domain.error.validation-error')
-  .withType('validation-error')
+  .withMessageKey('domain.error.bech32-error')
+  .withType('bech32-error')
   .build()
 
-const gatewayError = new ErrorBuilder()
+const faucetGatewayError = new ErrorBuilder()
   .withId(fakedUuid)
   .withTimestamp(fakedDate)
-  .withMessageKey('domain.error.gateway-error')
-  .withType('gateway-error')
+  .withMessageKey('domain.error.faucet-gateway-error')
+  .withType('faucet-gateway-error')
   .build()
 
 const init = (): InitialProps => {
@@ -96,9 +96,9 @@ describe('Request funds from faucet', () => {
 
   describe.each`
     hasGatewayError | address                                            | expectedEventParameters
-    ${false}        | ${'123'}                                           | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', validationError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
-    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', validationError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
-    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', gatewayError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
+    ${false}        | ${'123'}                                           | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', bech32Error, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
+    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', bech32Error, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
+    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', faucetGatewayError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
     ${false}        | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask2, initiator, fakedDate)]}
   `(
     'Given that address is <$address>',
