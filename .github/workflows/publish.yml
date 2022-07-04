@@ -109,14 +109,11 @@ jobs:
           yarn
           yarn build-storybook
 
-      - name: Deploy storybook
-        uses: JamesIves/github-pages-deploy-action@v4.3.4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: gh-pages
-          folder: dist
-          clean: true
-          token: ${{ secrets.OKP4_TOKEN }}
-          git-config-name: ${{ secrets.OKP4_BOT_GIT_AUTHOR_NAME }}
-          git-config-email: ${{ secrets.OKP4_BOT_GIT_COMMITTER_EMAIL }}
+          github_token: ${{ secrets.OKP4_TOKEN }}
+          publish_dir: ./dist
           commit-message: |
             feat: update storybook site (auto)
+          cname: ui.okp4.space
