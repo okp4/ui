@@ -1,3 +1,4 @@
+// This rule is deactivated because we can not add readonly on the entire ChangeEvent
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import React from 'react'
 import type { RefObject } from 'react'
@@ -17,7 +18,7 @@ export type InputBaseProps = Readonly<{
    * The value of the `input` element, required for a controlled component.
    */
   readonly value?: string | string[]
-  /*
+  /**
    * The default value. Use when the component is not controlled.
    */
   readonly defaultValue?: string | string[]
@@ -45,6 +46,7 @@ export const InputBase = ({
   value
 }: InputBaseProps): JSX.Element => {
   const inputClass = classNames(`okp4-input-base-main`, { error: hasError })
+
   return (
     <input
       className={inputClass}
