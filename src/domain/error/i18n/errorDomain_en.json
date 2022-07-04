@@ -6,7 +6,7 @@
       "unspecified-error": "Oops, an unspecified error occurred. $t(errorDomain:domain.error.contact-us)",
       "bech32-error": "Please enter an address that conforms to bech32 format and begins with okp4.",
       "faucet-gateway-error": "Oops, an error occurred while sending you your Know. $t(errorDomain:domain.error.contact-us)",
-      "keplr-extention-no-available-error": "The Keplr extension must be installed and activated in your browser in order to use it.",
+      "keplr-extension-unavailable-error": "The Keplr extension must be installed and activated in your browser in order to use it.",
       "chain-suggestion-error": "Failed to suggest the chain. $t(errorDomain:domain.error.contact-us)"
     }
   }

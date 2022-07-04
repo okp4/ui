@@ -17,10 +17,10 @@ export class UnspecifiedError extends Error {
   }
 }
 
-export class KeplrExtentionNoAvailableError extends Error {
+export class KeplrExtensionUnavailableError extends Error {
   constructor(message?: string) {
     super(message)
-    this.name = 'KeplrExtentionNoAvailableError'
+    this.name = 'KeplrExtensionUnavailableError'
   }
 }
 

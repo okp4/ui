@@ -1,7 +1,7 @@
 import {
   ConnectionError,
   ChainSuggestionError,
-  KeplrExtentionNoAvailableError
+  KeplrExtensionUnavailableError
 } from 'domain/wallet/entities/errors'
 import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
@@ -96,7 +96,7 @@ export class KeplrWalletGateway implements Wallet {
 
   public readonly connect = async (chainId: ChainId): Promise<void> => {
     if (!this.isAvailable()) {
-      throw new KeplrExtentionNoAvailableError(`Ooops... No Keplr extension available`)
+      throw new KeplrExtensionUnavailableError(`Ooops... No Keplr extension available`)
     }
 
     return window.keplr
