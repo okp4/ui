@@ -1438,9 +1438,9 @@
     to-fast-properties "^2.0.0"
 
 "@babylonjs/core@^5.11.0", "@babylonjs/core@^5.5.5":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.12.1.tgz#9401bec763c5ffe83c41a56b3f0d98e5c3f3efa8"
-  integrity sha512-c41t3pRnOhVz4SC6M7ivsB7P0dY9r8G/ka3720+B/RGzRL2zN1ckpxIKwdyXr2AKjsLX64wAtksNp9vjf2Iz/A==
+  version "5.13.2"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.13.2.tgz#ec1530bb461510ec5ce8c6dbe3f570f05e2029b7"
+  integrity sha512-aemACYnvQS4IVFMDYh6DeZ/seSj6S441HYbUykeXWjLcn7iVJtkQ3f0iqaY4bjFGmk3Fx9hzcaVVQZc/7MfGQw==
   dependencies:
     tslib "^2.4.0"
 
