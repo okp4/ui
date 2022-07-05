@@ -5,7 +5,7 @@ import type { RefObject } from 'react'
 import classNames from 'classnames'
 import './inputBase.scss'
 
-export type InputBaseProps = Readonly<{
+export type InputBaseProps = {
   /**
    * Placeholder text.
    */
@@ -34,7 +34,7 @@ export type InputBaseProps = Readonly<{
    * Pass a ref to the input element.
    */
   readonly inputRef?: RefObject<HTMLInputElement>
-}>
+}
 
 export const InputBase = ({
   defaultValue,
