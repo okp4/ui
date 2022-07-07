@@ -1,0 +1,68 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ProgressBar } from 'ui/atoms/progressBar/ProgressBar'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+
+<Meta
+  title="Atoms/ProgressBar"
+  component={ProgressBar}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# ProgressBar
+
+> Show the progress of a treatment
+
+## Overview
+
+### Description
+
+---
+
+<Canvas>
+  <Story name="Overview" argTypes={{}}>
+    {() => {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px'
+          }}
+        >
+          <ProgressBar
+            label="File_1.csv"
+            minValue={0}
+            maxValue={1200}
+            currentValue={650.564646516}
+            unit="Mo"
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+---
+
+### Properties
+
+<ArgsTable story="Overview" />

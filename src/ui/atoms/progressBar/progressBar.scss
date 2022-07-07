@@ -1,0 +1,94 @@
+@import '../../styles/themes.scss';
+
+.okp4-progressbar-main {
+  width: 100%;
+  display: grid;
+  column-gap: 10px;
+  row-gap: 10px;
+  padding: 2%;
+
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-template-areas:
+    'label label label label icon'
+    'value value progress progress icon'
+    'bar bar bar bar icon';
+
+  @media screen and (min-width: 768px) {
+    column-gap: 5px;
+    row-gap: 0px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+      'label progress progress progress progress icon'
+      'value bar bar bar bar icon';
+  }
+
+  @include with-theme {
+    background: themed(field);
+    border-radius: 10px;
+
+    .okp4-progressbar-label {
+      grid-area: label;
+    }
+
+    .okp4-progressbar-value {
+      grid-area: value;
+    }
+
+    .okp4-progressbar-progress {
+      grid-area: progress;
+      text-align: end;
+      margin: 1%;
+    }
+
+    .okp4-progressbar-bar {
+      grid-area: bar;
+      display: grid;
+
+      .okp4-progressbar-bar-container {
+        margin: auto;
+        position: relative;
+        height: 10px;
+        width: 100%;
+        background-color: themed(primary-variant);
+        border-radius: 50px;
+
+        .okp4-progressbar-bar-filler {
+          position: relative;
+          height: 100%;
+          background-color: themed(text);
+          border-radius: inherit;
+        }
+
+        .okp4-progressbar-bar-filler-undetermined {
+          animation: undetermined 1s linear infinite alternate;
+          @keyframes undetermined {
+            from {
+              left: 0%;
+              width: 10%;
+            }
+            50% {
+              left: 30%;
+              width: 50%;
+            }
+            to {
+              left: 90%;
+              width: 10%;
+            }
+          }
+        }
+      }
+    }
+
+    .okp4-progressbar-icon {
+      grid-area: icon;
+      display: grid;
+      align-items: center;
+      :first-child {
+        margin: auto;
+        width: 50%;
+      }
+    }
+  }
+}
