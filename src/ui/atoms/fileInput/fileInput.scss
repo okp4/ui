@@ -40,7 +40,6 @@ $sizes-map: (
         }
 
         .okp4-fileinput-container {
-          position: relative;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -53,6 +52,10 @@ $sizes-map: (
           overflow: hidden;
           cursor: pointer;
 
+          div {
+            pointer-events: none;
+          }
+
           &.error {
             border: dashed themed(error);
           }
@@ -63,7 +66,6 @@ $sizes-map: (
             max-width: 85px;
             min-height: 25px;
             max-height: 85px;
-            display: block;
             margin-left: auto;
             margin-right: auto;
             width: 20%;

@@ -1,56 +1,50 @@
+import React, { useCallback } from 'react'
 import './fileInput.scss'
-
-import React, { useCallback, useState } from 'react'
-
-import fileInputIcon from '../../../assets/images/file-input-icon.png'
+import classNames from 'classnames'
+import fileInputIcon from '../../../assets/images/file.png'
 import { Typography } from '../typography/Typography'
-
 import type { DeepReadonly } from 'superTypes'
 
-export type FileUploadProps = DeepReadonly<{
+export type FileUploadProps = {
   /**
-   * The id of the component in the DOM
+   * The unique id of the component
    */
   readonly id: string
   /**
    * The main title
    */
-  readonly label: string
+  readonly label?: string
   /**
    * Context information for the user
    */
-  readonly description?: Readonly<JSX.Element>
-
+  readonly description?: JSX.Element
   /**
    * Drop one or several files
    */
   readonly multiple?: boolean
-
   /**
    * The list of the accepted formats
    */
   readonly acceptedFormats?: string[]
-
   /**
-   * The drag and drop content size
+   * The size of the component
    */
   readonly size?: 'large' | 'medium' | 'small'
-
   /**
    * Make the component in an error state or not
    */
   readonly error?: boolean
-
   /**
    * An error message displayed when the component is in the error state
    */
   readonly errorMessage?: string
-
   /**
    * Callback method performs when files are dropped
    */
-  readonly onDropped: (files: DeepReadonly<File[]>) => void
-}>
+  // lint rule bypassed in method props arguments
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  readonly onDropped: (files: File[]) => void
+}
 
 // lint rule bypassed while disabling the rule
 // eslint-disable-next-line max-lines-per-function
@@ -64,32 +58,29 @@ export const FileInput: React.FC<FileUploadProps> = ({
   error = false,
   errorMessage,
   onDropped
-}: FileUploadProps): JSX.Element => {
-  const inputFileId = id + '-inputfile'
-  const dropZoneId = id + '-dropzone'
+}: DeepReadonly<FileUploadProps>): JSX.Element => {
+  const inputFileId = `${id}-inputfile`
+  const dropZoneId = `${id}-dropzone`
   const draggingClassname = 'dragging'
-
-  const [dragEventCount, setDragEventCount]: [number, (count: number) => void] = useState<number>(0)
 
   type LabelDragEvent = React.DragEvent<HTMLLabelElement>
 
+  const getInputFileElement = useCallback(
+    (): HTMLElement | null => document.getElementById(dropZoneId),
+    [dropZoneId]
+  )
+
   const addDraggingClassName = useCallback((): void => {
-    const inputFileElement = document.getElementById(dropZoneId)
-    if (inputFileElement) {
-      inputFileElement.classList.add(draggingClassname)
-    }
-  }, [dropZoneId])
+    getInputFileElement()?.classList.add(draggingClassname)
+  }, [getInputFileElement])
 
   const removeDraggingClassName = useCallback((): void => {
-    const inputFileElement = document.getElementById(dropZoneId)
-    if (inputFileElement) {
-      inputFileElement.classList.remove(draggingClassname)
-    }
-  }, [dropZoneId])
+    getInputFileElement()?.classList.remove(draggingClassname)
+  }, [getInputFileElement])
 
   // lint rule bypassed because of type 'Element' is not compatible with readonly
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  const eventPreventDefaultAndStopPropagation = useCallback((event: LabelDragEvent): void => {
+  const preventDefaultAndStopPropagation = useCallback((event: LabelDragEvent): void => {
     event.preventDefault()
     event.stopPropagation()
   }, [])
@@ -97,18 +88,14 @@ export const FileInput: React.FC<FileUploadProps> = ({
   const getFilesFromEvent = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    (event: LabelDragEvent): DeepReadonly<File[]> =>
-      Array.from(event.dataTransfer.items).reduce(
-        (acc: DeepReadonly<File[]>, cur: DeepReadonly<DataTransferItem>) => {
-          const file: File | null = cur.getAsFile()
-          return file ? [...acc, file] : acc
-        },
-        []
-      ),
+    (event: LabelDragEvent): File[] =>
+      Array.from(event.dataTransfer.items)
+        .map((item: DeepReadonly<DataTransferItem>) => item.getAsFile())
+        .filter((file: DeepReadonly<File> | null): file is File => !!file),
     []
   )
 
-  const handleOnChange = useCallback(
+  const handleChange = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,73 +106,62 @@ export const FileInput: React.FC<FileUploadProps> = ({
     [onDropped]
   )
 
-  const handleOnDragOver = useCallback(
+  const handleDragOver = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: LabelDragEvent) => {
-      eventPreventDefaultAndStopPropagation(event)
+      preventDefaultAndStopPropagation(event)
     },
-    [eventPreventDefaultAndStopPropagation]
+    [preventDefaultAndStopPropagation]
   )
 
-  const handleOnDragEnter = useCallback(
+  const handleDragEnter = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: LabelDragEvent) => {
-      eventPreventDefaultAndStopPropagation(event)
-      setDragEventCount(dragEventCount + 1)
+      preventDefaultAndStopPropagation(event)
       addDraggingClassName()
     },
-    [eventPreventDefaultAndStopPropagation, addDraggingClassName, dragEventCount]
+    [preventDefaultAndStopPropagation, addDraggingClassName]
   )
 
-  const handleOnDragLeave = useCallback(
+  const handleDragLeave = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: LabelDragEvent) => {
-      eventPreventDefaultAndStopPropagation(event)
-      setDragEventCount(dragEventCount - 1)
-      if (dragEventCount - 1 === 0) {
-        removeDraggingClassName()
-      }
+      preventDefaultAndStopPropagation(event)
+      removeDraggingClassName()
     },
-    [eventPreventDefaultAndStopPropagation, dragEventCount, removeDraggingClassName]
+    [preventDefaultAndStopPropagation, removeDraggingClassName]
   )
 
-  const handleOnDrop = useCallback(
+  const handleDrop = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     async (event: LabelDragEvent) => {
-      eventPreventDefaultAndStopPropagation(event)
-      setDragEventCount(dragEventCount - 1)
+      preventDefaultAndStopPropagation(event)
       removeDraggingClassName()
       onDropped(getFilesFromEvent(event))
     },
-    [
-      eventPreventDefaultAndStopPropagation,
-      dragEventCount,
-      removeDraggingClassName,
-      getFilesFromEvent,
-      onDropped
-    ]
+    [preventDefaultAndStopPropagation, removeDraggingClassName, getFilesFromEvent, onDropped]
   )
 
   return (
-    <div className={`okp4-fileinput-main ${size} `} id={dropZoneId}>
+    <div className={`okp4-fileinput-main ${size}`} id={dropZoneId}>
       <input
         accept={acceptedFormats?.join(', ')}
         id={inputFileId}
         multiple={multiple}
-        onChange={handleOnChange}
+        onChange={handleChange}
         type="file"
       />
       <label
-        className={`okp4-fileinput-container ${error ? 'error' : ''}`}
+        className={classNames('okp4-fileinput-container', error && 'error')}
         htmlFor={inputFileId}
-        onDragEnter={handleOnDragEnter}
-        onDragLeave={handleOnDragLeave}
-        onDragOver={handleOnDragOver}
-        onDrop={handleOnDrop}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
       >
         <div>
           <img src={fileInputIcon} />
@@ -193,13 +169,13 @@ export const FileInput: React.FC<FileUploadProps> = ({
             {label}
           </Typography>
           <div className="okp4-fileinput-description">{description}</div>
-          {error && errorMessage ? (
+          {error && errorMessage && (
             <div>
               <Typography as="div" color="error" fontSize="small" fontWeight="light">
                 {errorMessage}
               </Typography>
             </div>
-          ) : null}
+          )}
         </div>
       </label>
     </div>
