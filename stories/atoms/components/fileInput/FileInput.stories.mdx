@@ -1,4 +1,4 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { FileInput } from 'ui/atoms/fileInput/FileInput'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
@@ -23,7 +23,16 @@ import { useState } from 'react'
       <ThemeProvider>
         <div className="component-story-main">
           <ThemeSwitcher />
-          <Story />
+          <div
+            style={{
+              padding: '10px 0',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
+            <Story />
+          </div>
         </div>
       </ThemeProvider>
     )
@@ -40,9 +49,7 @@ import { useState } from 'react'
 
 ### Description
 
-`FileInput` is just an input for files. It allows the user to draag and drop or browse one or several files before upload this files for example.
-
----
+`FileInput` allows the user to drag and drop or browse one or several files before upload these files for example.
 
 <Canvas>
   <Story
@@ -53,36 +60,42 @@ import { useState } from 'react'
         table: {
           type: { summary: 'Node' }
         }
+      },
+      acceptedFormats: {
+        control: false,
+        table: {
+          type: { summary: 'string[]' }
+        }
       }
     }}
+    args={{
+      id: 'overview-fileinput',
+      label: 'Drop your files here, or browse',
+      description: (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+            Supports : Image like '.png', '.jpg', '.jpeg', ...
+          </Typography>
+        </div>
+      ),
+      multiple: true,
+      acceptedFormats: ['images/*'],
+      size: 'medium',
+      error: false,
+      errorMessage: ''
+    }}
   >
-    {() => {
+    {args => {
       const [files, setFiles] = useState([])
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput
-            id="overview-fileinput"
-            label="Drop your files here, or browse"
-            description={
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-                  Supports : Image like '.png', '.jpg', '.jpeg', ...
-                </Typography>
-              </div>
-            }
-            acceptedFormats={['image/*']}
+            {...args}
             onDropped={files => {
               setFiles(files)
             }}
           />
-          {files?.length ? (
+          {files?.length && (
             <div
               style={{
                 display: 'flex',
@@ -106,7 +119,7 @@ import { useState } from 'react'
                 </Typography>
               ))}
             </div>
-          ) : null}
+          )}
         </div>
       )
     }}
@@ -121,22 +134,13 @@ import { useState } from 'react'
 
 ## Label
 
-The label is the main title of the `FileInput`.
-
----
+The `label` is the main title of the `FileInput`.
 
 <Canvas>
   <Story name="Label">
     {() => {
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput id="label-fileinput" label="My awesome label" />
         </div>
       )
@@ -148,31 +152,22 @@ The label is the main title of the `FileInput`.
 
 ## Description
 
-The description is a customizable `Element` to give context information for the user.
-
----
+The `description` is a customizable `HTML Element` to give context information for the user.
 
 <Canvas>
   <Story name="Description">
     {() => {
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput
             id="description-fileinput"
             label="Drop files here"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-                  A description where any element can be provided such as link to describe what the{' '}
-                  <a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a> format is
-                  for example.
+                  A description where any element can be provided such as link to describe what
+                  the&nbsp;<a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+                  &nbsp;format is for example.
                 </Typography>
               </div>
             }
@@ -189,22 +184,13 @@ The description is a customizable `Element` to give context information for the 
 
 The `multiple` parameter allows to upload several files. It is set to `true` by default and then accept several files. Set it to `false` to only accept one file.
 
----
-
 <Canvas>
   <Story name="Multiple">
     {() => {
       const [oneFile, setOneFile] = useState([])
       const [multipleFiles, setMultipleFiles] = useState([])
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput
             id="multiplefalse-fileinput"
             label="Drop only one file here"
@@ -222,7 +208,7 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
             error={oneFile.length > 1}
             errorMessage="Only one file accepted."
           />
-          {oneFile.length === 1 && oneFile[0] ? (
+          {oneFile.length === 1 && oneFile[0] && (
             <div
               style={{
                 display: 'flex',
@@ -238,10 +224,10 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
                 {oneFile[0].name}
               </Typography>
             </div>
-          ) : null}
+          )}
           <div
             style={{
-              margin: '20px'
+              margin: '40px'
             }}
           />
           <FileInput
@@ -259,7 +245,7 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
               setMultipleFiles(files)
             }}
           />
-          {multipleFiles.length ? (
+          {multipleFiles.length && (
             <div
               style={{
                 display: 'flex',
@@ -277,7 +263,7 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
                 </Typography>
               ))}
             </div>
-          ) : null}
+          )}
         </div>
       )
     }}
@@ -288,24 +274,24 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
 
 ## Accepted Formats
 
-Defines the list of the format that are accepted by the component. For example : `image/*`, `text/*`, `audio/*`, etc.
-
----
+Defines the list of the format that are accepted by the component. For example : `image/*`, `text/*`, `audio/*`, `.png`, `.jpg`, `.csv`, `.xls`, `.pdf`, etc.
 
 <Canvas>
   <Story name="Accepted Formats">
     {() => {
       const [files, setFiles] = useState([])
       const [error, setError] = useState(false)
+      const handleDropped = files => {
+        if (files.every(file => (file.name || '').toLowerCase().endsWith('.csv'))) {
+          setError(false)
+          setFiles(files)
+        } else {
+          setError(true)
+          setFiles([])
+        }
+      }
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput
             id="accepted-formats-images-fileinput"
             label="Drop files here or browse"
@@ -317,19 +303,11 @@ Defines the list of the format that are accepted by the component. For example :
               </div>
             }
             acceptedFormats={['.csv']}
-            onDropped={files => {
-              if (files.every(file => (file.name || '').toLowerCase().endsWith('.csv'))) {
-                setError(false)
-                setFiles(files)
-              } else {
-                setError(true)
-                setFiles([])
-              }
-            }}
+            onDropped={handleDropped}
             error={error}
             errorMessage="Only CSV files are accepted."
           />
-          {files.length ? (
+          {files.length && (
             <div
               style={{
                 display: 'flex',
@@ -347,7 +325,7 @@ Defines the list of the format that are accepted by the component. For example :
                 </Typography>
               ))}
             </div>
-          ) : null}
+          )}
         </div>
       )
     }}
@@ -356,38 +334,77 @@ Defines the list of the format that are accepted by the component. For example :
 
 ---
 
+## Sizes
+
+Size options are `small`, `medium`(default) and `large`. The size also adjust itself according to the screen width.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '40px'
+        }}
+      >
+        <FileInput
+          size="small"
+          label="Upload files"
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                This is a `small` FileInput
+              </Typography>
+            </div>
+          }
+        />
+        <FileInput
+          size="medium"
+          label="Upload files"
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                This is a `medium` FileInput
+              </Typography>
+            </div>
+          }
+        />
+        <FileInput
+          size="large"
+          label="Upload files"
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                This is a `large` FileInput that takes 100% of the content
+              </Typography>
+            </div>
+          }
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
 ## Errors
 
 Define the behavior of the component when it is in an error state.
-Set the `error` parameter to `true` to display the component in a error state.
+The default value is `false`, set the `error` parameter to `true` to display the component in an error state.
 Provide the `errorMessage` parameter to display an error message into the component.
 
----
-
 <Canvas>
-  <Story
-    name="Errors"
-    argTypes={{
-      description: {
-        control: false,
-        table: {
-          type: { summary: 'Node' }
-        }
-      }
-    }}
-  >
+  <Story name="Errors">
     {() => {
       const [files, setFiles] = useState([])
       const [error, setError] = useState(true)
+      const handleDropped = files => {
+        setFiles(files)
+        setError(false)
+      }
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput
             id="errors1-fileinput"
             label="Drop your files here, or browse"
@@ -405,7 +422,7 @@ Provide the `errorMessage` parameter to display an error message into the compon
           />
           <div
             style={{
-              margin: '10px'
+              margin: '40px'
             }}
           />
           <FileInput
@@ -420,11 +437,8 @@ Provide the `errorMessage` parameter to display an error message into the compon
             }
             acceptedFormats={['image/*']}
             error={error}
-            errorMessage="An other error message."
-            onDropped={files => {
-              setFiles(files)
-              setError(false)
-            }}
+            errorMessage="Another error message."
+            onDropped={handleDropped}
           />
         </div>
       )
@@ -438,21 +452,12 @@ Provide the `errorMessage` parameter to display an error message into the compon
 
 The callback method `onDropped` is called when a file is drop into the drop zone of the component.
 
----
-
 <Canvas>
   <Story name="Callback method onDropped">
     {() => {
       const [message, setMessage] = useState(null)
       return (
-        <div
-          style={{
-            padding: '10px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <div>
           <FileInput
             id="cb-ondropped-fileinput"
             label="Drop files here"
@@ -467,7 +472,7 @@ The callback method `onDropped` is called when a file is drop into the drop zone
               setMessage('Callback method `onDropped` called.')
             }}
           />
-          {message ? (
+          {message && (
             <div
               style={{
                 marginTop: '20px'
@@ -483,7 +488,7 @@ The callback method `onDropped` is called when a file is drop into the drop zone
                 {message}
               </Typography>
             </div>
-          ) : null}
+          )}
         </div>
       )
     }}
