@@ -38,7 +38,7 @@ export const Card: React.FC<CardProps> = ({
   content,
   footer
 }: CardProps): JSX.Element => {
-  const wrapperClasses = classNames(`okp4-card-main ${size} `, {
+  const wrapperClasses = classNames(`okp4-card-main ${size}`, {
     border: withBorder
   })
   const containerClasses = `okp4-card-container ${background}`
