@@ -33,7 +33,6 @@ module.exports = {
         loader: 'sass-loader',
         options: {
           sassOptions: {
-            // indentWidth: 4,
             log: console.log(
               '\n\n\n\npath.resolve(__dirname, "src/sass/")',
               path.resolve(__dirname, '../src/')
@@ -58,14 +57,8 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.graphql$/,
-        exclude: /node_modules/,
-        loader: 'graphql-tag/loader'
       }
     )
-
     return config
   }
 }
