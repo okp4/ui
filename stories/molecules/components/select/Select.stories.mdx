@@ -1,0 +1,176 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { useState } from 'react'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Select } from 'ui/molecules/select/Select.tsx'
+
+<Meta
+  title="Molecules/Select"
+  component={Select}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code',
+        format: true,
+        language: 'jsx'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div style={{ padding: '20px 30px' }}>
+          <ThemeSwitcher />
+        </div>
+        <div
+          className="component-story-main"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            maxWidth: '100%',
+            height: 'fit-content'
+          }}
+        >
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Select component
+
+> Displays a list of options for the user to offer him the possibility to make one or more choices in it.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+`Select` is used to collect the choice(s) that the user has made from the list of options provided.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    onChange: {
+      control: false
+    },
+    inputRef: {
+      control: false
+    },
+    value: {
+      control: { type: 'select' },
+      options: ['string', ['array', 'of', 'string']]
+    }
+  }}
+  args={{
+    id: 'select-1',
+    defaultValue: `I'm set with a default value`,
+    options: [
+      { label: 'Cherry', value: 'cherry', group: 'fruits' },
+      { label: 'Apple', value: 'apple', group: 'fruits' },
+      { label: 'Zucchini', value: 'zucchini', group: 'veggies' },
+      { label: 'Potatoe', value: 'potatoe', group: 'veggies' },
+      { label: 'Water', value: 'water', group: 'a' },
+      { label: 'Bread', value: 'bread', group: 'a' },
+      { label: 'Grapefruit', value: 'grapefruit', group: 'fruits' }
+    ],
+    placeholder: 'Please select a country',
+    value: undefined
+  }}
+>
+  {args => <Select {...args} />}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Disabled
+
+The `Select` component can be disabled by setting the `disabled` property to `true`.  
+It is then impossible to enter a value or to open the menu.
+
+<Canvas>
+  <Story name="Disabled">
+    <Select
+      id="select1"
+      disabled
+      defaultValue="I am disabled"
+      options={[
+        { label: 'Apple', value: 'apple' },
+        { label: 'Ananas', value: 'ananas' }
+      ]}
+    />
+  </Story>
+</Canvas>
+
+## FullWidth
+
+The `Select` component can take 100% width if the `fullWidth` property is set to true.
+
+<Canvas>
+  <Story name="FullWidth">
+    <Select
+      id="select1"
+      defaultValue="I am in 100% width"
+      fullWidth
+      options={[
+        { label: 'Apple', value: 'apple' },
+        { label: 'Ananas', value: 'ananas' }
+      ]}
+    />
+  </Story>
+</Canvas>
+
+## Controlled
+
+<Canvas>
+  <Story name="Controlled">
+    {args => {
+      const [value, setValue] = useState('I am controlled: value is passed by my parent')
+      const handleChange = value => {
+        setValue(value)
+        console.log(`My new value is : ${value}`)
+      }
+      return (
+        <Select
+          id="select1"
+          fullWidth
+          value={value}
+          onChange={handleChange}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Ananas', value: 'ananas' }
+          ]}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Sizes
+
+Size options are `x-small`, `small`, `medium`, `large`, `x-large` and will be automatically adjusted responsively to the screen size.  
+If done is given, `medium` is the default value.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => {
+      const sizes = ['x-small', 'small', 'medium', 'large', 'x-large']
+      return sizes.map(size => (
+        <Select
+          id={size}
+          defaultValue={size}
+          size={size}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Ananas', value: 'ananas' }
+          ]}
+        />
+      ))
+    }}
+  </Story>
+</Canvas>
