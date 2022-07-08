@@ -2,7 +2,7 @@ overwrite: true
 generates:
   ./src/adapters/faucet/secondary/graphql/generated/types.ts:
     schema: "node_modules/@okp4/cosmos-faucet-schema/graph/schema.graphqls"
-    documents: "src/adapters/faucet/secondary/graphql/documents/*.graphql"
+    documents: "src/adapters/faucet/secondary/graphql/documents/*.ts"
     plugins:
       - typescript
       - typescript-operations
