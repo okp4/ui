@@ -79,7 +79,7 @@ import { useState } from 'react'
         </div>
       ),
       multiple: true,
-      acceptedFormats: ['images/*'],
+      acceptedFormats: ['image/*'],
       size: 'medium',
       error: false,
       errorMessage: ''
@@ -95,7 +95,7 @@ import { useState } from 'react'
               setFiles(files)
             }}
           />
-          {files?.length && (
+          {files?.length > 0 && (
             <div
               style={{
                 display: 'flex',
@@ -126,8 +126,6 @@ import { useState } from 'react'
   </Story>
 </Canvas>
 
----
-
 ### Properties
 
 <ArgsTable story="Overview" />
@@ -141,14 +139,12 @@ The `label` is the main title of the `FileInput`.
     {() => {
       return (
         <div>
-          <FileInput id="label-fileinput" label="My awesome label" />
+          <FileInput label="My awesome label" />
         </div>
       )
     }}
   </Story>
 </Canvas>
-
----
 
 ## Description
 
@@ -160,15 +156,16 @@ The `description` is a customizable `HTML Element` to give context information f
       return (
         <div>
           <FileInput
-            id="description-fileinput"
             label="Drop files here"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-                  A description where any element can be provided such as link to describe what
-                  the&nbsp;<a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a>
-                  &nbsp;format is for example.
+                  A description where any element can be provided such an image.
                 </Typography>
+                <img
+                  style={{ backgroundColor: 'white' }}
+                  src="https://okp4.network/wp-content/themes/okp4/img/know.png"
+                ></img>
               </div>
             }
           />
@@ -177,8 +174,6 @@ The `description` is a customizable `HTML Element` to give context information f
     }}
   </Story>
 </Canvas>
-
----
 
 ## Multiple
 
@@ -192,7 +187,6 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
       return (
         <div>
           <FileInput
-            id="multiplefalse-fileinput"
             label="Drop only one file here"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -231,7 +225,6 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
             }}
           />
           <FileInput
-            id="multipletrue-fileinpput"
             label="Drop many files here"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -245,7 +238,7 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
               setMultipleFiles(files)
             }}
           />
-          {multipleFiles.length && (
+          {multipleFiles.length > 0 && (
             <div
               style={{
                 display: 'flex',
@@ -270,11 +263,9 @@ The `multiple` parameter allows to upload several files. It is set to `true` by 
   </Story>
 </Canvas>
 
----
-
 ## Accepted Formats
 
-Defines the list of the format that are accepted by the component. For example : `image/*`, `text/*`, `audio/*`, `.png`, `.jpg`, `.csv`, `.xls`, `.pdf`, etc.
+Defines the list of the formats that are accepted by the component. For example : `image/*`, `text/*`, `audio/*`, `.png`, `.jpg`, `.csv`, `.xls`, `.pdf`, etc.
 
 <Canvas>
   <Story name="Accepted Formats">
@@ -293,7 +284,6 @@ Defines the list of the format that are accepted by the component. For example :
       return (
         <div>
           <FileInput
-            id="accepted-formats-images-fileinput"
             label="Drop files here or browse"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -307,7 +297,7 @@ Defines the list of the format that are accepted by the component. For example :
             error={error}
             errorMessage="Only CSV files are accepted."
           />
-          {files.length && (
+          {files.length > 0 && (
             <div
               style={{
                 display: 'flex',
@@ -331,8 +321,6 @@ Defines the list of the format that are accepted by the component. For example :
     }}
   </Story>
 </Canvas>
-
----
 
 ## Sizes
 
@@ -406,7 +394,6 @@ Provide the `errorMessage` parameter to display an error message into the compon
       return (
         <div>
           <FileInput
-            id="errors1-fileinput"
             label="Drop your files here, or browse"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -426,7 +413,6 @@ Provide the `errorMessage` parameter to display an error message into the compon
             }}
           />
           <FileInput
-            id="errors2-fileinput"
             label="Drop your files here, or browse"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -446,11 +432,9 @@ Provide the `errorMessage` parameter to display an error message into the compon
   </Story>
 </Canvas>
 
----
-
 ## Callback method `onDropped`
 
-The callback method `onDropped` is called when a file is drop into the drop zone of the component.
+The callback method `onDropped` is called when a file is dropped into the drop zone of the component.
 
 <Canvas>
   <Story name="Callback method onDropped">
@@ -459,7 +443,6 @@ The callback method `onDropped` is called when a file is drop into the drop zone
       return (
         <div>
           <FileInput
-            id="cb-ondropped-fileinput"
             label="Drop files here"
             description={
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -494,5 +477,3 @@ The callback method `onDropped` is called when a file is drop into the drop zone
     }}
   </Story>
 </Canvas>
-
----
