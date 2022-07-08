@@ -1,0 +1,63 @@
+@import '../../styles/themes.scss';
+
+$sizes: (
+  'x-small': 200px,
+  'small': 300px,
+  'medium': 350px,
+  'large': 450px,
+  'x-large': 550px
+);
+
+.okp4-select-container {
+  @include with-theme() {
+    border: 1px solid themed(text);
+    max-width: 100%;
+
+    &.error {
+      color: themed('text');
+      border: 1px solid themed('error');
+    }
+
+    @each $size-key, $size-value in $sizes {
+      &.#{$size-key} {
+        width: $size-value;
+
+        &.full-width {
+          width: 100%;
+        }
+      }
+    }
+
+    .okp4-select-input-container {
+      width: auto;
+    }
+
+    .okp4-select-options-container {
+      width: inherit;
+      color: themed(text);
+      border: 1px solid themed(text);
+
+      .okp4-select-options-list {
+        margin-top: 5px;
+
+        .okp4-select-options-group {
+          padding-left: 20px;
+        }
+        > ul {
+          list-style: none;
+          padding-left: 0;
+        }
+
+        .okp4-select-option {
+          padding: 10px;
+          font-family: 'Gotham bold', sans-serif;
+
+          &:hover {
+            background-color: themed('border');
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
