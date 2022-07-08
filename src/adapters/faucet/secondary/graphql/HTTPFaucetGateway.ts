@@ -1,5 +1,5 @@
 import client from './client'
-import * as SEND_TOKENS_MUTATION from './documents/sendTokens.graphql'
+import { SEND_TOKENS_MUTATION } from './documents/sendTokens'
 import type { MSendTokensMutation, MSendTokensMutationVariables } from './generated/types'
 import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
 import type { FaucetPort } from 'domain/faucet/port/faucetPort'
