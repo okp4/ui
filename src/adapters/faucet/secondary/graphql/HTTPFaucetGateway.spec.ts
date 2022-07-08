@@ -7,7 +7,7 @@ import {
 } from '@urql/core'
 import * as client from './client'
 import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
-import * as SEND_TOKENS_MUTATION from './documents/sendTokens.graphql'
+import { SEND_TOKENS_MUTATION } from './documents/sendTokens'
 import { MSendTokensMutation, MSendTokensMutationVariables } from './generated/types'
 import { HTTPFaucetGateway } from './HTTPFaucetGateway'
 import { DocumentNode } from 'graphql'
