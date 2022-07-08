@@ -23,7 +23,6 @@ $sizes-map: (
     @each $size in $sizes {
       &.#{$size} {
         max-width: map-get($sizes-map, #{$size}-width);
-        max-height: map-get($sizes-map, #{$size}-height);
 
         &.dragging {
           background: themed(primary-variant);
