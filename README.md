@@ -9,6 +9,8 @@
 [![Build](https://github.com/okp4/ui/actions/workflows/build.yml/badge.svg)](https://github.com/okp4/ui/actions/workflows/build.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/696cb4f6326aebdc7abe/maintainability)](https://codeclimate.com/github/okp4/ui/maintainability)
 [![Test Coverage](https://codecov.io/gh/okp4/ui/branch/main/graph/badge.svg?token=WHLU66SCC2)](https://codecov.io/gh/okp4/ui)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fokp4%2Fui.svg?type=shield)](https://app.fossa.com/reports/e5217c6b-d64c-49c0-a3ce-a74484a9854c)
+
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
 [![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Sass](https://img.shields.io/badge/-Sass-CC6699?logo=sass&logoColor=ffffff)](https://sass-lang.com/)
