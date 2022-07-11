@@ -6,7 +6,6 @@ import svgr from '@svgr/rollup'
 import analyze from 'rollup-plugin-analyzer'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
-import graphql from '@rollup/plugin-graphql'
 import ts from 'rollup-plugin-ts'
 import { builtinModules } from 'module'
 import alias from '@rollup/plugin-alias'
@@ -62,7 +61,6 @@ export default {
     json(),
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),
-    graphql(),
     ts({
       transpiler: 'swc',
       browserslist: false,

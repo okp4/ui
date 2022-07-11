@@ -1,0 +1,82 @@
+@import 'src/ui/styles/themes';
+
+.okp4-faucet-main {
+  @include with-theme() {
+    max-width: 1100px;
+    align-self: center;
+
+    .okp4-faucet-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: unset;
+
+      @media screen and (min-width: 768px) {
+        gap: 70px;
+      }
+    }
+
+    .okp4-faucet-content-brand-main {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      gap: 10px;
+      text-align: center;
+
+      @media screen and (max-width: 810px) {
+        width: 80%;
+      }
+
+      @media screen and (max-width: 460px) {
+        width: 100%;
+      }
+    }
+
+    .okp4-faucet-content-action-main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 60px;
+      margin: 50px 0;
+
+      @media screen and (min-width: 768px) {
+        width: 100%;
+        column-gap: 20%;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 0;
+      }
+    }
+
+    .okp4-faucet-content-action-item {
+      @include background-opacity(themed('tertiary-background'), 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      border-radius: 1.25rem;
+      padding: 32px;
+      min-height: 250px;
+      border: 1px solid #80808082;
+      grid-column: 1/-1;
+      text-align: center;
+      gap: 20px;
+
+      @media screen and (min-width: 768px) {
+        grid-column: span 2;
+      }
+
+      > img {
+        width: 55px;
+      }
+
+      input {
+        border: 1px solid #80808082;
+      }
+    }
+  }
+
+  .okp4-faucet-content-info-main {
+    text-align: center;
+    width: 70%;
+  }
+}

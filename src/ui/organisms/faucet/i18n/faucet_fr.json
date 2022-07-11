@@ -1,0 +1,22 @@
+{
+  "faucet": {
+    "common": {
+      "error": "Erreur",
+      "success": "Succès"
+    },
+    "sendMeToken": "Envoyez-moi des KNOW",
+    "requestFundsWithKeplr": "Demander des fonds avec Keplr",
+    "requestFundsWithAddress": "Demander des fonds avec une adresse ØKP4",
+    "addressPlaceholder": "addresse ØKP4",
+    "operationSucceeded": "Votre transaction a été envoyée avec succès!",
+    "brand": {
+      "title": "ØKP4 Faucet",
+      "description": "Bonjour camarade! Utilisez ce faucet afin d'obtenir des jetons pour le dernier testnet ØKP4. Veuillez ne pas abuser de ce service - le nombre de jetons disponibles est limité."
+    },
+    "info": {
+      "limitation": "Vous recevrez 1 KNOW par demande, avec un maximum de 1 demande toutes les 5 secondes.",
+      "description": "Vous n'avez pas d'adresse testnet ? Pour en obtenir une, le moyen le plus simple est d'utiliser Keplr, le wallet d'OKP4. Connectez Keplr à la chaîne testnet-okp4-1 pour voir votre adresse.",
+      "successMessage": "Votre demande a été envoyée avec succès, vérifiez votre portefeuille! 🚀"
+    }
+  }
+}

@@ -6,8 +6,8 @@ import {
   TypedDocumentNode
 } from '@urql/core'
 import * as client from './client'
-import { GatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
-import * as SEND_TOKENS_MUTATION from './documents/sendTokens.graphql'
+import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
+import { SEND_TOKENS_MUTATION } from './documents/sendTokens'
 import { MSendTokensMutation, MSendTokensMutationVariables } from './generated/types'
 import { HTTPFaucetGateway } from './HTTPFaucetGateway'
 import { DocumentNode } from 'graphql'
@@ -79,7 +79,7 @@ describe('Given a HTTPFaucetGateway instance', () => {
         }`, async () => {
           if (hasError) {
             await expect(gateway.requestFunds(fakeAddress)).rejects.toThrowError(
-              new GatewayError('test-message')
+              new FaucetGatewayError('test-message')
             )
           } else if (!hasError && !expectedData) {
             await expect(gateway.requestFunds(fakeAddress)).rejects.toThrowError(

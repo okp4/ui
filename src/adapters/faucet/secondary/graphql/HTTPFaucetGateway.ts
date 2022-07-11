@@ -1,7 +1,7 @@
 import client from './client'
-import * as SEND_TOKENS_MUTATION from './documents/sendTokens.graphql'
+import { SEND_TOKENS_MUTATION } from './documents/sendTokens'
 import type { MSendTokensMutation, MSendTokensMutationVariables } from './generated/types'
-import { GatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
+import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
 import type { FaucetPort } from 'domain/faucet/port/faucetPort'
 
 export class HTTPFaucetGateway implements FaucetPort {
@@ -21,7 +21,7 @@ export class HTTPFaucetGateway implements FaucetPort {
       .toPromise()
 
     if (result.error) {
-      throw new GatewayError(result.error.message)
+      throw new FaucetGatewayError(result.error.message)
     }
 
     if (!result.data) {

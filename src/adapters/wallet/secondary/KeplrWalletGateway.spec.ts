@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { ConnectionError } from 'domain/wallet/entities/errors'
+import { ChainSuggestionError, KeplrExtensionUnavailableError } from 'domain/wallet/entities/errors'
 import { KeplrWalletGateway } from './KeplrWalletGateway'
 import type { OfflineSigner } from '@cosmjs/launchpad'
 import type { OfflineDirectSigner } from '@cosmjs/proto-signing'
@@ -24,7 +24,7 @@ describe('Given that no Keplr extension is installed', () => {
         const result = wallet.connect('test')
 
         expect(result).rejects.toStrictEqual(
-          new ConnectionError(`Ooops... No Keplr extension available`)
+          new KeplrExtensionUnavailableError(`Ooops... No Keplr extension available`)
         )
       })
     })
@@ -122,7 +122,7 @@ describe(`Given a Keplr extension so that:
         const result = wallet.connect(chainId)
 
         await expect(result).rejects.toStrictEqual(
-          new ConnectionError(
+          new ChainSuggestionError(
             `Ooops... Failed to suggest chain ${chainId} to Keplr extension, please check configuration`
           )
         )
@@ -161,7 +161,7 @@ describe(`Given a Keplr extension so that:
         const result = wallet.connect(chainId)
 
         await expect(result).rejects.toStrictEqual(
-          new ConnectionError(
+          new ChainSuggestionError(
             `Ooops... Failed to enable chain ${chainId} to Keplr extension, please check configuration`
           )
         )

@@ -5,8 +5,10 @@ import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
 
+export const faucetTaskType = 'faucet#request-funds'
+
 const createTaskFactory = (): TaskBuilder =>
-  new TaskBuilder().withMessageKey('domain.task.proceeded').withType('faucet#request-funds')
+  new TaskBuilder().withMessageKey('domain.task.proceeded').withType(faucetTaskType)
 
 const dispatchRequestFundsAmendedTask = (
   dispatch: ReduxStore['dispatch'],
