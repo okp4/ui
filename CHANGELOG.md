@@ -1,5 +1,34 @@
 # OKP4 UI changelog
 
+# [1.8.0](https://github.com/okp4/ui/compare/v1.7.0...v1.8.0) (2022-07-11)
+
+
+### Bug Fixes
+
+* adjust header & footer padding ([f7bcb0e](https://github.com/okp4/ui/commit/f7bcb0eceffb02fccded1ec65187e2b109e72cb0))
+* change useffect if statement ([3d0cc22](https://github.com/okp4/ui/commit/3d0cc22dc2a1fa9fe4a6201345fe603db7340fd4))
+* move all necessary packages to dependencies ([d9462fa](https://github.com/okp4/ui/commit/d9462faa859a615c2726a96d41b065f0814b770e))
+* remove default theme parameter from local storage ([3af7941](https://github.com/okp4/ui/commit/3af7941922cbb6b20ecc5e65ff5106cf1f21e31f))
+* remove svg files from rollup-plugin-image scope ([32eee8c](https://github.com/okp4/ui/commit/32eee8ce8f803e61ec596403bf3b832b2d04e37b))
+
+
+### Features
+
+* add inputBase atom component ([b6980b7](https://github.com/okp4/ui/commit/b6980b7191d7a29f5d6564a2e550163d946a81ca))
+* **assets:** add keplr image ([f837755](https://github.com/okp4/ui/commit/f837755266c48d371b464a37b9666dcbab22db48))
+* change logo images ([30f57d2](https://github.com/okp4/ui/commit/30f57d2a0a3b1f5a60b2942a05985ebe0f876106))
+* **domain:** load error translations at default domain export ([3acb7c2](https://github.com/okp4/ui/commit/3acb7c28640e782dce32e213fb1e185c9648eb43))
+* embed inputBase in textField ([026248e](https://github.com/okp4/ui/commit/026248ec52e209e5598597556f0625d9c0392643))
+* export all necessary files to be bundled ([a4a0971](https://github.com/okp4/ui/commit/a4a097168105f2fe103ac233d1850a8c78271b39))
+* **i18n:** add translations for faucet ([88a467f](https://github.com/okp4/ui/commit/88a467f2a3815b63772c31ef1e49f83edcbb3732))
+* **i18n:** update faucet translations ([faf097a](https://github.com/okp4/ui/commit/faf097af3bb1397327c30e73799aa402f8292215))
+* improve TextField & InputBase types ([805060d](https://github.com/okp4/ui/commit/805060d68da9d53a732858522e5a9e622fac70b1))
+* **redux:** add task selectors ([49c5d1b](https://github.com/okp4/ui/commit/49c5d1b878834c2e724aeb6f39eca6d161d079e9))
+* remove redundant readonly ([b0715cb](https://github.com/okp4/ui/commit/b0715cbd3391bfa9315e59ee3dc51e262d02f3a9))
+* render component generic ([ee7eaa3](https://github.com/okp4/ui/commit/ee7eaa30e55a706da2cc8d437046dec028c7d5a9))
+* **ui:** add Faucet component and export it ([bd49500](https://github.com/okp4/ui/commit/bd495007b331b306c7eec50eab28c9296d51a995))
+* **ui:** add task management in faucet ([51f7da8](https://github.com/okp4/ui/commit/51f7da813c2918e37e12b1c67ba48db9aea4dd03))
+
 # [1.7.0](https://github.com/okp4/ui/compare/v1.6.0...v1.7.0) (2022-06-21)
 
 
