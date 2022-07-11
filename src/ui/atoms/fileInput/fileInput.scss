@@ -2,22 +2,20 @@
 
 $sizes: ('small', 'medium', 'large');
 $sizes-map: (
-  small-width: 425px,
-  medium-width: 653px,
-  large-width: 100%,
+  small-width: 275px,
   small-height: 235px,
-  medium-height: 425px,
+  small-padding: 30px,
+  medium-width: 425px,
+  medium-height: 235px,
+  medium-padding: 35px,
+  large-width: 100%,
   large-height: 100%,
-  small-padding: 35px,
-  medium-padding: 40px,
-  large-padding: 40px
+  large-padding: 50px
 );
 
 .okp4-fileinput-main {
   width: 100%;
   height: 100%;
-  display: flex;
-  position: relative;
 
   @include with-theme() {
     @each $size in $sizes {
@@ -43,9 +41,8 @@ $sizes-map: (
           flex-direction: column;
           justify-content: center;
           text-align: center;
-          width: map-get($sizes-map, #{$size}-width);
           height: map-get($sizes-map, #{$size}-height);
-          padding: 0 map-get($sizes-map, #{$size}-padding);
+          padding: map-get($sizes-map, #{$size}-padding);
           background: transparent;
           border: dashed themed(text);
           overflow: hidden;
