@@ -2,7 +2,8 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { useState } from 'react'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import { Select } from 'ui/molecules/select/Select.tsx'
+import { Select } from 'ui/molecules/select/Select'
+import { Map } from 'immutable'
 
 <Meta
   title="Molecules/Select"
@@ -71,22 +72,53 @@ import { Select } from 'ui/molecules/select/Select.tsx'
     options: [
       { label: 'Cherry', value: 'cherry', group: 'fruits' },
       { label: 'Apple', value: 'apple', group: 'fruits' },
+      { label: 'Water', value: 'water', group: 'liquid' },
       { label: 'Zucchini', value: 'zucchini', group: 'veggies' },
       { label: 'Potatoe', value: 'potatoe', group: 'veggies' },
-      { label: 'Water', value: 'water', group: 'a' },
-      { label: 'Bread', value: 'bread', group: 'a' },
+      { label: 'Wine', value: 'wine', group: 'liquid' },
       { label: 'Grapefruit', value: 'grapefruit', group: 'fruits' }
     ],
-    placeholder: 'Please select a country',
-    value: undefined
+    placeholder: 'Please select a value'
   }}
 >
-  {args => <Select {...args} />}
+  {args => {
+    const [value, setValue] = useState('')
+    const handleChange = value => {
+      setValue(value)
+    }
+    return <Select {...args} onChange={handleChange} value={value} />
+  }}
 </Story>
 
 ## Properties
 
 <ArgsTable story="Overview" />
+
+## Controlled
+
+<Canvas>
+  <Story name="Controlled">
+    {args => {
+      const [value, setValue] = useState('I am controlled: value is passed by my parent')
+      const handleChange = value => {
+        setValue(value)
+        console.log(`My new value is : ${value}`)
+      }
+      return (
+        <Select
+          id="select1"
+          fullWidth
+          value={value}
+          onChange={handleChange}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Ananas', value: 'ananas' }
+          ]}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
 
 ## Disabled
 
@@ -113,27 +145,10 @@ The `Select` component can take 100% width if the `fullWidth` property is set to
 
 <Canvas>
   <Story name="FullWidth">
-    <Select
-      id="select1"
-      defaultValue="I am in 100% width"
-      fullWidth
-      options={[
-        { label: 'Apple', value: 'apple' },
-        { label: 'Ananas', value: 'ananas' }
-      ]}
-    />
-  </Story>
-</Canvas>
-
-## Controlled
-
-<Canvas>
-  <Story name="Controlled">
     {args => {
-      const [value, setValue] = useState('I am controlled: value is passed by my parent')
+      const [value, setValue] = useState('I am in 100% width')
       const handleChange = value => {
         setValue(value)
-        console.log(`My new value is : ${value}`)
       }
       return (
         <Select
@@ -171,6 +186,72 @@ If done is given, `medium` is the default value.
           ]}
         />
       ))
+    }}
+  </Story>
+</Canvas>
+
+## Sort Groups and Options
+
+If no specific sorting method is provided by the user, then the sorting is done alphabetically on the groups, then on the options contained in these groups.  
+If you want to provide a different sorting method, it is possible. However, it must return a result that respects this formalism:
+
+```ts
+type ResultMap = OrderedMap<string, OptionWithoutGroup[]>
+```
+
+We have provided a reverse alphabetical sorting method in the example below:
+
+<Canvas>
+  <Story name="SpecificSort">
+    {args => {
+      const [value, setValue] = useState('User-supplied reverse alphabetical sort')
+      const handleChange = value => {
+        setValue(value)
+      }
+      const reverseSortByGroupAndValues = (option1, option2) => {
+        const definedOption1 = option1.group ?? ''
+        const definedOption2 = option2.group ?? ''
+        if (definedOption1 < definedOption2) {
+          return 1
+        }
+        if (definedOption1 > definedOption2) {
+          return -1
+        }
+        return option2.value.localeCompare(option1.value)
+      }
+      const getOptionsReverseSorted = options => {
+        return [...options].sort((option1, option2) =>
+          reverseSortByGroupAndValues(option1, option2)
+        )
+      }
+      const getOptionsSortedIntoMap = data => {
+        const sortedOptions = getOptionsReverseSorted(data)
+        return sortedOptions.reduce((acc, currentValue) => {
+          const { group, label, value } = currentValue
+          const option = { label, value }
+          const groupName = group ?? 'No Group'
+          const groupItems = acc.get(groupName)
+          return acc.set(groupName, groupItems ? [...groupItems, option] : [option])
+        }, Map())
+      }
+      return (
+        <Select
+          id="select2"
+          fullWidth
+          value={value}
+          onChange={handleChange}
+          options={[
+            { label: 'Cherry', value: 'cherry', group: 'fruits' },
+            { label: 'Apple', value: 'apple', group: 'fruits' },
+            { label: 'Water', value: 'water', group: 'liquid' },
+            { label: 'Zucchini', value: 'zucchini', group: 'veggies' },
+            { label: 'Potatoe', value: 'potatoe', group: 'veggies' },
+            { label: 'Wine', value: 'wine', group: 'liquid' },
+            { label: 'Grapefruit', value: 'grapefruit', group: 'fruits' }
+          ]}
+          sortGroupsAndOptions={getOptionsSortedIntoMap}
+        />
+      )
     }}
   </Story>
 </Canvas>
