@@ -1,7 +1,8 @@
 {
   "faucet": {
     "common": {
-      "error": "Erreur"
+      "error": "Erreur",
+      "success": "Succès"
     },
     "sendMeToken": "Envoyez-moi des KNOW",
     "requestFundsWithKeplr": "Demander des fonds avec Keplr",
@@ -14,7 +15,8 @@
     },
     "info": {
       "limitation": "Vous recevrez 1 KNOW par demande, avec un maximum de 1 demande toutes les 5 secondes.",
-      "description": "Vous n'avez pas d'adresse testnet ? Pour en obtenir une, le moyen le plus simple est d'utiliser Keplr, le wallet d'OKP4. Connectez Keplr à la chaîne testnet-okp4-1 pour voir votre adresse."
+      "description": "Vous n'avez pas d'adresse testnet ? Pour en obtenir une, le moyen le plus simple est d'utiliser Keplr, le wallet d'OKP4. Connectez Keplr à la chaîne testnet-okp4-1 pour voir votre adresse.",
+      "successMessage": "Votre demande a été envoyée avec succès, vérifiez votre portefeuille! 🚀"
     }
   }
 }
