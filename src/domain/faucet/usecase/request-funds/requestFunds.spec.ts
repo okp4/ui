@@ -5,7 +5,7 @@ import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/graphql/InMemor
 import type { ReduxStore } from 'domain/faucet/store/store'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import { EventParameter, getExpectedEventParameter } from 'domain/task/helper/test.helper'
-import { requestFunds } from './requestFunds'
+import { requestFunds, faucetTaskType } from './requestFunds'
 import { DeepReadonly } from 'superTypes'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { FaucetStoreBuilder } from 'domain/faucet/store/builder/store.builder'
@@ -36,7 +36,7 @@ const task = new TaskBuilder()
   .withCreationDate(fakedDate)
   .withLastUpdateDate(fakedDate)
   .withMessageKey('domain.task.proceeded')
-  .withType('faucet#request-funds')
+  .withType(faucetTaskType)
   .build()
 
 const updatedTask1 = new UpdateTaskBuilder()
