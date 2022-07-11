@@ -2,15 +2,19 @@ import React, { useCallback } from 'react'
 import keplrImage from '../../../assets/images/keplr.png'
 import { acknowledgeError } from 'domain/error/usecase/acknowledge-error/acknowledgeError'
 import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
+import type { AppState as TaskAppState } from 'domain/task/store/appState'
 import { setAddress } from 'domain/faucet/usecase/set-address/setAddress'
-import { requestFunds } from 'domain/faucet/usecase/request-funds/requestFunds'
+import { requestFunds, faucetTaskType } from 'domain/faucet/usecase/request-funds/requestFunds'
+import { acknowledgeTask } from 'domain/task/usecase/acknowledge-task/acknowledgeTask'
 import { enableWallet } from 'domain/wallet/usecases/enable-wallet/enableWallet'
 import { useErrorSelector, useErrorDispatch } from 'hook/storeHook/errorHook'
 import { useFaucetDispatch, useFaucetSelector } from 'hook/storeHook/faucetHook'
+import { useTaskSelector, useTaskDispatch } from 'hook/storeHook/taskHook'
 import { useWalletDispatch } from 'hook/storeHook/walletHook'
 import { useTranslation } from 'hook/useTranslation'
 import type { UseTranslationResponse } from 'hook/useTranslation'
 import { hasUnseenError, unseenErrorMessage } from 'domain/error/store/selector/error.selector'
+import { getDisplayedTaskIdByTypeAndStatus } from 'domain/task/store/selector/task.selector'
 import { Button } from 'ui/atoms/button/Button'
 import { TextField } from 'ui/atoms/textField/TextField'
 import { Toast } from 'ui/atoms/toast/Toast'
@@ -29,18 +33,27 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   const faucetDispatch = useFaucetDispatch()
   const walletDispatch = useWalletDispatch()
   const errorDispatch = useErrorDispatch()
+  const taskDispatch = useTaskDispatch()
   const { t }: UseTranslationResponse = useTranslation()
   const address = useFaucetSelector((state: DeepReadonly<FaucetAppState>) => state.address)
   const hasTransactionError = useErrorSelector(hasUnseenError)
   const errorMessage = useErrorSelector(unseenErrorMessage)
+  const transactionSuccessId = useTaskSelector((state: DeepReadonly<TaskAppState>) =>
+    getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'success')
+  )
 
   const acknowledgeFaucetError = useCallback(() => {
     errorDispatch(acknowledgeError())
   }, [errorDispatch])
 
-  const handleClose = useCallback(() => {
-    acknowledgeFaucetError()
-  }, [acknowledgeFaucetError])
+  const acknowledgeFaucetTask = useCallback(() => {
+    transactionSuccessId && taskDispatch(acknowledgeTask(transactionSuccessId))
+  }, [taskDispatch, transactionSuccessId])
+
+  const cleanUIStates = useCallback(async () => {
+    hasTransactionError && acknowledgeFaucetError()
+    acknowledgeFaucetTask()
+  }, [acknowledgeFaucetError, acknowledgeFaucetTask, hasTransactionError])
 
   const handleAddressChange = useCallback(
     // readonly recursivity on a DOM event is not a good idea...
@@ -54,15 +67,15 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   )
 
   const handleRequestWithAddress = useCallback(async () => {
-    hasTransactionError && (await acknowledgeFaucetError())
+    await cleanUIStates()
     faucetDispatch(setAddress(''))
     faucetDispatch(requestFunds(address))
-  }, [acknowledgeFaucetError, address, faucetDispatch, hasTransactionError])
+  }, [address, faucetDispatch, cleanUIStates])
 
-  const handleRequestWithWallet = useCallback(() => {
-    hasTransactionError && acknowledgeFaucetError()
+  const handleRequestWithWallet = useCallback(async () => {
+    await cleanUIStates()
     walletDispatch(enableWallet('keplr', chainId))
-  }, [acknowledgeFaucetError, chainId, hasTransactionError, walletDispatch])
+  }, [chainId, cleanUIStates, walletDispatch])
 
   return (
     <div className="okp4-faucet-main">
@@ -131,9 +144,17 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
             : t('errorDomain:domain.error.unspecified-error')
         }
         isOpened={hasTransactionError}
-        onOpenChange={handleClose}
+        onOpenChange={acknowledgeFaucetError}
         severityLevel="error"
         title={t('faucet:faucet.common.error')}
+      />
+      <Toast
+        autoDuration={4000}
+        description={t('faucet:faucet.info.successMessage')}
+        isOpened={!hasTransactionError && !!transactionSuccessId}
+        onOpenChange={acknowledgeFaucetTask}
+        severityLevel="success"
+        title={t('faucet:faucet.common.success')}
       />
     </div>
   )
