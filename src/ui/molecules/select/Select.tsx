@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import classNames from 'classnames'
+import { Map } from 'immutable'
+import type { OrderedMap } from 'immutable'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -14,17 +16,17 @@ export type Option = {
 }
 
 type OptionWithoutGroup = Omit<Option, 'group'>
-type ResultMap = Map<string, OptionWithoutGroup[]>
+type ResultMap = OrderedMap<string, OptionWithoutGroup[]>
 
 const sortByGroupAndValues = (option1: Option, option2: Option): number => {
-  const option1Defined = option1.group ?? ''
-  const option2Defined = option2.group ?? ''
+  const definedOption1 = option1.group ?? ''
+  const definedOption2 = option2.group ?? ''
 
-  if (option1Defined > option2Defined) {
+  if (definedOption1 > definedOption2) {
     return 1
   }
 
-  if (option1Defined < option2Defined) {
+  if (definedOption1 < definedOption2) {
     return -1
   }
 
@@ -41,12 +43,11 @@ const getOptionsSortedIntoMap = (data: Readonly<Option[]>): ResultMap => {
   const sortedOptions = getOptionsSorted(data)
   return sortedOptions.reduce((acc: Readonly<ResultMap>, currentValue: Option) => {
     const { group, label, value }: Option = currentValue
-    const data = { label, value }
+    const option = { label, value }
     const groupName = group ?? 'No Group'
     const groupItems = acc.get(groupName)
-    acc.set(groupName, groupItems ? [...groupItems, data] : [data])
-    return acc
-  }, new Map())
+    return acc.set(groupName, groupItems ? [...groupItems, option] : [option])
+  }, Map())
 }
 
 export type SelectProps = InputBaseProps & {
@@ -71,6 +72,10 @@ export type SelectProps = InputBaseProps & {
    * onChange callback wich allows the parent to manage the selected value(s)
    */
   readonly onChange?: (value: Readonly<string | string[]>) => void
+  /**
+   * Specific method to apply custom sort on the options list
+   */
+  readonly sortGroupsAndOptions?: (options: Readonly<Option[]>) => ResultMap
 }
 
 // eslint-disable-next-line max-lines-per-function, @typescript-eslint/prefer-readonly-parameter-types
@@ -84,10 +89,13 @@ export const Select = ({
   inputRef,
   options,
   onChange,
+  sortGroupsAndOptions,
   fullWidth,
   value
 }: SelectProps): JSX.Element => {
-  const optionsGroupped = getOptionsSortedIntoMap(options)
+  const optionsGroupped = sortGroupsAndOptions
+    ? sortGroupsAndOptions(options)
+    : getOptionsSortedIntoMap(options)
 
   const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
     useState<boolean>(false)
@@ -162,7 +170,7 @@ export const Select = ({
       {menuOpened && (
         <div className="okp4-select-options-container" ref={menuRef}>
           {Array.from(optionsGroupped.entries()).map((entry: [string, OptionWithoutGroup[]]) => {
-            const [group, options]: [string, OptionWithoutGroup[]] = entry
+            const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
             return (
               <div className="okp4-select-options-list" key={group}>
                 {group && (
