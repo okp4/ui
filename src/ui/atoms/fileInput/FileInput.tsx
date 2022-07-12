@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import fileInputIcon from '../../../assets/images/file.png'
 import { Typography } from '../typography/Typography'
 import type { DeepReadonly } from 'superTypes'
+import { truthy } from 'utils'
 
 export type FileUploadProps = {
   /**
@@ -80,7 +81,7 @@ export const FileInput: React.FC<FileUploadProps> = ({
     (event: LabelDragEvent): File[] =>
       Array.from(event.dataTransfer.items)
         .map((item: DeepReadonly<DataTransferItem>) => item.getAsFile())
-        .filter((file: DeepReadonly<File> | null): file is File => !!file),
+        .filter(truthy),
     []
   )
 
@@ -95,15 +96,6 @@ export const FileInput: React.FC<FileUploadProps> = ({
       }
     },
     [onDropped]
-  )
-
-  const handleDragOver = useCallback(
-    // lint rule bypassed because of type 'Element' is not compatible with readonly
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    (event: LabelDragEvent) => {
-      preventDefaultAndStopPropagation(event)
-    },
-    [preventDefaultAndStopPropagation]
   )
 
   const handleDragEnter = useCallback(
@@ -143,7 +135,7 @@ export const FileInput: React.FC<FileUploadProps> = ({
         className={classNames('okp4-fileinput-container', { error })}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
+        onDragOver={preventDefaultAndStopPropagation}
         onDrop={handleDrop}
       >
         <input
@@ -154,9 +146,15 @@ export const FileInput: React.FC<FileUploadProps> = ({
         />
         <div>
           <img src={fileInputIcon} />
-          <Typography as="div" fontSize={size === 'small' ? 'small' : 'medium'} fontWeight="light">
-            {label}
-          </Typography>
+          {label && (
+            <Typography
+              as="div"
+              fontSize={size === 'small' ? 'small' : 'medium'}
+              fontWeight="light"
+            >
+              {label}
+            </Typography>
+          )}
           <div className="okp4-fileinput-description">{description}</div>
           {error && errorMessage && (
             <div>
