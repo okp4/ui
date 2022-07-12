@@ -1,0 +1,45 @@
+@import '../../styles/themes.scss';
+
+$colors: (
+  'active': 'text',
+  'uncompleted': 'primary-variant',
+  'completed': 'success',
+  'error': 'error'
+);
+
+.okp4-stepper-main {
+  width: 100%;
+  display: flex;
+
+  @include with-theme {
+    .okp4-stepper-step {
+      width: 100%;
+      padding: 1%;
+      display: grid;
+      align-items: flex-end;
+
+      &--label {
+        text-align: center;
+        padding: 5px;
+        @each $color-key, $color-value in $colors {
+          &--#{$color-key} {
+            div {
+              color: themed($color-value);
+            }
+          }
+        }
+      }
+
+      &--state {
+        height: 5px;
+        border-radius: 50px;
+
+        @each $color-key, $color-value in $colors {
+          &--#{$color-key} {
+            background: themed($color-value);
+          }
+        }
+      }
+    }
+  }
+}
