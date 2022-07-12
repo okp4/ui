@@ -18,10 +18,8 @@ declare module '*.jpg' {
 }
 
 declare module '*.svg' {
-  import type { ReactElement, SVGProps } from 'react'
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  const content: (props: SVGProps<SVGElement>) => ReactElement
-  export default content
+  const value: string
+  export default value
 }
 
 declare module '*.graphql' {

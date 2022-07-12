@@ -2,7 +2,6 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import resolve from '@rollup/plugin-node-resolve'
 import postcss from 'rollup-plugin-postcss'
 import copy from 'rollup-plugin-copy'
-import svgr from '@svgr/rollup'
 import analyze from 'rollup-plugin-analyzer'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
@@ -56,7 +55,6 @@ export default {
       ],
       verbose: true
     }),
-    svgr({ dimensions: false }),
     image({ exclude: ['src/**/*.svg'] }),
     json(),
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
