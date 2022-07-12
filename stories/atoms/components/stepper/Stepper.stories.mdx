@@ -1,0 +1,72 @@
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
+import { Stepper } from 'ui/molecules/stepper/Stepper'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+
+<Meta
+  title="Atoms/Stepper"
+  component={Stepper}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Stepper
+
+> Allows to complete steps
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+The `Stepper` component allows a user to provide `Steps` which are composed of `JSX.Element` and which then allows him to navigate between these steps.
+
+## Overview
+
+<Story name="Overview">
+  {() => {
+    const steps = [
+      {
+        label: 'Step 1'
+      },
+      {
+        label: 'Step 2'
+      },
+      {
+        label: 'Step 3'
+      }
+    ]
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Stepper steps={steps} />
+      </div>
+    )
+  }}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
