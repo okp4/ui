@@ -1,4 +1,5 @@
 @import '../../styles/themes.scss';
+@import '../../styles/animations.scss';
 
 .okp4-progressbar-main {
   width: 100%;
@@ -16,7 +17,7 @@
 
   @media screen and (min-width: 768px) {
     column-gap: 5px;
-    row-gap: 0px;
+    row-gap: 0;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, auto);
     grid-template-areas:
@@ -59,23 +60,9 @@
           height: 100%;
           background-color: themed(text);
           border-radius: inherit;
-        }
 
-        .okp4-progressbar-bar-filler-undetermined {
-          animation: undetermined 1s linear infinite alternate;
-          @keyframes undetermined {
-            from {
-              left: 0%;
-              width: 10%;
-            }
-            50% {
-              left: 30%;
-              width: 50%;
-            }
-            to {
-              left: 90%;
-              width: 10%;
-            }
+          &--undetermined {
+            @include undetermined(10%, 40%);
           }
         }
       }
@@ -85,6 +72,7 @@
       grid-area: icon;
       display: grid;
       align-items: center;
+
       :first-child {
         margin: auto;
         width: 50%;

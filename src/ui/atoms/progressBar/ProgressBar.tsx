@@ -96,7 +96,7 @@ export const ProgressBar: React.FC<TProgressBarProps> = ({
           <div
             className={classNames(
               'okp4-progressbar-bar-filler',
-              isUndetermined() && 'okp4-progressbar-bar-filler-undetermined'
+              isUndetermined() && 'okp4-progressbar-bar-filler--undetermined'
             )}
             style={{ width: `${toPercent()}%` }}
           ></div>
