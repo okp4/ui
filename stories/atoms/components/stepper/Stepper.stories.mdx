@@ -1,0 +1,903 @@
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
+import { Stepper } from 'ui/molecules/stepper/Stepper'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { FileInput } from 'ui/atoms/fileInput/FileInput'
+import { Button } from 'ui/atoms/button/Button'
+import { Card } from 'ui/atoms/card/Card'
+import { Toast } from 'ui/atoms/toast/Toast'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { useState } from 'react'
+
+<Meta
+  title="Molecules/Stepper"
+  component={Stepper}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Stepper
+
+> Allows to navigate and follow the progress between different ordered steps.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+The `Stepper` component allows a user to provide `Steps` which are composed of `JSX.Element` and which then allows him to navigate between these steps.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    onNext: { control: false },
+    onSubmit: { control: false }
+  }}
+  args={{
+    steps: [
+      {
+        label: 'Step 1',
+        content: (
+          <Typography as="div" fontFamily="brand" fontWeight="xlight">
+            The content of the step 1
+          </Typography>
+        )
+      },
+      {
+        label: 'Step 2',
+        content: (
+          <Typography as="div" fontFamily="brand" fontWeight="xlight">
+            The content of the step 2
+          </Typography>
+        )
+      },
+      {
+        label: 'Step 3',
+        content: (
+          <Typography as="div" fontFamily="brand" fontWeight="xlight">
+            The content of the step 3
+          </Typography>
+        )
+      }
+    ]
+  }}
+>
+  {args => {
+    const [submitted, setSubmitted] = useState(false)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Stepper {...args} onSubmit={() => setSubmitted(true)} />
+        <Toast
+          isOpened={submitted}
+          onOpenChange={() => setSubmitted(false)}
+          title="Submit button clicked !"
+          severityLevel="success"
+        />
+      </div>
+    )
+  }}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Step
+
+The `Stepper` component comes with a list of `Step`. A `Step` must respect the following type :
+
+```ts
+type Step = {
+  readonly label: string
+  readonly status?: 'disabled' | 'error' | 'completed'
+  readonly content?: JSX.Element
+  readonly onValidate?: () => boolean
+}
+```
+
+<Canvas>
+  <Story name="Step">
+    {() => {
+      const steps = [
+        {
+          label: 'This is the step label',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              That is the content of the step. It can be any JSX Element.
+            </Typography>
+          )
+        },
+        {
+          label: 'This is a disabled step',
+          status: 'disabled'
+        },
+        {
+          label: 'And then this is the last step',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              That is the content of the last step.
+            </Typography>
+          )
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px'
+          }}
+        >
+          <Stepper active={0} steps={steps} />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Label
+
+The `label` is the title of the step.
+
+<Canvas>
+  <Story name="Label">
+    {() => {
+      const steps = [
+        {
+          label: 'Personal Informations'
+        },
+        {
+          label: 'Addresses'
+        },
+        {
+          label: 'Payment'
+        },
+        {
+          label: 'Confirmation'
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '100px'
+          }}
+        >
+          <Stepper steps={steps} />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Status
+
+It is possible to provide an initial status to each step. The initial status is one of the following values : `disabled`, `error` or `completed`.<br />
+
+- `disabled` - The step is disabled and can't be reached when clicked on the _Previous_ or the _Next_ button.
+- `error` - The step is in error. When it is reached, it becomes active. Then it becomes `uncompleted` if you go back to a previous step, `completed` if you go to the next step, or `error` if an error is detected (see the [onValidate](/docs/molecules-stepper--on-validate) section).
+- `completed` - The step is already completed.
+
+<Canvas>
+  <Story name="Step status">
+    {() => {
+      const steps = [
+        {
+          label: 'First step already completed',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step is already completed.
+            </Typography>
+          ),
+          status: 'completed'
+        },
+        {
+          label: 'Second step disabled',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step is disbaled.
+            </Typography>
+          ),
+          status: 'disabled'
+        },
+        {
+          label: 'Third step in error',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step was in error. It becomes active when switching on it. And then uncompleted
+              when switching again
+            </Typography>
+          ),
+          status: 'error'
+        },
+        {
+          label: 'Fourth step',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              The step 4 is the initial active step.
+            </Typography>
+          ),
+          status: 'error'
+        },
+        {
+          label: 'Fifth step uncompleted',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step is not completed yet.
+            </Typography>
+          )
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '190px'
+          }}
+        >
+          <Stepper steps={steps} active={3} />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Content
+
+The `content` of the step can be any `JSX.Element`.
+
+<Canvas>
+  <Story name="Content">
+    {() => {
+      const steps = [
+        {
+          label: 'ØKP4 Protocol',
+          content: (
+            <div>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                ØKP4 protocol is a community-run technology powering many Data Spaces and the KNØW
+                cryptocurrency (coming soon).
+              </Typography>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <video
+                  style={{
+                    padding: '15px',
+                    height: '170px'
+                  }}
+                  autoplay=""
+                  playsinline=""
+                  muted=""
+                  loop=""
+                >
+                  <source
+                    src="https://okp4.network/wp-content/themes/okp4/img/isometric-okp42.mp4"
+                    type="video/mp4"
+                  />
+                  <source
+                    src="https://okp4.network/wp-content/themes/okp4/img/isometric-okp42.mp4"
+                    type="video/ogg"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          )
+        },
+        {
+          label: 'News & Docs',
+          content: (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <a href="https://docs.okp4.network/docs/whitepaper/abstract">
+                <img src="https://okp4.network/wp-content/themes/okp4/img/whitepaper.png" />
+              </a>
+              <Typography fontSize="small" fontWeight="light">
+                Whitepaper
+              </Typography>
+            </div>
+          )
+        },
+        {
+          label: 'Røadmap',
+          content: (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '40px'
+              }}
+            >
+              <Card
+                size="small"
+                background="primary"
+                withBorder="true"
+                header={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end'
+                    }}
+                  >
+                    <Typography
+                      as="div"
+                      fontFamily="brand"
+                      fontSize="small"
+                      fontWeight="light"
+                      style={{
+                        border: 'solid 1px',
+                        padding: '4px 8px'
+                      }}
+                    >
+                      2021
+                    </Typography>
+                  </div>
+                }
+                content={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Typography fontSize="medium">First usecases</Typography>
+                  </div>
+                }
+              />
+              <Card
+                size="small"
+                background="primary"
+                withBorder="true"
+                header={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end'
+                    }}
+                  >
+                    <Typography
+                      as="div"
+                      fontFamily="brand"
+                      fontSize="small"
+                      fontWeight="light"
+                      style={{
+                        border: 'solid 1px',
+                        padding: '4px 8px'
+                      }}
+                    >
+                      2022
+                    </Typography>
+                  </div>
+                }
+                content={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Typography fontSize="medium">The takeoff</Typography>
+                  </div>
+                }
+              />
+              <Card
+                size="small"
+                background="primary"
+                withBorder="true"
+                header={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end'
+                    }}
+                  >
+                    <Typography
+                      as="div"
+                      fontFamily="brand"
+                      fontSize="small"
+                      fontWeight="light"
+                      style={{
+                        border: 'solid 1px',
+                        padding: '4px 8px'
+                      }}
+                    >
+                      2023
+                    </Typography>
+                  </div>
+                }
+                content={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Typography fontSize="medium">Mainnet</Typography>
+                  </div>
+                }
+              />
+            </div>
+          )
+        },
+        {
+          label: 'Team',
+          content: (
+            <div>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                Meet the team on <a href="https://okp4.network/#team">ØKP4</a> web site.
+              </Typography>
+            </div>
+          )
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '400px'
+          }}
+        >
+          <Stepper steps={steps} submitButtonLabel="Finish" />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Callback method `onValidate`
+
+The method `onValidate` is provided to validate the step before going to the next one. The method is called when clicking on the next button. The stepper goes to the next step if the method returns `true`, else the step becomes in error status.
+
+<Canvas>
+  <Story name="onValidate">
+    {() => {
+      const [isStepError, setStepError] = useState(false)
+      const [isStepCompleted, setStepCompleted] = useState(false)
+      const steps = [
+        {
+          label: 'Type of dough',
+          onValidate: () => {
+            setStepCompleted(true)
+            return true
+          },
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step is always valid because `onValidate` method returns `true`.
+            </Typography>
+          )
+        },
+        {
+          label: 'Extra ingredients',
+          onValidate: () => {
+            setStepError(true)
+            return false
+          },
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step is never valid because `onValidate` method returns `false`.
+            </Typography>
+          )
+        },
+        {
+          label: 'Payment'
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '150px'
+          }}
+        >
+          <Stepper steps={steps} />
+          <Toast
+            description="The step is completed : `onValidate` returns true"
+            isOpened={isStepCompleted}
+            onOpenChange={() => setStepCompleted(false)}
+            title="Completed"
+            severityLevel="success"
+            autoDuration={5000}
+          />
+          <Toast
+            description="The step is in error : `onValidate` returns false"
+            isOpened={isStepError}
+            onOpenChange={() => setStepError(false)}
+            title="Error"
+            severityLevel="error"
+            autoDuration={5000}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Active step
+
+The `active` property allows to define the inital active step by providing its index in the list of step. Indexes start at `0`.
+
+<Canvas>
+  <Story name="Active step">
+    {() => {
+      const steps = [
+        {
+          label: '2018-2020',
+          status: 'completed',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Ideas & Plans
+            </Typography>
+          )
+        },
+        {
+          label: '2021',
+          status: 'completed',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              First usecases
+            </Typography>
+          )
+        },
+        {
+          label: '2022',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              The takeoff
+            </Typography>
+          )
+        },
+        {
+          label: '2023',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Mainnet
+            </Typography>
+          )
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '150px'
+          }}
+        >
+          <Stepper steps={steps} active={2} />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Submit button label
+
+Users can provide a label for the submit button with the `submitButtonLabel` property.
+By default the label is provided by the defaults translation files (see the Internationalization section).
+
+<Canvas>
+  <Story name="Submit button label">
+    {() => {
+      const steps = [
+        {
+          label: 'Q1',
+          status: 'completed',
+          content: (
+            <Typography as="div" fontFamily="brand">
+              <ul
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '15px'
+                }}
+              >
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Core blockchain developments (minting, stacking, slashing…)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Test phase I - Private Testnet launch
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Open sourcing of protocol developments
+                  </Typography>
+                </li>
+              </ul>
+            </Typography>
+          )
+        },
+        {
+          label: 'Q2',
+          status: 'completed',
+          content: (
+            <Typography as="div" fontFamily="brand">
+              <ul
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '15px'
+                }}
+              >
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Core blockchain developments (token generation, security, API functions,
+                    governance…)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Core ecosystem development connected to the blockchain (workflow engine, event
+                    streaming, orchestration system…)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Core concept developments – knowledge graph, tokenomics & model, mechanism
+                    design
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Community tools: discord, medium, twitter
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Branding
+                  </Typography>
+                </li>
+              </ul>
+            </Typography>
+          )
+        },
+        {
+          label: 'Q3',
+          status: 'completed',
+          content: (
+            <Typography as="div" fontFamily="brand">
+              <ul
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '15px'
+                }}
+              >
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Core blockchain developments (custom modules, identity & access management,
+                    business model design…)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    OKP4 seed round conducted
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Devnet launch + faucet launch
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    First public Data Space release on devnet (Rhizome)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Tools & documentation release to interact & contribute (wallet, dataverse
+                    portal, knowledge graphs, catalogs)
+                  </Typography>
+                </li>
+              </ul>
+            </Typography>
+          )
+        },
+        {
+          label: 'Q4',
+          content: (
+            <Typography as="div" fontFamily="brand">
+              <ul
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '15px'
+                }}
+              >
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Tools & documentation release to build custom Data Spaces and next-gen dApps
+                    (SDK)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Incentivized testnet launch
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Builders program launch
+                  </Typography>
+                </li>
+                <li>
+                  <Typography as="div" fontFamily="brand" fontWeight="xlight">
+                    Launch of Community Calls & events
+                  </Typography>
+                </li>
+              </ul>
+            </Typography>
+          )
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '450px'
+          }}
+        >
+          <Stepper steps={steps} active={3} submitButtonLabel="End of reading" />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Internationalization
+
+`Stepper` is provided with its defaults translation files (`stepper_en.json` and `stepper_fr.json`).
+It is possible to overwrite the translations or to add new translation keys if needed.
+Here are the keys and their english translations:
+
+##### **`stepper_en.json`**
+
+```json
+{
+  "step": {
+    "button": {
+      "previous": "Previous",
+      "next": "Next",
+      "submit": "Submit"
+    }
+  }
+}
+```
+
+Example of translation replacement or insertion:
+
+- the file name must be the same, so here it has to be `stepper_en.json`
+- the file format must be identical (same key names, curly brackets...)
+- translation can be replaced by your own (overwrite)
+- new key with associated translation can be added (extension)
+
+Tsx usage:
+
+```tsx
+<p>{t('stepper:step.button.next')}</p>
+```
+
+## Callback methods `onNext` and `onSubmit`
+
+The `Stepper` component provide the `onNext` and `onSubmit` properties.<br />
+The callback method `onNext` is called when clicking on the _Next_ button.<br />
+The callback method `onSubmit` is called when clicking on the _Submit_ button in the last step.
+
+<Canvas>
+  <Story name="onNext and onSubmit">
+    {() => {
+      const [isNextOpened, setIsNextOpened] = useState(false)
+      const [isSubmitOpened, setIsSubmitOpened] = useState(false)
+      const steps = [
+        {
+          label: 'ØKP4 Protocol'
+        },
+        {
+          label: 'News & Docs'
+        },
+        {
+          label: 'Røadmap'
+        },
+        {
+          label: 'Team'
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '150px'
+          }}
+        >
+          <Stepper
+            steps={steps}
+            onNext={() => setIsNextOpened(true)}
+            onSubmit={() => setIsSubmitOpened(true)}
+          />
+          <Toast
+            description="You clicked on Next button"
+            isOpened={isNextOpened}
+            onOpenChange={() => setIsNextOpened(false)}
+            title="onNext"
+            severityLevel="success"
+          />
+          <Toast
+            description="You clicked on Submit button"
+            isOpened={isSubmitOpened}
+            onOpenChange={() => setIsSubmitOpened(false)}
+            title="onSubmit"
+            severityLevel="success"
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
