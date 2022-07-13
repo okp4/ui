@@ -42,6 +42,10 @@ export type InputBaseProps = {
    * The icon displayed on the right side
    */
   readonly onIconClick?: () => void
+  /**
+   * If true, input becomes immutable
+   */
+  readonly readOnly?: boolean
 }
 
 const ShowRightIcon = (icon: JSX.Element, onIconClick?: () => void): JSX.Element => {
@@ -61,7 +65,8 @@ export const InputBase = ({
   onIconClick,
   placeholder,
   rightIcon,
-  value
+  value,
+  readOnly = false
 }: InputBaseProps): JSX.Element => {
   const containerClass = classNames(`okp4-input-base-container`, {
     'with-icon': !!rightIcon,
@@ -79,6 +84,7 @@ export const InputBase = ({
         disabled={disabled}
         onChange={onChange}
         placeholder={placeholder}
+        readOnly={readOnly}
         ref={inputRef}
         value={value}
       />
