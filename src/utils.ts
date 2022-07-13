@@ -24,3 +24,6 @@ export const toPercent = (value: number, min: number, max: number): number => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isString = (value: any): value is string => typeof value === 'string'
+
+export const compareStrings = (value1: string, value2: string): number =>
+  value1.localeCompare(value2)
