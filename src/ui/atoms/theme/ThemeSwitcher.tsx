@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import * as Switch from '@radix-ui/react-switch'
-import MoonIcon from '../../../assets/icons/moonIcon.svg'
-import SunIcon from '../../../assets/icons/sunIcon.svg'
 import type { Theme, ThemeContextType } from 'context/themeContext'
 import { useTheme } from 'hook/useTheme'
 import './themeSwitcher.scss'
 import { useLocalStorage } from 'hook/useLocalStorage'
 import type { LocalStorageState } from 'hook/useLocalStorage'
 import { useMediaType } from 'hook/useMediaType'
+import { Icon } from 'ui/atoms/icon/Icon'
 
 export type ThemeSwitcherProps = Readonly<{
   /**
@@ -27,8 +26,6 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   const { theme, setTheme }: ThemeContextType = useTheme()
   const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey)
   const prefersColorDark: boolean = useMediaType('(prefers-color-scheme: dark)')
-
-  const isDarkTheme = theme === 'dark'
 
   const handleCheck = useCallback(
     (checked: boolean): void => {
@@ -50,15 +47,15 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
     setTheme(value as Theme)
   }, [prefersColorDark, setTheme, value])
 
-  const switchIcon = isDarkTheme ? <SunIcon /> : <MoonIcon />
-
   return (
     <Switch.Root
       checked={theme === 'dark'}
       className="okp4-theme-switcher-main"
       onCheckedChange={handleCheck}
     >
-      <div className={`okp4-theme-switcher-icon ${theme}`}>{switchIcon}</div>
+      <div className={`okp4-theme-switcher-icon ${theme}`}>
+        <Icon name="theme-switcher" size={18} />
+      </div>
       <Switch.Thumb className="okp4-theme-switcher-thumb" />
     </Switch.Root>
   )
