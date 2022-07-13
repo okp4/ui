@@ -37,9 +37,8 @@ export type TProgressBarProps = DeepReadonly<{
   /**
    * An icon that can provide visual information
    */
-  // TODO : change to the WIP Icon Component
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly icon?: any
+  readonly icon?: Readonly<JSX.Element>
 }>
 
 /**
