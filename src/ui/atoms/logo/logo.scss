@@ -1,48 +1,68 @@
 .okp4-logo-main {
-  height: auto;
-
+  max-height: 100%;
   &.large {
     &.logo {
       width: 320px;
+      height: 89.22px;
     }
 
     &.logotype {
       width: 160px;
+      height: 118.31px;
     }
 
-    &.logomark,
+    &.logomark {
+      width: 280px;
+      height: 88.83px;
+    }
+
     &.slogan {
       width: 280px;
+      height: 10.47px;
     }
   }
 
   &.medium {
     &.logo {
       width: 270px;
+      height: 75.27px;
     }
 
     &.logotype {
       width: 120px;
+      height: 88.73px;
     }
 
-    &.logomark,
+    &.logomark {
+      width: 220px;
+      height: 69.8px;
+    }
+
     &.slogan {
       width: 220px;
+      height: 8.24px;
     }
   }
 
   &.small {
     &.logo {
       width: 220px;
+      height: 61.33px;
     }
 
     &.logotype {
       width: 80px;
+      height: 59.16px;
     }
 
-    &.logomark,
+    &.logomark {
+      width: 160px;
+      height: 50.75px;
+    }
+
     &.slogan {
       width: 160px;
+      height: 5.98px;
     }
   }
 }
