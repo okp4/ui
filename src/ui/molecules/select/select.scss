@@ -60,6 +60,10 @@ $sizes: (
             background-color: themed('border');
             cursor: pointer;
           }
+
+          &.selected {
+            background-color: themed('border');
+          }
         }
       }
     }

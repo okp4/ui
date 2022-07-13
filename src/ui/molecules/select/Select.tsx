@@ -4,6 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import classNames from 'classnames'
 import { Map } from 'immutable'
 import type { OrderedMap } from 'immutable'
+import { compareStrings } from 'utils'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -30,7 +31,7 @@ const sortByGroupAndValues = (option1: Option, option2: Option): number => {
     return -1
   }
 
-  return option1.value.localeCompare(option2.value)
+  return compareStrings(option1.value, option2.value)
 }
 
 const getOptionsSorted = (options: Readonly<Option[]>): Option[] => {
@@ -56,9 +57,14 @@ export type SelectProps = InputBaseProps & {
    */
   readonly id: string
   /**
+   * If true, allows the user to make a multiple choice.
+   * Default to false.
+   */
+  readonly multiple?: boolean
+  /**
    * The options list displayed when the select is opened
    */
-  readonly options: Option[]
+  readonly options: Readonly<Option[]>
   /**
    * The size of the input field.
    * It will be automatically adjusted responsively to the screen size.
@@ -71,7 +77,7 @@ export type SelectProps = InputBaseProps & {
   /**
    * onChange callback wich allows the parent to manage the selected value(s)
    */
-  readonly onChange?: (value: Readonly<string | string[]>) => void
+  readonly onValuesChange?: (value: string | Readonly<string[]>) => void
   /**
    * Specific method to apply custom sort on the options list
    */
@@ -87,8 +93,9 @@ export const Select = ({
   disabled = false,
   hasError = false,
   inputRef,
+  multiple = false,
   options,
-  onChange,
+  onValuesChange,
   sortGroupsAndOptions,
   fullWidth,
   value
@@ -96,6 +103,11 @@ export const Select = ({
   const optionsGroupped = sortGroupsAndOptions
     ? sortGroupsAndOptions(options)
     : getOptionsSortedIntoMap(options)
+
+  const [selectedOptions, setSelectedOptions]: [
+    string | Readonly<string[]>,
+    (option: string | Readonly<string[]>) => void
+  ] = useState<string | Readonly<string[]>>(value ?? [])
 
   const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
     useState<boolean>(false)
@@ -108,11 +120,23 @@ export const Select = ({
     }
   }, [disabled, menuOpened])
 
-  const handleOptionSelection = (value: string) => () => {
-    if (onChange) {
-      onChange(value)
+  const addOrRemoveOption = (value: string): string[] => {
+    if (selectedOptions.includes(value)) {
+      return [...selectedOptions].filter((option: string) => option !== value)
     }
-    toggleMenu()
+    return [...selectedOptions, value]
+  }
+
+  const handleOptionSelection = (value: string) => () => {
+    if (onValuesChange) {
+      if (multiple) {
+        const updatedSelection = addOrRemoveOption(value).sort(compareStrings)
+        setSelectedOptions(updatedSelection)
+      } else {
+        setSelectedOptions(value)
+      }
+    }
+    !multiple && toggleMenu()
   }
 
   const icon = menuOpened ? <ChevronUpIcon /> : <ChevronDownIcon />
@@ -136,6 +160,11 @@ export const Select = ({
     },
     [menuOpened]
   )
+  useEffect(() => {
+    if (onValuesChange) {
+      onValuesChange(selectedOptions)
+    }
+  }, [onValuesChange, selectedOptions])
 
   useEffect(() => {
     document.addEventListener('keydown', escapeKeyHandler)
@@ -147,6 +176,9 @@ export const Select = ({
     return () => document.removeEventListener('mousedown', outsideMenuClickHandler)
   }, [outsideMenuClickHandler])
 
+  const optionsGrouppedEntries = Array.from(optionsGroupped.entries())
+
+  const valueToDisplay = Array.isArray(value) ? value.join(', ') : value
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
@@ -165,15 +197,16 @@ export const Select = ({
           placeholder={placeholder}
           readOnly={true}
           rightIcon={icon}
-          value={value}
+          value={valueToDisplay}
         />
       </div>
       {menuOpened && (
         <div className="okp4-select-options-container">
           {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}
+          {optionsGrouppedEntries.map((entry: [string, OptionWithoutGroup[]]) => {
             const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
             return (
-              <div className="okp4-select-options-list" key={group}>
+              <div className="okp4-select-options-list" key={optionsGrouppedEntries.indexOf(entry)}>
                 {group && (
                   <Typography as="div" fontSize="small">
                     <p className="okp4-select-options-group">{group}</p>
@@ -182,7 +215,9 @@ export const Select = ({
                 <ul>
                   {options.map(({ label, value }: OptionWithoutGroup) => (
                     <li
-                      className="okp4-select-option"
+                      className={classNames('okp4-select-option', {
+                        selected: selectedOptions.includes(value)
+                      })}
                       key={value}
                       onClick={handleOptionSelection(value)}
                     >
