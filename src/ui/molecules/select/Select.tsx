@@ -100,7 +100,7 @@ export const Select = ({
   const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
     useState<boolean>(false)
 
-  const menuRef: RefObject<HTMLDivElement> = useRef(null)
+  const selectRef: RefObject<HTMLDivElement> = useRef(null)
 
   const toggleMenu = useCallback(() => {
     if (!disabled) {
@@ -130,7 +130,7 @@ export const Select = ({
   const outsideMenuClickHandler = useCallback(
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: MouseEvent): void => {
-      if (menuOpened && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (menuOpened && selectRef.current && !selectRef.current.contains(event.target as Node)) {
         setMenuOpened(false)
       }
     },
@@ -154,22 +154,23 @@ export const Select = ({
         'full-width': fullWidth
       })}
       id={id}
+      ref={selectRef}
     >
-      <div className="okp4-select-input-container">
+      <div className="okp4-select-input-container" onClick={toggleMenu}>
         <InputBase
           defaultValue={defaultValue}
           disabled={disabled}
           hasError={hasError}
           inputRef={inputRef}
-          onIconClick={toggleMenu}
           placeholder={placeholder}
+          readOnly={true}
           rightIcon={icon}
           value={value}
         />
       </div>
       {menuOpened && (
-        <div className="okp4-select-options-container" ref={menuRef}>
-          {Array.from(optionsGroupped.entries()).map((entry: [string, OptionWithoutGroup[]]) => {
+        <div className="okp4-select-options-container">
+          {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}
             const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
             return (
               <div className="okp4-select-options-list" key={group}>

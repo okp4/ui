@@ -12,6 +12,7 @@ $sizes: (
   @include with-theme() {
     border: 1px solid themed(text);
     max-width: 100%;
+    cursor: pointer;
 
     &.error {
       color: themed('text');
@@ -30,6 +31,9 @@ $sizes: (
 
     .okp4-select-input-container {
       width: auto;
+      .okp4-input-base-main {
+        cursor: pointer;
+      }
     }
 
     .okp4-select-options-container {
