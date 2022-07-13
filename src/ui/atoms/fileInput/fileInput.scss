@@ -1,0 +1,77 @@
+@import 'src/ui/styles/themes.scss';
+
+$sizes: ('small', 'medium', 'large');
+$sizes-map: (
+  small-width: 275px,
+  small-height: 235px,
+  small-padding: 30px,
+  medium-width: 425px,
+  medium-height: 235px,
+  medium-padding: 35px,
+  large-width: 100%,
+  large-height: 100%,
+  large-padding: 50px
+);
+
+.okp4-fileinput-main {
+  width: 100%;
+  height: 100%;
+
+  @include with-theme() {
+    @each $size in $sizes {
+      &.#{$size} {
+        max-width: map-get($sizes-map, #{$size}-width);
+
+        &.dragging {
+          background: themed(primary-variant);
+        }
+
+        input[type='file'] {
+          display: none;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 0;
+        }
+
+        .okp4-fileinput-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          height: map-get($sizes-map, #{$size}-height);
+          padding: map-get($sizes-map, #{$size}-padding);
+          background: transparent;
+          border: dashed themed(text);
+          overflow: hidden;
+          cursor: pointer;
+
+          div {
+            pointer-events: none;
+          }
+
+          &.error {
+            border: dashed themed(error);
+          }
+
+          img {
+            margin: 4%;
+            min-width: 25px;
+            max-width: 85px;
+            min-height: 25px;
+            max-height: 85px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 20%;
+          }
+
+          .okp4-fileinput-description {
+            margin: 4%;
+          }
+        }
+      }
+    }
+  }
+}
