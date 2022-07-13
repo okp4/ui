@@ -4,12 +4,15 @@ $colors: (
   'active': 'text',
   'uncompleted': 'primary-variant',
   'completed': 'success',
-  'error': 'error'
+  'error': 'error',
+  'disabled': 'field'
 );
 
 .okp4-stepper-main {
   width: 100%;
-  display: flex;
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
 
   @include with-theme {
     .okp4-stepper-step {
@@ -17,8 +20,18 @@ $colors: (
       padding: 1%;
       display: grid;
       align-items: flex-end;
+      cursor: pointer;
+
+      @media screen and (max-width: 768px) {
+        grid-template-columns: 15px auto;
+        grid-template-areas: 'state label';
+      }
 
       &--label {
+        @media screen and (max-width: 768px) {
+          grid-area: label;
+          text-align: start;
+        }
         text-align: center;
         padding: 5px;
         @each $color-key, $color-value in $colors {
@@ -31,7 +44,14 @@ $colors: (
       }
 
       &--state {
-        height: 5px;
+        @media screen and (max-width: 768px) {
+          grid-area: state;
+          height: 100%;
+          width: 5px;
+        }
+        @media screen and (min-width: 768px) {
+          height: 5px;
+        }
         border-radius: 50px;
 
         @each $color-key, $color-value in $colors {
