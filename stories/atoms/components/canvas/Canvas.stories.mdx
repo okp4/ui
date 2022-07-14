@@ -1,6 +1,7 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
 import { Canvas as CanvasComponent } from 'ui/atoms/canvas/Canvas'
 import { useElementSize } from 'hook/useElementSize'
+import { draw } from './starfield'
 
 <Meta
   title="Atoms/Canvas"
@@ -23,42 +24,22 @@ just draw inside it like we usually do on the fly, via JavaScript.
 
 ---
 
-export let counter = 0
-export const draw = (canvas, deltaCount) => {
-  const ctx = canvas.getContext('2d')
-  const nbDots = 5
-  counter += deltaCount
-  ctx.rect(0, 0, canvas.width, canvas.height)
-  ctx.fillStyle = '#000000'
-  ctx.fill()
-  ctx.beginPath()
-  ctx.fillStyle = '#ffffff'
-  for (let i = 0; i < nbDots; i++) {
-    ctx.arc(
-      ((i + 1) * canvas.width) / (nbDots + 1),
-      100,
-      10 * Math.sin(counter * 0.0005 + i / nbDots) ** 2,
-      0,
-      2 * Math.PI
-    )
-  }
-  ctx.fill()
+export const SimpleCanvas = args => {
+  const [ size, divRef ] = useElementSize()
+  const ratio = 21/9
+  const [ w, h ] = (size?.width/size?.height>=ratio) ? [size?.height * ratio, size?.height] : [size?.width, size?.width / ratio] 
+  return (
+    <div style={{ textAlign: 'center' }} ref={divRef}>
+      <CanvasComponent width={w} height={h} {...args} />
+    </div>)
 }
-
-export const SimpleCanvas = args => (
-  <div style={{ textAlign: 'center', padding: '10px 0 10px' }}>
-    <CanvasComponent {...args} />
-  </div>
-)
 
 <Canvas>
   <Story
     name="Overview"
     args={{
-      onRender: draw,
-      disableScrolling: false,
-      width: 400,
-      height: 200
+      onRender: draw(100),
+      disableScrolling: false
     }}
   >
     {SimpleCanvas.bind({})}
