@@ -35,6 +35,7 @@ const drawStar =
   (canvas: HTMLCanvasElement): ((s: Star) => Star) =>
   (s: Star): Star => {
     const ctx = canvas.getContext('2d')
+
     if (ctx) {
       ctx.strokeStyle = `rgb(176,224,230)`
       ctx.lineWidth = s.z / 2
@@ -43,6 +44,7 @@ const drawStar =
       ctx.lineTo(s.px, s.py)
       ctx.stroke()
     }
+
     return s
   }
 
@@ -57,37 +59,39 @@ function* starsGen(nb: number, width: number, height: number): Generator<Star> {
       px: x,
       py: y
     }
+
     yield star
   }
 }
 
-let cw = 0
-let ch = 0
-let stars: Star[] = []
+const S = {
+    cw: 0,
+    ch: 0,
+    stars: [] as Star[]
+}
 
-export const draw =
+export const drawStarField =
   (nbStars: number): ((canvas: HTMLCanvasElement, deltaCount: number) => void) =>
   (canvas: HTMLCanvasElement): void => {
     const ctx = canvas.getContext('2d')
+    const [w, h]: [number, number] = [canvas.width, canvas.height]
+
     if (ctx) {
       ctx.resetTransform()
       ctx.fillStyle = 'black'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.translate(canvas.width / 2, canvas.height / 2)
+      ctx.fillRect(0, 0, w, h)
+      ctx.translate(w / 2, h / 2)
 
-      // debugger;
-
-      if (stars.length === 0 || cw !== canvas.width || ch !== canvas.height) {
-        stars = [...starsGen(nbStars, canvas.width, canvas.height)]
-        cw = canvas.width
-        ch = canvas.height
+      if (S.cw !== w || S.ch !== h) {
+        S.cw = w
+        S.ch = h
+        S.stars = []
       }
 
-      stars = Array.from(stars)
-        .map(drawStar(canvas))
-        .map(moveStar)
-        .filter(inBound(canvas.width, canvas.height))
+      if (S.stars.length < nbStars) {
+        S.stars = [...S.stars, ...starsGen(nbStars, w, h)]
+      }
 
-      stars = [...stars, ...starsGen(nbStars - stars.length, canvas.width, canvas.height)]
+      S.stars = Array.from(S.stars).map(drawStar(canvas)).map(moveStar).filter(inBound(w, h))
     }
   }

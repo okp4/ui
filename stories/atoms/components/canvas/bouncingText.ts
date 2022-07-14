@@ -2,9 +2,11 @@
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable functional/no-let */
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-let x = -1
-let y = -1
-let dx = 2
+const S = {
+  x: -1,
+  y: -1,
+  dx: 2
+}
 
 export const drawBouncingText = (canvas: HTMLCanvasElement, deltaCount: number): void => {
   const ctx = canvas.getContext('2d')
@@ -13,11 +15,11 @@ export const drawBouncingText = (canvas: HTMLCanvasElement, deltaCount: number):
     const text = `Size: ${canvas.width} / ${canvas.height}`
     const metrics = ctx.measureText(text)
 
-    if (x == -1) {
-      x = (canvas.width - metrics.width) / 2
+    if (S.x == -1) {
+      S.x = (canvas.width - metrics.width) / 2
     }
-    if (y == -1) {
-      y = canvas.height / 2
+    if (S.y == -1) {
+      S.y = canvas.height / 2
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -25,19 +27,19 @@ export const drawBouncingText = (canvas: HTMLCanvasElement, deltaCount: number):
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.fillStyle = '#ced2d9'
     ctx.font = '25px sans-serif'
-    ctx.fillText(text, x, y)
+    ctx.fillText(text, S.x, S.y)
     ctx.fill()
 
-    if (x + metrics.width > canvas.width) {
-      x = canvas.width - metrics.width
-      dx = -dx
+    if (S.x + metrics.width > canvas.width) {
+      S.x = canvas.width - metrics.width
+      S.dx = -S.dx
     }
 
-    if (x <= 0) {
-      x = 1
-      dx = -dx
+    if (S.x <= 0) {
+      S.x = 1
+      S.dx = -S.dx
     }
-    
-    x += dx
+
+    S.x += S.dx
   }
 }
