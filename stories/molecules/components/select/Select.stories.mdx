@@ -4,6 +4,7 @@ import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { Select } from 'ui/molecules/select/Select'
 import { Map } from 'immutable'
+import './select.scss'
 
 <Meta
   title="Molecules/Select"
@@ -80,7 +81,6 @@ import { Map } from 'immutable'
   {args => {
     const [value, setValue] = useState(undefined)
     const handleChange = value => {
-      console.log('hey')
       setValue(value)
     }
     return <Select {...args} onValuesChange={handleChange} value={value} />
@@ -272,7 +272,7 @@ If done is given, `medium` is the default value.
     {args => {
       const sizes = ['x-small', 'small', 'medium', 'large', 'x-large']
       return sizes.map(size => (
-        <div key={size}>
+        <div key={size} style={{ maxWidth: '100%' }}>
           <Select
             id={size}
             defaultValue={size}

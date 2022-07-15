@@ -10,7 +10,7 @@ $sizes: (
 
 .okp4-select-container {
   @include with-theme() {
-    border: 1px solid themed(text);
+    position: relative;
     max-width: 100%;
     cursor: pointer;
 
@@ -30,14 +30,21 @@ $sizes: (
     }
 
     .okp4-select-input-container {
-      width: auto;
+      border: 1px solid themed(text);
+      width: inherit;
+      max-width: inherit;
+
       .okp4-input-base-main {
         cursor: pointer;
       }
     }
 
     .okp4-select-options-container {
+      position: absolute;
+      z-index: 2;
+      background: themed('header-background');
       width: inherit;
+      max-width: inherit;
       color: themed(text);
       border: 1px solid themed(text);
 
