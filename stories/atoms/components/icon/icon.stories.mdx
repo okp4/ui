@@ -1,0 +1,179 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider.tsx'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher.tsx'
+import { Icon } from 'ui/atoms/icon/Icon.tsx'
+import { Typography } from 'ui/atoms/typography/Typography.tsx'
+import '../component.scss'
+import './icon.scss'
+
+<Meta
+  title="Atoms/Icon"
+  component={Icon}
+  decorators={[
+    Story => {
+      return (
+        <ThemeProvider>
+          <div className="component-story-main">
+            <ThemeSwitcher />
+            <Story />
+          </div>
+        </ThemeProvider>
+      )
+    }
+  ]}
+/>
+
+# Icon
+
+> Facilitates interactions between the user and the application.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+Icons takes up little space and help convey ideas to users without the need of
+convoluted text.  
+**Icon** have the following properties:
+
+- `name` the name of a themed icon that contains two icons, dark and light theme.
+- `size` optional size property.
+- `className` optional class name for custom css styling.
+
+## Overview
+
+<Story name="Overview">
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
+      justifyContent: 'center'
+    }}
+  >
+    <Icon name="profile" />
+    <Icon className="rotate-microphone" name="podcast" />
+  </div>
+</Story>
+
+---
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Name
+
+The component has several icons to choose from and they are all thematized. To use an icon you pass
+the **name** of the icon you want as the property value.
+
+<Canvas>
+  <Story name="Name">
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(100px,100px))',
+        justifyContent: 'center',
+        gap: '10px'
+      }}
+    >
+      {renderIcons()}
+    </div>
+  </Story>
+</Canvas>
+
+export const themedIcons = [
+  'active-menu',
+  'add',
+  'alert',
+  'arrow',
+  'chat',
+  'meeting',
+  'next',
+  'podcast',
+  'previous',
+  'profile',
+  'rs-facebook',
+  'rs-linkedin',
+  'rs-twitter',
+  'search',
+  'theme-switcher',
+  'wallet'
+]
+export const renderIcons = () =>
+  themedIcons.map(icon => (
+    <div className="icon-card">
+      <Icon name={icon} />
+      <Typography as="p" fontSize="x-small" fontFamily="secondary">
+        {icon}
+      </Typography>
+    </div>
+  ))
+
+## Size
+
+The **size** is squared and can be adjusted by passing a number value.
+By `default` the size is **30** pixels (which you can see in the middle icon below).
+
+<Canvas>
+  <Story name="Size">
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(75px,auto))',
+        justifyContent: 'center',
+        justifyItems: 'center',
+        alignItems: 'center',
+        gap: '10px'
+      }}
+    >
+      <Icon name="wallet" size="15" />
+      <Icon name="wallet" size="20" />
+      <Icon name="wallet" />
+      <Icon name="wallet" size="50" />
+      <Icon name="wallet" size="80" />
+    </div>
+  </Story>
+</Canvas>
+
+## Class Name
+
+The **className** property allows you to style the svg with css properties.  
+As seen in the examples below you can rotate icons, add background colors, animate them and more!
+
+<Canvas>
+  <Story name="Class name">
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
+        justifyContent: 'center',
+        gap: '30px'
+      }}
+    >
+      <Icon name="arrow" />
+      <Icon name="arrow" className="rotate-90deg" />
+      <Icon name="arrow" className="rotate-180deg" />
+      <Icon name="arrow" className="rotate-270deg" />
+      <Icon name="chat" className="bouncing-chat" />
+    </div>
+  </Story>
+</Canvas>
+
+## Prerequisites
+
+It is mandatory to wrap the component in a `<ThemeProvider />` for the thematisation to work.
+See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
+
+##### **`app.tsx`**
+
+```tsx
+import React from 'react'
+import { Icon, ThemeProvider } from '@okp4/ui'
+
+export const App: React.FC = () => (
+  <React.StrictMode>
+    <ThemeProvider>
+      <Icon name="profile" />
+    </ThemeProvider>
+  </React.StrictMode>
+)
+```
