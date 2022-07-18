@@ -12,7 +12,7 @@ jobs:
           # uploadArtifacts: true # save results as an action artifacts
           # temporaryPublicStorage: true # upload lighthouse report to the temporary storage
           configPath: ./.github/workflows/lighthouserc.json
-      - name: List Files
+      - name: List Dirs
         run: |
           pwd
           tree -d --noreport .
