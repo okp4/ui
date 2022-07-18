@@ -10,15 +10,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
-
       - name: Fetch dependencies
         run: |
           yarn --frozen-lockfile
-
       - name: Build project
         run: |
           yarn build
-
       - name: Build Storybook
         run: |
           yarn build-storybook
@@ -29,8 +26,4 @@ jobs:
           # uploadArtifacts: true # save results as an action artifacts
           # temporaryPublicStorage: true # upload lighthouse report to the temporary storage
           configPath: ./.github/workflows/lighthouserc.json
-      - name: List Dirs
-        run: |
-          pwd
-          tree -d --noreport .
         
