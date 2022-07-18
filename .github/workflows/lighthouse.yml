@@ -6,24 +6,27 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+
       - name: Setup node environment (for building)
         uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
+
       - name: Fetch dependencies
         run: |
           yarn --frozen-lockfile
+
       - name: Build project
         run: |
           yarn build
+
       - name: Build Storybook
         run: |
           yarn build-storybook
+
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v9
         with:
-          budgetPath: ./.github/workflows/lighthouse-budget.json # test performance budgets
-          # uploadArtifacts: true # save results as an action artifacts
-          # temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          budgetPath: ./.github/workflows/lighthouse-budget.json
           configPath: ./.github/workflows/lighthouserc.json
         
