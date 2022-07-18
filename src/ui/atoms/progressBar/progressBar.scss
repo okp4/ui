@@ -2,27 +2,27 @@
 @import '../../styles/animations.scss';
 
 .okp4-progressbar-main {
-  width: 100%;
   display: grid;
-  column-gap: 10px;
-  row-gap: 10px;
-  padding: 2%;
+  column-gap: 5px;
+  row-gap: 5px;
+  padding: 5%;
 
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr auto;
   grid-template-rows: repeat(3, auto);
   grid-template-areas:
-    'label label label label icon'
-    'value value progress progress icon'
-    'bar bar bar bar icon';
+    'label label label'
+    'value progress icon'
+    'bar bar icon';
 
   @media screen and (min-width: 768px) {
-    column-gap: 5px;
+    column-gap: 10px;
     row-gap: 0;
-    grid-template-columns: repeat(6, 1fr);
+    padding: 2%;
+    grid-template-columns: 2fr 7fr auto;
     grid-template-rows: repeat(2, auto);
     grid-template-areas:
-      'label progress progress progress progress icon'
-      'value bar bar bar bar icon';
+      'label progress icon'
+      'value bar icon';
   }
 
   @include with-theme {
@@ -41,6 +41,9 @@
       grid-area: progress;
       text-align: end;
       margin: 1%;
+      display: grid;
+      align-items: flex-end;
+      justify-content: end;
     }
 
     .okp4-progressbar-bar {
@@ -61,7 +64,7 @@
           background-color: themed(text);
           border-radius: inherit;
 
-          &--undetermined {
+          &.undetermined {
             @include undetermined(10%, 40%);
           }
         }
@@ -69,13 +72,17 @@
     }
 
     .okp4-progressbar-icon {
+      margin: auto;
       grid-area: icon;
-      display: grid;
-      align-items: center;
+      max-height: 30px;
+      place-content: bottom;
+      @media screen and (min-width: 768px) {
+        max-height: 45px;
+      }
 
       :first-child {
         margin: auto;
-        width: 50%;
+        max-height: inherit;
       }
     }
   }

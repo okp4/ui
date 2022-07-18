@@ -3,31 +3,39 @@ import type { DeepReadonly } from 'superTypes'
 import { Typography } from '../typography/Typography'
 import './progressBar.scss'
 import classNames from 'classnames'
-import { toPercent as percent } from 'utils'
+import { toPercent } from 'utils'
 
-export type TProgressBarProps = DeepReadonly<{
+export type TProgressBarProps = {
   /**
-   * Button contents.
+   * The progress bar title.
    */
   readonly label?: string
   /**
-   * The start value of the progress bar
+   * The start value of the progress bar.
    */
   readonly minValue?: number
   /**
-   * The end value of the progress bar
+   * The end value of the progress bar.
    */
   readonly maxValue?: number
   /**
-   * The current value of the progress bar
+   * The current value of the progress bar.
    */
   readonly currentValue?: number
   /**
-   * Allows how to display the current value
+   * Allows to define how to display the current value.
+   *
+   * @param currentValue The current value of the progress bar.
+   * @return Returns the formatted current value.
    */
   readonly currentValueFormatter?: (currentValue: number) => string
   /**
-   * Allows how to display the progress
+   * Allows to define how to display the progress
+   *
+   * @param currentValue The current value of the progress bar.
+   * @param minValue The start value of the progress bar.
+   * @param maxValue The end value of the progress bar.
+   * @return Returns the formatted progress value.
    */
   readonly progressValueFormatter?: (
     currentValue: number,
@@ -37,33 +45,24 @@ export type TProgressBarProps = DeepReadonly<{
   /**
    * An icon that can provide visual information
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly icon?: Readonly<JSX.Element>
-}>
+}
 
 /**
- * Primary UI component for user interaction.
+ * Primary UI component for progress of a treatment.
  */
-// eslint-disable-next-line max-lines-per-function
 export const ProgressBar: React.FC<TProgressBarProps> = ({
   label,
   minValue = 0,
   maxValue = 100,
   currentValue,
-  currentValueFormatter: formatCurrentValue = (currentValue: number): string => `${currentValue}`,
-  progressValueFormatter: formatProgress,
+  currentValueFormatter = (currentValue: number): string => `${currentValue}`,
+  progressValueFormatter = (currentValue: number, minValue?: number, maxValue?: number): string =>
+    `${toPercent(currentValue, minValue ?? 0, maxValue ?? 100).toFixed(2)} %`,
   icon
-}: TProgressBarProps): JSX.Element => {
+}: DeepReadonly<TProgressBarProps>): JSX.Element => {
   const isUndetermined = (): boolean => (!currentValue && currentValue !== 0) || maxValue < minValue
-
-  const toPercent = (): number => {
-    if (isUndetermined()) {
-      return 0
-    }
-    return percent(currentValue ?? 0, minValue, maxValue)
-  }
-
-  const defaultProgressValueFormatter = (): string => `${toPercent().toFixed(2)} %`
+  const current = currentValue ?? 0
 
   return (
     <div className="okp4-progressbar-main">
@@ -77,31 +76,28 @@ export const ProgressBar: React.FC<TProgressBarProps> = ({
       {!isUndetermined() && (
         <div className="okp4-progressbar-value">
           <Typography as="div" color="text" fontSize="small" fontWeight="light">
-            {formatCurrentValue(currentValue ?? 0)}
+            {currentValueFormatter(current)}
           </Typography>
         </div>
       )}
       {!isUndetermined() && (
         <div className="okp4-progressbar-progress">
           <Typography as="div" color="text" fontSize="small" fontWeight="bold">
-            {formatProgress
-              ? formatProgress(currentValue ?? 0, minValue, maxValue)
-              : defaultProgressValueFormatter()}
+            {progressValueFormatter(current, minValue, maxValue)}
           </Typography>
         </div>
       )}
       <div className="okp4-progressbar-bar">
         <div className="okp4-progressbar-bar-container">
           <div
-            className={classNames(
-              'okp4-progressbar-bar-filler',
-              isUndetermined() && 'okp4-progressbar-bar-filler--undetermined'
-            )}
-            style={{ width: `${toPercent()}%` }}
+            className={classNames('okp4-progressbar-bar-filler', {
+              undetermined: isUndetermined()
+            })}
+            style={{ width: `${toPercent(current, minValue, maxValue)}%` }}
           ></div>
         </div>
       </div>
-      <div className="okp4-progressbar-icon">{icon}</div>
+      {icon && <div className="okp4-progressbar-icon">{icon}</div>}
     </div>
   )
 }
