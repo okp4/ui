@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./disttoto"
+      "staticDistDir": "./node_modules/.cache/storybook/public"
     }
   }
 }
