@@ -25,10 +25,22 @@ jobs:
           yarn build-storybook
 
       - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
+        id: lighthouse_audit
+        uses: treosh/lighthouse-ci-action@b4dfae3eb959c5226e2c5c6afd563d493188bfaf # 9.3.0
         with:
           budgetPath: ./.github/workflows/lighthouse-budget.json
           configPath: ./.github/workflows/lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-        
+
+      - name: Format lighthouse score
+        id: format_lighthouse_score
+        uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const results = ${{ steps.lighthouse_audit.outputs.manifest }}
+            const links = ${{ steps.lighthouse_audit.outputs.links }}
+            const createLighthouseReport = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.json`)).default;
+            const comment = createLighthouseReport({ results, links });
+            core.setOutput("comment", comment);
