@@ -8,7 +8,13 @@ const S = {
   dx: 2
 }
 
-export const drawBouncingText = (canvas: HTMLCanvasElement, deltaCount: number): void => {
+export const drawBouncingText = ({
+  canvas,
+  deltaCount
+}: {
+  canvas: HTMLCanvasElement
+  deltaCount: number
+}): void => {
   const ctx = canvas.getContext('2d')
 
   if (ctx) {

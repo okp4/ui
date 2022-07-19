@@ -1,16 +1,11 @@
 /* eslint-disable max-lines-per-function */
 import React, { useEffect, useRef } from 'react'
 import { useAnimationFrame } from 'hook/useAnimationFrame'
-import type { DeepReadonly } from '../../../superTypes'
+import type { Callback, DeepReadonly } from 'superTypes'
 
-// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-export type TCanvasCreatedCallback = (canvas: HTMLCanvasElement) => void
-export type TCanvasDestroyedCallback = () => void
-export type TRenderCanvasCallback = (
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  canvas: HTMLCanvasElement,
-  deltaTime: number
-) => void
+export type TCanvasCreatedCallback = Callback<HTMLCanvasElement, void>
+export type TCanvasDestroyedCallback = Callback<void, void>
+export type TRenderCanvasCallback = Callback<{ canvas: HTMLCanvasElement; deltaTime: number }, void>
 
 export type TCanvasProps = Readonly<{
   /**
@@ -103,7 +98,7 @@ export const Canvas: React.FC<TCanvasProps> = ({
 
   useAnimationFrame((deltaTime: number) => {
     if (canvasRef.current && onRender) {
-      onRender(canvasRef.current, deltaTime)
+      onRender({ canvas: canvasRef.current, deltaTime })
     }
   }, animated)
 
