@@ -41,6 +41,6 @@ jobs:
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             const links = ${{ steps.lighthouse_audit.outputs.links }}
-            const createLighthouseReport = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.json`)).default;
+            const createLighthouseReport = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.js`)).default;
             const comment = createLighthouseReport({ results, links });
             core.setOutput("comment", comment);
