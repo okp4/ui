@@ -6,16 +6,18 @@
     },
     "sendMeToken": "Send me KNOW",
     "requestFundsWithKeplr": "Request funds with Keplr",
-    "requestFundsWithAddress": "Request funds with ØKP4 address",
-    "addressPlaceholder": "ØKP4 address",
+    "requestFundsWithAddress": "Request funds with OKP4 address",
+    "addressPlaceholder": "OKP4 address",
     "operationSucceeded": "Your transaction has been successfully sent!",
     "brand": {
-      "title": "ØKP4 Faucet",
-      "description": "Hello fellow data space invader! Use this faucet to get tokens for the latest ØKP4 testnet. Please don't abuse this service—the number of available tokens is limited."
+      "title": "OKP4 Faucet",
+      "description": "Hello fellow data space invader! Use this faucet to get tokens for the latest OKP4 {{env}}. Please don't abuse this service—the number of available tokens is limited."
     },
     "info": {
       "limitation": "You'll receive 1 KNOW per request, with a maximum of 1 request each 5 seconds.",
-      "description": "Don't have a testnet address? To get one, the easiest way is to use Keplr, the crypto wallet for OKP4. Connect Keplr to the testnet-okp4-1 to see your address.",
+      "message1": "Don't have a {{env}} address? To get one, the easiest way is to use Keplr, the crypto wallet for OKP4.",
+      "message2": "Install the official Chrome extension  ",
+      "message3": " and connect to the chain {{chainId}} to see your address.",
       "successMessage": "Your request has been sent successfully, check your wallet! 🚀"
     }
   }
