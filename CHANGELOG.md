@@ -1,5 +1,22 @@
 # OKP4 UI changelog
 
+# [1.9.0](https://github.com/okp4/ui/compare/v1.8.0...v1.9.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* readonly issue in file input component ([576a66e](https://github.com/okp4/ui/commit/576a66e6f8fb88aa9d06e16cd5332f6a548eae6f))
+* responsive issues ([02545c8](https://github.com/okp4/ui/commit/02545c89e11c2a9494b43fd1bcf72321df50e25e))
+
+
+### Features
+
+* create file input component ([60ded66](https://github.com/okp4/ui/commit/60ded669892224dc0a25c6c012859672607a9591))
+* create progress bar component ([6db90c4](https://github.com/okp4/ui/commit/6db90c4900d9e87cc07ecc9d86cb7008fe47f6d4))
+* **hook:** add hook to manage element resising ([bfd739d](https://github.com/okp4/ui/commit/bfd739dc488a232f1840065eeb97ef84ee7ab282))
+* manage the error state of the file input component ([9c1bf72](https://github.com/okp4/ui/commit/9c1bf729307eb3ba22a0a3ef162a1491cc4730c0))
+* remove any type for icon ([efe3bf1](https://github.com/okp4/ui/commit/efe3bf15a4d9fb6da640a743a0df4d0ea12bc7f0))
+
 # [1.8.0](https://github.com/okp4/ui/compare/v1.7.0...v1.8.0) (2022-07-11)
 
 
