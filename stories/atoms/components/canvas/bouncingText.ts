@@ -15,10 +15,10 @@ export const drawBouncingText = (canvas: HTMLCanvasElement, deltaCount: number):
     const text = `Size: ${canvas.width} / ${canvas.height}`
     const metrics = ctx.measureText(text)
 
-    if (S.x == -1) {
+    if (S.x === -1) {
       S.x = (canvas.width - metrics.width) / 2
     }
-    if (S.y == -1) {
+    if (S.y === -1) {
       S.y = canvas.height / 2
     }
 
