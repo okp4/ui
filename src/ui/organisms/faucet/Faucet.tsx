@@ -34,6 +34,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   const walletDispatch = useWalletDispatch()
   const errorDispatch = useErrorDispatch()
   const taskDispatch = useTaskDispatch()
+  const env = chainId.split('-')[1]
   const { t }: UseTranslationResponse = useTranslation()
   const address = useFaucetSelector((state: DeepReadonly<FaucetAppState>) => state.address)
   const hasTransactionError = useErrorSelector(hasUnseenError)
@@ -88,7 +89,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
           </div>
           <div>
             <Typography color="text" fontSize="small" fontWeight="light">
-              {t('faucet:faucet.brand.description')}
+              {t('faucet:faucet.brand.description', { env })}
             </Typography>
           </div>
         </div>
@@ -130,8 +131,24 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
             </Typography>
           </div>
           <div>
-            <Typography color="text" fontSize="x-small" fontWeight="light">
-              {t('faucet:faucet.info.description')}
+            <Typography as="div" color="text" fontSize="x-small" fontWeight="light">
+              {t('faucet:faucet.info.message1', { env })}
+            </Typography>
+            <Typography as="span" color="text" fontSize="x-small" fontWeight="light">
+              {t('faucet:faucet.info.message2')}
+            </Typography>
+            <Typography as="span" color="text" fontSize="x-small" fontWeight="bold">
+              <a
+                className="okp4-faucet-content-info-link"
+                href="https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Keplr
+              </a>
+            </Typography>
+            <Typography as="span" color="text" fontSize="x-small" fontWeight="light">
+              {t('faucet:faucet.info.message3', { chainId })}
             </Typography>
           </div>
         </div>
