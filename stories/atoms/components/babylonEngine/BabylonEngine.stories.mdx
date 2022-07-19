@@ -1,0 +1,72 @@
+import {
+  ArgsTable,
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks'
+import { LinkTo } from '@storybook/addon-links'
+import { BabylonEngine } from 'ui/atoms/babylonEngine/BabylonEngine'
+import { onEngineCreated, onRender } from './space'
+import {
+  onEngineCreated as onEngineCreatedShaders,
+  onRender as onRenderShaders,
+} from './samples/shader.samples'
+import { useElementSize } from 'hook/useElementSize'
+
+<Meta
+  title="Atoms/BabylonEngine"
+  component={BabylonEngine}
+  parameters={{ actions: { argTypesRegex: '^on.*' } }}
+/>
+
+# BabylonEngine
+
+> Component integrating the [Babylon.js](https://www.babylonjs.com/) 3D engine.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Overview
+
+### Description
+
+The `BabylonEngine` component exposes the minimal stuff required to integrate [Babylon.js](https://www.babylonjs.com/) in a [React](https://reactjs.org/) application, in a
+very simple and non intrusive way.
+
+Supported features are:
+
+- Exposes common parameter for the [engine](https://doc.babylonjs.com/typedoc/classes/babylon.engine) (eg: `antialias`).
+- Manage the render loop by running a callback given as prop (`onRender`).
+- Resize the [engine](https://doc.babylonjs.com/typedoc/classes/babylon.engine) when window is resized.
+- Clean up resources automatically when component is unmounted.
+- Any extra props added to the component will flow to the canvas (eg: `style`, `className`...).
+
+This component makes use of the [Canvas](/docs/atoms-canvas--overview) component for primary rendering. 
+
+---
+
+export const BabylonEngineOverview = args => {
+    const [ size, divRef ] = useElementSize()
+    return (
+    <div style={{ textAlign: 'center', padding: '10px 0 10px' }} ref={divRef}>
+      <BabylonEngine width={size?.width} {...args} />
+    </div>)
+}
+
+<Story
+  name="Overview"
+  argTypes={{}}
+  args={{
+    antialias: true,
+    onEngineCreated: onEngineCreated,
+    onRender: onRender,
+    height: 480,
+  }}
+>
+  {BabylonEngineOverview.bind({})}
+</Story>
+
+### Properties
+
+<ArgsTable story="Overview" />
