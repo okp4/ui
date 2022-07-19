@@ -5,7 +5,7 @@ import './progressBar.scss'
 import classNames from 'classnames'
 import { toPercent } from 'utils'
 
-export type TProgressBarProps = {
+export type ProgressBarProps = {
   /**
    * The progress bar title.
    */
@@ -49,18 +49,39 @@ export type TProgressBarProps = {
 }
 
 /**
+ * Returns the current value in string.
+ *
+ * @param currentValue The current value.
+ * @returns The current value in string.
+ */
+export const defaultValueFormatter = (currentValue: number): string => `${currentValue}`
+
+/**
+ * Formats the progression in percentage.
+ *
+ * @param currentValue The value of the progression.
+ * @param minValue The start value of the scale.
+ * @param maxValue The end value of the scale.
+ * @returns The current percentage progress.
+ */
+export const defaultProgressValueFormatter = (
+  currentValue: number,
+  minValue?: number,
+  maxValue?: number
+): string => `${toPercent(currentValue, minValue ?? 0, maxValue ?? 100).toFixed(2)} %`
+
+/**
  * Primary UI component for progress of a treatment.
  */
-export const ProgressBar: React.FC<TProgressBarProps> = ({
+export const ProgressBar: React.FC<ProgressBarProps> = ({
   label,
   minValue = 0,
   maxValue = 100,
   currentValue,
-  currentValueFormatter = (currentValue: number): string => `${currentValue}`,
-  progressValueFormatter = (currentValue: number, minValue?: number, maxValue?: number): string =>
-    `${toPercent(currentValue, minValue ?? 0, maxValue ?? 100).toFixed(2)} %`,
+  currentValueFormatter = defaultValueFormatter,
+  progressValueFormatter = defaultProgressValueFormatter,
   icon
-}: DeepReadonly<TProgressBarProps>): JSX.Element => {
+}: DeepReadonly<ProgressBarProps>): JSX.Element => {
   const isUndetermined = (): boolean => (!currentValue && currentValue !== 0) || maxValue < minValue
   const current = currentValue ?? 0
 
@@ -74,18 +95,18 @@ export const ProgressBar: React.FC<TProgressBarProps> = ({
         </div>
       )}
       {!isUndetermined() && (
-        <div className="okp4-progressbar-value">
-          <Typography as="div" color="text" fontSize="small" fontWeight="light">
-            {currentValueFormatter(current)}
-          </Typography>
-        </div>
-      )}
-      {!isUndetermined() && (
-        <div className="okp4-progressbar-progress">
-          <Typography as="div" color="text" fontSize="small" fontWeight="bold">
-            {progressValueFormatter(current, minValue, maxValue)}
-          </Typography>
-        </div>
+        <>
+          <div className="okp4-progressbar-value">
+            <Typography as="div" color="text" fontSize="small" fontWeight="light">
+              {currentValueFormatter(current)}
+            </Typography>
+          </div>
+          <div className="okp4-progressbar-progress">
+            <Typography as="div" color="text" fontSize="small" fontWeight="bold">
+              {progressValueFormatter(current, minValue, maxValue)}
+            </Typography>
+          </div>
+        </>
       )}
       <div className="okp4-progressbar-bar">
         <div className="okp4-progressbar-bar-container">
