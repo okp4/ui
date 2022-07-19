@@ -17,6 +17,46 @@ type State = {
   scene: Scene
 }
 
+
+class RotatingBehavior implements Behavior<Mesh> {
+  readonly name: string = 'RotatingBehavior'
+
+  readonly rpm: number = 4
+
+  private target: Nullable<Mesh> = null
+  private scene: Nullable<Scene> = null
+  private observer: Nullable<Observer<Scene>> = null
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  init(): void {}
+
+  attach(target: Mesh): void {
+    this.target = target
+    this.scene = target.getScene()
+    this.observer = this.scene.onBeforeRenderObservable.add(this.update)
+    if (this.observer) {
+      this.observer.scope = this
+    }
+  }
+
+  detach(): void {
+    if (this.observer) {
+      this.observer.unregisterOnNextCall = true
+    }
+    this.target = null
+    this.scene = null
+    this.observer = null
+  }
+
+  private update(evtData: Scene): void {
+    const dt = evtData.deltaTime || 0
+
+    if (this.target) {
+      this.target.rotation.y += (this.rpm / 60) * Math.PI * 2 * (dt / 1000)
+    }
+  }
+}
+
 export const onEngineCreated: EngineCreatedCallback<State> = (engine: Engine) => {
   // scene
   const scene = new Scene(engine)
@@ -41,11 +81,13 @@ export const onEngineCreated: EngineCreatedCallback<State> = (engine: Engine) =>
   const marsMaterial = new StandardMaterial("marsMaterial", scene);
   marsMaterial.diffuseTexture = new Texture(marsTexture, scene);
   mars.material = marsMaterial;
+  mars.addBehavior(new RotatingBehavior())
 
   return {
     scene: scene
   }
 }
+
 
 export const onRender: RenderCallback<State> = (state: State) => {
   const { scene }:State = state
