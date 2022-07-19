@@ -9,7 +9,7 @@ export type Star = {
   py: number
 }
 
-const speed = 0.09
+const speed = 0.05
 
 const moveStar = (s: Star): Star => {
   s.px = s.x
