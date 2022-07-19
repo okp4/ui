@@ -76,7 +76,14 @@
   }
 
   .okp4-faucet-content-info-main {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     text-align: center;
-    width: 70%;
+
+    .okp4-faucet-content-info-link {
+      color: inherit;
+    }
   }
 }
