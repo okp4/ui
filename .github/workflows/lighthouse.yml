@@ -30,4 +30,5 @@ jobs:
           budgetPath: ./.github/workflows/lighthouse-budget.json
           configPath: ./.github/workflows/lighthouserc.json
           uploadArtifacts: true
+          temporaryPublicStorage: true
         
