@@ -1,0 +1,206 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ProgressBar } from 'ui/atoms/progressBar/ProgressBar'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { useState } from 'react'
+
+<Meta
+  title="Atoms/ProgressBar"
+  component={ProgressBar}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <div
+            style={{
+              display: 'grid',
+              gap: '25px'
+            }}
+          >
+            <Story />
+          </div>
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# ProgressBar
+
+> Shows the progress of a treatment.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+The `ProgressBar` component displays a progress bar of some treatment. The size of the component is full width, so it is up to the parent to manage the size.<br />
+The component displays a title on the left, a progress bar in the center and an icon on the right.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    icon: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    },
+    currentValueFormatter: {
+      control: false,
+      table: {
+        defaultValue: null
+      }
+    },
+    progressValueFormatter: {
+      control: false,
+      table: {
+        defaultValue: null
+      }
+    }
+  }}
+  args={{
+    label: 'okp4.png',
+    minValue: 0,
+    maxValue: 1.3789,
+    currentValue: 0.99
+  }}
+>
+  {args => {
+    const progressValueFormatter = (currentValue, minValue, maxValue) => {
+      const total = maxValue >= minValue ? maxValue - minValue : 0
+      const current = currentValue ? currentValue - minValue : 0
+      return `${(total && 0 <= current && current <= total ? (100 * current) / total : 0).toFixed(
+        2
+      )}%`
+    }
+    return (
+      <ProgressBar
+        {...args}
+        currentValueFormatter={currentValue => `${currentValue.toFixed(2)} Mo`}
+        progressValueFormatter={progressValueFormatter}
+      />
+    )
+  }}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Label
+
+The `label` property allows you to display a label on the progress like the file name during a download.
+
+<Canvas>
+  <Story name="Label">
+    {() => {
+      return <ProgressBar label="Image1.png" />
+    }}
+  </Story>
+</Canvas>
+
+## Current value, minimum value and maximum value
+
+The `minValue` and `maxValue` properties are used to calculate the current progression of the `currentValue` property.<br />
+By default the `minValue` is `0` and `maxValue` is `100`. Thus, the user can provide only `currentValue` and expect to see the percentage progression.<br />
+If `currentValue` is not provided or if there are inconsistencies between `minValue`, `maxValue` and `currentValue`, then the progress bar will display in indeterminate mode.
+
+<Canvas>
+  <Story name="Values">
+    {() => {
+      return (
+        <div
+          style={{
+            display: 'grid',
+            width: '95%',
+            gap: '25px'
+          }}
+        >
+          <ProgressBar label="okp4.pdf" minValue={0} maxValue={195} currentValue={23} />
+          <ProgressBar label="Negative values" minValue={-235} maxValue={100} currentValue={-10} />
+          <ProgressBar label="Image2.png" minValue={0} maxValue={20} currentValue={12.48795} />
+          <ProgressBar label="Min greater than Max" minValue={10} maxValue={0} currentValue={7} />
+          <ProgressBar
+            label="Value greater than max bound"
+            minValue={0}
+            maxValue={50}
+            currentValue={75}
+          />
+          <ProgressBar
+            label="Value less than min bound"
+            minValue={10}
+            maxValue={50}
+            currentValue={5}
+          />
+          <ProgressBar label="Value not provided" minValue={0} maxValue={100} />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Format displayed values
+
+It is possible to provide the `currentValueFormatter` and `progressValueFormatter` functions to define how to display the current value and the current progress.
+By default, the current value is not formatted and the progress value is displayed as a percentage of the progress.
+
+<Canvas>
+  <Story name="Format values">
+    {() => {
+      const currentValueFormatterTemp = currentValue => `${currentValue.toFixed(0)} °C`
+      const progressValueFormatterTemp = (currentValue, minValue, maxValue) =>
+        `${minValue}°C  to ${maxValue}°C (${currentValue.toFixed(1)}°C)`
+      const currentValueFormatterUpload = currentValue => null
+      const progressValueFormatterUpload = (currentValue, minValue, maxValue) =>
+        `${currentValue} images uploaded of ${maxValue}`
+      const currentValueFormatterDownload = currentValue => `${currentValue.toFixed(2)} Go`
+      const progressValueFormatterDownload = (currentValue, minValue, maxValue) =>
+        `${(maxValue - currentValue).toFixed(2)} Go remaining of ${maxValue} Go`
+      return (
+        <div
+          style={{
+            display: 'grid',
+            width: '95%',
+            gap: '25px'
+          }}
+        >
+          <ProgressBar
+            label="Temperature"
+            minValue={-10}
+            maxValue={50}
+            currentValue={25}
+            currentValueFormatter={currentValueFormatterTemp}
+            progressValueFormatter={progressValueFormatterTemp}
+          />
+          <ProgressBar
+            label="Upload images"
+            minValue={0}
+            maxValue={125}
+            currentValue={44}
+            currentValueFormatter={currentValueFormatterUpload}
+            progressValueFormatter={progressValueFormatterUpload}
+          />
+          <ProgressBar
+            label="Downloaded files"
+            minValue={0}
+            maxValue={3.5}
+            currentValue={0.9785}
+            currentValueFormatter={currentValueFormatterDownload}
+            progressValueFormatter={progressValueFormatterDownload}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>

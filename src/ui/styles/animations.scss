@@ -1,0 +1,19 @@
+@mixin undetermined($base, $middle: $base, $time: 1s) {
+  animation: name $time linear infinite alternate;
+  @keyframes name {
+    from {
+      left: 0%;
+      width: $base;
+    }
+
+    50% {
+      left: calc((100% - $middle) / 2);
+      width: $middle;
+    }
+
+    to {
+      left: 100% - $base;
+      width: $base;
+    }
+  }
+}
