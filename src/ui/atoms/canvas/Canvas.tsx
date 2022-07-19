@@ -40,7 +40,7 @@ export type TCanvasProps = Readonly<{
   readonly animated?: boolean
 
   /**
-   * Called when canvas is created. Can be used to configure the canvas aftewards.
+   * Called when canvas is created. Can be used to configure the canvas afterwards.
    */
   readonly onCanvasCreated?: TCanvasCreatedCallback
 
