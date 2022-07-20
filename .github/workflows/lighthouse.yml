@@ -41,4 +41,15 @@ jobs:
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             console.log(JSON.stringify(results[1].summary));
+            const comment = '### ⚡️ Lighthouse report for the deploy preview of this PR';
+            core.setOutput("comment", comment);
+
+      - name: Add Lighthouse stats as comment
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: ${{ steps.format_lighthouse_score.outputs.comment }}
 
