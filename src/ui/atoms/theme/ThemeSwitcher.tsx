@@ -6,7 +6,7 @@ import './themeSwitcher.scss'
 import { useLocalStorage } from 'hook/useLocalStorage'
 import type { LocalStorageState } from 'hook/useLocalStorage'
 import { useMediaType } from 'hook/useMediaType'
-import { Icon } from '../icon/Icon'
+import sprite from '../../../assets/icons/sprite.svg'
 
 export type ThemeSwitcherProps = Readonly<{
   /**
@@ -26,6 +26,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   const { theme, setTheme }: ThemeContextType = useTheme()
   const [value, setValue]: LocalStorageState = useLocalStorage(localStorageKey)
   const prefersColorDark: boolean = useMediaType('(prefers-color-scheme: dark)')
+  const icon = theme === 'light' ? 'moon-dark' : 'sun-dark'
 
   const handleCheck = useCallback(
     (checked: boolean): void => {
@@ -54,7 +55,9 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       onCheckedChange={handleCheck}
     >
       <div className={`okp4-theme-switcher-icon ${theme}`}>
-        <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
+        <svg height={18} width={18}>
+          <use href={`${sprite}#${icon}`} />
+        </svg>
       </div>
       <Switch.Thumb className="okp4-theme-switcher-thumb" />
     </Switch.Root>
