@@ -81,7 +81,6 @@ the **name** of the icon you want as the property value.
 </Canvas>
 
 export const themedIcons = [
-  'active-menu',
   'add',
   'alert',
   'arrow',
@@ -102,7 +101,7 @@ export const renderIcons = () =>
   themedIcons.map(icon => (
     <div className="icon-card">
       <Icon name={icon} />
-      <Typography as="p" fontSize="x-small" fontFamily="secondary">
+      <Typography as="span" fontSize="x-small" fontFamily="secondary">
         {icon}
       </Typography>
     </div>
