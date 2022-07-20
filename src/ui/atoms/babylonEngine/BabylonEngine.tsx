@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import type { EngineOptions, Nullable } from '@babylonjs/core'
+import type { EngineOptions } from '@babylonjs/core'
 import { Engine } from '@babylonjs/core'
 import { Canvas } from 'ui/atoms/canvas/Canvas'
 import type { Callback, DeepReadonly, StateHook } from 'superTypes'
@@ -68,10 +68,10 @@ export const BabylonEngine = <STATE,>({
   onRender,
   ...props
 }: DeepReadonly<BabylonEngineProps<STATE>>): JSX.Element => {
-  const [canvas, handleCanvas]: StateHook<HTMLCanvasElement | null> =
+  const [canvas, setCanvas]: StateHook<HTMLCanvasElement | null> =
     useState<HTMLCanvasElement | null>(null)
   const [engine, setEngine]: StateHook<Engine | null> = useState<Engine | null>(null)
-  const stateRef = useRef<Nullable<STATE>>()
+  const stateRef = useRef<STATE | null>(null)
 
   useEffect(() => {
     if (canvas) {
@@ -109,7 +109,7 @@ export const BabylonEngine = <STATE,>({
       animated={false}
       disableScrolling={disableScrolling}
       height={height}
-      onCanvasCreated={handleCanvas}
+      onCanvasCreated={setCanvas}
       touchActionNone={touchActionNone}
       width={width}
     />
