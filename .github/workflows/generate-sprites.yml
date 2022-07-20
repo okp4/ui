@@ -1,0 +1,62 @@
+name: Generate sprites
+
+on:
+  workflow_call:
+
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: generate-sprites-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-sprites:
+    runs-on: ubuntu-20.04
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup node environment (for building)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+
+      - name: Fetch dependencies
+        run: |
+          yarn
+
+      - name: Generate sprites
+        run: |
+          yarn generate-sprites
+
+  sprites-generated:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup node environment (for building)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+
+      - name: Fetch dependencies
+        run: |
+          yarn
+
+      - name: Generate sprites
+        run: |
+          yarn generate-sprites
+
+      - name: Check sprites diff in generated sprites
+        run: |
+          if [[ $(git status -s) != "" ]]; then
+            >&2 echo "❌ There is a diff between generated sprites and source code"
+            >&2 git status
+            exit 1
+          fi
