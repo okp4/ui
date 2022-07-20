@@ -31,7 +31,6 @@ jobs:
           budgetPath: ./.github/workflows/lighthouse-budget.json
           configPath: ./.github/workflows/lighthouserc.json
           uploadArtifacts: true
-          temporaryPublicStorage: true
 
       - name: Format lighthouse score
         id: format_lighthouse_score
