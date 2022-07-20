@@ -142,7 +142,11 @@ jobs:
         run: |
           yarn graphql:code-gen
 
-      - name: Check Git diff in generated files (graphql + yarn.lock)
+      - name: Generate svg sprites
+        run: |
+          yarn svg-sprites
+
+      - name: Check Git diff in generated files (graphql + yarn.lock + svg sprites)
         run: |
           if [[ $(git status -s) != "" ]]; then
             >&2 echo "❌ There is a diff between generated files and source code"
