@@ -1,4 +1,4 @@
-@import '../../../../src/ui/styles/themes.scss';
+@import 'ui/styles/themes.scss';
 
 .icon-card {
   @include with-theme() {
@@ -10,9 +10,6 @@
     background: themed('field');
     border-radius: 10px;
     min-height: 100px;
-    :last-child {
-      margin: 0;
-    }
   }
 }
 

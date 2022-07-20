@@ -4,8 +4,7 @@ import { useTheme } from 'hook/useTheme'
 import type { ThemeContextType } from 'context/themeContext'
 import sprite from '../../../assets/icons/sprite.svg'
 
-export type ThemedIcon =
-  | 'active-menu'
+export type IconName =
   | 'add'
   | 'alert'
   | 'arrow'
@@ -26,13 +25,13 @@ export type IconProps = {
   /**
    * Icon name to use.
    */
-  readonly name: ThemedIcon
+  readonly name: IconName
   /**
    * Icon size in pixels, squared.
    */
   readonly size?: number
   /**
-   * Class name allowing for custom styling.
+   * Custom className to add some additional style.
    */
   readonly className?: string
 }
@@ -44,11 +43,9 @@ export const Icon: React.FC<IconProps> = ({
 }: DeepReadonly<IconProps>): JSX.Element => {
   const { theme }: ThemeContextType = useTheme()
 
-  const SVG = (
-    <svg height={`${size}px`} width={`${size}px`}>
+  return (
+    <svg {...(className && { className })} height={`${size}px`} width={`${size}px`}>
       <use href={`${sprite}#${name}-${theme}`} />
     </svg>
   )
-
-  return className ? <div className={className}>{SVG}</div> : SVG
 }
