@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40.755" height="25.037" viewBox="0 0 40.755 25.037">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_607" data-name="Rectangle 607" width="40.755" height="25.037" transform="translate(-4.308 -3)" fill="none" stroke="#13264d" stroke-width="5"/>
+    </clipPath>
+  </defs>
+  <g id="Groupe_864" data-name="Groupe 864" transform="translate(-550.67 -56)">
+    <g id="Icone_FlecheBas" transform="translate(554.978 59)">
+      <g id="Groupe_813" data-name="Groupe 813" clip-path="url(#clip-path)">
+        <line id="Ligne_293" data-name="Ligne 293" x1="16.017" y1="16.017" transform="translate(1.51 1.51)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="7"/>
+        <path id="Ligne_294" data-name="Ligne 294" d="M0,9.262,9.652,0" transform="translate(20.975 1.51)" fill="none" stroke="#13264d" stroke-width="7"/>
+      </g>
+    </g>
+  </g>
+</svg>
