@@ -38,10 +38,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const results = ${{ steps.lighthouse_audit.outputs.manifest }}
-            npm init -y
-            const formatter = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-formatter-2.js`)).default;
-            const comment = formatter(results[1].summary));
+            const result = ${{ steps.lighthouse_audit.outputs.manifest }}
+            const linkToReport = '[report](link to report)';
+            const header =    '| Performance | Accessibility | Best Practices | SEO | PWA | Report |';
+            const separator = '|-------------|---------------|----------------|-----|-----|--------|';
+            const body =      `|     ${result.performance}     |      ${result.accessibility}      |      ${result.best-practices}       | ${result.seo} | ${result.pwa} |  ${linkToReport}   |`;
+            const comment = [header, separator, body].join('\n');
             core.setOutput("comment", comment);
 
       - name: Add Lighthouse stats as comment
