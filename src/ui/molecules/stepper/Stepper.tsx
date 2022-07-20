@@ -4,6 +4,8 @@ import './stepper.scss'
 import { Step } from 'ui/atoms/step/Step'
 import { Button } from '../../atoms/button/Button'
 import classNames from 'classnames'
+import './i18n/index'
+import { t } from 'i18next'
 
 export type Step = {
   /**
@@ -62,6 +64,14 @@ export type StepperProps = {
    */
   readonly active?: number
   /**
+   * The label of the previous button
+   */
+  readonly previousButtonLabel?: string
+  /**
+   * The label of the next button
+   */
+  readonly nextButtonLabel?: string
+  /**
    * The label of the next button
    */
   readonly submitButtonLabel?: string
@@ -76,8 +86,10 @@ export type StepperProps = {
  */
 // eslint-disable-next-line max-lines-per-function
 export const Stepper: React.FC<StepperProps> = ({
-  steps,
+  steps = [],
   active = 0,
+  previousButtonLabel,
+  nextButtonLabel,
   submitButtonLabel,
   onSubmit
 }: DeepReadonly<StepperProps>): JSX.Element => {
@@ -87,7 +99,7 @@ export const Stepper: React.FC<StepperProps> = ({
     index: number
   }>({ step: steps[active], index: active })
 
-  const handlePrevious = useCallback((): void => {
+  const handleClickPrevious = useCallback((): void => {
     const index =
       stepArray.length -
       1 -
@@ -106,38 +118,26 @@ export const Stepper: React.FC<StepperProps> = ({
     }
   }, [activeStep, stepArray])
 
-  const handleNext = useCallback((): void => {
+  const handleClickNext = useCallback((): void => {
     const index = stepArray.findIndex(
       (step: DeepReadonly<Step>, index: number) => !step.disabled && index > activeStep.index
     )
-    if (index > -1) {
+    const clickOnNextSucceed = !activeStep.step.onClickNext || activeStep.step.onClickNext()
+    if (index > -1 && clickOnNextSucceed) {
       const step = stepArray[index]
-      if (!activeStep.step.onClickNext || activeStep.step.onClickNext()) {
-        setStepArray(
-          stepArray.map((step: DeepReadonly<Step>, index: number) =>
-            index === activeStep.index
-              ? {
-                  ...activeStep.step,
-                  completed: true
-                }
-              : step
-          )
-        )
-
-        setActiveStep({ step, index })
-      } else {
-        setStepArray(
-          stepArray.map((step: DeepReadonly<Step>, index: number) =>
-            index === activeStep.index
-              ? {
-                  ...activeStep.step,
-                  error: true
-                }
-              : step
-          )
-        )
-      }
+      setActiveStep({ step, index })
     }
+    setStepArray(
+      stepArray.map((step: DeepReadonly<Step>, index: number) =>
+        index === activeStep.index
+          ? {
+              ...activeStep.step,
+              completed: clickOnNextSucceed,
+              error: !clickOnNextSucceed
+            }
+          : step
+      )
+    )
   }, [activeStep, stepArray])
 
   const handleSubmit = useCallback((): void => {
@@ -148,7 +148,7 @@ export const Stepper: React.FC<StepperProps> = ({
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-steps">
         {stepArray.map((step: DeepReadonly<Step>, index: number) => (
-          <Step // TODO: comment gérer les states ?
+          <Step
             active={index === activeStep.index}
             completed={step.completed}
             disabled={step.disabled}
@@ -159,17 +159,23 @@ export const Stepper: React.FC<StepperProps> = ({
         ))}
       </div>
       <div
-        className={classNames('okp4-stepper-content', { error: stepArray[activeStep.index].error })}
+        className={classNames('okp4-stepper-content', {
+          error: stepArray[activeStep.index]?.error
+        })}
       >
-        {activeStep.step.content}
+        {activeStep.step?.content}
       </div>
       <div className="okp4-stepper-buttons">
         <div className="okp4-stepper-buttons--previous">
           {activeStep.index > 0 && (
             <Button
               disabled={activeStep.step.disablePreviousButton}
-              label={activeStep.step.previousButtonLabel ?? 'Prev'}
-              onClick={handlePrevious}
+              label={
+                activeStep.step.previousButtonLabel ??
+                previousButtonLabel ??
+                t('stepper:step.button.previous')
+              }
+              onClick={handleClickPrevious}
               size="small"
               variant="secondary"
             />
@@ -179,8 +185,10 @@ export const Stepper: React.FC<StepperProps> = ({
           {activeStep.index < steps.length - 1 && (
             <Button
               disabled={activeStep.step.disableNextButton}
-              label={activeStep.step.nextButtonLabel ?? 'Next'}
-              onClick={handleNext}
+              label={
+                activeStep.step.nextButtonLabel ?? nextButtonLabel ?? t('stepper:step.button.next')
+              }
+              onClick={handleClickNext}
               size="small"
               variant="secondary"
             />
@@ -188,7 +196,7 @@ export const Stepper: React.FC<StepperProps> = ({
           {activeStep.index === steps.length - 1 && (
             <Button
               backgroundColor="success"
-              label={submitButtonLabel ?? 'Submit'}
+              label={submitButtonLabel ?? t('stepper:step.button.submit')}
               onClick={handleSubmit}
               size="small"
               variant="secondary"

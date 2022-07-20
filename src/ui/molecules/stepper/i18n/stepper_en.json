@@ -1,0 +1,9 @@
+{
+  "step": {
+    "button": {
+      "previous": "Previous",
+      "next": "Next",
+      "submit": "Submit"
+    }
+  }
+}
