@@ -2,11 +2,59 @@
 
 $colors: (
   'active': 'text',
-  'uncompleted': 'primary-variant',
-  'completed': 'success',
+  'disabled': 'field',
   'error': 'error',
-  'disabled': 'field'
+  'completed': 'success',
+  'uncompleted': 'primary-variant'
 );
+
+.okp4-step-main {
+  width: 100%;
+  padding: 2px;
+  display: grid;
+  align-items: flex-end;
+  // cursor: pointer;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 15px auto;
+    grid-template-areas: 'state label';
+  }
+
+  @include with-theme {
+    .okp4-step-label {
+      @media screen and (max-width: 768px) {
+        grid-area: label;
+        text-align: start;
+      }
+      text-align: center;
+      padding: 5px;
+      @each $color-key, $color-value in $colors {
+        &.#{$color-key} {
+          div {
+            color: themed($color-value);
+          }
+        }
+      }
+    }
+
+    .okp4-step-state {
+      @media screen and (max-width: 768px) {
+        grid-area: state;
+        height: 100%;
+        width: 5px;
+      }
+      @media screen and (min-width: 768px) {
+        height: 5px;
+      }
+      border-radius: 50px;
+
+      @each $color-key, $color-value in $colors {
+        &.#{$color-key} {
+          background: themed($color-value);
+        }
+      }
+    }
+  }
+}
 
 .okp4-stepper-main {
   width: 100%;
