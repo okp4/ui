@@ -1,0 +1,61 @@
+@import '../../styles/themes.scss';
+
+$colors: (
+  'active': 'text',
+  'uncompleted': 'primary-variant',
+  'completed': 'success',
+  'error': 'error',
+  'disabled': 'field'
+);
+
+.okp4-stepper-main {
+  width: 100%;
+  display: grid;
+  row-gap: 15px;
+  column-gap: 15px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'steps content'
+      'buttons buttons';
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-areas:
+      'steps'
+      'content'
+      'buttons';
+  }
+
+  .okp4-stepper-steps {
+    grid-area: steps;
+    @media screen and (min-width: 768px) {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  .okp4-stepper-content {
+    grid-area: content;
+    width: 100%;
+    padding: 2px;
+    &.error {
+      @include with-theme() {
+        border: solid themed(error);
+      }
+    }
+  }
+
+  .okp4-stepper-buttons {
+    grid-area: buttons;
+    display: flex;
+    justify-content: space-between;
+
+    &--previous {
+      align-self: flex-start;
+    }
+
+    &--next {
+      align-self: flex-end;
+    }
+  }
+}
