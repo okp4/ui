@@ -38,12 +38,22 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const result = ${{ steps.lighthouse_audit.outputs.manifest }}
+            const result = ${{ steps.lighthouse_audit.outputs.manifest }};
             const summary = result[1].summary;
+            const scoreEntry = (rawScore) => {
+              const score = Math.round(rawScore * 100);
+              const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
+              return `${scoreIcon} ${score}`;
+            };
+            const performance = scoreEntry(summary.performance);
+            const accessibility = scoreEntry(summary.accessibility);
+            const bestPractices = scoreEntry(summary['best-practices']);
+            const seo = scoreEntry(summary.seo);
+            const pwa = scoreEntry(summary.pwa);
             const linkToReport = '[report](link to report)';
             const header =    '| Performance | Accessibility | Best Practices | SEO | PWA | Report |';
             const separator = '|-------------|---------------|----------------|-----|-----|--------|';
-            const body =      `|     ${summary.performance}     |      ${summary.accessibility}      |      ${summary['best-practices']}       | ${summary.seo} | ${summary.pwa} |  ${linkToReport}   |`;
+            const body =      `|     ${performance}     |      ${accessibility}      |      ${bestPractices}       | ${seo} | ${pwa} |  ${linkToReport}   |`;
             const comment = [header, separator, body].join('\n');
             core.setOutput("comment", comment);
 
