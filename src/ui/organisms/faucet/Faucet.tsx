@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import keplrImage from '../../../assets/images/keplr.png'
+import keplrImage from 'assets/images/keplr.png'
 import { acknowledgeError } from 'domain/error/usecase/acknowledge-error/acknowledgeError'
 import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
 import type { AppState as TaskAppState } from 'domain/task/store/appState'

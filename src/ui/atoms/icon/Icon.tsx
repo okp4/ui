@@ -2,7 +2,7 @@ import React from 'react'
 import type { DeepReadonly } from 'superTypes'
 import { useTheme } from 'hook/useTheme'
 import type { ThemeContextType } from 'context/themeContext'
-import sprite from '../../../assets/icons/sprite.svg'
+import sprite from 'assets/icons/sprite.svg'
 
 export type IconName =
   | 'add'

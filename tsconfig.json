@@ -33,6 +33,7 @@
     "jsx": "react-jsx",
     "paths": {
       "public/*": ["public/*"],
+      "assets/*": ["src/assets/*"],
       "eventBus/*": ["src/eventBus/*"],
       "ui/*": ["src/ui/*"],
       "i18n/*": ["src/i18n/*"],

@@ -30,6 +30,7 @@ export default {
     peerDepsExternal(),
     alias({
       entries: [
+        { find: 'assets', replacement: 'src/assets' },
         { find: 'domain', replacement: 'src/domain' },
         { find: 'eventBus', replacement: 'src/eventBus' },
         { find: 'ui', replacement: 'src/ui' },
