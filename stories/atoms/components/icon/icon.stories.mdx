@@ -31,27 +31,32 @@ import './icon.scss'
 
 ## Description
 
-Icons takes up little space and help convey ideas to users without the need of
-convoluted text.  
-**Icon** have the following properties:
+Icons help convey ideas to users in a quick and simple way,
+reducing the need for text that can be hard to read and less intuitive.  
+**Icon** has the following properties:
 
-- `name` the name of a themed icon that contains two icons, dark and light theme.
-- `size` optional size property.
+- `name` the name of the icon you want to use. All icons come in both light and dark theme.
+- `size` optional size property applied to both the width and height of the icon.
 - `className` optional class name for custom css styling.
 
 ## Overview
 
-<Story name="Overview">
-  <div
-    style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
-      justifyContent: 'center'
-    }}
-  >
-    <Icon name="profile" />
-    <Icon className="rotate-microphone" name="podcast" />
-  </div>
+<Story
+  name="Overview"
+  argTypes={{ className: { control: false } }}
+  args={{ name: 'profile', size: 30 }}
+>
+  {args => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
+        justifyContent: 'center'
+      }}
+    >
+      <Icon {...args} />
+    </div>
+  )}
 </Story>
 
 ---
@@ -67,73 +72,82 @@ the **name** of the icon you want as the property value.
 
 <Canvas>
   <Story name="Name">
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(100px,100px))',
-        justifyContent: 'center',
-        gap: '10px'
-      }}
-    >
-      {renderIcons()}
-    </div>
+    {() => {
+      const iconNames = [
+        'add',
+        'alert',
+        'arrow-down',
+        'arrow-left',
+        'arrow-right',
+        'arrow-up',
+        'chat',
+        'facebook',
+        'linkedin',
+        'meeting',
+        'moon',
+        'next',
+        'podcast',
+        'previous',
+        'profile',
+        'search',
+        'sun',
+        'twitter',
+        'wallet'
+      ]
+      return (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(100px,100px))',
+            justifyContent: 'center',
+            gap: '10px'
+          }}
+        >
+          {iconNames.map(icon => (
+            <div className="icon-card" key={icon}>
+              <Icon name={icon} />
+              <Typography as="span" fontSize="x-small" fontFamily="secondary">
+                {icon}
+              </Typography>
+            </div>
+          ))}
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
-export const themedIcons = [
-  'add',
-  'alert',
-  'arrow-down',
-  'arrow-left',
-  'arrow-right',
-  'arrow-up',
-  'chat',
-  'facebook',
-  'linkedin',
-  'meeting',
-  'moon',
-  'next',
-  'podcast',
-  'previous',
-  'profile',
-  'search',
-  'sun',
-  'twitter',
-  'wallet'
-]
-export const renderIcons = () =>
-  themedIcons.map(icon => (
-    <div className="icon-card">
-      <Icon name={icon} />
-      <Typography as="span" fontSize="x-small" fontFamily="secondary">
-        {icon}
-      </Typography>
-    </div>
-  ))
-
 ## Size
 
-The **size** is squared and can be adjusted by passing a number value.
-By `default` the size is **30** pixels (which you can see in the middle icon below).
+The **size** is squared and can be adjusted by passing a number value.  
+By `default` the size is **30** pixels.
 
 <Canvas>
   <Story name="Size">
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(75px,auto))',
-        justifyContent: 'center',
-        justifyItems: 'center',
-        alignItems: 'center',
-        gap: '10px'
-      }}
-    >
-      <Icon name="wallet" size="15" />
-      <Icon name="wallet" size="20" />
-      <Icon name="wallet" />
-      <Icon name="wallet" size="50" />
-      <Icon name="wallet" size="80" />
-    </div>
+    {args => {
+      const sizes = [15, 30, 50, 80]
+      return (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(75px,auto))',
+            justifyContent: 'center',
+            justifyItems: 'center',
+            alignItems: 'center',
+            gap: '10px'
+          }}
+        >
+          {sizes.map(size => (
+            <div className="icon-size" key={size}>
+              <Icon name="wallet" size={size} />
+              <Typography as="span" fontSize="x-small" fontFamily="secondary">
+                {size}
+              </Typography>
+            </div>
+          ))}
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
@@ -152,6 +166,8 @@ As seen in the examples below you can rotate icons, add background colors, anima
         gap: '30px'
       }}
     >
+      <Icon name="add" className="rotate-add" />
+      <Icon name="arrow-right" className="bg-arrow-right" />
       <Icon name="chat" className="bouncing-chat" />
     </div>
   </Story>

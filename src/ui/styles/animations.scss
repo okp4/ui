@@ -17,7 +17,7 @@
     }
   }
 }
-@mixin bounceAnimation() {
+@mixin bounce-animation() {
   @keyframes bounce {
     20%,
     50%,
@@ -25,12 +25,15 @@
     to {
       transform: translateY(0);
     }
+
     40% {
       transform: translateY(-20px);
     }
+
     70% {
       transform: translateY(-10px);
     }
+
     90% {
       transform: translateY(-4px);
     }
