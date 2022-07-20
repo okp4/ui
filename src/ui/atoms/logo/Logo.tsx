@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import type { ThemeContextType } from 'context/themeContext'
 import { useTheme } from 'hook/useTheme'
-import sprite from '../../../assets/logos/sprite.svg'
+import sprite from 'assets/logos/sprite.svg'
 import './logo.scss'
 
 export type LogoProps = Readonly<{
