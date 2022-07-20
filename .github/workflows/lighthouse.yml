@@ -39,9 +39,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
-            console.log(JSON.stringify(results[1].summary));
+            npm init -y
             const formatter = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.js`)).default;
-            const comment = formatter(summary);
+            const comment = formatter(results[1].summary));
             core.setOutput("comment", comment);
 
       - name: Add Lighthouse stats as comment
