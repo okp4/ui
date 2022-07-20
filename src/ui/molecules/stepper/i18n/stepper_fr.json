@@ -1,0 +1,9 @@
+{
+  "step": {
+    "button": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "submit": "Soumettre"
+    }
+  }
+}
