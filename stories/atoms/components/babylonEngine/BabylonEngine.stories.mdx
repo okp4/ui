@@ -50,13 +50,20 @@ export const BabylonEngineOverview = args => {
 
 <Story
   name="Overview"
-  argTypes={{}}
+  argTypes={{
+    onEngineCreated: {
+      control: false
+    },
+    onRender: {
+      control: false
+    }
+  }}
   args={{
     antialias: true,
     onEngineCreated: onEngineCreated,
     onRender: onRender,
     height: 480,
-  adaptToDeviceRatio: false,
+    adaptToDeviceRatio: false,
     touchActionNone: false,
     disableScrolling: false
   }}
