@@ -144,7 +144,7 @@ jobs:
 
       - name: Generate svg sprites
         run: |
-          yarn svg-sprites
+          yarn gen-svg-sprite
 
       - name: Check Git diff in generated files (graphql + yarn.lock + svg sprites)
         run: |
