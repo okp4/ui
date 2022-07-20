@@ -42,7 +42,7 @@ jobs:
             const linkToReport = '[report](link to report)';
             const header =    '| Performance | Accessibility | Best Practices | SEO | PWA | Report |';
             const separator = '|-------------|---------------|----------------|-----|-----|--------|';
-            const body =      `|     ${result.performance}     |      ${result.accessibility}      |      ${result.best-practices}       | ${result.seo} | ${result.pwa} |  ${linkToReport}   |`;
+            const body =      `|     ${result.performance}     |      ${result.accessibility}      |      ${result['best-practices']}       | ${result.seo} | ${result.pwa} |  ${linkToReport}   |`;
             const comment = [header, separator, body].join('\n');
             core.setOutput("comment", comment);
 
