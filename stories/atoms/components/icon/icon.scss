@@ -1,4 +1,5 @@
 @import 'ui/styles/themes.scss';
+@import 'ui/styles/animations.scss';
 
 .icon-card {
   @include with-theme() {
@@ -13,21 +14,8 @@
   }
 }
 
-.rotate-microphone {
-  transform: rotate(315deg);
-}
-
-.rotate-90deg {
-  transform: rotate(90deg);
-}
-
-.rotate-180deg {
-  transform: rotate(180deg);
-}
-
-.rotate-270deg {
+.bg-icon {
   @include with-theme() {
-    transform: rotate(270deg);
     background: themed('primary-brand');
     border-radius: 10px;
   }
@@ -36,22 +24,5 @@
 .bouncing-chat {
   position: relative;
   animation: 1.2s ease-out bounce infinite;
-}
-
-@keyframes bounce {
-  20%,
-  50%,
-  80%,
-  to {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  70% {
-    transform: translateY(-10px);
-  }
-  90% {
-    transform: translateY(-4px);
-  }
+  @include bounceAnimation();
 }

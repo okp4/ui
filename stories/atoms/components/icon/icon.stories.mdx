@@ -83,18 +83,22 @@ the **name** of the icon you want as the property value.
 export const themedIcons = [
   'add',
   'alert',
-  'arrow',
+  'arrow-down',
+  'arrow-left',
+  'arrow-right',
+  'arrow-up',
   'chat',
+  'facebook',
+  'linkedin',
   'meeting',
+  'moon',
   'next',
   'podcast',
   'previous',
   'profile',
-  'rs-facebook',
-  'rs-linkedin',
-  'rs-twitter',
   'search',
-  'theme-switcher',
+  'sun',
+  'twitter',
   'wallet'
 ]
 export const renderIcons = () =>
@@ -139,7 +143,7 @@ The **className** property allows you to style the svg with css properties.
 As seen in the examples below you can rotate icons, add background colors, animate them and more!
 
 <Canvas>
-  <Story name="Class name">
+  <Story name="Class Name">
     <div
       style={{
         display: 'grid',
@@ -148,10 +152,6 @@ As seen in the examples below you can rotate icons, add background colors, anima
         gap: '30px'
       }}
     >
-      <Icon name="arrow" />
-      <Icon name="arrow" className="rotate-90deg" />
-      <Icon name="arrow" className="rotate-180deg" />
-      <Icon name="arrow" className="rotate-270deg" />
       <Icon name="chat" className="bouncing-chat" />
     </div>
   </Story>
