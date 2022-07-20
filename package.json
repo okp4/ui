@@ -30,9 +30,9 @@
     "test": "jest",
     "coverage": "yarn test --coverage --watchAll=false --silent --ci",
     "graphql:code-gen": "gql-gen --config codegen.yml",
-    "generate-sprite-logos": "yarn run svg-sprite -s --symbol-dest='' --symbol-sprite='sprite' --dest=src/assets/logos src/assets/logos/*.svg",
-    "generate-sprite-icons": "yarn run svg-sprite -s --symbol-dest='' --symbol-sprite='sprite' --dest=src/assets/icons src/assets/icons/*.svg",
-    "generate-sprites": "yarn generate-sprite-logos && yarn generate-sprite-icons"
+    "svg-sprite:icons": "yarn run svg-sprite -s --symbol-dest='' --symbol-sprite='sprite' --dest=src/assets/logos src/assets/logos/*.svg",
+    "svg-sprite:logos": "yarn run svg-sprite -s --symbol-dest='' --symbol-sprite='sprite' --dest=src/assets/icons src/assets/icons/*.svg",
+    "svg-sprite": "yarn svg-sprite:icons && yarn svg-sprite:logos"
   },
   "keywords": [],
   "peerDependencies": {

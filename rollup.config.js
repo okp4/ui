@@ -55,7 +55,7 @@ export default {
       ],
       verbose: true
     }),
-    image({ exclude: ['src/**/*.svg'] }),
+    image(),
     json(),
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),
