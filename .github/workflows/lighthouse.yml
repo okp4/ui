@@ -40,8 +40,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
-            // const summary = results[1].summary;
-            // console.log("summary...: ", JSON.stringify(summary, null, 2));
-            npm init -y
-            const createLighthouseReport = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.js`)).default;
-            const comment = createLighthouseReport({ results, {} });
+            console.log(JSON.stringify(results[1].summary));
+
