@@ -45,4 +45,4 @@ jobs:
             npm init build-storybook
             const createLighthouseReport = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.js`)).default;
             const comment = createLighthouseReport({ results, {} });
-            console.log("summary...: ", JSON.stringify(summary, null, 2));
+            console.log("comment...: ", comment);
