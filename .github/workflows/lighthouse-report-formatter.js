@@ -28,22 +28,19 @@ const scoreEntry = (rawScore) => {
 
 /**
  * @param {Object} param0
- * @param {string} param0.url
  * @param {LighthouseSummary} param0.summary
- * @param {string} param0.reportUrl
  */
-const createMarkdownTableRow = ({url, summary, reportUrl}) =>
-  [
-    `| [${new URL(url).pathname}](${url})`,
+const createMarkdownTableRow = ({summary}) =>
+  [ '', 
     .../** @type {(keyof LighthouseSummary)[]} */ (
       Object.keys(summaryKeys)
     ).map((k) => scoreEntry(summary[k])),
-    `[Report](${reportUrl}) |`,
+    `[Report](link to report) |`,
   ].join(' | ');
 
 const createMarkdownTableHeader = () => [
-  ['| URL', ...Object.values(summaryKeys), 'Report |'].join(' | '),
-  ['|---', ...Array(Object.keys(summaryKeys).length).fill('---'), '---|'].join(
+  ['', ...Object.values(summaryKeys), 'Report |'].join(' | '),
+  ['', ...Array(Object.keys(summaryKeys).length).fill('---'), '---|'].join(
     '|',
   ),
 ];
@@ -56,15 +53,13 @@ const createMarkdownTableHeader = () => [
 const createLighthouseReport = ({results, links}) => {
   const tableHeader = createMarkdownTableHeader();
   const tableBody = results.map((result) => {
-    const testUrl = /** @type {string} */ (
-      Object.keys(links).find((key) => key === result.url)
-    );
-    const reportPublicUrl = /** @type {string} */ (links[testUrl]);
+    // const testUrl = /** @type {string} */ (
+    //   Object.keys(links).find((key) => key === result.url)
+    // );
+    // const reportPublicUrl = /** @type {string} */ (links[testUrl]);
 
     return createMarkdownTableRow({
-      url: testUrl,
       summary: result.summary,
-      reportUrl: reportPublicUrl,
     });
   });
   const comment = [
@@ -77,4 +72,16 @@ const createLighthouseReport = ({results, links}) => {
   return comment.join('\n');
 };
 
-export default createLighthouseReport;
+const createLighthouseReportAdapter = (summary) => createLighthouseReport(
+  { 
+    links: {}, 
+    results: [
+      {
+        url: '',
+        summary
+      }
+    ]
+  }
+);
+
+export default createLighthouseReportAdapter;
