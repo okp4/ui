@@ -77,4 +77,4 @@ const createLighthouseReport = ({results, links}) => {
   return comment.join('\n');
 };
 
-module.exports = { createLighthouseReport, };
+export default createLighthouseReport;
