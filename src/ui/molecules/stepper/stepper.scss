@@ -38,6 +38,7 @@ $colors: (
     grid-area: content;
     width: 100%;
     padding: 2px;
+
     &.error {
       @include with-theme() {
         border: solid themed(error);
