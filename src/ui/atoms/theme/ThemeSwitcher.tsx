@@ -6,7 +6,7 @@ import './themeSwitcher.scss'
 import { useLocalStorage } from 'hook/useLocalStorage'
 import type { LocalStorageState } from 'hook/useLocalStorage'
 import { useMediaType } from 'hook/useMediaType'
-import { Icon } from 'ui/atoms/icon/Icon'
+import { Icon } from '../icon/Icon'
 
 export type ThemeSwitcherProps = Readonly<{
   /**
@@ -54,7 +54,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       onCheckedChange={handleCheck}
     >
       <div className={`okp4-theme-switcher-icon ${theme}`}>
-        <Icon name="theme-switcher" size={18} />
+        <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
       </div>
       <Switch.Thumb className="okp4-theme-switcher-thumb" />
     </Switch.Root>
