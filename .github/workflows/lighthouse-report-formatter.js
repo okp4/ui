@@ -53,11 +53,6 @@ const createMarkdownTableHeader = () => [
 const createLighthouseReport = ({results, links}) => {
   const tableHeader = createMarkdownTableHeader();
   const tableBody = results.map((result) => {
-    // const testUrl = /** @type {string} */ (
-    //   Object.keys(links).find((key) => key === result.url)
-    // );
-    // const reportPublicUrl = /** @type {string} */ (links[testUrl]);
-
     return createMarkdownTableRow({
       summary: result.summary,
     });
