@@ -40,7 +40,7 @@ jobs:
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             npm init -y
-            const formatter = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-report-formatter.js`)).default;
+            const formatter = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/lighthouse-formatter-2.js`)).default;
             const comment = formatter(results[1].summary));
             core.setOutput("comment", comment);
 
