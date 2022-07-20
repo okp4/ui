@@ -111,7 +111,7 @@ export const onEngineCreated: EngineCreatedCallback<State> = (engine: Engine) =>
   skybox.material = skyboxMaterial
   skybox.infiniteDistance = true
 
-  return { scene: scene }
+  return { scene }
 }
 
 export const onRender: RenderCallback<State> = (state: State) => {
