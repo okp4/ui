@@ -7,7 +7,7 @@ import type { Callback, DeepReadonly, StateHook } from 'superTypes'
 export type EngineCreatedCallback<STATE> = Callback<Engine, STATE>
 export type RenderCallback<STATE> = Callback<STATE, STATE>
 
-export type BabylonEngineProps<STATE> = DeepReadonly<{
+export type BabylonEngineProps<STATE> = {
   /**
    * Enable antialiasing.
    */
@@ -53,7 +53,7 @@ export type BabylonEngineProps<STATE> = DeepReadonly<{
    * Called when rendering.
    */
   onRender?: RenderCallback<STATE>
-}>
+}
 
 // eslint-disable-next-line max-lines-per-function
 export const BabylonEngine = <STATE,>({
@@ -67,7 +67,7 @@ export const BabylonEngine = <STATE,>({
   onEngineCreated,
   onRender,
   ...props
-}: BabylonEngineProps<STATE>): JSX.Element => {
+}: DeepReadonly<BabylonEngineProps<STATE>>): JSX.Element => {
   const [canvas, handleCanvas]: StateHook<HTMLCanvasElement | null> =
     useState<HTMLCanvasElement | null>(null)
   const [engine, setEngine]: StateHook<Engine | null> = useState<Engine | null>(null)
