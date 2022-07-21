@@ -4,6 +4,8 @@ import { Button } from 'ui/atoms/button/Button'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Typography } from 'ui/atoms/typography/Typography'
+import BotAnikImage from '../../../assets/botanik-logo.png'
 
 <Meta
   title="Atoms/Toast"
@@ -45,7 +47,7 @@ Several severity levels make it possible to fully configure the type of message 
 
 <Story
   name="Overview"
-  argTypes={{ isOpened: { control: false } }}
+  argTypes={{ isOpened: { control: false }, description: { control: false } }}
   args={{
     title: 'Transaction',
     description: 'Your data space has been successfully created!',
@@ -137,6 +139,7 @@ The `Toast` component can be configured with multiple severity levels that follo
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '25px'
@@ -263,6 +266,7 @@ The `Toast` component comes with an `autoDuration` property that is the time in 
 ## Content
 
 The `Toast` component has a flexible content which notably allows the user to indicate a `title` and a `description`.  
+With `description` users can decide whether to show a JSX element or a simple string.  
 These two elements are optional and are not inter-related.
 
 <Canvas>
@@ -285,6 +289,7 @@ These two elements are optional and are not inter-related.
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '25px'
@@ -305,7 +310,7 @@ These two elements are optional and are not inter-related.
           </div>
           <div>
             <Button
-              label="Description only!"
+              label="Description only"
               onClick={handleState('desc', true)}
               backgroundColor="primary"
             />
@@ -314,6 +319,62 @@ These two elements are optional and are not inter-related.
               isOpened={Object.values(state).includes('desc') ? state['isOpened'] : false}
               onOpenChange={handleState('desc', false)}
               severityLevel="success"
+            />
+          </div>
+          <div>
+            <Button
+              label="Bot Anik"
+              onClick={handleState('cool', true)}
+              backgroundColor="primary"
+            />
+            <Toast
+              title="Bot Anik"
+              description={
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Typography
+                    as="span"
+                    color="highlighted-text"
+                    fontSize="small"
+                    fontWeight="light"
+                  >
+                    Bot Anik is a bot like no other, she'll kick you around without any trouble! She
+                    gets rid of all who messes around, no one can beat our bot! 🎵
+                  </Typography>
+                  <Typography
+                    color="highlighted-text"
+                    fontSize="small"
+                    fontWeight="bold"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      maxWidth: '200px',
+                      minHeight: '50px',
+                      backgroundColor: '#cecfd9',
+                      borderRadius: '10px',
+                      marginTop: '10px'
+                    }}
+                  >
+                    <img style={{ width: '50px', marginLeft: '10px' }} src={BotAnikImage} />
+                    <a
+                      href="https://github.com/bot-anik"
+                      rel="author noreferrer"
+                      target="_blank"
+                      style={{
+                        textDecoration: 'unset',
+                        color: 'inherit',
+                        margin: '10px 10px 10px 0'
+                      }}
+                    >
+                      Learn more about Bot Anik
+                    </a>
+                  </Typography>
+                </div>
+              }
+              isOpened={Object.values(state).includes('cool') ? state['isOpened'] : false}
+              onOpenChange={handleState('cool', false)}
+              severityLevel="success"
+              autoDuration={10000}
             />
           </div>
         </div>
