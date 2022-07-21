@@ -3,6 +3,8 @@ on: pull_request
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.lighthouse_context }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -29,10 +31,11 @@ jobs:
           configPath: ./.github/lighthouserc.json
           uploadArtifacts: true
 
-      - name: Log context
+      - name: Output context
+        id: output_context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: echo "::set-output name=lighthouse_context::$GITHUB_CONTEXT"
 
       - name: Format lighthouse score
         id: format_lighthouse_score
@@ -51,7 +54,7 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/)`;
+              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/${{ needs.lighthouse.outputs.lighthouse_context }})`;
               return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
             };
             
