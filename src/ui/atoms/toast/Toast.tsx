@@ -2,6 +2,8 @@ import React from 'react'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 import { Typography } from 'ui/atoms/typography/Typography'
 import './toast.scss'
+import type { DeepReadonly } from 'superTypes'
+import classNames from 'classnames'
 
 type ToastProps = Readonly<{
   /**
@@ -25,6 +27,10 @@ type ToastProps = Readonly<{
    */
   readonly description?: string
   /**
+   * An optional JSX element for the toast.
+   */
+  readonly jsxElement?: JSX.Element
+  /**
    * Event handler called when the open state of the dialog changes.
    */
   readonly onOpenChange?: (isOpened: boolean) => void
@@ -36,8 +42,11 @@ export const Toast: React.FC<ToastProps> = ({
   severityLevel,
   title,
   description,
+  jsxElement,
   onOpenChange
-}: ToastProps) => {
+}: DeepReadonly<ToastProps>) => {
+  const viewport = classNames('okp4-toast-viewport', { jsx: jsxElement && !title && !description })
+
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
@@ -47,6 +56,7 @@ export const Toast: React.FC<ToastProps> = ({
         onOpenChange={onOpenChange}
         open={isOpened}
       >
+        {jsxElement}
         {title && (
           <ToastPrimitive.Title asChild className="okp4-toast-title">
             <Typography
@@ -68,7 +78,7 @@ export const Toast: React.FC<ToastProps> = ({
           </ToastPrimitive.Description>
         )}
       </ToastPrimitive.Root>
-      <ToastPrimitive.Viewport className="okp4-toast-viewport" />
+      <ToastPrimitive.Viewport className={viewport} />
     </ToastPrimitive.Provider>
   )
 }

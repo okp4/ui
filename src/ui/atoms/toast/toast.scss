@@ -17,6 +17,10 @@ $background-colors: ('success', 'error', 'warning', 'info');
   z-index: 10000;
   outline: none;
 
+  &.jsx {
+    width: auto;
+  }
+
   @media screen and (max-width: 460px) {
     width: auto;
   }
