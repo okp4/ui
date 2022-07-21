@@ -35,23 +35,26 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const result = ${{ steps.lighthouse_audit.outputs.manifest }};
-            const summary = result[1].summary;
+            const results = ${{ steps.lighthouse_audit.outputs.manifest }};
             const scoreEntry = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
               return `${scoreIcon} ${score}`;
             };
-            const performance = scoreEntry(summary.performance);
-            const accessibility = scoreEntry(summary.accessibility);
-            const bestPractices = scoreEntry(summary['best-practices']);
-            const seo = scoreEntry(summary.seo);
-            const pwa = scoreEntry(summary.pwa);
-            const linkToReport = '[report](link to report)';
-            const header =    '| Performance | Accessibility | Best Practices | SEO | PWA | Report |';
-            const separator = '|-------------|---------------|----------------|-----|-----|--------|';
-            const body =      `|     ${performance}     |      ${accessibility}      |      ${bestPractices}       | ${seo} | ${pwa} |  ${linkToReport}   |`;
-            const comment = [header, separator, body].join('\n');
+            const formatIndicators = (summary) => {
+              const performance = scoreEntry(summary.performance);
+              const accessibility = scoreEntry(summary.accessibility);
+              const bestPractices = scoreEntry(summary['best-practices']);
+              const seo = scoreEntry(summary.seo);
+              const pwa = scoreEntry(summary.pwa);
+              const linkToReport = '[report](link to report)';
+              return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
+            };
+            const formatRow = (items) => '| '+items.join(' | ')+' |';
+            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
+            const separator = formatRow(['---','---','---','---','---','---']);
+            const rows = results.map(result => formatIndicators(result.summary);
+            const comment = [ header, separator, [ ...rows ] ].join('\n');
             core.setOutput("comment", comment);
       - name: Add Lighthouse stats as comment
         id: comment_to_pr
