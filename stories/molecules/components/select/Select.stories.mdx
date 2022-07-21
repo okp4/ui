@@ -204,6 +204,35 @@ It is then impossible to enter a value or to open the menu.
   </Story>
 </Canvas>
 
+## Error state
+
+If `hasError` property is set to true, the `Select` component will be displayed with an error semantic color.  
+In addition, the helperText property can be set to display an error message below the `Select` component.
+
+<Canvas>
+  <Story name="Error state">
+    {args => {
+      const [value, setValue] = useState('I think I may have an error !')
+      const handleChange = value => {
+        setValue(value)
+      }
+      return (
+        <Select
+          id="errorSelect"
+          hasError
+          helperText="Error message."
+          value={value}
+          onValuesChange={handleChange}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Ananas', value: 'ananas' }
+          ]}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
 ## FullWidth
 
 The `Select` component can take 100% width if the `fullWidth` property is set to true.

@@ -76,6 +76,10 @@ export type SelectProps = InputBaseProps & {
    */
   readonly fullWidth?: boolean
   /**
+   * Displays a message to the user below the select area.
+   */
+  readonly helperText?: string
+  /**
    * onChange callback wich allows the parent to manage the selected value(s)
    */
   readonly onValuesChange?: (value: string | Readonly<string[]>) => void
@@ -99,7 +103,8 @@ export const Select = ({
   onValuesChange,
   sortGroupsAndOptions,
   fullWidth,
-  value
+  value,
+  helperText
 }: SelectProps): JSX.Element => {
   const optionsGroupped = sortGroupsAndOptions
     ? sortGroupsAndOptions(options)
@@ -187,53 +192,75 @@ export const Select = ({
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
-        error: hasError,
         'full-width': fullWidth
       })}
-      id={id}
-      ref={selectRef}
     >
-      <div className="okp4-select-input-container" onClick={toggleMenu}>
-        <InputBase
-          defaultValue={defaultValue}
-          disabled={disabled}
-          hasError={hasError}
-          inputRef={inputRef}
-          placeholder={placeholder}
-          readOnly={true}
-          rightIcon={icon}
-          value={valueToDisplay}
-        />
-      </div>
-      {menuOpened && (
-        <div className="okp4-select-options-container">
-          {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}
-          {optionsGrouppedEntries.map((entry: [string, OptionWithoutGroup[]]) => {
-            const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
-            return (
-              <div className="okp4-select-options-list" key={optionsGrouppedEntries.indexOf(entry)}>
-                {group && (
-                  <Typography as="div" fontSize="small">
-                    <p className="okp4-select-options-group">{group}</p>
-                  </Typography>
-                )}
-                <ul>
-                  {options.map(({ label, value }: OptionWithoutGroup) => (
-                    <li
-                      className={classNames('okp4-select-option', {
-                        selected: selectedOptions.includes(value)
-                      })}
-                      key={value}
-                      onClick={handleOptionSelection(value)}
-                    >
-                      {label}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
+      <div className="okp4-select-content" id={id} ref={selectRef}>
+        <div
+          className={classNames('okp4-select-input-container', {
+            error: hasError
           })}
+          onClick={toggleMenu}
+        >
+          <InputBase
+            defaultValue={defaultValue}
+            disabled={disabled}
+            hasError={hasError}
+            inputRef={inputRef}
+            placeholder={placeholder}
+            readOnly={true}
+            rightIcon={menuIcon}
+            value={valueToDisplay}
+          />
         </div>
+        {menuOpened && (
+          <div
+            className={classNames('okp4-select-options-container', {
+              error: hasError
+            })}
+          >
+            {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}
+            {optionsGrouppedEntries.map((entry: [string, OptionWithoutGroup[]]) => {
+              const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
+              return (
+                <div
+                  className={classNames('okp4-select-options-list', { error: hasError })}
+                  key={optionsGrouppedEntries.indexOf(entry)}
+                >
+                  {group && (
+                    <Typography as="div" color={hasError ? 'error' : 'text'} fontSize="small">
+                      <p className="okp4-select-options-group">{group}</p>
+                    </Typography>
+                  )}
+                  <ul>
+                    {options.map(({ label, value }: OptionWithoutGroup) => (
+                      <li
+                        className={classNames('okp4-select-option', {
+                          selected: selectedOptions.includes(value)
+                        })}
+                        key={value}
+                        onClick={handleOptionSelection(value)}
+                      >
+                        {label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+      {helperText && (
+        <Typography
+          as="div"
+          color={hasError ? 'error' : 'info'}
+          fontSize="x-small"
+          fontWeight="bold"
+          noWrap
+        >
+          {helperText}
+        </Typography>
       )}
     </div>
   )
