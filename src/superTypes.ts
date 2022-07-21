@@ -22,3 +22,7 @@ export type DeepReadonly<T> = T extends Primitive
 export type JSONValue = string | number | boolean | { [x: string]: JSONValue } | Array<JSONValue>
 
 export type Pair<U, V> = [U, V]
+
+export type StateHook<U> = [U, (value: U) => void]
+
+export type Callback<U,V> = (value: U) => V

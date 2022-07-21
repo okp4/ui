@@ -28,7 +28,7 @@ just draw inside it like we usually do on the fly, via JavaScript.
 export const SimpleCanvas = args => {
   const [ size, divRef ] = useElementSize()
   const ratio = 21/9
-  const [ w, h ] = (size?.width/size?.height>=ratio) ? [size?.height * ratio, size?.height] : [size?.width, size?.width / ratio] 
+  const [ w, h ] = [size?.width, size?.width / ratio]
   return (
     <div style={{ textAlign: 'center' }} ref={divRef}>
       <CanvasComponent width={w} height={h} {...args} />

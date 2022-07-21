@@ -1430,60 +1430,21 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@^5.11.0", "@babylonjs/core@^5.5.5":
-  version "5.13.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.13.2.tgz#ec1530bb461510ec5ce8c6dbe3f570f05e2029b7"
-  integrity sha512-aemACYnvQS4IVFMDYh6DeZ/seSj6S441HYbUykeXWjLcn7iVJtkQ3f0iqaY4bjFGmk3Fx9hzcaVVQZc/7MfGQw==
-  dependencies:
-    tslib "^2.4.0"
-
-"@babylonjs/gui-editor@^5.11.0":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui-editor/-/gui-editor-5.12.1.tgz#6aec3d20894728c31fa8e1c28ffd1b5c124dd68c"
-  integrity sha512-Ca/FduyJ240Z47OeRuSMJI3SgG/yoUxf/Nyxtzx4eYQk69OU/LwXAjG6ZBGhMTtfgcHygTIodO++Hb3sidy1vg==
-
-"@babylonjs/gui@^5.11.0":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-5.12.1.tgz#75810e554d553d4a9b5b9dd74a7ac80ec34a6b61"
-  integrity sha512-UQhsTn330Y0UDPMfw5Mn5G+AaiSWjt33fgnIdPYEhvSqzK0mui3m1/nMghi/Mo5pTYMsSZQLDfn4TbyLZa6tug==
+"@babylonjs/core@^5.5.5":
+  version "5.15.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.15.1.tgz#ffff187beb98c8fe98ee3b99aaeb5a14186bb3fb"
+  integrity sha512-ensMYRs+JlzvLOy0wkFUpf66Ajar7OCH9wCAXHdYRTyjboa/tyPfflnJlvUhIpWunKBopkpGfeSlFjrafacRsg==
   dependencies:
     tslib "^2.4.0"
 
 "@babylonjs/inspector@^5.8.0":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.11.0.tgz#362a68029dc7d3c08d48ff9137d057b918fac11b"
-  integrity sha512-YTYXbPluz0E00wQLaFrLhLw7w6L7lF1jhstduAckMLGUkyaO+9w63FiK/Sx3EqrVWplSpx83XNHo057uWEGM8A==
+  version "5.15.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.15.1.tgz#1af5c419383543759c105a251ac4bccb4024fe23"
+  integrity sha512-piWra2IDZM7lCbzPiV5bukRcIWC/KGYZIVwf5Fdkr3Fni3Ew3h3CyHUVN4mxQ5/NVEEZtNN9Fv06FBENt+xmcA==
   dependencies:
-    "@babylonjs/core" "^5.11.0"
-    "@babylonjs/gui" "^5.11.0"
-    "@babylonjs/gui-editor" "^5.11.0"
-    "@babylonjs/loaders" "^5.11.0"
-    "@babylonjs/materials" "^5.11.0"
-    "@babylonjs/serializers" "^5.11.0"
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
     "@fortawesome/free-solid-svg-icons" "^6.0.0"
-
-"@babylonjs/loaders@^5.11.0":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.12.1.tgz#7fac6a78c829ab8910602e66323fed221c8bb637"
-  integrity sha512-75EcuHP1yYYMGrOkm3mo26pTH1ce7M3CJrr5Yh+iZSi95SYPDf+0Ca/JLQwRm3RHzZr4+3joM1LYfxFh/rJynQ==
-  dependencies:
-    tslib "^2.4.0"
-
-"@babylonjs/materials@^5.11.0":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-5.12.1.tgz#cb179a671f6d67d644bdf7023be669be2f68e5a8"
-  integrity sha512-b7oNMpuf8eXPhKP6plvYk3UJ7+agP1fg1gp1gr05SAQmKHdnWQZEBBW/C6ek/rlGRR6wI7fV4WYHw0KA1j5tBQ==
-  dependencies:
-    tslib "^2.4.0"
-
-"@babylonjs/serializers@^5.11.0":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.12.1.tgz#5a1160434293f43e99947dce082da32bf25c3e6f"
-  integrity sha512-zYzirUaqBQHODJURlN9BhNqWGvhGdTIFDzzxBw7DCYfDiimVwRXFMEDm73JP/qqJbzMl8COjZUaiIbtOZvR5gg==
-  dependencies:
-    tslib "^2.4.0"
 
 "@base2/pretty-print-object@1.0.1":
   version "1.0.1"

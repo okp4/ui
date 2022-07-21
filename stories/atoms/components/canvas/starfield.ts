@@ -9,7 +9,7 @@ export type Star = {
   py: number
 }
 
-const speed = 0.09
+const speed = 0.05
 
 const moveStar = (s: Star): Star => {
   s.px = s.x
@@ -65,14 +65,16 @@ function* starsGen(nb: number, width: number, height: number): Generator<Star> {
 }
 
 const S = {
-    cw: 0,
-    ch: 0,
-    stars: [] as Star[]
+  cw: 0,
+  ch: 0,
+  stars: [] as Star[]
 }
 
 export const drawStarField =
-  (nbStars: number): ((canvas: HTMLCanvasElement, deltaCount: number) => void) =>
-  (canvas: HTMLCanvasElement): void => {
+  (
+    nbStars: number
+  ): (({ canvas, deltaCount }: { canvas: HTMLCanvasElement; deltaCount: number }) => void) =>
+  ({ canvas }: { canvas: HTMLCanvasElement }): void => {
     const ctx = canvas.getContext('2d')
     const [w, h]: [number, number] = [canvas.width, canvas.height]
 
