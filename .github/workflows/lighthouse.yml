@@ -33,7 +33,7 @@ jobs:
         id: format_lighthouse_score
         uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
         env:
-          ACTION_ID: $GITHUB_RUN_ID
+          ACTION_ID: ${{ env.GITHUB_RUN_ID }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
