@@ -48,7 +48,7 @@ jobs:
               return `${scoreIcon} ${score}`;
             };
 
-            console.log('n: ', `${{ needs.lighthouse.outputs }}`);
+            console.log('n: ', `${{ steps.output_context }}`);
             
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
@@ -56,7 +56,7 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/${{ needs.lighthouse.output1.lighthouse_context }})`;
+              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/)`;
               return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
             };
             
