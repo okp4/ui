@@ -1,0 +1,63 @@
+name: Lighthouse CI
+on: pull_request
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup node environment (for building)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+
+      - name: Fetch dependencies
+        run: |
+          yarn --frozen-lockfile
+      - name: Build project
+        run: |
+          yarn build
+      - name: Build Storybook
+        run: |
+          yarn build-storybook
+      - name: Audit URLs using Lighthouse
+        id: lighthouse_audit
+        uses: treosh/lighthouse-ci-action@b4dfae3eb959c5226e2c5c6afd563d493188bfaf # 9.3.0
+        with:
+          budgetPath: ./.github/workflows/lighthouse-budget.json
+          configPath: ./.github/workflows/lighthouserc.json
+          uploadArtifacts: true
+
+      - name: Format lighthouse score
+        id: format_lighthouse_score
+        uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const result = ${{ steps.lighthouse_audit.outputs.manifest }};
+            const summary = result[1].summary;
+            const scoreEntry = (rawScore) => {
+              const score = Math.round(rawScore * 100);
+              const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
+              return `${scoreIcon} ${score}`;
+            };
+            const performance = scoreEntry(summary.performance);
+            const accessibility = scoreEntry(summary.accessibility);
+            const bestPractices = scoreEntry(summary['best-practices']);
+            const seo = scoreEntry(summary.seo);
+            const pwa = scoreEntry(summary.pwa);
+            const linkToReport = '[report](link to report)';
+            const header =    '| Performance | Accessibility | Best Practices | SEO | PWA | Report |';
+            const separator = '|-------------|---------------|----------------|-----|-----|--------|';
+            const body =      `|     ${performance}     |      ${accessibility}      |      ${bestPractices}       | ${seo} | ${pwa} |  ${linkToReport}   |`;
+            const comment = [header, separator, body].join('\n');
+            core.setOutput("comment", comment);
+      - name: Add Lighthouse stats as comment
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: ${{ steps.format_lighthouse_score.outputs.comment }}
