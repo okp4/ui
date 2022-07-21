@@ -68,6 +68,8 @@ jobs:
             console.log('rows', rows);
 
             const comment = [ header, separator, [ ...rows ] ].join('\n');
+
+            console.log('comment', comment);
             core.setOutput("comment", comment);
 
       - name: Add Lighthouse stats as comment
