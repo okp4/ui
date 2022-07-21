@@ -46,7 +46,7 @@ jobs:
               return `${scoreIcon} ${score}`;
             };
 
-            console.log('n: ', `${{ steps.output-context.outputs.LIGHTHOUSE_CONTEXT }}`);
+            console.log('n: ', `${steps.output-context.outputs.LIGHTHOUSE_CONTEXT}`);
             
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
