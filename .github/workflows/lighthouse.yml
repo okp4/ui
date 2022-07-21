@@ -35,8 +35,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const results = ${{ steps.lighthouse_audit.outputs.manifest }};
-
             const scoreEntry = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
@@ -54,16 +52,18 @@ jobs:
             };
             
             const formatRow = (items) => '| '+items.join(' | ')+' |';
-            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
-            const separator = formatRow(['---','---','---','---','---','---']);
             
+            const results = ${{ steps.lighthouse_audit.outputs.manifest }};
+
             const rows = results.map(result => {
               const summary = result.summary;
               const indicators = formatIndicators(summary);
               return formatRow(indicators);
             });
             
-            const comment = [ header, separator, [ ...rows ] ].join('\n');
+            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
+            const separator = formatRow(['---','---','---','---','---','---']);
+            const comment = [ header, separator, ...rows ].join('\n');
             core.setOutput("comment", comment);
 
       - name: Add Lighthouse stats as comment
