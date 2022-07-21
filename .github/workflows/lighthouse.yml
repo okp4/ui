@@ -22,57 +22,57 @@ jobs:
         run: |
           yarn build-storybook
       - name: Audit URLs using Lighthouse
-        id: lighthouse_audit # comment
+        id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@b4dfae3eb959c5226e2c5c6afd563d493188bfaf # 9.3.0
         with:
           budgetPath: ./.github/lighthouse-budget.json
           configPath: ./.github/lighthouserc.json
           uploadArtifacts: true
 
-      - name: Format lighthouse score
-        id: format_lighthouse_score
-        uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const scoreEntry = (rawScore) => {
-              const score = Math.round(rawScore * 100);
-              const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
-              return `${scoreIcon} ${score}`;
-            };
+      # - name: Format lighthouse score
+      #   id: format_lighthouse_score
+      #   uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       const scoreEntry = (rawScore) => {
+      #         const score = Math.round(rawScore * 100);
+      #         const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
+      #         return `${scoreIcon} ${score}`;
+      #       };
             
-            const formatIndicators = (summary) => {
-              const performance = scoreEntry(summary.performance);
-              const accessibility = scoreEntry(summary.accessibility);
-              const bestPractices = scoreEntry(summary['best-practices']);
-              const seo = scoreEntry(summary.seo);
-              const pwa = scoreEntry(summary.pwa);
-              const linkToReport = '[report](link to report)';
-              return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
-            };
+      #       const formatIndicators = (summary) => {
+      #         const performance = scoreEntry(summary.performance);
+      #         const accessibility = scoreEntry(summary.accessibility);
+      #         const bestPractices = scoreEntry(summary['best-practices']);
+      #         const seo = scoreEntry(summary.seo);
+      #         const pwa = scoreEntry(summary.pwa);
+      #         const linkToReport = '[report](link to report)';
+      #         return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
+      #       };
             
-            const formatRow = (items) => '| '+items.join(' | ')+' |';
+      #       const formatRow = (items) => '| '+items.join(' | ')+' |';
             
-            const results = ${{ steps.lighthouse_audit.outputs.manifest }};
-            console.log('results:');
-            console.log(results);
+      #       const results = ${{ steps.lighthouse_audit.outputs.manifest }};
+      #       console.log('results:');
+      #       console.log(results);
 
-            const rows = results.map(result => {
-              const summary = result.summary;
-              const indicators = formatIndicators(summary);
-              return formatRow(indicators);
-            });
+      #       const rows = results.map(result => {
+      #         const summary = result.summary;
+      #         const indicators = formatIndicators(summary);
+      #         return formatRow(indicators);
+      #       });
             
-            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
-            const separator = formatRow(['---','---','---','---','---','---']);
-            const comment = [ header, separator, ...rows ].join('\n');
-            core.setOutput("comment", comment);
+      #       const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
+      #       const separator = formatRow(['---','---','---','---','---','---']);
+      #       const comment = [ header, separator, ...rows ].join('\n');
+      #       core.setOutput("comment", comment);
 
-      - name: Add Lighthouse stats as comment
-        id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ github.event.pull_request.number }}
-          header: lighthouse
-          message: ${{ steps.format_lighthouse_score.outputs.comment }}
+      # - name: Add Lighthouse stats as comment
+      #   id: comment_to_pr
+      #   uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     number: ${{ github.event.pull_request.number }}
+      #     header: lighthouse
+      #     message: ${{ steps.format_lighthouse_score.outputs.comment }}
