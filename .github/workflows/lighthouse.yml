@@ -33,10 +33,11 @@ jobs:
         id: format_lighthouse_score
         uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
         env:
-          ACTION_ID: ${{ env.GITHUB_RUN_ID }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            console.log('GITHUB_CONTEXT: ', $GITHUB.CONTEXT);
             const scoreEntry = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
@@ -49,7 +50,7 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/${ACTION_ID})`;
+              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/)`;
               return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
             };
             
