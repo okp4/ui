@@ -55,6 +55,10 @@ jobs:
             
             const results = ${{ steps.lighthouse_audit.outputs.manifest }};
 
+            const audit = ${{ steps.lighthouse_audit }};
+            console.log('audit:');
+            console.log(audit);
+
             const rows = results.map(result => {
               const summary = result.summary;
               const indicators = formatIndicators(summary);
