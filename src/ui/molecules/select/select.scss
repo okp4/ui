@@ -9,70 +9,84 @@ $sizes: (
 );
 
 .okp4-select-container {
-  @include with-theme() {
-    position: relative;
-    max-width: 100%;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100%;
 
-    &.error {
-      color: themed('text');
-      border: 1px solid themed('error');
-    }
+  @each $size-key, $size-value in $sizes {
+    &.#{$size-key} {
+      width: $size-value;
 
-    @each $size-key, $size-value in $sizes {
-      &.#{$size-key} {
-        width: $size-value;
-
-        &.full-width {
-          width: 100%;
-        }
+      &.full-width {
+        width: 100%;
       }
     }
+  }
 
-    .okp4-select-input-container {
-      border: 1px solid themed(text);
+  .okp4-select-content {
+    @include with-theme() {
+      position: relative;
+      cursor: pointer;
+      gap: 10px;
       width: inherit;
-      max-width: inherit;
+      max-width: 100%;
 
-      .okp4-input-base-main {
-        cursor: pointer;
+      .okp4-select-input-container {
+        border: 1px solid themed(text);
+        width: inherit;
+        max-width: inherit;
+
+        &.error {
+          border: 1px solid themed('error');
+        }
+
+        .okp4-input-base-main {
+          text-overflow: ellipsis;
+          cursor: pointer;
+        }
       }
-    }
 
-    .okp4-select-options-container {
-      position: absolute;
-      z-index: 2;
-      background: themed('header-background');
-      width: inherit;
-      max-width: inherit;
-      color: themed(text);
-      border: 1px solid themed(text);
+      .okp4-select-options-container {
+        position: absolute;
+        z-index: 10;
+        background: themed('header-background');
+        width: inherit;
+        max-width: inherit;
+        color: themed(text);
+        border: 1px solid themed(text);
+        border-top: none;
 
-      .okp4-select-options-list {
-        margin-top: 5px;
+        .okp4-select-options-list {
+          margin-top: 5px;
 
-        .okp4-select-options-group {
-          padding-left: 20px;
-        }
-        > ul {
-          list-style: none;
-          padding-left: 0;
-        }
-
-        .okp4-select-option {
-          padding: 10px;
-          font-family: 'Gotham bold', sans-serif;
-
-          &:hover {
-            background-color: themed('border');
-            cursor: pointer;
+          .okp4-select-options-group {
+            padding-left: 20px;
+          }
+          > ul {
+            list-style: none;
+            padding-left: 0;
           }
 
-          &.selected {
-            background-color: themed('border');
+          .okp4-select-option {
+            padding: 10px;
+            font-family: 'Gotham bold', sans-serif;
+
+            &:hover {
+              background-color: themed('border');
+              cursor: pointer;
+            }
+
+            &.selected {
+              background-color: themed('border');
+            }
           }
         }
       }
     }
+  }
+
+  .okp4-select-text-field {
+    align-self: flex-start;
   }
 }
