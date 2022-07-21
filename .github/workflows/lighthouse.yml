@@ -37,8 +37,6 @@ jobs:
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }};
 
-            console.log('results', results);
-
             const scoreEntry = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
@@ -65,11 +63,7 @@ jobs:
               return formatRow(indicators);
             });
             
-            console.log('rows', rows);
-
             const comment = [ header, separator, [ ...rows ] ].join('\n');
-
-            console.log('comment', comment);
             core.setOutput("comment", comment);
 
       - name: Add Lighthouse stats as comment
