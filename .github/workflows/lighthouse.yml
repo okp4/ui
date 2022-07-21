@@ -28,11 +28,11 @@ jobs:
           budgetPath: ./.github/lighthouse-budget.json
           configPath: ./.github/lighthouserc.json
           uploadArtifacts: true
-          
+
       - name: Log context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-          run: echo "$GITHUB_CONTEXT"
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Format lighthouse score
         id: format_lighthouse_score
