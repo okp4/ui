@@ -25,8 +25,8 @@ jobs:
         id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@b4dfae3eb959c5226e2c5c6afd563d493188bfaf # 9.3.0
         with:
-          budgetPath: ./.github/workflows/lighthouse-budget.json
-          configPath: ./.github/workflows/lighthouserc.json
+          budgetPath: ./.github/lighthouse-budget.json
+          configPath: ./.github/lighthouserc.json
           uploadArtifacts: true
 
       - name: Format lighthouse score
