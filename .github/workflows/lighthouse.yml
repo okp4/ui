@@ -47,6 +47,8 @@ jobs:
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
               return `${scoreIcon} ${score}`;
             };
+
+            console.log('n: ', ${{ needs.lighthouse.output1 }});
             
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
@@ -54,7 +56,7 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/${{ needs.lighthouse.outputs.lighthouse_context }})`;
+              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/${{ needs.lighthouse.output1.lighthouse_context }})`;
               return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
             };
             
