@@ -4,6 +4,8 @@ import { Button } from 'ui/atoms/button/Button'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import BotAnikImage from '../../../assets/botanik-logo.png'
+import { Icon } from 'ui/atoms/icon/Icon'
 
 <Meta
   title="Atoms/Toast"
@@ -45,7 +47,7 @@ Several severity levels make it possible to fully configure the type of message 
 
 <Story
   name="Overview"
-  argTypes={{ isOpened: { control: false } }}
+  argTypes={{ isOpened: { control: false }, jsxElement: { control: false } }}
   args={{
     title: 'Transaction',
     description: 'Your data space has been successfully created!',
@@ -137,6 +139,7 @@ The `Toast` component can be configured with multiple severity levels that follo
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '25px'
@@ -262,8 +265,8 @@ The `Toast` component comes with an `autoDuration` property that is the time in 
 
 ## Content
 
-The `Toast` component has a flexible content which notably allows the user to indicate a `title` and a `description`.  
-These two elements are optional and are not inter-related.
+The `Toast` component has a flexible content which notably allows the user to indicate a `JSX element`, a `title` and a `description`.  
+These three elements are optional and are not inter-related.
 
 <Canvas>
   <Story
@@ -285,6 +288,7 @@ These two elements are optional and are not inter-related.
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '25px'
@@ -305,7 +309,7 @@ These two elements are optional and are not inter-related.
           </div>
           <div>
             <Button
-              label="Description only!"
+              label="Description only"
               onClick={handleState('desc', true)}
               backgroundColor="primary"
             />
@@ -314,6 +318,30 @@ These two elements are optional and are not inter-related.
               isOpened={Object.values(state).includes('desc') ? state['isOpened'] : false}
               onOpenChange={handleState('desc', false)}
               severityLevel="success"
+            />
+          </div>
+          <div>
+            <Button label="JSX only" onClick={handleState('jsx', true)} backgroundColor="success" />
+            <Toast
+              isOpened={Object.values(state).includes('jsx') ? state['isOpened'] : false}
+              onOpenChange={handleState('jsx', false)}
+              jsxElement={<img src={BotAnikImage} width="100" />}
+              severityLevel="success"
+            />
+          </div>
+          <div>
+            <Button
+              label="All three together"
+              onClick={handleState('all', true)}
+              backgroundColor="warning"
+            />
+            <Toast
+              isOpened={Object.values(state).includes('all') ? state['isOpened'] : false}
+              onOpenChange={handleState('all', false)}
+              jsxElement={<Icon name="alert" />}
+              title="Bot Anik"
+              description="Bot Anik is an appreciated member of the OKP4 team, helping to enforce a DevOps culture!"
+              severityLevel="warning"
             />
           </div>
         </div>
