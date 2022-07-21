@@ -39,7 +39,6 @@ jobs:
         uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da # v6
         with:
           script: |
-            console.log('GITHUB_CONTEXT: ', $GITHUB_CONTEXT);
             const scoreEntry = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
