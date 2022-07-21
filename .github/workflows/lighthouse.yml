@@ -3,8 +3,6 @@ on: pull_request
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.step1.outputs.lighthouse_context }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -31,11 +29,11 @@ jobs:
           configPath: ./.github/lighthouserc.json
           uploadArtifacts: true
 
-      - name: Output context
-        id: output_context
+      - name: Set context
+        id: output-context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "::set-output name=lighthouse_context::$GITHUB_CONTEXT"
+        run: echo "::set-output name=LIGHTHOUSE_CONTEXT::$GITHUB_CONTEXT"
 
       - name: Format lighthouse score
         id: format_lighthouse_score
@@ -48,7 +46,7 @@ jobs:
               return `${scoreIcon} ${score}`;
             };
 
-            console.log('n: ', `${{ steps.output_context }}`);
+            console.log('n: ', `${{ steps.output-context.outputs.LIGHTHOUSE_CONTEXT }}`);
             
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
@@ -56,7 +54,7 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/)`;
+              const linkToReport = `[report](https://github.com/okp4/ui/actions/runs/${{ steps.output-context.outputs.LIGHTHOUSE_CONTEXT }})`;
               return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
             };
             
