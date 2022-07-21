@@ -1,5 +1,5 @@
 name: Lighthouse CI
-on: push
+on: pull_request
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
@@ -47,15 +47,13 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              const linkToReport = '[report](link to report)';
+              const linkToReport = '[report](https://github.com/ui/actions/runs/${{ env.GITHUB_RUN_ID }})';
               return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
             };
             
             const formatRow = (items) => '| '+items.join(' | ')+' |';
             
             const results = ${{ steps.lighthouse_audit.outputs.manifest }};
-            console.log('results:');
-            console.log(results);
 
             const rows = results.map(result => {
               const summary = result.summary;
@@ -68,17 +66,11 @@ jobs:
             const comment = [ header, separator, ...rows ].join('\n');
             core.setOutput("comment", comment);
 
-      - name: Retrieve lightouse artifact url
-        id: retrieve_lightouse_artifact_url
-        run: |
-          echo GITHUB_RUN_ID $GITHUB_RUN_ID
-          # curl -s https://api.github.com/repos/okp4/ui/actions/artifacts | jq "[.artifacts[] | select(.workflow_run.repository_id==$GITHUB_RUN_ID)]"
-          curl -s https://api.github.com/repos/okp4/ui/actions/artifacts | jq "[.artifacts[]]"
-      # - name: Add Lighthouse stats as comment
-      #   id: comment_to_pr
-      #   uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     number: ${{ github.event.pull_request.number }}
-      #     header: lighthouse
-      #     message: ${{ steps.format_lighthouse_score.outputs.comment }}
+      - name: Add Lighthouse stats as comment
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: ${{ steps.format_lighthouse_score.outputs.comment }}
