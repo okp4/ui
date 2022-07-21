@@ -48,7 +48,7 @@ jobs:
               return `${scoreIcon} ${score}`;
             };
 
-            console.log('n: ', ${{ needs.lighthouse.output1 }});
+            console.log('n: ', `${{ needs.lighthouse.outputs }}`);
             
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
