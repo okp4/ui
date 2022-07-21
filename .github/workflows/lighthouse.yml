@@ -37,7 +37,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            console.log('GITHUB_CONTEXT: ', $GITHUB.CONTEXT);
+            console.log('GITHUB_CONTEXT: ', $GITHUB_CONTEXT);
             const scoreEntry = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
