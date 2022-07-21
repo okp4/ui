@@ -4,11 +4,11 @@
     "timings": [
       {
         "metric": "interactive",
-        "budget": 30000
+        "budget": 5000
       },
       {
         "metric": "first-meaningful-paint",
-        "budget": 30000
+        "budget": 5000
       }
     ],
     "resourceSizes": [
