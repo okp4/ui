@@ -68,6 +68,11 @@ jobs:
             const comment = [ header, separator, ...rows ].join('\n');
             core.setOutput("comment", comment);
 
+      - name: Retrieve lightouse artifact url
+        id: retrieve_lightouse_artifact_url
+        run: |
+          echo GITHUB_RUN_ID $GITHUB_RUN_ID
+          curl -s https://api.github.com/repos/okp4/ui/actions/artifacts | jq "[.artifacts[] | select(.workflow_run.repository_id==$GITHUB_RUN_ID)]"
       # - name: Add Lighthouse stats as comment
       #   id: comment_to_pr
       #   uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
