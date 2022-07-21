@@ -2,6 +2,7 @@ import React from 'react'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 import { Typography } from 'ui/atoms/typography/Typography'
 import './toast.scss'
+import type { DeepReadonly } from 'superTypes'
 
 type ToastProps = Readonly<{
   /**
@@ -23,7 +24,7 @@ type ToastProps = Readonly<{
   /**
    * An optional description for the toast.
    */
-  readonly description?: string
+  readonly description?: string | JSX.Element
   /**
    * Event handler called when the open state of the dialog changes.
    */
@@ -37,7 +38,7 @@ export const Toast: React.FC<ToastProps> = ({
   title,
   description,
   onOpenChange
-}: ToastProps) => {
+}: DeepReadonly<ToastProps>) => {
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
@@ -62,9 +63,13 @@ export const Toast: React.FC<ToastProps> = ({
         )}
         {description && (
           <ToastPrimitive.Description asChild className="okp4-toast-description">
-            <Typography as="span" color="highlighted-text" fontSize="small" fontWeight="light">
-              {description}
-            </Typography>
+            {typeof description === 'string' ? (
+              <Typography as="span" color="highlighted-text" fontSize="small" fontWeight="light">
+                {description}
+              </Typography>
+            ) : (
+              description
+            )}
           </ToastPrimitive.Description>
         )}
       </ToastPrimitive.Root>
