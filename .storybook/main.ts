@@ -1,8 +1,5 @@
 // @ts-ignore
 const path = require('path')
-const iconDirectoryPath = path.resolve(__dirname, '../src/assets/icons')
-const logoDirectoryPath = path.resolve(__dirname, '../src/assets/logos')
-
 module.exports = {
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(ts|tsx)'],
   addons: ['@storybook/preset-scss', '@storybook/addon-links', '@storybook/addon-essentials'],
@@ -23,10 +20,6 @@ module.exports = {
       'node_modules'
     ]
 
-    // @ts-ignore
-    const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'))
-    fileLoaderRule.exclude = [logoDirectoryPath, iconDirectoryPath]
-
     config.module.rules.push(
       {
         test: [/\.scss$/, /\.module.scss$/],
@@ -44,19 +37,6 @@ module.exports = {
       {
         test: [/\.frag$/, /\.vert$/],
         use: 'raw-loader'
-      },
-      {
-        test: /\.svg$/i,
-        include: [logoDirectoryPath, iconDirectoryPath],
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              icon: true,
-              dimensions: false
-            }
-          }
-        ]
       }
     )
     return config

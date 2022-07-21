@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33.2" height="48.261" viewBox="0 0 33.2 48.261">
+    <defs>
+        <clipPath id="clip-path">
+            <rect id="Rectangle_631" data-name="Rectangle 631" width="33.2" height="48.261" transform="translate(0 0)" fill="none" stroke="#13264d" stroke-width="1"/>
+        </clipPath>
+    </defs>
+    <g id="Icone_Podcast" transform="translate(0 0)">
+        <g id="Groupe_849" data-name="Groupe 849" clip-path="url(#clip-path)">
+            <line id="Ligne_303" data-name="Ligne 303" x2="19.953" transform="translate(6.623 47.261)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
+            <line id="Ligne_304" data-name="Ligne 304" y2="6.72" transform="translate(16.6 40.541)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
+            <path id="Tracé_1926" data-name="Tracé 1926" d="M16.6,34.129h0a9.976,9.976,0,0,1-9.976-9.976V10.976a9.976,9.976,0,0,1,19.952,0V24.153A9.976,9.976,0,0,1,16.6,34.129Z" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
+            <path id="Tracé_1927" data-name="Tracé 1927" d="M.724,29.677l10,10.5H22.475l10-10.5" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
+            <line id="Ligne_305" data-name="Ligne 305" x2="18.894" y2="4.466" transform="translate(6.623 24.153)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
+        </g>
+    </g>
+</svg>

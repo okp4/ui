@@ -38,13 +38,14 @@ The logo helps our users identify our brand when using our services. It must hav
 <Story
   name="Overview"
   argTypes={{}}
-  parameters={{ docs: { source: { type: 'code', langauge: 'jsx', format: true } } }}
+  parameters={{ docs: { source: { type: 'code', language: 'jsx', format: true } } }}
 >
   {args => (
     <div
       style={{
         display: 'flex',
-        alignSelf: 'center'
+        justifyContent: 'center',
+        width: '100%'
       }}
     >
       <Logo {...args} />
@@ -73,6 +74,7 @@ The logo comes with three different sizes to allow its use according to its loca
         style={{
           display: 'flex',
           alignItems: 'center',
+          flexDirection: 'column',
           justifyContent: 'center',
           gap: '25px'
         }}
@@ -101,6 +103,7 @@ The logo comes with a property called `type` which allows to directly use the st
         style={{
           display: 'flex',
           alignItems: 'center',
+          flexDirection: 'column',
           justifyContent: 'center',
           gap: '35px'
         }}

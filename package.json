@@ -29,7 +29,10 @@
     "build-storybook": "build-storybook -o dist/",
     "test": "jest",
     "coverage": "yarn test --coverage --watchAll=false --silent --ci",
-    "graphql:code-gen": "gql-gen --config codegen.yml"
+    "graphql:code-gen": "gql-gen --config codegen.yml",
+    "gen-svg-sprite:icons": "yarn run svg-sprite -s --symbol-dest='' --symbol-sprite='sprite' --dest=src/assets/logos src/assets/logos/*.svg",
+    "gen-svg-sprite:logos": "yarn run svg-sprite -s --symbol-dest='' --symbol-sprite='sprite' --dest=src/assets/icons src/assets/icons/*.svg",
+    "gen-svg-sprite": "yarn gen-svg-sprite:icons && yarn gen-svg-sprite:logos"
   },
   "keywords": [],
   "peerDependencies": {
@@ -77,8 +80,6 @@
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.6",
     "@storybook/theming": "^6.5.6",
-    "@svgr/rollup": "^6.2.1",
-    "@svgr/webpack": "5.5.0",
     "@swc/core": "^1.2.204",
     "@swc/helpers": "^0.4.2",
     "@swc/jest": "^0.2.21",
@@ -116,6 +117,7 @@
     "stylelint": "^14.8.5",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-scss": "^4.1.0",
+    "svg-sprite": "^1.5.4",
     "ts-node": "^10.8.1",
     "typed-scss-modules": "^6.2.0",
     "typescript": "^4.7.4",

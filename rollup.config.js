@@ -2,7 +2,6 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import resolve from '@rollup/plugin-node-resolve'
 import postcss from 'rollup-plugin-postcss'
 import copy from 'rollup-plugin-copy'
-import svgr from '@svgr/rollup'
 import analyze from 'rollup-plugin-analyzer'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
@@ -31,6 +30,7 @@ export default {
     peerDepsExternal(),
     alias({
       entries: [
+        { find: 'assets', replacement: 'src/assets' },
         { find: 'domain', replacement: 'src/domain' },
         { find: 'eventBus', replacement: 'src/eventBus' },
         { find: 'ui', replacement: 'src/ui' },
@@ -56,8 +56,7 @@ export default {
       ],
       verbose: true
     }),
-    svgr({ dimensions: false }),
-    image({ exclude: ['src/**/*.svg'] }),
+    image(),
     json(),
     resolve({ preferBuiltins: true, mainFields: ['browser'] }),
     postcss(),

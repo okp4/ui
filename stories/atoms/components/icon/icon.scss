@@ -1,0 +1,40 @@
+@import 'ui/styles/themes.scss';
+@import 'ui/styles/animations.scss';
+
+.icon-card {
+  @include with-theme() {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    background: themed('field');
+    border-radius: 10px;
+    min-height: 100px;
+  }
+}
+
+.rotate-add {
+  transform: rotate(45deg);
+}
+
+.bg-arrow-right {
+  @include with-theme() {
+    background: themed('primary-brand');
+    border-radius: 10px;
+  }
+}
+
+.bouncing-chat {
+  position: relative;
+  animation: 1.2s ease-out bounce infinite;
+  @include bounce-animation();
+}
+
+.icon-size {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  gap: 10px;
+}
