@@ -8,6 +8,10 @@
     &.with-icon {
       display: flex;
       align-items: center;
+
+      .okp4-input-right-icon {
+        display: flex;
+      }
     }
 
     &.error {

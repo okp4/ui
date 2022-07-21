@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import classNames from 'classnames'
 import { Map } from 'immutable'
 import type { OrderedMap } from 'immutable'
@@ -8,6 +7,8 @@ import { compareStrings } from 'utils'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
+import { Icon } from 'ui/atoms/icon/Icon'
+
 import './select.scss'
 
 export type Option = {
@@ -139,7 +140,11 @@ export const Select = ({
     !multiple && toggleMenu()
   }
 
-  const icon = menuOpened ? <ChevronUpIcon /> : <ChevronDownIcon />
+  const menuIcon = menuOpened ? (
+    <Icon name="arrow-up" size={15} />
+  ) : (
+    <Icon name="arrow-down" size={15} />
+  )
 
   const escapeKeyHandler = useCallback(
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
