@@ -53,7 +53,7 @@ jobs:
             const formatRow = (items) => '| '+items.join(' | ')+' |';
             const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
             const separator = formatRow(['---','---','---','---','---','---']);
-            const rows = results.map(result => formatIndicators(result.summary);
+            const rows = results.map(result => formatIndicators(result.summary));
             const comment = [ header, separator, [ ...rows ] ].join('\n');
             core.setOutput("comment", comment);
       - name: Add Lighthouse stats as comment
