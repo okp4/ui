@@ -52,10 +52,16 @@ $sizes: (
         z-index: 10;
         background: themed('header-background');
         width: inherit;
+        overflow-y: auto;
         max-width: inherit;
         color: themed(text);
         border: 1px solid themed(text);
         border-top: none;
+
+        &.top-position {
+          bottom: 100%;
+          border-top: 1px solid themed(text);
+        }
 
         .okp4-select-options-list {
           margin-top: 5px;

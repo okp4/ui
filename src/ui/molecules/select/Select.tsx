@@ -118,6 +118,12 @@ export const Select = ({
   const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
     useState<boolean>(false)
 
+  const [isDropDownTop, setIsDropDownTop]: [boolean, (isDropDownTop: boolean) => void] =
+    useState<boolean>(false)
+
+  const [maxOptionsHeight, setMaxOptionsHeight]: [number, (maxOptionsHeight: number) => void] =
+    useState<number>(350)
+
   const selectRef: RefObject<HTMLDivElement> = useRef(null)
 
   const toggleMenu = useCallback(() => {
@@ -146,9 +152,9 @@ export const Select = ({
   }
 
   const menuIcon = menuOpened ? (
-    <Icon name="arrow-up" size={15} />
+    <Icon name="arrow-up" size={20} />
   ) : (
-    <Icon name="arrow-down" size={15} />
+    <Icon name="arrow-down" size={20} />
   )
 
   const escapeKeyHandler = useCallback(
@@ -191,11 +197,40 @@ export const Select = ({
 
   const valueToDisplay = Array.isArray(value) ? value.join(', ') : value
 
+  useEffect(() => {
+    if (menuOpened) {
+      const selectContainer = document.getElementById('okp4-select-container')
+      const optionsContainer = document.getElementById('okp4-select-options-container')
+
+      if (selectContainer && optionsContainer) {
+        const selectContainerBottomPosition = selectContainer.getBoundingClientRect().bottom
+        const spaceLeftAboveSelect = selectContainer.getBoundingClientRect().top
+        const windowHeight = window.innerHeight
+        const spaceLeftUnderSelect = windowHeight - selectContainerBottomPosition
+
+        const optionsHeight = optionsContainer.offsetHeight
+
+        if (spaceLeftUnderSelect < optionsHeight && spaceLeftUnderSelect < spaceLeftAboveSelect) {
+          setIsDropDownTop(true)
+          setMaxOptionsHeight(
+            350 > spaceLeftAboveSelect ? spaceLeftAboveSelect - 20 : optionsHeight
+          )
+        } else {
+          setIsDropDownTop(false)
+          setMaxOptionsHeight(
+            350 > spaceLeftUnderSelect ? spaceLeftUnderSelect - 20 : optionsHeight
+          )
+        }
+      }
+    }
+  }, [menuOpened])
+
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
         'full-width': fullWidth
       })}
+      id="okp4-select-container"
     >
       <div className="okp4-select-content" id={id} ref={selectRef}>
         <div
@@ -217,15 +252,20 @@ export const Select = ({
         {menuOpened && (
           <div
             className={classNames('okp4-select-options-container', {
-              error: hasError
+              error: hasError,
+              'top-position': isDropDownTop
             })}
+            id="okp4-select-options-container"
+            style={{ maxHeight: maxOptionsHeight }}
           >
             {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}
             {optionsGrouppedEntries.map((entry: [string, OptionWithoutGroup[]]) => {
               const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
               return (
                 <div
-                  className={classNames('okp4-select-options-list', { error: hasError })}
+                  className={classNames('okp4-select-options-list', {
+                    error: hasError
+                  })}
                   key={optionsGrouppedEntries.indexOf(entry)}
                 >
                   {group && (
