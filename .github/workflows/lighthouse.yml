@@ -37,7 +37,11 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
+          LOCAL_SERVER_URL=`echo $GITHUB_CONTEXT | jq '.server_url'`
+          LOCAL_REPOSITORY=`echo $GITHUB_CONTEXT | jq '.repository'`
           LOCAL_RUN_ID=`echo $GITHUB_CONTEXT | jq '.run_id'`
+          echo "action_server_url=$LOCAL_SERVER_URL" >> $GITHUB_ENV
+          echo "action_repository=$LOCAL_REPOSITORY" >> $GITHUB_ENV
           echo "action_run_id=$LOCAL_RUN_ID" >> $GITHUB_ENV
 
       - name: Format lighthouse score
@@ -52,8 +56,10 @@ jobs:
               return `${scoreIcon} ${score}`;
             };
 
+            const server_url = ${{ env.action_server_url }};
+            const repository = ${{ env.action_repository }};
             const run_id = ${{ env.action_run_id }};
-            const linkToReport = `[action page](https://github.com/okp4/ui/actions/runs/${run_id})`;
+            const linkToActionPage = `[link](${server_url}/${repository}/actions/runs/${run_id})`;
             
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
@@ -61,7 +67,7 @@ jobs:
               const bestPractices = scoreEntry(summary['best-practices']);
               const seo = scoreEntry(summary.seo);
               const pwa = scoreEntry(summary.pwa);
-              return [performance,accessibility,bestPractices,seo,pwa,linkToReport];
+              return [performance,accessibility,bestPractices,seo,pwa,linkToActionPage];
             };
             
             const formatRow = (items) => '| '+items.join(' | ')+' |';
@@ -74,7 +80,7 @@ jobs:
               return formatRow(indicators);
             });
             
-            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Report']);
+            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Action Page']);
             const separator = formatRow(['---','---','---','---','---','---']);
             const comment = [ header, separator, ...rows ].join('\n');
             core.setOutput("comment", comment);
