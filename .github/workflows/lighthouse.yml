@@ -60,7 +60,7 @@ jobs:
             const repository = ${{ env.action_repository }};
             const run_id = ${{ env.action_run_id }};
             const linkToActionPage = `[link](${server_url}/${repository}/actions/runs/${run_id})`;
-            
+
             const formatIndicators = (summary) => {
               const performance = scoreEntry(summary.performance);
               const accessibility = scoreEntry(summary.accessibility);
@@ -69,9 +69,9 @@ jobs:
               const pwa = scoreEntry(summary.pwa);
               return [performance,accessibility,bestPractices,seo,pwa,linkToActionPage];
             };
-            
+
             const formatRow = (items) => '| '+items.join(' | ')+' |';
-            
+
             const results = ${{ steps.lighthouse_audit.outputs.manifest }};
 
             const rows = results.map(result => {
@@ -79,7 +79,7 @@ jobs:
               const indicators = formatIndicators(summary);
               return formatRow(indicators);
             });
-            
+
             const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Action Page']);
             const separator = formatRow(['---','---','---','---','---','---']);
             const comment = [ header, separator, ...rows ].join('\n');
