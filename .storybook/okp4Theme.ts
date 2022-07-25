@@ -1,5 +1,5 @@
 import { create } from '@storybook/theming/create'
-import logo from '../public/okp4-logo-200-153-max.png'
+import logo from '../public/okp4-logo-vertical-dark.svg'
 
 export default create({
   base: 'dark',
