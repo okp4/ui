@@ -45,11 +45,11 @@ import { useState } from 'react'
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
-## Overview
-
-### Description
+## Description
 
 `FileInput` allows the user to drag and drop or browse one or several files before upload these files for example.
+
+## Overview
 
 <Story
   name="Overview"
@@ -118,7 +118,7 @@ import { useState } from 'react'
   }}
 </Story>
 
-### Properties
+## Properties
 
 <ArgsTable story="Overview" />
 
@@ -319,7 +319,7 @@ Size options are `small`, `medium`(default) and `large`. The size also adjust it
 
 <Canvas>
   <Story name="Sizes">
-    {args => {
+    {() => {
       const [files, setFiles] = useState([])
       return (
         <div
