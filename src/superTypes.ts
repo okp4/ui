@@ -25,4 +25,4 @@ export type Pair<U, V> = [U, V]
 
 export type StateHook<U> = [U, (value: U) => void]
 
-export type Callback<U,V> = (value: U) => V
+export type Callback<U, V> = (value: U) => V
