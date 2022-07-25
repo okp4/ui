@@ -1,5 +1,5 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from 'ui/atoms/button/Button'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
@@ -47,15 +47,19 @@ Several severity levels make it possible to fully configure the type of message 
 
 <Story
   name="Overview"
-  argTypes={{ isOpened: { control: false }, description: { control: false } }}
+  argTypes={{ description: { type: { name: 'string' } } }}
   args={{
     title: 'Transaction',
     description: 'Your data space has been successfully created!',
-    severityLevel: 'success'
+    severityLevel: 'success',
+    isOpened: false
   }}
 >
   {args => {
     const [isOpened, setIsOpened] = useState(false)
+    useEffect(() => {
+      setIsOpened(args.isOpened)
+    }, [args.isOpened])
     return (
       <div
         style={{
@@ -77,7 +81,6 @@ Several severity levels make it possible to fully configure the type of message 
       </div>
     )
   }}
-  }
 </Story>
 
 export const ToastComponent = ({
@@ -285,6 +288,9 @@ These two elements are optional and are not inter-related.
       const handleState = (name, isOpened) => () => {
         setState({ name: name, isOpened: isOpened })
       }
+      const handleClick = () => {
+        window.open('https://github.com/bot-anik')
+      }
       return (
         <div
           style={{
@@ -323,7 +329,7 @@ These two elements are optional and are not inter-related.
           </div>
           <div>
             <Button
-              label="Bot Anik"
+              label="JSX element description"
               onClick={handleState('cool', true)}
               backgroundColor="primary"
             />
@@ -340,41 +346,19 @@ These two elements are optional and are not inter-related.
                     Bot Anik is a bot like no other, she'll kick you around without any trouble! She
                     gets rid of all who messes around, no one can beat our bot! 🎵
                   </Typography>
-                  <Typography
-                    color="highlighted-text"
-                    fontSize="small"
-                    fontWeight="bold"
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      maxWidth: '200px',
-                      minHeight: '50px',
-                      backgroundColor: '#cecfd9',
-                      borderRadius: '10px',
-                      marginTop: '10px'
-                    }}
-                  >
-                    <img style={{ width: '50px', marginLeft: '10px' }} src={BotAnikImage} />
-                    <a
-                      href="https://github.com/bot-anik"
-                      rel="author noreferrer"
-                      target="_blank"
-                      style={{
-                        textDecoration: 'unset',
-                        color: 'inherit',
-                        margin: '10px 10px 10px 0'
-                      }}
-                    >
-                      Learn more about Bot Anik
-                    </a>
-                  </Typography>
+                  <div style={{ display: 'flex', marginTop: '20px' }}>
+                    <img style={{ width: '50px' }} src={BotAnikImage} />
+                    <Button
+                      label="Learn more about Bot Anik"
+                      onClick={handleClick}
+                      backgroundColor="primary"
+                    />
+                  </div>
                 </div>
               }
               isOpened={Object.values(state).includes('cool') ? state['isOpened'] : false}
               onOpenChange={handleState('cool', false)}
               severityLevel="success"
-              autoDuration={10000}
             />
           </div>
         </div>
