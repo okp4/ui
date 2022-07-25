@@ -81,6 +81,9 @@ To configure the component, everything is provided by the `@okp4/ui` library and
 
 ### 1. Create a `config.json` file that declares the OKP4 blockchain config
 
+This file contains all the information the component needs to configure itself.
+This also includes the configuration needed to add the OKP4 blockchain to the Keplr wallet.
+
 ##### **`config.json`**
 
 ```json
@@ -131,6 +134,9 @@ To configure the component, everything is provided by the `@okp4/ui` library and
 ### 2. Instanciate redux stores to init the component
 
 ##### **`store.ts`**
+
+To work, the component uses [redux](https://redux.js.org/) as a state manager.  
+To do this, all you have to do is declare the store instances in a `store.ts` file to be able to import those parameters later into a `Provider` component that will take care of injecting them into the React context.
 
 ```ts
 import { List } from 'immutable'
@@ -188,6 +194,9 @@ export default List([
 ```
 
 ### 3. Wrap the `Faucet` component into a store provider
+
+Finally, it is necessary to wrap the `Faucet` component in a `StoreProvider` which will inject into the React context the configuration elements necessary for its proper functioning.
+This `StoreProvider` component is directly provided by the `@okp4/ui` library, you simply have to pass it the parameters returned by the `store.ts` file as properties.
 
 ##### **`app.tsx`**
 
