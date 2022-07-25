@@ -40,7 +40,7 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@radix-ui/react-switch": "^0.1.5",
+    "@radix-ui/react-switch": "^1.0.0",
     "@radix-ui/react-toast": "^1.0.0",
     "@urql/core": "^2.5.0",
     "bech32-buffer": "^0.2.0",
