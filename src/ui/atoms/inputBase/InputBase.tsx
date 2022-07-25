@@ -34,6 +34,26 @@ export type InputBaseProps = {
    * Pass a ref to the input element.
    */
   readonly inputRef?: RefObject<HTMLInputElement>
+  /**
+   * The icon displayed on the right side
+   */
+  readonly rightIcon?: JSX.Element
+  /**
+   * The icon displayed on the right side
+   */
+  readonly onIconClick?: () => void
+  /**
+   * If true, input becomes immutable
+   */
+  readonly readOnly?: boolean
+}
+
+const ShowRightIcon = (icon: JSX.Element, onIconClick?: () => void): JSX.Element => {
+  return (
+    <div className="okp4-input-right-icon" onClick={onIconClick}>
+      {icon}
+    </div>
+  )
 }
 
 export const InputBase = ({
@@ -42,20 +62,33 @@ export const InputBase = ({
   hasError = false,
   inputRef,
   onChange,
+  onIconClick,
   placeholder,
-  value
+  rightIcon,
+  value,
+  readOnly = false
 }: InputBaseProps): JSX.Element => {
-  const inputClass = classNames(`okp4-input-base-main`, { error: hasError })
+  const containerClass = classNames(`okp4-input-base-container`, {
+    'with-icon': !!rightIcon,
+    error: hasError
+  })
+  const inputClass = classNames(`okp4-input-base-main`, {
+    error: hasError
+  })
 
   return (
-    <input
-      className={inputClass}
-      defaultValue={defaultValue}
-      disabled={disabled}
-      onChange={onChange}
-      placeholder={placeholder}
-      ref={inputRef}
-      value={value}
-    />
+    <div className={containerClass}>
+      <input
+        className={inputClass}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        onChange={onChange}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        ref={inputRef}
+        value={value}
+      />
+      {rightIcon && ShowRightIcon(rightIcon, onIconClick)}
+    </div>
   )
 }

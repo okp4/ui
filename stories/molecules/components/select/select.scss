@@ -1,0 +1,13 @@
+.sbdocs {
+  &.sbdocs-preview {
+    &.css-tmvzag {
+      overflow: visible;
+    }
+    .docs-story {
+      overflow: visible;
+      > :first-child {
+        overflow: visible;
+      }
+    }
+  }
+}

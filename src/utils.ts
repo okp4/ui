@@ -21,3 +21,5 @@ export const toPercent = (value: number, min: number, max: number): number => {
   }
   return totalScale ? (100 * valueInScale) / totalScale : 0
 }
+export const compareStrings = (value1: string, value2: string): number =>
+  value1.localeCompare(value2)
