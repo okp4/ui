@@ -57,17 +57,14 @@ $sizes: (
         color: themed(text);
         border: 1px solid themed(text);
         border-top: none;
-
-        &.top-position {
-          bottom: 100%;
-          border-top: 1px solid themed(text);
-        }
+        min-height: 90px;
 
         .okp4-select-options-list {
           margin-top: 5px;
 
           .okp4-select-options-group {
             padding-left: 20px;
+            cursor: default;
           }
           > ul {
             list-style: none;

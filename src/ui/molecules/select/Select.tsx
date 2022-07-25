@@ -8,7 +8,7 @@ import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
-
+import short from 'short-uuid'
 import './select.scss'
 
 export type Option = {
@@ -54,10 +54,6 @@ const getOptionsSortedIntoMap = (data: Readonly<Option[]>): ResultMap => {
 
 export type SelectProps = InputBaseProps & {
   /**
-   * The select Id
-   */
-  readonly id: string
-  /**
    * If true, allows the user to make a multiple choice.
    * Default to false.
    */
@@ -91,7 +87,6 @@ export type SelectProps = InputBaseProps & {
 
 // eslint-disable-next-line max-lines-per-function, @typescript-eslint/prefer-readonly-parameter-types
 export const Select = ({
-  id,
   placeholder,
   size = 'medium',
   defaultValue,
@@ -106,6 +101,8 @@ export const Select = ({
   value,
   helperText
 }: SelectProps): JSX.Element => {
+  const selectId = short.generate()
+
   const optionsGroupped = sortGroupsAndOptions
     ? sortGroupsAndOptions(options)
     : getOptionsSortedIntoMap(options)
@@ -118,13 +115,11 @@ export const Select = ({
   const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
     useState<boolean>(false)
 
-  const [isDropDownTop, setIsDropDownTop]: [boolean, (isDropDownTop: boolean) => void] =
-    useState<boolean>(false)
-
   const [maxOptionsHeight, setMaxOptionsHeight]: [number, (maxOptionsHeight: number) => void] =
     useState<number>(350)
 
   const selectRef: RefObject<HTMLDivElement> = useRef(null)
+  const optionsRef: RefObject<HTMLDivElement> = useRef(null)
 
   const toggleMenu = useCallback(() => {
     if (!disabled) {
@@ -199,40 +194,27 @@ export const Select = ({
 
   useEffect(() => {
     if (menuOpened) {
-      const selectContainer = document.getElementById('okp4-select-container')
-      const optionsContainer = document.getElementById('okp4-select-options-container')
-
-      if (selectContainer && optionsContainer) {
-        const selectContainerBottomPosition = selectContainer.getBoundingClientRect().bottom
-        const spaceLeftAboveSelect = selectContainer.getBoundingClientRect().top
-        const windowHeight = window.innerHeight
-        const spaceLeftUnderSelect = windowHeight - selectContainerBottomPosition
-
-        const optionsHeight = optionsContainer.offsetHeight
-
-        if (spaceLeftUnderSelect < optionsHeight && spaceLeftUnderSelect < spaceLeftAboveSelect) {
-          setIsDropDownTop(true)
-          setMaxOptionsHeight(
-            350 > spaceLeftAboveSelect ? spaceLeftAboveSelect - 20 : optionsHeight
-          )
-        } else {
-          setIsDropDownTop(false)
-          setMaxOptionsHeight(
-            350 > spaceLeftUnderSelect ? spaceLeftUnderSelect - 20 : optionsHeight
-          )
+      const selectContainer = document.getElementById(`okp4-select-container ${selectId}`)
+      if (selectContainer && optionsRef.current) {
+        optionsRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        const maxScrollableDocumentHeight = document.body.offsetHeight
+        const selectPositionWithScroll = selectContainer.getBoundingClientRect().bottom + scrollY
+        const maxAvailableHeightUnderSelect = maxScrollableDocumentHeight - selectPositionWithScroll
+        if (maxAvailableHeightUnderSelect < 350) {
+          setMaxOptionsHeight(maxAvailableHeightUnderSelect - 40)
         }
       }
     }
-  }, [menuOpened])
+  }, [menuOpened, selectId])
 
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
         'full-width': fullWidth
       })}
-      id="okp4-select-container"
+      id={`okp4-select-container ${selectId}`}
     >
-      <div className="okp4-select-content" id={id} ref={selectRef}>
+      <div className={`okp4-select-content ${selectId}`} ref={selectRef}>
         <div
           className={classNames('okp4-select-input-container', {
             error: hasError
@@ -252,10 +234,10 @@ export const Select = ({
         {menuOpened && (
           <div
             className={classNames('okp4-select-options-container', {
-              error: hasError,
-              'top-position': isDropDownTop
+              error: hasError
             })}
-            id="okp4-select-options-container"
+            id={`okp4-select-options-container ${selectId}`}
+            ref={optionsRef}
             style={{ maxHeight: maxOptionsHeight }}
           >
             {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}

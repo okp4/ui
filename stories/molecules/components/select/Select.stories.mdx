@@ -64,7 +64,6 @@ import './select.scss'
     }
   }}
   args={{
-    id: 'overview-select',
     defaultValue: "I'm set with a default value",
     options: [
       { label: 'Cherry', value: 'cherry', group: 'fruits' },
@@ -103,8 +102,7 @@ import './select.scss'
       }
       return (
         <Select
-          id="controlled-select"
-          fullWidth
+          size="x-large"
           value={value}
           onValuesChange={handleChange}
           options={[
@@ -144,7 +142,6 @@ Here is an example of the 3 cases concerning the option lists:
       return (
         <>
           <Select
-            id="select-without-groups"
             fullWidth
             value={value1}
             onValuesChange={setValue1}
@@ -156,7 +153,6 @@ Here is an example of the 3 cases concerning the option lists:
             ]}
           />
           <Select
-            id="select-with-groups"
             fullWidth
             value={value2}
             onValuesChange={setValue2}
@@ -168,7 +164,6 @@ Here is an example of the 3 cases concerning the option lists:
             ]}
           />
           <Select
-            id="select-with-and-without-groups"
             fullWidth
             value={value3}
             onValuesChange={setValue3}
@@ -193,7 +188,6 @@ It is then impossible to enter a value or to open the menu.
 <Canvas>
   <Story name="Disabled">
     <Select
-      id="select1"
       disabled
       defaultValue="I am disabled"
       options={[
@@ -218,7 +212,6 @@ In addition, the helperText property can be set to display an error message belo
       }
       return (
         <Select
-          id="errorSelect"
           hasError
           helperText="Error message."
           value={value}
@@ -246,7 +239,6 @@ The `Select` component can take 100% width if the `fullWidth` property is set to
       }
       return (
         <Select
-          id="select1"
           fullWidth
           value={value}
           onValuesChange={handleChange}
@@ -274,9 +266,7 @@ The list of selected options is displayed in alphabetical order.
       }
       return (
         <Select
-          id="multiple-select"
           placeholder="I am multiple"
-          fullWidth
           multiple
           value={values}
           onValuesChange={handleChange}
@@ -303,7 +293,6 @@ If done is given, `medium` is the default value.
       return sizes.map(size => (
         <div key={size} style={{ maxWidth: '100%' }}>
           <Select
-            id={size}
             defaultValue={size}
             size={size}
             options={[
@@ -363,8 +352,6 @@ We have provided a reverse alphabetical sorting method in the example below:
       }
       return (
         <Select
-          id="select2"
-          fullWidth
           value={value}
           onValuesChange={handleChange}
           options={[
