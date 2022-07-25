@@ -3,6 +3,7 @@ import * as ToastPrimitive from '@radix-ui/react-toast'
 import { Typography } from 'ui/atoms/typography/Typography'
 import './toast.scss'
 import type { DeepReadonly } from 'superTypes'
+import { isString } from 'utils'
 
 type ToastProps = Readonly<{
   /**
@@ -63,7 +64,7 @@ export const Toast: React.FC<ToastProps> = ({
         )}
         {description && (
           <ToastPrimitive.Description asChild className="okp4-toast-description">
-            {typeof description === 'string' ? (
+            {isString(description) ? (
               <Typography as="span" color="highlighted-text" fontSize="small" fontWeight="light">
                 {description}
               </Typography>
