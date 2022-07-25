@@ -83,39 +83,6 @@ Several severity levels make it possible to fully configure the type of message 
   }}
 </Story>
 
-export const ToastComponent = ({
-  title,
-  description,
-  severityLevel,
-  buttonLabel,
-  backgroundColor
-}) => {
-  const [isOpened, setIsOpened] = useState(false)
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '25px'
-      }}
-    >
-      <Button
-        label={buttonLabel}
-        onClick={() => setIsOpened(true)}
-        backgroundColor={backgroundColor}
-      />
-      <Toast
-        description={description}
-        isOpened={isOpened}
-        onOpenChange={() => setIsOpened(false)}
-        title={title}
-        severityLevel={severityLevel}
-      />
-    </div>
-  )
-}
-
 ---
 
 ### Properties
@@ -136,7 +103,7 @@ The `Toast` component can be configured with multiple severity levels that follo
     {args => {
       const [state, setState] = useState({ name: '', isOpened: false })
       const handleState = (name, isOpened) => () => {
-        setState({ name: name, isOpened: isOpened })
+        setState({ name, isOpened })
       }
       return (
         <div
@@ -219,7 +186,7 @@ The `Toast` component comes with an `autoDuration` property that is the time in 
     {args => {
       const [state, setState] = useState({ name: '', isOpened: false })
       const handleState = (name, isOpened) => () => {
-        setState({ name: name, isOpened: isOpened })
+        setState({ name, isOpened })
       }
       return (
         <div
@@ -286,7 +253,7 @@ These two elements are optional and are not inter-related.
     {args => {
       const [state, setState] = useState({ name: '', isOpened: false })
       const handleState = (name, isOpened) => () => {
-        setState({ name: name, isOpened: isOpened })
+        setState({ name, isOpened })
       }
       const handleClick = () => {
         window.open('https://github.com/bot-anik')
