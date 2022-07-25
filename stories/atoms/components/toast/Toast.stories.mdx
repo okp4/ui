@@ -1,9 +1,11 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from 'ui/atoms/button/Button'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Typography } from 'ui/atoms/typography/Typography'
+import BotAnikImage from '../../../assets/botanik-logo.png'
 
 <Meta
   title="Atoms/Toast"
@@ -45,15 +47,19 @@ Several severity levels make it possible to fully configure the type of message 
 
 <Story
   name="Overview"
-  argTypes={{ isOpened: { control: false } }}
+  argTypes={{ description: { type: { name: 'string' } } }}
   args={{
     title: 'Transaction',
     description: 'Your data space has been successfully created!',
-    severityLevel: 'success'
+    severityLevel: 'success',
+    isOpened: false
   }}
 >
   {args => {
     const [isOpened, setIsOpened] = useState(false)
+    useEffect(() => {
+      setIsOpened(args.isOpened)
+    }, [args.isOpened])
     return (
       <div
         style={{
@@ -75,41 +81,7 @@ Several severity levels make it possible to fully configure the type of message 
       </div>
     )
   }}
-  }
 </Story>
-
-export const ToastComponent = ({
-  title,
-  description,
-  severityLevel,
-  buttonLabel,
-  backgroundColor
-}) => {
-  const [isOpened, setIsOpened] = useState(false)
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '25px'
-      }}
-    >
-      <Button
-        label={buttonLabel}
-        onClick={() => setIsOpened(true)}
-        backgroundColor={backgroundColor}
-      />
-      <Toast
-        description={description}
-        isOpened={isOpened}
-        onOpenChange={() => setIsOpened(false)}
-        title={title}
-        severityLevel={severityLevel}
-      />
-    </div>
-  )
-}
 
 ---
 
@@ -131,12 +103,13 @@ The `Toast` component can be configured with multiple severity levels that follo
     {args => {
       const [state, setState] = useState({ name: '', isOpened: false })
       const handleState = (name, isOpened) => () => {
-        setState({ name: name, isOpened: isOpened })
+        setState({ name, isOpened })
       }
       return (
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '25px'
@@ -213,7 +186,7 @@ The `Toast` component comes with an `autoDuration` property that is the time in 
     {args => {
       const [state, setState] = useState({ name: '', isOpened: false })
       const handleState = (name, isOpened) => () => {
-        setState({ name: name, isOpened: isOpened })
+        setState({ name, isOpened })
       }
       return (
         <div
@@ -263,6 +236,7 @@ The `Toast` component comes with an `autoDuration` property that is the time in 
 ## Content
 
 The `Toast` component has a flexible content which notably allows the user to indicate a `title` and a `description`.  
+With `description` users can decide whether to show a JSX element or a simple string.  
 These two elements are optional and are not inter-related.
 
 <Canvas>
@@ -279,12 +253,16 @@ These two elements are optional and are not inter-related.
     {args => {
       const [state, setState] = useState({ name: '', isOpened: false })
       const handleState = (name, isOpened) => () => {
-        setState({ name: name, isOpened: isOpened })
+        setState({ name, isOpened })
+      }
+      const handleClick = () => {
+        window.open('https://github.com/bot-anik')
       }
       return (
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '25px'
@@ -305,7 +283,7 @@ These two elements are optional and are not inter-related.
           </div>
           <div>
             <Button
-              label="Description only!"
+              label="Description only"
               onClick={handleState('desc', true)}
               backgroundColor="primary"
             />
@@ -313,6 +291,40 @@ These two elements are optional and are not inter-related.
               description="I only have a description"
               isOpened={Object.values(state).includes('desc') ? state['isOpened'] : false}
               onOpenChange={handleState('desc', false)}
+              severityLevel="success"
+            />
+          </div>
+          <div>
+            <Button
+              label="JSX element description"
+              onClick={handleState('cool', true)}
+              backgroundColor="primary"
+            />
+            <Toast
+              title="Bot Anik"
+              description={
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Typography
+                    as="span"
+                    color="highlighted-text"
+                    fontSize="small"
+                    fontWeight="light"
+                  >
+                    Bot Anik is a bot like no other, she'll kick you around without any trouble! She
+                    gets rid of all who messes around, no one can beat our bot! 🎵
+                  </Typography>
+                  <div style={{ display: 'flex', marginTop: '20px' }}>
+                    <img style={{ width: '50px' }} src={BotAnikImage} />
+                    <Button
+                      label="Learn more about Bot Anik"
+                      onClick={handleClick}
+                      backgroundColor="primary"
+                    />
+                  </div>
+                </div>
+              }
+              isOpened={Object.values(state).includes('cool') ? state['isOpened'] : false}
+              onOpenChange={handleState('cool', false)}
               severityLevel="success"
             />
           </div>
