@@ -3690,7 +3690,7 @@
   resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.2.218.tgz#9f6ba50cac6e3322d844cc24418c7b0ab08f7e0e"
   integrity sha512-XYLjX00KV4ft324Q3QDkw61xHkoN7EKkVvIpb0wXaf6wVshwU+BCDyPw2CSg4PQecNP8QGgMRQf9QM7xNtEM7A==
 
-"@swc/core@^1.2.204":
+"@swc/core@^1.2.218":
   version "1.2.218"
   resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.2.218.tgz#3bc7532621f491bf920d103a4a0433ac7df9d390"
   integrity sha512-wzXTeBUi3YAHr305lCo1tlxRj5Zpk7hu6rmulngH06NgrH7fS6bj8IaR7K2QPZ4ZZ4U+TGS2tOKbXBmqeMRUtg==
