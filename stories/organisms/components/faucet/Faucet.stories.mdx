@@ -41,17 +41,16 @@ import * as env from './env.json'
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
-## Overview
+## Description
 
 The OKP4 Faucet allows a user to request funds from the official OKP4 Testnet.  
 You'll receive 1 KNOW per request, with a maximum of 1 request each 5 seconds.  
 To do this, you just need to enter your OKP4 address or connect via [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the OKP4 wallet!
 
----
+## Overview
 
 <Story
   name="Overview"
-  argTypes={{}}
   args={{ chainId: env.chainId }}
   parameters={{ docs: { source: { type: 'code', langauge: 'jsx', format: true } } }}
 >
@@ -80,6 +79,9 @@ The `Faucet` organism is a React component that embeds all the business logic as
 To configure the component, everything is provided by the `@okp4/ui` library and the below examples, you will simply have to follow those 3 steps:
 
 ### 1. Create a `config.json` file that declares the OKP4 blockchain config
+
+This file contains all the information the component needs to configure itself.
+This also includes the configuration needed to add the OKP4 blockchain to the Keplr wallet.
 
 ##### **`config.json`**
 
@@ -132,6 +134,9 @@ To configure the component, everything is provided by the `@okp4/ui` library and
 
 ##### **`store.ts`**
 
+To work, the component uses [redux](https://redux.js.org/) as a state manager and an `eventBus` instance to facilitate communication between the business domains.  
+To do this, all you have to do is declare the store parameters in a `store.ts` file to be able to import them later into a `Provider` component that will take care of injecting them into the React context.
+
 ```ts
 import { List } from 'immutable'
 import {
@@ -151,9 +156,14 @@ import {
 import type { StoreParameter } from '@okp4/ui'
 import * as config from './config.json'
 
+/** Init an eventBus instance
+ * Needed to enable communication and reactivity beetwen business domains
+ */
 const eventBusInstance = createEventBusInstance()
 
-// Faucet
+/** Init Faucet Gateway & redux store
+ * The heart of Faucet behaviour
+ */
 const faucetGateway = new HTTPFaucetGateway(config.faucetUrl)
 const faucetStore = new FaucetStoreBuilder()
   .withEventBus(eventBusInstance)
@@ -161,15 +171,21 @@ const faucetStore = new FaucetStoreBuilder()
   .build()
 const faucetStoreParameter: StoreParameter = [FaucetContext, faucetStore]
 
-// Error
+/** Init Error redux store
+ * Needed to handle errors thrown by other domains
+ */
 const errorStore = new ErrorStoreBuilder().withEventBus(eventBusInstance).build()
 const errorStoreParameter: StoreParameter = [ErrorContext, errorStore]
 
-// Task
+/** Init Task redux store
+ * Needed to handle asynchronous tasks fired by other domains
+ */
 const taskStore = new TaskStoreBuilder().withEventBus(eventBusInstance).build()
 const taskStoreParameter: StoreParameter = [TaskContext, taskStore]
 
-// Wallet
+/** Init Wallet Gateway & redux store
+ * Needed to handle Keplr wallet
+ */
 const walletRegistryGateway = new WalletRegistryGateway()
 const keplrGateway = new KeplrWalletGateway(config.kepkrChainInfo)
 walletRegistryGateway.register(keplrGateway)
@@ -179,6 +195,9 @@ const walletStore = new WalletStoreBuilder()
   .build()
 const walletStoreParameter: StoreParameter = [WalletContext, walletStore]
 
+/** Export store parameters as following: [StoreContext, StoreInstance]
+ * Will be auto-injected in React context through <StoreProvider> props
+ */
 export default List([
   faucetStoreParameter,
   errorStoreParameter,
@@ -188,6 +207,9 @@ export default List([
 ```
 
 ### 3. Wrap the `Faucet` component into a store provider
+
+Finally, it is necessary to wrap the `Faucet` component in a `StoreProvider` which will auto-inject into the React context the configuration elements necessary for its proper functioning.
+This `StoreProvider` component is directly provided by the `@okp4/ui` library, you simply have to pass it the parameters exported by the `store.ts` file as properties.
 
 ##### **`app.tsx`**
 
@@ -209,6 +231,6 @@ You have to create or import an account within Keplr extension and everything el
 
 ## Notes
 
-- Keep in mind that the OKP4 Faucet is only available within a `testnet` environment, it cannot be used in the `mainnet` environment to get some know 😉
-- The Keplr extension is only availbale for now in Chrome browser, watch out for other extensions with the same name but which are scams trying to access your mnemonics...
+- Keep in mind that the OKP4 Faucet is only available within a `testnet` environment, it cannot be used in the `mainnet` environment to get some KNOW 😉
+- The Keplr extension is only available for now in Chrome browser, watch out for other extensions with the same name but which are scams trying to access your mnemonics...
 - This tool is an opensource project offered to the community, feel free to visit the official [Faucet](https://github.com/okp4/faucet-web) GitHub for a more polished example and contribute if you have any feature ideas or a bug to fix!
