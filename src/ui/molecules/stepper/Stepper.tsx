@@ -162,7 +162,7 @@ export const Stepper: React.FC<StepperProps> = ({
         {steps[activeStepIndex]?.content}
       </div>
       <div className="okp4-stepper-buttons">
-        <div className="okp4-stepper-buttons--previous">
+        <div>
           {activeStepIndex > 0 && (
             <Button
               label={t('stepper:step.button.previous')}
@@ -172,7 +172,7 @@ export const Stepper: React.FC<StepperProps> = ({
             />
           )}
         </div>
-        <div className="okp4-stepper-buttons--next">
+        <div>
           {activeStepIndex < steps.length - 1 && (
             <Button
               label={t('stepper:step.button.next')}
