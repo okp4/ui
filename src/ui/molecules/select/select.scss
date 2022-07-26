@@ -45,6 +45,14 @@ $sizes: (
           text-overflow: ellipsis;
           cursor: pointer;
         }
+        .rotate-up {
+          transform: rotate(180deg);
+          transition: transform 0.1s linear;
+        }
+        .rotate-down {
+          transform: rotate(0deg);
+          transition: transform 0.1s linear;
+        }
       }
 
       .okp4-select-options-container {

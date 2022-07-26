@@ -146,10 +146,12 @@ export const Select = ({
     !multiple && toggleMenu()
   }
 
-  const menuIcon = menuOpened ? (
-    <Icon name="arrow-up" size={20} />
-  ) : (
-    <Icon name="arrow-down" size={20} />
+  const menuIcon = (
+    <Icon
+      className={classNames(menuOpened ? 'rotate-up' : 'rotate-down')}
+      name="arrow-down"
+      size={20}
+    />
   )
 
   const escapeKeyHandler = useCallback(
