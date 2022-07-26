@@ -1,4 +1,4 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ArgsTable, Meta, Source, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
 import { Faucet } from 'ui/organisms/faucet/Faucet'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
@@ -56,6 +56,7 @@ For the OKP4 testnets, the Faucet service is configured to send 1 KNOW per reque
 >
   {args => {
     const { theme } = useTheme()
+    console.log(JSON.prettyenv)
     return (
       <div
         style={{
@@ -88,56 +89,7 @@ The following `config.json` file is a configuration example for connecting to th
 
 **`config.json`**
 
-```json
-{
-  "chainId": "okp4-devnet-1",
-  "faucetUrl": "https://faucet.devnet.okp4.network/graphql",
-  "keplrChainInfo": [
-    {
-      "chainId": "okp4-devnet-1",
-      "chainName": "OKP4",
-      "rpc": "https://api.devnet.okp4.network:443/rpc",
-      "rest": "https://api.devnet.okp4.network",
-      "bip44": {
-        "coinType": 118
-      },
-      "bech32Config": {
-        "bech32PrefixAccAddr": "okp4",
-        "bech32PrefixAccPub": "okp4pub",
-        "bech32PrefixValAddr": "okp4valoper",
-        "bech32PrefixValPub": "okp4valoperpub",
-        "bech32PrefixConsAddr": "okp4valcons",
-        "bech32PrefixConsPub": "okp4valconspub"
-      },
-      "currencies": [
-        {
-          "coinDenom": "KNOW",
-          "coinMinimalDenom": "uknow",
-          "coinDecimals": 6
-        }
-      ],
-      "feeCurrencies": [
-        {
-          "coinDenom": "KNOW",
-          "coinMinimalDenom": "uknow",
-          "coinDecimals": 6
-        }
-      ],
-      "stakeCurrency": {
-        "coinDenom": "KNOW",
-        "coinMinimalDenom": "uknow",
-        "coinDecimals": 6
-      },
-      "coinType": 118,
-      "gasPriceStep": {
-        "low": 0.01,
-        "average": 0.025,
-        "high": 0.03
-      }
-    }
-  ]
-}
-```
+<Source code={JSON.stringify(env, null, 2)} language='json'/>
 
 ### 2. Instanciate redux stores to init the component
 
