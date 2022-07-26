@@ -1,12 +1,15 @@
-.sbdocs {
-  &.sbdocs-preview {
-    &.css-tmvzag {
+div {
+  .sbdocs {
+    &.sbdocs-preview {
       overflow: visible;
-    }
-    .docs-story {
-      overflow: visible;
-      > :first-child {
+      .docs-story {
         overflow: visible;
+        > div:first-child {
+          overflow: visible;
+        }
+        > div:nth-child(2) {
+          bottom: 10px;
+        }
       }
     }
   }
