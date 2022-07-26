@@ -37,22 +37,24 @@ import * as env from './env.json'
 
 # OKP4 Faucet
 
-> Request funds from OKP4 official Testnet.
+> Allows anyone to request tokens for a [Cosmos](https://cosmos.network/) account address (on testnets).
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
-The OKP4 Faucet allows a user to request funds from the official OKP4 Testnet.  
-You'll receive 1 KNOW per request, with a maximum of 1 request each 5 seconds.  
-To do this, you just need to enter your OKP4 address or connect via [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the OKP4 wallet!
+The `Faucet` is a complete organism that brings to the user an interface allowing him to request tokens (issued on a testnet) sent to a Cosmos address - entered directly or retrieved from the Keplr wallet.
+
+The organism embeds all the business logic, including the connection to the Keplr wallet and the management of request for tokens sent to the [Faucet service](https://github.com/okp4/cosmos-faucet).
+
+For the OKP4 testnets, the Faucet service is configured to send 1 KNOW per request, with a maximum of 1 request each 5 seconds. To get some KNOWs, you just need to enter your OKP4 address or connect via [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the OKP4 wallet!
 
 ## Overview
 
 <Story
   name="Overview"
   args={{ chainId: env.chainId }}
-  parameters={{ docs: { source: { type: 'code', langauge: 'jsx', format: true } } }}
+  parameters={{ docs: { source: { type: 'code', language: 'jsx', format: true } } }}
 >
   {args => {
     const { theme } = useTheme()
@@ -75,15 +77,18 @@ To do this, you just need to enter your OKP4 address or connect via [Keplr](http
 
 ## Usage
 
-The `Faucet` organism is a React component that embeds all the business logic associated in particular with the connection to the Keplr wallet as well as the request to the OKP4 blockchain.  
-To configure the component, everything is provided by the `@okp4/ui` library and the below examples, you will simply have to follow those 3 steps:
+To configure the organism, the [@okp4/ui](https://www.npmjs.com/package/@okp4/ui) library provides all the necessary elements. You will just have to follow these 3 steps:
 
-### 1. Create a `config.json` file that declares the OKP4 blockchain config
+### 1. Create a `config.json` file that declares the COSMOS blockchain configuration
 
-This file contains all the information the component needs to configure itself.
-This also includes the configuration needed to add the OKP4 blockchain to the Keplr wallet.
+This file contains all the information the organism needs to configure itself:
+- the identifier of the COSMOS blockchain (aka the `chainId`).
+- the URL of the [Faucet service](https://github.com/okp4/cosmos-faucet) endpoint on the backend. This service supports any Cosmos based blockchain and is available for the OKP4 testnets networks.
+- the complete description of the blockchain for the registration on Keplr. This is required to request adding new Cosmos-SDK based blockchains that isn't natively integrated to Keplr extension.
 
-##### **`config.json`**
+The following `config.json` file is a configuration example for connecting to the `okp4-devnet-1` network.
+
+**`config.json`**
 
 ```json
 {
@@ -138,10 +143,11 @@ This also includes the configuration needed to add the OKP4 blockchain to the Ke
 
 ### 2. Instanciate redux stores to init the component
 
-##### **`store.ts`**
-
 To work, the component uses [redux](https://redux.js.org/) as a state manager and an `eventBus` instance to facilitate communication between the business domains.  
+
 To do this, all you have to do is declare the store parameters in a `store.ts` file to be able to import them later into a `Provider` component that will take care of injecting them into the React context.
+
+**`store.ts`**
 
 ```ts
 import { List } from 'immutable'
@@ -215,9 +221,10 @@ export default List([
 ### 3. Wrap the `Faucet` component into a store provider
 
 Finally, it is necessary to wrap the `Faucet` component in a `StoreProvider` which will auto-inject into the React context the configuration elements necessary for its proper functioning.
+
 This `StoreProvider` component is directly provided by the `@okp4/ui` library, you simply have to pass it the parameters exported by the `store.ts` file as properties.
 
-##### **`app.tsx`**
+**`app.tsx`**
 
 ```tsx
 import React from 'react'
@@ -237,6 +244,6 @@ You have to create or import an account within Keplr extension and everything el
 
 ## Notes
 
-- Keep in mind that the OKP4 Faucet is only available within a `testnet` environment, it cannot be used in the `mainnet` environment to get some KNOW 😉
+- Keep in mind that the Faucet is intended to be used on `testnet` environments.
 - The Keplr extension is only available for now in Chrome browser, watch out for other extensions with the same name but which are scams trying to access your mnemonics...
 - This tool is an opensource project offered to the community, feel free to visit the official [Faucet](https://github.com/okp4/faucet-web) GitHub for a more polished example and contribute if you have any feature ideas or a bug to fix!
