@@ -21,3 +21,6 @@ export const toPercent = (value: number, min: number, max: number): number => {
   }
   return totalScale ? (100 * valueInScale) / totalScale : 0
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isString = (value: any): value is string => typeof value === 'string'
