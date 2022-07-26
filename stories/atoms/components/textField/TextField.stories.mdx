@@ -120,11 +120,7 @@ This property is optional and is displayed with an `info` semantic color (except
 <Canvas isColumn>
   <Story name="Helper text">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
-      <TextField
-        disabled
-        helperText="Phone number must begin with +33"
-        placeholder="Phone number"
-      />
+      <TextField helperText="Phone number must begin with +33" placeholder="Phone number" />
     </div>
   </Story>
 </Canvas>
@@ -139,7 +135,6 @@ In addition, the `helperText` property can be set to display an error message be
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField
         defaultValue="My phone is broken"
-        disabled
         hasError
         helperText="Please enter a valid phone number"
       />
