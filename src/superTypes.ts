@@ -25,4 +25,6 @@ export type Pair<U, V> = [U, V]
 
 export type UseState<U> = [U, (value: U) => void]
 
+export type ReduceHook<U> = [U, (action: DeepReadonly<{ type: string }>) => void]
+
 export type Callback<U, V> = (value: U) => V

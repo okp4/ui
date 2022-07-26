@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useState, useEffect } from 'react'
-import type { DeepReadonly, StateHook } from 'superTypes'
+import React, { useCallback, useEffect, useReducer } from 'react'
+import type { DeepReadonly, ReduceHook } from 'superTypes'
 import './stepper.scss'
 import { Button } from '../../atoms/button/Button'
 import classNames from 'classnames'
@@ -67,109 +67,148 @@ export const Stepper: React.FC<StepperProps> = ({
   onSubmit
 }: DeepReadonly<StepperProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
-  const [enabledSteps, setEnabledSteps]: StateHook<StepIndex[]> = useState<StepIndex[]>([])
-  const [stepsStatus, setStepsStatus]: StateHook<StepStatus[]> = useState<StepStatus[]>([])
-  const [activeStepIndex, setActiveStepIndex]: StateHook<StepIndex> = useState(active)
-  const [stepsForDependency, setDependency]: StateHook<(InitialStatus | undefined)[]> = useState<
-    (InitialStatus | undefined)[]
-  >([])
 
-  const getStepStatus = (step: DeepReadonly<Step>, isActive: boolean): StepStatus =>
-    isActive ? 'active' : step.status ?? 'uncompleted'
+  type StepperStateHook = {
+    enabledSteps: DeepReadonly<StepIndex[]>
+    stepsStatus: DeepReadonly<StepStatus[]>
+    activeStepIndex: number
+  }
 
-  useEffect(() => {
-    const newStepsForDependency = steps.map(step => step.status)
-    if (JSON.stringify(newStepsForDependency) !== JSON.stringify(stepsForDependency)) {
-      setDependency(newStepsForDependency)
+  const initialState: StepperStateHook = {
+    enabledSteps: [],
+    stepsStatus: [],
+    activeStepIndex: active
+  }
+
+  const dispatchInit = (): StepperStateHook => {
+    return {
+      enabledSteps: [
+        ...steps.reduce(
+          (acc: DeepReadonly<StepIndex[]>, curr: DeepReadonly<Step>, index: number) => {
+            return curr.status !== 'disabled' ? [...acc, index] : acc
+          },
+          []
+        )
+      ],
+      stepsStatus: steps.map((step: DeepReadonly<Step>, index: number) =>
+        index === active ? 'active' : step.status ?? 'uncompleted'
+      ),
+      activeStepIndex: active
     }
-  }, [steps])
+  }
 
-  useEffect(() => {
-    setEnabledSteps([
-      ...steps.reduce((acc: DeepReadonly<StepIndex[]>, curr: DeepReadonly<Step>, index: number) => {
-        return curr.status !== 'disabled' ? [...acc, index] : acc
-      }, [])
-    ])
-    setStepsStatus(
-      steps.map((step: DeepReadonly<Step>, index: number) => getStepStatus(step, index === active))
-    )
-    setActiveStepIndex(active)
-  }, [stepsForDependency, active])
-
-  const activeStep = useMemo(
-    (): DeepReadonly<Step> => steps[activeStepIndex],
-    [activeStepIndex, stepsForDependency]
-  )
-
-  /**
-   * Performs when the previous button is clicked
-   */
-  const handlePreviousClick = useCallback((): void => {
-    const previousStepIndex = enabledSteps[enabledSteps.indexOf(activeStepIndex) - 1]
+  const dispatchPrevious = (
+    state: DeepReadonly<StepperStateHook>
+  ): DeepReadonly<StepperStateHook> => {
+    const updatedStates = [...state.stepsStatus]
+    const previousStepIndex =
+      state.enabledSteps[state.enabledSteps.indexOf(state.activeStepIndex) - 1]
     if (previousStepIndex > -1) {
-      setActiveStepIndex(previousStepIndex)
-      const updatedStates = [...stepsStatus]
-      updatedStates[activeStepIndex] = 'uncompleted'
+      updatedStates[state.activeStepIndex] = 'uncompleted'
       updatedStates[previousStepIndex] = 'active'
-      console.log({ updatedStates })
-      setStepsStatus(updatedStates)
+      return {
+        ...state,
+        stepsStatus: updatedStates,
+        activeStepIndex: previousStepIndex
+      }
     }
-  }, [activeStepIndex, enabledSteps, stepsStatus])
+    return state
+  }
 
-  /**
-   * Performs when the next button is clicked
-   */
-  const handleNextClick = useCallback((): void => {
-    const nextStepIndex = enabledSteps[enabledSteps.indexOf(activeStepIndex) + 1]
-    const clickOnNextSucceed = !activeStep.onValidate || activeStep.onValidate?.()
-    const updatedStates = [...stepsStatus]
-    if (nextStepIndex > -1 && clickOnNextSucceed) {
+  const dispatchNext = (state: DeepReadonly<StepperStateHook>): DeepReadonly<StepperStateHook> => {
+    const updatedStates = [...state.stepsStatus]
+    const nextStepIndex = state.enabledSteps[state.enabledSteps.indexOf(state.activeStepIndex) + 1]
+    const clickOnNextSucceed =
+      !steps[state.activeStepIndex].onValidate || steps[state.activeStepIndex].onValidate?.()
+    if (clickOnNextSucceed) {
       onNext?.()
-      setActiveStepIndex(nextStepIndex)
       updatedStates[nextStepIndex] = 'active'
     }
-    updatedStates[activeStepIndex] = clickOnNextSucceed ? 'completed' : 'error'
-    setStepsStatus(updatedStates)
-  }, [onNext, activeStepIndex, enabledSteps, activeStep, stepsStatus])
+    updatedStates[state.activeStepIndex] = clickOnNextSucceed ? 'completed' : 'error'
+    return {
+      ...state,
+      stepsStatus: updatedStates,
+      activeStepIndex:
+        clickOnNextSucceed && nextStepIndex > -1 ? nextStepIndex : state.activeStepIndex
+    }
+  }
 
-  /**
-   * Performs when the submit button is clicked
-   */
-  const handleSubmit = useCallback((): void => {
+  const dispatchSubmit = (
+    state: DeepReadonly<StepperStateHook>
+  ): DeepReadonly<StepperStateHook> => {
+    const updatedStates = [...state.stepsStatus]
     onSubmit?.()
-    const updatedStates = [...stepsStatus]
-    updatedStates[activeStepIndex] = 'completed'
-    setStepsStatus(updatedStates)
-  }, [onSubmit, activeStepIndex, stepsStatus])
+    updatedStates[state.activeStepIndex] = 'completed'
+    return {
+      ...state,
+      stepsStatus: updatedStates
+    }
+  }
+
+  const reducer = (
+    state: DeepReadonly<StepperStateHook>,
+    action: DeepReadonly<{ type: string }>
+  ): DeepReadonly<StepperStateHook> => {
+    switch (action.type) {
+      case 'init':
+        return dispatchInit()
+      case 'previous':
+        return dispatchPrevious(state)
+      case 'next':
+        return dispatchNext(state)
+      case 'submit':
+        return dispatchSubmit(state)
+      default:
+        return initialState
+    }
+  }
+
+  const [state, dispatch]: ReduceHook<StepperStateHook> = useReducer(reducer, initialState)
+
+  useEffect(() => {
+    dispatch({ type: 'init' })
+  }, [])
+
+  const handlePreviousClick = useCallback((): void => {
+    dispatch({ type: 'previous' })
+  }, [])
+
+  const handleNextClick = useCallback((): void => {
+    dispatch({ type: 'next' })
+  }, [])
+
+  const handleSubmit = useCallback((): void => {
+    dispatch({ type: 'submit' })
+  }, [])
 
   return (
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-steps">
         {steps.map((step: DeepReadonly<Step>, index: number) => (
           <div className="okp4-step-header" key={index}>
-            <div className={classNames('okp4-step-label', stepsStatus[index])}>
+            <div className={classNames('okp4-step-label', state.stepsStatus[index])}>
               <Typography
                 as="div"
                 fontSize="x-small"
-                fontWeight={stepsStatus[index] === 'active' ? 'bold' : 'light'}
+                fontWeight={state.stepsStatus[index] === 'active' ? 'bold' : 'light'}
               >
                 {step.label}
               </Typography>
             </div>
-            <div className={classNames('okp4-step-state', stepsStatus[index])}></div>
+            <div className={classNames('okp4-step-state', state.stepsStatus[index])}></div>
           </div>
         ))}
       </div>
       <div
         className={classNames('okp4-stepper-content', {
-          error: stepsStatus[activeStepIndex] === 'error'
+          error: state.stepsStatus[state.activeStepIndex] === 'error'
         })}
       >
-        {steps[activeStepIndex]?.content}
+        {steps[state.activeStepIndex]?.content}
       </div>
       <div className="okp4-stepper-buttons">
         <div>
-          {activeStepIndex > 0 && (
+          {state.activeStepIndex > 0 && (
             <Button
               label={t('stepper:step.button.previous')}
               onClick={handlePreviousClick}
@@ -179,7 +218,7 @@ export const Stepper: React.FC<StepperProps> = ({
           )}
         </div>
         <div>
-          {activeStepIndex < steps.length - 1 && (
+          {state.activeStepIndex < steps.length - 1 && (
             <Button
               label={t('stepper:step.button.next')}
               onClick={handleNextClick}
@@ -187,7 +226,7 @@ export const Stepper: React.FC<StepperProps> = ({
               variant="secondary"
             />
           )}
-          {activeStepIndex === steps.length - 1 && (
+          {state.activeStepIndex === steps.length - 1 && (
             <Button
               backgroundColor="success"
               label={submitButtonLabel ?? t('stepper:step.button.submit')}
