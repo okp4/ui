@@ -70,20 +70,15 @@ export const Stepper: React.FC<StepperProps> = ({
   const [enabledSteps, setEnabledSteps]: StateHook<StepIndex[]> = useState<StepIndex[]>([])
   const [stepsStatus, setStepsStatus]: StateHook<StepStatus[]> = useState<StepStatus[]>([])
   const [activeStepIndex, setActiveStepIndex]: StateHook<StepIndex> = useState(active)
-  const [stepsForDependency, setDependency]: StateHook<
-    { label: string; status?: InitialStatus }[]
-  > = useState<{ label: string; status?: InitialStatus }[]>([])
+  const [stepsForDependency, setDependency]: StateHook<(InitialStatus | undefined)[]> = useState<
+    (InitialStatus | undefined)[]
+  >([])
 
   const getStepStatus = (step: DeepReadonly<Step>, isActive: boolean): StepStatus =>
     isActive ? 'active' : step.status ?? 'uncompleted'
 
   useEffect(() => {
-    const newStepsForDependency = steps.map(step => {
-      return {
-        label: step.label,
-        status: step.status
-      }
-    })
+    const newStepsForDependency = steps.map(step => step.status)
     if (JSON.stringify(newStepsForDependency) !== JSON.stringify(stepsForDependency)) {
       setDependency(newStepsForDependency)
     }
@@ -98,6 +93,7 @@ export const Stepper: React.FC<StepperProps> = ({
     setStepsStatus(
       steps.map((step: DeepReadonly<Step>, index: number) => getStepStatus(step, index === active))
     )
+    setActiveStepIndex(active)
   }, [stepsForDependency, active])
 
   const activeStep = useMemo(
@@ -115,6 +111,7 @@ export const Stepper: React.FC<StepperProps> = ({
       const updatedStates = [...stepsStatus]
       updatedStates[activeStepIndex] = 'uncompleted'
       updatedStates[previousStepIndex] = 'active'
+      console.log({ updatedStates })
       setStepsStatus(updatedStates)
     }
   }, [activeStepIndex, enabledSteps, stepsStatus])
@@ -133,7 +130,7 @@ export const Stepper: React.FC<StepperProps> = ({
     }
     updatedStates[activeStepIndex] = clickOnNextSucceed ? 'completed' : 'error'
     setStepsStatus(updatedStates)
-  }, [activeStepIndex, enabledSteps, activeStep, onNext, stepsStatus])
+  }, [onNext, activeStepIndex, enabledSteps, activeStep, stepsStatus])
 
   /**
    * Performs when the submit button is clicked
@@ -143,7 +140,7 @@ export const Stepper: React.FC<StepperProps> = ({
     const updatedStates = [...stepsStatus]
     updatedStates[activeStepIndex] = 'completed'
     setStepsStatus(updatedStates)
-  }, [onSubmit, activeStepIndex])
+  }, [onSubmit, activeStepIndex, stepsStatus])
 
   return (
     <div className="okp4-stepper-main">
