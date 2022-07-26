@@ -19,7 +19,8 @@ export type InputBaseProps = {
    */
   readonly value?: string | string[]
   /**
-   * The default value. Use when the component is not controlled.
+   * The default value.
+   * Used when the component is not controlled.
    */
   readonly defaultValue?: string | string[]
   /**
@@ -35,11 +36,11 @@ export type InputBaseProps = {
    */
   readonly inputRef?: RefObject<HTMLInputElement>
   /**
-   * The icon displayed on the right side
+   * The icon displayed on the right side.
    */
   readonly rightIcon?: JSX.Element
   /**
-   * The icon displayed on the right side
+   * Defines the callback called when the right icon is clicked.
    */
   readonly onIconClick?: () => void
   /**
@@ -70,7 +71,8 @@ export const InputBase = ({
 }: InputBaseProps): JSX.Element => {
   const containerClass = classNames(`okp4-input-base-container`, {
     'with-icon': !!rightIcon,
-    error: hasError
+    error: hasError,
+    disabled
   })
   const inputClass = classNames(`okp4-input-base-main`, {
     error: hasError

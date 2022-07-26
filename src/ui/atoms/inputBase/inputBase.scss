@@ -5,6 +5,10 @@
     background: themed('field');
     padding: 18px;
 
+    &.disabled {
+      cursor: not-allowed;
+    }
+
     &.with-icon {
       display: flex;
       align-items: center;
@@ -28,6 +32,8 @@
       color: themed('text');
       background: themed('field');
       font-size: 20px;
+      text-overflow: ellipsis;
+      cursor: inherit;
 
       &::placeholder {
         color: themed('text');
