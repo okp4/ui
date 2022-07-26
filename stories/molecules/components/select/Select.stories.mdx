@@ -179,10 +179,28 @@ Here is an example of the 3 cases concerning the option lists:
   </Story>
 </Canvas>
 
+## Readonly
+
+The `Select` component can be readOnly by setting the `readOnly` property to `true`.  
+It is then impossible to change the value or to open the menu, but the value should still be submitted to its parent.
+
+<Canvas>
+  <Story name="Readonly">
+    <Select
+      defaultValue="I am read only"
+      options={[
+        { label: 'Apple', value: 'apple' },
+        { label: 'Ananas', value: 'ananas' }
+      ]}
+      readOnly
+    />
+  </Story>
+</Canvas>
+
 ## Disabled
 
 The `Select` component can be disabled by setting the `disabled` property to `true`.  
-It is then impossible to enter a value or to open the menu.
+It is then impossible to enter a value or to open the menu, and the value should not be submitted to its parent.
 
 <Canvas>
   <Story name="Disabled">

@@ -59,7 +59,7 @@ export type SelectProps = InputBaseProps & {
    */
   readonly multiple?: boolean
   /**
-   * The options list displayed when the select is opened
+   * The options list displayed when the select is opened.
    */
   readonly options: Readonly<Option[]>
   /**
@@ -68,7 +68,7 @@ export type SelectProps = InputBaseProps & {
    */
   readonly size?: 'x-large' | 'large' | 'medium' | 'small' | 'x-small'
   /**
-   * If true, the Select will take 100% of its parent's size
+   * If true, the select will take 100% of its parent's size.
    */
   readonly fullWidth?: boolean
   /**
@@ -76,11 +76,11 @@ export type SelectProps = InputBaseProps & {
    */
   readonly helperText?: string
   /**
-   * onChange callback wich allows the parent to manage the selected value(s)
+   * onChange callback wich allows the parent to manage the selected value(s).
    */
   readonly onValuesChange?: (value: string | Readonly<string[]>) => void
   /**
-   * Specific method to apply custom sort on the options list
+   * Specific method to apply custom sort on the options list.
    */
   readonly sortGroupsAndOptions?: (options: Readonly<Option[]>) => ResultMap
 }
@@ -99,7 +99,8 @@ export const Select = ({
   sortGroupsAndOptions,
   fullWidth,
   value,
-  helperText
+  helperText,
+  readOnly = false
 }: SelectProps): JSX.Element => {
   const selectId = short.generate()
 
@@ -148,7 +149,7 @@ export const Select = ({
 
   const menuIcon = (
     <Icon
-      className={classNames(menuOpened ? 'rotate-up' : 'rotate-down')}
+      className={classNames(menuOpened && !readOnly ? 'rotate-up' : 'rotate-down')}
       name="arrow-down"
       size={20}
     />
@@ -212,7 +213,8 @@ export const Select = ({
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
-        'full-width': fullWidth
+        'full-width': fullWidth,
+        disabled
       })}
       id={`okp4-select-container ${selectId}`}
     >
@@ -228,12 +230,12 @@ export const Select = ({
             disabled={disabled}
             inputRef={inputRef}
             placeholder={placeholder}
-            readOnly={true}
+            readOnly={readOnly}
             rightIcon={menuIcon}
             value={valueToDisplay}
           />
         </div>
-        {menuOpened && (
+        {menuOpened && !readOnly && (
           <div
             className={classNames('okp4-select-options-container', {
               error: hasError

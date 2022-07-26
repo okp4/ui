@@ -21,6 +21,11 @@ $sizes: (
       &.full-width {
         width: 100%;
       }
+
+      &.disabled {
+        opacity: 50%;
+        cursor: not-allowed;
+      }
     }
   }
 
@@ -41,10 +46,6 @@ $sizes: (
           border: 1px solid themed('error');
         }
 
-        .okp4-input-base-main {
-          text-overflow: ellipsis;
-          cursor: pointer;
-        }
         .rotate-up {
           transform: rotate(180deg);
           transition: transform 0.1s linear;
