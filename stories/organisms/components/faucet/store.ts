@@ -35,7 +35,7 @@ const taskStoreParameter: StoreParameter = [TaskContext, taskStore]
 
 // Wallet
 const walletRegistryGateway = new WalletRegistryGateway()
-const keplrGateway = new KeplrWalletGateway(env.kepkrChainInfo)
+const keplrGateway = new KeplrWalletGateway(env.keplrChainInfo)
 walletRegistryGateway.register(keplrGateway)
 const walletStore = new WalletStoreBuilder()
   .withEventBus(eventBusInstance)
