@@ -1,5 +1,4 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { Faucet } from 'ui/organisms/faucet/Faucet'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
@@ -54,7 +53,6 @@ For the OKP4 testnets, the Faucet service is configured to send 1 KNOW per reque
 <Story
   name="Overview"
   args={{ chainId: env.chainId }}
-  parameters={{ docs: { source: { type: 'code', language: 'jsx', format: true } } }}
 >
   {args => {
     const { theme } = useTheme()
