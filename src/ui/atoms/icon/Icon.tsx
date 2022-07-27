@@ -14,6 +14,7 @@ export type IconName =
   | 'chat'
   | 'check'
   | 'clock'
+  | 'close'
   | 'cross'
   | 'facebook'
   | 'linkedin'
