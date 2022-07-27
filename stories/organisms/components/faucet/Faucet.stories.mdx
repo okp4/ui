@@ -1,0 +1,199 @@
+import { ArgsTable, Meta, Source, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { Faucet } from 'ui/organisms/faucet/Faucet'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { StoreProvider } from 'ui/providers/storeProvider'
+import cosmosDark from 'assets/images/cosmos-dark.png'
+import cosmosLight from 'assets/images/cosmos-clear.png'
+import { useTheme } from 'hook/useTheme'
+import { default as storeParameters } from './store'
+import * as env from './env.json'
+
+<Meta
+  title="Organisms/Faucet"
+  component={Faucet}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <StoreProvider storeParameters={storeParameters}>
+          <div className="component-story-main faucet">
+            <ThemeSwitcher />
+            <Story />
+          </div>
+        </StoreProvider>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# OKP4 Faucet
+
+> Allows anyone to request tokens for a [Cosmos](https://cosmos.network/) account address (on testnets).
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+The `Faucet` is a complete organism that brings to the user an interface allowing him to request tokens (issued on a testnet) sent to a Cosmos address - entered directly or retrieved from the Keplr wallet.
+
+The organism embeds all the business logic, including the connection to the Keplr wallet and the management of request for tokens sent to the [Faucet service](https://github.com/okp4/cosmos-faucet).
+
+For the OKP4 testnets, the Faucet service is configured to send 1 KNOW per request, with a maximum of 1 request each 5 seconds. To get some KNOWs, you just need to enter your OKP4 address or connect via [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the OKP4 wallet!
+
+## Overview
+
+<Story
+  name="Overview"
+  args={{ chainId: env.chainId }}
+>
+  {args => {
+    const { theme } = useTheme()
+    console.log(JSON.prettyenv)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignSelf: 'center',
+          minHeight: '500px',
+          backgroundImage: `url(${theme === 'dark' ? cosmosDark : cosmosLight})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <Faucet {...args} />
+      </div>
+    )
+  }}
+</Story>
+
+## Usage
+
+To configure the organism, the [@okp4/ui](https://www.npmjs.com/package/@okp4/ui) library provides all the necessary elements. You will just have to follow these 3 steps:
+
+### 1. Create a `config.json` file that declares the COSMOS blockchain configuration
+
+This file contains all the information the organism needs to configure itself:
+- the identifier of the COSMOS blockchain (aka the `chainId`).
+- the URL of the [Faucet service](https://github.com/okp4/cosmos-faucet) endpoint on the backend. This service supports any Cosmos based blockchain and is available for the OKP4 testnets networks.
+- the complete description of the blockchain for the registration on Keplr. This is required to request adding new Cosmos-SDK based blockchains that isn't natively integrated to Keplr extension.
+
+The following `config.json` file is a configuration example for connecting to the `okp4-devnet-1` network.
+
+**`config.json`**
+
+<Source code={JSON.stringify(env, null, 2)} language='json'/>
+
+### 2. Instanciate redux stores to init the component
+
+To work, the component uses [redux](https://redux.js.org/) as a state manager and an `eventBus` instance to facilitate communication between the business domains.  
+
+To do this, all you have to do is declare the store parameters in a `store.ts` file to be able to import them later into a `Provider` component that will take care of injecting them into the React context.
+
+**`store.ts`**
+
+```ts
+import { List } from 'immutable'
+import {
+  createEventBusInstance,
+  HTTPFaucetGateway,
+  ErrorStoreBuilder,
+  FaucetStoreBuilder,
+  FaucetContext,
+  ErrorContext,
+  KeplrWalletGateway,
+  TaskContext,
+  TaskStoreBuilder,
+  WalletContext,
+  WalletRegistryGateway,
+  WalletStoreBuilder
+} from '@okp4/ui'
+import type { StoreParameter } from '@okp4/ui'
+import * as config from './config.json'
+
+/** Init an eventBus instance
+ * Needed to enable communication and reactivity beetwen business domains
+ */
+const eventBusInstance = createEventBusInstance()
+
+/** Init Faucet Gateway & redux store
+ * The heart of Faucet behaviour
+ */
+const faucetGateway = new HTTPFaucetGateway(config.faucetUrl)
+const faucetStore = new FaucetStoreBuilder()
+  .withEventBus(eventBusInstance)
+  .withDependencies({ faucetGateway })
+  .build()
+const faucetStoreParameter: StoreParameter = [FaucetContext, faucetStore]
+
+/** Init Error redux store
+ * Needed to handle errors thrown by other domains
+ */
+const errorStore = new ErrorStoreBuilder().withEventBus(eventBusInstance).build()
+const errorStoreParameter: StoreParameter = [ErrorContext, errorStore]
+
+/** Init Task redux store
+ * Needed to handle asynchronous tasks fired by other domains
+ */
+const taskStore = new TaskStoreBuilder().withEventBus(eventBusInstance).build()
+const taskStoreParameter: StoreParameter = [TaskContext, taskStore]
+
+/** Init Wallet Gateway & redux store
+ * Needed to handle Keplr wallet
+ */
+const walletRegistryGateway = new WalletRegistryGateway()
+const keplrGateway = new KeplrWalletGateway(config.kepkrChainInfo)
+walletRegistryGateway.register(keplrGateway)
+const walletStore = new WalletStoreBuilder()
+  .withEventBus(eventBusInstance)
+  .withDependencies({ walletRegistryGateway })
+  .build()
+const walletStoreParameter: StoreParameter = [WalletContext, walletStore]
+
+/** Export store parameters as following: [StoreContext, StoreInstance]
+ * Will be auto-injected in React context through <StoreProvider> props
+ */
+export default List([
+  faucetStoreParameter,
+  errorStoreParameter,
+  walletStoreParameter,
+  taskStoreParameter
+])
+```
+
+### 3. Wrap the `Faucet` component into a store provider
+
+Finally, it is necessary to wrap the `Faucet` component in a `StoreProvider` which will auto-inject into the React context the configuration elements necessary for its proper functioning.
+
+This `StoreProvider` component is directly provided by the `@okp4/ui` library, you simply have to pass it the parameters exported by the `store.ts` file as properties.
+
+**`app.tsx`**
+
+```tsx
+import React from 'react'
+import { Faucet, StoreProvider } from '@okp4/ui'
+import * as storeParameters from './store'
+import * as config from './config.json'
+
+export const App: React.FC = () => (
+  <StoreProvider storeParameters={storeParameters}>
+    <Faucet chainId={config.chainId} />
+  </StoreProvider>
+)
+```
+
+And, that's it!
+You have to create or import an account within Keplr extension and everything else is handled by the component itself 🚀
+
+## Notes
+
+- Keep in mind that the Faucet is intended to be used on `testnet` environments.
+- The Keplr extension is only available for now in Chrome browser, watch out for other extensions with the same name but which are scams trying to access your mnemonics...
+- This tool is an opensource project offered to the community, feel free to visit the official [Faucet](https://github.com/okp4/faucet-web) GitHub for a more polished example and contribute if you have any feature ideas or a bug to fix!
