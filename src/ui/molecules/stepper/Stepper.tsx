@@ -66,6 +66,10 @@ export type StepperProps = {
    * Callback method called when clicking on the reset button after the last step
    */
   readonly onReset?: () => void
+  /**
+   * The content displayed after submission
+   */
+  readonly successContent?: JSX.Element
 }
 
 /**
@@ -79,6 +83,7 @@ export const Stepper: React.FC<StepperProps> = ({
   onNext,
   onSubmit,
   onReset,
+  successContent
 }: DeepReadonly<StepperProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
 
@@ -247,7 +252,9 @@ export const Stepper: React.FC<StepperProps> = ({
           error: state.stepsStatuses.get(state.activeStepIndex) === 'error'
         })}
       >
-        {steps[state.activeStepIndex]?.content}
+        {state.activeStepIndex === steps.length
+          ? successContent
+          : steps[state.activeStepIndex]?.content}
       </div>
       <div className="okp4-stepper-buttons">
         <div>
