@@ -53,7 +53,7 @@ that will help users to find the action they're looking for.
   }}
   args={{
     label: 'Connect wallet',
-    icon: <Icon name="wallet" />
+    icon: <Icon name="wallet" size={22} />
   }}
 >
   {args => (
@@ -103,7 +103,7 @@ The `Button` component is available in two style versions:
           variant="icon"
           label="Icon"
           size="medium"
-          icon={<Icon name="wallet" />}
+          icon={<Icon name="wallet" size={22} />}
         />
       </div>
     )}
@@ -210,12 +210,13 @@ The content can be customized to fit users needs through its properties `label`,
           flexWrap: 'wrap'
         }}
       >
-        <Button icon={<Icon name="wallet" />} label="wallet" variant="icon" />
-        <Button leftIcon={<Icon name="wallet" />} label="Get wallet address" />
+        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
+        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
+        <Button leftIcon={<Icon name="wallet" size={22} />} label="Get wallet address" />
         <Button
           label="Add wallet"
-          leftIcon={<Icon name="wallet" />}
-          rightIcon={<Icon name="add" />}
+          leftIcon={<Icon name="wallet" size={22} />}
+          rightIcon={<Icon name="add" size={22} />}
         />
       </div>
     )}
