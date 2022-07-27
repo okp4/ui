@@ -64,8 +64,7 @@ export const Button: React.FC<TButtonProps> = ({
       [`variant-${variant}`]: true,
       [`size-${size}`]: true,
       [`background-color-${backgroundColor}`]: true,
-      disabled,
-      icon: variant === 'icon'
+      disabled
     })}
     disabled={disabled}
     onClick={onClick}
@@ -75,7 +74,7 @@ export const Button: React.FC<TButtonProps> = ({
     {variant === 'icon' ? (
       icon
     ) : (
-      <div className="okp4-button-label">
+      <div className="okp4-button-content">
         {leftIcon}
         <Typography as="div" color="highlighted-text" fontSize="small" fontWeight="light">
           {label}
