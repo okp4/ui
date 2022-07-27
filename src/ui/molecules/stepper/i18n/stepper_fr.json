@@ -3,7 +3,8 @@
     "button": {
       "previous": "Précédent",
       "next": "Suivant",
-      "submit": "Soumettre"
+      "submit": "Soumettre",
+      "reset": "Réinitialiser"
     }
   }
 }

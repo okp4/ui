@@ -3,7 +3,8 @@
     "button": {
       "previous": "Previous",
       "next": "Next",
-      "submit": "Submit"
+      "submit": "Submit",
+      "reset": "Reset"
     }
   }
 }
