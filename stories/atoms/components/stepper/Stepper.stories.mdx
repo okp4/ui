@@ -40,7 +40,9 @@ import { useState } from 'react'
 
 ## Description
 
-The `Stepper` component allows a user to provide `Steps` which are composed of `JSX.Element` and which then allows him to navigate between these steps.
+The `Stepper` allows a user to follow a progression through different ordered steps.<br />
+Each step can be validated to move on to the next step. The last step also provides the possibility to perform an additional action upon validation. Once all steps are completed, the user can reset the stepper.<br />
+It is then up to the user to define the height of the stepper as well as the content styles of each step. The content of the stepper is scrollable.
 
 ## Overview
 
@@ -82,6 +84,8 @@ The `Stepper` component allows a user to provide `Steps` which are composed of `
 >
   {args => {
     const [submitted, setSubmitted] = useState(false)
+    const handleSubmit = () => setSubmitted(true)
+    const handleOpenChange = () => setSubmitted(false)
     return (
       <div
         style={{
@@ -92,10 +96,10 @@ The `Stepper` component allows a user to provide `Steps` which are composed of `
           gap: '25px'
         }}
       >
-        <Stepper {...args} onSubmit={() => setSubmitted(true)} />
+        <Stepper {...args} onSubmit={handleSubmit} />
         <Toast
           isOpened={submitted}
-          onOpenChange={() => setSubmitted(false)}
+          onOpenChange={handleOpenChange}
           title="Submit button clicked !"
           severityLevel="success"
         />
@@ -110,7 +114,7 @@ The `Stepper` component allows a user to provide `Steps` which are composed of `
 
 ## Step
 
-The `Stepper` component comes with a list of `Step`. A `Step` must respect the following type :
+The `Stepper` comes with a list of `Step`. A `Step` must respect the following type :
 
 ```ts
 type Step = {
@@ -298,26 +302,15 @@ The `content` of the step can be any `JSX.Element`.
                   justifyContent: 'center'
                 }}
               >
-                <video
+                <img
                   style={{
                     padding: '15px',
                     height: '170px'
                   }}
-                  autoplay=""
-                  playsinline=""
-                  muted=""
-                  loop=""
-                >
-                  <source
-                    src="https://okp4.network/wp-content/themes/okp4/img/isometric-okp42.mp4"
-                    type="video/mp4"
-                  />
-                  <source
-                    src="https://okp4.network/wp-content/themes/okp4/img/isometric-okp42.mp4"
-                    type="video/ogg"
-                  />
-                  Your browser does not support the video tag.
-                </video>
+                  src="https://okp4.network/wp-content/themes/okp4/img/compatibility.png"
+                  data-lazy-src="https://okp4.network/wp-content/themes/okp4/img/compatibility.png"
+                  data-ll-status="loaded"
+                />
               </div>
             </div>
           )
@@ -507,13 +500,18 @@ The method `onValidate` is provided to validate the step before going to the nex
     {() => {
       const [isStepError, setStepError] = useState(false)
       const [isStepCompleted, setStepCompleted] = useState(false)
+      const handleValidateTypeOfDough = () => {
+        setStepCompleted(true)
+        return true
+      }
+      const handleValidateExtraIngredients = () => {
+        setStepError(true)
+        return false
+      }
       const steps = [
         {
           label: 'Type of dough',
-          onValidate: () => {
-            setStepCompleted(true)
-            return true
-          },
+          onValidate: handleValidateTypeOfDough,
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
               This step is always valid because `onValidate` method returns `true`.
@@ -522,10 +520,7 @@ The method `onValidate` is provided to validate the step before going to the nex
         },
         {
           label: 'Extra ingredients',
-          onValidate: () => {
-            setStepError(true)
-            return false
-          },
+          onValidate: handleValidateExtraIngredients,
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
               This step is never valid because `onValidate` method returns `false`.
@@ -845,7 +840,7 @@ Tsx usage:
 
 ## Callback methods `onNext` and `onSubmit`
 
-The `Stepper` component provide the `onNext` and `onSubmit` properties.<br />
+The `Stepper` provides the `onNext` and `onSubmit` properties.<br />
 The callback method `onNext` is called when clicking on the _Next_ button.<br />
 The callback method `onSubmit` is called when clicking on the _Submit_ button in the last step.
 
