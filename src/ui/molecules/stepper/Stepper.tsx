@@ -10,6 +10,7 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { List } from 'immutable'
 import type { Breakpoints } from 'hook/useBreakpoint'
 import { useBreakpoint } from 'hook/useBreakpoint'
+import { Icon } from 'ui/atoms/icon/Icon'
 
 type StepperState = {
   enabledSteps: List<StepIndex>
@@ -283,20 +284,22 @@ export const Stepper: React.FC<StepperProps> = ({
         <div>
           {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
             <Button
+              icon={<Icon name="previous" />}
               label={t('stepper:step.button.previous')}
               onClick={handlePreviousClick}
               size="small"
-              variant="secondary"
+              variant="icon"
             />
           )}
         </div>
         <div>
           {state.activeStepIndex < steps.length - 1 && (
             <Button
+              icon={<Icon name="next" />}
               label={t('stepper:step.button.next')}
               onClick={handleNextClick}
               size="small"
-              variant="secondary"
+              variant="icon"
             />
           )}
           {state.activeStepIndex === steps.length - 1 && (
