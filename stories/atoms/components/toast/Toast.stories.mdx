@@ -52,7 +52,8 @@ Several severity levels make it possible to fully configure the type of message 
     title: 'Transaction',
     description: 'Your data space has been successfully created!',
     severityLevel: 'success',
-    isOpened: false
+    isOpened: false,
+    preventAutoClose: false
   }}
 >
   {args => {
@@ -77,6 +78,7 @@ Several severity levels make it possible to fully configure the type of message 
           title={args.title}
           severityLevel={args.severityLevel}
           autoDuration={args.autoDuration}
+          preventAutoClose={args.preventAutoClose}
         />
       </div>
     )
@@ -179,7 +181,9 @@ The `Toast` component can be configured with multiple severity levels that follo
 
 ## Duration
 
-The `Toast` component comes with an `autoDuration` property that is the time in milliseconds that should elapse before automatically closing the toast.
+The `Toast` component comes with an `autoDuration` property that is the time in milliseconds that should
+elapse before automatically closing the toast.  
+`preventAutoClose` will override `autoDuration` and keep the `toast` open if set, as well as provide a close button.
 
 <Canvas>
   <Story name="Duration">
@@ -225,6 +229,21 @@ The `Toast` component comes with an `autoDuration` property that is the time in 
               title="Long auto-duration"
               severityLevel="success"
               autoDuration={7000}
+            />
+          </div>
+          <div>
+            <Button
+              label="Prevent automatic close"
+              onClick={handleState('prevent close', true)}
+              backgroundColor="secondary"
+            />
+            <Toast
+              description="Click the button or drag to close"
+              isOpened={Object.values(state).includes('prevent close') ? state['isOpened'] : false}
+              onOpenChange={handleState('prevent close', false)}
+              title="No auto close"
+              severityLevel="success"
+              preventAutoClose
             />
           </div>
         </div>
@@ -297,8 +316,8 @@ These two elements are optional and are not inter-related.
           <div>
             <Button
               label="JSX element description"
-              onClick={handleState('cool', true)}
-              backgroundColor="primary"
+              onClick={handleState('bot anik', true)}
+              backgroundColor="secondary"
             />
             <Toast
               title="Bot Anik"
@@ -323,9 +342,10 @@ These two elements are optional and are not inter-related.
                   </div>
                 </div>
               }
-              isOpened={Object.values(state).includes('cool') ? state['isOpened'] : false}
-              onOpenChange={handleState('cool', false)}
+              isOpened={Object.values(state).includes('bot anik') ? state['isOpened'] : false}
+              onOpenChange={handleState('bot anik', false)}
               severityLevel="success"
+              preventAutoClose
             />
           </div>
         </div>
