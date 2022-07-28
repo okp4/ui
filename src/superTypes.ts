@@ -25,8 +25,12 @@ export type Pair<U, V> = [U, V]
 
 export type UseState<U> = [U, (value: U) => void]
 
-// V type is already readonly
-// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-export type Reducer<U, V extends string> = [U, (action: DeepReadonly<{ type: V }>) => void]
+export type UseReducerAction<U extends string, V> = { type: U; payload?: V }
+
+export type UseReducer<T, U extends string, V> = [
+  T,
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  (action: DeepReadonly<UseReducerAction<U, V>>) => void
+]
 
 export type Callback<U, V> = (value: U) => V
