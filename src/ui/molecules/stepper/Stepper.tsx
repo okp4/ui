@@ -99,6 +99,28 @@ const initState = (steps: DeepReadonly<Step[]>): StepperState => {
 }
 
 /**
+ * Returns the reset state of the stepper.
+ *
+ * @param steps the steps of the stepper.
+ * @returns the reset state of the stepper.
+ */
+const resetState = (steps: DeepReadonly<Step[]>): StepperState => {
+  return {
+    enabledSteps: List(
+      steps.reduce((acc: DeepReadonly<StepIndex[]>, curr: DeepReadonly<Step>, index: number) => {
+        return curr.status !== 'disabled' ? [...acc, index] : acc
+      }, [])
+    ),
+    stepsStatuses: List(
+      steps.map<StepStatus>((step: DeepReadonly<Step>) =>
+        step.status === 'disabled' ? 'disabled' : 'uncompleted'
+      )
+    ).set(0, 'active'),
+    activeStepIndex: 0
+  }
+}
+
+/**
  * @param state the state of the stepper.
  * @param action the dispatch action of the reducer.
  * @returns the new state of the stepper.
@@ -143,7 +165,7 @@ const stepperReducer = (
       }
     case 'reset':
       if (action.payload) {
-        return initState(action.payload)
+        return resetState(action.payload)
       }
       return state
     default:
