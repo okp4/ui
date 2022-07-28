@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import type { EngineOptions } from '@babylonjs/core'
 import { Engine } from '@babylonjs/core'
 import { Canvas } from 'ui/atoms/canvas/Canvas'
-import type { Callback, DeepReadonly, StateHook } from 'superTypes'
+import type { Callback, DeepReadonly, UseState } from 'superTypes'
 
 export type EngineCreatedCallback<STATE> = Callback<Engine, STATE>
 export type RenderCallback<STATE> = Callback<STATE, STATE>
@@ -68,9 +68,9 @@ export const BabylonEngine = <STATE,>({
   onRender,
   ...props
 }: DeepReadonly<BabylonEngineProps<STATE>>): JSX.Element => {
-  const [canvas, setCanvas]: StateHook<HTMLCanvasElement | null> =
+  const [canvas, setCanvas]: UseState<HTMLCanvasElement | null> =
     useState<HTMLCanvasElement | null>(null)
-  const [engine, setEngine]: StateHook<Engine | null> = useState<Engine | null>(null)
+  const [engine, setEngine]: UseState<Engine | null> = useState<Engine | null>(null)
   const stateRef = useRef<STATE | null>(null)
 
   useEffect(() => {
