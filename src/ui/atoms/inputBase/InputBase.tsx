@@ -40,21 +40,13 @@ export type InputBaseProps = {
    */
   readonly rightIcon?: JSX.Element
   /**
-   * Defines the callback called when the right icon is clicked.
-   */
-  readonly onIconClick?: () => void
-  /**
    * If true, input becomes immutable
    */
   readonly readOnly?: boolean
 }
 
-const ShowRightIcon = (icon: JSX.Element, onIconClick?: () => void): JSX.Element => {
-  return (
-    <div className="okp4-input-right-icon" onClick={onIconClick}>
-      {icon}
-    </div>
-  )
+const ShowRightIcon = (icon: JSX.Element): JSX.Element => {
+  return <div className="okp4-input-right-icon">{icon}</div>
 }
 
 export const InputBase = ({
@@ -63,7 +55,6 @@ export const InputBase = ({
   hasError = false,
   inputRef,
   onChange,
-  onIconClick,
   placeholder,
   rightIcon,
   value,
@@ -90,7 +81,7 @@ export const InputBase = ({
         ref={inputRef}
         value={value}
       />
-      {rightIcon && ShowRightIcon(rightIcon, onIconClick)}
+      {rightIcon && ShowRightIcon(rightIcon)}
     </div>
   )
 }
