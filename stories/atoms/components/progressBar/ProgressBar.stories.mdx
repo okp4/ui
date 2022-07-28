@@ -1,5 +1,6 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
 import { ProgressBar } from 'ui/atoms/progressBar/ProgressBar'
+import { Icon } from 'ui/atoms/icon/Icon'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { useState } from 'react'
@@ -202,5 +203,43 @@ By default, the current value is not formatted and the progress value is display
         </div>
       )
     }}
+  </Story>
+</Canvas>
+
+## Icon
+
+The `icon` property allows you to display an icon (or any `JSX.Element`) at the right of the progress bar.  
+Icons can be provided to give more visual information such as a hourglass during the progress time or a cross if the progress is interupted or a check when the progress is completed.
+
+<Canvas>
+  <Story name="Icon">
+    <div
+      style={{
+        display: 'grid',
+        width: '95%',
+        gap: '25px'
+      }}
+    >
+      <ProgressBar
+        label="Read pages"
+        minValue={0}
+        maxValue={20}
+        currentValue={12}
+        icon={<Icon name="clock" />}
+      />
+      <ProgressBar
+        label="An error occured"
+        minValue={0}
+        maxValue={15}
+        icon={<Icon name="cross" />}
+      />
+      <ProgressBar
+        label="Lesson completed!"
+        minValue={0}
+        maxValue={20}
+        currentValue={20}
+        icon={<Icon name="check" />}
+      />
+    </div>
   </Story>
 </Canvas>
