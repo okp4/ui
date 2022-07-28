@@ -4,6 +4,7 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import './toast.scss'
 import type { DeepReadonly } from 'superTypes'
 import { isString } from 'utils'
+import { Icon } from 'ui/atoms/icon/Icon'
 
 type ToastProps = Readonly<{
   /**
@@ -30,27 +31,43 @@ type ToastProps = Readonly<{
    * Event handler called when the open state of the dialog changes.
    */
   readonly onOpenChange?: (isOpened: boolean) => void
+  /**
+   * Prevents the toast from closing automatically.
+   */
+  readonly preventAutoClose?: boolean
 }>
 
+// eslint-disable-next-line max-lines-per-function
 export const Toast: React.FC<ToastProps> = ({
-  isOpened,
+  isOpened = false,
   autoDuration = 3000,
   severityLevel,
   title,
   description,
-  onOpenChange
+  onOpenChange,
+  preventAutoClose = false
 }: DeepReadonly<ToastProps>) => {
+  const closeButton = (
+    <ToastPrimitive.Close className="okp4-toast-close">
+      <div className="okp4-toast-container-close">
+        <Icon name="close" size={20} />
+      </div>
+    </ToastPrimitive.Close>
+  )
+  const closeButtonMask = <div className="okp4-toast-float"></div>
+
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
         className={`okp4-toast-root ${severityLevel}`}
         defaultOpen={false}
-        duration={autoDuration}
+        duration={preventAutoClose ? Infinity : autoDuration}
         onOpenChange={onOpenChange}
         open={isOpened}
       >
+        {preventAutoClose && closeButton}
         {title && (
-          <ToastPrimitive.Title asChild className="okp4-toast-title">
+          <ToastPrimitive.Title asChild>
             <Typography
               as="span"
               color="highlighted-text"
@@ -58,14 +75,16 @@ export const Toast: React.FC<ToastProps> = ({
               fontWeight="bold"
               noWrap
             >
+              {preventAutoClose && closeButtonMask}
               {title}
             </Typography>
           </ToastPrimitive.Title>
         )}
         {description && (
-          <ToastPrimitive.Description asChild className="okp4-toast-description">
+          <ToastPrimitive.Description asChild>
             {isString(description) ? (
               <Typography as="span" color="highlighted-text" fontSize="small" fontWeight="light">
+                {preventAutoClose && !title && closeButtonMask}
                 {description}
               </Typography>
             ) : (
