@@ -51,7 +51,8 @@ It is then up to the user to define the height of the stepper as well as the con
   argTypes={{
     steps: { control: false },
     onNext: { control: false },
-    onSubmit: { control: false }
+    onSubmit: { control: false },
+    onReset: { control: false },
   }}
   args={{
     steps: [
@@ -630,7 +631,7 @@ Users can provide a label for the submit button with the `submitButtonLabel` pro
 By default the label is provided by the defaults translation files (see the Internationalization section).
 
 <Canvas>
-  <Story name="Submit button label">
+  <Story name="Buttons label">
     {() => {
       const steps = [
         {
@@ -798,7 +799,7 @@ By default the label is provided by the defaults translation files (see the Inte
             height: '450px'
           }}
         >
-          <Stepper steps={steps} active={3} submitButtonLabel="End of reading" />
+          <Stepper steps={steps} submitButtonLabel="End of reading" resetButtonLabel="Read again" />
         </div>
       )
     }}
@@ -819,7 +820,8 @@ Here are the keys and their english translations:
     "button": {
       "previous": "Previous",
       "next": "Next",
-      "submit": "Submit"
+      "submit": "Submit",
+      "reset": "Reset"
     }
   }
 }
@@ -838,17 +840,21 @@ Tsx usage:
 <p>{t('stepper:step.button.next')}</p>
 ```
 
-## Callback methods `onNext` and `onSubmit`
+## Callback methods `onNext`, `onSubmit` and `onReset`
 
 The `Stepper` provides the `onNext` and `onSubmit` properties.<br />
 The callback method `onNext` is called when clicking on the _Next_ button.<br />
 The callback method `onSubmit` is called when clicking on the _Submit_ button in the last step.
 
 <Canvas>
-  <Story name="onNext and onSubmit">
+  <Story name="Callback methods">
     {() => {
-      const [isNextOpened, setIsNextOpened] = useState(false)
-      const [isSubmitOpened, setIsSubmitOpened] = useState(false)
+      const [isNextOpened, setNextOpened] = useState(false)
+      const [isSubmitOpened, setSubmitOpened] = useState(false)
+      const [isResetOpened, setResetOpened] = useState(false)
+      const handleNextOpened = bool => () => setNextOpened(bool)
+      const handleSubmitOpened = bool => () => setSubmitOpened(bool)
+      const handleResetOpened = bool => () => setResetOpened(bool)
       const steps = [
         {
           label: 'ØKP4 Protocol'
@@ -875,21 +881,29 @@ The callback method `onSubmit` is called when clicking on the _Submit_ button in
         >
           <Stepper
             steps={steps}
-            onNext={() => setIsNextOpened(true)}
-            onSubmit={() => setIsSubmitOpened(true)}
+            onNext={handleNextOpened(true)}
+            onSubmit={handleSubmitOpened(true)}
+            onReset={handleResetOpened(true)}
           />
           <Toast
             description="You clicked on Next button"
             isOpened={isNextOpened}
-            onOpenChange={() => setIsNextOpened(false)}
+            onOpenChange={handleNextOpened(false)}
             title="onNext"
             severityLevel="success"
           />
           <Toast
             description="You clicked on Submit button"
             isOpened={isSubmitOpened}
-            onOpenChange={() => setIsSubmitOpened(false)}
+            onOpenChange={handleSubmitOpened(false)}
             title="onSubmit"
+            severityLevel="success"
+          />
+          <Toast
+            description="You clicked on Reset button"
+            isOpened={isResetOpened}
+            onOpenChange={handleResetOpened(false)}
+            title="onReset"
             severityLevel="success"
           />
         </div>
