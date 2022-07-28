@@ -33,6 +33,7 @@ $background-colors: ('success', 'error', 'warning', 'info');
       padding: 15px;
       display: grid;
       row-gap: 3px;
+      position: relative;
 
       &[data-state='open'] {
         animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -54,10 +55,26 @@ $background-colors: ('success', 'error', 'warning', 'info');
       &[data-swipe='end'] {
         animation: swipeOut 100ms ease-out forwards;
       }
-    }
 
-    .okp4-toast-description {
-      word-break: break-word;
+      .okp4-toast-close {
+        all: unset;
+        cursor: pointer;
+        position: absolute;
+        justify-self: end;
+
+        .okp4-toast-container-close {
+          display: grid;
+          align-items: end;
+          width: 25px;
+          height: 25px;
+        }
+      }
+
+      .okp4-toast-float {
+        float: right;
+        width: 10px;
+        height: 1px;
+      }
     }
   }
 }
