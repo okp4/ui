@@ -2,6 +2,7 @@ import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon
 import { Button } from 'ui/atoms/button/Button'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Icon } from 'ui/atoms/icon/Icon'
 
 <Meta
   title="Atoms/Button"
@@ -36,35 +37,38 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 
 ### Description
 
-Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find the most important actions throughout UI and enables them to
-perform these actions.
-
-The `label` is used to clearly indicate to the user what action will be triggered. Buttons allow users to commit a change, complete steps in a task, or make choices.
+Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find
+the most important actions throughout UI and enables them to perform these actions.  
+By using one or more of the **content** properties it's possible to create appealing and intuitive buttons
+that will help users to find the action they're looking for.
 
 ---
 
-<Canvas>
-  <Story
-    name="Overview"
-    argTypes={{}}
-    args={{
-      label: 'Connect wallet'
-    }}
-  >
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '25px'
-        }}
-      >
-        <Button {...args} />
-      </div>
-    )}
-  </Story>
-</Canvas>
+<Story
+  name="Overview"
+  argTypes={{
+    icon: { control: false, table: { type: { summary: 'JSX.Element' } } },
+    leftIcon: { control: false, table: { type: { summary: 'JSX.Element' } } },
+    rightIcon: { control: false, table: { type: { summary: 'JSX.Element' } } }
+  }}
+  args={{
+    label: 'Connect wallet',
+    icon: <Icon name="wallet" size={22} />
+  }}
+>
+  {args => (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '25px'
+      }}
+    >
+      <Button {...args} />
+    </div>
+  )}
+</Story>
 
 ---
 
@@ -78,6 +82,7 @@ The `Button` component is available in two style versions:
 
 - **Primary**: a rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
 - **Secondary**: a rounded version, softer, allowing to adapt in particular to smaller screens.
+- **Icon**: sets the button to be an icon button, requires users to supply an `icon` property.
 
 <Canvas>
   <Story name="Variants">
@@ -93,6 +98,13 @@ The `Button` component is available in two style versions:
       >
         <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
         <Button backgroundColor="primary" variant="secondary" label="Secondary" size="medium" />
+        <Button
+          backgroundColor="primary"
+          variant="icon"
+          label="Icon"
+          size="medium"
+          icon={<Icon name="wallet" size={22} />}
+        />
       </div>
     )}
   </Story>
@@ -155,7 +167,7 @@ The background color of the `Button` component is declined according to the sele
 
 ## Disabled
 
-The `Button` component can be disabled at any time, thus preventing any user interaction.
+The `Button` can be disabled at any time, thus preventing any user interaction.
 
 <Canvas>
   <Story name="Disabled">
@@ -170,6 +182,42 @@ The `Button` component can be disabled at any time, thus preventing any user int
         }}
       >
         <Button disabled variant="primary" label="I'm disabled" size="medium" />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Content
+
+The content can be customized to fit users needs through its properties `label`, `icon`,
+`leftIcon` and `rightIcon`.
+
+- `label` is the only obligatory property and is used to clearly indicate what action will be triggered, through the
+  tooltip and text.
+- `icon` sets the icon for the **variant** 'icon'.
+- `leftIcon` and `rightIcon` are auxilliary elements giving great freedom to embellish the button
+  together with the label.
+
+<Canvas>
+  <Story name="Content">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px',
+          flexWrap: 'wrap'
+        }}
+      >
+        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
+        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
+        <Button leftIcon={<Icon name="wallet" size={22} />} label="Get wallet address" />
+        <Button
+          label="Add wallet"
+          leftIcon={<Icon name="wallet" size={22} />}
+          rightIcon={<Icon name="add" size={22} />}
+        />
       </div>
     )}
   </Story>

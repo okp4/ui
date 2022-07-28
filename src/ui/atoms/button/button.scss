@@ -12,19 +12,15 @@ $background-colors: (
 .okp4-button-main {
   @include with-theme {
     cursor: pointer;
-    text-decoration: unset;
     border: unset;
     min-height: 40px;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+
     min-width: 65px;
     max-width: 273px;
     overflow: hidden;
 
     &.variant-secondary {
-      border-radius: 50px;
+      border-radius: 24px;
     }
 
     @each $background-color-key, $background-color-value in $background-colors {
@@ -40,14 +36,41 @@ $background-colors: (
 
     &.size-small {
       padding: 4px 10px;
+
+      &.variant-icon {
+        padding: 8px;
+      }
     }
 
     &.size-medium {
       padding: 6px 16px;
+
+      &.variant-icon {
+        padding: 12px;
+      }
     }
 
     &.size-large {
       padding: 8px 22px;
+
+      &.variant-icon {
+        padding: 16px;
+      }
+    }
+
+    &.variant-icon {
+      min-height: unset;
+      min-width: unset;
+      max-width: unset;
+      font-size: 0;
+      border-radius: 50%;
+    }
+
+    .okp4-button-content {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 25px;
+      align-items: center;
     }
   }
 }
