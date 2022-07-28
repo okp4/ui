@@ -53,6 +53,12 @@ It is then up to the user to define the height of the stepper as well as the con
     onNext: { control: false },
     onSubmit: { control: false },
     onReset: { control: false },
+    successContent: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    }
   }}
   args={{
     steps: [
@@ -792,6 +798,67 @@ Tsx usage:
 ```tsx
 <p>{t('stepper:step.button.next')}</p>
 ```
+
+## Success content
+
+The `successContent` property is used to provide a `JSX.Element` content that is displayed at the end when the last step is completed.
+
+<Canvas>
+  <Story name="Success content">
+    {() => {
+      const steps = [
+        {
+          label: 'ØKP4 Protocol',
+          status: 'completed'
+        },
+        {
+          label: 'News & Docs',
+          status: 'completed'
+        },
+        {
+          label: 'Røadmap',
+          status: 'completed'
+        },
+        {
+          label: 'Team',
+          status: 'active',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Meet the team on <a href="https://okp4.network/#team">ØKP4</a> web site.
+            </Typography>
+          )
+        }
+      ]
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '25px',
+            height: '200px'
+          }}
+        >
+          <Stepper
+            steps={steps}
+            submitButtonLabel="Finish reading"
+            resetButtonLabel="Read again"
+            successContent={
+              <div>
+                <Typography as="div" fontFamily="brand" fontWeight="light" color="success">
+                  You're done reading everything !
+                </Typography>
+                <Typography as="div" fontFamily="brand" fontWeight="light">
+                  Do you want to read again ?
+                </Typography>
+              </div>
+            }
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
 
 ## Callback methods `onNext`, `onSubmit` and `onReset`
 
