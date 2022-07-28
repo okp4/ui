@@ -120,7 +120,7 @@ The `Stepper` comes with a list of `Step`. A `Step` must respect the following t
 ```ts
 type Step = {
   readonly label: string
-  readonly status?: 'disabled' | 'error' | 'completed'
+  readonly status?: 'disabled' | 'error' | 'completed' | 'active' | 'uncompleted'
   readonly content?: JSX.Element
   readonly onValidate?: () => boolean
 }
@@ -160,7 +160,7 @@ type Step = {
             gap: '25px'
           }}
         >
-          <Stepper active={0} steps={steps} />
+          <Stepper steps={steps} />
         </div>
       )
     }}
@@ -207,11 +207,14 @@ The `label` is the title of the step.
 
 ### Status
 
-It is possible to provide an initial status to each step. The initial status is one of the following values : `disabled`, `error` or `completed`.<br />
+It is possible to provide an initial status to each step. The initial status is one of the following values : `disabled`, `error`, `completed`, `active` or `uncompleted`.<br />
+By default, a step is `uncompleted`.
 
 - `disabled` - The step is disabled and can't be reached when clicked on the _Previous_ or the _Next_ button.
 - `error` - The step is in error. When it is reached, it becomes active. Then it becomes `uncompleted` if you go back to a previous step, `completed` if you go to the next step, or `error` if an error is detected (see the [onValidate](/docs/molecules-stepper--on-validate) section).
 - `completed` - The step is already completed.
+- `active` - The step is active.
+- `uncompleted` - The step is not completed yet. This status is the default status.
 
 <Canvas>
   <Story name="Step status">
@@ -252,13 +255,22 @@ It is possible to provide an initial status to each step. The initial status is 
               The step 4 is the initial active step.
             </Typography>
           ),
-          status: 'error'
+          status: 'active'
         },
         {
           label: 'Fifth step uncompleted',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
               This step is not completed yet.
+            </Typography>
+          ),
+          status: 'uncompleted'
+        },
+        {
+          label: 'Sixth step also uncompleted',
+          content: (
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              This step is also not completed yet.
             </Typography>
           )
         }
@@ -273,7 +285,7 @@ It is possible to provide an initial status to each step. The initial status is 
             height: '190px'
           }}
         >
-          <Stepper steps={steps} active={3} />
+          <Stepper steps={steps} />
         </div>
       )
     }}
@@ -565,69 +577,9 @@ The method `onValidate` is provided to validate the step before going to the nex
   </Story>
 </Canvas>
 
-## Active step
+## Buttons label
 
-The `active` property allows to define the inital active step by providing its index in the list of step. Indexes start at `0`.
-
-<Canvas>
-  <Story name="Active step">
-    {() => {
-      const steps = [
-        {
-          label: '2018-2020',
-          status: 'completed',
-          content: (
-            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              Ideas & Plans
-            </Typography>
-          )
-        },
-        {
-          label: '2021',
-          status: 'completed',
-          content: (
-            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              First usecases
-            </Typography>
-          )
-        },
-        {
-          label: '2022',
-          content: (
-            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              The takeoff
-            </Typography>
-          )
-        },
-        {
-          label: '2023',
-          content: (
-            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              Mainnet
-            </Typography>
-          )
-        }
-      ]
-      return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '25px',
-            height: '150px'
-          }}
-        >
-          <Stepper steps={steps} active={2} />
-        </div>
-      )
-    }}
-  </Story>
-</Canvas>
-
-## Submit button label
-
-Users can provide a label for the submit button with the `submitButtonLabel` property.
+Users can provide a label for the submit button with the `submitButtonLabel` property and for the reset button with the `resetButtonLabel` property.
 By default the label is provided by the defaults translation files (see the Internationalization section).
 
 <Canvas>
@@ -754,6 +706,7 @@ By default the label is provided by the defaults translation files (see the Inte
         },
         {
           label: 'Q4',
+          status: 'active',
           content: (
             <Typography as="div" fontFamily="brand">
               <ul
