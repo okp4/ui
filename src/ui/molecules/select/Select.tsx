@@ -108,6 +108,7 @@ export const Select = ({
   const [maxOptionsHeight, setMaxOptionsHeight]: [number, (maxOptionsHeight: number) => void] =
     useState<number>(350)
 
+  const selectId = short.generate()
   const selectRef: RefObject<HTMLDivElement> = useRef(null)
   const optionsRef: RefObject<HTMLDivElement> = useRef(null)
 
@@ -161,11 +162,20 @@ export const Select = ({
     [menuOpened]
   )
 
-  useEffect(() => {
-    if (onValuesChange) {
-      onValuesChange(selectedOptions)
+  const handleSelectPosition = (
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    selectContainer: HTMLElement,
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    currentElement: HTMLDivElement
+  ): void => {
+    currentElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    const maxScrollableDocumentHeight = document.body.offsetHeight
+    const selectPositionWithScroll = selectContainer.getBoundingClientRect().bottom + scrollY
+    const maxAvailableHeightUnderSelect = maxScrollableDocumentHeight - selectPositionWithScroll
+    if (maxAvailableHeightUnderSelect < 350) {
+      setMaxOptionsHeight(maxAvailableHeightUnderSelect - 40)
     }
-  }, [onValuesChange, selectedOptions])
+  }
 
   useEffect(() => {
     document.addEventListener('keydown', escapeKeyHandler)
@@ -177,7 +187,14 @@ export const Select = ({
     return () => document.removeEventListener('mousedown', outsideMenuClickHandler)
   }, [outsideMenuClickHandler])
 
-  const optionsGrouppedEntries = Array.from(optionsGroupped.entries())
+  useEffect(() => {
+    if (menuOpened) {
+      const selectContainer = document.getElementById(`okp4-select-container ${selectId}`)
+      if (selectContainer !== null && optionsRef.current) {
+        handleSelectPosition(selectContainer, optionsRef.current)
+      }
+    }
+  }, [menuOpened, selectId])
 
   const valueToDisplay = Array.isArray(value) ? value.join(', ') : value
 
