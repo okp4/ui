@@ -1,4 +1,5 @@
 import type { DeepReadonly } from './superTypes'
+import type { Option } from './ui/molecules/select/Select'
 
 export const asImmutable = <T>(o?: T): DeepReadonly<T> => o as DeepReadonly<T>
 
@@ -25,5 +26,49 @@ export const toPercent = (value: number, min: number, max: number): number => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isString = (value: any): value is string => typeof value === 'string'
 
+export const sort = (value1: string, value2: string): number => value1.localeCompare(value2)
+
 export const compareStrings = (value1: string, value2: string): number =>
   value1.localeCompare(value2)
+
+const ascendingSortByGroupAndValues = (
+  option1: Readonly<Option>,
+  option2: Readonly<Option>
+): number => {
+  const definedOption1 = option1.group ?? ''
+  const definedOption2 = option2.group ?? ''
+
+  if (definedOption1 > definedOption2) {
+    return 1
+  }
+
+  if (definedOption1 < definedOption2) {
+    return -1
+  }
+
+  return compareStrings(option1.value, option2.value)
+}
+
+const descendingSortByGroupAndValues = (option1: Option, option2: Option): number => {
+  const definedOption1 = option1.group ?? ''
+  const definedOption2 = option2.group ?? ''
+  if (definedOption1 < definedOption2) {
+    return 1
+  }
+  if (definedOption1 > definedOption2) {
+    return -1
+  }
+  return option2.value.localeCompare(option1.value)
+}
+
+export const getOptionsAscendingSorted = (options: Readonly<Option[]>): Option[] => {
+  return [...options].sort((option1: Option, option2: Option) =>
+    ascendingSortByGroupAndValues(option1, option2)
+  )
+}
+
+export const getOptionsDescendingSorted = (options: Readonly<Option[]>): Option[] => {
+  return [...options].sort((option1: Option, option2: Option) =>
+    descendingSortByGroupAndValues(option1, option2)
+  )
+}
