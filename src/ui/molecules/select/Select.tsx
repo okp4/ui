@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import classNames from 'classnames'
-import { Map } from 'immutable'
-import type { OrderedMap } from 'immutable'
 import { compareStrings } from 'utils'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
@@ -17,42 +15,9 @@ export type Option = {
   readonly group?: string
 }
 
-type OptionWithoutGroup = Omit<Option, 'group'>
-type ResultMap = OrderedMap<string, OptionWithoutGroup[]>
+type InputPropsWithoutRefAndDefaultValue = Omit<InputBaseProps, 'inputRef' | 'defaultValue'>
 
-const sortByGroupAndValues = (option1: Option, option2: Option): number => {
-  const definedOption1 = option1.group ?? ''
-  const definedOption2 = option2.group ?? ''
-
-  if (definedOption1 > definedOption2) {
-    return 1
-  }
-
-  if (definedOption1 < definedOption2) {
-    return -1
-  }
-
-  return compareStrings(option1.value, option2.value)
-}
-
-const getOptionsSorted = (options: Readonly<Option[]>): Option[] => {
-  return [...options].sort((option1: Option, option2: Option) =>
-    sortByGroupAndValues(option1, option2)
-  )
-}
-
-const getOptionsSortedIntoMap = (data: Readonly<Option[]>): ResultMap => {
-  const sortedOptions = getOptionsSorted(data)
-  return sortedOptions.reduce((acc: Readonly<ResultMap>, currentValue: Option) => {
-    const { group, label, value }: Option = currentValue
-    const option = { label, value }
-    const groupName = group ?? 'No Group'
-    const groupItems = acc.get(groupName)
-    return acc.set(groupName, groupItems ? [...groupItems, option] : [option])
-  }, Map())
-}
-
-export type SelectProps = InputBaseProps & {
+export type SelectProps = InputPropsWithoutRefAndDefaultValue & {
   /**
    * If true, allows the user to make a multiple choice.
    * Default to false.
@@ -84,11 +49,9 @@ export type SelectProps = InputBaseProps & {
 // eslint-disable-next-line max-lines-per-function, @typescript-eslint/prefer-readonly-parameter-types
 export const Select = ({
   placeholder,
-  size = 'medium',
-  defaultValue,
+  size = 'small',
   disabled = false,
   hasError = false,
-  inputRef,
   multiple = false,
   options,
   onChange,
@@ -133,14 +96,6 @@ export const Select = ({
     }
     !multiple && toggleMenu()
   }
-
-  const menuIcon = (
-    <Icon
-      className={classNames(menuOpened && !readOnly ? 'rotate-up' : 'rotate-down')}
-      name="arrow-down"
-      size={20}
-    />
-  )
 
   const escapeKeyHandler = useCallback(
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -198,20 +153,52 @@ export const Select = ({
 
   const valueToDisplay = Array.isArray(value) ? value.join(', ') : value
 
-  useEffect(() => {
-    if (menuOpened) {
-      const selectContainer = document.getElementById(`okp4-select-container ${selectId}`)
-      if (selectContainer && optionsRef.current) {
-        optionsRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        const maxScrollableDocumentHeight = document.body.offsetHeight
-        const selectPositionWithScroll = selectContainer.getBoundingClientRect().bottom + scrollY
-        const maxAvailableHeightUnderSelect = maxScrollableDocumentHeight - selectPositionWithScroll
-        if (maxAvailableHeightUnderSelect < 350) {
-          setMaxOptionsHeight(maxAvailableHeightUnderSelect - 40)
-        }
-      }
-    }
-  }, [menuOpened, selectId])
+  const menuIcon = (
+    <Icon
+      className={classNames(menuOpened && !readOnly ? 'rotate-up' : 'rotate-down')}
+      name="arrow-down"
+      size={20}
+    />
+  )
+
+  const groups: Set<string> = new Set()
+  const optionsWithoutGroups: Option[] = []
+  options.map((option: Readonly<Option>) => {
+    option.group ? groups.add(option.group) : optionsWithoutGroups.push(option)
+  })
+
+  const renderOption = (label: string, value: string): JSX.Element => {
+    return (
+      <li
+        className={classNames('okp4-select-option', {
+          selected: selectedOption.includes(value)
+        })}
+        key={value}
+        onClick={handleOptionSelection(value)}
+      >
+        {label}
+      </li>
+    )
+  }
+
+  const renderOptionsWithoutGroup = (): JSX.Element => {
+    return (
+      <div>
+        <ul className="okp4-select-options">
+          {optionsWithoutGroups.map(({ label, value }: Option) => {
+            return renderOption(label, value)
+          })}
+        </ul>
+      </div>
+    )
+  }
+
+  const needDivider = (group: string): boolean => {
+    const isNotLastGroup = [...groups].indexOf(group) !== groups.size - 1
+    return (
+      (groups.size > 0 && isNotLastGroup) || (groups.size > 0 && optionsWithoutGroups.length > 0)
+    )
+  }
 
   return (
     <div
@@ -229,9 +216,7 @@ export const Select = ({
           onClick={toggleMenu}
         >
           <InputBase
-            defaultValue={defaultValue}
             disabled={disabled}
-            inputRef={inputRef}
             placeholder={placeholder}
             readOnly={readOnly}
             rightIcon={menuIcon}
@@ -247,37 +232,34 @@ export const Select = ({
             ref={optionsRef}
             style={{ maxHeight: maxOptionsHeight }}
           >
-            {/*eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types*/}
-            {optionsGrouppedEntries.map((entry: [string, OptionWithoutGroup[]]) => {
-              const [group, options]: [string, OptionWithoutGroup[]] = [...entry]
-              return (
-                <div
-                  className={classNames('okp4-select-options-list', {
-                    error: hasError
+            <div
+              className={classNames('okp4-select-options-menu', {
+                error: hasError
+              })}
+            >
+              {groups.size ? (
+                <div className="okp4-select-options-with-group">
+                  {[...groups].map((groupName: string) => {
+                    return (
+                      <div key={groupName}>
+                        <Typography fontSize="small" fontWeight="bold" key={groupName}>
+                          <p className="okp4-select-options-group">{groupName}</p>
+                        </Typography>
+                        <ul className="okp4-select-options">
+                          {options.map(({ label, value, group }: Option) => {
+                            return group && group === groupName && renderOption(label, value)
+                          })}
+                        </ul>
+                        {needDivider(groupName) && <div className="okp4-select-group-divider" />}
+                      </div>
+                    )
                   })}
-                  key={optionsGrouppedEntries.indexOf(entry)}
-                >
-                  {group && (
-                    <Typography as="div" fontSize="small">
-                      <p className="okp4-select-options-group">{group}</p>
-                    </Typography>
-                  )}
-                  <ul>
-                    {options.map(({ label, value }: OptionWithoutGroup) => (
-                      <li
-                        className={classNames('okp4-select-option', {
-                          selected: selectedOptions.includes(value)
-                        })}
-                        key={value}
-                        onClick={handleOptionSelection(value)}
-                      >
-                        {label}
-                      </li>
-                    ))}
-                  </ul>
+                  {renderOptionsWithoutGroup()}
                 </div>
-              )
-            })}
+              ) : (
+                renderOptionsWithoutGroup()
+              )}
+            </div>
           </div>
         )}
       </div>

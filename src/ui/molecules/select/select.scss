@@ -68,30 +68,37 @@ $sizes: (
         border-top: none;
         min-height: 90px;
 
-        .okp4-select-options-list {
+        .okp4-select-options-menu {
           margin-top: 5px;
 
-          .okp4-select-options-group {
-            padding-left: 20px;
-            cursor: default;
+          .okp4-select-options-with-group {
+            .okp4-select-options-group {
+              padding-left: 25px;
+              cursor: default;
+            }
           }
-          > ul {
+          .okp4-select-options {
             list-style: none;
             padding-left: 0;
+            .okp4-select-option {
+              padding: 10px 10px 10px 25px;
+              font-family: 'Gotham bold', sans-serif;
+
+              &:hover {
+                background-color: themed('border');
+                cursor: pointer;
+              }
+
+              &.selected {
+                background-color: themed('border');
+              }
+            }
           }
 
-          .okp4-select-option {
-            padding: 10px;
-            font-family: 'Gotham bold', sans-serif;
-
-            &:hover {
-              background-color: themed('border');
-              cursor: pointer;
-            }
-
-            &.selected {
-              background-color: themed('border');
-            }
+          .okp4-select-group-divider {
+            width: inherit;
+            border-top: 1px solid themed(text);
+            margin: 0 10px;
           }
         }
       }
