@@ -78,11 +78,7 @@ export type SelectProps = InputBaseProps & {
   /**
    * onChange callback wich allows the parent to manage the selected value(s).
    */
-  readonly onValuesChange?: (value: string | Readonly<string[]>) => void
-  /**
-   * Specific method to apply custom sort on the options list.
-   */
-  readonly sortGroupsAndOptions?: (options: Readonly<Option[]>) => ResultMap
+  readonly onChange?: (value: string | Readonly<string[]>) => void
 }
 
 // eslint-disable-next-line max-lines-per-function, @typescript-eslint/prefer-readonly-parameter-types
@@ -95,20 +91,13 @@ export const Select = ({
   inputRef,
   multiple = false,
   options,
-  onValuesChange,
-  sortGroupsAndOptions,
+  onChange,
   fullWidth,
   value,
   helperText,
   readOnly = false
 }: SelectProps): JSX.Element => {
-  const selectId = short.generate()
-
-  const optionsGroupped = sortGroupsAndOptions
-    ? sortGroupsAndOptions(options)
-    : getOptionsSortedIntoMap(options)
-
-  const [selectedOptions, setSelectedOptions]: [
+  const [selectedOption, setSelectedOption]: [
     string | Readonly<string[]>,
     (option: string | Readonly<string[]>) => void
   ] = useState<string | Readonly<string[]>>(value ?? [])
@@ -129,20 +118,17 @@ export const Select = ({
   }, [disabled, menuOpened])
 
   const addOrRemoveOption = (value: string): string[] => {
-    if (selectedOptions.includes(value)) {
-      return [...selectedOptions].filter((option: string) => option !== value)
+    if (selectedOption.includes(value)) {
+      return [...selectedOption].filter((option: string) => option !== value)
     }
-    return [...selectedOptions, value]
+    return [...selectedOption, value]
   }
 
   const handleOptionSelection = (value: string) => () => {
-    if (onValuesChange) {
-      if (multiple) {
-        const updatedSelection = addOrRemoveOption(value).sort(compareStrings)
-        setSelectedOptions(updatedSelection)
-      } else {
-        setSelectedOptions(value)
-      }
+    if (onChange) {
+      const updatedSelection = multiple ? addOrRemoveOption(value).sort(compareStrings) : value
+      setSelectedOption(updatedSelection)
+      onChange(updatedSelection)
     }
     !multiple && toggleMenu()
   }
