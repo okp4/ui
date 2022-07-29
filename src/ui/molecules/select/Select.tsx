@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import classNames from 'classnames'
-import { capitalizeFirstLetter, capitalizeFirstLetterOfEachArrayWord, compareStrings } from 'utils'
+import {
+  capitalizeFirstLetter,
+  capitalizeFirstLetterOfEachArrayWord,
+  compareStrings,
+  isString
+} from 'utils'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -133,6 +138,43 @@ export const Select = ({
     }
   }
 
+  const isValueInOptions = (): boolean => {
+    const optionsValues: string[] = options.map((option: Option) => option.value)
+    if (isString(value)) {
+      return optionsValues.includes(value)
+    } else {
+      return (
+        value.length > 0 &&
+        value.every((optionValue: string) => optionsValues.includes(optionValue))
+      )
+    }
+  }
+
+  const capitalizeLabelsFirstLetter = (labels: Readonly<string[]>): string => {
+    return capitalizeFirstLetterOfEachArrayWord(labels).sort(compareStrings).join(', ')
+  }
+
+  const getAssociatedLabel = (value: string): string => {
+    const foundLabel = options.find((option: Option) => option.value === value)?.label
+    return foundLabel ?? ''
+  }
+
+  const getAssociatedLabels = (value: Readonly<string[]>): string[] => {
+    return value.map((value: string) => getAssociatedLabel(value))
+  }
+
+  const capitalizedLabel = (): string => {
+    if (isString(value)) {
+      const label = getAssociatedLabel(value)
+      return capitalizeFirstLetter(label)
+    } else {
+      const labels = getAssociatedLabels(value)
+      return capitalizeLabelsFirstLetter(labels)
+    }
+  }
+
+  const labelToDisplay = isValueInOptions() ? capitalizedLabel() : ''
+
   useEffect(() => {
     document.addEventListener('keydown', escapeKeyHandler)
     return () => document.removeEventListener('keydown', escapeKeyHandler)
@@ -151,14 +193,6 @@ export const Select = ({
       }
     }
   }, [menuOpened, selectId])
-
-  const formatSelectedValues = (words: Readonly<string[]>): string => {
-    return capitalizeFirstLetterOfEachArrayWord(words).join(', ')
-  }
-
-  const valueToDisplay = Array.isArray(value)
-    ? formatSelectedValues(value)
-    : value && capitalizeFirstLetter(value)
 
   const menuIcon = (
     <Icon
@@ -227,7 +261,7 @@ export const Select = ({
             placeholder={placeholder}
             readOnly
             rightIcon={menuIcon}
-            value={valueToDisplay}
+            value={labelToDisplay}
           />
         </div>
         {menuOpened && (
