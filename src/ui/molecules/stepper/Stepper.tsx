@@ -12,6 +12,10 @@ import type { Breakpoints } from 'hook/useBreakpoint'
 import { useBreakpoint } from 'hook/useBreakpoint'
 import { Icon } from 'ui/atoms/icon/Icon'
 
+export type StepStatus = 'disabled' | 'invalid' | 'completed' | 'active' | 'uncompleted'
+
+export type StepIndex = number
+
 type StepperState = {
   enabledSteps: List<StepIndex>
   stepsStatuses: List<StepStatus>
@@ -188,7 +192,8 @@ export const Stepper: React.FC<StepperProps> = ({
   onReset
 }: DeepReadonly<StepperProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
-  const { isMedium, isLarge, isXLarge }: Breakpoints = useBreakpoint()
+  const { isXSmall, isSmall }: Breakpoints = useBreakpoint()
+  const isMobile = (): boolean => isXSmall || isSmall
 
   const [state, dispatch]: UseReducer<StepperState, Action, Step[]> = useReducer(
     stepperReducer,
@@ -230,24 +235,8 @@ export const Stepper: React.FC<StepperProps> = ({
   return (
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-steps">
-        {isMedium || isLarge || isXLarge
-          ? steps.map((step: DeepReadonly<Step>, index: number) => (
-              <div className="okp4-step-header" key={index}>
-                <div className={classNames('okp4-step-label', state.stepsStatuses.get(index))}>
-                  <Typography
-                    as="div"
-                    fontSize="x-small"
-                    fontWeight={state.stepsStatuses.get(index) === 'active' ? 'bold' : 'light'}
-                  >
-                    {step.label}
-                  </Typography>
-                </div>
-                <div
-                  className={classNames('okp4-step-state', state.stepsStatuses.get(index))}
-                ></div>
-              </div>
-            ))
-          : state.activeStepIndex < steps.length && (
+        {isMobile()
+          ? state.activeStepIndex < steps.length && (
               <div className="okp4-step-header">
                 <div
                   className={classNames(
@@ -269,11 +258,27 @@ export const Stepper: React.FC<StepperProps> = ({
                   ))}
                 </div>
               </div>
-            )}
+            )
+          : steps.map((step: DeepReadonly<Step>, index: number) => (
+              <div className="okp4-step-header" key={index}>
+                <div className={classNames('okp4-step-label', state.stepsStatuses.get(index))}>
+                  <Typography
+                    as="div"
+                    fontSize="x-small"
+                    fontWeight={state.stepsStatuses.get(index) === 'active' ? 'bold' : 'light'}
+                  >
+                    {step.label}
+                  </Typography>
+                </div>
+                <div
+                  className={classNames('okp4-step-state', state.stepsStatuses.get(index))}
+                ></div>
+              </div>
+            ))}
       </div>
       <div
         className={classNames('okp4-stepper-content', {
-          error: state.stepsStatuses.get(state.activeStepIndex) === 'error'
+          error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
         })}
       >
         {state.activeStepIndex === steps.length
