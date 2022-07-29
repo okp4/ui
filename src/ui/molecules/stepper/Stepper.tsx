@@ -1,5 +1,6 @@
+import type { Reducer } from 'react'
 import React, { useCallback, useReducer } from 'react'
-import type { DeepReadonly, UseReducer, UseReducerAction } from 'superTypes'
+import type { DeepReadonly, UseReducer } from 'superTypes'
 import './stepper.scss'
 import { Button } from '../../atoms/button/Button'
 import classNames from 'classnames'
@@ -19,14 +20,15 @@ export type StepIndex = number
 type StepperState = {
   enabledSteps: List<StepIndex>
   stepsStatuses: List<StepStatus>
-  activeStepIndex: number
+  activeStepIndex: StepIndex
 }
 
-type Action = 'return' | 'complete' | 'fail' | 'submit' | 'reset'
-
-export type StepStatus = 'disabled' | 'error' | 'completed' | 'active' | 'uncompleted'
-
-export type StepIndex = number
+type StepperAction =
+  | { type: 'previousClicked' }
+  | { type: 'stepCompleted' }
+  | { type: 'stepFailed' }
+  | { type: 'stepperSubmitted' }
+  | { type: 'stepperReseted'; payload: List<Step> }
 
 export type Step = {
   /**
@@ -85,43 +87,20 @@ export type StepperProps = {
  * @param steps the steps of the stepper.
  * @returns the initial state of the stepper.
  */
-const initState = (steps: DeepReadonly<Step[]>): StepperState => {
+const initState = (steps: DeepReadonly<List<Step>>): StepperState => {
   const firstActiveIndex = steps.findIndex((step: DeepReadonly<Step>) => step.status === 'active')
   const initialActiveStep = firstActiveIndex > -1 ? firstActiveIndex : 0
   return {
-    enabledSteps: List(
-      steps.reduce((acc: DeepReadonly<StepIndex[]>, curr: DeepReadonly<Step>, index: number) => {
-        return curr.status !== 'disabled' ? [...acc, index] : acc
-      }, [])
+    enabledSteps: steps.reduce(
+      (acc: DeepReadonly<List<StepIndex>>, curr: DeepReadonly<Step>, index: number) => {
+        return curr.status !== 'disabled' ? List([...acc, index]) : acc
+      },
+      List()
     ),
-    stepsStatuses: List(
-      steps.map((step: DeepReadonly<Step>, index: number) =>
-        index === initialActiveStep ? 'active' : step.status ?? 'uncompleted'
-      )
+    stepsStatuses: steps.map((step: DeepReadonly<Step>, index: number) =>
+      index === initialActiveStep ? 'active' : step.status ?? 'uncompleted'
     ),
     activeStepIndex: initialActiveStep
-  }
-}
-
-/**
- * Returns the reset state of the stepper.
- *
- * @param steps the steps of the stepper.
- * @returns the reset state of the stepper.
- */
-const resetState = (steps: DeepReadonly<Step[]>): StepperState => {
-  return {
-    enabledSteps: List(
-      steps.reduce((acc: DeepReadonly<StepIndex[]>, curr: DeepReadonly<Step>, index: number) => {
-        return curr.status !== 'disabled' ? [...acc, index] : acc
-      }, [])
-    ),
-    stepsStatuses: List(
-      steps.map<StepStatus>((step: DeepReadonly<Step>) =>
-        step.status === 'disabled' ? 'disabled' : 'uncompleted'
-      )
-    ).set(0, 'active'),
-    activeStepIndex: 0
   }
 }
 
@@ -132,10 +111,10 @@ const resetState = (steps: DeepReadonly<Step[]>): StepperState => {
  */
 const stepperReducer = (
   state: DeepReadonly<StepperState>,
-  action: DeepReadonly<UseReducerAction<Action, Step[]>>
+  action: DeepReadonly<StepperAction>
 ): DeepReadonly<StepperState> => {
   switch (action.type) {
-    case 'return': {
+    case 'previousClicked': {
       const previousStepIndex =
         state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) - 1) ?? 0
       return {
@@ -146,7 +125,7 @@ const stepperReducer = (
         activeStepIndex: previousStepIndex
       }
     }
-    case 'complete': {
+    case 'stepCompleted': {
       const nextStepIndex =
         state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) + 1) ?? 0
       return {
@@ -157,22 +136,19 @@ const stepperReducer = (
         activeStepIndex: nextStepIndex
       }
     }
-    case 'fail':
+    case 'stepFailed':
       return {
         ...state,
-        stepsStatuses: state.stepsStatuses.set(state.activeStepIndex, 'error')
+        stepsStatuses: state.stepsStatuses.set(state.activeStepIndex, 'invalid')
       }
-    case 'submit':
+    case 'stepperSubmitted':
       return {
         ...state,
         stepsStatuses: state.stepsStatuses.set(state.activeStepIndex, 'completed'),
         activeStepIndex: state.activeStepIndex + 1
       }
-    case 'reset':
-      if (action.payload) {
-        return resetState(action.payload)
-      }
-      return state
+    case 'stepperReseted':
+      return initState(action.payload)
     default:
       return state
   }
@@ -195,14 +171,13 @@ export const Stepper: React.FC<StepperProps> = ({
   const { isXSmall, isSmall }: Breakpoints = useBreakpoint()
   const isMobile = (): boolean => isXSmall || isSmall
 
-  const [state, dispatch]: UseReducer<StepperState, Action, Step[]> = useReducer(
-    stepperReducer,
-    steps,
-    initState
-  )
+  const [state, dispatch]: UseReducer<StepperState, StepperAction> = useReducer<
+    Reducer<StepperState, StepperAction>,
+    DeepReadonly<List<Step>>
+  >(stepperReducer, List(steps), initState)
 
   const handlePreviousClick = useCallback((): void => {
-    dispatch({ type: 'return' })
+    dispatch({ type: 'previousClicked' })
   }, [])
 
   const handleNextClick = useCallback((): void => {
@@ -210,9 +185,9 @@ export const Stepper: React.FC<StepperProps> = ({
       !steps[state.activeStepIndex].onValidate || steps[state.activeStepIndex].onValidate?.()
     if (clickOnNextSucceed) {
       onNext?.()
-      dispatch({ type: 'complete' })
+      dispatch({ type: 'stepCompleted' })
     } else {
-      dispatch({ type: 'fail' })
+      dispatch({ type: 'stepFailed' })
     }
   }, [onNext, state.activeStepIndex, steps])
 
@@ -221,60 +196,63 @@ export const Stepper: React.FC<StepperProps> = ({
       !steps[state.activeStepIndex].onValidate || steps[state.activeStepIndex].onValidate?.()
     if (isStepValid) {
       onSubmit?.()
-      dispatch({ type: 'submit' })
+      dispatch({ type: 'stepperSubmitted' })
     } else {
-      dispatch({ type: 'fail' })
+      dispatch({ type: 'stepFailed' })
     }
   }, [onSubmit, state.activeStepIndex, steps])
 
   const handleReset = useCallback((): void => {
     onReset?.()
-    dispatch({ type: 'reset', payload: steps })
+    dispatch({ type: 'stepperReseted', payload: List(steps) })
   }, [onReset, steps])
 
   return (
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-steps">
-        {isMobile()
-          ? state.activeStepIndex < steps.length && (
-              <div className="okp4-step-header">
-                <div
-                  className={classNames(
-                    'okp4-step-label',
-                    state.stepsStatuses.get(state.activeStepIndex)
-                  )}
-                >
-                  <Typography as="div" fontSize="small" fontWeight="bold">
-                    {steps[state.activeStepIndex]?.label}
-                    {` (${state.activeStepIndex + 1}/${steps.length})`}
-                  </Typography>
-                </div>
-                <div className="okp4-step-states-mobile">
-                  {steps.map((_step: DeepReadonly<Step>, index: number) => (
-                    <div
-                      className={classNames('okp4-step-state', state.stepsStatuses.get(index))}
-                      key={index}
-                    ></div>
-                  ))}
-                </div>
-              </div>
-            )
-          : steps.map((step: DeepReadonly<Step>, index: number) => (
-              <div className="okp4-step-header" key={index}>
-                <div className={classNames('okp4-step-label', state.stepsStatuses.get(index))}>
-                  <Typography
-                    as="div"
-                    fontSize="x-small"
-                    fontWeight={state.stepsStatuses.get(index) === 'active' ? 'bold' : 'light'}
-                  >
-                    {step.label}
-                  </Typography>
-                </div>
+        {isMobile() ? (
+          <div className="okp4-step-header">
+            <div
+              className={classNames(
+                'okp4-step-label',
+                state.stepsStatuses.get(state.activeStepIndex)
+              )}
+            >
+              <Typography as="div" fontSize="small" fontWeight="bold">
+                {state.activeStepIndex < steps.length
+                  ? `${steps[state.activeStepIndex].label} (${state.activeStepIndex + 1}/${
+                      steps.length
+                    })`
+                  : `${steps[state.activeStepIndex - 1].label} (${state.activeStepIndex}/${
+                      steps.length
+                    })`}
+              </Typography>
+            </div>
+            <div className="okp4-step-states-mobile">
+              {steps.map((_step: DeepReadonly<Step>, index: number) => (
                 <div
                   className={classNames('okp4-step-state', state.stepsStatuses.get(index))}
+                  key={index}
                 ></div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          steps.map((step: DeepReadonly<Step>, index: number) => (
+            <div className="okp4-step-header" key={index}>
+              <div className={classNames('okp4-step-label', state.stepsStatuses.get(index))}>
+                <Typography
+                  as="div"
+                  fontSize="x-small"
+                  fontWeight={state.stepsStatuses.get(index) === 'active' ? 'bold' : 'light'}
+                >
+                  {step.label}
+                </Typography>
               </div>
-            ))}
+              <div className={classNames('okp4-step-state', state.stepsStatuses.get(index))}></div>
+            </div>
+          ))
+        )}
       </div>
       <div
         className={classNames('okp4-stepper-content', {
