@@ -279,7 +279,7 @@ export const Select = ({
               })}
             >
               {groups.size ? (
-                <div className="okp4-select-options-with-group">
+                <div>
                   {[...groups].map((groupName: string) => {
                     return (
                       <div key={groupName}>
