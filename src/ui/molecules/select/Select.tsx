@@ -15,18 +15,26 @@ export type Option = {
   readonly group?: string
 }
 
-type InputPropsWithoutRefAndDefaultValue = Omit<InputBaseProps, 'inputRef' | 'defaultValue'>
+type InputPropsForSelect = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
 
-export type SelectProps = InputPropsWithoutRefAndDefaultValue & {
+export type SelectProps = InputPropsForSelect & {
+  /**
+   * Defines the callback called when the select value changes.
+   */
+  readonly onChange: (value: string | Readonly<string[]>) => void
+  /**
+   * The value of the select.
+   */
+  readonly value: string | string[]
+  /**
+   * The options list displayed when the select is opened.
+   */
+  readonly options: Readonly<Option[]>
   /**
    * If true, allows the user to make a multiple choice.
    * Default to false.
    */
   readonly multiple?: boolean
-  /**
-   * The options list displayed when the select is opened.
-   */
-  readonly options: Readonly<Option[]>
   /**
    * The size of the input field.
    * It will be automatically adjusted responsively to the screen size.
@@ -40,10 +48,6 @@ export type SelectProps = InputPropsWithoutRefAndDefaultValue & {
    * Displays a message to the user below the select area.
    */
   readonly helperText?: string
-  /**
-   * onChange callback wich allows the parent to manage the selected value(s).
-   */
-  readonly onChange?: (value: string | Readonly<string[]>) => void
 }
 
 // eslint-disable-next-line max-lines-per-function, @typescript-eslint/prefer-readonly-parameter-types
@@ -57,13 +61,12 @@ export const Select = ({
   onChange,
   fullWidth,
   value,
-  helperText,
-  readOnly = false
+  helperText
 }: SelectProps): JSX.Element => {
   const [selectedOption, setSelectedOption]: [
     string | Readonly<string[]>,
     (option: string | Readonly<string[]>) => void
-  ] = useState<string | Readonly<string[]>>(value ?? [])
+  ] = useState<string | Readonly<string[]>>(value)
 
   const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
     useState<boolean>(false)
@@ -89,11 +92,9 @@ export const Select = ({
   }
 
   const handleOptionSelection = (value: string) => () => {
-    if (onChange) {
-      const updatedSelection = multiple ? addOrRemoveOption(value).sort(compareStrings) : value
-      setSelectedOption(updatedSelection)
-      onChange(updatedSelection)
-    }
+    const updatedSelection = multiple ? addOrRemoveOption(value).sort(compareStrings) : value
+    setSelectedOption(updatedSelection)
+    onChange(updatedSelection)
     !multiple && toggleMenu()
   }
 
@@ -161,7 +162,7 @@ export const Select = ({
 
   const menuIcon = (
     <Icon
-      className={classNames(menuOpened && !readOnly ? 'rotate-up' : 'rotate-down')}
+      className={classNames(menuOpened ? 'rotate-up' : 'rotate-down')}
       name="arrow-down"
       size={20}
     />
@@ -224,12 +225,12 @@ export const Select = ({
           <InputBase
             disabled={disabled}
             placeholder={placeholder}
-            readOnly={readOnly}
+            readOnly
             rightIcon={menuIcon}
             value={valueToDisplay}
           />
         </div>
-        {menuOpened && !readOnly && (
+        {menuOpened && (
           <div
             className={classNames('okp4-select-options-container', {
               error: hasError
