@@ -72,3 +72,11 @@ export const getOptionsDescendingSorted = (options: Readonly<Option[]>): Option[
     descendingSortByGroupAndValues(option1, option2)
   )
 }
+
+export const capitalizeFirstLetter = (word: string): string => {
+  return word.charAt(0).toLocaleUpperCase() + word.slice(1)
+}
+
+export const capitalizeFirstLetterOfEachArrayWord = (words: Readonly<string[]>): string[] => {
+  return words.map((word: string) => capitalizeFirstLetter(word))
+}

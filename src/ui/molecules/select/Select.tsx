@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import classNames from 'classnames'
-import { compareStrings } from 'utils'
+import { capitalizeFirstLetter, capitalizeFirstLetterOfEachArrayWord, compareStrings } from 'utils'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -151,7 +151,13 @@ export const Select = ({
     }
   }, [menuOpened, selectId])
 
-  const valueToDisplay = Array.isArray(value) ? value.join(', ') : value
+  const formatSelectedValues = (words: Readonly<string[]>): string => {
+    return capitalizeFirstLetterOfEachArrayWord(words).join(', ')
+  }
+
+  const valueToDisplay = Array.isArray(value)
+    ? formatSelectedValues(value)
+    : value && capitalizeFirstLetter(value)
 
   const menuIcon = (
     <Icon
@@ -176,7 +182,7 @@ export const Select = ({
         key={value}
         onClick={handleOptionSelection(value)}
       >
-        {label}
+        {capitalizeFirstLetter(label)}
       </li>
     )
   }
@@ -243,7 +249,9 @@ export const Select = ({
                     return (
                       <div key={groupName}>
                         <Typography fontSize="small" fontWeight="bold" key={groupName}>
-                          <p className="okp4-select-options-group">{groupName}</p>
+                          <p className="okp4-select-options-group">
+                            {capitalizeFirstLetter(groupName)}
+                          </p>
                         </Typography>
                         <ul className="okp4-select-options">
                           {options.map(({ label, value, group }: Option) => {
