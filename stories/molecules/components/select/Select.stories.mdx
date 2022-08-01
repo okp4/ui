@@ -220,7 +220,7 @@ Here is an example of the 3 cases concerning the option lists:
   </Story>
 </Canvas>
 
-We provide you with two alphabetical sorting methods, to help you present the options, that you can import from the `utils.ts` file:
+We provide you with two alphabetical sorting methods, to help you present the options, that you can import from `@okp4/ui`:
 
 - `getOptionsAscendingSorted` : groups (if any) will be sorted alphabetically in **ascending** order, as well as the options belonging to its groups.
 - `getOptionsDescendingSorted`: groups (if any) will be sorted alphabetically in **descending** order, as well as the options belonging to its groups.
@@ -230,11 +230,12 @@ We provide you with two alphabetical sorting methods, to help you present the op
 ```tsx
 import { useState } from 'react'
 import { getOptionsAscendingSorted, getOptionsDescendingSorted, Select } from '@okp4/ui'
+import type { UseState } from '@okp4/ui'
 
 export const MyExampleComponent: React.FC = () => {
-  const [value1, setValue1] = useState('')
-  const [value2, setValue2] = useState('')
-  const [value3, setValue3] = useState('')
+  const [value1, setValue1]: UseState<string | <string[]>> = useState('')
+  const [value2, setValue2]: UseState<string | <string[]>> = useState('')
+  const [value3, setValue3]: UseState<string | <string[]>> = useState('')
 
   const options = [
     { label: 'Bread', value: 'bread', group: 'Sides' },
