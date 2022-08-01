@@ -45,9 +45,13 @@ export type InputBaseProps = {
   readonly readOnly?: boolean
 }
 
-const ShowRightIcon = (icon: JSX.Element): JSX.Element => {
-  return <div className="okp4-input-right-icon">{icon}</div>
+type IconProps = {
+  icon: JSX.Element
 }
+
+const RightIcon = ({ icon }: IconProps): JSX.Element => (
+  <div className="okp4-input-right-icon">{icon}</div>
+)
 
 export const InputBase = ({
   defaultValue,
@@ -81,7 +85,7 @@ export const InputBase = ({
         ref={inputRef}
         value={value}
       />
-      {rightIcon && ShowRightIcon(rightIcon)}
+      {rightIcon && <RightIcon icon={rightIcon} />}
     </div>
   )
 }

@@ -7,7 +7,7 @@ import {
   compareStrings,
   isString
 } from 'utils'
-import type { UseState } from 'superTypes'
+import type { DeepReadonly, UseState } from 'superTypes'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -68,7 +68,7 @@ export const Select = ({
   fullWidth,
   value,
   helperText
-}: SelectProps): JSX.Element => {
+}: DeepReadonly<SelectProps>): JSX.Element => {
   const [selectedOption, setSelectedOption]: UseState<string | Readonly<string[]>> = useState<
     string | Readonly<string[]>
   >(value)
@@ -140,12 +140,10 @@ export const Select = ({
     const optionsValues: string[] = options.map((option: Option) => option.value)
     if (isString(value)) {
       return optionsValues.includes(value)
-    } else {
-      return (
-        value.length > 0 &&
-        value.every((optionValue: string) => optionsValues.includes(optionValue))
-      )
     }
+    return (
+      value.length > 0 && value.every((optionValue: string) => optionsValues.includes(optionValue))
+    )
   }
 
   const capitalizeLabelsFirstLetter = (labels: Readonly<string[]>): string => {
@@ -165,13 +163,57 @@ export const Select = ({
     if (isString(value)) {
       const label = getAssociatedLabel(value)
       return capitalizeFirstLetter(label)
-    } else {
-      const labels = getAssociatedLabels(value)
-      return capitalizeLabelsFirstLetter(labels)
     }
+    const labels = getAssociatedLabels(value)
+    return capitalizeLabelsFirstLetter(labels)
   }
 
   const labelToDisplay = isValueInOptions() ? capitalizedLabel() : ''
+  const groups: Set<string> = new Set()
+  const optionsWithoutGroups: Option[] = []
+  options.map((option: Readonly<Option>) => {
+    option.group ? groups.add(option.group) : optionsWithoutGroups.push(option)
+  })
+
+  const needDivider = (group: string): boolean => {
+    const isNotLastGroup = [...groups].indexOf(group) !== groups.size - 1
+    return (
+      (groups.size > 0 && isNotLastGroup) || (groups.size > 0 && optionsWithoutGroups.length > 0)
+    )
+  }
+
+  const MenuIcon = (): JSX.Element => (
+    <Icon
+      className={classNames(menuOpened ? 'rotate-up' : 'rotate-down')}
+      name="arrow-down"
+      size={20}
+    />
+  )
+
+  const Option = ({ label, value }: Option): JSX.Element => {
+    return (
+      <li
+        className={classNames('okp4-select-option', {
+          selected: selectedOption.includes(value)
+        })}
+        onClick={handleOptionSelection(value)}
+      >
+        {capitalizeFirstLetter(label)}
+      </li>
+    )
+  }
+
+  const OptionsWithoutGroup = (): JSX.Element => {
+    return (
+      <div>
+        <ul className="okp4-select-options">
+          {optionsWithoutGroups.map(({ label, value }: Option) => {
+            return <Option key={value} label={label} value={value} />
+          })}
+        </ul>
+      </div>
+    )
+  }
 
   useEffect(() => {
     document.addEventListener('keydown', escapeKeyHandler)
@@ -192,53 +234,6 @@ export const Select = ({
     }
   }, [menuOpened, selectId])
 
-  const menuIcon = (
-    <Icon
-      className={classNames(menuOpened ? 'rotate-up' : 'rotate-down')}
-      name="arrow-down"
-      size={20}
-    />
-  )
-
-  const groups: Set<string> = new Set()
-  const optionsWithoutGroups: Option[] = []
-  options.map((option: Readonly<Option>) => {
-    option.group ? groups.add(option.group) : optionsWithoutGroups.push(option)
-  })
-
-  const renderOption = (label: string, value: string): JSX.Element => {
-    return (
-      <li
-        className={classNames('okp4-select-option', {
-          selected: selectedOption.includes(value)
-        })}
-        key={value}
-        onClick={handleOptionSelection(value)}
-      >
-        {capitalizeFirstLetter(label)}
-      </li>
-    )
-  }
-
-  const renderOptionsWithoutGroup = (): JSX.Element => {
-    return (
-      <div>
-        <ul className="okp4-select-options">
-          {optionsWithoutGroups.map(({ label, value }: Option) => {
-            return renderOption(label, value)
-          })}
-        </ul>
-      </div>
-    )
-  }
-
-  const needDivider = (group: string): boolean => {
-    const isNotLastGroup = [...groups].indexOf(group) !== groups.size - 1
-    return (
-      (groups.size > 0 && isNotLastGroup) || (groups.size > 0 && optionsWithoutGroups.length > 0)
-    )
-  }
-
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
@@ -258,7 +253,7 @@ export const Select = ({
             disabled={disabled}
             placeholder={placeholder}
             readOnly
-            rightIcon={menuIcon}
+            rightIcon={<MenuIcon />}
             value={labelToDisplay}
           />
         </div>
@@ -288,17 +283,19 @@ export const Select = ({
                         </Typography>
                         <ul className="okp4-select-options">
                           {options.map(({ label, value, group }: Option) => {
-                            return group && group === groupName && renderOption(label, value)
+                            return (
+                              group && group === groupName && <Option label={label} value={value} />
+                            )
                           })}
                         </ul>
                         {needDivider(groupName) && <div className="okp4-select-group-divider" />}
                       </div>
                     )
                   })}
-                  {renderOptionsWithoutGroup()}
+                  <OptionsWithoutGroup />
                 </div>
               ) : (
-                renderOptionsWithoutGroup()
+                <OptionsWithoutGroup />
               )}
             </div>
           </div>
