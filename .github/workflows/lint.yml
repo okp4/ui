@@ -4,7 +4,7 @@ on:
   workflow_call:
 
   push:
-    branches: [ci/lighthouse_workflow_benchmark]
+    branches: [ci/lighthouse_workflow_target]
 
   pull_request:
     branches: [ci/lighthouse_workflow_target]
@@ -236,7 +236,7 @@ jobs:
 
       - name: Add Lighthouse stats as comment
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # v2.2.0
+        uses: marocchino/sticky-pull-request-comment@v2.2.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ github.event.pull_request.number }}
