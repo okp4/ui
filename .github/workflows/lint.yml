@@ -4,10 +4,10 @@ on:
   workflow_call:
 
   push:
-    branches: [main]
+    branches: [ci/lighthouse_workflow_benchmark]
 
   pull_request:
-    branches: [main]
+    branches: [ci/lighthouse_workflow_target]
 
 concurrency:
   group: lint-${{ github.ref }}
