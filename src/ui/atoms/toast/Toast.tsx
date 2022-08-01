@@ -39,22 +39,43 @@ type ToastProps = Readonly<{
 
 // eslint-disable-next-line max-lines-per-function
 export const Toast: React.FC<ToastProps> = ({
-  isOpened = false,
+  isOpened,
   autoDuration = 3000,
   severityLevel,
   title,
   description,
   onOpenChange,
-  preventAutoClose = false
+  preventAutoClose
 }: DeepReadonly<ToastProps>) => {
   const closeButton = (
     <ToastPrimitive.Close className="okp4-toast-close">
-      <div className="okp4-toast-container-close">
-        <Icon name="close" size={20} />
-      </div>
+      <Icon name="close" size={20} />
     </ToastPrimitive.Close>
   )
-  const closeButtonMask = <div className="okp4-toast-float"></div>
+
+  const titleTypography = (
+    <ToastPrimitive.Title asChild>
+      <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
+        {title}
+      </Typography>
+    </ToastPrimitive.Title>
+  )
+
+  const renderDescription = (): string | JSX.Element | undefined => {
+    return (
+      description && (
+        <ToastPrimitive.Description asChild>
+          {isString(description) ? (
+            <Typography color="highlighted-text" fontSize="small" fontWeight="light">
+              {description}
+            </Typography>
+          ) : (
+            description
+          )}
+        </ToastPrimitive.Description>
+      )
+    )
+  }
 
   return (
     <ToastPrimitive.Provider swipeDirection="right">
@@ -65,32 +86,26 @@ export const Toast: React.FC<ToastProps> = ({
         onOpenChange={onOpenChange}
         open={isOpened}
       >
-        {preventAutoClose && closeButton}
-        {title && (
-          <ToastPrimitive.Title asChild>
-            <Typography
-              as="span"
-              color="highlighted-text"
-              fontSize="small"
-              fontWeight="bold"
-              noWrap
-            >
-              {preventAutoClose && closeButtonMask}
-              {title}
-            </Typography>
-          </ToastPrimitive.Title>
+        {title && preventAutoClose ? (
+          <div className="okp4-toast-wrapper">
+            {titleTypography}
+            {closeButton}
+          </div>
+        ) : (
+          titleTypography
         )}
-        {description && (
-          <ToastPrimitive.Description asChild>
-            {isString(description) ? (
-              <Typography as="span" color="highlighted-text" fontSize="small" fontWeight="light">
-                {preventAutoClose && !title && closeButtonMask}
-                {description}
-              </Typography>
-            ) : (
-              description
-            )}
-          </ToastPrimitive.Description>
+
+        {description && preventAutoClose ? (
+          title ? (
+            renderDescription()
+          ) : (
+            <div className="okp4-toast-wrapper">
+              {renderDescription()}
+              {closeButton}
+            </div>
+          )
+        ) : (
+          renderDescription()
         )}
       </ToastPrimitive.Root>
       <ToastPrimitive.Viewport className="okp4-toast-viewport" />
