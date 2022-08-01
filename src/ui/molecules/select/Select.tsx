@@ -7,6 +7,7 @@ import {
   compareStrings,
   isString
 } from 'utils'
+import type { UseState } from 'superTypes'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -68,16 +69,13 @@ export const Select = ({
   value,
   helperText
 }: SelectProps): JSX.Element => {
-  const [selectedOption, setSelectedOption]: [
-    string | Readonly<string[]>,
-    (option: string | Readonly<string[]>) => void
-  ] = useState<string | Readonly<string[]>>(value)
+  const [selectedOption, setSelectedOption]: UseState<string | Readonly<string[]>> = useState<
+    string | Readonly<string[]>
+  >(value)
 
-  const [menuOpened, setMenuOpened]: [boolean, (isOpened: boolean) => void] =
-    useState<boolean>(false)
+  const [menuOpened, setMenuOpened]: UseState<boolean> = useState<boolean>(false)
 
-  const [maxOptionsHeight, setMaxOptionsHeight]: [number, (maxOptionsHeight: number) => void] =
-    useState<number>(350)
+  const [maxOptionsHeight, setMaxOptionsHeight]: UseState<number> = useState<number>(350)
 
   const selectId = short.generate()
   const selectRef: RefObject<HTMLDivElement> = useRef(null)
