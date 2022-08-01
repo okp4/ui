@@ -184,11 +184,10 @@ jobs:
       - name: Set context
         id: output_context
         env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+          LOCAL_SERVER_URL: ${{ github.server_url }}
+          LOCAL_REPOSITORY: ${{ github.repository }}
           LOCAL_RUN_ID: ${{ github.run_id }}
         run: |
-          LOCAL_SERVER_URL=`echo $GITHUB_CONTEXT | jq '.server_url'`
-          LOCAL_REPOSITORY=`echo $GITHUB_CONTEXT | jq '.repository'`
           echo "action_server_url=$LOCAL_SERVER_URL" >> $GITHUB_ENV
           echo "action_repository=$LOCAL_REPOSITORY" >> $GITHUB_ENV
           echo "action_run_id=$LOCAL_RUN_ID" >> $GITHUB_ENV
@@ -211,7 +210,7 @@ jobs:
             console.log('server_url: ', server_url);
             console.log('repository: ', repository);
             console.log('run_id: ', run_id);
-            
+
             const linkToActionPage = `[link](${server_url}/${repository}/actions/runs/${run_id})`;
 
             const formatIndicators = (summary) => {
