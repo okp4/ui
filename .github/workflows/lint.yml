@@ -190,9 +190,9 @@ jobs:
             const scoreLabel = (rawScore) => {
               const score = Math.round(rawScore * 100);
               const scoreIcon = score >= 90
-                ? '🟢' 
-                : score >= 50 
-                  ? '🟠' 
+                ? '🟢'
+                : score >= 50
+                  ? '🟠'
                   : '🔴';
               return `${scoreIcon} ${score}`;
             };
