@@ -6,7 +6,7 @@ import type { DeepReadonly } from 'superTypes'
 import { isString } from 'utils'
 import { Icon } from 'ui/atoms/icon/Icon'
 
-type ToastProps = Readonly<{
+type ToastProps = {
   /**
    * Indicates if the toast must be displayed or not.
    */
@@ -35,7 +35,7 @@ type ToastProps = Readonly<{
    * Prevents the toast from closing automatically.
    */
   readonly preventAutoClose?: boolean
-}>
+}
 
 // eslint-disable-next-line max-lines-per-function
 export const Toast: React.FC<ToastProps> = ({
@@ -47,14 +47,14 @@ export const Toast: React.FC<ToastProps> = ({
   onOpenChange,
   preventAutoClose
 }: DeepReadonly<ToastProps>) => {
-  const closeButton = (
+  const CloseButton: React.FC = () => (
     <ToastPrimitive.Close className="okp4-toast-close">
       <Icon name="close" size={20} />
     </ToastPrimitive.Close>
   )
 
-  const renderTitle = (): string | JSX.Element | undefined =>
-    title && (
+  const Title: React.FC = () => {
+    const ToastTitle: React.FC = () => (
       <ToastPrimitive.Title asChild>
         <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
           {title}
@@ -62,8 +62,20 @@ export const Toast: React.FC<ToastProps> = ({
       </ToastPrimitive.Title>
     )
 
-  const renderDescription = (): string | JSX.Element | undefined =>
-    description && (
+    const TitleWithCloseButton: React.FC = () => (
+      <div className="okp4-toast-wrapper">
+        <ToastTitle />
+        <CloseButton />
+      </div>
+    )
+
+    return title ? preventAutoClose ? <TitleWithCloseButton /> : <ToastTitle /> : null
+  }
+
+  const Description: React.FC = () => {
+    const descriptionWithCloseButton = description && preventAutoClose && !title
+
+    const ToastDescription: React.FC = () => (
       <ToastPrimitive.Description asChild>
         {isString(description) ? (
           <Typography color="highlighted-text" fontSize="small" fontWeight="light">
@@ -75,6 +87,22 @@ export const Toast: React.FC<ToastProps> = ({
       </ToastPrimitive.Description>
     )
 
+    const DescriptionWithCloseButton: React.FC = () => (
+      <div className="okp4-toast-wrapper">
+        <ToastDescription />
+        <CloseButton />
+      </div>
+    )
+
+    return description ? (
+      descriptionWithCloseButton ? (
+        <DescriptionWithCloseButton />
+      ) : (
+        <ToastDescription />
+      )
+    ) : null
+  }
+
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
@@ -84,27 +112,8 @@ export const Toast: React.FC<ToastProps> = ({
         onOpenChange={onOpenChange}
         open={isOpened}
       >
-        {title && preventAutoClose ? (
-          <div className="okp4-toast-wrapper">
-            {renderTitle()}
-            {closeButton}
-          </div>
-        ) : (
-          renderTitle()
-        )}
-
-        {description && preventAutoClose ? (
-          title ? (
-            renderDescription()
-          ) : (
-            <div className="okp4-toast-wrapper">
-              {renderDescription()}
-              {closeButton}
-            </div>
-          )
-        ) : (
-          renderDescription()
-        )}
+        <Title />
+        <Description />
       </ToastPrimitive.Root>
       <ToastPrimitive.Viewport className="okp4-toast-viewport" />
     </ToastPrimitive.Provider>
