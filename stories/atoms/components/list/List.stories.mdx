@@ -1,0 +1,284 @@
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { List } from 'ui/atoms/list/List'
+import { ListItem } from 'ui/atoms/listItem/ListItem'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { ProgressBar } from 'ui/atoms/progressBar/ProgressBar'
+import { Icon } from 'ui/atoms/icon/Icon'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+
+<Meta
+  title="Atoms/List"
+  component={List}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <div
+            style={{
+              display: 'grid',
+              gap: '25px'
+            }}
+          >
+            <Story />
+          </div>
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# List
+
+> A primary UI component to display a list of items.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+The `List` allows to display a list of elements and manage them.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    items: { control: false },
+    leftIcon: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    },
+    rightIcon: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    }
+  }}
+  args={{
+    items: [
+      {
+        name: 'Item 1',
+        description: 'Description 1'
+      },
+      {
+        name: 'Item 2',
+        description: 'Description 2'
+      },
+      {
+        name: 'Item 3',
+        description: 'Description 3'
+      },
+      {
+        name: 'Item 4',
+        description: 'Description 4'
+      },
+      {
+        name: 'Item 5',
+        description: 'Description 5'
+      }
+    ],
+    leftIcon: <Icon name="wallet" />,
+    rightIcon: <Icon name="close" />
+  }}
+>
+  {args => <List {...args} />}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## ListItem
+
+The property `items` provides the list of items to display.
+
+<Story
+  name="ListItem"
+  argTypes={{
+    description: {
+      table: {
+        type: { summary: 'string | JSX.Element' }
+      }
+    },
+    leftIcon: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    },
+    rightIcon: {
+      control: false,
+      table: {
+        type: { summary: 'JSX.Element' }
+      }
+    },
+    items: {
+      table: {
+        disable: true
+      }
+    }
+  }}
+  args={{
+    name: 'Item',
+    description: 'Description',
+    leftIcon: <Icon name="wallet" />,
+    rightIcon: <Icon name="close" />
+  }}
+>
+  {args => <ListItem {...args} />}
+</Story>
+
+An element of the `List` is a `ListItem` component.
+
+### Properties
+
+<ArgsTable of={ListItem} />
+
+### Name
+
+The mandatory property `name` allows you to display a label which is the main title of the item.
+
+<Canvas>
+  <Story name="Name">
+    {() => <ListItem name="The main title of the item of the list of items." />}
+  </Story>
+</Canvas>
+
+### Description
+
+The `description` property allows you to provide additionnal information. It can be either a `string` or a `JSX.Element`.
+
+<Canvas>
+  <Story name="Description">
+    {() => (
+      <List
+        items={[
+          {
+            name: 'Item1',
+            description: 'The additional informations of the Item 1'
+          },
+          {
+            name: 'Item2',
+            description: (
+              <div>
+                <Typography as="div" color="text" fontSize="small">
+                  Additional information in Item 2 that may be more complex than a simple `string`.
+                  The description can display any content.
+                </Typography>
+                <ProgressBar label="okp4.pdf" minValue={0} maxValue={195} currentValue={23} />
+              </div>
+            )
+          }
+        ]}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Icons
+
+The `leftIcon` and `rightIcon` properties allow you to provide visual information for each item in the list.  
+Theses properties override the `leftIcon` and `rightIcon` properties of the `List` if they are provided.
+
+<Canvas>
+  <Story name="Icons">
+    {() => (
+      <>
+        <Typography as="div" color="text" fontSize="small">
+          A first list without `leftIcon` and `rightIcon` properties provided by the List.
+        </Typography>
+        <List
+          items={[
+            {
+              name: 'Item without icon',
+              description: 'This item does not have any icon.'
+            },
+            {
+              name: 'Item with left icon',
+              description: 'This item have only a left icon.',
+              leftIcon: <Icon name="profile" />
+            },
+            {
+              name: 'Item with right icon',
+              description: 'This item have only a right icon.',
+              rightIcon: <Icon name="check" />
+            },
+            {
+              name: 'Item with both left and right icons',
+              description: 'This item have left and right icons.',
+              leftIcon: <Icon name="profile" />,
+              rightIcon: <Icon name="check" />
+            }
+          ]}
+        />
+        <Typography as="div" color="text" fontSize="small">
+          A second list with `leftIcon` and `rightIcon` properties provided by the List.
+        </Typography>
+        <List
+          items={[
+            {
+              name: 'Item without icon provided',
+              description: 'This item does not have any icon provided.'
+            },
+            {
+              name: 'Item with left icon provided',
+              description: 'This item have only a left icon provided.'
+            },
+            {
+              name: 'Item with right icon provided',
+              description: 'This item have only a right icon provided.'
+            },
+            {
+              name: 'Item with both left and right icons provided',
+              description: 'This item have left and right icons provided.'
+            }
+          ]}
+          leftIcon={<Icon name="wallet" />}
+          rightIcon={<Icon name="close" />}
+        />
+        <Typography as="div" color="text" fontSize="small">
+          A second list with `leftIcon` and `rightIcon` properties provided and some items override
+          the properties.
+        </Typography>
+        <List
+          items={[
+            {
+              name: 'Item without icon provided',
+              description: 'This item does not have an icon provided.'
+            },
+            {
+              name: 'Item with left icon provided',
+              description: 'This item has only one left icon provided.',
+              leftIcon: <Icon name="profile" />
+            },
+            {
+              name: 'Item with right icon provided',
+              description: 'This item has only one right icon provided.',
+              rightIcon: <Icon name="check" />
+            },
+            {
+              name: 'Item with the both left and right icons provided.',
+              description: 'This item has left and right icons provided.',
+              leftIcon: <Icon name="profile" />,
+              rightIcon: <Icon name="check" />
+            }
+          ]}
+          leftIcon={<Icon name="wallet" />}
+          rightIcon={<Icon name="close" />}
+        />
+      </>
+    )}
+  </Story>
+</Canvas>
