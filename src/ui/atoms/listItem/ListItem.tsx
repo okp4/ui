@@ -9,17 +9,14 @@ export type ListItemProps = {
    * The main title of the item.
    */
   readonly name: string
-
   /**
    * Additionnal informations about the item
    */
   readonly description?: string | JSX.Element
-
   /**
    * An icon that can provide visual information in the left side.
    */
   readonly leftIcon?: Readonly<JSX.Element>
-
   /**
    * An icon that can provide visual information in the right side.
    */
