@@ -26,10 +26,14 @@ export const toPercent = (value: number, min: number, max: number): number => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isString = (value: any): value is string => typeof value === 'string'
 
-export const sort = (value1: string, value2: string): number => value1.localeCompare(value2)
-
-export const compareStrings = (value1: string, value2: string): number =>
-  value1.localeCompare(value2)
+export const compareStrings = (
+  referenceStr: string,
+  compareString: string,
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  locales?: string | string[],
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  options?: Intl.CollatorOptions | undefined
+): number => referenceStr.localeCompare(compareString, locales, options)
 
 const ascendingSortByGroupAndValues = (
   option1: Readonly<Option>,
