@@ -187,9 +187,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const scoreEntry = (rawScore) => {
+            const scoreLabel = (rawScore) => {
               const score = Math.round(rawScore * 100);
-              const scoreIcon = score >= 90 ? '🟢' : score >= 50 ? '🟠' : '🔴';
+              const scoreIcon = score >= 90
+                ? '🟢' 
+                : score >= 50 
+                  ? '🟠' 
+                  : '🔴';
               return `${scoreIcon} ${score}`;
             };
 
@@ -199,11 +203,11 @@ jobs:
             const linkToActionPage = `[link](${server_url}/${repository}/actions/runs/${run_id})`;
 
             const formatIndicators = (summary) => {
-              const performance = scoreEntry(summary.performance);
-              const accessibility = scoreEntry(summary.accessibility);
-              const bestPractices = scoreEntry(summary['best-practices']);
-              const seo = scoreEntry(summary.seo);
-              const pwa = scoreEntry(summary.pwa);
+              const performance = scoreLabel(summary.performance);
+              const accessibility = scoreLabel(summary.accessibility);
+              const bestPractices = scoreLabel(summary['best-practices']);
+              const seo = scoreLabel(summary.seo);
+              const pwa = scoreLabel(summary.pwa);
               return [performance,accessibility,bestPractices,seo,pwa,linkToActionPage];
             };
 
