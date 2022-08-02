@@ -224,8 +224,8 @@ jobs:
 
             const table = [ header, separator, ...rows ]
               .map(formatRow)
-              .join('\n');            
-            const content = linkToActionPage + '\n\n' + table; 
+              .join('\n');
+            const content = linkToActionPage + '\n\n' + table;
             core.setOutput("comment", content);
 
       - name: Add Lighthouse stats as comment
