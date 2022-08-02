@@ -213,17 +213,18 @@ jobs:
 
             const formatRow = (items) => '| '+items.join(' | ')+' |';
 
+            const header = ['Performance','Accessibility','Best Practices','SEO','PWA','Action Page'];
+            const separator = ['---','---','---','---','---','---'];
             const results = ${{ steps.lighthouse_audit.outputs.manifest }};
-
             const rows = results.map(result => {
               const summary = result.summary;
               const indicators = formatIndicators(summary);
-              return formatRow(indicators);
+              return indicators;
             });
 
-            const header = formatRow(['Performance','Accessibility','Best Practices','SEO','PWA','Action Page']);
-            const separator = formatRow(['---','---','---','---','---','---']);
-            const comment = [ header, separator, ...rows ].join('\n');
+            const comment = [ header, separator, ...rows ]
+              .map(formatRow)
+              .join('\n');
             core.setOutput("comment", comment);
 
       - name: Add Lighthouse stats as comment
