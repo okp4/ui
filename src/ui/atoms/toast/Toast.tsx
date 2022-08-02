@@ -53,29 +53,27 @@ export const Toast: React.FC<ToastProps> = ({
     </ToastPrimitive.Close>
   )
 
-  const titleTypography = (
-    <ToastPrimitive.Title asChild>
-      <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
-        {title}
-      </Typography>
-    </ToastPrimitive.Title>
-  )
-
-  const renderDescription = (): string | JSX.Element | undefined => {
-    return (
-      description && (
-        <ToastPrimitive.Description asChild>
-          {isString(description) ? (
-            <Typography color="highlighted-text" fontSize="small" fontWeight="light">
-              {description}
-            </Typography>
-          ) : (
-            description
-          )}
-        </ToastPrimitive.Description>
-      )
+  const renderTitle = (): string | JSX.Element | undefined =>
+    title && (
+      <ToastPrimitive.Title asChild>
+        <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
+          {title}
+        </Typography>
+      </ToastPrimitive.Title>
     )
-  }
+
+  const renderDescription = (): string | JSX.Element | undefined =>
+    description && (
+      <ToastPrimitive.Description asChild>
+        {isString(description) ? (
+          <Typography color="highlighted-text" fontSize="small" fontWeight="light">
+            {description}
+          </Typography>
+        ) : (
+          description
+        )}
+      </ToastPrimitive.Description>
+    )
 
   return (
     <ToastPrimitive.Provider swipeDirection="right">
@@ -88,11 +86,11 @@ export const Toast: React.FC<ToastProps> = ({
       >
         {title && preventAutoClose ? (
           <div className="okp4-toast-wrapper">
-            {titleTypography}
+            {renderTitle()}
             {closeButton}
           </div>
         ) : (
-          titleTypography
+          renderTitle()
         )}
 
         {description && preventAutoClose ? (
