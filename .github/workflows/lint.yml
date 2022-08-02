@@ -200,7 +200,7 @@ jobs:
             const server_url = '${{ github.server_url }}';
             const repository = '${{ github.repository }}';
             const run_id = '${{ github.run_id }}';
-            const linkToActionPage = `[link](${server_url}/${repository}/actions/runs/${run_id})`;
+            const linkToActionPage = `[Link to Actions Page](${server_url}/${repository}/actions/runs/${run_id})`;
 
             const formatIndicators = (summary) => {
               const performance = scoreLabel(summary.performance);
@@ -208,13 +208,13 @@ jobs:
               const bestPractices = scoreLabel(summary['best-practices']);
               const seo = scoreLabel(summary.seo);
               const pwa = scoreLabel(summary.pwa);
-              return [performance,accessibility,bestPractices,seo,pwa,linkToActionPage];
+              return [performance,accessibility,bestPractices,seo,pwa];
             };
 
             const formatRow = (items) => '| '+items.join(' | ')+' |';
 
-            const header = ['Performance','Accessibility','Best Practices','SEO','PWA','Action Page'];
-            const separator = ['---','---','---','---','---','---'];
+            const header = ['Performance','Accessibility','Best Practices','SEO','PWA'];
+            const separator = ['---','---','---','---','---'];
             const results = ${{ steps.lighthouse_audit.outputs.manifest }};
             const rows = results.map(result => {
               const summary = result.summary;
@@ -222,10 +222,11 @@ jobs:
               return indicators;
             });
 
-            const comment = [ header, separator, ...rows ]
+            const table = [ header, separator, ...rows ]
               .map(formatRow)
-              .join('\n');
-            core.setOutput("comment", comment);
+              .join('\n');            
+            const content = linkToActionPage + '\n\n' + table; 
+            core.setOutput("comment", content);
 
       - name: Add Lighthouse stats as comment
         id: comment_to_pr
