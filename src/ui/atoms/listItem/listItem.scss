@@ -9,7 +9,7 @@
   grid-template-columns: minmax(30px, 45px) 1fr minmax(30px, 45px);
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
-    'leftIcon name rightIcon'
+    'leftIcon label rightIcon'
     'leftIcon description rightIcon';
 
   align-items: center;
@@ -19,8 +19,8 @@
     border-radius: 10px;
   }
 
-  .okp4-listitem-name {
-    grid-area: name;
+  .okp4-listitem-label {
+    grid-area: label;
     justify-content: start;
   }
 
@@ -29,17 +29,13 @@
     justify-content: start;
   }
 
-  .okp4-listitem-icon {
-    &--left {
-      grid-area: leftIcon;
-      margin: 5px auto 5px 5px;
-      text-align: left;
-    }
+  .okp4-listitem-icon-left {
+    grid-area: leftIcon;
+    margin: 5px auto 5px 5px;
+  }
 
-    &--right {
-      grid-area: rightIcon;
-      margin: 5px 5px 5px auto;
-      text-align: right;
-    }
+  .okp4-listitem-icon-right {
+    grid-area: rightIcon;
+    margin: 5px 5px 5px auto;
   }
 }

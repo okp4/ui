@@ -6,37 +6,35 @@ import { isString } from 'utils'
 
 export type ListItemProps = {
   /**
-   * The main title of the item.
+   * The main label of the item.
    */
-  readonly name: string
+  readonly label: string
   /**
-   * Additionnal informations about the item
+   * Additional information about the item
    */
   readonly description?: string | JSX.Element
   /**
    * An icon that can provide visual information in the left side.
    */
-  readonly leftIcon?: Readonly<JSX.Element>
+  readonly leftIcon?: JSX.Element
   /**
    * An icon that can provide visual information in the right side.
    */
-  readonly rightIcon?: Readonly<JSX.Element>
+  readonly rightIcon?: JSX.Element
 }
 
-/**
- * Primary UI component for an item in a list.
- */
 export const ListItem: React.FC<ListItemProps> = ({
-  name,
+  label,
   description,
   leftIcon,
   rightIcon
 }: DeepReadonly<ListItemProps>): JSX.Element => {
   return (
     <div className="okp4-listitem-main">
-      <div className="okp4-listitem-name">
+      {leftIcon && <div className="okp4-listitem-icon-left">{leftIcon}</div>}
+      <div className="okp4-listitem-label">
         <Typography as="div" color="text" fontSize="small" fontWeight="bold">
-          {name}
+          {label}
         </Typography>
       </div>
       {description && (
@@ -50,8 +48,7 @@ export const ListItem: React.FC<ListItemProps> = ({
           )}
         </div>
       )}
-      {leftIcon && <div className="okp4-listitem-icon okp4-listitem-icon--left">{leftIcon}</div>}
-      {rightIcon && <div className="okp4-listitem-icon okp4-listitem-icon--right">{rightIcon}</div>}
+      {rightIcon && <div className="okp4-listitem-icon-right">{rightIcon}</div>}
     </div>
   )
 }

@@ -12,11 +12,11 @@ export type ListProps = {
   /**
    * An icon displayed on the left side of each items.
    */
-  readonly leftIcon?: Readonly<JSX.Element>
+  readonly leftIcon?: JSX.Element
   /**
    * An icon displayed on the right side of each items.
    */
-  readonly rightIcon?: Readonly<JSX.Element>
+  readonly rightIcon?: JSX.Element
 }
 
 /**
@@ -32,9 +32,9 @@ export const List: React.FC<ListProps> = ({
       {items.map((item: DeepReadonly<ListItemProps>) => (
         <ListItem
           description={item.description}
-          key={item.name}
+          key={item.label}
+          label={item.label}
           leftIcon={item.leftIcon ?? leftIcon}
-          name={item.name}
           rightIcon={item.rightIcon ?? rightIcon}
         />
       ))}
