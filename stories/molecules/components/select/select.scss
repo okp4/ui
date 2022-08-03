@@ -1,15 +1,14 @@
 div {
-  .sbdocs {
-    &.sbdocs-preview {
+  .select-canvas.sbdocs.sbdocs-preview {
+    overflow: visible;
+    .docs-story {
       overflow: visible;
-      .docs-story {
+      > div:first-child {
         overflow: visible;
-        > div:first-child {
-          overflow: visible;
-        }
-        > div:nth-child(2) {
-          bottom: 10px;
-        }
+        z-index: 2;
+      }
+      > div:nth-child(2) {
+        bottom: 10px;
       }
     }
   }

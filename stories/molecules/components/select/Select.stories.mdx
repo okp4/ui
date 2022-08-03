@@ -118,7 +118,7 @@ If you don't want any available option te be selected at start, you can set the 
 Be aware that the passed value must be part of one of the option values.  
 If the passed value is not part of one of the option values, then it will not be displayed, just like the empty string.
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="Controlled">
     {() => {
       const [correctValue, setCorrectValue] = useState('lime')
@@ -170,7 +170,7 @@ Here is an example of the 3 cases concerning the option lists:
 - a list composed of options with groups
 - a mixed list composed of options with and without groups
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="Options">
     {() => {
       const [value1, setValue1] = useState('')
@@ -277,7 +277,7 @@ export const MyExampleComponent: React.FC = () => {
 `Select` can be disabled by setting the `disabled` property to `true`.  
 It is then impossible to enter a value or to open the menu, and the value should not be submitted to its parent.
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="Disabled">
     {() => {
       const [value, setValue] = useState('')
@@ -302,7 +302,7 @@ It is then impossible to enter a value or to open the menu, and the value should
 If `hasError` property is set to true, `Select` will be displayed with an error semantic color.  
 In addition, the helperText property can be set to display an error message below `Select`.
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="Error state">
     {() => {
       const [value, setValue] = useState('')
@@ -331,7 +331,7 @@ In addition, the helperText property can be set to display an error message belo
 
 `Select` can take 100% width if the `fullWidth` property is set to true.
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="FullWidth">
     {() => {
       const [value, setValue] = useState('')
@@ -359,7 +359,7 @@ In addition, the helperText property can be set to display an error message belo
 The optional `multiple` property allows the user to choose several values from a list of options. It is set to `false` by default.  
 The list of selected options is displayed in alphabetical order.
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="Multiple">
     {() => {
       const [values, setValues] = useState(['lime', 'apple'])
@@ -388,7 +388,7 @@ The list of selected options is displayed in alphabetical order.
 Size options are `x-small`, `small`, `medium`, `large`, `x-large` and will be automatically adjusted responsively to the screen size.  
 If none is given, `medium` is the default value.
 
-<Canvas>
+<Canvas className="select-canvas">
   <Story name="Sizes">
     {() => {
       const sizes = ['x-small', 'small', 'medium', 'large', 'x-large']
