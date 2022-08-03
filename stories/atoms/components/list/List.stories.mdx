@@ -1,4 +1,4 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { List } from 'ui/atoms/list/List'
 import { ListItem } from 'ui/atoms/listItem/ListItem'
 import { Typography } from 'ui/atoms/typography/Typography'
@@ -69,23 +69,23 @@ The `List` allows to display a list of elements and manage them.
   args={{
     items: [
       {
-        name: 'Item 1',
+        label: 'Item 1',
         description: 'Description 1'
       },
       {
-        name: 'Item 2',
+        label: 'Item 2',
         description: 'Description 2'
       },
       {
-        name: 'Item 3',
+        label: 'Item 3',
         description: 'Description 3'
       },
       {
-        name: 'Item 4',
+        label: 'Item 4',
         description: 'Description 4'
       },
       {
-        name: 'Item 5',
+        label: 'Item 5',
         description: 'Description 5'
       }
     ],
@@ -131,7 +131,7 @@ The property `items` provides the list of items to display.
     }
   }}
   args={{
-    name: 'Item',
+    label: 'Item',
     description: 'Description',
     leftIcon: <Icon name="wallet" />,
     rightIcon: <Icon name="close" />
@@ -146,19 +146,17 @@ An element of the `List` is a `ListItem` component.
 
 <ArgsTable of={ListItem} />
 
-### Name
+### Label
 
-The mandatory property `name` allows you to display a label which is the main title of the item.
+The mandatory property `label` allows you to display a label which is the main title of the item.
 
 <Canvas>
-  <Story name="Name">
-    {() => <ListItem name="The main title of the item of the list of items." />}
-  </Story>
+  <Story name="Name">{() => <ListItem label="The label of the item." />}</Story>
 </Canvas>
 
 ### Description
 
-The `description` property allows you to provide additionnal information. It can be either a `string` or a `JSX.Element`.
+The `description` property allows you to provide additional information. It can be either a `string` or a `JSX.Element`.
 
 <Canvas>
   <Story name="Description">
@@ -166,11 +164,11 @@ The `description` property allows you to provide additionnal information. It can
       <List
         items={[
           {
-            name: 'Item1',
-            description: 'The additional informations of the Item 1'
+            label: 'Item1',
+            description: 'The additional information of the Item 1'
           },
           {
-            name: 'Item2',
+            label: 'Item2',
             description: (
               <div>
                 <Typography as="div" color="text" fontSize="small">
@@ -202,74 +200,76 @@ Theses properties override the `leftIcon` and `rightIcon` properties of the `Lis
         <List
           items={[
             {
-              name: 'Item without icon',
+              label: 'Item without icon',
               description: 'This item does not have any icon.'
             },
             {
-              name: 'Item with left icon',
-              description: 'This item have only a left icon.',
+              label: 'Item with left icon',
+              description: 'This item only has a left icon.',
               leftIcon: <Icon name="profile" />
             },
             {
-              name: 'Item with right icon',
-              description: 'This item have only a right icon.',
+              label: 'Item with right icon',
+              description: 'This item only has a right icon.',
               rightIcon: <Icon name="check" />
             },
             {
-              name: 'Item with both left and right icons',
-              description: 'This item have left and right icons.',
+              label: 'Item with both left and right icons',
+              description: 'This item has left and right icons.',
               leftIcon: <Icon name="profile" />,
               rightIcon: <Icon name="check" />
             }
           ]}
         />
+        <div style={{ margin: '5px' }} />
         <Typography as="div" color="text" fontSize="small">
           A second list with `leftIcon` and `rightIcon` properties provided by the List.
         </Typography>
         <List
           items={[
             {
-              name: 'Item without icon provided',
+              label: 'Item without icon provided',
               description: 'This item does not have any icon provided.'
             },
             {
-              name: 'Item with left icon provided',
-              description: 'This item have only a left icon provided.'
+              label: 'Item with left icon provided',
+              description: 'This item only has a left icon provided.'
             },
             {
-              name: 'Item with right icon provided',
-              description: 'This item have only a right icon provided.'
+              label: 'Item with right icon provided',
+              description: 'This item only has a right icon provided.'
             },
             {
-              name: 'Item with both left and right icons provided',
-              description: 'This item have left and right icons provided.'
+              label: 'Item with both left and right icons provided',
+              description: 'This item has left and right icons provided.'
             }
           ]}
           leftIcon={<Icon name="wallet" />}
           rightIcon={<Icon name="close" />}
         />
+        <div style={{ margin: '5px' }} />
         <Typography as="div" color="text" fontSize="small">
-          A second list with `leftIcon` and `rightIcon` properties provided and some items override
-          the properties.
+          A third list that provides a `leftIcon` and a `rightIcon`. Some items override these
+          icons.
         </Typography>
         <List
           items={[
             {
-              name: 'Item without icon provided',
+              label: 'Item without icon provided',
               description: 'This item does not have an icon provided.'
             },
             {
-              name: 'Item with left icon provided',
-              description: 'This item has only one left icon provided.',
+              label: 'Item with left icon provided',
+              description: 'This item only has one left icon provided.',
               leftIcon: <Icon name="profile" />
             },
             {
-              name: 'Item with right icon provided',
-              description: 'This item has only one right icon provided.',
+              label: 'Item with right icon provided',
+              description: 'This item only has one right icon provided.',
               rightIcon: <Icon name="check" />
             },
             {
-              name: 'Item with the both left and right icons provided.',
+              label: 'Item with the both left and right icons provided.',
               description: 'This item has left and right icons provided.',
               leftIcon: <Icon name="profile" />,
               rightIcon: <Icon name="check" />
