@@ -118,7 +118,7 @@ It is then up to the user to define the height of the stepper as well as the con
 
 ## Step
 
-The `Stepper` comes with a list of `Step`. A `Step` must respect the following type :
+The `Stepper` comes with a list of steps. A `Step` must respect the following type :
 
 ```ts
 type Step = {
@@ -137,7 +137,7 @@ type Step = {
           label: 'This is the step label',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              That is the content of the step. It can be any JSX Element.
+              This is the content of the step. It can be any JSX Element.
             </Typography>
           )
         },
@@ -149,7 +149,7 @@ type Step = {
           label: 'And then this is the last step',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              That is the content of the last step.
+              This is the content of the last step.
             </Typography>
           )
         }
@@ -472,8 +472,18 @@ The `content` of the step can be any `JSX.Element`.
           label: 'Team',
           content: (
             <div>
-              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-                Meet the team on <a href="https://okp4.network/#team">ØKP4</a> web site.
+              <Typography as="p" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                Meet the team on
+                <Typography fontFamily="brand" fontSize="small" fontWeight="bold">
+                  <a
+                    href="https://okp4.network/#team"
+                    target="_blank"
+                    style={{ textDecoration: 'unset', color: 'inherit' }}
+                  >
+                    {` ØKP4 `}
+                  </a>
+                </Typography>
+                web site.
               </Typography>
             </div>
           )
@@ -786,8 +796,18 @@ The `successContent` property is used to provide a `JSX.Element` content that is
           label: 'Team',
           status: 'active',
           content: (
-            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              Meet the team on <a href="https://okp4.network/#team">ØKP4</a> web site.
+            <Typography as="p" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Meet the team on
+              <Typography fontFamily="brand" fontSize="small" fontWeight="bold">
+                <a
+                  href="https://okp4.network/#team"
+                  target="_blank"
+                  style={{ textDecoration: 'unset', color: 'inherit' }}
+                >
+                  {` ØKP4 `}
+                </a>
+              </Typography>
+              web site.
             </Typography>
           )
         }
