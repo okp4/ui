@@ -1,0 +1,89 @@
+@import '../../styles/themes.scss';
+@import '../../styles/animations.scss';
+
+.okp4-progressbar-main {
+  display: grid;
+  column-gap: 5px;
+  row-gap: 5px;
+  padding: 5%;
+
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: repeat(3, auto);
+  grid-template-areas:
+    'label label label'
+    'value progress icon'
+    'bar bar icon';
+
+  @media screen and (min-width: 768px) {
+    column-gap: 10px;
+    row-gap: 0;
+    padding: 2%;
+    grid-template-columns: 2fr 7fr auto;
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+      'label progress icon'
+      'value bar icon';
+  }
+
+  @include with-theme {
+    background: themed(field);
+    border-radius: 10px;
+
+    .okp4-progressbar-label {
+      grid-area: label;
+    }
+
+    .okp4-progressbar-value {
+      grid-area: value;
+    }
+
+    .okp4-progressbar-progress {
+      grid-area: progress;
+      text-align: end;
+      margin: 1%;
+      display: grid;
+      align-items: flex-end;
+      justify-content: end;
+    }
+
+    .okp4-progressbar-bar {
+      grid-area: bar;
+      display: grid;
+
+      .okp4-progressbar-bar-container {
+        margin: auto;
+        position: relative;
+        height: 10px;
+        width: 100%;
+        background-color: themed(primary-variant);
+        border-radius: 50px;
+
+        .okp4-progressbar-bar-filler {
+          position: relative;
+          height: 100%;
+          background-color: themed(text);
+          border-radius: inherit;
+
+          &.undetermined {
+            @include undetermined(10%, 40%);
+          }
+        }
+      }
+    }
+
+    .okp4-progressbar-icon {
+      margin: auto;
+      grid-area: icon;
+      max-height: 30px;
+      place-content: bottom;
+      @media screen and (min-width: 768px) {
+        max-height: 45px;
+      }
+
+      :first-child {
+        margin: auto;
+        max-height: inherit;
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 export * from './atoms/button/Button'
 export * from './atoms/canvas/Canvas'
 export * from './atoms/card/Card'
+export * from './atoms/calendar/Calendar'
 export * from './atoms/fileInput/FileInput'
 export * from './atoms/languageSwitcher/LanguageSwitcher'
 export * from './atoms/icon/Icon'
