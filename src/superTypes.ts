@@ -1,3 +1,5 @@
+import type { Dispatch, Reducer, ReducerAction, ReducerState } from 'react'
+
 /* eslint-disable @typescript-eslint/ban-types */
 export type Primitive = undefined | null | boolean | string | number | Function
 export type DeepReadonlyMap<K, V> = ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
@@ -24,5 +26,7 @@ export type JSONValue = string | number | boolean | { [x: string]: JSONValue } |
 export type Pair<U, V> = [U, V]
 
 export type UseState<U> = [U, (value: U) => void]
+
+export type UseReducer<S, A> = [ReducerState<Reducer<S, A>>, Dispatch<ReducerAction<Reducer<S, A>>>]
 
 export type Callback<U, V> = (value: U) => V
