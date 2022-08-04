@@ -37,72 +37,76 @@ type ToastProps = {
   readonly preventAutoClose?: boolean
 }
 
-// eslint-disable-next-line max-lines-per-function
+type TitleProps = Pick<ToastProps, 'title' | 'preventAutoClose'>
+type DescriptionProps = TitleProps & Pick<ToastProps, 'description'>
+
+const closeButton = (
+  <ToastPrimitive.Close className="okp4-toast-close">
+    <Icon name="close" size={20} />
+  </ToastPrimitive.Close>
+)
+
+const Title: React.FC<TitleProps> = ({ preventAutoClose, title }: DeepReadonly<TitleProps>) => {
+  if (!title) return null
+
+  const titleTypography = (
+    <ToastPrimitive.Title asChild>
+      <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
+        {title}
+      </Typography>
+    </ToastPrimitive.Title>
+  )
+
+  const titleWithCloseButton = (
+    <div className="okp4-toast-wrapper">
+      {titleTypography}
+      {closeButton}
+    </div>
+  )
+
+  return preventAutoClose ? titleWithCloseButton : titleTypography
+}
+
+const Description: React.FC<DescriptionProps> = ({
+  description,
+  preventAutoClose,
+  title
+}: DeepReadonly<DescriptionProps>) => {
+  if (!description) return null
+
+  const toastDescription = (
+    <ToastPrimitive.Description asChild>
+      {isString(description) ? (
+        <Typography color="highlighted-text" fontSize="small" fontWeight="light">
+          {description}
+        </Typography>
+      ) : (
+        description
+      )}
+    </ToastPrimitive.Description>
+  )
+
+  const descriptionWithCloseButton = (
+    <div className="okp4-toast-wrapper">
+      {toastDescription}
+      {closeButton}
+    </div>
+  )
+
+  const hasCloseButton = preventAutoClose && !title
+
+  return hasCloseButton ? descriptionWithCloseButton : toastDescription
+}
+
 export const Toast: React.FC<ToastProps> = ({
   isOpened,
   autoDuration = 3000,
   severityLevel,
-  title,
-  description,
   onOpenChange,
-  preventAutoClose
+  preventAutoClose,
+  title,
+  description
 }: DeepReadonly<ToastProps>) => {
-  const CloseButton: React.FC = () => (
-    <ToastPrimitive.Close className="okp4-toast-close">
-      <Icon name="close" size={20} />
-    </ToastPrimitive.Close>
-  )
-
-  const Title: React.FC = () => {
-    const ToastTitle: React.FC = () => (
-      <ToastPrimitive.Title asChild>
-        <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
-          {title}
-        </Typography>
-      </ToastPrimitive.Title>
-    )
-
-    const TitleWithCloseButton: React.FC = () => (
-      <div className="okp4-toast-wrapper">
-        <ToastTitle />
-        <CloseButton />
-      </div>
-    )
-
-    return title ? preventAutoClose ? <TitleWithCloseButton /> : <ToastTitle /> : null
-  }
-
-  const Description: React.FC = () => {
-    const descriptionWithCloseButton = description && preventAutoClose && !title
-
-    const ToastDescription: React.FC = () => (
-      <ToastPrimitive.Description asChild>
-        {isString(description) ? (
-          <Typography color="highlighted-text" fontSize="small" fontWeight="light">
-            {description}
-          </Typography>
-        ) : (
-          description
-        )}
-      </ToastPrimitive.Description>
-    )
-
-    const DescriptionWithCloseButton: React.FC = () => (
-      <div className="okp4-toast-wrapper">
-        <ToastDescription />
-        <CloseButton />
-      </div>
-    )
-
-    return description ? (
-      descriptionWithCloseButton ? (
-        <DescriptionWithCloseButton />
-      ) : (
-        <ToastDescription />
-      )
-    ) : null
-  }
-
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
@@ -112,8 +116,8 @@ export const Toast: React.FC<ToastProps> = ({
         onOpenChange={onOpenChange}
         open={isOpened}
       >
-        <Title />
-        <Description />
+        <Title preventAutoClose={preventAutoClose} title={title} />
+        <Description description={description} preventAutoClose={preventAutoClose} title={title} />
       </ToastPrimitive.Root>
       <ToastPrimitive.Viewport className="okp4-toast-viewport" />
     </ToastPrimitive.Provider>
