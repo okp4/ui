@@ -1438,9 +1438,9 @@
     tslib "^2.4.0"
 
 "@babylonjs/inspector@^5.8.0":
-  version "5.15.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.15.1.tgz#1af5c419383543759c105a251ac4bccb4024fe23"
-  integrity sha512-piWra2IDZM7lCbzPiV5bukRcIWC/KGYZIVwf5Fdkr3Fni3Ew3h3CyHUVN4mxQ5/NVEEZtNN9Fv06FBENt+xmcA==
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.18.0.tgz#a473f65477151703eb0f09da5442a1fc2a6dce86"
+  integrity sha512-K+g1VjqqtxythJGHR6QhCZoPWs/I9y0/qAl7LYEAYgjOOxs0xxoCokKj22kwRs6p/gSEsPHompW7FTozzvoelw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
@@ -4301,9 +4301,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@urql/core@^2.5.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@urql/core/-/core-2.6.0.tgz#1ce8b3a471312986378ce42ea800478595239315"
-  integrity sha512-JuIbzDu2oASSe+m5u410ceqWQGTF6QK5W/UZaHuzQX+I2wX4aVdPN/NeZnaFFqG3UYw3+ttFHpQK0vrsU6QLFw==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-2.6.1.tgz#c10ee972c5e81df6d7bf1e778ef1b5d30e2906e5"
+  integrity sha512-gYrEHy3tViJhwIhauK6MIf2Qp09QTsgNHZRd0n71rS+hF6gdwjspf1oKljl4m25+272cJF7fPjBUGmjaiEr7Kg==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.1"
     wonka "^4.0.14"
@@ -9417,9 +9417,9 @@ i18next-browser-languagedetector@^6.1.4:
     "@babel/runtime" "^7.14.6"
 
 i18next@^21.6.16:
-  version "21.8.14"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.14.tgz#03a3a669ef4520aadd9d152c80596f600e287c6a"
-  integrity sha512-4Yi+DtexvMm/Yw3Q9fllzY12SgLk+Mcmar+rCAccsOPul/2UmnBzoHbTGn/L48IPkFcmrNaH7xTLboBWIbH6pw==
+  version "21.8.16"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.16.tgz#31fe4682e4e2077dbf229a88e5a58b7020e4ddc8"
+  integrity sha512-acJLCk38YMfEPjBR/1vS13SFY7rBQLs9E5m1tSRnWc9UW3f+SZszgH+NP1fZRA1+O+CdG2eLGGmuUMJW52EwzQ==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
