@@ -185,7 +185,7 @@ jobs:
         id: format_lighthouse_score
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.OKP4_TOKEN }}
           script: |
             const scoreLabel = (rawScore) => {
               const score = Math.round(rawScore * 100);
