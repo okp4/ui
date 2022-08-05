@@ -1,5 +1,46 @@
 # OKP4 UI changelog
 
+# [1.10.0](https://github.com/okp4/ui/compare/v1.9.0...v1.10.0) (2022-08-05)
+
+
+### Bug Fixes
+
+* **i18n:** correct typo ([c2912bb](https://github.com/okp4/ui/commit/c2912bbfba8a6939711c91ec05dc681e39b61ee8))
+
+
+### Features
+
+* add babylonjs engine atom ([3d3740e](https://github.com/okp4/ui/commit/3d3740e4a0a3430d3d52a18aa8801f68e16e2f4e))
+* add check, clock and cross  icons ([be19927](https://github.com/okp4/ui/commit/be199278142698672d90fec9c9dca7e2f444cb6f))
+* add close icon ([6752c35](https://github.com/okp4/ui/commit/6752c35b75483ab3114828d03f39eb1a0175ea62))
+* add i18n label for buttons ([bf20df5](https://github.com/okp4/ui/commit/bf20df59099d8b25467269b513d589f3f4dcbde3))
+* add icon component ([0e01dcd](https://github.com/okp4/ui/commit/0e01dcde186c8f838bba1456f02fcbbf656b9bc3))
+* add icons, change name & uniform colours ([0a7b968](https://github.com/okp4/ui/commit/0a7b968506f21292b0c059c14b62fbb6c8202ff8))
+* add jsx element type to description ([e7a39b1](https://github.com/okp4/ui/commit/e7a39b1095a3108529b9fef3de433eb333acf012))
+* add max-width to logo & adjust logo documentation ([70673dd](https://github.com/okp4/ui/commit/70673ddd27e5480387e004c1e90ff483405ff8ef))
+* add new icons to type ([d3e27ee](https://github.com/okp4/ui/commit/d3e27ee6f9581ab4e77af6ec9db1fa6be31d141c))
+* add new logo to storybook ([6cad3e1](https://github.com/okp4/ui/commit/6cad3e18133b9cd5abb7aca05af249b20b0d4e60))
+* add okp4 icons ([2833dab](https://github.com/okp4/ui/commit/2833dabfb0fb3c80b8ab0168f74a5bacea3d9853))
+* add properties to button ([454a0da](https://github.com/okp4/ui/commit/454a0da0dc389a541be4efa6f33ab214b6caa330))
+* add reset button in the last step and refactor code ([4cb1d1e](https://github.com/okp4/ui/commit/4cb1d1e485b93e0dfcfebe2ae0e1e85e25e6976e))
+* add responsive design ([4fcb7a8](https://github.com/okp4/ui/commit/4fcb7a8c0436112dc34c496bb6724fc2f7d0fa3d))
+* add responsive style ([e003f89](https://github.com/okp4/ui/commit/e003f89455060234603fa1e4557df8633db462a5))
+* add sprites scripts ([5e2fa18](https://github.com/okp4/ui/commit/5e2fa18d21559ba9977794f432b3e4e3b61f251d))
+* add state to watch useful steps changes ([3b3748f](https://github.com/okp4/ui/commit/3b3748f8e683e9cffd6b4df91539bd645be449a4))
+* add stepper export ([ad3fd78](https://github.com/okp4/ui/commit/ad3fd78a07a2c4893e58bd9e615dfe2f6ac5bd31))
+* add string type guard function ([0f25e5e](https://github.com/okp4/ui/commit/0f25e5e9b11b296c26ac312bcb596062b095af41))
+* add success content after submit ([72e6685](https://github.com/okp4/ui/commit/72e6685f43938575d21cc9783df8f6a964b1f187))
+* change step status management ([2d62b75](https://github.com/okp4/ui/commit/2d62b75dcbe9331b90a0036c22716c8323b8dfeb))
+* create stepper component ([24433e2](https://github.com/okp4/ui/commit/24433e26f2cfab18e03df630f7de738d1e05618f))
+* declare type for managing a state ([22be8b3](https://github.com/okp4/ui/commit/22be8b3963ebdf1068be04a808d30b682e998121))
+* declare type to manage callbacks ([78939d4](https://github.com/okp4/ui/commit/78939d4088d910a4f7c06f619d5dffd2e675845e))
+* fix reset state ([c3a99af](https://github.com/okp4/ui/commit/c3a99aff0ff2c9bfc62de3192327e2f2ee67821f))
+* improve step styles ([80c8f2d](https://github.com/okp4/ui/commit/80c8f2da8a560740bfffd79328c3de55ae0c827e))
+* improve stepper styles ([615a486](https://github.com/okp4/ui/commit/615a4862d4e0bc609f69bab6157cdf13d0be0050))
+* introduce useReducer to manage local state ([179770a](https://github.com/okp4/ui/commit/179770ad369d51a4baab40d72df7e040c6f97962))
+* remove step component and refactor status management ([afd1419](https://github.com/okp4/ui/commit/afd1419ed43d9dcc46582d3a30a8eb185a77eb88))
+* replace next and previous text by icon ([6e506ed](https://github.com/okp4/ui/commit/6e506edb99715ac58cc2c6916f4cf80143b13b9d))
+
 # [1.9.0](https://github.com/okp4/ui/compare/v1.8.0...v1.9.0) (2022-07-19)
 
 
