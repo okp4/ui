@@ -3,16 +3,13 @@
 .okp4-listitem-main {
   display: grid;
   column-gap: 5px;
-  row-gap: 5px;
   padding: 10px;
-
+  align-items: center;
   grid-template-columns: minmax(30px, 45px) 1fr minmax(30px, 45px);
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
     'leftIcon label rightIcon'
     'leftIcon description rightIcon';
-
-  align-items: center;
 
   @include with-theme {
     background-color: themed(field);
@@ -22,11 +19,13 @@
   .okp4-listitem-label {
     grid-area: label;
     justify-content: start;
+    margin: 3px;
   }
 
   .okp4-listitem-description {
     grid-area: description;
     justify-content: start;
+    margin: 3px;
   }
 
   .okp4-listitem-icon-left {

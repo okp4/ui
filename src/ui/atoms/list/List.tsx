@@ -29,10 +29,10 @@ export const List: React.FC<ListProps> = ({
 }: DeepReadonly<ListProps>): JSX.Element => {
   return (
     <div className="okp4-list-main">
-      {items.map((item: DeepReadonly<ListItemProps>) => (
+      {items.map((item: DeepReadonly<ListItemProps>, index: number) => (
         <ListItem
           description={item.description}
-          key={item.label}
+          key={index}
           label={item.label}
           leftIcon={item.leftIcon ?? leftIcon}
           rightIcon={item.rightIcon ?? rightIcon}
