@@ -1,13 +1,13 @@
 export type Day = 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday'
 
 export const DAYS: Day[] = [
+  'sunday',
   'monday',
   'tuesday',
   'wednesday',
   'thursday',
   'friday',
-  'saturday',
-  'sunday'
+  'saturday'
 ]
 
 export const WEEKS = [1, 2, 3, 4, 5, 6]
@@ -77,7 +77,8 @@ export const getDayCalendar = (
   }
 }
 
-export const getMonthCalendar = (year: number, month: number): MonthCalendar => {
+export const getMonthCalendar = (year: number, month: number, weekStart: Day): MonthCalendar => {
+  const start = DAYS.indexOf(weekStart)
   const firstDay = getMonthStart(year, month)
   const numberOfDays = getNumberOfDays(year, month)
   const monthCalendar: MonthCalendar = []
@@ -86,7 +87,13 @@ export const getMonthCalendar = (year: number, month: number): MonthCalendar => 
     const weekCalendar: WeekCalendar = []
     DAYS.forEach((_day: string, index: number) => {
       weekCalendar.push(
-        getDayCalendar(year, month, (week - 1) * 7 + index + 1, firstDay, numberOfDays)
+        getDayCalendar(
+          year,
+          month,
+          (week - (start <= firstDay ? 1 : 2)) * 7 + index + start,
+          firstDay,
+          numberOfDays
+        )
       )
     })
     monthCalendar.push(weekCalendar)

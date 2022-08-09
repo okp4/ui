@@ -1,5 +1,5 @@
 import type { Reducer } from 'react'
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback, useReducer, useMemo } from 'react'
 import type { DeepReadonly, UseReducer } from 'superTypes'
 import './i18n/index'
 import type { UseTranslationResponse } from 'hook/useTranslation'
@@ -12,6 +12,7 @@ import './calendar.scss'
 import classNames from 'classnames'
 
 type CalendarState = {
+  weekStart: CalendarHelper.Day
   monthCalendar: DeepReadonly<CalendarHelper.MonthCalendar>
   month: number
   year: number
@@ -25,22 +26,26 @@ type CalendarAction =
   | { type: 'nextYearClicked' }
   | { type: 'dateSelected'; payload: CalendarHelper.DayCalendar }
 
-const initState = (date: DeepReadonly<Date>): CalendarState => {
-  const month = date.getMonth()
-  const year = date.getFullYear()
+const initState = (
+  initArg: DeepReadonly<{ date: Date; start: CalendarHelper.Day }>
+): CalendarState => {
+  const month = initArg.date.getMonth()
+  const year = initArg.date.getFullYear()
   return {
+    weekStart: initArg.start,
     month,
     year,
-    monthCalendar: CalendarHelper.getMonthCalendar(year, month),
-    selectedDate: new Date(year, month, date.getDate()).getTime()
+    monthCalendar: CalendarHelper.getMonthCalendar(year, month, initArg.start),
+    selectedDate: new Date(year, month, initArg.date.getDate()).getTime()
   }
 }
 
 const goNextMonth = (state: DeepReadonly<CalendarState>, selectedDate?: number): CalendarState => {
   const month = state.month === 11 ? 0 : state.month + 1
   const year = state.month === 11 ? state.year + 1 : state.year
-  const monthCalendar = CalendarHelper.getMonthCalendar(year, month)
+  const monthCalendar = CalendarHelper.getMonthCalendar(year, month, state.weekStart)
   return {
+    ...state,
     month,
     year,
     monthCalendar,
@@ -54,8 +59,9 @@ const goPreviousMonth = (
 ): CalendarState => {
   const month = state.month === 0 ? 11 : state.month - 1
   const year = state.month === 0 ? state.year - 1 : state.year
-  const monthCalendar = CalendarHelper.getMonthCalendar(year, month)
+  const monthCalendar = CalendarHelper.getMonthCalendar(year, month, state.weekStart)
   return {
+    ...state,
     month,
     year,
     monthCalendar,
@@ -74,8 +80,9 @@ const calendarReducer = (
       return goNextMonth(state)
     case 'previousYearClicked': {
       const year = state.year - 1
-      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month)
+      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month, state.weekStart)
       return {
+        ...state,
         month: state.month,
         year,
         monthCalendar,
@@ -84,8 +91,9 @@ const calendarReducer = (
     }
     case 'nextYearClicked': {
       const year = state.year + 1
-      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month)
+      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month, state.weekStart)
       return {
+        ...state,
         month: state.month,
         year,
         monthCalendar,
@@ -105,7 +113,7 @@ const calendarReducer = (
       }
     }
     default:
-      return initState(new Date())
+      return initState({ date: new Date(), start: state.weekStart })
   }
 }
 
@@ -114,6 +122,7 @@ export type CalendarProps = {
    * The initial date.
    */
   readonly initialDate?: Date
+  readonly weekStart?: CalendarHelper.Day
   /**
    * Callback function called when a date is selected.
    */
@@ -126,14 +135,23 @@ export type CalendarProps = {
 // eslint-disable-next-line max-lines-per-function
 export const Calendar: React.FC<CalendarProps> = ({
   initialDate = new Date(),
+  weekStart = 'sunday',
   onSelect
 }: DeepReadonly<CalendarProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
 
   const [state, dispatch]: UseReducer<CalendarState, CalendarAction> = useReducer<
     Reducer<CalendarState, CalendarAction>,
-    DeepReadonly<Date>
-  >(calendarReducer, initialDate, initState)
+    DeepReadonly<{ date: Date; start: CalendarHelper.Day }>
+  >(calendarReducer, { date: initialDate, start: weekStart }, initState)
+
+  const days = useMemo(
+    () =>
+      CalendarHelper.DAYS.slice(CalendarHelper.DAYS.indexOf(weekStart)).concat(
+        CalendarHelper.DAYS.slice(0, CalendarHelper.DAYS.indexOf(weekStart))
+      ),
+    [weekStart]
+  )
 
   const handlePreviousMonth = useCallback(() => dispatch({ type: 'previousMonthClicked' }), [])
 
@@ -208,7 +226,7 @@ export const Calendar: React.FC<CalendarProps> = ({
       </div>
 
       <div className="okp4-calendar-week-days">
-        {CalendarHelper.DAYS.map((day: string) => (
+        {days.map((day: string) => (
           <Typography as="div" fontSize="x-small" fontWeight="bold" key={day}>
             {t(`calendar:calendar.dayShort.${day}`)}
           </Typography>
