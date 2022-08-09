@@ -1,106 +1,249 @@
-import React, { useEffect, useState } from 'react'
-import type { DeepReadonly } from 'superTypes'
+import type { Reducer } from 'react'
+import React, { useCallback, useReducer } from 'react'
+import type { DeepReadonly, UseReducer } from 'superTypes'
+import './i18n/index'
+import type { UseTranslationResponse } from 'hook/useTranslation'
+import { useTranslation } from 'hook/useTranslation'
+import * as CalendarHelper from './calendarHelper'
+import { Icon } from '../icon/Icon'
+import { Button } from '../button/Button'
 import { Typography } from '../typography/Typography'
 import './calendar.scss'
-import * as CalendarHelper from './calendar'
-import { UseState } from '../../../superTypes'
+import classNames from 'classnames'
+
+type CalendarState = {
+  monthCalendar: DeepReadonly<CalendarHelper.MonthCalendar>
+  month: number
+  year: number
+  selectedDate: number
+}
+
+type CalendarAction =
+  | { type: 'previousMonthClicked' }
+  | { type: 'nextMonthClicked' }
+  | { type: 'previousYearClicked' }
+  | { type: 'nextYearClicked' }
+  | { type: 'dateSelected'; payload: CalendarHelper.DayCalendar }
+
+const initState = (date: DeepReadonly<Date>): CalendarState => {
+  const month = date.getMonth()
+  const year = date.getFullYear()
+  return {
+    month,
+    year,
+    monthCalendar: CalendarHelper.getMonthCalendar(year, month),
+    selectedDate: new Date(year, month, date.getDate()).getTime()
+  }
+}
+
+const goNextMonth = (state: DeepReadonly<CalendarState>, selectedDate?: number): CalendarState => {
+  const month = state.month === 11 ? 0 : state.month + 1
+  const year = state.month === 11 ? state.year + 1 : state.year
+  const monthCalendar = CalendarHelper.getMonthCalendar(year, month)
+  return {
+    month,
+    year,
+    monthCalendar,
+    selectedDate: selectedDate ?? state.selectedDate
+  }
+}
+
+const goPreviousMonth = (
+  state: DeepReadonly<CalendarState>,
+  selectedDate?: number
+): CalendarState => {
+  const month = state.month === 0 ? 11 : state.month - 1
+  const year = state.month === 0 ? state.year - 1 : state.year
+  const monthCalendar = CalendarHelper.getMonthCalendar(year, month)
+  return {
+    month,
+    year,
+    monthCalendar,
+    selectedDate: selectedDate ?? state.selectedDate
+  }
+}
+
+const calendarReducer = (
+  state: DeepReadonly<CalendarState>,
+  action: DeepReadonly<CalendarAction>
+): DeepReadonly<CalendarState> => {
+  switch (action.type) {
+    case 'previousMonthClicked':
+      return goPreviousMonth(state)
+    case 'nextMonthClicked':
+      return goNextMonth(state)
+    case 'previousYearClicked': {
+      const year = state.year - 1
+      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month)
+      return {
+        month: state.month,
+        year,
+        monthCalendar,
+        selectedDate: state.selectedDate
+      }
+    }
+    case 'nextYearClicked': {
+      const year = state.year + 1
+      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month)
+      return {
+        month: state.month,
+        year,
+        monthCalendar,
+        selectedDate: state.selectedDate
+      }
+    }
+    case 'dateSelected': {
+      if (action.payload.month < 0) {
+        return goPreviousMonth(state, action.payload.timestamp)
+      }
+      if (action.payload.month > 0) {
+        return goNextMonth(state, action.payload.timestamp)
+      }
+      return {
+        ...state,
+        selectedDate: action.payload.timestamp
+      }
+    }
+    default:
+      return initState(new Date())
+  }
+}
 
 export type CalendarProps = {
   /**
-   * The progress bar title.
+   * The initial date.
    */
-  readonly label?: string
+  readonly initialDate?: Date
   /**
-   * The start value of the progress bar.
+   * Callback function called when a date is selected.
    */
-  readonly minValue?: number
-  /**
-   * The end value of the progress bar.
-   */
-  readonly maxValue?: number
-  /**
-   * The current value of the progress bar.
-   */
+  readonly onSelect?: (date: DeepReadonly<Date>) => void
 }
 
 /**
  * Primary UI component for progress of a treatment.
  */
+// eslint-disable-next-line max-lines-per-function
 export const Calendar: React.FC<CalendarProps> = ({
-  label
+  initialDate = new Date(),
+  onSelect
 }: DeepReadonly<CalendarProps>): JSX.Element => {
-  type CalendarState = {
-    monthCalendar: MonthCalendar
-    selectedDay: any
-    month: number
-    year: number
+  const { t }: UseTranslationResponse = useTranslation()
+
+  const [state, dispatch]: UseReducer<CalendarState, CalendarAction> = useReducer<
+    Reducer<CalendarState, CalendarAction>,
+    DeepReadonly<Date>
+  >(calendarReducer, initialDate, initState)
+
+  const handlePreviousMonth = useCallback(() => dispatch({ type: 'previousMonthClicked' }), [])
+
+  const handleNextMonth = useCallback(() => dispatch({ type: 'nextMonthClicked' }), [])
+
+  const handlePreviousYear = useCallback(() => dispatch({ type: 'previousYearClicked' }), [])
+
+  const handleNextYear = useCallback(() => dispatch({ type: 'nextYearClicked' }), [])
+
+  const handleSelectDate = useCallback(
+    (day: DeepReadonly<CalendarHelper.DayCalendar>) => () => {
+      onSelect?.(new Date(day.timestamp))
+      dispatch({ type: 'dateSelected', payload: day })
+    },
+    [onSelect]
+  )
+
+  const isDateSelected = (day: DeepReadonly<CalendarHelper.DayCalendar>): boolean => {
+    return state.selectedDate === day.timestamp
   }
-  const [state, setState]: UseState<CalendarState> = useState<CalendarState>({
-    monthCalendar: [],
-    selectedDay: null,
-    month: 7,
-    year: 2022
-  })
-
-  type DayCalendar = {
-    dateOfMonth: number
-    isInMonth: boolean
-  }
-
-  type MonthCalendar = DayCalendar[][]
-
-  const getDayCalendar = (
-    year: number,
-    month: number,
-    row: number,
-    col: number,
-    firstDay: number,
-    numberOfDays: number
-  ): DayCalendar => {
-    const indexInMonth = row * 7 + col
-    const isInMonth = indexInMonth >= firstDay && indexInMonth <= numberOfDays
-    const date = indexInMonth - firstDay
-    const previousMonth = month === 0 ? 11 : month - 1
-    const previousYear = month === 0 ? year - 1 : year
-    const previousMonthNumberOfDays = CalendarHelper.getNumberOfDays(previousYear, previousMonth)
-    const dateOfMonth = (date < 0 ? previousMonthNumberOfDays + date : date % numberOfDays) + 1
-    return {
-      dateOfMonth,
-      isInMonth
-    }
-  }
-
-  const getMonthCalendar = (year: number, month: number) => {
-    const firstDay = CalendarHelper.getMonthStart(year, month)
-    console.log({ firstDay })
-    const numberOfDays = CalendarHelper.getNumberOfDays(year, month)
-    const monthCalendar: MonthCalendar = []
-    for (let row = 0; row < 6; row++) {
-      const weekCalendar: DayCalendar[] = []
-      for (let col = 0; col < 7; col++) {
-        weekCalendar.push(getDayCalendar(year, month, row, col, firstDay, numberOfDays))
-      }
-      monthCalendar.push(weekCalendar)
-    }
-    return monthCalendar
-  }
-
-  useEffect(() => {
-    setState({
-      ...state,
-      monthCalendar: getMonthCalendar(state.year, state.month)
-    })
-  }, [])
 
   return (
     <div className="okp4-calendar-main">
-      {state.monthCalendar.map((weekCalendar: DayCalendar[]) => (
-        <div className="okp4-calendar-week">
-          {weekCalendar.map((dayCalendar: DayCalendar) => (
-            <span>{dayCalendar.dateOfMonth}</span>
-          ))}
+      <div className="okp4-calendar-header">
+        <div className="okp4-calendar-previous-year">
+          <Button
+            icon={<Icon name="previous" size={15} />}
+            label="previousYear"
+            onClick={handlePreviousYear}
+            size="small"
+            variant="icon"
+          />
         </div>
-      ))}
+        <div className="okp4-calendar-previous-month">
+          <Button
+            icon={<Icon name="arrow-left" size={15} />}
+            label="previousMonth"
+            onClick={handlePreviousMonth}
+            size="small"
+            variant="icon"
+          />
+        </div>
+
+        <div className="okp4-calendar-year">
+          <Typography as="span" fontSize="small">
+            {state.year}
+          </Typography>
+        </div>
+        <div className="okp4-calendar-month">
+          <Typography as="span" fontSize="small">
+            {t(`calendar:calendar.month.${CalendarHelper.MONTHS[state.month]}`)}
+          </Typography>
+        </div>
+        <div className="okp4-calendar-next-month">
+          <Button
+            icon={<Icon name="arrow-right" size={15} />}
+            label="nextMonth"
+            onClick={handleNextMonth}
+            size="small"
+            variant="icon"
+          />
+        </div>
+        <div className="okp4-calendar-next-year">
+          <Button
+            icon={<Icon name="next" size={15} />}
+            label="nextYear"
+            onClick={handleNextYear}
+            size="small"
+            variant="icon"
+          />
+        </div>
+      </div>
+
+      <div className="okp4-calendar-week-days">
+        {CalendarHelper.DAYS.map((day: string) => (
+          <Typography as="div" fontSize="x-small" fontWeight="bold" key={day}>
+            {t(`calendar:calendar.dayShort.${day}`)}
+          </Typography>
+        ))}
+      </div>
+      <div className="okp4-calendar-days">
+        {state.monthCalendar.map(
+          (weekCalendar: DeepReadonly<CalendarHelper.WeekCalendar>, index: number) => (
+            <div className="okp4-calendar-week" key={index}>
+              {weekCalendar.map(
+                (dayCalendar: DeepReadonly<CalendarHelper.DayCalendar>, index: number) => (
+                  <div
+                    className={classNames('okp4-calendar-day-container', {
+                      selected: isDateSelected(dayCalendar)
+                    })}
+                    key={index}
+                    onClick={handleSelectDate(dayCalendar)}
+                  >
+                    <div className="okp4-calendar-day">
+                      <Typography
+                        as="div"
+                        color={dayCalendar.month === 0 ? 'text' : 'disabled'}
+                        fontSize="x-small"
+                        fontWeight={isDateSelected(dayCalendar) ? 'bold' : 'light'}
+                      >
+                        {dayCalendar.dateOfMonth}
+                      </Typography>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          )
+        )}
+      </div>
     </div>
   )
 }
