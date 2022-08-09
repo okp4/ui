@@ -54,10 +54,23 @@ $background-colors: ('success', 'error', 'warning', 'info');
       &[data-swipe='end'] {
         animation: swipeOut 100ms ease-out forwards;
       }
-    }
 
-    .okp4-toast-description {
-      word-break: break-word;
+      .okp4-toast-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        align-self: flex-end;
+        gap: 3px;
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+      }
+
+      .okp4-toast-close {
+        all: unset;
+        cursor: pointer;
+        align-self: flex-start;
+        font-size: 0;
+      }
     }
   }
 }
