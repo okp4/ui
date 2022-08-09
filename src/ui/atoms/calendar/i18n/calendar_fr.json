@@ -1,0 +1,36 @@
+{
+  "calendar": {
+    "month": {
+      "january": "Janvier",
+      "february": "Février",
+      "march": "Mars",
+      "april": "Avril",
+      "may": "Mai",
+      "june": "Juin",
+      "july": "Juillet",
+      "august": "Août",
+      "september": "Septembre",
+      "october": "Octobre",
+      "november": "Novembre",
+      "december": "Décembre"
+    },
+    "day": {
+      "sunday": "Dimanche",
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi"
+    },
+    "dayShort": {
+      "sunday": "Dim",
+      "monday": "Lun",
+      "wednesday": "Mer",
+      "tuesday": "Mar",
+      "thursday": "Jeu",
+      "friday": "Ven",
+      "saturday": "Sam"
+    }
+  }
+}
