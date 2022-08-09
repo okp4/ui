@@ -225,14 +225,14 @@ export const Calendar: React.FC<CalendarProps> = ({
         </div>
       </div>
 
-      <div className="okp4-calendar-week-days">
+      <div className="okp4-calendar-day-names">
         {days.map((day: string) => (
           <Typography as="div" fontSize="x-small" fontWeight="bold" key={day}>
             {t(`calendar:calendar.dayShort.${day}`)}
           </Typography>
         ))}
       </div>
-      <div className="okp4-calendar-days">
+      <div className="okp4-calendar-content">
         {state.monthCalendar.map(
           (weekCalendar: DeepReadonly<CalendarHelper.WeekCalendar>, index: number) => (
             <div className="okp4-calendar-week" key={index}>

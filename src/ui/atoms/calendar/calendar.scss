@@ -43,44 +43,43 @@
     grid-area: nextMonth;
   }
 
-  .okp4-calendar-week-days {
+  .okp4-calendar-day-names {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     align-items: center;
     justify-items: center;
   }
 
-  .okp4-calendar-days {
+  .okp4-calendar-content {
     display: grid;
-    grid-template-row: repeat(6, 1fr);
     row-gap: 5px;
 
     .okp4-calendar-week {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       column-gap: 5px;
+    }
 
-      .okp4-calendar-day-container {
-        display: flex;
-        width: 35px;
-        height: 35px;
-        align-items: center;
-        justify-items: center;
-        border-radius: 100%;
-        @include with-theme {
-          &:hover {
-            cursor: pointer;
-            background: themed(field);
-          }
-
-          &.selected {
-            background: themed(secondary-selected);
-          }
+    .okp4-calendar-day-container {
+      display: flex;
+      width: 35px;
+      height: 35px;
+      align-items: center;
+      justify-items: center;
+      border-radius: 100%;
+      @include with-theme {
+        &:hover {
+          cursor: pointer;
+          background: themed(field);
         }
 
-        .okp4-calendar-day {
-          margin: auto;
+        &.selected {
+          background: themed(secondary-selected);
         }
+      }
+
+      .okp4-calendar-day {
+        margin: auto;
       }
     }
   }
