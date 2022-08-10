@@ -13,7 +13,7 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './select.scss'
 
-export type Option = {
+export type SelectOption = {
   readonly label: string
   readonly value: string
   readonly group?: string
@@ -33,7 +33,7 @@ export type SelectProps = InputPropsForSelect & {
   /**
    * The options list displayed when the select is opened.
    */
-  readonly options: Readonly<Option[]>
+  readonly options: Readonly<SelectOption[]>
   /**
    * If true, allows the user to make a multiple choice.
    * Default to false.
@@ -134,7 +134,7 @@ export const Select = ({
   }
 
   const isValueInOptions = (): boolean => {
-    const optionsValues: string[] = options.map((option: Option) => option.value)
+    const optionsValues: string[] = options.map((option: SelectOption) => option.value)
     if (isString(value)) {
       return optionsValues.includes(value)
     }
@@ -148,7 +148,7 @@ export const Select = ({
   }
 
   const getAssociatedLabel = (value: string): string => {
-    const foundLabel = options.find((option: Option) => option.value === value)?.label
+    const foundLabel = options.find((option: SelectOption) => option.value === value)?.label
     return foundLabel ?? ''
   }
 
@@ -167,8 +167,8 @@ export const Select = ({
 
   const labelToDisplay = isValueInOptions() ? capitalizedLabel() : ''
   const groups: Set<string> = new Set()
-  const optionsWithoutGroups: Option[] = []
-  options.map((option: Readonly<Option>) => {
+  const optionsWithoutGroups: SelectOption[] = []
+  options.map((option: Readonly<SelectOption>) => {
     option.group ? groups.add(option.group) : optionsWithoutGroups.push(option)
   })
 
@@ -187,7 +187,7 @@ export const Select = ({
     />
   )
 
-  const Option = ({ label, value }: Option): JSX.Element => {
+  const Option = ({ label, value }: SelectOption): JSX.Element => {
     return (
       <li
         className={classNames('okp4-select-option', {
@@ -204,7 +204,7 @@ export const Select = ({
     return (
       <div>
         <ul className="okp4-select-options">
-          {optionsWithoutGroups.map(({ label, value }: Option) => {
+          {optionsWithoutGroups.map(({ label, value }: SelectOption) => {
             return <Option key={value} label={label} value={value} />
           })}
         </ul>
@@ -277,7 +277,7 @@ export const Select = ({
                           </p>
                         </Typography>
                         <ul className="okp4-select-options">
-                          {options.map(({ label, value, group }: Option) => {
+                          {options.map(({ label, value, group }: SelectOption) => {
                             return (
                               group && group === groupName && <Option label={label} value={value} />
                             )

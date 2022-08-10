@@ -1,5 +1,5 @@
 import type { DeepReadonly } from './superTypes'
-import type { Option } from './ui/molecules/select/Select'
+import type { SelectOption } from './ui/molecules/select/Select'
 
 export const asImmutable = <T>(o?: T): DeepReadonly<T> => o as DeepReadonly<T>
 
@@ -36,8 +36,8 @@ export const compareStrings = (
 ): number => referenceStr.localeCompare(compareString, locales, options)
 
 const ascendingSortByGroupAndValues = (
-  option1: Readonly<Option>,
-  option2: Readonly<Option>
+  option1: Readonly<SelectOption>,
+  option2: Readonly<SelectOption>
 ): number => {
   const definedOption1 = option1.group ?? ''
   const definedOption2 = option2.group ?? ''
@@ -53,7 +53,7 @@ const ascendingSortByGroupAndValues = (
   return compareStrings(option1.value, option2.value)
 }
 
-const descendingSortByGroupAndValues = (option1: Option, option2: Option): number => {
+const descendingSortByGroupAndValues = (option1: SelectOption, option2: SelectOption): number => {
   const definedOption1 = option1.group ?? ''
   const definedOption2 = option2.group ?? ''
   if (definedOption1 < definedOption2) {
@@ -65,14 +65,14 @@ const descendingSortByGroupAndValues = (option1: Option, option2: Option): numbe
   return option2.value.localeCompare(option1.value)
 }
 
-export const getOptionsAscendingSorted = (options: Readonly<Option[]>): Option[] => {
-  return [...options].sort((option1: Option, option2: Option) =>
+export const getOptionsAscendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] => {
+  return [...options].sort((option1: SelectOption, option2: SelectOption) =>
     ascendingSortByGroupAndValues(option1, option2)
   )
 }
 
-export const getOptionsDescendingSorted = (options: Readonly<Option[]>): Option[] => {
-  return [...options].sort((option1: Option, option2: Option) =>
+export const getOptionsDescendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] => {
+  return [...options].sort((option1: SelectOption, option2: SelectOption) =>
     descendingSortByGroupAndValues(option1, option2)
   )
 }

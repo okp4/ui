@@ -69,7 +69,7 @@ It can display simple or grouped options and offers the user the possibility to 
     options: {
       table: {
         type: {
-          summary: 'Option []'
+          summary: 'SelectOption []'
         }
       }
     },
@@ -153,11 +153,11 @@ If the passed value is not part of one of the option values, then it will not be
 
 ## Options
 
-A list of options of `Option` type must be provided in order to use `Select`.  
+A list of options of `SelectOption` type must be provided in order to use `Select`.  
 The options list must be provided in the order you want them to appear and must follow a certain formalism:
 
 ```ts
-type Option = {
+type SelectOption = {
   readonly label: string // text displayed in select
   readonly value: string // value selected by the user
   readonly group?: string // optional property that allows to group some options according to their belonging to a group
@@ -211,7 +211,7 @@ Here is an example of the 3 cases concerning the option lists:
               { label: 'Lime', value: 'lime', group: 'Fruits' },
               { label: 'Potatoe', value: 'potatoe' }
             ]}
-            placeholder="I am containing options with & without groups"
+            placeholder="I am containing options with &amp; without groups"
             value={value3}
           />
         </>
