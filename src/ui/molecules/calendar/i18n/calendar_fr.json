@@ -31,6 +31,12 @@
       "thursday": "Jeu",
       "friday": "Ven",
       "saturday": "Sam"
+    },
+    "button": {
+      "previousYear": "Année précédente",
+      "nextYear": "Année suivante",
+      "previousMonth": "Mois précédent",
+      "nextMonth": "Mois suivant"
     }
   }
 }

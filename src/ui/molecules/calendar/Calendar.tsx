@@ -122,6 +122,9 @@ export type CalendarProps = {
    * The initial date.
    */
   readonly initialDate?: Date
+  /**
+   * The fisrt day of the week.
+   */
   readonly weekStart?: CalendarHelper.Day
   /**
    * Callback function called when a date is selected.
@@ -129,9 +132,6 @@ export type CalendarProps = {
   readonly onSelect?: (date: DeepReadonly<Date>) => void
 }
 
-/**
- * Primary UI component for progress of a treatment.
- */
 // eslint-disable-next-line max-lines-per-function
 export const Calendar: React.FC<CalendarProps> = ({
   initialDate = new Date(),
@@ -178,8 +178,8 @@ export const Calendar: React.FC<CalendarProps> = ({
       <div className="okp4-calendar-header">
         <div className="okp4-calendar-previous-year">
           <Button
-            icon={<Icon name="previous" size={15} />}
-            label="previousYear"
+            icon={<Icon name="arrow-down" size={15} />}
+            label={t(`calendar:calendar.button.previousYear`)}
             onClick={handlePreviousYear}
             size="small"
             variant="icon"
@@ -188,7 +188,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         <div className="okp4-calendar-previous-month">
           <Button
             icon={<Icon name="arrow-left" size={15} />}
-            label="previousMonth"
+            label={t(`calendar:calendar.button.previousMonth`)}
             onClick={handlePreviousMonth}
             size="small"
             variant="icon"
@@ -208,7 +208,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         <div className="okp4-calendar-next-month">
           <Button
             icon={<Icon name="arrow-right" size={15} />}
-            label="nextMonth"
+            label={t(`calendar:calendar.button.nextMonth`)}
             onClick={handleNextMonth}
             size="small"
             variant="icon"
@@ -216,8 +216,8 @@ export const Calendar: React.FC<CalendarProps> = ({
         </div>
         <div className="okp4-calendar-next-year">
           <Button
-            icon={<Icon name="next" size={15} />}
-            label="nextYear"
+            icon={<Icon name="arrow-up" size={15} />}
+            label={t(`calendar:calendar.button.nextYear`)}
             onClick={handleNextYear}
             size="small"
             variant="icon"

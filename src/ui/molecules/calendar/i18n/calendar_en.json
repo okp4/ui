@@ -31,6 +31,12 @@
       "thursday": "Thu",
       "friday": "Fri",
       "saturday": "Sat"
+    },
+    "button": {
+      "previousYear": "Previous year",
+      "nextYear": "Next year",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month"
     }
   }
 }
