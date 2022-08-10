@@ -1,5 +1,5 @@
-import type { Reducer } from 'react'
 import React, { useCallback, useReducer, useMemo } from 'react'
+import type { Reducer } from 'react'
 import type { DeepReadonly, UseReducer } from 'superTypes'
 import './i18n/index'
 import type { UseTranslationResponse } from 'hook/useTranslation'
@@ -35,15 +35,15 @@ const initState = (
     weekStart: initArg.start,
     month,
     year,
-    monthCalendar: CalendarHelper.getMonthCalendar(year, month, initArg.start),
+    monthCalendar: CalendarHelper.getCalendarMonth(year, month, initArg.start),
     selectedDate: new Date(year, month, initArg.date.getDate()).getTime()
   }
 }
 
 const goNextMonth = (state: DeepReadonly<CalendarState>, selectedDate?: number): CalendarState => {
-  const month = state.month === 11 ? 0 : state.month + 1
-  const year = state.month === 11 ? state.year + 1 : state.year
-  const monthCalendar = CalendarHelper.getMonthCalendar(year, month, state.weekStart)
+  const month = state.month === CalendarHelper.December ? CalendarHelper.January : state.month + 1
+  const year = state.month === CalendarHelper.December ? state.year + 1 : state.year
+  const monthCalendar = CalendarHelper.getCalendarMonth(year, month, state.weekStart)
   return {
     ...state,
     month,
@@ -57,9 +57,9 @@ const goPreviousMonth = (
   state: DeepReadonly<CalendarState>,
   selectedDate?: number
 ): CalendarState => {
-  const month = state.month === 0 ? 11 : state.month - 1
-  const year = state.month === 0 ? state.year - 1 : state.year
-  const monthCalendar = CalendarHelper.getMonthCalendar(year, month, state.weekStart)
+  const month = state.month === CalendarHelper.January ? CalendarHelper.December : state.month - 1
+  const year = state.month === CalendarHelper.January ? state.year - 1 : state.year
+  const monthCalendar = CalendarHelper.getCalendarMonth(year, month, state.weekStart)
   return {
     ...state,
     month,
@@ -80,7 +80,7 @@ const calendarReducer = (
       return goNextMonth(state)
     case 'previousYearClicked': {
       const year = state.year - 1
-      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month, state.weekStart)
+      const monthCalendar = CalendarHelper.getCalendarMonth(year, state.month, state.weekStart)
       return {
         ...state,
         month: state.month,
@@ -91,7 +91,7 @@ const calendarReducer = (
     }
     case 'nextYearClicked': {
       const year = state.year + 1
-      const monthCalendar = CalendarHelper.getMonthCalendar(year, state.month, state.weekStart)
+      const monthCalendar = CalendarHelper.getCalendarMonth(year, state.month, state.weekStart)
       return {
         ...state,
         month: state.month,
@@ -101,10 +101,10 @@ const calendarReducer = (
       }
     }
     case 'dateSelected': {
-      if (action.payload.month < 0) {
+      if (action.payload.month === 'prev') {
         return goPreviousMonth(state, action.payload.timestamp)
       }
-      if (action.payload.month > 0) {
+      if (action.payload.month === 'next') {
         return goNextMonth(state, action.payload.timestamp)
       }
       return {
@@ -145,13 +145,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     DeepReadonly<{ date: Date; start: CalendarHelper.Day }>
   >(calendarReducer, { date: initialDate, start: weekStart }, initState)
 
-  const days = useMemo(
-    () =>
-      CalendarHelper.DAYS.slice(CalendarHelper.DAYS.indexOf(weekStart)).concat(
-        CalendarHelper.DAYS.slice(0, CalendarHelper.DAYS.indexOf(weekStart))
-      ),
-    [weekStart]
-  )
+  const days = useMemo(() => CalendarHelper.getDays(weekStart), [weekStart])
 
   const handlePreviousMonth = useCallback(() => dispatch({ type: 'previousMonthClicked' }), [])
 
@@ -248,7 +242,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                     <div className="okp4-calendar-day">
                       <Typography
                         as="div"
-                        color={dayCalendar.month === 0 ? 'text' : 'disabled'}
+                        color={dayCalendar.month === 'curr' ? 'text' : 'disabled'}
                         fontSize="x-small"
                         fontWeight={isDateSelected(dayCalendar) ? 'bold' : 'light'}
                       >
