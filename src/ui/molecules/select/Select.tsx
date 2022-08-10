@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import type { RefObject } from 'react'
 import classNames from 'classnames'
 import {
   capitalizeFirstLetter,
@@ -12,7 +11,6 @@ import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
-import short from 'short-uuid'
 import './select.scss'
 
 export type Option = {
@@ -74,12 +72,11 @@ export const Select = ({
   >(value)
 
   const [menuOpened, setMenuOpened]: UseState<boolean> = useState<boolean>(false)
-
   const [maxOptionsHeight, setMaxOptionsHeight]: UseState<number> = useState<number>(350)
 
-  const selectId = short.generate()
-  const selectRef: RefObject<HTMLDivElement> = useRef(null)
-  const optionsRef: RefObject<HTMLDivElement> = useRef(null)
+  const selectContainerRef = useRef<HTMLDivElement | null>(null)
+  const selectRef = useRef<HTMLDivElement | null>(null)
+  const optionsRef = useRef<HTMLDivElement | null>(null)
 
   const toggleMenu = useCallback(() => {
     if (!disabled) {
@@ -123,7 +120,7 @@ export const Select = ({
 
   const handleSelectPosition = (
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    selectContainer: HTMLElement,
+    selectContainer: HTMLDivElement,
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     currentElement: HTMLDivElement
   ): void => {
@@ -227,12 +224,11 @@ export const Select = ({
 
   useEffect(() => {
     if (menuOpened) {
-      const selectContainer = document.getElementById(`okp4-select-container ${selectId}`)
-      if (selectContainer !== null && optionsRef.current) {
-        handleSelectPosition(selectContainer, optionsRef.current)
+      if (selectContainerRef.current !== null && optionsRef.current) {
+        handleSelectPosition(selectContainerRef.current, optionsRef.current)
       }
     }
-  }, [menuOpened, selectId])
+  }, [menuOpened])
 
   return (
     <div
@@ -240,9 +236,9 @@ export const Select = ({
         'full-width': fullWidth,
         disabled
       })}
-      id={`okp4-select-container ${selectId}`}
+      ref={selectContainerRef}
     >
-      <div className={`okp4-select-content ${selectId}`} ref={selectRef}>
+      <div className={`okp4-select-content`} ref={selectRef}>
         <div
           className={classNames('okp4-select-input-container', {
             error: hasError
@@ -262,7 +258,6 @@ export const Select = ({
             className={classNames('okp4-select-options-container', {
               error: hasError
             })}
-            id={`okp4-select-options-container ${selectId}`}
             ref={optionsRef}
             style={{ maxHeight: maxOptionsHeight }}
           >
