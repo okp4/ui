@@ -95,22 +95,16 @@ export const Select = ({
     !multiple && toggleMenu()
   }
 
-  const escapeKeyHandler = useCallback(
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    (event: KeyboardEvent): void => {
-      if (menuOpened && event.key === 'Escape') {
-        event.stopPropagation()
-        setMenuOpened(false)
-      }
-    },
-    [menuOpened]
-  )
-
   useOnClickOutside(selectRef, (): void => {
     setMenuOpened(false)
   })
 
-  useOnKeyboard(escapeKeyHandler)
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  useOnKeyboard((event: DeepReadonly<KeyboardEvent>): void => {
+    if (event.key === 'Escape') {
+      setMenuOpened(false)
+    }
+  })
 
   const handleSelectPosition = (
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -208,7 +202,7 @@ export const Select = ({
 
   useEffect(() => {
     if (menuOpened && selectContainerRef.current !== null && optionsRef.current) {
-        handleSelectPosition(selectContainerRef.current, optionsRef.current)
+      handleSelectPosition(selectContainerRef.current, optionsRef.current)
     }
   }, [menuOpened])
 
@@ -261,7 +255,10 @@ export const Select = ({
                         <ul className="okp4-select-options">
                           {options.map(({ label, value, group }: SelectOption) => {
                             return (
-                              group && group === groupName && <Option key={value} label={label} value={value} />
+                              group &&
+                              group === groupName && (
+                                <Option key={value} label={label} value={value} />
+                              )
                             )
                           })}
                         </ul>
