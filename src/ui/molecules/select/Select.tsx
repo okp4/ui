@@ -6,18 +6,13 @@ import {
   compareStrings,
   isString
 } from 'utils'
+import type { SelectOption } from 'utils'
 import type { DeepReadonly, UseState } from 'superTypes'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './select.scss'
-
-export type SelectOption = {
-  readonly label: string
-  readonly value: string
-  readonly group?: string
-}
 
 type InputPropsForSelect = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
 

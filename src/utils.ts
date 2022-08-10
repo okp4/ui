@@ -1,5 +1,4 @@
 import type { DeepReadonly } from './superTypes'
-import type { SelectOption } from './ui/molecules/select/Select'
 
 export const asImmutable = <T>(o?: T): DeepReadonly<T> => o as DeepReadonly<T>
 
@@ -34,6 +33,12 @@ export const compareStrings = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   options?: Intl.CollatorOptions | undefined
 ): number => referenceStr.localeCompare(compareString, locales, options)
+
+export type SelectOption = {
+  readonly label: string
+  readonly value: string
+  readonly group?: string
+}
 
 const ascendingSortByGroupAndValues = (
   option1: Readonly<SelectOption>,
