@@ -44,15 +44,10 @@ const selectOptionAscComparator = (
   option1: Readonly<SelectOption>,
   option2: Readonly<SelectOption>
 ): number => {
-  const definedOption1 = option1.group ?? ''
-  const definedOption2 = option2.group ?? ''
+  const groupComparison = compareStrings(option1.group ?? '', option2.group ?? '')
 
-  if (definedOption1 > definedOption2) {
-    return 1
-  }
-
-  if (definedOption1 < definedOption2) {
-    return -1
+  if (groupComparison !== 0) {
+    return groupComparison
   }
 
   return compareStrings(option1.value, option2.value)
