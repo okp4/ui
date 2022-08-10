@@ -253,7 +253,7 @@ export const Select = ({
                   {[...groups].map((groupName: string) => {
                     return (
                       <div key={groupName}>
-                        <Typography fontSize="small" fontWeight="bold" key={groupName}>
+                        <Typography fontSize="small" fontWeight="bold">
                           <p className="okp4-select-options-group">
                             {capitalizeFirstLetter(groupName)}
                           </p>
@@ -261,7 +261,7 @@ export const Select = ({
                         <ul className="okp4-select-options">
                           {options.map(({ label, value, group }: SelectOption) => {
                             return (
-                              group && group === groupName && <Option label={label} value={value} />
+                              group && group === groupName && <Option key={value} label={label} value={value} />
                             )
                           })}
                         </ul>
