@@ -70,22 +70,14 @@ const descendingSortByGroupAndValues = (option1: SelectOption, option2: SelectOp
   return option2.value.localeCompare(option1.value)
 }
 
-export const getOptionsAscendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] => {
-  return [...options].sort((option1: SelectOption, option2: SelectOption) =>
-    ascendingSortByGroupAndValues(option1, option2)
-  )
-}
+export const getOptionsAscendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] =>
+[...options].sort(ascendingSortByGroupAndValues)
 
-export const getOptionsDescendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] => {
-  return [...options].sort((option1: SelectOption, option2: SelectOption) =>
-    descendingSortByGroupAndValues(option1, option2)
-  )
-}
+export const getOptionsDescendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] =>
+  [...options].sort(descendingSortByGroupAndValues)
 
-export const capitalizeFirstLetter = (word: string): string => {
-  return word.charAt(0).toLocaleUpperCase() + word.slice(1)
-}
+export const capitalizeFirstLetter = (word: string): string =>
+  word.charAt(0).toLocaleUpperCase() + word.slice(1)
 
-export const capitalizeFirstLetterOfEachArrayWord = (words: Readonly<string[]>): string[] => {
-  return words.map((word: string) => capitalizeFirstLetter(word))
-}
+export const capitalizeFirstLetterOfEachArrayWord = (words: Readonly<string[]>): string[] =>
+  words.map(capitalizeFirstLetter)
