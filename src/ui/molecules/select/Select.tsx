@@ -14,6 +14,7 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './select.scss'
 import { useOnClickOutside } from 'hook/useOnClickOutside'
+import { useOnKeyboard } from 'hook/useOnKeyboard'
 
 type InputPropsForSelect = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
 
@@ -98,6 +99,7 @@ export const Select = ({
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: KeyboardEvent): void => {
       if (menuOpened && event.key === 'Escape') {
+        event.stopPropagation()
         setMenuOpened(false)
       }
     },
@@ -107,6 +109,8 @@ export const Select = ({
   useOnClickOutside(selectRef, (): void => {
     setMenuOpened(false)
   })
+
+  useOnKeyboard(escapeKeyHandler)
 
   const handleSelectPosition = (
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -203,13 +207,8 @@ export const Select = ({
   }
 
   useEffect(() => {
-    document.addEventListener('keydown', escapeKeyHandler)
-    return () => document.removeEventListener('keydown', escapeKeyHandler)
-  }, [escapeKeyHandler])
-
-  useEffect(() => {
     if (menuOpened && selectContainerRef.current !== null && optionsRef.current) {
-      handleSelectPosition(selectContainerRef.current, optionsRef.current)
+        handleSelectPosition(selectContainerRef.current, optionsRef.current)
     }
   }, [menuOpened])
 
