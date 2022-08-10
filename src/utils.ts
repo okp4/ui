@@ -40,7 +40,7 @@ export type SelectOption = {
   readonly group?: string
 }
 
-const ascendingSortByGroupAndValues = (
+const selectOptionAscComparator = (
   option1: Readonly<SelectOption>,
   option2: Readonly<SelectOption>
 ): number => {
@@ -58,23 +58,14 @@ const ascendingSortByGroupAndValues = (
   return compareStrings(option1.value, option2.value)
 }
 
-const descendingSortByGroupAndValues = (option1: SelectOption, option2: SelectOption): number => {
-  const definedOption1 = option1.group ?? ''
-  const definedOption2 = option2.group ?? ''
-  if (definedOption1 < definedOption2) {
-    return 1
-  }
-  if (definedOption1 > definedOption2) {
-    return -1
-  }
-  return option2.value.localeCompare(option1.value)
-}
+const selectOptionDescComparator = (option1: SelectOption, option2: SelectOption): number =>
+  -1 * selectOptionAscComparator(option1, option2)
 
-export const getOptionsAscendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] =>
-[...options].sort(ascendingSortByGroupAndValues)
+export const sortSelectOptionAsc = (options: Readonly<SelectOption[]>): SelectOption[] =>
+  [...options].sort(selectOptionAscComparator)
 
-export const getOptionsDescendingSorted = (options: Readonly<SelectOption[]>): SelectOption[] =>
-  [...options].sort(descendingSortByGroupAndValues)
+export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectOption[] =>
+  [...options].sort(selectOptionDescComparator)
 
 export const capitalizeFirstLetter = (word: string): string =>
   word.charAt(0).toLocaleUpperCase() + word.slice(1)

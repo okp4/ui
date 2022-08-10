@@ -1,8 +1,8 @@
 import {
   capitalizeFirstLetter,
   capitalizeFirstLetterOfEachArrayWord,
-  getOptionsAscendingSorted,
-  getOptionsDescendingSorted,
+  sortSelectOptionAsc,
+  sortSelectOptionDesc,
   SelectOption,
   toPercent
 } from './utils'
@@ -102,14 +102,14 @@ describe('Considering the getOptions(Ascending|Descending)Sorted() function', ()
     'Given the value <$value>',
     ({ value, expectedResult }: { value: SelectOption[]; expectedResult: SelectOption[] }) => {
       describe('When calling function getOptionsAscendingSorted', () => {
-        const result = getOptionsAscendingSorted(value)
+        const result = sortSelectOptionAsc(value)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
         })
       })
       describe('When calling function getOptionsDescendingSorted', () => {
-        const result = getOptionsDescendingSorted(value)
+        const result = sortSelectOptionDesc(value)
         const expectedReverse = [...expectedResult].reverse()
         test(`Then, result value is ${expectedReverse}`, () => {
           expect(result).toEqual(expectedReverse)
