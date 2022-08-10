@@ -13,6 +13,7 @@ import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './select.scss'
+import { useOnClickOutside } from 'hook/useOnClickOutside'
 
 type InputPropsForSelect = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
 
@@ -103,15 +104,9 @@ export const Select = ({
     [menuOpened]
   )
 
-  const outsideMenuClickHandler = useCallback(
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    (event: MouseEvent): void => {
-      if (menuOpened && selectRef.current && !selectRef.current.contains(event.target as Node)) {
-        setMenuOpened(false)
-      }
-    },
-    [menuOpened]
-  )
+  useOnClickOutside(selectRef, (): void => {
+    setMenuOpened(false)
+  })
 
   const handleSelectPosition = (
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -213,15 +208,8 @@ export const Select = ({
   }, [escapeKeyHandler])
 
   useEffect(() => {
-    document.addEventListener('mousedown', outsideMenuClickHandler)
-    return () => document.removeEventListener('mousedown', outsideMenuClickHandler)
-  }, [outsideMenuClickHandler])
-
-  useEffect(() => {
-    if (menuOpened) {
-      if (selectContainerRef.current !== null && optionsRef.current) {
-        handleSelectPosition(selectContainerRef.current, optionsRef.current)
-      }
+    if (menuOpened && selectContainerRef.current !== null && optionsRef.current) {
+      handleSelectPosition(selectContainerRef.current, optionsRef.current)
     }
   }, [menuOpened])
 
