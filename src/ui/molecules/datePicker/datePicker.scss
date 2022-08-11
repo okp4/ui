@@ -1,0 +1,15 @@
+@import '../../styles/themes.scss';
+
+.okp4-date-picker-main {
+  .okp4-date-picker-icon {
+    cursor: pointer;
+  }
+
+  .okp4-date-picker-calendar {
+    position: absolute;
+    z-index: 10;
+    @include with-theme() {
+      border: 2px solid themed(border);
+    }
+  }
+}
