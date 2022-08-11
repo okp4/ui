@@ -10,8 +10,10 @@ import {
   DateRegexTyping,
   defaultRegexTyping,
   isValidDate,
-  stringToDate
+  stringToDate,
+  dateToString
 } from './dateHelper'
+import { Typography } from 'ui/atoms/typography/Typography'
 
 export type DatePickerProps = {
   readonly value?: Date
@@ -34,11 +36,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   )
   const [hasError, setError]: UseState<boolean> = useState<boolean>(false)
 
-  const regexTyping = useMemo(
-    () => DateRegexTyping.get(format) ?? defaultRegexTyping,
-
-    [format]
-  )
+  const regexTyping = useMemo(() => DateRegexTyping.get(format) ?? defaultRegexTyping, [format])
 
   const toggleCalendar = useCallback(() => {
     if (!disabled) {
@@ -48,11 +46,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const handleSelectDate = useCallback(
     (date: DeepReadonly<Date>) => {
-      onChange?.(date)
-      setInputValue(date.toLocaleDateString())
+      setInputValue(dateToString(date, format))
       setCalendarOpened(false)
+      onChange?.(date)
     },
-    [onChange]
+    [onChange, format]
   )
 
   const handleInputChange = useCallback(
@@ -92,9 +90,18 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         rightIcon={CalendarIcon()}
         value={inputValue}
       />
+      {hasError && (
+        <Typography as="div" color={'error'} fontSize="x-small" fontWeight="bold" noWrap>
+          {format}
+        </Typography>
+      )}
       {calendarOpened && (
         <div className="okp4-date-picker-calendar">
-          <Calendar initialDate={value} onSelect={handleSelectDate} weekStart="monday" />
+          <Calendar
+            initialDate={stringToDate(inputValue, format)}
+            onSelect={handleSelectDate}
+            weekStart="monday"
+          />
         </div>
       )}
     </div>
