@@ -12,26 +12,29 @@ export type DateFormat =
 export const DateLength = 10
 
 export const defaultRegexTyping =
-  /^\d{0,4}$|^\d{4}\/0?$|^\d{4}\/(?:0[1-9]|1[012])(?:\/(?:0[1-9]?|[12]\d|3[01])?)?$/g
+  /^\d{0,4}$|^\d{4}\/[0-1]?$|^\d{4}\/(?:0[1-9]|1[012])(?:\/(?:[0-3]|0[1-9]?|[12]\d|3[01])?)?$/g
 
 export const DateRegexTyping = Map<DateFormat, RegExp>([
   ['yyyy/mm/dd', defaultRegexTyping],
-  ['yyyy-mm-dd', /^\d{0,4}$|^\d{4}-0?$|^\d{4}-(?:0[1-9]|1[012])(?:-(?:0[1-9]?|[12]\d|3[01])?)?$/g],
+  [
+    'yyyy-mm-dd',
+    /^\d{0,4}$|^\d{4}-[0-1]?$|^\d{4}-(?:0[1-9]|1[012])(?:-(?:[0-3]|0[1-9]?|[12]\d|3[01])?)?$/g
+  ],
   [
     'dd/mm/yyyy',
     /^[0-3]?$|^(?:0[1-9]|[12]\d|3[01])(?:\/(?:(?:0$|0[1-9]|1[012]?)(?:\/\d{0,4})?)?)?$/g
   ],
   [
     'dd-mm-yyyy',
-    /^[0-3]?$|^(?:0[1-9]|[12]\d|3[01])(?:\/(?:(?:0$|0[1-9]|1[012]?)(?:\/\d{0,4})?)?)?$/g
+    /^[0-3]?$|^(?:0[1-9]|[12]\d|3[01])(?:-(?:(?:0$|0[1-9]|1[012]?)(?:-\d{0,4})?)?)?$/g
   ],
   [
     'mm/dd/yyyy',
-    /^[0-1]?$|^(?:0[1-9]|1[012]?)(?:-(?:(?:0$|0[1-9]|[12]\d|3[01])(?:-\d{0,4})?)?)?$/g
+    /^[0-1]?$|^(?:0[1-9]|1[012]?)(?:\/(?:(?:0$|[0-3]|0[1-9]|[12]\d|3[01])(?:\/\d{0,4})?)?)?$/g
   ],
   [
     'mm-dd-yyyy',
-    /^[0-1]?$|^(?:0[1-9]|1[012]?)(?:\/(?:(?:0$|0[1-9]|[12]\d|3[01])(?:\/\d{0,4})?)?)?$/g
+    /^[0-1]?$|^(?:0[1-9]|1[012]?)(?:-(?:(?:0$|[0-3]|0[1-9]|[12]\d|3[01])(?:-\d{0,4})?)?)?$/g
   ]
 ])
 
@@ -39,7 +42,7 @@ export const DateRegexTyping = Map<DateFormat, RegExp>([
 export const isValidDate = (value: any): value is Date => !isNaN(value) && value instanceof Date
 
 export const stringToDate = (str: string, format: DateFormat = 'yyyy/mm/dd'): Date => {
-  const parts = str.replace('-', '/').split('/')
+  const parts = str.replaceAll('-', '/').split('/')
   const values = {
     year: '',
     month: '',
@@ -86,7 +89,7 @@ export const dateToString = (
     ['dd', day]
   ])
 
-  const parts = format.replace('-', '/').split('/')
   const separator = format.indexOf('/') > -1 ? '/' : '-'
+  const parts = format.replaceAll('-', '/').split('/')
   return [map.get(parts[0]), map.get(parts[1]), map.get(parts[2])].join(separator)
 }

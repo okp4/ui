@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './datePicker.scss'
+import { Typography } from 'ui/atoms/typography/Typography'
 import { Calendar } from '../calendar/Calendar'
 import type { DateFormat } from '../../../dateUtils'
 import {
@@ -13,7 +14,6 @@ import {
   stringToDate,
   dateToString
 } from '../../../dateUtils'
-import { Typography } from 'ui/atoms/typography/Typography'
 
 export type DatePickerProps = {
   readonly value?: Date
