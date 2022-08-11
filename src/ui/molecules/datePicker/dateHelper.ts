@@ -1,3 +1,4 @@
+import type { DeepReadonly } from 'superTypes'
 import { Map } from 'immutable'
 
 export type DateFormat =
@@ -66,5 +67,26 @@ export const stringToDate = (str: string, format: DateFormat = 'yyyy/mm/dd'): Da
       values.day = parts[2]
       break
   }
-  return new Date(+values.year, +values.month - 1, +values.day)
+  const date = new Date(+values.year, +values.month - 1, +values.day)
+  return isValidDate(date) ? date : new Date()
+}
+
+export const dateToString = (
+  date: DeepReadonly<Date>,
+  format: DateFormat = 'yyyy/mm/dd'
+): string => {
+  const d = new Date(date)
+  const year = `${d.getFullYear()}`
+  const month = `${d.getMonth() + 1}`.padStart(2, '0')
+  const day = `${d.getDate()}`.padStart(2, '0')
+
+  const map = Map([
+    ['yyyy', year],
+    ['mm', month],
+    ['dd', day]
+  ])
+
+  const parts = format.replace('-', '/').split('/')
+  const separator = format.indexOf('/') > -1 ? '/' : '-'
+  return [map.get(parts[0]), map.get(parts[1]), map.get(parts[2])].join(separator)
 }
