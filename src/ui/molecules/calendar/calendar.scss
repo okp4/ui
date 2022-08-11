@@ -1,10 +1,14 @@
 @import '../../styles/themes.scss';
 
 .okp4-calendar-main {
-  width: 250px;
-  height: 250px;
+  width: 275px;
+  height: 300px;
   display: grid;
   row-gap: 5px;
+  padding: 10px;
+  @include with-theme {
+    background: themed(field);
+  }
 
   .okp4-calendar-header {
     width: 100%;
@@ -70,7 +74,7 @@
       @include with-theme {
         &:hover {
           cursor: pointer;
-          background: themed(field);
+          background: themed(primary-background);
         }
 
         &.selected {
