@@ -4,7 +4,7 @@ import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './datePicker.scss'
 import { Calendar } from '../calendar/Calendar'
-import type { DateFormat } from './dateHelper'
+import type { DateFormat } from '../../../dateUtils'
 import {
   DateLength,
   DateRegexTyping,
@@ -12,7 +12,7 @@ import {
   isValidDate,
   stringToDate,
   dateToString
-} from './dateHelper'
+} from '../../../dateUtils'
 import { Typography } from 'ui/atoms/typography/Typography'
 
 export type DatePickerProps = {
