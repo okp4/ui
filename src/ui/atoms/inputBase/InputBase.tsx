@@ -36,6 +36,10 @@ export type InputBaseProps = {
    */
   readonly inputRef?: RefObject<HTMLInputElement>
   /**
+   * The max length of the value of the input.
+   */
+  readonly maxLength?: number
+  /**
    * The icon displayed on the right side.
    */
   readonly rightIcon?: JSX.Element
@@ -60,6 +64,7 @@ export const InputBase = ({
   inputRef,
   onChange,
   placeholder,
+  maxLength,
   rightIcon,
   value,
   readOnly = false
@@ -79,6 +84,7 @@ export const InputBase = ({
         className={inputClass}
         defaultValue={defaultValue}
         disabled={disabled}
+        maxLength={maxLength}
         onChange={onChange}
         placeholder={placeholder}
         readOnly={readOnly}
