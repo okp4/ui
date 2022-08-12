@@ -104,6 +104,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
             </Typography>
             <img alt="Keplr logo" src={keplrImage} />
             <Button
+              disabled={transactionLoading !== undefined}
               label={t('faucet:faucet.sendMeToken')}
               onClick={handleRequestWithWallet}
               size="large"
@@ -121,6 +122,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
               value={address}
             />
             <Button
+              disabled={transactionLoading !== undefined}
               label={t('faucet:faucet.sendMeToken')}
               onClick={handleRequestWithAddress}
               size="large"
