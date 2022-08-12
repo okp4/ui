@@ -25,6 +25,9 @@ export const toPercent = (value: number, min: number, max: number): number => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isString = (value: any): value is string => typeof value === 'string'
 
+export const isNotEmpty = (str: string | null | undefined): boolean =>
+  isString(str) && str.trim().length > 0
+
 export const compareStrings = (
   referenceStr: string,
   compareString: string,
