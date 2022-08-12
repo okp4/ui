@@ -19,6 +19,7 @@ import { Button } from 'ui/atoms/button/Button'
 import { TextField } from 'ui/atoms/textField/TextField'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { Typography } from 'ui/atoms/typography/Typography'
+import { ProgressBar } from 'ui/atoms/progressBar/ProgressBar'
 import type { DeepReadonly } from 'superTypes'
 import './i18n/index'
 import './faucet.scss'
@@ -41,6 +42,9 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   const errorMessage = useErrorSelector(unseenErrorMessage)
   const transactionSuccessId = useTaskSelector((state: DeepReadonly<TaskAppState>) =>
     getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'success')
+  )
+  const transactionLoading = useTaskSelector((state: DeepReadonly<TaskAppState>) =>
+      getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'processing')
   )
 
   const acknowledgeFaucetError = useCallback(() => {
@@ -124,6 +128,9 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
             />
           </div>
         </div>
+          <div className="okp4-faucet-content-info-main">
+              {transactionLoading && (<ProgressBar/>)}
+          </div>
         <div className="okp4-faucet-content-info-main">
           <div>
             <Typography color="text" fontSize="x-small" fontWeight="bold">
