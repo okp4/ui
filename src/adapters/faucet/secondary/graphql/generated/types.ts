@@ -119,4 +119,4 @@ export type MSendTokensSubscriptionVariables = Exact<{
 }>;
 
 
-export type MSendTokensSubscription = { readonly __typename?: 'Subscription', readonly send: { readonly __typename?: 'TxResponse', readonly hash: string } };
+export type MSendTokensSubscription = { readonly __typename?: 'Subscription', readonly send: { readonly __typename?: 'TxResponse', readonly hash: string, readonly code: number } };

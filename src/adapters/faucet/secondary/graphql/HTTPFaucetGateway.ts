@@ -27,7 +27,7 @@ export class HTTPFaucetGateway implements FaucetPort {
       throw new FaucetGatewayError(result.error.message)
     }
 
-    if (!result.data) {
+    if (!result.data || result.data.send.code !== 0) {
       throw new UnspecifiedError('Oooops... An unspecified error occured while requesting funds..')
     }
 
