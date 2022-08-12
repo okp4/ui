@@ -1,5 +1,8 @@
 import type { DeepReadonly, UseState } from 'superTypes'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
+import './i18n/index'
+import type { UseTranslationResponse } from 'hook/useTranslation'
+import { useTranslation } from 'hook/useTranslation'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './datePicker.scss'
@@ -29,6 +32,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   disabled = false,
   format = 'dd/mm/yyyy'
 }: DeepReadonly<DatePickerProps>): JSX.Element => {
+  const { t }: UseTranslationResponse = useTranslation()
+
   const inputElement = useRef<HTMLInputElement>(null)
   const [calendarOpened, setCalendarOpened]: UseState<boolean> = useState<boolean>(false)
   const [inputValue, setInputValue]: UseState<string> = useState<string>(
@@ -86,7 +91,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         inputRef={inputElement}
         maxLength={DateLength}
         onChange={handleInputChange}
-        placeholder={format}
+        placeholder={t(`datepicker:datepicker.placeholder.${format}`)}
         rightIcon={CalendarIcon()}
         value={inputValue}
       />

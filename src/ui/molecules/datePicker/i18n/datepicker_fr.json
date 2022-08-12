@@ -1,0 +1,12 @@
+{
+  "datepicker": {
+    "placeholder": {
+      "yyyy/mm/dd": "AAAA/MM/JJ",
+      "yyyy-mm-dd": "AAAA-MM-JJ",
+      "dd/mm/yyyy": "JJ/MM/AAAA",
+      "dd-mm-yyyy": "JJ-MM-AAAA",
+      "mm/dd/yyyy": "MM/JJ/AAAA",
+      "mm-dd-yyyy": "MM-JJ-AAAA"
+    }
+  }
+}
