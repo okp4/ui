@@ -4,7 +4,7 @@ on:
   workflow_call:
 
   push:
-    # branches: [main]
+    branches: [main]
 
   pull_request:
     branches: [main]
@@ -78,7 +78,7 @@ jobs:
 
   report_new_dependencies:
     runs-on: ubuntu-20.04
-    # if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
+    if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
     steps:
       - name: Check for new dependencies
         id: check_for_new_dependencies
