@@ -85,7 +85,7 @@ jobs:
         uses: hiwelo/new-dependencies-action@1.0.1
         with:
           token: ${{ secrets.OKP4_TOKEN }}
-          pull_number: 1
+          pull_number: ${{ github.event.pull_request.number }}
       - name: New dependencies output as a comment to PR
         run: |
           echo "NEW DEPENDENCIES"
