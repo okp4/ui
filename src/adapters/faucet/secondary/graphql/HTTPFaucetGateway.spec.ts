@@ -1,16 +1,15 @@
 import {
-  createClient,
   OperationContext,
   OperationResult,
-  PromisifiedSource,
   TypedDocumentNode
 } from '@urql/core'
 import * as client from './client'
 import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
-import { SEND_TOKENS_MUTATION } from './documents/sendTokens'
-import { MSendTokensMutation, MSendTokensMutationVariables } from './generated/types'
+import { SEND_TOKENS_SUBSCRIPTION } from './documents/sendTokens'
+import { MSendTokensSubscription, MSendTokensSubscriptionVariables } from './generated/types'
 import { HTTPFaucetGateway } from './HTTPFaucetGateway'
 import { DocumentNode } from 'graphql'
+import { fromValue, Source } from "wonka";
 
 jest.mock('./client', () => ({
   __esModule: true,
@@ -28,11 +27,11 @@ const fakeOperation = {
     requestPolicy: 'network-only'
   },
   key: 'hashKey#1',
-  kind: 'mutation',
-  query: SEND_TOKENS_MUTATION
+  kind: 'subscription',
+  query: SEND_TOKENS_SUBSCRIPTION
 }
-let fakeUrqlMutationFn: jest.SpyInstance<
-  PromisifiedSource<OperationResult<unknown, object>>,
+let fakeUrqlSubscriptionFn: jest.SpyInstance<
+  Source<OperationResult<unknown, object>>,
   [
     query: string | DocumentNode | TypedDocumentNode<unknown, object>,
     variables?: object | undefined,
@@ -46,7 +45,7 @@ describe('Given a HTTPFaucetGateway instance', () => {
   const gateway = new HTTPFaucetGateway(fakeFaucetUrl)
   describe.each`
     hasError | expectedData
-    ${false} | ${{ send: { hash: fakeTxHash } }}
+    ${false} | ${{ send: { hash: fakeTxHash, code: 0 } }}
     ${false} | ${undefined}
     ${true}  | ${undefined}
   `(
@@ -54,33 +53,30 @@ describe('Given a HTTPFaucetGateway instance', () => {
     ({ hasError, expectedData }) => {
       describe('When requesting funds', () => {
         beforeEach(() => {
-          fakeUrqlMutationFn = jest.spyOn(fakeUrqlClient, 'mutation').mockImplementation(
-            (): PromisifiedSource<
-              OperationResult<MSendTokensMutation, MSendTokensMutationVariables>
+          fakeUrqlSubscriptionFn = jest.spyOn(fakeUrqlClient, 'subscription').mockImplementation(
+            (): Source<
+              OperationResult<MSendTokensSubscription, MSendTokensSubscriptionVariables>
               // @ts-ignore
-            > => ({
-              toPromise: () =>
-                Promise.resolve({
-                  operation: fakeOperation,
-                  data: expectedData,
-                  ...(hasError && {
-                    error: {
-                      name: 'test-error',
-                      message: 'test-message',
-                      graphQLErrors: [],
-                      networkError: new Error()
-                    }
-                  })
-                })
+            > => fromValue({
+              operation: fakeOperation,
+              data: expectedData,
+              ...(hasError && {
+                error: {
+                  name: 'test-error',
+                  message: 'test-message',
+                  graphQLErrors: [],
+                  networkError: new Error()
+                }
+              })
             })
           )
         })
 
         afterEach(() => {
-          fakeUrqlMutationFn.mockClear()
+          fakeUrqlSubscriptionFn.mockClear()
         })
 
-        test(`Then expect the sendTokens mutation to ${
+        test(`Then expect the sendTokens subscription to ${
           hasError || !expectedData ? 'fail' : 'succeed'
         }`, async () => {
           if (hasError) {
@@ -96,8 +92,8 @@ describe('Given a HTTPFaucetGateway instance', () => {
           } else {
             await expect(gateway.requestFunds(fakeAddress)).resolves.toStrictEqual(fakeTxHash)
           }
-          expect(fakeUrqlMutationFn).toHaveBeenCalledTimes(1)
-          expect(fakeUrqlMutationFn).toHaveBeenCalledWith(SEND_TOKENS_MUTATION, {
+          expect(fakeUrqlSubscriptionFn).toHaveBeenCalledTimes(1)
+          expect(fakeUrqlSubscriptionFn).toHaveBeenCalledWith(SEND_TOKENS_SUBSCRIPTION, {
             input: { toAddress: fakeAddress }
           })
         })
