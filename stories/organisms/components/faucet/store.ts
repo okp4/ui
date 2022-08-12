@@ -1,4 +1,5 @@
 import { List } from 'immutable'
+import { fromEvent } from 'rxjs';
 import { HTTPFaucetGateway } from 'adapters/faucet/secondary/graphql/HTTPFaucetGateway'
 import { KeplrWalletGateway } from 'adapters/wallet/secondary/KeplrWalletGateway'
 import { WalletRegistryGateway } from 'adapters/wallet/secondary/WalletRegistryGateway'
@@ -42,6 +43,8 @@ const walletStore = new WalletStoreBuilder()
   .withDependencies({ walletRegistryGateway })
   .build()
 const walletStoreParameter: StoreParameter = [WalletContext, walletStore]
+
+fromEvent(document, 'click').subscribe(() => console.log('document was clicked'));
 
 export default List([
   faucetStoreParameter,
