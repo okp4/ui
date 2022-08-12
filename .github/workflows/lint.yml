@@ -4,7 +4,7 @@ on:
   workflow_call:
 
   push:
-    branches: [main]
+    # branches: [main]
 
   pull_request:
     branches: [main]
@@ -78,12 +78,17 @@ jobs:
 
   report_new_dependencies:
     runs-on: ubuntu-20.04
-    if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
+    # if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
     steps:
       - name: Check for new dependencies
+        id: check_for_new_dependencies
         uses: hiwelo/new-dependencies-action@1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: New dependencies output as a comment to PR
+        run: |
+          echo "NEW DEPENDENCIES"
+          echo "${{ toJSON(steps.check_for_new_dependencies) }}"
 
   lint-branch-name:
     runs-on: ubuntu-20.04
