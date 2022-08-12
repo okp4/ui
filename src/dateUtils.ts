@@ -39,7 +39,7 @@ export const DateRegexTyping = Map<DateFormat, RegExp>([
 ])
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isValidDate = (value: any): value is Date => !isNaN(value) && value instanceof Date
+export const isDateValid = (value: any): value is Date => !isNaN(value) && value instanceof Date
 
 export const stringToDate = (str: string, format: DateFormat = 'yyyy/mm/dd'): Date => {
   const units = format.split(/\W/)
@@ -49,7 +49,7 @@ export const stringToDate = (str: string, format: DateFormat = 'yyyy/mm/dd'): Da
     +parts[units.indexOf('mm')] - 1,
     +parts[units.indexOf('dd')]
   )
-  return isValidDate(date) ? date : new Date()
+  return isDateValid(date) ? date : new Date()
 }
 
 export const dateToString = (

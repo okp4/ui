@@ -13,7 +13,7 @@ import {
   DateLength,
   DateRegexTyping,
   defaultRegexTyping,
-  isValidDate,
+  isDateValid,
   stringToDate,
   dateToString
 } from '../../../dateUtils'
@@ -67,7 +67,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       setInputValue(`${value}`)
       if (value.length === DateLength) {
         const date = stringToDate(value, format)
-        if (isValidDate(date)) {
+        if (isDateValid(date)) {
           onChange?.(date)
         } else {
           setError(true)
