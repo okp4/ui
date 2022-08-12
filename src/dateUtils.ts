@@ -42,35 +42,13 @@ export const DateRegexTyping = Map<DateFormat, RegExp>([
 export const isValidDate = (value: any): value is Date => !isNaN(value) && value instanceof Date
 
 export const stringToDate = (str: string, format: DateFormat = 'yyyy/mm/dd'): Date => {
-  const parts = str.replaceAll('-', '/').split('/')
-  const values = {
-    year: '',
-    month: '',
-    day: ''
-  }
-  switch (format) {
-    case 'yyyy/mm/dd':
-      values.year = parts[0]
-      values.month = parts[1]
-      values.day = parts[2]
-      break
-    case 'dd/mm/yyyy':
-      values.year = parts[2]
-      values.month = parts[1]
-      values.day = parts[0]
-      break
-    case 'mm/dd/yyyy':
-      values.year = parts[2]
-      values.month = parts[0]
-      values.day = parts[1]
-      break
-    default:
-      values.year = parts[0]
-      values.month = parts[1]
-      values.day = parts[2]
-      break
-  }
-  const date = new Date(+values.year, +values.month - 1, +values.day)
+  const units = format.split(/\W/)
+  const parts = str.split(/\D/)
+  const date = new Date(
+    +parts[units.indexOf('yyyy')],
+    +parts[units.indexOf('mm')] - 1,
+    +parts[units.indexOf('dd')]
+  )
   return isValidDate(date) ? date : new Date()
 }
 
@@ -82,14 +60,5 @@ export const dateToString = (
   const year = `${d.getFullYear()}`
   const month = `${d.getMonth() + 1}`.padStart(2, '0')
   const day = `${d.getDate()}`.padStart(2, '0')
-
-  const map = Map([
-    ['yyyy', year],
-    ['mm', month],
-    ['dd', day]
-  ])
-
-  const separator = format.indexOf('/') > -1 ? '/' : '-'
-  const parts = format.replaceAll('-', '/').split('/')
-  return [map.get(parts[0]), map.get(parts[1]), map.get(parts[2])].join(separator)
+  return format.replace('yyyy', year).replace('mm', month).replace('dd', day)
 }
