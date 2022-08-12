@@ -84,7 +84,7 @@ jobs:
         id: check_for_new_dependencies
         uses: hiwelo/new-dependencies-action@1.0.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.OKP4_TOKEN }}
           pull_number: 1
       - name: New dependencies output as a comment to PR
         run: |
