@@ -1438,9 +1438,9 @@
     tslib "^2.4.0"
 
 "@babylonjs/inspector@^5.8.0":
-  version "5.15.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.15.1.tgz#1af5c419383543759c105a251ac4bccb4024fe23"
-  integrity sha512-piWra2IDZM7lCbzPiV5bukRcIWC/KGYZIVwf5Fdkr3Fni3Ew3h3CyHUVN4mxQ5/NVEEZtNN9Fv06FBENt+xmcA==
+  version "5.19.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.19.0.tgz#98572376744761bef7f7e6041ee18ee1dba38274"
+  integrity sha512-2FU5I6p89GH2SRz0+nMVJS6BhUapWk1g6pebWMi9PwlXZ2MJg1pamdY7zVuYJuE/ft2w8XLk3Kv+vpoxjWJOAw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
