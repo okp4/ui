@@ -131,24 +131,23 @@ export const Select = ({
     )
   }
 
-  const capitalizeLabelsFirstLetter = (labels: Readonly<string[]>): string => {
-    return capitalizeFirstLetterOfEachArrayWord(labels).sort(compareStrings).join(', ')
-  }
+  const capitalizeLabelsFirstLetter = (labels: Readonly<string[]>): string =>
+    capitalizeFirstLetterOfEachArrayWord(labels).sort(compareStrings).join(', ')
 
   const getAssociatedLabel = (value: string): string => {
     const foundLabel = options.find((option: SelectOption) => option.value === value)?.label
     return foundLabel ?? ''
   }
 
-  const getAssociatedLabels = (value: Readonly<string[]>): string[] => {
-    return value.map((value: string) => getAssociatedLabel(value))
-  }
+  const getAssociatedLabels = (value: Readonly<string[]>): string[] =>
+    value.map((value: string) => getAssociatedLabel(value))
 
   const capitalizedLabel = (): string => {
     if (isString(value)) {
       const label = getAssociatedLabel(value)
       return capitalizeFirstLetter(label)
     }
+
     const labels = getAssociatedLabels(value)
     return capitalizeLabelsFirstLetter(labels)
   }
@@ -175,30 +174,26 @@ export const Select = ({
     />
   )
 
-  const Option = ({ label, value }: SelectOption): JSX.Element => {
-    return (
-      <li
-        className={classNames('okp4-select-option', {
-          selected: selectedOption.includes(value)
-        })}
-        onClick={handleOptionSelection(value)}
-      >
-        {capitalizeFirstLetter(label)}
-      </li>
-    )
-  }
+  const Option = ({ label, value }: SelectOption): JSX.Element => (
+    <li
+      className={classNames('okp4-select-option', {
+        selected: selectedOption.includes(value)
+      })}
+      onClick={handleOptionSelection(value)}
+    >
+      {capitalizeFirstLetter(label)}
+    </li>
+  )
 
-  const OptionsWithoutGroup = (): JSX.Element => {
-    return (
-      <div>
-        <ul className="okp4-select-options">
-          {optionsWithoutGroups.map(({ label, value }: SelectOption) => {
-            return <Option key={value} label={label} value={value} />
-          })}
-        </ul>
-      </div>
-    )
-  }
+  const OptionsWithoutGroup = (): JSX.Element => (
+    <div>
+      <ul className="okp4-select-options">
+        {optionsWithoutGroups.map(({ label, value }: SelectOption) => {
+          return <Option key={value} label={label} value={value} />
+        })}
+      </ul>
+    </div>
+  )
 
   useEffect(() => {
     if (menuOpened && selectContainerRef.current !== null && optionsRef.current) {
