@@ -6,9 +6,11 @@ import { useTranslation } from 'hook/useTranslation'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './datePicker.scss'
+import classNames from 'classnames'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { Calendar } from '../calendar/Calendar'
 import type { DateFormat } from '../../../dateUtils'
+import type { Day } from '../calendar/calendarHelper'
 import {
   DateLength,
   DateRegexTyping,
@@ -36,6 +38,10 @@ export type DatePickerProps = {
    * For example : 'DD/MM/YYYY', 'YYYY-MM-DD', etc.
    */
   readonly format?: DateFormat
+  /**
+   * The first day of the week displayed by the calendar
+   */
+  readonly weekStart?: Day
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -43,7 +49,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   defaultValue,
   onChange,
   disabled = false,
-  format = 'dd/mm/yyyy'
+  format = 'dd/mm/yyyy',
+  weekStart = 'monday'
 }: DeepReadonly<DatePickerProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
 
@@ -91,7 +98,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   )
 
   const CalendarIcon = (): JSX.Element => (
-    <div className="okp4-date-picker-icon" onClick={toggleCalendar}>
+    <div className={classNames('okp4-date-picker-icon', { disabled })} onClick={toggleCalendar}>
       <Icon name="calendar" />
     </div>
   )
@@ -118,7 +125,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           <Calendar
             initialDate={stringToDate(inputValue, format)}
             onSelect={handleSelectDate}
-            weekStart="monday"
+            weekStart={weekStart}
           />
         </div>
       )}

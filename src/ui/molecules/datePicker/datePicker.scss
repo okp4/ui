@@ -3,6 +3,10 @@
 .okp4-date-picker-main {
   .okp4-date-picker-icon {
     cursor: pointer;
+
+    &.disabled {
+      cursor: not-allowed;
+    }
   }
 
   .okp4-date-picker-calendar {
