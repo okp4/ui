@@ -3,6 +3,7 @@ import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { TextField } from 'ui/atoms/textField/TextField'
+import { Icon } from 'ui/atoms/icon/Icon'
 import '../component.scss'
 
 <Meta
@@ -49,6 +50,9 @@ import '../component.scss'
       control: false
     },
     inputRef: {
+      control: false
+    },
+    rightIcon: {
       control: false
     },
     value: {
@@ -104,11 +108,21 @@ The `TextField` component can be disabled by setting the `disabled` property to 
 
 <Canvas isColumn>
   <Story name="Disabled">
-    {args => (
-      <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
-        <TextField disabled defaultValue="This text field is disabled" {...args} />
-      </div>
-    )}
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+      <TextField disabled defaultValue="This text field is disabled" />
+    </div>
+  </Story>
+</Canvas>
+
+## Readonly
+
+When set to `true`, makes the element not mutable, meaning the user can not edit the control.
+
+<Canvas isColumn>
+  <Story name="Readonly">
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+      <TextField readOnly defaultValue="This text field is readonly" />
+    </div>
   </Story>
 </Canvas>
 
@@ -142,6 +156,18 @@ In addition, the `helperText` property can be set to display an error message be
   </Story>
 </Canvas>
 
+## Full width
+
+If set to `true`, the `TextField` component will take 100% of its container's width.
+
+<Canvas isColumn>
+  <Story name="Full width">
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+      <TextField defaultValue="I'm set with full width" fullWidth />
+    </div>
+  </Story>
+</Canvas>
+
 ## Controlled TextField
 
 When the component is controlled, the parent passes a value to the `TextField` which displays it.  
@@ -150,15 +176,15 @@ In the example below, everytime the input value changes, current state is update
 
 <Canvas isColumn>
   <Story name="Controlled">
-    {args => {
-      const [value, setValue] = useState('I am controlled: value is passed by my parent')
+    {() => {
+      const [value, setValue] = useState('I am controlled!')
       const handleChange = event => {
         setValue(event.target.value)
         console.log(`My new value is : ${event.target.value}`)
       }
       return (
         <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
-          <TextField value={value} onChange={handleChange} fullWidth />
+          <TextField value={value} onChange={handleChange} />
         </div>
       )
     }}
@@ -174,14 +200,41 @@ If you want to access the value, you can use a ref to get value from the DOM, bu
 
 <Canvas isColumn>
   <Story name="Uncontrolled">
-    {args => {
+    {() => {
       const textFieldRef = useRef()
       return (
         <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+          <TextField defaultValue="I am uncontrolled!" ref={textFieldRef} />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Right icon
+
+This property allows the user to add a custom `icon` at the right of the input area.
+
+<Canvas isColumn>
+  <Story name="Right icon">
+    {() => {
+      const [value, setValue] = useState('Clear me!')
+      const handleClick = event => {
+        setValue('')
+      }
+      const handleChange = event => {
+        setValue(event.target.value)
+      }
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
           <TextField
-            defaultValue="I am uncontrolled, I just have a default value"
-            fullWidth
-            ref={textFieldRef}
+            value={value}
+            onChange={handleChange}
+            rightIcon={
+              <div onClick={handleClick} style={{ cursor: 'pointer' }}>
+                <Icon name="cross" size={18} />
+              </div>
+            }
           />
         </div>
       )
