@@ -4,6 +4,7 @@ import type { ThemeContextType } from 'context/themeContext'
 import { useTheme } from 'hook/useTheme'
 import sprite from 'assets/logos/sprite.svg'
 import './logo.scss'
+import 'svgxuse' // svg sprite polyfill
 
 export type LogoProps = Readonly<{
   /**
@@ -31,7 +32,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'medium', type = 'logo' }: Lo
 
   return (
     <svg className={imageClassname}>
-      <use href={`${sprite}#${type}-okp4-${theme}`} />
+      <use xlinkHref={`${sprite}#${type}-okp4-${theme}`} />
     </svg>
   )
 }

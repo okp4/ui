@@ -3,6 +3,7 @@ import type { DeepReadonly } from 'superTypes'
 import { useTheme } from 'hook/useTheme'
 import type { ThemeContextType } from 'context/themeContext'
 import sprite from 'assets/icons/sprite.svg'
+import 'svgxuse' // svg sprite polyfill
 
 export type IconName =
   | 'add'
@@ -54,7 +55,7 @@ export const Icon: React.FC<IconProps> = ({
 
   return (
     <svg {...(className && { className })} height={`${size}px`} width={`${size}px`}>
-      <use href={`${sprite}#${name}-${theme}`} />
+      <use xlinkHref={`${sprite}#${name}-${theme}`} />
     </svg>
   )
 }
