@@ -1,4 +1,4 @@
-import { toPercent } from './utils'
+import { sortSelectOptionAsc, sortSelectOptionDesc, SelectOption, toPercent } from './utils'
 
 describe('Considering the toPercent() function', () => {
   describe.each`
@@ -32,6 +32,39 @@ describe('Considering the toPercent() function', () => {
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
+        })
+      })
+    }
+  )
+})
+
+describe('Considering the getOptions(Ascending|Descending)Sorted() function', () => {
+  const opt = (label: string, value: string, group?: string) => ({ label, value, group })
+  describe.each`
+    value                                                              | expectedResult
+    ${[]}                                                              | ${[]}
+    ${[opt('a', '0')]}                                                 | ${[opt('a', '0')]}
+    ${[opt('b', '0'), opt('a', '1')]}                                  | ${[opt('b', '0'), opt('a', '1')]}
+    ${[opt('a', '1'), opt('b', '0')]}                                  | ${[opt('b', '0'), opt('a', '1')]}
+    ${[opt('a', '1', 'g'), opt('b', '0', 'g')]}                        | ${[opt('b', '0', 'g'), opt('a', '1', 'g')]}
+    ${[opt('a', '1', 'g1'), opt('b', '0', 'g2')]}                      | ${[opt('a', '1', 'g1'), opt('b', '0', 'g2')]}
+    ${[opt('a', '1', 'g2'), opt('b', '0', 'g1')]}                      | ${[opt('b', '0', 'g1'), opt('a', '1', 'g2')]}
+    ${[opt('a', '1', 'g1'), opt('c', '0', 'g2'), opt('b', '0', 'g1')]} | ${[opt('b', '0', 'g1'), opt('a', '1', 'g1'), opt('c', '0', 'g2')]}
+  `(
+    'Given the value <$value>',
+    ({ value, expectedResult }: { value: SelectOption[]; expectedResult: SelectOption[] }) => {
+      describe('When calling function getOptionsAscendingSorted', () => {
+        const result = sortSelectOptionAsc(value)
+
+        test(`Then, result value is ${expectedResult}`, () => {
+          expect(result).toEqual(expectedResult)
+        })
+      })
+      describe('When calling function getOptionsDescendingSorted', () => {
+        const result = sortSelectOptionDesc(value)
+        const expectedReverse = [...expectedResult].reverse()
+        test(`Then, result value is ${expectedReverse}`, () => {
+          expect(result).toEqual(expectedReverse)
         })
       })
     }

@@ -24,33 +24,19 @@ export type TextFieldProps = InputBaseProps & {
 
 export const TextField: React.FC<TextFieldProps> = ({
   size = 'medium',
-  disabled = false,
-  hasError = false,
-  placeholder,
-  onChange,
-  value,
-  defaultValue,
   helperText,
-  inputRef,
-  fullWidth = false
+  fullWidth = false,
+  ...props
 }: TextFieldProps): JSX.Element => {
   const containerClass = classNames(`okp4-text-field-main ${size}`, { 'full-width': fullWidth })
 
   return (
     <div className={containerClass}>
-      <InputBase
-        defaultValue={defaultValue}
-        disabled={disabled}
-        hasError={hasError}
-        inputRef={inputRef}
-        onChange={onChange}
-        placeholder={placeholder}
-        value={value}
-      />
+      <InputBase {...props} />
       {helperText && (
         <Typography
           as="div"
-          color={hasError ? 'error' : 'info'}
+          color={props.hasError ? 'error' : 'info'}
           fontSize="x-small"
           fontWeight="bold"
           noWrap

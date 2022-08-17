@@ -1,0 +1,112 @@
+@import '../../styles/themes.scss';
+
+$sizes: (
+  'x-small': 200px,
+  'small': 300px,
+  'medium': 350px,
+  'large': 450px,
+  'x-large': 550px
+);
+
+.okp4-select-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100%;
+
+  @each $size-key, $size-value in $sizes {
+    &.#{$size-key} {
+      width: $size-value;
+
+      &.full-width {
+        width: 100%;
+      }
+
+      &.disabled {
+        opacity: 50%;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .okp4-select-content {
+    @include with-theme() {
+      position: relative;
+      cursor: pointer;
+      gap: 10px;
+      width: inherit;
+      max-width: 100%;
+
+      .okp4-select-input-container {
+        border: 1px solid themed(text);
+        width: inherit;
+        max-width: inherit;
+
+        &.error {
+          border: 1px solid themed('error');
+        }
+
+        .rotate-up {
+          transform: rotate(180deg);
+          transition: transform 0.1s linear;
+        }
+
+        .rotate-down {
+          transform: rotate(0deg);
+          transition: transform 0.1s linear;
+        }
+      }
+
+      .okp4-select-options-container {
+        position: absolute;
+        z-index: 10;
+        background: themed('header-background');
+        width: inherit;
+        overflow-y: auto;
+        max-width: inherit;
+        color: themed(text);
+        border: 1px solid themed(text);
+        border-top: 0;
+        min-height: 90px;
+
+        .okp4-select-options-menu {
+          margin-top: 5px;
+        }
+
+        .okp4-select-options-group {
+          padding-left: 25px;
+          cursor: default;
+        }
+
+        .okp4-select-options {
+          list-style: none;
+          padding-left: 0;
+        }
+
+        .okp4-select-option {
+          padding: 10px 10px 10px 25px;
+          font-family: 'Gotham bold', sans-serif;
+
+          &:hover {
+            background-color: themed('border');
+            cursor: pointer;
+          }
+
+          &.selected {
+            background-color: themed('border');
+          }
+        }
+
+        .okp4-select-group-divider {
+          width: inherit;
+          border-top: 1px solid themed(text);
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+
+  .okp4-select-text-field {
+    align-self: flex-start;
+  }
+}

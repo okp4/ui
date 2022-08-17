@@ -1,18 +1,22 @@
 @import 'src/ui/styles/themes.scss';
 
-.okp4-input-base-main {
+.okp4-input-base-container {
   @include with-theme() {
-    font-family: 'Gotham light', sans-serif;
-    text-align: left;
-    border: 0;
-    padding: 18px;
-    color: themed('text');
     background: themed('field');
-    font-size: 20px;
+    padding: 18px;
 
-    &::placeholder {
-      color: themed('text');
-      opacity: 0.6;
+    &.disabled {
+      cursor: not-allowed;
+    }
+
+    &.with-icon {
+      display: flex;
+      align-items: center;
+
+      .okp4-input-right-icon {
+        display: flex;
+        margin-left: 10px;
+      }
     }
 
     &.error {
@@ -20,8 +24,34 @@
       border: 1px solid themed('error');
     }
 
-    &:focus {
-      outline: none;
+    .okp4-input-base-main {
+      width: 100%;
+      font-family: 'Gotham light', sans-serif;
+      text-align: left;
+      border: 0;
+      color: themed('text');
+      background: themed('field');
+      font-size: 20px;
+      text-overflow: ellipsis;
+      cursor: inherit;
+
+      &::placeholder {
+        color: themed('text');
+        opacity: 0.6;
+      }
+
+      &.error {
+        color: themed('error');
+
+        &::placeholder {
+          color: themed('error');
+          opacity: 0.6;
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 }

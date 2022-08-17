@@ -1,0 +1,431 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { useState } from 'react'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { Select } from 'ui/molecules/select/Select'
+import { getOptionsAscendingSorted, getOptionsDescendingSorted } from 'utils'
+
+import './select.scss'
+
+<Meta
+  title="Molecules/Select"
+  component={Select}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code',
+        format: true,
+        language: 'jsx'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div style={{ padding: '20px 30px' }}>
+          <ThemeSwitcher />
+        </div>
+        <div
+          className="component-story-main"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '20px 30px'
+          }}
+        >
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# Select
+
+> Displays a list of options for the user to offer him the possibility to make one or more choices in it.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+`Select` is used to collect the choice(s) that the user has made from the list of available options.  
+It can display simple or grouped options and offers the user the possibility to make a unique or multiple choice.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    disabled: {
+      description: 'Indicates if the select is disabled.'
+    },
+    hasError: {
+      description: 'If true, the select is displayed in an error state.'
+    },
+    multiple: {
+      control: false
+    },
+    options: {
+      table: {
+        type: {
+          summary: `Array<{ label: string, value: string, group?: string }>`
+        }
+      }
+    },
+    onChange: {
+      table: {
+        type: {
+          summary: '(value: string | Readonly<string[]>) => void'
+        }
+      },
+      control: false
+    },
+    size: {
+      description:
+        'The size of the select. It will be automatically adjusted responsively to the screen size.'
+    },
+    value: {
+      table: {
+        type: {
+          summary: 'string | Readonly<string[]>'
+        }
+      },
+      control: false
+    }
+  }}
+  args={{
+    options: [
+      { label: 'Cherry', value: 'cherry', group: 'fruits' },
+      { label: 'Apple', value: 'apple', group: 'fruits' },
+      { label: 'Water', value: 'water', group: 'liquid' },
+      { label: 'Zucchini', value: 'zucchini', group: 'veggies' },
+      { label: 'Potatoe', value: 'potatoe', group: 'veggies' },
+      { label: 'Wine', value: 'wine', group: 'liquid' },
+      { label: 'Grapefruit', value: 'grapefruit', group: 'fruits' }
+    ],
+    placeholder: "I'm a placeholder!"
+  }}
+>
+  {args => {
+    const [value, setValue] = useState('')
+    const handleChange = value => {
+      setValue(value)
+    }
+    return <Select {...args} onChange={handleChange} value={value} />
+  }}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Controlled
+
+As `Select` is intended to be used in complex contexts, it was decided to use this component only in a controlled manner.  
+This is why you must provide a `value` and an `onChange` method.  
+If you don't want any available option te be selected at start, you can set the `value` to en empty string.
+Be aware that the passed value must be part of one of the option values.  
+If the passed value is not part of one of the option values, then it will not be displayed, just like the empty string.
+
+<Canvas className="select-canvas">
+  <Story name="Controlled">
+    {() => {
+      const [correctValue, setCorrectValue] = useState('lime')
+      const [incorrectValue, setIncorrectValue] = useState('tree')
+      return (
+        <>
+          <Select
+            helperText="The past value 'lime' is one of the options."
+            size="x-large"
+            value={correctValue}
+            onChange={setCorrectValue}
+            options={[
+              { label: 'Apple', value: 'apple' },
+              { label: 'Lime', value: 'lime' }
+            ]}
+          />
+          <Select
+            helperText="The past value 'tree' is not part of the options."
+            size="x-large"
+            value={incorrectValue}
+            onChange={setIncorrectValue}
+            options={[
+              { label: 'Orange', value: 'orange' },
+              { label: 'Banana', value: 'banana' }
+            ]}
+          />
+        </>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Options
+
+A list of options of `SelectOption` type must be provided in order to use `Select`.  
+The options list must be provided in the order you want them to appear and must follow a certain formalism:
+
+```ts
+type SelectOption = {
+  readonly label: string // text displayed in select
+  readonly value: string // value selected by the user
+  readonly group?: string // optional property that allows to group some options according to their belonging to a group
+}
+```
+
+Here is an example of the 3 cases concerning the option lists:
+
+- a list composed of options without groups
+- a list composed of options with groups
+- a mixed list composed of options with and without groups
+
+<Canvas className="select-canvas">
+  <Story name="Options">
+    {() => {
+      const [value1, setValue1] = useState('')
+      const [value2, setValue2] = useState('')
+      const [value3, setValue3] = useState('')
+      return (
+        <>
+          <Select
+            fullWidth
+            onChange={setValue1}
+            options={[
+              { label: 'Tomatoe', value: 'tomatoe' },
+              { label: 'Bread', value: 'bread' },
+              { label: 'Lime', value: 'lime' },
+              { label: 'Banana', value: 'banana' }
+            ]}
+            placeholder="I am containing options without groups"
+            value={value1}
+          />
+          <Select
+            fullWidth
+            onChange={setValue2}
+            options={[
+              { label: 'Tomatoe', value: 'tomatoe', group: 'Fruits' },
+              { label: 'Bread', value: 'bread', group: 'Sides' },
+              { label: 'Lime', value: 'lime', group: 'Fruits' },
+              { label: 'Potatoe', value: 'potatoe', group: 'Vegetables' }
+            ]}
+            placeholder="I am containing options with groups"
+            value={value2}
+          />
+          <Select
+            fullWidth
+            onChange={setValue3}
+            options={[
+              { label: 'Tomatoe', value: 'tomatoe' },
+              { label: 'Bread', value: 'bread', group: 'Sides' },
+              { label: 'Lime', value: 'lime', group: 'Fruits' },
+              { label: 'Potatoe', value: 'potatoe' }
+            ]}
+            placeholder="I am containing options with &amp; without groups"
+            value={value3}
+          />
+        </>
+      )
+    }}
+  </Story>
+</Canvas>
+
+We provide you with two alphabetical sorting methods, to help you present the options, that you can import from `@okp4/ui`:
+
+- `getOptionsAscendingSorted` : groups (if any) will be sorted alphabetically in **ascending** order, as well as the options belonging to its groups.
+- `getOptionsDescendingSorted`: groups (if any) will be sorted alphabetically in **descending** order, as well as the options belonging to its groups.
+
+##### **`example.tsx`**
+
+```tsx
+import { useState } from 'react'
+import { getOptionsAscendingSorted, getOptionsDescendingSorted, Select } from '@okp4/ui'
+import type { UseState } from '@okp4/ui'
+
+export const MyExampleComponent: React.FC = () => {
+  const [value1, setValue1]: UseState<string | <string[]>> = useState('')
+  const [value2, setValue2]: UseState<string | <string[]>> = useState('')
+  const [value3, setValue3]: UseState<string | <string[]>> = useState('')
+
+  const options = [
+    { label: 'Bread', value: 'bread', group: 'Sides' },
+    { label: 'Tomatoe', value: 'tomatoe', group: 'Fruits' },
+    { label: 'Water', value: 'water' },
+    { label: 'Potatoe', value: 'potatoe', group: 'Vegetables' },
+    { label: 'Sauce', value: 'sauce' },
+    { label: 'Apricot', value: 'apricot', group: 'Fruits' },
+    { label: 'Lime', value: 'lime', group: 'Fruits' }
+  ]
+
+  return (
+    <div>
+      <Select
+        onChange={setValue1}
+        options={options}
+        placeholder="I am containing unsorted options"
+        value={value1}
+      />
+      <Select
+        onChange={setValue2}
+        options={getOptionsAscendingSorted(options)}
+        placeholder="I am containing ascending sorted options"
+        value={value2}
+      />
+      <Select
+        onChange={setValue3}
+        options={getOptionsDescendingSorted(options)}
+        placeholder="I am containing descending sorted options"
+        value={value3}
+      />
+    </div>
+  )
+}
+```
+
+## Disabled
+
+`Select` can be disabled by setting the `disabled` property to `true`.  
+It is then impossible to enter a value or to open the menu, and the value should not be submitted to its parent.
+
+<Canvas className="select-canvas">
+  <Story name="Disabled">
+    {() => {
+      const [value, setValue] = useState('')
+      return (
+        <Select
+          disabled
+          onChange={setValue}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Banana', value: 'banana' }
+          ]}
+          placeholder="I am disabled"
+          value={value}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Error state
+
+If `hasError` property is set to true, `Select` will be displayed with an error semantic color.  
+In addition, the helperText property can be set to display an error message below `Select`.
+
+<Canvas className="select-canvas">
+  <Story name="Error state">
+    {() => {
+      const [value, setValue] = useState('')
+      const handleChange = value => {
+        setValue(value)
+      }
+      return (
+        <Select
+          hasError
+          helperText="Error message."
+          onChange={handleChange}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Mango', value: 'mango,' }
+          ]}
+          placeholder="I think I may have an error !"
+          size="medium"
+          value={value}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## FullWidth
+
+`Select` can take 100% width if the `fullWidth` property is set to true.
+
+<Canvas className="select-canvas">
+  <Story name="FullWidth">
+    {() => {
+      const [value, setValue] = useState('')
+      const handleChange = value => {
+        setValue(value)
+      }
+      return (
+        <Select
+          fullWidth
+          placeholder="I am in 100% width"
+          onChange={handleChange}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Apricot', value: 'Apricot' }
+          ]}
+          value={value}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Multiple
+
+The optional `multiple` property allows the user to choose several values from a list of options. It is set to `false` by default.  
+The list of selected options is displayed in alphabetical order.
+
+<Canvas className="select-canvas">
+  <Story name="Multiple">
+    {() => {
+      const [values, setValues] = useState(['lime', 'apple'])
+      const handleChange = selectedOptions => {
+        setValues(selectedOptions)
+      }
+      return (
+        <Select
+          multiple
+          onChange={handleChange}
+          options={[
+            { label: 'Lime', value: 'lime' },
+            { label: 'Apple', value: 'apple' },
+            { label: 'Pear', value: 'pear' }
+          ]}
+          placeholder="I am multiple"
+          value={values}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Sizes
+
+Size options are `x-small`, `small`, `medium`, `large`, `x-large` and will be automatically adjusted responsively to the screen size.  
+If none is given, `medium` is the default value.
+
+<Canvas className="select-canvas">
+  <Story name="Sizes">
+    {() => {
+      const sizes = ['x-small', 'small', 'medium', 'large', 'x-large']
+      const [values, setValues] = useState({
+        'x-small': '',
+        small: '',
+        medium: '',
+        large: '',
+        'x-large': ''
+      })
+      const handleChange = (value, size) => {
+        setValues({ ...values, [size]: value })
+      }
+      return sizes.map(size => (
+        <div key={size} style={{ maxWidth: '100%' }}>
+          <Select
+            onChange={value => handleChange(value, size)}
+            options={[
+              { label: 'Apple', value: 'apple' },
+              { label: 'Banana', value: 'banana' }
+            ]}
+            placeholder={size}
+            size={size}
+            value={values[size]}
+          />
+        </div>
+      ))
+    }}
+  </Story>
+</Canvas>
