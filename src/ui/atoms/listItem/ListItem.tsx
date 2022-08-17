@@ -8,7 +8,7 @@ export type ListItemProps = {
   /**
    * The main title of the item.
    */
-  readonly title: string
+  readonly title?: string
   /**
    * Additional information about the item
    */
@@ -41,11 +41,13 @@ export const ListItem: React.FC<ListItemProps> = ({
   return (
     <div className="okp4-listitem-main">
       {leftElement && <div className="okp4-listitem-left-element">{leftElement}</div>}
-      <div className="okp4-listitem-title">
-        <Typography as="div" color="text" fontSize="small" fontWeight="bold">
-          {title}
-        </Typography>
-      </div>
+      {title && (
+        <div className="okp4-listitem-title">
+          <Typography as="div" color="text" fontSize="small" fontWeight="bold">
+            {title}
+          </Typography>
+        </div>
+      )}
       {description && <div className="okp4-listitem-description">{renderDescription()}</div>}
       {rightElement && <div className="okp4-listitem-right-element">{rightElement}</div>}
     </div>
