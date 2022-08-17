@@ -61,9 +61,3 @@ export const sortSelectOptionAsc = (options: Readonly<SelectOption[]>): SelectOp
 
 export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectOption[] =>
   [...options].sort(selectOptionDescComparator)
-
-export const capitalizeFirstLetter = (word: string): string =>
-  word.charAt(0).toLocaleUpperCase() + word.slice(1)
-
-export const capitalizeFirstLetterOfEachArrayWord = (words: Readonly<string[]>): string[] =>
-  words.map(capitalizeFirstLetter)
