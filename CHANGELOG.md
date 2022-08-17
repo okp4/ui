@@ -1,5 +1,19 @@
 # OKP4 UI changelog
 
+# [1.11.0](https://github.com/okp4/ui/compare/v1.10.0...v1.11.0) (2022-08-17)
+
+
+### Bug Fixes
+
+* **ui:** import svgxuse as polyfill ([4eeaac4](https://github.com/okp4/ui/commit/4eeaac44b59777497ec8b9f17dfdb1b047cbfbed))
+
+
+### Features
+
+* add calendar icon ([99160f3](https://github.com/okp4/ui/commit/99160f310ae3d1f2fa5c6c33b26d3e7e069d8b6c))
+* add property to toast & remove redundant classes ([ad952d3](https://github.com/okp4/ui/commit/ad952d36f8ddaea50e6a2b47c7ff8f7089925518))
+* add style to property & clean up stylesheet ([ffc0fc7](https://github.com/okp4/ui/commit/ffc0fc7fd7e1daf15cb4af23942e11b8d78d7abd))
+
 # [1.10.0](https://github.com/okp4/ui/compare/v1.9.0...v1.10.0) (2022-08-05)
 
 
