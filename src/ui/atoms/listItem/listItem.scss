@@ -8,8 +8,8 @@
   grid-template-columns: minmax(30px, 45px) 1fr minmax(30px, 45px);
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
-    'leftIcon label rightIcon'
-    'leftIcon description rightIcon';
+    'leftElement label rightElement'
+    'leftElement description rightElement';
 
   @include with-theme {
     background-color: themed(field);
@@ -28,13 +28,13 @@
     margin: 3px;
   }
 
-  .okp4-listitem-icon-left {
-    grid-area: leftIcon;
+  .okp4-listitem-left-element {
+    grid-area: leftElement;
     margin: 5px auto 5px 5px;
   }
 
-  .okp4-listitem-icon-right {
-    grid-area: rightIcon;
+  .okp4-listitem-right-element {
+    grid-area: rightElement;
     margin: 5px 5px 5px auto;
   }
 }

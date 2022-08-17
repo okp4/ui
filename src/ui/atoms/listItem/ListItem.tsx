@@ -14,20 +14,20 @@ export type ListItemProps = {
    */
   readonly description?: string | JSX.Element
   /**
-   * An icon that can provide visual information on the left side.
+   * An element that can provide visual information or allow interactions on the left side.
    */
-  readonly leftIcon?: JSX.Element
+  readonly leftElement?: JSX.Element
   /**
-   * An icon that can provide visual information on the right side.
+   * An element that can provide visual information or allow interactions on the right side.
    */
-  readonly rightIcon?: JSX.Element
+  readonly rightElement?: JSX.Element
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
   label,
   description,
-  leftIcon,
-  rightIcon
+  leftElement,
+  rightElement
 }: DeepReadonly<ListItemProps>): JSX.Element => {
   const renderDescription = (): string | JSX.Element | undefined =>
     isString(description) ? (
@@ -40,14 +40,14 @@ export const ListItem: React.FC<ListItemProps> = ({
 
   return (
     <div className="okp4-listitem-main">
-      {leftIcon && <div className="okp4-listitem-icon-left">{leftIcon}</div>}
+      {leftElement && <div className="okp4-listitem-left-element">{leftElement}</div>}
       <div className="okp4-listitem-label">
         <Typography as="div" color="text" fontSize="small" fontWeight="bold">
           {label}
         </Typography>
       </div>
       {description && <div className="okp4-listitem-description">{renderDescription()}</div>}
-      {rightIcon && <div className="okp4-listitem-icon-right">{rightIcon}</div>}
+      {rightElement && <div className="okp4-listitem-right-element">{rightElement}</div>}
     </div>
   )
 }

@@ -12,11 +12,11 @@ export type ListProps = {
   /**
    * An icon displayed on the left side of each items.
    */
-  readonly leftIcon?: JSX.Element
+  readonly leftElement?: JSX.Element
   /**
    * An icon displayed on the right side of each items.
    */
-  readonly rightIcon?: JSX.Element
+  readonly rightElement?: JSX.Element
 }
 
 /**
@@ -24,8 +24,8 @@ export type ListProps = {
  */
 export const List: React.FC<ListProps> = ({
   items,
-  leftIcon,
-  rightIcon
+  leftElement,
+  rightElement
 }: DeepReadonly<ListProps>): JSX.Element => {
   return (
     <div className="okp4-list-main">
@@ -34,8 +34,8 @@ export const List: React.FC<ListProps> = ({
           description={item.description}
           key={index}
           label={item.label}
-          leftIcon={item.leftIcon ?? leftIcon}
-          rightIcon={item.rightIcon ?? rightIcon}
+          leftElement={item.leftElement ?? leftElement}
+          rightElement={item.rightElement ?? rightElement}
         />
       ))}
     </div>
