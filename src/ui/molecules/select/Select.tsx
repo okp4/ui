@@ -1,11 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
-import {
-  capitalizeFirstLetter,
-  capitalizeFirstLetterOfEachArrayWord,
-  compareStrings,
-  isString
-} from 'utils'
+import { compareStrings, isString } from 'utils'
 import type { SelectOption } from 'utils'
 import type { DeepReadonly, UseState } from 'superTypes'
 import { InputBase } from 'ui/atoms/inputBase/InputBase'
@@ -16,17 +11,18 @@ import './select.scss'
 import { useOnClickOutside } from 'hook/useOnClickOutside'
 import { useOnKeyboard } from 'hook/useOnKeyboard'
 
-type InputPropsForSelect = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
+type SelectInputProps = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
+type SelectValue = string | Readonly<string[]>
 
-export type SelectProps = InputPropsForSelect & {
+export type SelectProps = SelectInputProps & {
   /**
    * Defines the callback called when the select value changes.
    */
-  readonly onChange: (value: string | Readonly<string[]>) => void
+  readonly onChange: (value: SelectValue) => void
   /**
    * The value of the select.
    */
-  readonly value: string | string[]
+  readonly value: SelectValue
   /**
    * The options list displayed when the select is opened.
    */
@@ -64,10 +60,7 @@ export const Select = ({
   value,
   helperText
 }: DeepReadonly<SelectProps>): JSX.Element => {
-  const [selectedOption, setSelectedOption]: UseState<string | Readonly<string[]>> = useState<
-    string | Readonly<string[]>
-  >(value)
-
+  const [selectValue, setSelectValue]: UseState<SelectValue> = useState<SelectValue>(value)
   const [menuOpened, setMenuOpened]: UseState<boolean> = useState<boolean>(false)
   const [maxOptionsHeight, setMaxOptionsHeight]: UseState<number> = useState<number>(350)
 
@@ -82,15 +75,15 @@ export const Select = ({
   }, [disabled, menuOpened])
 
   const addOrRemoveOption = (value: string): string[] => {
-    if (selectedOption.includes(value)) {
-      return [...selectedOption].filter((option: string) => option !== value)
+    if (selectValue.includes(value)) {
+      return [...selectValue].filter((option: string) => option !== value)
     }
-    return [...selectedOption, value]
+    return [...selectValue, value]
   }
 
   const handleOptionSelection = (value: string) => () => {
     const updatedSelection = multiple ? addOrRemoveOption(value).sort(compareStrings) : value
-    setSelectedOption(updatedSelection)
+    setSelectValue(updatedSelection)
     onChange(updatedSelection)
     !multiple && toggleMenu()
   }
@@ -131,28 +124,13 @@ export const Select = ({
     )
   }
 
-  const capitalizeLabelsFirstLetter = (labels: Readonly<string[]>): string =>
-    capitalizeFirstLetterOfEachArrayWord(labels).sort(compareStrings).join(', ')
-
-  const getAssociatedLabel = (value: string): string => {
-    const foundLabel = options.find((option: SelectOption) => option.value === value)?.label
-    return foundLabel ?? ''
+  const getLabelByValue = (value: SelectValue): string => {
+    const valueFinder = (value: string): string =>
+      options.find((option: SelectOption) => option.value === value)?.label ?? ''
+    if (isString(value)) return valueFinder(value)
+    return [...value.map(valueFinder)].sort(compareStrings).join(', ')
   }
 
-  const getAssociatedLabels = (value: Readonly<string[]>): string[] =>
-    value.map((value: string) => getAssociatedLabel(value))
-
-  const capitalizedLabel = (): string => {
-    if (isString(value)) {
-      const label = getAssociatedLabel(value)
-      return capitalizeFirstLetter(label)
-    }
-
-    const labels = getAssociatedLabels(value)
-    return capitalizeLabelsFirstLetter(labels)
-  }
-
-  const labelToDisplay = isValueInOptions() ? capitalizedLabel() : ''
   const groups: Set<string> = new Set()
   const optionsWithoutGroups: SelectOption[] = []
   options.map((option: Readonly<SelectOption>) => {
@@ -177,11 +155,11 @@ export const Select = ({
   const Option = ({ label, value }: SelectOption): JSX.Element => (
     <li
       className={classNames('okp4-select-option', {
-        selected: selectedOption.includes(value)
+        selected: selectValue.includes(value)
       })}
       onClick={handleOptionSelection(value)}
     >
-      {capitalizeFirstLetter(label)}
+      {label}
     </li>
   )
 
@@ -221,7 +199,7 @@ export const Select = ({
             placeholder={placeholder}
             readOnly
             rightIcon={<MenuIcon />}
-            value={labelToDisplay}
+            value={isValueInOptions() ? getLabelByValue(selectValue) : ''}
           />
         </div>
         {menuOpened && (
@@ -243,9 +221,7 @@ export const Select = ({
                     return (
                       <div key={groupName}>
                         <Typography fontSize="small" fontWeight="bold">
-                          <p className="okp4-select-options-group">
-                            {capitalizeFirstLetter(groupName)}
-                          </p>
+                          <p className="okp4-select-options-group">{groupName}</p>
                         </Typography>
                         <ul className="okp4-select-options">
                           {options.map(({ label, value, group }: SelectOption) => {
