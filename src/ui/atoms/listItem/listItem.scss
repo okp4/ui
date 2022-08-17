@@ -8,7 +8,7 @@
   grid-template-columns: minmax(30px, 45px) 1fr minmax(30px, 45px);
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
-    'leftElement label rightElement'
+    'leftElement title rightElement'
     'leftElement description rightElement';
 
   @include with-theme {
@@ -16,8 +16,8 @@
     border-radius: 10px;
   }
 
-  .okp4-listitem-label {
-    grid-area: label;
+  .okp4-listitem-title {
+    grid-area: title;
     justify-content: start;
     margin: 3px;
   }

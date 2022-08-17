@@ -21,9 +21,9 @@ export const List: React.FC<ListProps> = ({ items }: DeepReadonly<ListProps>): J
         <ListItem
           description={item.description}
           key={index}
-          label={item.label}
           leftElement={item.leftElement}
           rightElement={item.rightElement}
+          title={item.title}
         />
       ))}
     </div>

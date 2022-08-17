@@ -6,9 +6,9 @@ import { isString } from 'utils'
 
 export type ListItemProps = {
   /**
-   * The main label of the item.
+   * The main title of the item.
    */
-  readonly label: string
+  readonly title: string
   /**
    * Additional information about the item
    */
@@ -24,7 +24,7 @@ export type ListItemProps = {
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
-  label,
+  title,
   description,
   leftElement,
   rightElement
@@ -41,9 +41,9 @@ export const ListItem: React.FC<ListItemProps> = ({
   return (
     <div className="okp4-listitem-main">
       {leftElement && <div className="okp4-listitem-left-element">{leftElement}</div>}
-      <div className="okp4-listitem-label">
+      <div className="okp4-listitem-title">
         <Typography as="div" color="text" fontSize="small" fontWeight="bold">
-          {label}
+          {title}
         </Typography>
       </div>
       {description && <div className="okp4-listitem-description">{renderDescription()}</div>}
