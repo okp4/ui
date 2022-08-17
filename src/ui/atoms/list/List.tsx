@@ -9,24 +9,12 @@ export type ListProps = {
    * The items of the list.
    */
   readonly items: ListItemProps[]
-  /**
-   * An icon displayed on the left side of each items.
-   */
-  readonly leftElement?: JSX.Element
-  /**
-   * An icon displayed on the right side of each items.
-   */
-  readonly rightElement?: JSX.Element
 }
 
 /**
  * Primary UI component for display a list of items.
  */
-export const List: React.FC<ListProps> = ({
-  items,
-  leftElement,
-  rightElement
-}: DeepReadonly<ListProps>): JSX.Element => {
+export const List: React.FC<ListProps> = ({ items }: DeepReadonly<ListProps>): JSX.Element => {
   return (
     <div className="okp4-list-main">
       {items.map((item: DeepReadonly<ListItemProps>, index: number) => (
@@ -34,8 +22,8 @@ export const List: React.FC<ListProps> = ({
           description={item.description}
           key={index}
           label={item.label}
-          leftElement={item.leftElement ?? leftElement}
-          rightElement={item.rightElement ?? rightElement}
+          leftElement={item.leftElement}
+          rightElement={item.rightElement}
         />
       ))}
     </div>
