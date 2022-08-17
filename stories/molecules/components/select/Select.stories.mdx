@@ -61,7 +61,7 @@ It can display simple or grouped options and offers the user the possibility to 
       description: 'Indicates if the select is disabled.'
     },
     hasError: {
-      description: '	If true, the select is displayed in an error state.'
+      description: 'If true, the select is displayed in an error state.'
     },
     multiple: {
       control: false
@@ -69,11 +69,16 @@ It can display simple or grouped options and offers the user the possibility to 
     options: {
       table: {
         type: {
-          summary: 'SelectOption []'
+          summary: `Array<{ label: string, value: string, group?: string }>`
         }
       }
     },
     onChange: {
+      table: {
+        type: {
+          summary: '(value: string | Readonly<string[]>) => void'
+        }
+      },
       control: false
     },
     size: {
@@ -81,6 +86,11 @@ It can display simple or grouped options and offers the user the possibility to 
         'The size of the select. It will be automatically adjusted responsively to the screen size.'
     },
     value: {
+      table: {
+        type: {
+          summary: 'string | Readonly<string[]>'
+        }
+      },
       control: false
     }
   }}
