@@ -1,11 +1,4 @@
-import {
-  capitalizeFirstLetter,
-  capitalizeFirstLetterOfEachArrayWord,
-  sortSelectOptionAsc,
-  sortSelectOptionDesc,
-  SelectOption,
-  toPercent
-} from './utils'
+import { sortSelectOptionAsc, sortSelectOptionDesc, SelectOption, toPercent } from './utils'
 
 describe('Considering the toPercent() function', () => {
   describe.each`
@@ -36,47 +29,6 @@ describe('Considering the toPercent() function', () => {
     }) => {
       describe('When calling function', () => {
         const result = toPercent(value, min, max)
-
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
-        })
-      })
-    }
-  )
-})
-
-describe('Considering the capitalizeFirstLetter() function', () => {
-  describe.each`
-    value        | expectedResult
-    ${''}        | ${''}
-    ${'foo'}     | ${'Foo'}
-    ${'foo bar'} | ${'Foo bar'}
-  `(
-    'Given the value <$value>',
-    ({ value, expectedResult }: { value: string; expectedResult: string }) => {
-      describe('When calling function', () => {
-        const result = capitalizeFirstLetter(value)
-
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
-        })
-      })
-    }
-  )
-})
-
-describe('Considering the capitalizeFirstLetterOfEachArrayWord() function', () => {
-  describe.each`
-    value             | expectedResult
-    ${['']}           | ${['']}
-    ${['foo']}        | ${['Foo']}
-    ${['foo bar']}    | ${['Foo bar']}
-    ${['foo', 'bar']} | ${['Foo', 'Bar']}
-  `(
-    'Given the value <$value>',
-    ({ value, expectedResult }: { value: string[]; expectedResult: string[] }) => {
-      describe('When calling function', () => {
-        const result = capitalizeFirstLetterOfEachArrayWord(value)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
