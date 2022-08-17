@@ -19,15 +19,28 @@ import {
 } from '../../../dateUtils'
 
 export type DatePickerProps = {
-  readonly value?: Date
+  /**
+   * The initial date of the date picker.
+   */
+  readonly defaultValue?: Date
+  /**
+   * Callback function called when the date changes.
+   */
   readonly onChange?: (date: DeepReadonly<Date>) => void
+  /**
+   * Defines if the date picker is disabled or not.
+   */
   readonly disabled?: boolean
+  /**
+   * The format of the dates.
+   * For example : 'DD/MM/YYYY', 'YYYY-MM-DD', etc.
+   */
   readonly format?: DateFormat
 }
 
 // eslint-disable-next-line max-lines-per-function
 export const DatePicker: React.FC<DatePickerProps> = ({
-  value,
+  defaultValue,
   onChange,
   disabled = false,
   format = 'dd/mm/yyyy'
@@ -37,7 +50,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const inputElement = useRef<HTMLInputElement>(null)
   const [calendarOpened, setCalendarOpened]: UseState<boolean> = useState<boolean>(false)
   const [inputValue, setInputValue]: UseState<string> = useState<string>(
-    value?.toLocaleDateString() ?? ''
+    defaultValue?.toLocaleDateString() ?? ''
   )
   const [hasError, setError]: UseState<boolean> = useState<boolean>(false)
 
