@@ -16,7 +16,7 @@ type CalendarState = {
   monthCalendar: DeepReadonly<CalendarHelper.MonthCalendar>
   month: number
   year: number
-  selectedDate: number
+  selectedDate: string
 }
 
 type CalendarAction =
@@ -27,20 +27,21 @@ type CalendarAction =
   | { type: 'dateSelected'; payload: CalendarHelper.DayCalendar }
 
 const initState = (
-  initArg: DeepReadonly<{ date: Date; start: CalendarHelper.Day }>
+  initArg: DeepReadonly<{ date: string | Date; start: CalendarHelper.Day }>
 ): CalendarState => {
-  const month = initArg.date.getMonth()
-  const year = initArg.date.getFullYear()
+  const d = new Date(initArg.date)
+  const month = d.getMonth()
+  const year = d.getFullYear()
   return {
     weekStart: initArg.start,
     month,
     year,
     monthCalendar: CalendarHelper.getCalendarMonth(year, month, initArg.start),
-    selectedDate: new Date(year, month, initArg.date.getDate()).getTime()
+    selectedDate: new Date(year, month, d.getDate()).toISOString()
   }
 }
 
-const goNextMonth = (state: DeepReadonly<CalendarState>, selectedDate?: number): CalendarState => {
+const goNextMonth = (state: DeepReadonly<CalendarState>, selectedDate?: string): CalendarState => {
   const month = state.month === CalendarHelper.December ? CalendarHelper.January : state.month + 1
   const year = state.month === CalendarHelper.December ? state.year + 1 : state.year
   const monthCalendar = CalendarHelper.getCalendarMonth(year, month, state.weekStart)
@@ -55,7 +56,7 @@ const goNextMonth = (state: DeepReadonly<CalendarState>, selectedDate?: number):
 
 const goPreviousMonth = (
   state: DeepReadonly<CalendarState>,
-  selectedDate?: number
+  selectedDate?: string
 ): CalendarState => {
   const month = state.month === CalendarHelper.January ? CalendarHelper.December : state.month - 1
   const year = state.month === CalendarHelper.January ? state.year - 1 : state.year
@@ -102,39 +103,39 @@ const calendarReducer = (
     }
     case 'dateSelected': {
       if (action.payload.month === 'prev') {
-        return goPreviousMonth(state, action.payload.timestamp)
+        return goPreviousMonth(state, action.payload.dateISO)
       }
       if (action.payload.month === 'next') {
-        return goNextMonth(state, action.payload.timestamp)
+        return goNextMonth(state, action.payload.dateISO)
       }
       return {
         ...state,
-        selectedDate: action.payload.timestamp
+        selectedDate: action.payload.dateISO
       }
     }
     default:
-      return initState({ date: new Date(), start: state.weekStart })
+      return initState({ date: new Date().toISOString(), start: state.weekStart })
   }
 }
 
 export type CalendarProps = {
   /**
-   * The initial date.
+   * The initial date in ISO format or Javascript Date.
    */
-  readonly initialDate?: Date
+  readonly initialDate?: string | Date
   /**
    * The fisrt day of the week.
    */
   readonly weekStart?: CalendarHelper.Day
   /**
-   * Callback function called when a date is selected.
+   * Callback function called when a date (ISO format) is selected.
    */
-  readonly onSelect?: (date: DeepReadonly<Date>) => void
+  readonly onSelect?: (date: string) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
 export const Calendar: React.FC<CalendarProps> = ({
-  initialDate = new Date(),
+  initialDate = new Date().toISOString(),
   weekStart = 'sunday',
   onSelect
 }: DeepReadonly<CalendarProps>): JSX.Element => {
@@ -142,7 +143,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
   const [state, dispatch]: UseReducer<CalendarState, CalendarAction> = useReducer<
     Reducer<CalendarState, CalendarAction>,
-    DeepReadonly<{ date: Date; start: CalendarHelper.Day }>
+    DeepReadonly<{ date: string | Date; start: CalendarHelper.Day }>
   >(calendarReducer, { date: initialDate, start: weekStart }, initState)
 
   const days = useMemo(() => CalendarHelper.getDays(weekStart), [weekStart])
@@ -157,14 +158,14 @@ export const Calendar: React.FC<CalendarProps> = ({
 
   const handleSelectDate = useCallback(
     (day: DeepReadonly<CalendarHelper.DayCalendar>) => () => {
-      onSelect?.(new Date(day.timestamp))
+      onSelect?.(day.dateISO)
       dispatch({ type: 'dateSelected', payload: day })
     },
     [onSelect]
   )
 
   const isDateSelected = (day: DeepReadonly<CalendarHelper.DayCalendar>): boolean => {
-    return state.selectedDate === day.timestamp
+    return state.selectedDate === day.dateISO
   }
 
   return (
