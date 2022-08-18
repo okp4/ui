@@ -4,6 +4,8 @@ import type { FileEntity } from 'domain/file/entity/file'
 import type { FileState } from '../appState'
 import type { DeepReadonly } from 'superTypes'
 import type { SaveFilesActionTypes } from 'domain/file/usecase/save-files/actionCreators'
+import type { ClearFilesActionTypes } from 'domain/file/usecase/clear-files/actionCreators'
+import type { ClearFileActionTypes } from 'domain/file/usecase/clear-file/actionCreators'
 
 const initialFileState: FileState<string> = {
   byId: OrderedMap<string, FileEntity>(),
@@ -12,7 +14,7 @@ const initialFileState: FileState<string> = {
 
 const file = (
   state: DeepReadonly<FileState> = initialFileState,
-  action: DeepReadonly<SaveFilesActionTypes>
+  action: DeepReadonly<SaveFilesActionTypes | ClearFilesActionTypes | ClearFileActionTypes>
 ): FileState => {
   switch (action.type) {
     case 'file/fileSaved': {
@@ -24,6 +26,24 @@ const file = (
         byType: state.byType.set(type, foundList?.size ? foundList.add(id) : OrderedSet([id]))
       }
     }
+    case 'file/fileCleared': {
+      const foundFileById = state.byId.get(action.payload)
+      return {
+        ...state,
+        ...(foundFileById && {
+          byId: state.byId.remove(action.payload)
+        }),
+        byType: state.byType
+          .map((value: Readonly<OrderedSet<string>>) => value.delete(action.payload))
+          .filter((value: Readonly<OrderedSet<string>>) => !value.isEmpty())
+      }
+    }
+    case 'file/filesCleared':
+      return {
+        ...state,
+        byId: state.byId.clear(),
+        byType: state.byType.clear()
+      }
     default:
       return state
   }
