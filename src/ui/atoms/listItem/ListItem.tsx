@@ -30,12 +30,16 @@ export const ListItem: React.FC<ListItemProps> = ({
   rightElement
 }: DeepReadonly<ListItemProps>): JSX.Element => {
   const renderDescription = (): string | JSX.Element | undefined =>
-    isString(description) ? (
-      <Typography as="div" color="text" fontSize="small">
-        {description}
-      </Typography>
-    ) : (
-      description
+    description && (
+      <div className="okp4-listitem-description">
+        {isString(description) ? (
+          <Typography as="div" color="text" fontSize="small">
+            {description}
+          </Typography>
+        ) : (
+          description
+        )}
+      </div>
     )
 
   return (
@@ -48,7 +52,7 @@ export const ListItem: React.FC<ListItemProps> = ({
           </Typography>
         </div>
       )}
-      {description && <div className="okp4-listitem-description">{renderDescription()}</div>}
+      {renderDescription()}
       {rightElement && <div className="okp4-listitem-right-element">{rightElement}</div>}
     </div>
   )
