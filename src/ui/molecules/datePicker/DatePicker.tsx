@@ -12,23 +12,21 @@ import { Calendar } from '../calendar/Calendar'
 import type { DateFormat } from '../../../dateUtils'
 import type { Day } from '../calendar/calendarHelper'
 import {
-  DateLength,
   DateRegexTyping,
   defaultRegexTyping,
-  isDateValid,
+  isDate,
   stringToDate,
-  dateToString
+  dateToString,
+  isDateISO
 } from '../../../dateUtils'
+
+const DateLength = 10
 
 export type DatePickerProps = {
   /**
-   * The initial date of the date picker.
+   * The initial ISO date of the date picker.
    */
-  readonly defaultValue?: Date
-  /**
-   * Callback function called when the date changes.
-   */
-  readonly onChange?: (date: DeepReadonly<Date>) => void
+  readonly defaultValue?: string
   /**
    * Defines if the date picker is disabled or not.
    */
@@ -42,22 +40,26 @@ export type DatePickerProps = {
    * The first day of the week displayed by the calendar
    */
   readonly weekStart?: Day
+  /**
+   * Callback function called when the date changes.
+   */
+  readonly onChange?: (date: string) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
 export const DatePicker: React.FC<DatePickerProps> = ({
   defaultValue,
-  onChange,
   disabled = false,
   format = 'dd/mm/yyyy',
-  weekStart = 'monday'
+  weekStart = 'monday',
+  onChange
 }: DeepReadonly<DatePickerProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
 
   const inputElement = useRef<HTMLInputElement>(null)
   const [calendarOpened, setCalendarOpened]: UseState<boolean> = useState<boolean>(false)
   const [inputValue, setInputValue]: UseState<string> = useState<string>(
-    defaultValue?.toLocaleDateString() ?? ''
+    defaultValue ? dateToString(defaultValue, format) ?? '' : ''
   )
   const [hasError, setError]: UseState<boolean> = useState<boolean>(false)
 
@@ -70,7 +72,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   }, [disabled, calendarOpened])
 
   const handleSelectDate = useCallback(
-    (date: DeepReadonly<Date>) => {
+    (date: string) => {
       setInputValue(dateToString(date, format))
       setCalendarOpened(false)
       onChange?.(date)
@@ -85,10 +87,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       const value = event.target.value
       setError(!value.match(regexTyping))
       setInputValue(`${value}`)
+
       if (value.length === DateLength) {
         const date = stringToDate(value, format)
-        if (isDateValid(date)) {
-          onChange?.(date)
+        if (isDate(date)) {
+          const dateISO = date.toISOString()
+          if (isDateISO(dateISO)) {
+            setInputValue(dateToString(dateISO, format))
+            onChange?.(dateISO)
+          }
         } else {
           setError(true)
         }
@@ -109,7 +116,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         disabled={disabled}
         hasError={hasError}
         inputRef={inputElement}
-        maxLength={DateLength}
         onChange={handleInputChange}
         placeholder={t(`datepicker:datepicker.placeholder.${format}`)}
         rightIcon={CalendarIcon()}
@@ -123,7 +129,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       {calendarOpened && (
         <div className="okp4-date-picker-calendar">
           <Calendar
-            initialDate={stringToDate(inputValue, format)}
+            initialDate={stringToDate(inputValue, format) ?? new Date()}
             onSelect={handleSelectDate}
             weekStart={weekStart}
           />
