@@ -2,10 +2,10 @@
 
 .okp4-listitem-main {
   display: grid;
-  column-gap: 5px;
+  column-gap: 10px;
   padding: 10px;
   align-items: center;
-  grid-template-columns: minmax(30px, 45px) 1fr minmax(30px, 45px);
+  grid-template-columns: minmax(30px, 8%) auto auto;
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
     'leftElement title rightElement'
