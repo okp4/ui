@@ -1,0 +1,40 @@
+@import '../../styles/themes.scss';
+
+.okp4-listitem-main {
+  display: grid;
+  column-gap: 10px;
+  padding: 10px;
+  align-items: center;
+  grid-template-columns: minmax(30px, 8%) auto auto;
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    'leftElement title rightElement'
+    'leftElement description rightElement';
+
+  @include with-theme {
+    background-color: themed(field);
+    border-radius: 10px;
+  }
+
+  .okp4-listitem-title {
+    grid-area: title;
+    justify-content: start;
+    margin: 3px;
+  }
+
+  .okp4-listitem-description {
+    grid-area: description;
+    justify-content: start;
+    margin: 3px;
+  }
+
+  .okp4-listitem-left-element {
+    grid-area: leftElement;
+    margin: 5px auto 5px 5px;
+  }
+
+  .okp4-listitem-right-element {
+    grid-area: rightElement;
+    margin: 5px 5px 5px auto;
+  }
+}

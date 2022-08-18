@@ -1,0 +1,107 @@
+import { ArgsTable, Meta, Story } from '@storybook/addon-docs'
+import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
+import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { List } from 'ui/atoms/list/List'
+
+<Meta
+  title="Atoms/List"
+  component={List}
+  parameters={{
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="component-story-main">
+          <ThemeSwitcher />
+          <div
+            style={{
+              display: 'grid',
+              gap: '25px'
+            }}
+          >
+            <Story />
+          </div>
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# List
+
+> A primary UI component to display a list of items.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+The `List` allows to display a list of elements and manage them.
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    items: {
+      control: false,
+      description: `The items of the list that are [ListItem](/?path=/docs/atoms-listitem--overview).`,
+      table: {
+        type: {
+          summary:
+            'Array<{title?: string, description?: string | JSX.Element, leftElement?: JSX.Element, rightElement?: JSX.Element}>'
+        }
+      }
+    }
+  }}
+  args={{
+    items: [
+      {
+        title: 'Item 1',
+        description: 'Description 1',
+        leftElement: <Icon name="wallet" />,
+        rightElement: <Icon name="close" />
+      },
+      {
+        title: 'Item 2',
+        description: 'Description 2',
+        leftElement: <Icon name="wallet" />,
+        rightElement: <Icon name="close" />
+      },
+      {
+        title: 'Item 3',
+        description: 'Description 3',
+        leftElement: <Icon name="wallet" />,
+        rightElement: <Icon name="close" />
+      },
+      {
+        title: 'Item 4',
+        description: 'Description 4',
+        leftElement: <Icon name="wallet" />,
+        rightElement: <Icon name="close" />
+      },
+      {
+        title: 'Item 5',
+        description: 'Description 5',
+        leftElement: <Icon name="wallet" />,
+        rightElement: <Icon name="close" />
+      }
+    ]
+  }}
+>
+  {args => <List {...args} />}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />
+
+## Items
+
+The property `items` provides the list of items to display.  
+An element of the `List` is a [ListItem](/docs/atoms-listitem--overview) component.
