@@ -4,18 +4,14 @@ import { UnspecifiedError } from '../entity/error'
 import type { FileEntity } from '../entity/file'
 
 export class FileBuilder {
-  private readonly file: FileEntity
+  private readonly file: Partial<FileEntity>
 
-  constructor(file?: DeepReadonly<FileEntity>) {
+  constructor(file?: DeepReadonly<Partial<FileEntity>>) {
     if (file) {
       this.file = file
     } else {
       this.file = {
-        id: short.generate(),
-        name: '',
-        type: '',
-        size: 0,
-        stream: new ReadableStream()
+        id: short.generate()
       }
     }
   }
@@ -56,19 +52,20 @@ export class FileBuilder {
   }
 
   public build(): FileEntity {
-    if (!this.invariant()) {
-      throw new UnspecifiedError()
-    }
-    return this.file
-  }
-
-  private invariant(): boolean {
-    return (
+    if (
+      this.file.id &&
       this.file.id.length > 0 &&
+      this.file.name &&
       this.file.name.length > 0 &&
-      this.file.type.length > 0 &&
+      this.file.size &&
       this.file.size > 0 &&
-      this.file.stream instanceof ReadableStream
-    )
+      this.file.stream &&
+      this.file.stream instanceof ReadableStream &&
+      this.file.type &&
+      this.file.type.length > 0
+    ) {
+      return this.file as FileEntity
+    }
+    throw new UnspecifiedError()
   }
 }
