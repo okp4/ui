@@ -16,8 +16,6 @@ type Data = Readonly<
     expectedStatus: boolean
   }
 >
-const fakeStream = new ReadableStream()
-const mocked = jest.spyOn(global, 'ReadableStream').mockImplementation(() => fakeStream)
 
 describe('Build a File', () => {
   const fakedUuid = 'foobar'
@@ -27,8 +25,22 @@ describe('Build a File', () => {
   })
 
   describe.each`
-    initialFile  | id        | name                 | size  | type           | stream        | expectedStatus
-    ${undefined} | ${'#id1'} | ${'my-awesome-file'} | ${10} | ${'image/png'} | ${fakeStream} | ${true}
+    initialFile                    | id           | name                 | size         | type           | stream                  | expectedStatus
+    ${undefined}                   | ${'#id1'}    | ${'my-awesome-file'} | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${true}
+    ${undefined}                   | ${undefined} | ${'my-awesome-file'} | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${true}
+    ${{ name: 'my-awesome-file' }} | ${'#id3'}    | ${undefined}         | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${true}
+    ${undefined}                   | ${'#id4'}    | ${undefined}         | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id5'}    | ${'my-awesome-file'} | ${undefined} | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id6'}    | ${'my-awesome-file'} | ${10}        | ${undefined}   | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id7'}    | ${'my-awesome-file'} | ${10}        | ${'image/png'} | ${undefined}            | ${false}
+    ${{ stream: {} }}              | ${'#id8'}    | ${'my-awesome-file'} | ${10}        | ${'image/png'} | ${undefined}            | ${false}
+    ${{ name: 10 }}                | ${'#id9'}    | ${undefined}         | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${{ name: '' }}                | ${'#id10'}   | ${undefined}         | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${''}        | ${undefined}         | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id11'}   | ${''}                | ${10}        | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id12'}   | ${'my-awesome-file'} | ${0}         | ${'image/png'} | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id12'}   | ${'my-awesome-file'} | ${10}        | ${''}          | ${new ReadableStream()} | ${false}
+    ${undefined}                   | ${'#id12'}   | ${'my-awesome-file'} | ${10}        | ${'image/png'} | ${{}}                   | ${false}
   `(
     'Given that id is <$id>, name is <$name>, size is <$size>, type is <$type> and stream is <$stream>',
     ({ initialFile, id, name, size, type, stream, expectedStatus }: Data) => {
@@ -59,7 +71,7 @@ describe('Build a File', () => {
           if (expectedStatus) {
             expect(file()).toEqual({
               id: id === undefined ? fakedUuid : id,
-              name,
+              name: name ? name : initialFile?.name ? initialFile.name : undefined,
               type,
               size,
               stream
@@ -72,14 +84,3 @@ describe('Build a File', () => {
     }
   )
 })
-
-// ${undefined}          | ${'#id2'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${true}
-// ${undefined}          | ${'#id3'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${true}
-// ${undefined}          | ${undefined} | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${true}
-// ${undefined}          | ${'#id5'}    | ${undefined} | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${true}
-// ${undefined}          | ${''}        | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${'test'} | ${false}
-// ${undefined}          | ${'#id7'}    | ${aDate}     | ${''}                              | ${'validation-error'} | ${'test'} | ${false}
-// ${undefined}          | ${'#id8'}    | ${aDate}     | ${'domain.error.validation-error'} | ${''}                 | ${'test'} | ${false}
-// ${{ messageKey: '' }} | ${'#id8'}    | ${undefined} | ${undefined}                       | ${undefined}          | ${'test'} | ${false}
-// ${undefined}          | ${'#id8'}    | ${aBadDate}  | ${'domain.error.validation-error'} | ${''}                 | ${'test'} | ${false}
-// ${undefined}          | ${'#id8'}    | ${aDate}     | ${'domain.error.validation-error'} | ${'validation-error'} | ${''}     | ${false}
