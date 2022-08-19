@@ -1,4 +1,4 @@
-import type { ThunkResult } from 'domain/task/store/store'
+import type { ThunkResult } from 'domain/file/store/store'
 import { ClearFilesActions } from './actionCreators'
 
 export const clearFiles =
