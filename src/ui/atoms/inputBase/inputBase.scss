@@ -52,6 +52,15 @@
       &:focus {
         outline: none;
       }
+
+      &.disable-resize {
+        resize: none;
+      }
+    }
+
+    .okp4-input-base-textarea {
+      max-width: 100%;
+      max-height: 100%;
     }
   }
 }
