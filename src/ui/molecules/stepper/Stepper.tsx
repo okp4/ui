@@ -255,54 +255,56 @@ export const Stepper: React.FC<StepperProps> = ({
         )}
       </div>
       <div
-        className={classNames('okp4-stepper-content', {
+        className={classNames('okp4-stepper-container', {
           error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
         })}
       >
-        {state.activeStepIndex === steps.length
-          ? successContent
-          : steps[state.activeStepIndex]?.content}
-      </div>
-      <div className="okp4-stepper-buttons">
-        <div>
-          {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
-            <Button
-              icon={<Icon name="previous" />}
-              label={t('stepper:step.button.previous')}
-              onClick={handlePreviousClick}
-              size="small"
-              variant="icon"
-            />
-          )}
+        <div className="okp4-stepper-content">
+          {state.activeStepIndex === steps.length
+            ? successContent
+            : steps[state.activeStepIndex]?.content}
         </div>
-        <div>
-          {state.activeStepIndex < steps.length - 1 && (
-            <Button
-              icon={<Icon name="next" />}
-              label={t('stepper:step.button.next')}
-              onClick={handleNextClick}
-              size="small"
-              variant="icon"
-            />
-          )}
-          {state.activeStepIndex === steps.length - 1 && (
-            <Button
-              backgroundColor="success"
-              label={submitButtonLabel ?? t('stepper:step.button.submit')}
-              onClick={handleSubmit}
-              size="small"
-              variant="secondary"
-            />
-          )}
-          {state.activeStepIndex === steps.length && (
-            <Button
-              backgroundColor="secondary"
-              label={resetButtonLabel ?? t('stepper:step.button.reset')}
-              onClick={handleReset}
-              size="small"
-              variant="secondary"
-            />
-          )}
+        <div className="okp4-stepper-buttons">
+          <div>
+            {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
+              <Button
+                icon={<Icon name="arrow-left" size={20} />}
+                label={t('stepper:step.button.previous')}
+                onClick={handlePreviousClick}
+                size="small"
+                variant="icon"
+              />
+            )}
+          </div>
+          <div>
+            {state.activeStepIndex < steps.length - 1 && (
+              <Button
+                icon={<Icon name="arrow-right" size={20} />}
+                label={t('stepper:step.button.next')}
+                onClick={handleNextClick}
+                size="small"
+                variant="icon"
+              />
+            )}
+            {state.activeStepIndex === steps.length - 1 && (
+              <Button
+                backgroundColor="success"
+                label={submitButtonLabel ?? t('stepper:step.button.submit')}
+                onClick={handleSubmit}
+                size="small"
+                variant="secondary"
+              />
+            )}
+            {state.activeStepIndex === steps.length && (
+              <Button
+                backgroundColor="secondary"
+                label={resetButtonLabel ?? t('stepper:step.button.reset')}
+                onClick={handleReset}
+                size="small"
+                variant="secondary"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

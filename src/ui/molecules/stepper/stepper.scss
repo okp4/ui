@@ -66,24 +66,36 @@ $colors: (
     }
   }
 
-  .okp4-stepper-content {
-    grid-area: content;
-    overflow-y: auto;
+  .okp4-stepper-container {
     width: 100%;
-    padding: 2px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include with-theme() {
+      @include background-opacity(themed('tertiary-background'), 0.3);
+      box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0 10px 20px -15px;
+    }
 
     &.error {
       @include with-theme() {
         border: solid themed(error);
       }
     }
-  }
 
-  .okp4-stepper-buttons {
-    grid-area: buttons;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    align-self: flex-end;
+    .okp4-stepper-content {
+      grid-area: content;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .okp4-stepper-buttons {
+      grid-area: buttons;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 20px;
+    }
   }
 }
