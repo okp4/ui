@@ -4,7 +4,7 @@ import type { FileEntity } from 'domain/file/entity/file'
 import type { FileState } from '../appState'
 import type { DeepReadonly } from 'superTypes'
 import type { StoreFilesActionTypes } from 'domain/file/usecase/store-files/actionCreators'
-import type { ClearFilesActionTypes } from 'domain/file/usecase/clear-files/actionCreators'
+import type { RemoveFilesActionTypes } from 'domain/file/usecase/remove-files/actionCreators'
 import type { RemoveFileActionTypes } from 'domain/file/usecase/remove-file/actionCreators'
 
 const initialFileState: FileState<string> = {
@@ -14,7 +14,7 @@ const initialFileState: FileState<string> = {
 
 const file = (
   state: DeepReadonly<FileState> = initialFileState,
-  action: DeepReadonly<StoreFilesActionTypes | ClearFilesActionTypes | RemoveFileActionTypes>
+  action: DeepReadonly<StoreFilesActionTypes | RemoveFilesActionTypes | RemoveFileActionTypes>
 ): FileState => {
   switch (action.type) {
     case 'file/fileStored': {
@@ -38,7 +38,7 @@ const file = (
           .filter((value: Readonly<OrderedSet<string>>) => !value.isEmpty())
       }
     }
-    case 'file/filesCleared':
+    case 'file/filesRemoved':
       return {
         ...state,
         byId: state.byId.clear(),
