@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import type { FileEntity } from 'domain/file/entity/file'
 import type { FileState } from '../appState'
 import type { DeepReadonly } from 'superTypes'
-import type { SaveFilesActionTypes } from 'domain/file/usecase/save-files/actionCreators'
+import type { StoreFilesActionTypes } from 'domain/file/usecase/store-files/actionCreators'
 import type { ClearFilesActionTypes } from 'domain/file/usecase/clear-files/actionCreators'
 import type { ClearFileActionTypes } from 'domain/file/usecase/clear-file/actionCreators'
 
@@ -14,10 +14,10 @@ const initialFileState: FileState<string> = {
 
 const file = (
   state: DeepReadonly<FileState> = initialFileState,
-  action: DeepReadonly<SaveFilesActionTypes | ClearFilesActionTypes | ClearFileActionTypes>
+  action: DeepReadonly<StoreFilesActionTypes | ClearFilesActionTypes | ClearFileActionTypes>
 ): FileState => {
   switch (action.type) {
-    case 'file/fileSaved': {
+    case 'file/fileStored': {
       const { id, type }: FileEntity = action.payload
       const foundList = state.byType.get(type)
       return {
