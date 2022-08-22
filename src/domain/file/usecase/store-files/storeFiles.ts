@@ -20,7 +20,7 @@ export const storeFiles =
       getState().file.byId.has(file.id)
     )
     const isCommandPayloadValid =
-      [...new Set(files.map((file: DeepReadonly<StoreFilePayload<string>>) => file.id))].length >=
+      [...new Set(files.map((file: DeepReadonly<StoreFilePayload<string>>) => file.id))].length ===
       files.length
 
     if (foundDuplicatedIdInState || !isCommandPayloadValid) {
