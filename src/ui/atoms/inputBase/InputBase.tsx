@@ -13,9 +13,7 @@ export type InputBaseProps = {
   /**
    * Defines the callback called when the input value changes.
    */
-  readonly onChange?: (
-    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
-  ) => void
+  readonly onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   /**
    * The value of the `input` element, required for a controlled component.
    */
@@ -34,13 +32,9 @@ export type InputBaseProps = {
    */
   readonly hasError?: boolean
   /**
-   * Pass a ref to the input element.
+   * Pass a ref to the element.
    */
-  readonly inputRef?: RefObject<HTMLInputElement>
-  /**
-   * Pass a ref to the textarea element.
-   */
-  readonly textareaRef?: RefObject<HTMLTextAreaElement>
+  readonly ref?: RefObject<HTMLInputElement | HTMLTextAreaElement>
   /**
    * The icon displayed on the right side.
    */
@@ -75,8 +69,7 @@ export const InputBase = ({
   defaultValue,
   disabled = false,
   hasError = false,
-  inputRef,
-  textareaRef,
+  ref,
   onChange,
   placeholder,
   rightIcon,
@@ -97,22 +90,26 @@ export const InputBase = ({
   const textareaClass = classNames(inputClass, 'okp4-input-base-textarea', {
     'disable-resize': multiline && disableAreaResize
   })
-
   const props = {
-    defaultValue: defaultValue,
-    disabled: disabled,
-    onChange: onChange,
-    placeholder: placeholder,
-    readOnly: readOnly,
-    value: value
+    defaultValue,
+    disabled,
+    onChange,
+    placeholder,
+    readOnly,
+    value
   }
 
   return (
     <div className={containerClass}>
       {multiline ? (
-        <textarea className={textareaClass} ref={textareaRef} rows={numberOfLines} {...props} />
+        <textarea
+          className={textareaClass}
+          ref={ref as RefObject<HTMLTextAreaElement>}
+          rows={numberOfLines}
+          {...props}
+        />
       ) : (
-        <input className={inputClass} ref={inputRef} {...props} />
+        <input className={inputClass} ref={ref as RefObject<HTMLInputElement>} {...props} />
       )}
       {rightIcon && <RightIcon icon={rightIcon} />}
     </div>
