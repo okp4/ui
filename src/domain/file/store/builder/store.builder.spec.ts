@@ -10,7 +10,7 @@ import { FileEntity } from 'domain/file/entity/file'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParamters: FileStoreParameters
+    initialStoreParameters: FileStoreParameters
     eventBus: EventBus
     preloadedState: AppState
   }> & {
@@ -35,7 +35,7 @@ const state1: AppState = {
 
 describe('Build a File store', () => {
   describe.each`
-    initialStoreParamters             | eventBus            | preloadedState | expectedStatus
+    initialStoreParameters            | eventBus            | preloadedState | expectedStatus
     ${undefined}                      | ${eventBusInstance} | ${undefined}   | ${true}
     ${undefined}                      | ${eventBusInstance} | ${state1}      | ${true}
     ${{ eventBus: eventBusInstance }} | ${undefined}        | ${undefined}   | ${true}
@@ -46,11 +46,11 @@ describe('Build a File store', () => {
     ${{ eventBus: {} }}               | ${undefined}        | ${undefined}   | ${false}
   `(
     'Given that eventBus is <$eventBus> adn preloadedState is <$preloadedState>',
-    ({ initialStoreParamters, eventBus, preloadedState, expectedStatus }: Data) => {
+    ({ initialStoreParameters, eventBus, preloadedState, expectedStatus }: Data) => {
       describe('When building a File Store', () => {
         const store = (): Store<AppState, AnyAction> => {
           // eslint-disable-next-line functional/no-let
-          let fileStoreBuilder = new FileStoreBuilder(initialStoreParamters)
+          let fileStoreBuilder = new FileStoreBuilder(initialStoreParameters)
 
           if (eventBus !== undefined) {
             fileStoreBuilder = fileStoreBuilder.withEventBus(eventBus)

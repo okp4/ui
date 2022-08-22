@@ -10,7 +10,7 @@ import { Task } from 'domain/task/entity/task'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParamters: TaskStoreParameters
+    initialStoreParameters: TaskStoreParameters
     eventBus: EventBus
     preloadedState: AppState
   }> & {
@@ -37,7 +37,7 @@ const state1: AppState = {
 
 describe('Build a Task store', () => {
   describe.each`
-    initialStoreParamters             | eventBus            | preloadedState | expectedStatus
+    initialStoreParameters            | eventBus            | preloadedState | expectedStatus
     ${undefined}                      | ${eventBusInstance} | ${undefined}   | ${true}
     ${undefined}                      | ${eventBusInstance} | ${state1}      | ${true}
     ${{ eventBus: eventBusInstance }} | ${undefined}        | ${undefined}   | ${true}
@@ -48,11 +48,11 @@ describe('Build a Task store', () => {
     ${{ eventBus: {} }}               | ${undefined}        | ${undefined}   | ${false}
   `(
     'Given that eventBus is <$eventBus> adn preloadedState is <$preloadedState>',
-    ({ initialStoreParamters, eventBus, preloadedState, expectedStatus }: Data) => {
+    ({ initialStoreParameters, eventBus, preloadedState, expectedStatus }: Data) => {
       describe('When building a Task Store', () => {
         const store = (): Store<AppState, AnyAction> => {
           // eslint-disable-next-line functional/no-let
-          let taskStoreBuilder = new TaskStoreBuilder(initialStoreParamters)
+          let taskStoreBuilder = new TaskStoreBuilder(initialStoreParameters)
 
           if (eventBus !== undefined) {
             taskStoreBuilder = taskStoreBuilder.withEventBus(eventBus)

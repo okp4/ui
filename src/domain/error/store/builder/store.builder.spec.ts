@@ -9,7 +9,7 @@ import { EventBus } from 'ts-bus'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParamters: ErrorStoreParameters
+    initialStoreParameters: ErrorStoreParameters
     eventBus: EventBus
     preloadedState: AppState
   }> & {
@@ -32,7 +32,7 @@ const state1: AppState = {
 
 describe('Build an Error store', () => {
   describe.each`
-    initialStoreParamters             | eventBus            | preloadedState | expectedStatus
+    initialStoreParameters            | eventBus            | preloadedState | expectedStatus
     ${undefined}                      | ${eventBusInstance} | ${undefined}   | ${true}
     ${undefined}                      | ${eventBusInstance} | ${state1}      | ${true}
     ${{ eventBus: eventBusInstance }} | ${undefined}        | ${undefined}   | ${true}
@@ -43,11 +43,11 @@ describe('Build an Error store', () => {
     ${{ eventBus: {} }}               | ${undefined}        | ${undefined}   | ${false}
   `(
     'Given that eventBus is <$eventBus> and preloadedState is <$preloadedState>',
-    ({ initialStoreParamters, eventBus, preloadedState, expectedStatus }: Data) => {
+    ({ initialStoreParameters, eventBus, preloadedState, expectedStatus }: Data) => {
       describe('When building an Error Store', () => {
         const store = (): Store<AppState, AnyAction> => {
           // eslint-disable-next-line functional/no-let
-          let errorStoreBuilder = new ErrorStoreBuilder(initialStoreParamters)
+          let errorStoreBuilder = new ErrorStoreBuilder(initialStoreParameters)
 
           if (eventBus !== undefined) {
             errorStoreBuilder = errorStoreBuilder.withEventBus(eventBus)
