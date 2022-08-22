@@ -154,9 +154,6 @@ const stepperReducer = (
   }
 }
 
-/**
- * User Interface component to manage multiple steps
- */
 // eslint-disable-next-line max-lines-per-function
 export const Stepper: React.FC<StepperProps> = ({
   steps = [],
@@ -209,12 +206,12 @@ export const Stepper: React.FC<StepperProps> = ({
 
   return (
     <div className="okp4-stepper-main">
-      <div className="okp4-stepper-steps">
+      <div className="okp4-stepper-header">
         {isMobile() ? (
-          <div className="okp4-step-header">
+          <div className="okp4-stepper-progress">
             <div
               className={classNames(
-                'okp4-step-label',
+                'okp4-stepper-step-label',
                 state.stepsStatuses.get(state.activeStepIndex)
               )}
             >
@@ -228,10 +225,10 @@ export const Stepper: React.FC<StepperProps> = ({
                     })`}
               </Typography>
             </div>
-            <div className="okp4-step-states-mobile">
+            <div className="okp4-stepper-step-states-mobile">
               {steps.map((_step: DeepReadonly<Step>, index: number) => (
                 <div
-                  className={classNames('okp4-step-state', state.stepsStatuses.get(index))}
+                  className={classNames('okp4-stepper-step-state', state.stepsStatuses.get(index))}
                   key={index}
                 ></div>
               ))}
@@ -239,8 +236,10 @@ export const Stepper: React.FC<StepperProps> = ({
           </div>
         ) : (
           steps.map((step: DeepReadonly<Step>, index: number) => (
-            <div className="okp4-step-header" key={index}>
-              <div className={classNames('okp4-step-label', state.stepsStatuses.get(index))}>
+            <div className="okp4-stepper-progress" key={index}>
+              <div
+                className={classNames('okp4-stepper-step-label', state.stepsStatuses.get(index))}
+              >
                 <Typography
                   as="div"
                   fontSize="x-small"
@@ -249,60 +248,64 @@ export const Stepper: React.FC<StepperProps> = ({
                   {step.label}
                 </Typography>
               </div>
-              <div className={classNames('okp4-step-state', state.stepsStatuses.get(index))}></div>
+              <div
+                className={classNames('okp4-stepper-step-state', state.stepsStatuses.get(index))}
+              ></div>
             </div>
           ))
         )}
       </div>
-      <div
-        className={classNames('okp4-stepper-content', {
-          error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
-        })}
-      >
-        {state.activeStepIndex === steps.length
-          ? successContent
-          : steps[state.activeStepIndex]?.content}
-      </div>
-      <div className="okp4-stepper-buttons">
-        <div>
-          {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
-            <Button
-              icon={<Icon name="previous" />}
-              label={t('stepper:step.button.previous')}
-              onClick={handlePreviousClick}
-              size="small"
-              variant="icon"
-            />
-          )}
+      <div className="okp4-stepper-body">
+        <div
+          className={classNames('okp4-stepper-step-content', {
+            error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
+          })}
+        >
+          {state.activeStepIndex === steps.length
+            ? successContent
+            : steps[state.activeStepIndex]?.content}
         </div>
-        <div>
-          {state.activeStepIndex < steps.length - 1 && (
-            <Button
-              icon={<Icon name="next" />}
-              label={t('stepper:step.button.next')}
-              onClick={handleNextClick}
-              size="small"
-              variant="icon"
-            />
-          )}
-          {state.activeStepIndex === steps.length - 1 && (
-            <Button
-              backgroundColor="success"
-              label={submitButtonLabel ?? t('stepper:step.button.submit')}
-              onClick={handleSubmit}
-              size="small"
-              variant="secondary"
-            />
-          )}
-          {state.activeStepIndex === steps.length && (
-            <Button
-              backgroundColor="secondary"
-              label={resetButtonLabel ?? t('stepper:step.button.reset')}
-              onClick={handleReset}
-              size="small"
-              variant="secondary"
-            />
-          )}
+        <div className="okp4-stepper-buttons">
+          <div>
+            {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
+              <Button
+                icon={<Icon name="arrow-left" size={20} />}
+                label={t('stepper:step.button.previous')}
+                onClick={handlePreviousClick}
+                size="small"
+                variant="icon"
+              />
+            )}
+          </div>
+          <div>
+            {state.activeStepIndex < steps.length - 1 && (
+              <Button
+                icon={<Icon name="arrow-right" size={20} />}
+                label={t('stepper:step.button.next')}
+                onClick={handleNextClick}
+                size="small"
+                variant="icon"
+              />
+            )}
+            {state.activeStepIndex === steps.length - 1 && (
+              <Button
+                backgroundColor="success"
+                label={submitButtonLabel ?? t('stepper:step.button.submit')}
+                onClick={handleSubmit}
+                size="small"
+                variant="secondary"
+              />
+            )}
+            {state.activeStepIndex === steps.length && (
+              <Button
+                backgroundColor="secondary"
+                label={resetButtonLabel ?? t('stepper:step.button.reset')}
+                onClick={handleReset}
+                size="small"
+                variant="secondary"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
