@@ -1,31 +1,18 @@
 import React from 'react'
 import type { DeepReadonly } from 'superTypes'
 import './list.scss'
-import type { ListItemProps } from '../listItem/ListItem'
-import { ListItem } from '../listItem/ListItem'
 
 export type ListProps = {
   /**
-   * The items of the list.
+   * The elements passed as children of the List component.
+   * The expected children are `ListItem` components.
    */
-  readonly items: ListItemProps[]
+  readonly children: React.ReactNode
 }
 
 /**
  * Primary UI component for display a list of items.
  */
-export const List: React.FC<ListProps> = ({ items }: DeepReadonly<ListProps>): JSX.Element => {
-  return (
-    <div className="okp4-list-main">
-      {items.map((item: DeepReadonly<ListItemProps>, index: number) => (
-        <ListItem
-          description={item.description}
-          key={index}
-          leftElement={item.leftElement}
-          rightElement={item.rightElement}
-          title={item.title}
-        />
-      ))}
-    </div>
-  )
-}
+export const List: React.FC<ListProps> = ({ children }: DeepReadonly<ListProps>): JSX.Element => (
+  <div className="okp4-list-main">{children}</div>
+)
