@@ -2,8 +2,8 @@
 import type { ActionsUnion } from 'domain/common/store.helper'
 import { createAction } from 'domain/common/store.helper'
 
-export const ClearFileActions = {
-  fileCleared: (id: string) => createAction('file/fileCleared', id)
+export const RemoveFileActions = {
+  fileRemoved: (id: string) => createAction('file/fileRemoved', id)
 }
 
-export type ClearFileActionTypes = ActionsUnion<typeof ClearFileActions>
+export type RemoveFileActionTypes = ActionsUnion<typeof RemoveFileActions>
