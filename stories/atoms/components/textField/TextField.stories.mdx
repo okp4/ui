@@ -49,7 +49,7 @@ import '../component.scss'
     onChange: {
       control: false
     },
-    inputRef: {
+    ref: {
       control: false
     },
     rightIcon: {
@@ -252,7 +252,7 @@ This property allows the user to add a custom `icon` at the right of the input a
 
 ## Multiline
 
-The property `multiline` allows to write a more text on several lines. The simple text field becomes a text area.  
+The `multiline` property allows you to write text on several lines. The simple text field becomes a text area.  
 When `multiline` is `true` and [disableAreaResize](/docs/atoms-textfield--disable-area-resize) is `false` the [size](/docs/atoms-textfield--sizes) is automatically `auto`.
 
 <Canvas isColumn>
@@ -263,12 +263,13 @@ When `multiline` is `true` and [disableAreaResize](/docs/atoms-textfield--disabl
   </Story>
 </Canvas>
 
-## Number of rows
+## Number of lines
 
-If the text field is multiline, the property `numberOfRows` defines the initial heigth of the text field.
+If the text field is multiline, the property `numberOfLines` defines the initial heigth of the text field.  
+By default, the text area is initialized with two lines.
 
 <Canvas isColumn>
-  <Story name="Number of rows">
+  <Story name="Number of lines">
     <div
       style={{
         display: 'flex',
