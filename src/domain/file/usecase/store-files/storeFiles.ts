@@ -1,6 +1,6 @@
 import type { ReduxStore, ThunkResult } from 'domain/file/store/store'
 import type { StoreFilePayload, StoreFilesPayload } from 'domain/file/command/storeFile'
-import { SaveFilesActions } from './actionCreators'
+import { StoreFilesActions } from './actionCreators'
 import type { DeepReadonly } from 'superTypes'
 import { FileMapper } from 'adapters/file/mapper/file.mapper'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
@@ -12,7 +12,7 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void =
   dispatch(ThrowErrorActions.errorThrown(errorToDispatch))
 }
 
-export const saveFiles =
+export const storeFiles =
   (files: DeepReadonly<StoreFilesPayload<string>>): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
@@ -20,12 +20,12 @@ export const saveFiles =
       if (getState().file.byId.has(file.id)) {
         dispatchError(
           new UnspecifiedError(
-            `Oops.. The provided id '${file.id}' already exists, so we can't save this file..`
+            `Oops.. The provided id '${file.id}' already exists, so we can't store this file..`
           ),
           dispatch
         )
         return
       }
-      dispatch(SaveFilesActions.fileSaved(FileMapper.mapCommandPayloadToEntity(file)))
+      dispatch(StoreFilesActions.fileStored(FileMapper.mapCommandPayloadToEntity(file)))
     })
   }

@@ -1,7 +1,7 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { ReduxStore } from '../../store/store'
-import { saveFiles } from './saveFiles'
+import { storeFiles } from './storeFiles'
 import type { FileEntity } from 'domain/file/entity/file'
 import type { AppState } from 'domain/file/store/appState'
 import type { DeepReadonly } from 'superTypes'
@@ -102,13 +102,13 @@ describe('Save files', () => {
     ${[rawFile1, rawFile2]} | ${expectedState2}
     ${[rawFile1, rawFile3]} | ${expectedState3}
   `(
-    `Given that there are $files.length file(s) to save`,
+    `Given that there are $files.length file(s) to store`,
     ({ files, expectedState }: DeepReadonly<Data>): void => {
       const { store }: InitialProps = init()
 
-      describe('When saving files', () => {
+      describe('When storing files', () => {
         test('Then, expect state to be', async () => {
-          await store.dispatch(saveFiles(files))
+          await store.dispatch(storeFiles(files))
           expect(store.getState()).toStrictEqual(expectedState)
         })
       })
