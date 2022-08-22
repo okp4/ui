@@ -1,16 +1,16 @@
 import { OrderedMap, OrderedSet } from 'immutable'
 import type { Store, AnyAction } from 'redux'
 import { EventBus } from 'ts-bus'
-import { UnspecifiedError } from 'domain/task/entity/error'
-import { TaskStoreBuilder } from './store.builder'
-import type { TaskStoreParameters } from './store.builder'
+import { UnspecifiedError } from 'domain/file/entity/error'
+import { FileStoreBuilder } from './store.builder'
+import type { FileStoreParameters } from './store.builder'
 import type { AppState } from '../appState'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
-import { Task } from 'domain/task/entity/task'
+import { FileBuilder } from 'domain/file/builder/file.builder'
+import { FileEntity } from 'domain/file/entity/file'
 
 type Data = Readonly<
   Partial<{
-    initialStoreParameters: TaskStoreParameters
+    initialStoreParameters: FileStoreParameters
     eventBus: EventBus
     preloadedState: AppState
   }> & {
@@ -18,24 +18,22 @@ type Data = Readonly<
   }
 >
 const eventBusInstance = new EventBus()
-const task1 = new TaskBuilder()
+const file1 = new FileBuilder()
   .withId('id1')
-  .withCreationDate(new Date())
-  .withLastUpdateDate(new Date())
-  .withMessageKey('domain.task.test')
-  .withType('task-test')
-  .withStatus('processing')
+  .withName('image1')
+  .withSize(100)
+  .withType('image/png')
+  .withStream(new ReadableStream())
   .build()
 
 const state1: AppState = {
-  task: {
-    byId: OrderedMap<string, Task>().set(task1.id, task1),
-    byType: OrderedMap<string, OrderedSet<string>>().set(task1.type, OrderedSet<string>([task1.id]))
-  },
-  displayedTaskIds: OrderedSet<string>([task1.id])
+  file: {
+    byId: OrderedMap<string, FileEntity>().set(file1.id, file1),
+    byType: OrderedMap<string, OrderedSet<string>>().set(file1.type, OrderedSet<string>([file1.id]))
+  }
 }
 
-describe('Build a Task store', () => {
+describe('Build a File store', () => {
   describe.each`
     initialStoreParameters            | eventBus            | preloadedState | expectedStatus
     ${undefined}                      | ${eventBusInstance} | ${undefined}   | ${true}
@@ -49,21 +47,21 @@ describe('Build a Task store', () => {
   `(
     'Given that eventBus is <$eventBus> adn preloadedState is <$preloadedState>',
     ({ initialStoreParameters, eventBus, preloadedState, expectedStatus }: Data) => {
-      describe('When building a Task Store', () => {
+      describe('When building a File Store', () => {
         const store = (): Store<AppState, AnyAction> => {
           // eslint-disable-next-line functional/no-let
-          let taskStoreBuilder = new TaskStoreBuilder(initialStoreParameters)
+          let fileStoreBuilder = new FileStoreBuilder(initialStoreParameters)
 
           if (eventBus !== undefined) {
-            taskStoreBuilder = taskStoreBuilder.withEventBus(eventBus)
+            fileStoreBuilder = fileStoreBuilder.withEventBus(eventBus)
           }
           if (preloadedState !== undefined) {
-            taskStoreBuilder = taskStoreBuilder.withPreloadedState(preloadedState)
+            fileStoreBuilder = fileStoreBuilder.withPreloadedState(preloadedState)
           }
-          return taskStoreBuilder.build()
+          return fileStoreBuilder.build()
         }
 
-        test(`Then, expect TaskStoreBuilder to ${expectedStatus ? 'succeed' : 'fail'}`, () => {
+        test(`Then, expect FileStoreBuilder to ${expectedStatus ? 'succeed' : 'fail'}`, () => {
           if (expectedStatus) {
             expect(store()).toBeDefined()
             expect(store()).toHaveProperty('dispatch')

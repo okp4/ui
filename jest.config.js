@@ -18,5 +18,6 @@ module.exports = {
     '^domain/(.*)$': '<rootDir>/src/domain/$1',
     '^adapters/(.*)$': '<rootDir>/src/adapters/$1',
     '^utils': '<rootDir>/src/utils.ts'
-  }
+  },
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.js']
 }
