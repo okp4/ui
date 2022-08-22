@@ -7,7 +7,7 @@ import type { AppState } from 'domain/file/store/appState'
 import type { DeepReadonly } from 'superTypes'
 import { FileBuilder } from 'domain/file/builder/file.builder'
 import { FileStoreBuilder } from 'domain/file/store/builder/store.builder'
-import { SaveFilePayload } from 'domain/file/command/saveFiles'
+import { StoreFilePayload } from 'domain/file/command/storeFile'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -28,7 +28,7 @@ describe('Save files', () => {
   const stream = new ReadableStream()
 
   // Commands payloads
-  const rawFile1: SaveFilePayload = {
+  const rawFile1: StoreFilePayload = {
     id: 'id1',
     name: 'image1',
     size: 1000,
@@ -36,7 +36,7 @@ describe('Save files', () => {
     stream
   }
 
-  const rawFile2: SaveFilePayload = {
+  const rawFile2: StoreFilePayload = {
     id: 'id2',
     name: 'image2',
     size: 10000,
@@ -44,7 +44,7 @@ describe('Save files', () => {
     stream
   }
 
-  const rawFile3: SaveFilePayload = {
+  const rawFile3: StoreFilePayload = {
     id: 'id1',
     name: 'report3',
     size: 10000,

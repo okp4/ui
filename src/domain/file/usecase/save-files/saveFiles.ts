@@ -1,5 +1,5 @@
 import type { ReduxStore, ThunkResult } from 'domain/file/store/store'
-import type { SaveFilePayload, SaveFilesPayload } from 'domain/file/command/saveFiles'
+import type { StoreFilePayload, StoreFilesPayload } from 'domain/file/command/storeFile'
 import { SaveFilesActions } from './actionCreators'
 import type { DeepReadonly } from 'superTypes'
 import { FileMapper } from 'adapters/file/mapper/file.mapper'
@@ -13,10 +13,10 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void =
 }
 
 export const saveFiles =
-  (files: DeepReadonly<SaveFilesPayload<string>>): ThunkResult<Promise<void>> =>
+  (files: DeepReadonly<StoreFilesPayload<string>>): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
-    files.forEach((file: DeepReadonly<SaveFilePayload<string>>) => {
+    files.forEach((file: DeepReadonly<StoreFilePayload<string>>) => {
       if (getState().file.byId.has(file.id)) {
         dispatchError(
           new UnspecifiedError(
