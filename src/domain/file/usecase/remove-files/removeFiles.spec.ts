@@ -1,6 +1,6 @@
 import { OrderedSet, OrderedMap } from 'immutable'
 import { EventBus } from 'ts-bus'
-import { clearFiles } from './clearFiles'
+import { removeFiles } from './removeFiles'
 import type { ReduxStore } from '../../store/store'
 import { FileBuilder } from 'domain/file/builder/file.builder'
 import type { FileEntity } from 'domain/file/entity/file'
@@ -38,9 +38,9 @@ const store: ReduxStore = new FileStoreBuilder()
   .withPreloadedState(initialState)
   .build()
 
-describe('Clear all files', () => {
-  it('should clear all files from store', async () => {
-    await store.dispatch(clearFiles())
+describe('Remove all files', () => {
+  it('should remove all files from store', async () => {
+    await store.dispatch(removeFiles())
     expect(store.getState()).toEqual({
       file: {
         byId: OrderedMap<string, FileEntity>(),

@@ -1,9 +1,9 @@
 import type { ThunkResult } from 'domain/file/store/store'
-import { ClearFilesActions } from './actionCreators'
+import { RemoveFilesActions } from './actionCreators'
 
-export const clearFiles =
+export const removeFiles =
   (): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async dispatch => {
-    dispatch(ClearFilesActions.filesCleared())
+    dispatch(RemoveFilesActions.filesRemoved())
   }
