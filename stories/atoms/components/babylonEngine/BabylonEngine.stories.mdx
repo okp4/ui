@@ -1,12 +1,4 @@
-import {
-  ArgsTable,
-  Meta,
-  Story,
-  Canvas,
-  Preview,
-  Props,
-} from '@storybook/addon-docs/blocks'
-import { LinkTo } from '@storybook/addon-links'
+import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs/blocks'
 import { BabylonEngine } from 'ui/atoms/babylonEngine/BabylonEngine'
 import { onEngineCreated, onRender } from './space'
 import { useElementSize } from 'hook/useElementSize'
@@ -41,11 +33,12 @@ This component makes use of the [Canvas](/docs/atoms-canvas--overview) component
 ## Overview
 
 export const BabylonEngineOverview = args => {
-    const [ size, divRef ] = useElementSize()
-    return (
+  const [size, divRef] = useElementSize()
+  return (
     <div style={{ textAlign: 'center', padding: '10px 0 10px' }} ref={divRef}>
       <BabylonEngine width={size?.width} {...args} />
-    </div>)
+    </div>
+  )
 }
 
 <Story

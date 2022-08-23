@@ -2,7 +2,7 @@
 const path = require('path')
 module.exports = {
   stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(ts|tsx)'],
-  addons: ['@storybook/preset-scss', '@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: ['@storybook/preset-scss', '@storybook/addon-essentials'],
   features: {
     modernInlineRender: true
   },
