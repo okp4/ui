@@ -6,7 +6,7 @@ export const removeAllFiles =
   (): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
-    getState().file.byId.forEach((_value: FileEntity, key: string) =>
-      dispatch(RemoveFileActions.fileRemoved(key))
+    getState().file.byId.forEach((_file: FileEntity, id: string) =>
+      dispatch(RemoveFileActions.fileRemoved(id))
     )
   }
