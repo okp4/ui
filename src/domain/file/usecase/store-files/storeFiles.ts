@@ -1,3 +1,4 @@
+import { uniqBy } from 'lodash'
 import type { ReduxStore, ThunkResult } from 'domain/file/store/store'
 import type { StoreFilePayload, StoreFilesPayload } from 'domain/file/command/storeFile'
 import { StoreFilesActions } from './actionCreators'
@@ -19,9 +20,7 @@ export const storeFiles =
     const hasDuplicatedIdInState = files.some((file: DeepReadonly<StoreFilePayload<string>>) =>
       getState().file.byId.has(file.id)
     )
-    const isCommandPayloadValid =
-      [...new Set(files.map((file: DeepReadonly<StoreFilePayload<string>>) => file.id))].length ===
-      files.length
+    const isCommandPayloadValid = uniqBy(files, 'id').length === files.length
 
     if (hasDuplicatedIdInState || !isCommandPayloadValid) {
       dispatchError(
