@@ -17,22 +17,47 @@ export type TextFieldProps = InputBaseProps & {
    */
   readonly helperText?: string
   /**
-   * If true, the TextField will take 100% of its parent's size
+   * If true, the TextField will take 100% of its parent's size.
    */
   readonly fullWidth?: boolean
+  /**
+   * If true, the TextField allows multiline text as a text area.
+   */
+  readonly multiline?: boolean
+  /**
+   * If multiline, defines the number of lines of the text area.
+   */
+  readonly numberOfLines?: number
+  /**
+   * If true and multiline, the user can't resize the text area.
+   */
+  readonly disableAreaResize?: boolean
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
   size = 'medium',
   helperText,
   fullWidth = false,
+  multiline = false,
+  numberOfLines,
+  disableAreaResize = false,
   ...props
 }: TextFieldProps): JSX.Element => {
-  const containerClass = classNames(`okp4-text-field-main ${size}`, { 'full-width': fullWidth })
+  const containerClass = classNames(
+    `okp4-text-field-main ${multiline && !disableAreaResize ? 'auto' : size}`,
+    {
+      'full-width': !multiline && fullWidth
+    }
+  )
 
   return (
     <div className={containerClass}>
-      <InputBase {...props} />
+      <InputBase
+        disableAreaResize={disableAreaResize}
+        multiline={multiline}
+        numberOfLines={numberOfLines}
+        {...props}
+      />
       {helperText && (
         <Typography
           as="div"

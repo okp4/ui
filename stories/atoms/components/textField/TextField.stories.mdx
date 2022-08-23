@@ -49,7 +49,7 @@ import '../component.scss'
     onChange: {
       control: false
     },
-    inputRef: {
+    ref: {
       control: false
     },
     rightIcon: {
@@ -81,7 +81,8 @@ import '../component.scss'
 
 ## Sizes
 
-Size options are `x-small`, `small`, `medium` (default), `large`, `x-large` and will be automatically adjusted responsively to the screen size.
+Size options are `x-small`, `small`, `medium` (default), `large`, `x-large` and will be automatically adjusted responsively to the screen size.  
+If the [multiline](/docs/atoms-textfield--multiline) property is `true` and [disableAreaResize](/docs/atoms-textfield--disable-area-resize) is `false`, then the size is automatically `auto`.
 
 <Canvas isColumn>
   <Story name="Sizes">
@@ -98,6 +99,13 @@ Size options are `x-small`, `small`, `medium` (default), `large`, `x-large` and 
       <TextField size="medium" placeholder="medium" />
       <TextField size="large" placeholder="large" />
       <TextField size="x-large" placeholder="x-large" />
+      <TextField size="large" placeholder="large but multiline with resizing" multiline />
+      <TextField
+        size="large"
+        placeholder="large and multiline without resizing"
+        multiline
+        disableAreaResize
+      />
     </div>
   </Story>
 </Canvas>
@@ -239,5 +247,73 @@ This property allows the user to add a custom `icon` at the right of the input a
         </div>
       )
     }}
+  </Story>
+</Canvas>
+
+## Multiline
+
+The `multiline` property allows you to write text on several lines. The simple text field becomes a text area.  
+When `multiline` is `true` and [disableAreaResize](/docs/atoms-textfield--disable-area-resize) is `false` the [size](/docs/atoms-textfield--sizes) is automatically `auto`.
+
+<Canvas isColumn>
+  <Story name="Multiline">
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+      <TextField placeholder="I'm a multiline text field." multiline size="large" />
+    </div>
+  </Story>
+</Canvas>
+
+## Number of lines
+
+If the text field is multiline, the property `numberOfLines` defines the initial heigth of the text field.  
+By default, the text area is initialized with two lines.
+
+<Canvas isColumn>
+  <Story name="Number of lines">
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        alignItems: 'center'
+      }}
+    >
+      <TextField
+        placeholder="I'm a multiline text field with 5 lines."
+        multiline
+        numberOfLines={5}
+      />
+      <TextField
+        placeholder="I'm a multiline text field with 7 lines."
+        multiline
+        numberOfLines={7}
+      />
+      <TextField
+        placeholder="I'm a multiline text field with 10 lines."
+        multiline
+        numberOfLines={10}
+      />
+    </div>
+  </Story>
+</Canvas>
+
+## Disable resizing
+
+If the text field is multiline, the property `disableAreaResize` allows to disable the resizing of the text area.
+When `disableAreaResize` is `false`, then users can define a [size](/docs/atoms-textfield--sizes).
+
+<Canvas isColumn>
+  <Story name="Disable area resize">
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        alignItems: 'center'
+      }}
+    >
+      <TextField placeholder="You can not resize me." multiline disableAreaResize />
+      <TextField placeholder="You can resize me." multiline disableAreaResize={false} />
+    </div>
   </Story>
 </Canvas>

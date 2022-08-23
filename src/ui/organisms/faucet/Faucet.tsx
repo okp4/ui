@@ -59,7 +59,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   const handleAddressChange = useCallback(
     // readonly recursivity on a DOM event is not a good idea...
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       event.preventDefault()
       event.stopPropagation()
       faucetDispatch(setAddress(event.target.value))
