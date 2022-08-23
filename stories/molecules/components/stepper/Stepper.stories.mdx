@@ -10,6 +10,8 @@ import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { useState } from 'react'
 
+import './stepper.scss'
+
 <Meta
   title="Molecules/Stepper"
   component={Stepper}
@@ -43,7 +45,7 @@ import { useState } from 'react'
 
 The `Stepper` allows a user to follow a progression through different ordered steps.
 Each step can be validated to move on to the next step. The last step also provides the possibility to perform an additional action upon validation. Once all steps are completed, the user can reset the stepper.  
-It is then up to the user to define the height of the stepper as well as the content styles of each step. The content of the stepper is scrollable.
+It is then up to the user to define the size (height and width) of the stepper, for example by placing it in a `div` and defining its size, as well as the content styles of each step. The content of the stepper is scrollable.
 
 ## Overview
 
@@ -66,17 +68,42 @@ It is then up to the user to define the height of the stepper as well as the con
       {
         label: 'Step 1',
         content: (
-          <Typography as="div" fontFamily="brand" fontWeight="xlight">
-            The content of the step 1
-          </Typography>
+          <>
+            <Typography as="div" fontFamily="brand" fontWeight="xlight">
+              The content of the step 1
+            </Typography>
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Typography>
+          </>
         )
       },
       {
         label: 'Step 2',
         content: (
-          <Typography as="div" fontFamily="brand" fontWeight="xlight">
-            The content of the step 2
-          </Typography>
+          <>
+            <Typography as="div" fontFamily="brand" fontWeight="xlight">
+              The content of the step 2
+            </Typography>
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+              sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+              voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+              amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
+              labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+              nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+              commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+              esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+              nulla pariatur?
+            </Typography>
+          </>
         )
       },
       {
@@ -95,11 +122,7 @@ It is then up to the user to define the height of the stepper as well as the con
     const handleSubmit = () => setSubmitted(true)
     const handleOpenChange = () => setSubmitted(false)
     return (
-      <div
-        style={{
-          height: '200px'
-        }}
-      >
+      <div className="stepper-container-x-small">
         <Stepper {...args} onSubmit={handleSubmit} />
         <Toast
           isOpened={submitted}
@@ -155,11 +178,7 @@ type Step = {
         }
       ]
       return (
-        <div
-          style={{
-            height: '150px'
-          }}
-        >
+        <div className="stepper-container-x-small">
           <Stepper steps={steps} />
         </div>
       )
@@ -189,11 +208,7 @@ The `label` is the title of the step.
         }
       ]
       return (
-        <div
-          style={{
-            height: '100px'
-          }}
-        >
+        <div className="stepper-container-x-small">
           <Stepper steps={steps} />
         </div>
       )
@@ -272,11 +287,7 @@ By default, a step is `uncompleted`.
         }
       ]
       return (
-        <div
-          style={{
-            height: '190px'
-          }}
-        >
+        <div className="stepper-container-x-small">
           <Stepper steps={steps} />
         </div>
       )
@@ -332,7 +343,13 @@ The `content` of the step can be any `JSX.Element`.
               }}
             >
               <a href="https://docs.okp4.network/docs/whitepaper/abstract">
-                <img src="https://okp4.network/wp-content/themes/okp4/img/whitepaper.png" />
+                <img
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%'
+                  }}
+                  src="https://okp4.network/wp-content/themes/okp4/img/whitepaper.png"
+                />
               </a>
               <Typography fontSize="small" fontWeight="light">
                 Whitepaper
@@ -346,49 +363,13 @@ The `content` of the step can be any `JSX.Element`.
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 alignItems: 'center',
-                gap: '40px'
+                gap: '40px',
+                maxWidth: '100%',
+                maxHeight: '100%'
               }}
             >
-              <Card
-                size="small"
-                background="primary"
-                withBorder="true"
-                header={
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'flex-end'
-                    }}
-                  >
-                    <Typography
-                      as="div"
-                      fontFamily="brand"
-                      fontSize="small"
-                      fontWeight="light"
-                      style={{
-                        border: 'solid 1px',
-                        padding: '4px 8px'
-                      }}
-                    >
-                      2021
-                    </Typography>
-                  </div>
-                }
-                content={
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <Typography fontSize="medium">First usecases</Typography>
-                  </div>
-                }
-              />
               <Card
                 size="small"
                 background="primary"
@@ -490,11 +471,7 @@ The `content` of the step can be any `JSX.Element`.
         }
       ]
       return (
-        <div
-          style={{
-            height: '400px'
-          }}
-        >
+        <div className="stepper-container-medium">
           <Stepper steps={steps} submitButtonLabel="Finish" />
         </div>
       )
@@ -543,11 +520,7 @@ The method `onValidate` is provided to validate the step before going to the nex
         }
       ]
       return (
-        <div
-          style={{
-            height: '150px'
-          }}
-        >
+        <div className="stepper-container-x-small">
           <Stepper steps={steps} />
           <Toast
             description="The step is completed : `onValidate` returns true"
@@ -737,11 +710,7 @@ By default the label is provided by the defaults translation files (see the Inte
         }
       ]
       return (
-        <div
-          style={{
-            height: '450px'
-          }}
-        >
+        <div className="stepper-container-large">
           <Stepper steps={steps} submitButtonLabel="End of reading" resetButtonLabel="Read again" />
         </div>
       )
@@ -813,11 +782,7 @@ The `successContent` property is used to provide a `JSX.Element` content that is
         }
       ]
       return (
-        <div
-          style={{
-            height: '200px'
-          }}
-        >
+        <div className="stepper-container-small">
           <Stepper
             steps={steps}
             submitButtonLabel="Finish reading"
@@ -871,11 +836,7 @@ The `Reset` corresponds to the reset of the stepper to its initial state (as it 
         }
       ]
       return (
-        <div
-          style={{
-            height: '150px'
-          }}
-        >
+        <div className="stepper-container-x-small">
           <Stepper
             steps={steps}
             onNext={handleNextOpened(true)}
