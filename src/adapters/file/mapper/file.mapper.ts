@@ -1,11 +1,11 @@
 import { FileBuilder } from 'domain/file/builder/file.builder'
 import type { FileEntity } from 'domain/file/entity/file'
-import type { SaveFilePayload } from 'domain/file/command/saveFiles'
+import type { StoreFilePayload } from 'domain/file/command/storeFile'
 import type { DeepReadonly } from 'superTypes'
 
 export class FileMapper {
   public static readonly mapCommandPayloadToEntity = (
-    payload: DeepReadonly<SaveFilePayload>
+    payload: DeepReadonly<StoreFilePayload>
   ): FileEntity =>
     new FileBuilder()
       .withId(payload.id)

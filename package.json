@@ -98,6 +98,7 @@
     "eslint-plugin-storybook": "^0.6.1",
     "jest": "^27.5.1",
     "jest-transform-graphql": "^2.1.0",
+    "lodash": "^4.17.21",
     "nanoid": "^4.0.0",
     "postcss": "^8.4.5",
     "prettier": ">=2.5.1",

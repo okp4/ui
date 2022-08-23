@@ -3,9 +3,8 @@ import { combineReducers } from 'redux'
 import type { FileEntity } from 'domain/file/entity/file'
 import type { FileState } from '../appState'
 import type { DeepReadonly } from 'superTypes'
-import type { SaveFilesActionTypes } from 'domain/file/usecase/save-files/actionCreators'
-import type { ClearFilesActionTypes } from 'domain/file/usecase/clear-files/actionCreators'
-import type { ClearFileActionTypes } from 'domain/file/usecase/clear-file/actionCreators'
+import type { StoreFilesActionTypes } from 'domain/file/usecase/store-files/actionCreators'
+import type { RemoveFileActionTypes } from 'domain/file/usecase/remove-file/actionCreators'
 
 const initialFileState: FileState<string> = {
   byId: OrderedMap<string, FileEntity>(),
@@ -14,10 +13,10 @@ const initialFileState: FileState<string> = {
 
 const file = (
   state: DeepReadonly<FileState> = initialFileState,
-  action: DeepReadonly<SaveFilesActionTypes | ClearFilesActionTypes | ClearFileActionTypes>
+  action: DeepReadonly<StoreFilesActionTypes | RemoveFileActionTypes>
 ): FileState => {
   switch (action.type) {
-    case 'file/fileSaved': {
+    case 'file/fileStored': {
       const { id, type }: FileEntity = action.payload
       const foundList = state.byType.get(type)
       return {
@@ -26,7 +25,7 @@ const file = (
         byType: state.byType.set(type, foundList?.size ? foundList.add(id) : OrderedSet([id]))
       }
     }
-    case 'file/fileCleared': {
+    case 'file/fileRemoved': {
       const foundFileById = state.byId.get(action.payload)
       return {
         ...state,
@@ -38,12 +37,6 @@ const file = (
           .filter((value: Readonly<OrderedSet<string>>) => !value.isEmpty())
       }
     }
-    case 'file/filesCleared':
-      return {
-        ...state,
-        byId: state.byId.clear(),
-        byType: state.byType.clear()
-      }
     default:
       return state
   }
