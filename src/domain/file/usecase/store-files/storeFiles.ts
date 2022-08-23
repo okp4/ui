@@ -16,14 +16,14 @@ export const storeFiles =
   (files: DeepReadonly<StoreFilesPayload<string>>): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
-    const foundDuplicatedIdInState = files.some((file: DeepReadonly<StoreFilePayload<string>>) =>
+    const hasDuplicatedIdInState = files.some((file: DeepReadonly<StoreFilePayload<string>>) =>
       getState().file.byId.has(file.id)
     )
     const isCommandPayloadValid =
       [...new Set(files.map((file: DeepReadonly<StoreFilePayload<string>>) => file.id))].length ===
       files.length
 
-    if (foundDuplicatedIdInState || !isCommandPayloadValid) {
+    if (hasDuplicatedIdInState || !isCommandPayloadValid) {
       dispatchError(
         new UnspecifiedError(
           `You are trying either to store a file whose id already exists or to store files with the same id... So we can't perform a storeFiles command..`
