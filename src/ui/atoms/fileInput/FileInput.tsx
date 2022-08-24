@@ -6,7 +6,7 @@ import { Typography } from '../typography/Typography'
 import type { DeepReadonly } from 'superTypes'
 import { truthy } from 'utils'
 
-export type FileUploadProps = {
+export type FileInputProps = {
   /**
    * The main title
    */
@@ -45,7 +45,7 @@ export type FileUploadProps = {
 
 // lint rule bypassed while disabling the rule
 // eslint-disable-next-line max-lines-per-function
-export const FileInput: React.FC<FileUploadProps> = ({
+export const FileInput: React.FC<FileInputProps> = ({
   label,
   description,
   multiple = true,
@@ -54,7 +54,7 @@ export const FileInput: React.FC<FileUploadProps> = ({
   error = false,
   errorMessage,
   onDropped
-}: DeepReadonly<FileUploadProps>): JSX.Element => {
+}: DeepReadonly<FileInputProps>): JSX.Element => {
   const inputFileElement = useRef<HTMLDivElement>(null)
   const draggingClassname = 'dragging'
 
