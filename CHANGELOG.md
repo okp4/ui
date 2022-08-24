@@ -1,5 +1,71 @@
 # OKP4 UI changelog
 
+# [1.12.0](https://github.com/okp4/ui/compare/v1.11.0...v1.12.0) (2022-08-24)
+
+
+### Bug Fixes
+
+* add custom polyfill for crypto.getRandomValues ([f260da6](https://github.com/okp4/ui/commit/f260da61ae24596a09cfb57dabf86a2c23eb167d))
+* **core:** fix typo in ClearFilections ([6f39d64](https://github.com/okp4/ui/commit/6f39d64a99e04994688439ebe4c98d1c635756b1))
+* **core:** replace ThunkResult import path ([38904cc](https://github.com/okp4/ui/commit/38904ccecc3ca61dc2a61456871d2b668680b733))
+* fix react keys ([288dc2a](https://github.com/okp4/ui/commit/288dc2a3927ee0ee86cd77be106834322f5038e1))
+* use string comparison function ([e48f6b1](https://github.com/okp4/ui/commit/e48f6b1c5dde17e3419bd2d2130cf7db3abc3725))
+
+
+### Features
+
+* **adapter:** add new FileMapper ([9f8f369](https://github.com/okp4/ui/commit/9f8f369883d393c8fcde1c685c8cfb41fdf5a932))
+* add capitalize methods to utils and use it ([7566488](https://github.com/okp4/ui/commit/75664883dbd2a7b3b840f38ecb4bf47ec1142441))
+* add document scrollable height for calculations ([4501135](https://github.com/okp4/ui/commit/450113586f58164dd9a5d3742946d786d160acfb))
+* add drop down top/bottom repositioning behavior ([b1f933d](https://github.com/okp4/ui/commit/b1f933d9ffe03743afddb8ba1c93ab39fce9a39d))
+* add error with helper text ([ad321b1](https://github.com/okp4/ui/commit/ad321b10c52381d85c4dd7d24c4906b3a646005f))
+* add getFiles selector with affiliated tests ([bda6230](https://github.com/okp4/ui/commit/bda62306ca46c96de1828b207512d1842e218b02))
+* add hook to manage keyboard ([04bb6a6](https://github.com/okp4/ui/commit/04bb6a69fd58e7be06b123c95848c4a3127fe7c9))
+* add icon animation ([a841c61](https://github.com/okp4/ui/commit/a841c6131b16a566384488c0b05092e836648713))
+* add icons properties to the list component ([3e7f69a](https://github.com/okp4/ui/commit/3e7f69a1f3faaae46d6680281238b1a8fb54318a))
+* add id property to FileDescriptor ([2ad1b84](https://github.com/okp4/ui/commit/2ad1b84df158d168dbb2a81eca8e8a18cbad27ff))
+* add list and list item components ([99c0c15](https://github.com/okp4/ui/commit/99c0c15facf13ec2ea523468b3fd1ede72981149))
+* add missing jest environment jsdom ([4e71d8b](https://github.com/okp4/ui/commit/4e71d8b4571fd5a157504d2d2bc73d8649a649f7))
+* add multiline to text field ([4b5a162](https://github.com/okp4/ui/commit/4b5a1622a6bbd6c2ec0fb2ae887bfbc08ef1cb42))
+* add multiple property & affiliated story ([93b8b5a](https://github.com/okp4/ui/commit/93b8b5a64edff0b6cd4fc4f7ec8c50702b0fb6e3))
+* add okp4 icon ([6282c30](https://github.com/okp4/ui/commit/6282c306dd46b56f7da883db830a825d7ffbb7aa))
+* add readOnly to inputBase to improve selection ([bacb7f3](https://github.com/okp4/ui/commit/bacb7f374b1e70b43e469b42c778743f0e6ca162))
+* add right icon to input base ([1e4a2d4](https://github.com/okp4/ui/commit/1e4a2d479226af0136db94930c1ea6ddd584f526))
+* add select component ([a1dbe0b](https://github.com/okp4/ui/commit/a1dbe0b9ba7f0e865d28ecbbfc8f5fdc4988cd50))
+* add sortGroupsAndOptions property ([d7dca93](https://github.com/okp4/ui/commit/d7dca9376fecd30846d0679ad78f081a460e0eac))
+* add sorting methods to utils ([e5fe42d](https://github.com/okp4/ui/commit/e5fe42d90eeec8491f9661e028f8761c66af9029))
+* add useOnClickOutside hook ([9c73505](https://github.com/okp4/ui/commit/9c73505bd25269abad0ec5775ae5ba36f6f22520))
+* add UseState type to Select ([abe1f05](https://github.com/okp4/ui/commit/abe1f05b0ea6e2c944f75e98aeac9c89beda6826))
+* add util compare strings method ([8760e5f](https://github.com/okp4/ui/commit/8760e5f1eee61a66a3b6a71f2ed66d12055f1738))
+* **builder:** add FileStore builder ([b5642ea](https://github.com/okp4/ui/commit/b5642ea8b00d412ddec0baa52052beda8a467268))
+* **builder:** add new FileBuilder ([32970e2](https://github.com/okp4/ui/commit/32970e2850de6be89ea3208e906a692febf7ea6c))
+* **context:** add FileContext and export it ([076bb9c](https://github.com/okp4/ui/commit/076bb9c5e5929ed9b3d536c0944b27f065a1c79d))
+* **core:** add builder and mapper in saveFiles usecase ([8ccf30f](https://github.com/okp4/ui/commit/8ccf30fdde8834af161c9903e8541beb2b12542c))
+* **core:** add clearFile usecase and actions ([41eb085](https://github.com/okp4/ui/commit/41eb085ced7255303963e034b7baf318bc6f34d2))
+* **core:** add clearFiles usecase and actions ([eac972d](https://github.com/okp4/ui/commit/eac972df9966ddbd5efb35072b32f36d6adbfd90))
+* **core:** add error entity ([6b36895](https://github.com/okp4/ui/commit/6b3689518c308dceeefb80ef41ff3147978e24b9))
+* **core:** add file entitty ([15575b3](https://github.com/okp4/ui/commit/15575b315fec1195fdaeee69e1a22861d6b833cc))
+* **core:** add saveFile command ([90fda24](https://github.com/okp4/ui/commit/90fda241024506cd8c578dc959c7efc7c2f03f65))
+* **core:** export file usecases ([2710e2f](https://github.com/okp4/ui/commit/2710e2f7d6eb3fc08050f22941d0d438ed4a985d))
+* **core:** init saveFiles usecase ([403f0fa](https://github.com/okp4/ui/commit/403f0fa388423ea4cc3aaa9f15ca27d0e91155da))
+* **hook:** add FileHook and export it ([13adae5](https://github.com/okp4/ui/commit/13adae536908968b093c51056514fd2ad76a21cc))
+* improve disabled and overflow to inputBase ([6c4ef3a](https://github.com/okp4/ui/commit/6c4ef3a60b2b6161730a974e48ed7c25db683736))
+* improve disabled and readOnly in select ([f94fa88](https://github.com/okp4/ui/commit/f94fa88ea34532964fd3862425e9c029a08dc647))
+* improve JSX element global writing ([460f2e2](https://github.com/okp4/ui/commit/460f2e21c88d1ed16e50412646fc1e2ad7f93710))
+* improve options list position ([391503d](https://github.com/okp4/ui/commit/391503d62d0705de3eceed2e89f8cfeba38c822c))
+* improve select options global display ([e11655a](https://github.com/okp4/ui/commit/e11655ab995c5f2a60f5991e96da3e023392056f))
+* improve usage of label and value ([56790ca](https://github.com/okp4/ui/commit/56790ca66d64479b2a944a55dd761f81d69f61b2))
+* make title not mandatory ([5ad3306](https://github.com/okp4/ui/commit/5ad330682d2bb884dd4366a90d951c04b69c46f3))
+* **redux:** init file store and reducer ([9c3a89a](https://github.com/okp4/ui/commit/9c3a89ac936822bd309a83c8b66c18473dd8bec5))
+* **redux:** update reducer with new actions ([b23f4a9](https://github.com/okp4/ui/commit/b23f4a9cebfdbe6a87cd8b4f62fa602859e76515))
+* refined the component properties ([3be61a3](https://github.com/okp4/ui/commit/3be61a36121effa58c760372c2b1211b5934db81))
+* remove duplicated sort method & add args to compareStrings ([6f1ddc2](https://github.com/okp4/ui/commit/6f1ddc25bb890a38d13f78a97d6af826b2ccf65c))
+* remove left & right elements props from List ([2815f4d](https://github.com/okp4/ui/commit/2815f4d35e6c56eee6619c503fba9139d78c5561))
+* remove useless onIconClick ([510e960](https://github.com/okp4/ui/commit/510e96046e78fd9d4e588c43706dae971ef5f341))
+* rename property name ([c784ff5](https://github.com/okp4/ui/commit/c784ff5e4e79d9712e5b0fe925a667afffd7a5f7))
+* update text field callback dependencies ([065119a](https://github.com/okp4/ui/commit/065119abf9d9eb056e4165e4667fa8e552350f79))
+* use ListItem as a children node of List ([b975f84](https://github.com/okp4/ui/commit/b975f844718ffcb48dab068cd06f56f98db69b03))
+
 # [1.11.0](https://github.com/okp4/ui/compare/v1.10.0...v1.11.0) (2022-08-17)
 
 
