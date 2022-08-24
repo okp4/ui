@@ -8,65 +8,80 @@ $colors: (
   'uncompleted': 'primary-variant'
 );
 
-.okp4-step-header {
+.okp4-stepper-main {
   width: 100%;
-  padding: 2px;
+  height: 100%;
   display: grid;
-  align-items: flex-end;
+  row-gap: 15px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'header'
+    'body';
+}
 
-  @include with-theme {
-    .okp4-step-label {
-      text-align: center;
-      padding: 5px;
-      @each $color-key, $color-value in $colors {
-        &.#{$color-key} {
-          div {
-            color: themed($color-value);
+.okp4-stepper-header {
+  grid-area: header;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    width: 100%;
+  }
+
+  .okp4-stepper-progress {
+    width: 100%;
+    padding: 2px;
+    display: grid;
+    align-items: flex-end;
+
+    @include with-theme {
+      .okp4-stepper-step-label {
+        text-align: center;
+        padding: 5px;
+        @each $color-key, $color-value in $colors {
+          &.#{$color-key} {
+            div {
+              color: themed($color-value);
+            }
           }
         }
       }
-    }
 
-    .okp4-step-states-mobile {
-      display: flex;
-      gap: 2px;
-    }
+      .okp4-stepper-step-states-mobile {
+        display: flex;
+        gap: 2px;
+      }
 
-    .okp4-step-state {
-      width: 100%;
-      height: 5px;
-      border-radius: 50px;
+      .okp4-stepper-step-state {
+        width: 100%;
+        height: 5px;
+        border-radius: 50px;
 
-      @each $color-key, $color-value in $colors {
-        &.#{$color-key} {
-          background: themed($color-value);
+        @each $color-key, $color-value in $colors {
+          &.#{$color-key} {
+            background: themed($color-value);
+          }
         }
       }
     }
   }
 }
 
-.okp4-stepper-main {
-  width: 100%;
-  height: 100%;
+.okp4-stepper-body {
+  grid-area: body;
+  max-width: 100%;
+  overflow-y: auto;
   display: grid;
   row-gap: 15px;
-  column-gap: 15px;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   grid-template-areas:
-    'steps'
     'content'
     'buttons';
-
-  .okp4-stepper-steps {
-    grid-area: steps;
-    @media screen and (min-width: 768px) {
-      display: flex;
-      width: 100%;
-    }
+  padding: 20px;
+  @include with-theme() {
+    @include background-opacity(themed('tertiary-background'), 0.3);
+    box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0 10px 20px -15px;
   }
 
-  .okp4-stepper-content {
+  .okp4-stepper-step-content {
     grid-area: content;
     overflow-y: auto;
     width: 100%;

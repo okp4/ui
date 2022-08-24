@@ -1,0 +1,32 @@
+.stepper-container-x-small {
+  width: 100%;
+  height: 220px;
+  @media screen and (max-width: 768px) {
+    height: 250px;
+  }
+}
+
+.stepper-container-small {
+  width: 100%;
+  height: 250px;
+  @media screen and (max-width: 768px) {
+    height: 350px;
+  }
+}
+
+.stepper-container-medium {
+  width: 100%;
+  height: 400px;
+  @media screen and (max-width: 768px) {
+    height: 550px;
+  }
+}
+
+.stepper-container-large {
+  width: 100%;
+  height: 600px;
+  @media screen and (max-width: 768px) {
+    height: 600px;
+    overflow-y: auto;
+  }
+}
