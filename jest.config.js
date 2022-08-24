@@ -14,6 +14,7 @@ module.exports = {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
     '^.+\\.(t|j)s?$': ['@swc/jest']
   },
+  transformIgnorePatterns: ['node_modules/(?!(short-uuid|uuid))'],
   moduleNameMapper: {
     '^domain/(.*)$': '<rootDir>/src/domain/$1',
     '^adapters/(.*)$': '<rootDir>/src/adapters/$1',
