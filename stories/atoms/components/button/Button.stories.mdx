@@ -10,8 +10,10 @@ import { Icon } from 'ui/atoms/icon/Icon'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="component-story-main">
+        <div style={{ padding: '20px 30px' }}>
           <ThemeSwitcher />
+        </div>
+        <div className="component-story-main">
           <Story />
         </div>
       </ThemeProvider>
@@ -25,16 +27,14 @@ import { Icon } from 'ui/atoms/icon/Icon'
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
-## Overview
-
-### Description
+## Description
 
 Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find
 the most important actions throughout UI and enables them to perform these actions.  
 By using one or more of the **content** properties it's possible to create appealing and intuitive buttons
 that will help users to find the action they're looking for.
 
----
+## Overview
 
 <Story
   name="Overview"
@@ -62,23 +62,21 @@ that will help users to find the action they're looking for.
   )}
 </Story>
 
----
-
-### Properties
+## Properties
 
 <ArgsTable story="Overview" />
 
 ## Variants
 
-The `Button` component is available in two style versions:
+`Button` is available in three styled versions:
 
-- **Primary**: a rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
-- **Secondary**: a rounded version, softer, allowing to adapt in particular to smaller screens.
-- **Icon**: sets the button to be an icon button, requires users to supply an `icon` property.
+- **Primary**: A rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
+- **Secondary**: A rounded version, softer, allowing to adapt in particular to smaller screens.
+- **Icon**: Sets the button to be an icon button, requires users to supply an `icon` property.
 
 <Canvas>
   <Story name="Variants">
-    {args => (
+    {
       <div
         style={{
           display: 'flex',
@@ -98,21 +96,21 @@ The `Button` component is available in two style versions:
           icon={<Icon name="wallet" size={22} />}
         />
       </div>
-    )}
+    }
   </Story>
 </Canvas>
 
 ## Sizes
 
-The `Button` component comes with three different sizes to allow its use according to its location within the interface.
+There are three different sizes to allow `Button` to be used according to its location within the interface.
 
-- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
+- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc.
 - **Medium**: makes it possible to adapt to a greater number of uses.
-- **Large**: particularly suitable for large screens or to embed icons befor or after.
+- **Large**: particularly suitable for large screens or in conjonction with `leftIcon` / `rightIcon`.
 
 <Canvas>
   <Story name="Sizes">
-    {args => (
+    {
       <div
         style={{
           display: 'flex',
@@ -126,17 +124,18 @@ The `Button` component comes with three different sizes to allow its use accordi
         <Button backgroundColor="primary" variant="primary" label="Medium" size="medium" />
         <Button backgroundColor="primary" variant="primary" label="Large" size="large" />
       </div>
-    )}
+    }
   </Story>
 </Canvas>
 
 ## Background colors
 
-The background color of the `Button` component is declined according to the selected theme and allows to better mark a user action.
+`Button` have a palette of background colors to choose from and allows to better mark a user action.
+The background color can be a visual aid as to what type of action the button executes.
 
 <Canvas>
   <Story name="Background colors">
-    {args => (
+    {
       <div
         style={{
           display: 'flex',
@@ -153,17 +152,17 @@ The background color of the `Button` component is declined according to the sele
         <Button backgroundColor="warning" variant="primary" label="Warning" size="medium" />
         <Button backgroundColor="info" variant="primary" label="Info" size="medium" />
       </div>
-    )}
+    }
   </Story>
 </Canvas>
 
 ## Disabled
 
-The `Button` can be disabled at any time, thus preventing any user interaction.
+`Button` can be disabled at any time, thus preventing any user interaction.
 
 <Canvas>
   <Story name="Disabled">
-    {args => (
+    {
       <div
         style={{
           display: 'flex',
@@ -175,24 +174,24 @@ The `Button` can be disabled at any time, thus preventing any user interaction.
       >
         <Button disabled variant="primary" label="I'm disabled" size="medium" />
       </div>
-    )}
+    }
   </Story>
 </Canvas>
 
 ## Content
 
-The content can be customized to fit users needs through its properties `label`, `icon`,
+The content can be customized to fit user needs through its properties `label`, `icon`,
 `leftIcon` and `rightIcon`.
 
 - `label` is the only obligatory property and is used to clearly indicate what action will be triggered, through the
   tooltip and text.
-- `icon` sets the icon for the **variant** 'icon'.
+- `icon` sets the icon for the **variant** 'icon' value.
 - `leftIcon` and `rightIcon` are auxilliary elements giving great freedom to embellish the button
   together with the label.
 
 <Canvas>
   <Story name="Content">
-    {args => (
+    {
       <div
         style={{
           display: 'flex',
@@ -203,7 +202,6 @@ The content can be customized to fit users needs through its properties `label`,
         }}
       >
         <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
-        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
         <Button leftIcon={<Icon name="wallet" size={22} />} label="Get wallet address" />
         <Button
           label="Add wallet"
@@ -211,6 +209,6 @@ The content can be customized to fit users needs through its properties `label`,
           rightIcon={<Icon name="add" size={22} />}
         />
       </div>
-    )}
+    }
   </Story>
 </Canvas>
