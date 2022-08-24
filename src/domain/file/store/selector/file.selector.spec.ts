@@ -38,7 +38,7 @@ const preloadedState: AppState = {
 }
 
 const expectedFiles = (): FileDescriptor[] =>
-  [file1, file2].map(({ name, size, type }) => ({ name, size, type }))
+  [file1, file2].map(({ id, name, size, type }) => ({ id, name, size, type }))
 
 describe.each`
   state             | expectedFiles
