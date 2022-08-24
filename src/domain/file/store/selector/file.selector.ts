@@ -12,7 +12,9 @@ export type FileDescriptor = {
 
 export const getFiles: (state: DeepReadonly<AppState>) => FileDescriptor[] = createSelector(
   (state: DeepReadonly<AppState>): FileById => state.file.byId,
-  (files: DeepReadonly<FileById>): FileDescriptor[] => [
-    ...files.map(({ name, size, type }: FileEntity) => ({ name, size, type })).toList()
-  ]
+  (files: DeepReadonly<FileById>): FileDescriptor[] =>
+    files
+      .toIndexedSeq()
+      .toArray()
+      .map(({ name, size, type }: FileEntity) => ({ name, size, type }))
 )
