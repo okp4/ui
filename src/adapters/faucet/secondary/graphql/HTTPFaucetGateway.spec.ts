@@ -12,6 +12,12 @@ import { MSendTokensMutation, MSendTokensMutationVariables } from './generated/t
 import { HTTPFaucetGateway } from './HTTPFaucetGateway'
 import { DocumentNode } from 'graphql'
 
+jest.mock('./client', () => ({
+  __esModule: true,
+  // @ts-ignore
+  ...jest.requireActual('./client')
+}))
+
 const fakeFaucetUrl = 'http://my-awesome-fake-url.com'
 const fakeAddress = 'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'
 const fakeTxHash = '4ade687e8d9b734a91d08926b950910632e191b836c205cb3280f09f4c4c6fb6'
