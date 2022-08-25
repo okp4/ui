@@ -30,3 +30,5 @@ export type UseState<U> = [U, (value: U) => void]
 export type UseReducer<S, A> = [ReducerState<Reducer<S, A>>, Dispatch<ReducerAction<Reducer<S, A>>>]
 
 export type Callback<U, V> = (value: U) => V
+
+export type SizeUnit = 'B' | 'KB' | 'MB' | 'GB' | 'TB'
