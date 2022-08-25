@@ -1,0 +1,11 @@
+{
+  "filePicker": {
+    "unit": {
+      "B": "o",
+      "KB": "Ko",
+      "MB": "Mo",
+      "GB": "Go",
+      "TB": "To"
+    }
+  }
+}
