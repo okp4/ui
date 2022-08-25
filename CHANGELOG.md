@@ -1,5 +1,12 @@
 # OKP4 UI changelog
 
+## [1.12.1](https://github.com/okp4/ui/compare/v1.12.0...v1.12.1) (2022-08-25)
+
+
+### Bug Fixes
+
+* move lodash from devDependencies to dependencies ([39a1843](https://github.com/okp4/ui/commit/39a1843726e35bead3f58ead3909e4ad597349e4))
+
 # [1.12.0](https://github.com/okp4/ui/compare/v1.11.0...v1.12.0) (2022-08-24)
 
 
