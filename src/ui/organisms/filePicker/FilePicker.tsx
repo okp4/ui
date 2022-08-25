@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import short from 'short-uuid'
 import type { DeepReadonly, SizeUnit, UseState } from 'superTypes'
-import { useErrorDispatch } from 'hook/storeHook'
-import { acknowledgeError } from 'domain/error/usecase/acknowledge-error/acknowledgeError'
+import { asMutable, checkFileExtension, convertSize } from 'utils'
 import { useFileDispatch, useFileSelector } from 'hook/storeHook/fileHook'
 import { storeFiles } from 'domain/file/usecase/store-files/storeFiles'
 import { removeFile } from 'domain/file/usecase/remove-file/removeFile'
@@ -19,18 +18,15 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { List } from 'ui/atoms/list/List'
 import './filePicker.scss'
 import './i18n/index'
-import { asMutable, checkFileExtension } from 'utils'
 
 export type FilePickerProps = Pick<
   FileInputProps,
   'label' | 'description' | 'multiple' | 'acceptedFormats' | 'size'
-> & {
-  readonly sizeUnit?: SizeUnit
-}
+>
 
 // eslint-disable-next-line max-lines-per-function
 export const FilePicker: React.FC<FilePickerProps> = ({
-  sizeUnit,
+  acceptedFormats,
   ...props
 }: DeepReadonly<FilePickerProps>) => {
   const { t }: UseTranslationResponse = useTranslation()
@@ -39,30 +35,15 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const [isError, setError]: UseState<boolean> = useState(false)
   const [errorMessage, setErrorMessage]: UseState<string> = useState('')
 
-  const convertSize = (size: number, unit?: SizeUnit): string => {
-    if (!unit) {
-      return `${size}`
-    }
+  const displaySize = (size: number): string => {
+    const { value, unit }: { value: string; unit: SizeUnit } = convertSize(size)
     const unitStr = t(`filePicker:filePicker.unit.${unit}`)
-    switch (unit) {
-      case 'B':
-        return `${size.toFixed(2)} ${unitStr}`
-      case 'KB':
-        return `${(size / Math.pow(10, 3)).toFixed(2)} ${unitStr}`
-      case 'MB':
-        return `${(size / Math.pow(10, 6)).toFixed(2)} ${unitStr}`
-      case 'GB':
-        return `${(size / Math.pow(10, 9)).toFixed(2)} ${unitStr}`
-      case 'TB':
-        return `${(size / Math.pow(10, 12)).toFixed(2)} ${unitStr}`
-      default:
-        return `${size}`
-    }
+    return `${value} ${unitStr}`
   }
 
   const handleDropped = useCallback(
     (files: DeepReadonly<File[]>) => {
-      if (props.acceptedFormats && checkFileExtension(files, props.acceptedFormats)) {
+      if (acceptedFormats && checkFileExtension(files, acceptedFormats)) {
         setError(false)
         fileDispatch(
           storeFiles(
@@ -82,7 +63,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         setErrorMessage(t(`filePicker:filePicker.errorMessage.format`))
       }
     },
-    [props.acceptedFormats, fileDispatch, t]
+    [acceptedFormats, fileDispatch, t]
   )
 
   const handleRemove = (id: string) => (): ThunkResult<Promise<void>> =>
@@ -100,7 +81,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
     <ListItem
       description={
         <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-          {convertSize(size, sizeUnit)}
+          {displaySize(size)}
         </Typography>
       }
       key={id}
@@ -113,7 +94,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
     <div className="okp4-file-picker-main">
       <FileInput
         {...props}
-        acceptedFormats={asMutable(props.acceptedFormats)}
+        acceptedFormats={asMutable(acceptedFormats)}
         error={isError}
         errorMessage={errorMessage}
         onDropped={handleDropped}

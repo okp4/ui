@@ -1,7 +1,7 @@
 {
   "filePicker": {
     "unit": {
-      "B": "o",
+      "B": "octets",
       "KB": "Ko",
       "MB": "Mo",
       "GB": "Go",
