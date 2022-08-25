@@ -1,4 +1,10 @@
-import { sortSelectOptionAsc, sortSelectOptionDesc, SelectOption, toPercent } from './utils'
+import {
+  sortSelectOptionAsc,
+  sortSelectOptionDesc,
+  SelectOption,
+  toPercent,
+  checkFileExtension
+} from './utils'
 
 describe('Considering the toPercent() function', () => {
   describe.each`
@@ -65,6 +71,48 @@ describe('Considering the getOptions(Ascending|Descending)Sorted() function', ()
         const expectedReverse = [...expectedResult].reverse()
         test(`Then, result value is ${expectedReverse}`, () => {
           expect(result).toEqual(expectedReverse)
+        })
+      })
+    }
+  )
+})
+
+describe('Considering the checkFileExtension() function', () => {
+  describe.each`
+    files                                                                    | extensions                          | expectedResult
+    ${[]}                                                                    | ${[]}                               | ${true}
+    ${[]}                                                                    | ${['jpg', 'png']}                   | ${true}
+    ${[{ name: 'file1.jpg' }]}                                               | ${[]}                               | ${true}
+    ${[{ name: 'file1.txt' }]}                                               | ${['.txt']}                         | ${true}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.txt' }]}                        | ${[]}                               | ${true}
+    ${[{ name: 'file1.txt' }, { name: 'file2.csv' }]}                        | ${['.txt']}                         | ${false}
+    ${[{ name: 'file1.txt' }, { name: 'file2.csv' }]}                        | ${['.csv']}                         | ${false}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.xls' }]}                        | ${['.xls']}                         | ${false}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.txt' }]}                        | ${['jpg', 'png']}                   | ${false}
+    ${[{ name: 'file1.txt' }, { name: 'file2.csv' }]}                        | ${['.jpg']}                         | ${false}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.xlsx' }]}                       | ${['.xls']}                         | ${false}
+    ${[{ name: 'file1.txt' }, { name: 'file2.csv' }]}                        | ${['.txt', '.csv']}                 | ${true}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.png' }]}                        | ${['.jpg', 'jpeg', 'png']}          | ${true}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.png' }]}                        | ${['.jpg', 'png', '.gif']}          | ${true}
+    ${[{ name: 'file1.jpg' }, { name: 'file2.git' }]}                        | ${['.jpg', 'jpeg', 'png']}          | ${false}
+    ${[{ name: 'file1.pdf' }, { name: 'file2.xls' }, { name: 'file2.csv' }]} | ${['.xls', '.xlsx', 'csv']}         | ${false}
+    ${[{ name: 'file1.pdf' }, { name: 'file2.xls' }, { name: 'file2.csv' }]} | ${['.pdf', '.xls', '.xlsx', 'csv']} | ${true}
+  `(
+    'Given the value <$files> with the extensions <$extensions>',
+    ({
+      files,
+      extensions,
+      expectedResult
+    }: {
+      files: File[]
+      extensions: string[]
+      expectedResult: number
+    }) => {
+      describe('When calling function', () => {
+        const result = checkFileExtension(files, extensions)
+
+        test(`Then, result value is ${expectedResult}`, () => {
+          expect(result).toEqual(expectedResult)
         })
       })
     }
