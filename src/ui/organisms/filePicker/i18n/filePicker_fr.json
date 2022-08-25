@@ -6,6 +6,9 @@
       "MB": "Mo",
       "GB": "Go",
       "TB": "To"
+    },
+    "errorMessage": {
+      "format": "Ce format de fichier n'est pas accepté."
     }
   }
 }

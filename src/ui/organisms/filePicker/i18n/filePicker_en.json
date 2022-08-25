@@ -6,6 +6,9 @@
       "MB": "MB",
       "GB": "GB",
       "TB": "TB"
+    },
+    "errorMessage": {
+      "format": "This file format is not supported."
     }
   }
 }
