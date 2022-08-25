@@ -62,13 +62,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
 
   const handleDropped = useCallback(
     (files: DeepReadonly<File[]>) => {
-      if (
-        files.every((file: DeepReadonly<File>) => {
-          return props.acceptedFormats?.some((format: string) =>
-            (file.name || '').toLowerCase().endsWith(format)
-          )
-        })
-      ) {
+      if (props.acceptedFormats && checkFileExtension(files, props.acceptedFormats)) {
         setError(false)
         fileDispatch(
           storeFiles(
