@@ -64,7 +64,10 @@ export class TaskBuilder {
     return new TaskBuilder({ ...this.task, status })
   }
 
-  public withInitiator(initiator: string): TaskBuilder {
+  public withInitiator(initiator?: string): TaskBuilder {
+    if (initiator === undefined) {
+      return this
+    }
     if (!initiator.length) {
       throw new UnspecifiedError('Oops... An initiator must be provided to build a task...')
     }
