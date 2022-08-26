@@ -40,7 +40,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   return (
     <div className="okp4-language-switcher-main">
       <div className="okp4-languages">
-        <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight" noWrap>
+        <Typography as="p" color="primary-invariant" fontSize="x-small" fontWeight="xlight" noWrap>
           {t('languages')}
         </Typography>
       </div>
@@ -57,7 +57,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
               >
                 <Typography
                   as="p"
-                  color="highlighted-text"
+                  color="primary-invariant"
                   fontSize="x-small"
                   fontWeight="xlight"
                   noWrap
@@ -66,7 +66,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
                 </Typography>
               </div>
               {!isXSmall && !isLastLanguage && (
-                <Typography as="p" color="highlighted-text" fontSize="x-small" fontWeight="xlight">
+                <Typography as="p" color="primary-invariant" fontSize="x-small" fontWeight="xlight">
                   |
                 </Typography>
               )}
