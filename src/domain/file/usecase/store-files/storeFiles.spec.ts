@@ -10,7 +10,7 @@ import { FileStoreBuilder } from 'domain/file/store/builder/store.builder'
 import { StoreFilePayload } from 'domain/file/command/storeFile'
 
 type Data = {
-  files: FileEntity[]
+  files: StoreFilePayload[]
   preloadedState: AppState
   expectedState: AppState
 }
