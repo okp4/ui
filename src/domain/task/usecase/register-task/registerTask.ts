@@ -1,9 +1,11 @@
 import type { ReduxStore, ThunkResult } from 'domain/task/store/store'
-import type { Task } from 'domain/task/entity/task'
 import { RegisterTaskActions } from './actionCreators'
 import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { UnspecifiedError } from 'domain/task/entity/error'
+import type { CreateTask } from 'domain/task/command/createTask'
+import { TaskMapper } from 'adapters/task/mapper/task.mapper'
+import type { DeepReadonly } from 'superTypes'
 
 const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
   const errorToDispatch = ErrorMapper.mapRawErrorToEntity(error)
@@ -11,7 +13,7 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void =
 }
 
 export const registerTask =
-  (task: Task): ThunkResult<Promise<void>> =>
+  (task: DeepReadonly<CreateTask>): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
     if (getState().task.byId.has(task.id)) {
@@ -23,5 +25,5 @@ export const registerTask =
       )
       return
     }
-    dispatch(RegisterTaskActions.taskRegistered(task))
+    dispatch(RegisterTaskActions.taskRegistered(TaskMapper.mapCommandPayloadToEntity(task)))
   }
