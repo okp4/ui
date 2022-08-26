@@ -11,13 +11,14 @@ import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
+import { CreateTask } from 'domain/task/command/createTask'
 
 type InitialProps = Readonly<{
   store: ReduxStore
 }>
 
 type Data = {
-  task: Task[]
+  tasks: CreateTask[]
   expectedState: AppState
   expectedEventParameters: EventParameter[]
 }
@@ -59,31 +60,44 @@ describe('Register a task', () => {
   const aDate = new Date()
   const initiator = 'domain:task'
 
+  // Command payloads
+  const rawTask1: CreateTask = {
+    id: 'id1',
+    timestamp: aDate,
+    type: 'task-test',
+    status: 'processing',
+    messageKey: 'domain.task.processing',
+    initiator
+  }
+
+  const rawTask2: CreateTask = {
+    id: 'id2',
+    timestamp: aDate,
+    type: 'task-test',
+    status: 'processing',
+    messageKey: 'domain.task.processing',
+    initiator
+  }
+
+  // Entities
   const task1 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
+    .withId(rawTask1.id)
+    .withCreationDate(rawTask1.timestamp)
+    .withLastUpdateDate(rawTask1.timestamp)
+    .withMessageKey(rawTask1.messageKey)
+    .withType(rawTask1.type)
+    .withStatus(rawTask1.status)
+    .withInitiator(rawTask1.initiator)
     .build()
 
   const task2 = new TaskBuilder()
-    .withId('id2')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
-    .build()
-
-  const task3 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
-    .withStatus('processing')
+    .withId(rawTask2.id)
+    .withCreationDate(rawTask2.timestamp)
+    .withLastUpdateDate(rawTask2.timestamp)
+    .withMessageKey(rawTask2.messageKey)
+    .withType(rawTask2.type)
+    .withStatus(rawTask2.status)
+    .withInitiator(rawTask2.initiator)
     .build()
 
   const error = new ErrorBuilder()
@@ -104,14 +118,14 @@ describe('Register a task', () => {
   })
 
   describe.each`
-    task                     | expectedState                                 | expectedEventParameters
-    ${[]}                    | ${getExpectedState([])}                       | ${[]}
-    ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate)]}
-    ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate)]}
-    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
+    tasks                             | expectedState                                 | expectedEventParameters
+    ${[]}                             | ${getExpectedState([])}                       | ${[]}
+    ${[rawTask1]}                     | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate)]}
+    ${[rawTask1, rawTask2]}           | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate)]}
+    ${[rawTask1, rawTask2, rawTask1]} | ${getExpectedState([task1, task2, task1], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
     `Given that there are $task.length task(s) to register`,
-    ({ task, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
+    ({ tasks, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
       const { store }: InitialProps = init()
 
       describe('When registering a task', () => {
@@ -119,7 +133,7 @@ describe('Register a task', () => {
           jest.clearAllMocks()
         })
         test('Then, expect state and eventParameters to be', async () => {
-          await task.forEach((elt: Task) => {
+          await tasks.forEach((elt: CreateTask) => {
             store.dispatch(registerTask(elt))
           })
           expect(store.getState()).toStrictEqual(expectedState)
