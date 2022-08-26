@@ -10,14 +10,17 @@
     primary: {
       primary-brand: $color-light-primary-brand;
       primary-variant: $color-light-primary-variant;
+      primary-invariant: $color-light-primary-invariant;
     }
     secondary: {
       secondary-button: $color-light-secondary-button;
       secondary-selected: $color-light-secondary-selected;
+      secondary-invariant: $color-light-secondary-invariant;
     }
     neutral: {
       text: $color-light-text;
       highlighted-text: $color-light-highlighted-text;
+      inverted-text: $color-light-inverted-text;
       field: $color-light-field;
       border: $color-light-border;
       primary-background: $color-light-background;
@@ -37,14 +40,17 @@
     primary: {
       primary-brand: $color-dark-primary-brand;
       primary-variant: $color-dark-primary-variant;
+      primary-invariant: $color-dark-primary-invariant;
     }
     secondary: {
       secondary-button: $color-dark-secondary-button;
       secondary-selected: $color-dark-secondary-selected;
+      secondary-invariant: $color-dark-secondary-invariant;
     }
     neutral: {
       text: $color-dark-text;
       highlighted-text: $color-dark-highlighted-text;
+      inverted-text: $color-dark-inverted-text;
       field: $color-dark-field;
       border: $color-dark-border;
       primary-background: $color-dark-background;
