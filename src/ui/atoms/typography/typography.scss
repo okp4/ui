@@ -1,6 +1,16 @@
 @import 'src/ui/styles/themes.scss';
 
-$colors: ('text', 'highlighted-text', 'success', 'warning', 'error', 'info');
+$colors: (
+  'text',
+  'highlighted-text',
+  'inverted-text',
+  'success',
+  'warning',
+  'error',
+  'info',
+  'primary-invariant',
+  'secondary-invariant'
+);
 $families: ('secondary', 'brand');
 $weights: (
   'xlight': 300,
