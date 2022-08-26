@@ -36,20 +36,21 @@ describe('Build a task', () => {
   })
 
   describe.each`
-    initialTask           | id           | creationDate | lastUpdateDate | messageKey                  | type           | initiator | status          | expectedStatus
-    ${undefined}          | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${true}
-    ${undefined}          | ${'#id2'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${undefined}    | ${true}
-    ${undefined}          | ${'#id3'}    | ${aDate}     | ${undefined}   | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${true}
-    ${undefined}          | ${undefined} | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${true}
-    ${undefined}          | ${'#id5'}    | ${undefined} | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${true}
-    ${undefined}          | ${''}        | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${false}
-    ${undefined}          | ${'#id7'}    | ${aDate}     | ${aDate}       | ${''}                       | ${'test-task'} | ${'test'} | ${'processing'} | ${false}
-    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${''}          | ${'test'} | ${'processing'} | ${false}
-    ${{ messageKey: '' }} | ${'#id8'}    | ${undefined} | ${aDate}       | ${undefined}                | ${undefined}   | ${'test'} | ${'processing'} | ${false}
-    ${undefined}          | ${'#id8'}    | ${aBadDate}  | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${false}
-    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aBadDate}    | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${'processing'} | ${false}
-    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${''}     | ${'processing'} | ${false}
-    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'} | ${''}           | ${false}
+    initialTask           | id           | creationDate | lastUpdateDate | messageKey                  | type           | initiator    | status          | expectedStatus
+    ${undefined}          | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${true}
+    ${undefined}          | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${undefined} | ${'processing'} | ${true}
+    ${undefined}          | ${'#id2'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${undefined}    | ${true}
+    ${undefined}          | ${'#id3'}    | ${aDate}     | ${undefined}   | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${true}
+    ${undefined}          | ${undefined} | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${true}
+    ${undefined}          | ${'#id5'}    | ${undefined} | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${true}
+    ${undefined}          | ${''}        | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${false}
+    ${undefined}          | ${'#id7'}    | ${aDate}     | ${aDate}       | ${''}                       | ${'test-task'} | ${'test'}    | ${'processing'} | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${''}          | ${'test'}    | ${'processing'} | ${false}
+    ${{ messageKey: '' }} | ${'#id8'}    | ${undefined} | ${aDate}       | ${undefined}                | ${undefined}   | ${'test'}    | ${'processing'} | ${false}
+    ${undefined}          | ${'#id8'}    | ${aBadDate}  | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aBadDate}    | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${'processing'} | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${''}        | ${'processing'} | ${false}
+    ${undefined}          | ${'#id8'}    | ${aDate}     | ${aDate}       | ${'domain.task.processing'} | ${'test-task'} | ${'test'}    | ${''}           | ${false}
   `(
     'Given that id is <$id>, creationDate is <$creationDate>, lastUpdateDate is <$lastUpdateDate>, messageKey is <$messageKey>, type is <$type>, initiator is <$initiator> and status is <$status>',
     ({
@@ -66,7 +67,7 @@ describe('Build a task', () => {
       describe('When building a task', () => {
         const task = (): Task => {
           // eslint-disable-next-line functional/no-let
-          let taskBuilder = new TaskBuilder(initialTask)
+          let taskBuilder = new TaskBuilder(initialTask).withInitiator(initiator)
 
           if (id !== undefined) {
             taskBuilder = taskBuilder.withId(id)
@@ -82,9 +83,6 @@ describe('Build a task', () => {
           }
           if (type !== undefined) {
             taskBuilder = taskBuilder.withType(type)
-          }
-          if (initiator !== undefined) {
-            taskBuilder = taskBuilder.withInitiator(initiator)
           }
           if (status !== undefined) {
             taskBuilder = taskBuilder.withStatus(status)
