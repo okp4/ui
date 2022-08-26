@@ -1,14 +1,20 @@
 import { ThrowErrorActions, TaskActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import type { ReduxStore, ThunkResult } from 'domain/faucet/store/store'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
+import type { CreateTask } from 'domain/task/command/createTask'
+import short from 'short-uuid'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
 
 export const faucetTaskType = 'faucet#request-funds'
 
-const createTaskFactory = (): TaskBuilder =>
-  new TaskBuilder().withMessageKey('domain.task.proceeded').withType(faucetTaskType)
+const createTaskFactory = (): CreateTask => ({
+  id: short.generate(),
+  messageKey: 'domain.task.proceeded',
+  timestamp: new Date(),
+  type: faucetTaskType,
+  status: 'processing'
+})
 
 const dispatchRequestFundsAmendedTask = (
   dispatch: ReduxStore['dispatch'],
@@ -37,7 +43,7 @@ export const requestFunds =
   (address: string): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, _getState, { faucetGateway }) => {
-    const createTask = createTaskFactory().build()
+    const createTask = createTaskFactory()
     try {
       dispatch(TaskActions.taskCreated(createTask))
       checkOKP4Address(address)
