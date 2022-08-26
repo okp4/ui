@@ -44,18 +44,25 @@ export type IconProps = {
    * Custom className to add some additional style.
    */
   readonly className?: string
+  /**
+   * Defines if icon theme style is inverted.
+   */
+  readonly invert?: boolean
 }
 
 export const Icon: React.FC<IconProps> = ({
   name,
   size = 30,
-  className
+  className,
+  invert
 }: DeepReadonly<IconProps>): JSX.Element => {
   const { theme }: ThemeContextType = useTheme()
 
   return (
     <svg {...(className && { className })} height={`${size}px`} width={`${size}px`}>
-      <use xlinkHref={`${sprite}#${name}-${theme}`} />
+      <use
+        xlinkHref={`${sprite}#${name}-${invert ? (theme === 'dark' ? 'light' : 'dark') : theme}`}
+      />
     </svg>
   )
 }
