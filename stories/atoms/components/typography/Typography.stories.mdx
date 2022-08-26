@@ -114,21 +114,27 @@ There is no default size to preserve what's being ultimately rendered.
 <Canvas>
   <Story name="Sizes">
     {args => (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}
+      >
         <Typography as="div" fontSize="x-small" fontFamily="brand">
-          x-small - OKP4 - At the core of the stakes of data valorisation
+          x-small | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontSize="small" fontFamily="brand">
-          small - OKP4 - At the core of the stakes of data valorisation
+          small | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontSize="medium" fontFamily="brand">
-          medium - OKP4 - At the core of the stakes of data valorisation
+          medium | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontSize="large" fontFamily="brand">
-          large - OKP4 - At the core of the stakes of data valorisation
+          large | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontSize="x-large" fontFamily="brand">
-          x-large - OKP4 - At the core of the stakes of data valorisation
+          x-large | OKP4 - At the core of the stakes of data valorisation
         </Typography>
       </div>
     )}
@@ -137,27 +143,45 @@ There is no default size to preserve what's being ultimately rendered.
 
 ## Colors
 
-The different colors available are: `text` (default), `highlighted-text`, `info`, `success`, `warning`, `error` which
+The different colors available are: `text` (default), `highlighted-text`, `inverted-text`, `info`, `success`, `warning`, `error`, `primary-invariant`, `secondary-invariant` which
 all refer to OKP4 palette and theming.
 
 <Canvas>
   <Story name="Colors">
     {args => (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}
+      >
+        <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
+          text | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
         <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
-          highlighted-text - OKP4 - At the core of the stakes of data valorisation
+          highlighted-text | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
+          inverted-text | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
-          info - OKP4 - At the core of the stakes of data valorisation
+          info | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
-          success - OKP4 - At the core of the stakes of data valorisation
+          success | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
-          warning - OKP4 - At the core of the stakes of data valorisation
+          warning | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
-          error - OKP4 - At the core of the stakes of data valorisation
+          error | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="primary-invariant" fontFamily="brand" fontSize="medium">
+          primary-invariant | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="secondary-invariant" fontFamily="brand" fontSize="medium">
+          secondary-invariant | OKP4 - At the core of the stakes of data valorisation
         </Typography>
       </div>
     )}
@@ -172,18 +196,24 @@ Internally, this parameter will actually select a variant of the selected font.
 <Canvas>
   <Story name="Font weight">
     {args => (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}
+      >
         <Typography as="div" fontWeight="xlight" fontFamily="brand" fontSize="medium">
-          xlight - OKP4 - At the core of the stakes of data valorisation
+          xlight | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
-          light - OKP4 - At the core of the stakes of data valorisation
+          light | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
-          bold - OKP4 - At the core of the stakes of data valorisation
+          bold | OKP4 - At the core of the stakes of data valorisation
         </Typography>
         <Typography as="div" fontWeight="black" fontFamily="brand" fontSize="medium">
-          black - OKP4 - At the core of the stakes of data valorisation
+          black | OKP4 - At the core of the stakes of data valorisation
         </Typography>
       </div>
     )}
