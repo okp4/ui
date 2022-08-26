@@ -33,7 +33,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     description && (
       <div className="okp4-listitem-description">
         {isString(description) ? (
-          <Typography as="div" color="highlighted-text" fontSize="small">
+          <Typography as="div" color="inverted-text" fontSize="small">
             {description}
           </Typography>
         ) : (
@@ -47,7 +47,7 @@ export const ListItem: React.FC<ListItemProps> = ({
       {leftElement && <div className="okp4-listitem-left-element">{leftElement}</div>}
       {title && (
         <div className="okp4-listitem-title">
-          <Typography as="div" color="highlighted-text" fontSize="small" fontWeight="bold">
+          <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
             {title}
           </Typography>
         </div>
