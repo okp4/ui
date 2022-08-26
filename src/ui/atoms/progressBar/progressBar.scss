@@ -26,7 +26,7 @@
   }
 
   @include with-theme {
-    background: themed(field);
+    background: themed(field-high-contrast);
     border-radius: 10px;
 
     .okp4-progressbar-label {
@@ -55,13 +55,13 @@
         position: relative;
         height: 10px;
         width: 100%;
-        background-color: themed(primary-variant);
+        background-color: themed(text);
         border-radius: 50px;
 
         .okp4-progressbar-bar-filler {
           position: relative;
           height: 100%;
-          background-color: themed(text);
+          background-color: themed(primary-background);
           border-radius: inherit;
 
           &.undetermined {
