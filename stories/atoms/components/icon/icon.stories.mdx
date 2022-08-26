@@ -178,6 +178,37 @@ As seen in the examples below you can rotate icons, add background colors, anima
   </Story>
 </Canvas>
 
+## Invert
+
+The **invert** property allows you to invert the theme of the icon.  
+If it set to `true`, the icon will be in light theme in dark theme and in dark theme in light theme.
+
+<Canvas>
+  <Story name="Invert">
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(150px,150px))',
+        justifyContent: 'center',
+        gap: '30px'
+      }}
+    >
+      <div className="icon-card">
+        <Icon name="wallet" />
+        <Typography as="span" color="text" fontSize="x-small" fontFamily="secondary">
+          Current theme
+        </Typography>
+      </div>
+      <div className="icon-card invert">
+        <Icon name="wallet" invert />
+        <Typography as="span" color="inverted-text" fontSize="x-small" fontFamily="secondary">
+          Inverse theme
+        </Typography>
+      </div>
+    </div>
+  </Story>
+</Canvas>
+
 ## Prerequisites
 
 It is mandatory to wrap the component in a `<ThemeProvider />` for the thematisation to work.
