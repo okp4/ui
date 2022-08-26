@@ -9,6 +9,7 @@ import { requestFunds, faucetTaskType } from './requestFunds'
 import { DeepReadonly } from 'superTypes'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { FaucetStoreBuilder } from 'domain/faucet/store/builder/store.builder'
+import { CreateTask } from 'domain/task/command/createTask'
 
 interface InitialProps {
   store: ReduxStore
@@ -31,13 +32,13 @@ jest.setSystemTime(fakedDate)
 short.generate = jest.fn(() => fakedUuid as short.SUUID)
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 
-const task = new TaskBuilder()
-  .withId(fakedUuid)
-  .withCreationDate(fakedDate)
-  .withLastUpdateDate(fakedDate)
-  .withMessageKey('domain.task.proceeded')
-  .withType(faucetTaskType)
-  .build()
+const task: CreateTask = {
+  id: fakedUuid,
+  timestamp: fakedDate,
+  status: 'processing',
+  messageKey: 'domain.task.proceeded',
+  type: faucetTaskType
+}
 
 const updatedTask1 = new UpdateTaskBuilder()
   .withId(fakedUuid)
