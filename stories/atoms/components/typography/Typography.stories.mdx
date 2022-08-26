@@ -137,13 +137,19 @@ There is no default size to preserve what's being ultimately rendered.
 
 ## Colors
 
-The different colors available are: `text` (default), `highlighted-text`, `info`, `success`, `warning`, `error` which
+The different colors available are: `text` (default), `inverted-text`, `highlighted-text`, `info`, `success`, `warning`, `error` which
 all refer to OKP4 palette and theming.
 
 <Canvas>
   <Story name="Colors">
     {args => (
       <div>
+        <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
+          text - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
+          inverted-text - OKP4 - At the core of the stakes of data valorisation
+        </Typography>
         <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
           highlighted-text - OKP4 - At the core of the stakes of data valorisation
         </Typography>
