@@ -51,7 +51,7 @@ const Title: React.FC<TitleProps> = ({ preventAutoClose, title }: DeepReadonly<T
 
   const titleTypography = (
     <ToastPrimitive.Title asChild>
-      <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
+      <Typography color="primary-invariant" fontSize="small" fontWeight="bold">
         {title}
       </Typography>
     </ToastPrimitive.Title>
@@ -77,7 +77,7 @@ const Description: React.FC<DescriptionProps> = ({
   const toastDescription = (
     <ToastPrimitive.Description asChild>
       {isString(description) ? (
-        <Typography color="highlighted-text" fontSize="small" fontWeight="light">
+        <Typography color="primary-invariant" fontSize="small" fontWeight="light">
           {description}
         </Typography>
       ) : (
