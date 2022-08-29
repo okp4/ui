@@ -1,20 +1,16 @@
 import type { Error } from 'domain/error/entity/error'
 import type { EventMetadata } from 'eventBus/eventBus'
 import type { Pair } from 'superTypes'
-import type { Task, UpdateTask } from '../entity/task'
 
-export type EventParameter = Pair<
-  { type: string; payload: Error | Task | UpdateTask },
-  EventMetadata
->
-type Payload = Error | Task | UpdateTask
+export type EventParameter<T> = Pair<{ type: string; payload: Payload<T> }, EventMetadata>
+type Payload<T> = Error | T
 
-export const getExpectedEventParameter = (
+export const getExpectedEventParameter = <T>(
   type: string,
-  payload: Payload,
+  payload: Payload<T>,
   initiator: string,
   date: Readonly<Date>
-): EventParameter => {
+): EventParameter<T> => {
   return [
     { ...{ type }, ...{ payload } },
     { initiator, timestamp: date }

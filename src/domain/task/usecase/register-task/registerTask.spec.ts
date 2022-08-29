@@ -20,7 +20,7 @@ type InitialProps = Readonly<{
 type Data = {
   tasks: CreateTask[]
   expectedState: AppState
-  expectedEventParameters: EventParameter[]
+  expectedEventParameters: EventParameter<Task>[]
 }
 
 const eventBus = new EventBus()
@@ -138,10 +138,12 @@ describe('Register a task', () => {
           })
           expect(store.getState()).toStrictEqual(expectedState)
           if (expectedEventParameters.length) {
-            expectedEventParameters.forEach((elt: DeepReadonly<EventParameter>, index: number) => {
-              const [first, second]: Readonly<EventParameter> = elt
-              expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
-            })
+            expectedEventParameters.forEach(
+              (elt: DeepReadonly<EventParameter<Task>>, index: number) => {
+                const [first, second]: Readonly<EventParameter<Task>> = elt
+                expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
+              }
+            )
           }
         })
       })

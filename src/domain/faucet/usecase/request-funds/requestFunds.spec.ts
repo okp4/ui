@@ -3,13 +3,11 @@ import { EventBus } from 'ts-bus'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import { InMemoryFaucetGateway } from 'adapters/faucet/secondary/graphql/InMemoryFaucetGateway'
 import type { ReduxStore } from 'domain/faucet/store/store'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import { EventParameter, getExpectedEventParameter } from 'domain/task/helper/test.helper'
 import { requestFunds, faucetTaskType } from './requestFunds'
 import { DeepReadonly } from 'superTypes'
-import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { FaucetStoreBuilder } from 'domain/faucet/store/builder/store.builder'
-import { CreateTask } from 'domain/task/command/createTask'
+import { AmendTask, CreateTask } from 'domain/task/command/createTask'
 
 interface InitialProps {
   store: ReduxStore
@@ -19,7 +17,7 @@ interface InitialProps {
 interface Data {
   hasGatewayError: boolean
   address: string
-  expectedEventParameters: EventParameter[]
+  expectedEventParameters: EventParameter<CreateTask | AmendTask>[]
 }
 
 const initiator = 'domain:faucet'
@@ -32,7 +30,7 @@ jest.setSystemTime(fakedDate)
 short.generate = jest.fn(() => fakedUuid as short.SUUID)
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
 
-const task: CreateTask = {
+const rawTask: CreateTask = {
   id: fakedUuid,
   timestamp: fakedDate,
   status: 'processing',
@@ -40,19 +38,19 @@ const task: CreateTask = {
   type: faucetTaskType
 }
 
-const updatedTask1 = new UpdateTaskBuilder()
-  .withId(fakedUuid)
-  .withLastUpdateDate(fakedDate)
-  .withMessageKey('domain.task.error')
-  .withStatus('error')
-  .build()
+const rawUpdateTask1: AmendTask = {
+  id: fakedUuid,
+  timestamp: fakedDate,
+  messageKey: 'domain.task.error',
+  status: 'error'
+}
 
-const updatedTask2 = new UpdateTaskBuilder()
-  .withId(fakedUuid)
-  .withLastUpdateDate(fakedDate)
-  .withMessageKey('domain.task.success')
-  .withStatus('success')
-  .build()
+const rawUpdateTask2: AmendTask = {
+  id: fakedUuid,
+  timestamp: fakedDate,
+  messageKey: 'domain.task.success',
+  status: 'success'
+}
 
 const bech32Error = new ErrorBuilder()
   .withId(fakedUuid)
@@ -97,10 +95,10 @@ describe('Request funds from faucet', () => {
 
   describe.each`
     hasGatewayError | address                                            | expectedEventParameters
-    ${false}        | ${'123'}                                           | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', bech32Error, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
-    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', bech32Error, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
-    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', faucetGatewayError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask1, initiator, fakedDate)]}
-    ${false}        | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', task, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', updatedTask2, initiator, fakedDate)]}
+    ${false}        | ${'123'}                                           | ${[getExpectedEventParameter('task/taskCreated', rawTask, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', bech32Error, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', rawUpdateTask1, initiator, fakedDate)]}
+    ${false}        | ${'cosmos196877dj4crpxmja2ww2hj2vgy45v6uspm7nrmy'} | ${[getExpectedEventParameter('task/taskCreated', rawTask, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', bech32Error, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', rawUpdateTask1, initiator, fakedDate)]}
+    ${true}         | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', rawTask, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', faucetGatewayError, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', rawUpdateTask1, initiator, fakedDate)]}
+    ${false}        | ${'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'}   | ${[getExpectedEventParameter('task/taskCreated', rawTask, initiator, fakedDate), getExpectedEventParameter('task/taskAmended', rawUpdateTask2, initiator, fakedDate)]}
   `(
     'Given that address is <$address>',
     ({ hasGatewayError, address, expectedEventParameters }: Readonly<Data>): void => {
@@ -112,11 +110,13 @@ describe('Request funds from faucet', () => {
         })
         test('Then, expect events to be published', async () => {
           await store.dispatch(requestFunds(address))
-          expectedEventParameters.forEach((elt: DeepReadonly<EventParameter>, index: number) => {
-            const [first, second]: Readonly<EventParameter> = elt
-            cleanErrorStack()
-            expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
-          })
+          expectedEventParameters.forEach(
+            (elt: DeepReadonly<EventParameter<CreateTask | AmendTask>>, index: number) => {
+              const [first, second]: Readonly<EventParameter<CreateTask | AmendTask>> = elt
+              cleanErrorStack()
+              expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
+            }
+          )
         })
       })
     }
