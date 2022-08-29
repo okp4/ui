@@ -9,6 +9,7 @@
     },
     "errorMessage": {
       "format": "This file format is not supported."
-    }
+    },
+    "clearAll": "Clear all"
   }
 }

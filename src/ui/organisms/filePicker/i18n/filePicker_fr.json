@@ -9,6 +9,7 @@
     },
     "errorMessage": {
       "format": "Ce format de fichier n'est pas accepté."
-    }
+    },
+    "clearAll": "Tout supprimer"
   }
 }
