@@ -145,7 +145,7 @@ There is no default size to preserve what's being ultimately rendered.
 
 There are different colors available referring to OKP4 palette and themes.
 
-The basic colors are :
+The base colors that can handle the most use cases:
 
 - `text` - the default text color,
 - `highlighted-text`,
@@ -154,14 +154,13 @@ The basic colors are :
 - `warning`,
 - `error`
 
-The other colors are :
+To allow the management of higher contrasts or cases where the color must remain the same according to the theme, the OKP4 palette addresses these issues by adding 3 more complex color effects:
 
 - `inverted-text` - invert the text color theme. You can use this color when text is displayed on high contrast backgrounds,
 - `primary-invariant` - does not depend on the theme, it always the same color,
 - `secondary-invariant` - does not depend on the theme, it always the same color.
 
 <Canvas>
-  The basic colors.
   <Story name="Basic colors">
     {() => (
       <>
@@ -195,7 +194,6 @@ The other colors are :
       </>
     )}
   </Story>
-  The specific cases colors.
   <Story name="Specific cases colors">
     {() => (
       <>
