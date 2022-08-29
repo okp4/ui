@@ -26,7 +26,7 @@ const fakedUuid = 'foobar'
 const fakedDate = new Date(1992, 1, 1)
 const eventBus = new EventBus()
 
-jest.useFakeTimers('modern')
+jest.useFakeTimers()
 jest.setSystemTime(fakedDate)
 short.generate = jest.fn(() => fakedUuid as short.SUUID)
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')

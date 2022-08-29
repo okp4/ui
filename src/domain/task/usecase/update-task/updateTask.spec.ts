@@ -101,7 +101,7 @@ describe('Update a task', () => {
     .build()
 
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(fakedDate)
     short.generate = jest.fn(() => fakedUuid as short.SUUID)
   })
