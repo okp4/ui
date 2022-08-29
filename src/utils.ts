@@ -62,23 +62,6 @@ export const sortSelectOptionAsc = (options: Readonly<SelectOption[]>): SelectOp
 export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectOption[] =>
   [...options].sort(selectOptionDescComparator)
 
-/**
- * Check if each file has one of the extensions.
- * @param files The files to check.
- * @param extensions The accepted extensions of the files.
- * @returns A boolean that indicates if the files match the extensions.
- */
-export const checkFileExtension = (
-  files: DeepReadonly<File[]>,
-  extensions: Readonly<string[]>
-): boolean =>
-  files.every((file: DeepReadonly<File>) => {
-    return (
-      !extensions.length ||
-      extensions.some((format: string) => (file.name || '').toLowerCase().endsWith(format))
-    )
-  })
-
 export const convertSize = (size: number): { value: string; unit: SizeUnit } => {
   const tb = Math.pow(10, 12)
   const gb = Math.pow(10, 9)
