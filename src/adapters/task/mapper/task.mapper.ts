@@ -1,7 +1,8 @@
 /* eslint-disable functional/no-let */
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { Task, UpdateTask } from 'domain/task/entity/task'
-import type { AmendTask, CreateTask } from 'domain/task/command/createTask'
+import type { AmendTask } from 'domain/task/command/amendtask'
+import type { CreateTask } from 'domain/task/command/createTask'
 import type { DeepReadonly } from 'superTypes'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 
