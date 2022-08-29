@@ -25,5 +25,5 @@ export const registerTask =
       )
       return
     }
-    dispatch(RegisterTaskActions.taskRegistered(TaskMapper.mapCommandPayloadToEntity(task)))
+    dispatch(RegisterTaskActions.taskRegistered(TaskMapper.mapCreateTaskToEntity(task)))
   }
