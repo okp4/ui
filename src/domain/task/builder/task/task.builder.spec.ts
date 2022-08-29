@@ -67,7 +67,7 @@ describe('Build a task', () => {
       describe('When building a task', () => {
         const task = (): Task => {
           // eslint-disable-next-line functional/no-let
-          let taskBuilder = new TaskBuilder(initialTask).withInitiator(initiator)
+          let taskBuilder = new TaskBuilder(initialTask)
 
           if (id !== undefined) {
             taskBuilder = taskBuilder.withId(id)
@@ -83,6 +83,9 @@ describe('Build a task', () => {
           }
           if (type !== undefined) {
             taskBuilder = taskBuilder.withType(type)
+          }
+          if (initiator !== undefined) {
+            taskBuilder = taskBuilder.withInitiator(initiator)
           }
           if (status !== undefined) {
             taskBuilder = taskBuilder.withStatus(status)
