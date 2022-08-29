@@ -147,77 +147,69 @@ There are different colors available referring to OKP4 palette and themes.
 
 The base colors that can handle the most use cases:
 
-- `text` - the default text color,
-- `highlighted-text`,
-- `info`,
-- `success`,
-- `warning`,
+- `text` - the default text color
+- `highlighted-text`
+- `info`
+- `success`
+- `warning`
 - `error`
-
-To allow the management of higher contrasts or cases where the color must remain the same according to the theme, the OKP4 palette addresses these issues by adding 3 more complex color effects:
-
-- `inverted-text` - invert the text color theme. You can use this color when text is displayed on high contrast backgrounds,
-- `primary-invariant` - does not depend on the theme, it always the same color,
-- `secondary-invariant` - does not depend on the theme, it always the same color.
 
 <Canvas>
   <Story name="Basic colors">
-    {() => (
-      <>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '20px',
-            gap: '20px'
-          }}
-        >
-          <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
-            text | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
-            highlighted-text | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
-            info | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
-            success | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
-            warning | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
-            error | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-        </div>
-      </>
-    )}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '20px',
+        gap: '20px'
+      }}
+    >
+      <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
+        text | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+      <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
+        highlighted-text | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+      <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
+        info | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+      <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
+        success | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+      <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
+        warning | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+      <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
+        error | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+    </div>
   </Story>
+</Canvas>
+
+To allow the management of higher contrasts or cases where the color must remain the same according to
+the theme, the OKP4 palette addresses these issues by adding 2 more complex color effects:
+
+- `inverted-text` - invert the text color theme. You can use this color when text is displayed on high contrast backgrounds
+- `primary-invariant` - does not depend on the theme, it always the same color
+
+<Canvas>
   <Story name="Specific cases colors">
-    {() => (
-      <>
-        <div
-          className="high-contrast-component-background"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '20px',
-            gap: '20px'
-          }}
-        >
-          <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
-            inverted-text | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="primary-invariant" fontFamily="brand" fontSize="medium">
-            primary-invariant | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-          <Typography as="div" color="secondary-invariant" fontFamily="brand" fontSize="medium">
-            secondary-invariant | OKP4 - At the core of the stakes of data valorisation
-          </Typography>
-        </div>
-      </>
-    )}
+    <div
+      className="high-contrast-component-background"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '20px',
+        gap: '20px'
+      }}
+    >
+      <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
+        inverted-text | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+      <Typography as="div" color="primary-invariant" fontFamily="brand" fontSize="medium">
+        primary-invariant | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+    </div>
   </Story>
 </Canvas>
 
