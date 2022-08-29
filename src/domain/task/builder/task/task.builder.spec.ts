@@ -27,7 +27,7 @@ describe('Build a task', () => {
 
   beforeAll(() => {
     short.generate = jest.fn(() => fakedUuid as short.SUUID)
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(fakedDate)
   })
 
