@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import keplrImage from 'assets/images/keplr.png'
 import { acknowledgeError } from 'domain/error/usecase/acknowledge-error/acknowledgeError'
 import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
@@ -19,8 +19,7 @@ import { Button } from 'ui/atoms/button/Button'
 import { TextField } from 'ui/atoms/textField/TextField'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { Typography } from 'ui/atoms/typography/Typography'
-import { ProgressBar } from 'ui/atoms/progressBar/ProgressBar'
-import type { DeepReadonly } from 'superTypes'
+import type { DeepReadonly, UseState } from 'superTypes'
 import './i18n/index'
 import './faucet.scss'
 
@@ -28,9 +27,12 @@ export type FaucetProps = Readonly<{
   chainId: string
 }>
 
+type Initiator = 'wallet' | 'input' | null
+
 // JSX function
 // eslint-disable-next-line max-lines-per-function
 export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
+  const [initiator, setInitiator]: UseState<Initiator> = useState<Initiator>(null)
   const faucetDispatch = useFaucetDispatch()
   const walletDispatch = useWalletDispatch()
   const errorDispatch = useErrorDispatch()
@@ -44,7 +46,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
     getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'success')
   )
   const transactionLoading = useTaskSelector((state: DeepReadonly<TaskAppState>) =>
-      getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'processing')
+    getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'processing')
   )
 
   const acknowledgeFaucetError = useCallback(() => {
@@ -56,6 +58,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   }, [taskDispatch, transactionSuccessId])
 
   const cleanUIStates = useCallback(async () => {
+    setInitiator(null)
     hasTransactionError && acknowledgeFaucetError()
     acknowledgeFaucetTask()
   }, [acknowledgeFaucetError, acknowledgeFaucetTask, hasTransactionError])
@@ -73,12 +76,14 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
 
   const handleRequestWithAddress = useCallback(async () => {
     await cleanUIStates()
+    setInitiator('input')
     faucetDispatch(setAddress(''))
     faucetDispatch(requestFunds(address))
   }, [address, faucetDispatch, cleanUIStates])
 
   const handleRequestWithWallet = useCallback(async () => {
     await cleanUIStates()
+    setInitiator('wallet')
     walletDispatch(enableWallet('keplr', chainId))
   }, [chainId, cleanUIStates, walletDispatch])
 
@@ -103,13 +108,17 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
               {t('faucet:faucet.requestFundsWithKeplr')}
             </Typography>
             <img alt="Keplr logo" src={keplrImage} />
-            <Button
-              disabled={transactionLoading !== undefined}
-              label={t('faucet:faucet.sendMeToken')}
-              onClick={handleRequestWithWallet}
-              size="large"
-              variant="secondary"
-            />
+            {transactionLoading && initiator === 'wallet' ? (
+              <div className="okp4-faucet-loader" />
+            ) : (
+              <Button
+                disabled={!!transactionLoading}
+                label={t('faucet:faucet.sendMeToken')}
+                onClick={handleRequestWithWallet}
+                size="large"
+                variant="secondary"
+              />
+            )}
           </div>
           <div className="okp4-faucet-content-action-item">
             <Typography color="text" fontFamily="secondary" fontSize="small" fontWeight="bold">
@@ -121,18 +130,19 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
               size="small"
               value={address}
             />
-            <Button
-              disabled={transactionLoading !== undefined}
-              label={t('faucet:faucet.sendMeToken')}
-              onClick={handleRequestWithAddress}
-              size="large"
-              variant="secondary"
-            />
+            {transactionLoading && initiator === 'input' ? (
+              <div className="okp4-faucet-loader" />
+            ) : (
+              <Button
+                disabled={!!transactionLoading}
+                label={t('faucet:faucet.sendMeToken')}
+                onClick={handleRequestWithAddress}
+                size="large"
+                variant="secondary"
+              />
+            )}
           </div>
         </div>
-          <div className="okp4-faucet-content-info-main">
-              {transactionLoading && (<ProgressBar/>)}
-          </div>
         <div className="okp4-faucet-content-info-main">
           <div>
             <Typography color="text" fontSize="x-small" fontWeight="bold">
