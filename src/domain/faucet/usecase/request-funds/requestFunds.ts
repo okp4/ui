@@ -1,8 +1,7 @@
 import { ThrowErrorActions, TaskActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import type { ReduxStore, ThunkResult } from 'domain/faucet/store/store'
-import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
-import type { CreateTask } from 'domain/task/command/createTask'
+import type { AmendTask, CreateTask } from 'domain/task/command/createTask'
 import short from 'short-uuid'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
 
@@ -21,12 +20,13 @@ const dispatchRequestFundsAmendedTask = (
   taskId: string,
   hasError?: boolean
 ): void => {
-  const updatedTask = new UpdateTaskBuilder()
-    .withId(taskId)
-    .withMessageKey(`domain.task.${hasError ? 'error' : 'success'}`)
-    .withStatus(hasError ? 'error' : 'success')
-    .build()
-  dispatch(TaskActions.taskAmended(updatedTask))
+  const updateTask: AmendTask = {
+    id: taskId,
+    messageKey: `domain.task.${hasError ? 'error' : 'success'}`,
+    timestamp: new Date(),
+    status: hasError ? 'error' : 'success'
+  }
+  dispatch(TaskActions.taskAmended(updateTask))
 }
 
 const dispatchRequestFundsError = (
