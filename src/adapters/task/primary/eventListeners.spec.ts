@@ -6,10 +6,10 @@ import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
 import type { EventMetadata } from 'eventBus/eventBus'
-import type { Task } from 'domain/task/entity/task'
+import type { Task, TaskStatus } from 'domain/task/entity/task'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
-import { CreateTask } from 'domain/task/command/createTask'
+import { AmendTask, CreateTask } from 'domain/task/command/createTask'
 
 type InitialProps = Readonly<{
   store: ReduxStore
@@ -41,6 +41,13 @@ const rawTask2: CreateTask = {
   messageKey: 'domain.task.processing'
 }
 
+const rawUpdateTask1: AmendTask = {
+  id: 'id1',
+  timestamp: bDate,
+  messageKey: 'domain.task.succeeded',
+  status: 'success'
+}
+
 const meta: EventMetadata = { initiator: 'domain:test', timestamp: new Date() }
 
 // Entities
@@ -65,10 +72,10 @@ const task2 = new TaskBuilder()
   .build()
 
 const updatedTask = new UpdateTaskBuilder()
-  .withId('id1')
-  .withLastUpdateDate(bDate)
-  .withMessageKey('domain.task.succeeded')
-  .withStatus('success')
+  .withId(rawUpdateTask1.id)
+  .withLastUpdateDate(rawUpdateTask1.timestamp)
+  .withMessageKey(rawUpdateTask1.messageKey as string)
+  .withStatus(rawUpdateTask1.status as TaskStatus)
   .build()
 
 const initialState: AppState = {
@@ -97,11 +104,11 @@ const getExpectedState = (
 })
 
 describe.each`
-  event                                                 | expectedState
-  ${undefined}                                          | ${getExpectedState(initialState.task, initialState.displayedTaskIds)}
-  ${{ type: 'task/fooBar', payload: rawTask1 }}         | ${getExpectedState(initialState.task, initialState.displayedTaskIds)}
-  ${{ type: 'task/taskCreated', payload: rawTask2 }}    | ${getExpectedState({ byId: initialState.task.byId.set(task2.id, task2), byType: initialState.task.byType.set(task2.type, initialState.task.byType.get(task2.type, OrderedSet<string>()).add(task2.id)) }, initialState.displayedTaskIds.add(task2.id))}
-  ${{ type: 'task/taskAmended', payload: updatedTask }} | ${getExpectedState({ byId: initialState.task.byId.set(task1.id, { ...task1, ...updatedTask }), byType: initialState.task.byType }, initialState.displayedTaskIds)}
+  event                                                    | expectedState
+  ${undefined}                                             | ${getExpectedState(initialState.task, initialState.displayedTaskIds)}
+  ${{ type: 'task/fooBar', payload: rawTask1 }}            | ${getExpectedState(initialState.task, initialState.displayedTaskIds)}
+  ${{ type: 'task/taskCreated', payload: rawTask2 }}       | ${getExpectedState({ byId: initialState.task.byId.set(task2.id, task2), byType: initialState.task.byType.set(task2.type, initialState.task.byType.get(task2.type, OrderedSet<string>()).add(task2.id)) }, initialState.displayedTaskIds.add(task2.id))}
+  ${{ type: 'task/taskAmended', payload: rawUpdateTask1 }} | ${getExpectedState({ byId: initialState.task.byId.set(task1.id, { ...task1, ...updatedTask }), byType: initialState.task.byType }, initialState.displayedTaskIds)}
 `('Given that event is <$event>', ({ event, expectedState }: Data): void => {
   const { store, eventBus }: InitialProps = init()
 
