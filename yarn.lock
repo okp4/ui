@@ -13900,9 +13900,9 @@ react-element-to-jsx-string@^14.3.4:
     react-is "17.0.2"
 
 react-i18next@^11.16.7:
-  version "11.18.1"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.18.1.tgz#ba86ed09069e129b8623a28f2b9a03d7f105ea6f"
-  integrity sha512-S8cl4mvIOSA7OQCE5jNy2yhv705Vwi+7PinpqKIYcBmX/trJtHKqrf6CL67WJSA8crr2JU+oxE9jn9DQIrQezg==
+  version "11.18.5"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.18.5.tgz#985e87bc66ed1316381b464a4ecfd35a2c951357"
+  integrity sha512-cKcyuuzIv0YUZ4l9WORflVNuhISPAqQShOAsxwFyYuJoCA7HlLmHm7XnvO6hfAGmGpDNRhJHoBX8hG49Cb2xZQ==
   dependencies:
     "@babel/runtime" "^7.14.5"
     html-parse-stringify "^3.0.1"
