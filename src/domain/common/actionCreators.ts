@@ -4,7 +4,8 @@ import type { ActionsUnion } from 'domain/common/store.helper'
 import { createAction } from 'domain/common/store.helper'
 import type { TypedBusEvent } from 'eventBus/eventBus'
 import type { DeepReadonly } from 'superTypes'
-import type { CreateTask, AmendTask } from 'domain/task/command/createTask'
+import type { AmendTask } from 'domain/task/command/amendtask'
+import type { CreateTask } from 'domain/task/command/createTask'
 
 export const ThrowErrorActions = {
   errorThrown: (error: Error) => createAction('error/errorThrown', error)

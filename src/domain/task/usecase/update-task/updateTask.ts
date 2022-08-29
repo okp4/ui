@@ -3,7 +3,7 @@ import { UpdateTaskActions } from './actionCreators'
 import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { UnspecifiedError } from 'domain/task/entity/error'
-import type { AmendTask } from 'domain/task/command/createTask'
+import type { AmendTask } from 'domain/task/command/amendtask'
 import type { DeepReadonly } from 'superTypes'
 import { TaskMapper } from 'adapters/task/mapper/task.mapper'
 

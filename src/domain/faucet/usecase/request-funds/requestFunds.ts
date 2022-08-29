@@ -1,7 +1,8 @@
 import { ThrowErrorActions, TaskActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import type { ReduxStore, ThunkResult } from 'domain/faucet/store/store'
-import type { AmendTask, CreateTask } from 'domain/task/command/createTask'
+import type { AmendTask } from 'domain/task/command/amendtask'
+import type { CreateTask } from 'domain/task/command/createTask'
 import short from 'short-uuid'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
 
