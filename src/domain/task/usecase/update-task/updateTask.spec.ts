@@ -4,7 +4,7 @@ import { EventBus } from 'ts-bus'
 import type { ReduxStore } from '../../store/store'
 import { updateTask } from './updateTask'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
-import type { Task, UpdateTask } from 'domain/task/entity/task'
+import type { Task, TaskStatus, UpdateTask } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task/task.builder'
@@ -12,10 +12,11 @@ import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
+import { AmendTask } from 'domain/task/command/createTask'
 
 type Data = {
   state: AppState
-  updatedTask: UpdateTask[]
+  updatedTask: AmendTask[]
   expectedState: AppState
   expectedEventParameters: EventParameter[]
 }
@@ -52,6 +53,30 @@ describe('Update a task', () => {
   const bDate = new Date()
   const initiator = 'domain:task'
 
+  // Command payloads
+
+  const rawUpdateTask1: AmendTask = {
+    id: 'id1',
+    timestamp: aDate,
+    messageKey: 'domain.task.succeeded',
+    status: 'success'
+  }
+
+  const rawUpdateTask2: AmendTask = {
+    id: 'id1',
+    timestamp: bDate,
+    messageKey: 'domain.task.processing',
+    status: 'processing'
+  }
+
+  const rawUpdateTask3: AmendTask = {
+    id: fakedUuid,
+    timestamp: aDate,
+    messageKey: 'domain.task.error',
+    status: 'error'
+  }
+
+  // Entities
   const task1 = new TaskBuilder()
     .withId('id1')
     .withCreationDate(fakedDate)
@@ -62,24 +87,24 @@ describe('Update a task', () => {
     .build()
 
   const updatedTask1 = new UpdateTaskBuilder()
-    .withId(task1.id)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.succeeded')
-    .withStatus('success')
+    .withId(rawUpdateTask1.id)
+    .withLastUpdateDate(rawUpdateTask1.timestamp)
+    .withMessageKey(rawUpdateTask1.messageKey as string)
+    .withStatus(rawUpdateTask1.status as TaskStatus)
     .build()
 
   const updatedTask2 = new UpdateTaskBuilder()
-    .withId(task1.id)
-    .withLastUpdateDate(bDate)
-    .withMessageKey('domain.task.processing')
-    .withStatus('processing')
+    .withId(rawUpdateTask2.id)
+    .withLastUpdateDate(rawUpdateTask2.timestamp)
+    .withMessageKey(rawUpdateTask2.messageKey as string)
+    .withStatus(rawUpdateTask2.status as TaskStatus)
     .build()
 
   const updatedTask3 = new UpdateTaskBuilder()
-    .withId(fakedUuid)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.error')
-    .withStatus('error')
+    .withId(rawUpdateTask3.id)
+    .withLastUpdateDate(rawUpdateTask3.timestamp)
+    .withMessageKey(rawUpdateTask3.messageKey as string)
+    .withStatus(rawUpdateTask3.status as TaskStatus)
     .build()
 
   const initialState: AppState = {
@@ -110,10 +135,10 @@ describe('Update a task', () => {
   })
 
   describe.each`
-    state           | updatedTask                     | expectedState                                                   | expectedEventParameters
-    ${initialState} | ${[updatedTask1]}               | ${getExpectedState(initialState, [updatedTask1])}               | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator, fakedDate)]}
-    ${initialState} | ${[updatedTask1, updatedTask2]} | ${getExpectedState(initialState, [updatedTask1, updatedTask2])} | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator, fakedDate), getExpectedEventParameter('task/taskUpdated', updatedTask2, initiator, fakedDate)]}
-    ${initialState} | ${[updatedTask3]}               | ${getExpectedState(initialState, [updatedTask3], 0)}            | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
+    state           | updatedTask                         | expectedState                                                   | expectedEventParameters
+    ${initialState} | ${[rawUpdateTask1]}                 | ${getExpectedState(initialState, [updatedTask1])}               | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator, fakedDate)]}
+    ${initialState} | ${[rawUpdateTask1, rawUpdateTask2]} | ${getExpectedState(initialState, [updatedTask1, updatedTask2])} | ${[getExpectedEventParameter('task/taskUpdated', updatedTask1, initiator, fakedDate), getExpectedEventParameter('task/taskUpdated', updatedTask2, initiator, fakedDate)]}
+    ${initialState} | ${[rawUpdateTask3]}                 | ${getExpectedState(initialState, [updatedTask3], 0)}            | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
     `Given that there are $updatedTask.length task(s) to update`,
     ({ state, updatedTask, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
@@ -129,7 +154,7 @@ describe('Update a task', () => {
         test(`Then, expect state to be ${JSON.stringify(
           expectedState
         )} and eventParameters to be ${JSON.stringify(expectedEventParameters)}`, async () => {
-          await updatedTask.forEach((elt: UpdateTask) => {
+          await updatedTask.forEach((elt: AmendTask) => {
             store.dispatch(updateTask(elt))
           })
           expect(store.getState()).toStrictEqual(expectedState)
