@@ -143,47 +143,82 @@ There is no default size to preserve what's being ultimately rendered.
 
 ## Colors
 
-The different colors available are: `text` (default), `highlighted-text`, `inverted-text`, `info`, `success`, `warning`, `error`, `primary-invariant`, `secondary-invariant` which
-all refer to OKP4 palette and theming.
+There are different colors available referring to OKP4 palette and themes.
+
+The basic colors are :
+
+- `text` - the default text color,
+- `highlighted-text`,
+- `info`,
+- `success`,
+- `warning`,
+- `error`
+
+The other colors are :
+
+- `inverted-text` - invert the text color theme. You can use this color when text is displayed on high contrast backgrounds,
+- `primary-invariant` - does not depend on the theme, it always the same color,
+- `secondary-invariant` - does not depend on the theme, it always the same color.
 
 <Canvas>
-  <Story name="Colors">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px'
-        }}
-      >
-        <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
-          text | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
-          highlighted-text | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
-          inverted-text | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
-          info | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
-          success | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
-          warning | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
-          error | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="primary-invariant" fontFamily="brand" fontSize="medium">
-          primary-invariant | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" color="secondary-invariant" fontFamily="brand" fontSize="medium">
-          secondary-invariant | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-      </div>
+  The basic colors.
+  <Story name="Basic colors">
+    {() => (
+      <>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+            gap: '20px'
+          }}
+        >
+          <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
+            text | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
+            highlighted-text | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
+            info | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
+            success | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
+            warning | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
+            error | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+        </div>
+      </>
+    )}
+  </Story>
+  The specific cases colors.
+  <Story name="Specific cases colors">
+    {() => (
+      <>
+        <div
+          className="high-contrast-component-background"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+            gap: '20px'
+          }}
+        >
+          <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
+            inverted-text | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="primary-invariant" fontFamily="brand" fontSize="medium">
+            primary-invariant | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+          <Typography as="div" color="secondary-invariant" fontFamily="brand" fontSize="medium">
+            secondary-invariant | OKP4 - At the core of the stakes of data valorisation
+          </Typography>
+        </div>
+      </>
     )}
   </Story>
 </Canvas>
