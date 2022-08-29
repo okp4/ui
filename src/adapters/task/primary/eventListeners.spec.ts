@@ -9,7 +9,8 @@ import type { EventMetadata } from 'eventBus/eventBus'
 import type { Task, TaskStatus } from 'domain/task/entity/task'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
-import { AmendTask, CreateTask } from 'domain/task/command/createTask'
+import { AmendTask } from 'domain/task/command/amendtask'
+import { CreateTask } from 'domain/task/command/createTask'
 
 type InitialProps = Readonly<{
   store: ReduxStore

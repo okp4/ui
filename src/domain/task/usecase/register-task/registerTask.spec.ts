@@ -87,7 +87,7 @@ describe('Register a task', () => {
     .withMessageKey(rawTask1.messageKey)
     .withType(rawTask1.type)
     .withStatus(rawTask1.status)
-    .withInitiator(rawTask1.initiator)
+    .withInitiator(rawTask1.initiator as string)
     .build()
 
   const task2 = new TaskBuilder()
@@ -97,7 +97,7 @@ describe('Register a task', () => {
     .withMessageKey(rawTask2.messageKey)
     .withType(rawTask2.type)
     .withStatus(rawTask2.status)
-    .withInitiator(rawTask2.initiator)
+    .withInitiator(rawTask2.initiator as string)
     .build()
 
   const error = new ErrorBuilder()

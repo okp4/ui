@@ -7,7 +7,8 @@ import { EventParameter, getExpectedEventParameter } from 'domain/task/helper/te
 import { requestFunds, faucetTaskType } from './requestFunds'
 import { DeepReadonly } from 'superTypes'
 import { FaucetStoreBuilder } from 'domain/faucet/store/builder/store.builder'
-import { AmendTask, CreateTask } from 'domain/task/command/createTask'
+import { AmendTask } from 'domain/task/command/amendtask'
+import { CreateTask } from 'domain/task/command/createTask'
 
 interface InitialProps {
   store: ReduxStore

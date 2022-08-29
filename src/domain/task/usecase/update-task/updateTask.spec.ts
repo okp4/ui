@@ -12,7 +12,7 @@ import type { EventParameter } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
-import { AmendTask } from 'domain/task/command/createTask'
+import { AmendTask } from 'domain/task/command/amendtask'
 
 type Data = {
   state: AppState
