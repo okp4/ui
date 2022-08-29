@@ -12,7 +12,7 @@ import { useOnClickOutside } from 'hook/useOnClickOutside'
 import { useOnKeyboard } from 'hook/useOnKeyboard'
 
 type SelectInputProps = Pick<InputBaseProps, 'placeholder' | 'disabled' | 'hasError'>
-type SelectValue = string | Readonly<string[]>
+export type SelectValue = string | Readonly<string[]>
 
 export type SelectProps = SelectInputProps & {
   /**
