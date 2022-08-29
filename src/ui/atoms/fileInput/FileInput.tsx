@@ -8,35 +8,35 @@ import { truthy } from 'utils'
 
 export type FileInputProps = {
   /**
-   * The main title
+   * The main title of the file input.
    */
   readonly label?: string
   /**
-   * Context information for the user
+   * Context information for the user.
    */
   readonly description?: JSX.Element
   /**
-   * Drop one or several files
+   * Drop one or several files.
    */
   readonly multiple?: boolean
   /**
-   * The list of the accepted formats
+   * The list of the accepted formats.
    */
   readonly acceptedFormats?: string[]
   /**
-   * The size of the component
+   * The size of the component.
    */
   readonly size?: 'large' | 'medium' | 'small'
   /**
-   * Make the component in an error state or not
+   * Make the component in an error state or not.
    */
   readonly error?: boolean
   /**
-   * An error message displayed when the component is in the error state
+   * An error message displayed when the component is in the error state.
    */
   readonly errorMessage?: string
   /**
-   * Callback method called when files are dropped
+   * Callback method called when files are dropped.
    */
   // lint rule bypassed in method props arguments
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types

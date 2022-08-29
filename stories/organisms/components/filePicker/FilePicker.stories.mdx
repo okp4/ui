@@ -68,13 +68,14 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) componen
     description: (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-          Supports : CSV, XLS, XLSX.
+          Supports images like .png, .jpg, .jpeg, etc. and CSV files
         </Typography>
       </div>
     ),
     multiple: true,
-    acceptedFormats: [],
-    size: 'large'
+    acceptedFormats: ['image/*', '.csv'],
+    size: 'large',
+    clearAll: true
   }}
 >
   {args => {
