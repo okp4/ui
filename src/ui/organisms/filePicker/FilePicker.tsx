@@ -18,14 +18,21 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { List } from 'ui/atoms/list/List'
 import './filePicker.scss'
 import './i18n/index'
+import { removeAllFiles } from 'domain/file'
 
 export type FilePickerProps = Pick<
   FileInputProps,
   'label' | 'description' | 'multiple' | 'acceptedFormats' | 'size'
->
+> & {
+  /**
+   * Displays a clickable text to delete all selected files.
+   */
+  readonly clearAll?: boolean
+}
 
 // eslint-disable-next-line max-lines-per-function
 export const FilePicker: React.FC<FilePickerProps> = ({
+  clearAll,
   acceptedFormats,
   ...props
 }: DeepReadonly<FilePickerProps>) => {
@@ -69,6 +76,8 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const handleRemove = (id: string) => (): ThunkResult<Promise<void>> =>
     fileDispatch(removeFile(id))
 
+  const handleRemoveAll = (): ThunkResult<Promise<void>> => fileDispatch(removeAllFiles())
+
   const RemoveIcon = (id: string): JSX.Element => {
     return (
       <div className="okp4-file-picker-list-delete" onClick={handleRemove(id)}>
@@ -99,6 +108,13 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         errorMessage={errorMessage}
         onDropped={handleDropped}
       />
+      {clearAll && fileList.length > 1 && (
+        <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
+          <Typography as="span" fontSize="x-small" fontWeight="xlight" textDecoration="underline">
+            {t(`filePicker:filePicker.clearAll`)}
+          </Typography>
+        </div>
+      )}
       <List>{fileList.map((file: FileDescriptor) => FileItem(file))}</List>
     </div>
   )
