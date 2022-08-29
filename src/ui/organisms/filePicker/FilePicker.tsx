@@ -1,24 +1,22 @@
 import React, { useCallback, useState } from 'react'
 import short from 'short-uuid'
 import type { DeepReadonly, SizeUnit, UseState } from 'superTypes'
-import { asMutable, checkFileExtension, convertSize } from 'utils'
+import { asMutable } from 'utils'
 import { useFileDispatch, useFileSelector } from 'hook/storeHook/fileHook'
-import { storeFiles } from 'domain/file/usecase/store-files/storeFiles'
-import { removeFile } from 'domain/file/usecase/remove-file/removeFile'
-import { getFiles } from 'domain/file/store/selector/file.selector'
+import { storeFiles, removeFile, removeAllFiles, getFiles } from 'domain/file'
 import type { ThunkResult } from 'domain/file/store/store'
 import type { FileDescriptor } from 'domain/file/store/selector/file.selector'
-import type { FileInputProps } from 'ui/atoms/fileInput/FileInput'
 import { useTranslation } from 'hook/useTranslation'
 import type { UseTranslationResponse } from 'hook/useTranslation'
 import { FileInput } from 'ui/atoms/fileInput/FileInput'
+import type { FileInputProps } from 'ui/atoms/fileInput/FileInput'
 import { Icon } from 'ui/atoms/icon/Icon'
 import { ListItem } from 'ui/atoms/listItem/ListItem'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { List } from 'ui/atoms/list/List'
+import { areFilesAccepted, convertSize } from './file-utils'
 import './filePicker.scss'
 import './i18n/index'
-import { removeAllFiles } from 'domain/file'
 
 export type FilePickerProps = Pick<
   FileInputProps,
@@ -50,7 +48,8 @@ export const FilePicker: React.FC<FilePickerProps> = ({
 
   const handleDropped = useCallback(
     (files: DeepReadonly<File[]>) => {
-      if (acceptedFormats && checkFileExtension(files, acceptedFormats)) {
+      console.log({ files })
+      if (areFilesAccepted(files, acceptedFormats)) {
         setError(false)
         fileDispatch(
           storeFiles(
@@ -73,18 +72,21 @@ export const FilePicker: React.FC<FilePickerProps> = ({
     [acceptedFormats, fileDispatch, t]
   )
 
-  const handleRemove = (id: string) => (): ThunkResult<Promise<void>> =>
-    fileDispatch(removeFile(id))
+  const handleRemove = useCallback(
+    (id: string) => (): ThunkResult<Promise<void>> => fileDispatch(removeFile(id)),
+    [fileDispatch]
+  )
 
-  const handleRemoveAll = (): ThunkResult<Promise<void>> => fileDispatch(removeAllFiles())
+  const handleRemoveAll = useCallback(
+    (): ThunkResult<Promise<void>> => fileDispatch(removeAllFiles()),
+    [fileDispatch]
+  )
 
-  const RemoveIcon = (id: string): JSX.Element => {
-    return (
-      <div className="okp4-file-picker-list-delete" onClick={handleRemove(id)}>
-        <Icon name="close" />
-      </div>
-    )
-  }
+  const RemoveIcon = (id: string): JSX.Element => (
+    <div className="okp4-file-picker-list-delete" onClick={handleRemove(id)}>
+      <Icon name="close" />
+    </div>
+  )
 
   const FileItem = ({ id, name, size }: FileDescriptor): JSX.Element => (
     <ListItem
@@ -110,7 +112,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
       />
       {clearAll && fileList.length > 1 && (
         <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
-          <Typography as="span" fontSize="x-small" fontWeight="xlight" textDecoration="underline">
+          <Typography as="span" fontSize="x-small" fontWeight="xlight">
             {t(`filePicker:filePicker.clearAll`)}
           </Typography>
         </div>
