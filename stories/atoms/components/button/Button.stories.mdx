@@ -73,10 +73,10 @@ that will help users to find the action they're looking for.
 
 ## Label
 
-The `label` is the text description of **Button** aswell as its [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
-If **Button** is an **icon** `variant` the `label` is not shown, however it is still there as a title attribut used for the [tooltip](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tooltip_Role).
+The `label` is the text description of Button aswell as its [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
+If Button is an **icon** `variant` the `label` is not shown, however it is still there as a title attribut used for the [tooltip](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tooltip_Role).
 
-The `label` can have any length however **Button** width will never exceed 273px.
+The `label` can have any length however Button width will never exceed 273px.
 
 <Canvas>
   <Story name="Label">
@@ -91,15 +91,16 @@ The `label` can have any length however **Button** width will never exceed 273px
     >
       <Button label="Short label" />
       <Button label="Here is how the button acts when you have a long label" />
+      <Button label="icon button" variant="icon" icon={<Icon name="profile" size={22} />} />
     </div>
   </Story>
 </Canvas>
 
 ## Variants
 
-**Button** is available in three styled versions:
+Button is available in three styled versions:
 
-- **Primary** (_default_): A rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
+- **Primary** (default): A rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
 - **Secondary**: A rounded version, softer, allowing to adapt in particular to smaller screens.
 - **Icon**: Sets the button to be an icon button, requires users to supply an `icon` property.
 
@@ -129,10 +130,10 @@ The `label` can have any length however **Button** width will never exceed 273px
 
 ## Sizes
 
-There are three different sizes to allow **Button** to be used according to its location within the interface.
+There are three different sizes to allow Button to be used according to its location within the interface.
 
 - **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc.
-- **Medium** (_default_): makes it possible to adapt to a greater number of uses.
+- **Medium** (default): makes it possible to adapt to a greater number of uses.
 - **Large**: particularly suitable for large screens or in conjonction with `leftIcon` / `rightIcon`.
 
 <Canvas>
@@ -155,10 +156,10 @@ There are three different sizes to allow **Button** to be used according to its 
 
 ## Background colors
 
-**Button** have a palette of background colors to choose from and allows to better mark a user action.
+Button has a palette of background colors to choose from and allows to better mark a user action.
 The background color can be a visual aid as to what type of action the button executes.
 
-By _default_ `backgroundColor` is **primary**.
+By default `backgroundColor` is **primary**.
 
 <Canvas>
   <Story name="Background colors">
@@ -182,7 +183,7 @@ By _default_ `backgroundColor` is **primary**.
 
 ## Disabled
 
-**Button** can be `disabled` at any time, thus preventing any user interaction.
+Button can be `disabled` at any time, thus preventing any user interaction.
 
 <Canvas>
   <Story name="Disabled">
@@ -226,9 +227,9 @@ The function passed as value should correspond to the action described in `label
 <Canvas>
   <Story name="OnClick">
     {() => {
-      const [state, setState] = useState({ name: '', isOpened: false })
-      const handleState = (name, isOpened) => () => {
-        setState({ name, isOpened })
+      const [opened, setOpened] = useState(false)
+      const handleOpened = isOpened => () => {
+        setOpened(isOpened)
       }
       return (
         <div>
@@ -238,7 +239,7 @@ The function passed as value should correspond to the action described in `label
               justifyContent: 'center'
             }}
           >
-            <Button label="Click me!" onClick={handleState('button clicked', true)} />
+            <Button label="Click me!" onClick={handleOpened(true)} />
           </div>
           <Toast
             description={
@@ -258,10 +259,10 @@ The function passed as value should correspond to the action described in `label
                 </Typography>
               </div>
             }
-            isOpened={Object.values(state).includes('button clicked') ? state['isOpened'] : false}
-            onOpenChange={handleState('button clicked', false)}
+            isOpened={opened}
+            onOpenChange={handleOpened(false)}
             title="Button clicked!"
-            severityLevel="info"
+            severityLevel="success"
           />
         </div>
       )
