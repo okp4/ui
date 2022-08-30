@@ -1,4 +1,4 @@
-import type { DeepReadonly, SizeUnit } from './superTypes'
+import type { DeepReadonly } from './superTypes'
 
 export const asImmutable = <T>(o?: T): DeepReadonly<T> => o as DeepReadonly<T>
 
@@ -61,24 +61,3 @@ export const sortSelectOptionAsc = (options: Readonly<SelectOption[]>): SelectOp
 
 export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectOption[] =>
   [...options].sort(selectOptionDescComparator)
-
-export const convertSize = (size: number): { value: string; unit: SizeUnit } => {
-  const tb = Math.pow(10, 12)
-  const gb = Math.pow(10, 9)
-  const mb = Math.pow(10, 6)
-  const kb = Math.pow(10, 3)
-
-  if (size > tb) {
-    return { value: (size / tb).toFixed(2), unit: 'TB' }
-  }
-  if (size > gb) {
-    return { value: (size / gb).toFixed(2), unit: 'GB' }
-  }
-  if (size > mb) {
-    return { value: (size / mb).toFixed(2), unit: 'MB' }
-  }
-  if (size > kb) {
-    return { value: (size / kb).toFixed(2), unit: 'KB' }
-  }
-  return { value: size.toFixed(2), unit: 'B' }
-}

@@ -1,4 +1,30 @@
-import type { DeepReadonly } from 'superTypes'
+import type { DeepReadonly, SizeUnit } from 'superTypes'
+
+/**
+ * Convert a byte size into its more readable value.
+ * @param size The size to convert.
+ * @returns An objects containing the value and the size unit.
+ */
+export const convertSize = (size: number): { value: string; unit: SizeUnit } => {
+  const tb = Math.pow(10, 12)
+  const gb = Math.pow(10, 9)
+  const mb = Math.pow(10, 6)
+  const kb = Math.pow(10, 3)
+
+  if (size > tb) {
+    return { value: (size / tb).toFixed(2), unit: 'TB' }
+  }
+  if (size > gb) {
+    return { value: (size / gb).toFixed(2), unit: 'GB' }
+  }
+  if (size > mb) {
+    return { value: (size / mb).toFixed(2), unit: 'MB' }
+  }
+  if (size > kb) {
+    return { value: (size / kb).toFixed(2), unit: 'KB' }
+  }
+  return { value: size.toFixed(2), unit: 'B' }
+}
 
 /**
  * Check if the file has the given MIME type or extension
