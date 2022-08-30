@@ -145,14 +145,14 @@ There is no default size to preserve what's being ultimately rendered.
 
 There are different colors available referring to OKP4 palette and themes.
 
-The base colors that can handle the most use cases:
+The basic colors that can handle the most use cases:
 
-- `text` - the default text color
-- `highlighted-text`
-- `info`
-- `success`
-- `warning`
-- `error`
+- `text` : the default text color.
+- `highlighted-text` : the text is highlighted by a stronger color.
+- `info` : a light grey to give some information to the user.
+- `success` : a green to inform the user that something has succeeded.
+- `warning` : an orange to make the user pay attention.
+- `error` : a bright red color to alert the user that an error has occured.
 
 <Canvas>
   <Story name="Basic colors">
@@ -189,11 +189,11 @@ The base colors that can handle the most use cases:
 To allow the management of higher contrasts or cases where the color must remain the same according to
 the theme, the OKP4 palette addresses these issues by adding 2 more complex color effects:
 
-- `inverted-text` - invert the text color theme. You can use this color when text is displayed on high contrast backgrounds
-- `primary-invariant` - does not depend on the theme, it always the same color
+- `inverted-text` : inverts the theme of the text color. You can use this color when the text is displayed on high contrast backgrounds.
+- `primary-invariant` : does not depend on the theme, it is always white.
 
 <Canvas>
-  <Story name="Specific cases colors">
+  <Story name="Specific colors">
     <div
       className="high-contrast-component-background"
       style={{
