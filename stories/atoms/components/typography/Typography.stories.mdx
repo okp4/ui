@@ -246,6 +246,25 @@ Internally, this parameter will actually select a variant of the selected font.
   </Story>
 </Canvas>
 
+## Text decoration
+
+It is possible to add a text decoration with the optional property `textDecoration`.  
+This property can take the following value :
+
+- **underline** : underlines the text in the same color as the text itself.
+
+There will be more text decoration as the library develops.
+
+<Canvas>
+  <Story name="Text decoration">
+    <div>
+      <Typography as="div" fontFamily="brand" fontSize="medium" textDecoration="underline">
+        underline | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+    </div>
+  </Story>
+</Canvas>
+
 ## Text-wrap
 
 By default, the element rendered will automatically wrap : newline characters in the source are handled the same as other white space. Lines are broken as necessary to fill line boxes.
