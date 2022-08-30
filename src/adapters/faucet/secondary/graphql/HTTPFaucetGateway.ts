@@ -1,7 +1,7 @@
 import client from './client'
-import {pipe, toPromise} from 'wonka';
+import { pipe, toPromise } from 'wonka'
 import { SEND_TOKENS_SUBSCRIPTION } from './documents/sendTokens'
-import type { MSendTokensSubscription, MSendTokensSubscriptionVariables } from './generated/types'
+import type { SSendTokensSubscription, SSendTokensSubscriptionVariables } from './generated/types'
 import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
 import type { FaucetPort } from 'domain/faucet/port/faucetPort'
 
@@ -13,15 +13,17 @@ export class HTTPFaucetGateway implements FaucetPort {
   }
 
   public requestFunds = async (address: string): Promise<string> => {
-      const result = await pipe(
-          client(this.faucetUrl)
-              .subscription<MSendTokensSubscription, MSendTokensSubscriptionVariables>(SEND_TOKENS_SUBSCRIPTION, {
-                  input: {
-                      toAddress: address
-                  }
-              }),
-          toPromise
-      )
+    const result = await pipe(
+      client(this.faucetUrl).subscription<
+        SSendTokensSubscription,
+        SSendTokensSubscriptionVariables
+      >(SEND_TOKENS_SUBSCRIPTION, {
+        input: {
+          toAddress: address
+        }
+      }),
+      toPromise
+    )
 
     if (result.error) {
       throw new FaucetGatewayError(result.error.message)

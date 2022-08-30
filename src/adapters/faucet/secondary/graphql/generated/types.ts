@@ -114,9 +114,9 @@ export type TxResponse = {
   readonly rawLog?: Maybe<Scalars['String']>;
 };
 
-export type MSendTokensSubscriptionVariables = Exact<{
+export type SSendTokensSubscriptionVariables = Exact<{
   input: SendInput;
 }>;
 
 
-export type MSendTokensSubscription = { readonly __typename?: 'Subscription', readonly send: { readonly __typename?: 'TxResponse', readonly hash: string, readonly code: number } };
+export type SSendTokensSubscription = { readonly __typename?: 'Subscription', readonly send: { readonly __typename?: 'TxResponse', readonly hash: string, readonly code: number } };
