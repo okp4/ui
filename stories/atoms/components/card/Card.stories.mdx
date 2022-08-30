@@ -1,22 +1,13 @@
-import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { Card } from 'ui/atoms/card/Card'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import '../component.scss'
 
 <Meta
   title="Atoms/Card"
   component={Card}
-  parameters={{
-    actions: { argTypesRegex: '^on.*' },
-    docs: {
-      source: {
-        type: 'code',
-        format: true,
-        language: 'jsx'
-      }
-    }
-  }}
   decorators={[
     Story => (
       <ThemeProvider>
