@@ -96,6 +96,32 @@ The `label` can have any length however Button width will never exceed 273px.
   </Story>
 </Canvas>
 
+## Icon
+
+`Icon` allows for the creation of an icon button by passing the icon of your choice. It simply takes any node element as value.
+
+Requires Button to be an **icon** `variant`, without it the button content will stay `label`.
+
+<Canvas>
+  <Story name="Icon">
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '50px'
+      }}
+    >
+      <Button label="icon button" icon={<Icon name="calendar" size={22} />} variant="icon" />
+      <Button
+        label="Icon passed without the icon variant"
+        icon={<Icon name="calendar" size={22} />}
+      />
+    </div>
+  </Story>
+</Canvas>
+
 ## Variants
 
 Button is available in three styled versions:
@@ -222,7 +248,7 @@ together with the `label`.
 ## OnClick
 
 `onClick` is what makes the magic happen, without it the button has no corresponding action.
-The function passed as value should correspond to the action described in `label`.
+It is triggered when a click is registered on the button.
 
 <Canvas>
   <Story name="OnClick">
