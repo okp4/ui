@@ -269,3 +269,23 @@ The function passed as value should correspond to the action described in `label
     }}
   </Story>
 </Canvas>
+
+## Prerequisites
+
+It is mandatory to wrap the component in a `<ThemeProvider />` for the thematisation to work.
+See <a href="?path=/docs/atoms-brand-identity-theming--theming">Theming</a> for more information.
+
+##### **`app.tsx`**
+
+```tsx
+import React from 'react'
+import { Button, ThemeProvider } from '@okp4/ui'
+
+export const App: React.FC = () => (
+  <React.StrictMode>
+    <ThemeProvider>
+      <Button label="Super label" />
+    </ThemeProvider>
+  </React.StrictMode>
+)
+```
