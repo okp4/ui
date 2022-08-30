@@ -35,6 +35,10 @@ $weights: (
       }
     }
 
+    &.underline {
+      text-decoration: underline;
+    }
+
     @each $family in $families {
       @each $weight-key, $weight-value in $weights {
         &.#{$family}-#{$weight-key} {

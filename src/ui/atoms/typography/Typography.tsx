@@ -24,6 +24,10 @@ export type TypographyProps = DeepReadonly<{
    */
   readonly fontWeight?: 'xlight' | 'light' | 'bold' | 'black'
   /**
+   * The different text decoration.
+   */
+  readonly textDecoration?: 'underline'
+  /**
    * The color applied to the final rendering of the typography,
    * regarding the current theme and following semantic color naming.
    */
@@ -53,6 +57,7 @@ export const Typography: React.FC<TypographyProps> = ({
   noWrap = false,
   fontWeight = 'light',
   fontFamily = 'brand',
+  textDecoration,
   color = 'text',
   fontSize = 'medium',
   children,
@@ -61,7 +66,8 @@ export const Typography: React.FC<TypographyProps> = ({
   const typographyClass = classNames(`okp4-typography-main okp4-font-size-${fontSize}`, {
     [`text-color-${color}`]: true,
     'text-wrap-disabled': !!noWrap,
-    [`${fontFamily}-${fontWeight}`]: true
+    [`${fontFamily}-${fontWeight}`]: true,
+    underline: textDecoration === 'underline'
   })
   return React.createElement(as, { ...props, className: typographyClass }, children)
 }
