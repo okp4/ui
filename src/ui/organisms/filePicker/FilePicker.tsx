@@ -111,7 +111,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
       />
       {clearAll && fileList.length > 1 && (
         <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
-          <Typography as="span" fontSize="x-small" fontWeight="xlight">
+          <Typography as="span" fontSize="x-small" fontWeight="xlight" textDecoration="underline">
             {t(`filePicker:filePicker.clearAll`)}
           </Typography>
         </div>
