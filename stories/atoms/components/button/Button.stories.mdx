@@ -27,7 +27,7 @@ import '../component.scss'
 
 # Button
 
-> Communicate actions that users can take.
+> Communicates actions that users can take.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
@@ -77,7 +77,7 @@ that will help users to find the action they're looking for.
 
 ## Label
 
-The `label` is the text description of Button aswell as its [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
+The `label` is the text description of Button as well as its [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
 If Button is an **icon** `variant` the `label` is not shown, however it is still there as a title attribut used for the [tooltip](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tooltip_Role).
 
 The `label` can have any length however Button width will never exceed 273px.
@@ -94,7 +94,7 @@ The `label` can have any length however Button width will never exceed 273px.
       }}
     >
       <Button label="Short label" />
-      <Button label="Here is how the button acts when you have a long label" />
+      <Button label="Here is how the button acts when it has a long label" />
       <Button label="icon button" variant="icon" icon={<Icon name="profile" size={22} />} />
     </div>
   </Story>
@@ -102,7 +102,7 @@ The `label` can have any length however Button width will never exceed 273px.
 
 ## Icon
 
-`Icon` allows for the creation of an icon button by passing the icon of your choice. It simply takes any node element as value.
+`Icon` allows for the creation of an icon button by passing the icon of your choice. It simply takes any node element as a value.
 
 Requires Button to be an **icon** `variant`, without it the button content will stay `label`.
 
@@ -132,7 +132,7 @@ Button is available in three styled versions:
 
 - **Primary** (default): A rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
 - **Secondary**: A rounded version, softer, allowing to adapt in particular to smaller screens.
-- **Icon**: Sets the button to be an icon button, requires users to supply an `icon` property.
+- **Icon**: Sets the button to be an icon button, requires you to supply an `icon` property.
 
 <Canvas>
   <Story name="Variants">
@@ -213,7 +213,8 @@ By default `backgroundColor` is **primary**.
 
 ## Disabled
 
-Button can be `disabled` at any time, thus preventing any user interaction.
+Button can be `disabled` at any time, thus preventing any user interaction. This is indicated by a change in background color
+and cursor.
 
 <Canvas>
   <Story name="Disabled">
