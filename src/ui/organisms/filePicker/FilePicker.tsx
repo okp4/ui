@@ -48,7 +48,6 @@ export const FilePicker: React.FC<FilePickerProps> = ({
 
   const handleDropped = useCallback(
     (files: DeepReadonly<File[]>) => {
-      console.log({ files })
       if (areFilesAccepted(files, acceptedFormats)) {
         setError(false)
         fileDispatch(

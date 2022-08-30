@@ -75,6 +75,15 @@ export const FileInput: React.FC<FileInputProps> = ({
     event.stopPropagation()
   }, [])
 
+  const preventSelectSameFile = useCallback(
+    // lint rule bypassed because of type 'Element' is not compatible with readonly
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    (event: React.MouseEvent<HTMLInputElement>): void => {
+      event.currentTarget.value = ''
+    },
+    []
+  )
+
   const getFilesFromEvent = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -142,6 +151,7 @@ export const FileInput: React.FC<FileInputProps> = ({
           accept={acceptedFormats?.join(', ')}
           multiple={multiple}
           onChange={handleChange}
+          onClick={preventSelectSameFile}
           type="file"
         />
         <div>
