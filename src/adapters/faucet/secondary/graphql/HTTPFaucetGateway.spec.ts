@@ -1,15 +1,11 @@
-import {
-  OperationContext,
-  OperationResult,
-  TypedDocumentNode
-} from '@urql/core'
+import { AnyVariables, OperationContext, OperationResult, TypedDocumentNode } from '@urql/core'
 import * as client from './client'
 import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
 import { SEND_TOKENS_SUBSCRIPTION } from './documents/sendTokens'
-import { MSendTokensSubscription, MSendTokensSubscriptionVariables } from './generated/types'
+import { SSendTokensSubscription, SSendTokensSubscriptionVariables } from './generated/types'
 import { HTTPFaucetGateway } from './HTTPFaucetGateway'
 import { DocumentNode } from 'graphql'
-import { fromValue, Source } from "wonka";
+import { fromValue, Source } from 'wonka'
 
 jest.mock('./client', () => ({
   __esModule: true,
@@ -31,10 +27,10 @@ const fakeOperation = {
   query: SEND_TOKENS_SUBSCRIPTION
 }
 let fakeUrqlSubscriptionFn: jest.SpyInstance<
-  Source<OperationResult<unknown, object>>,
+  Source<OperationResult<unknown, AnyVariables>>,
   [
-    query: string | DocumentNode | TypedDocumentNode<unknown, object>,
-    variables?: object | undefined,
+    query: string | DocumentNode | TypedDocumentNode<unknown, AnyVariables>,
+    variables?: AnyVariables | undefined,
     context?: Partial<OperationContext> | undefined
   ]
 >
@@ -55,20 +51,21 @@ describe('Given a HTTPFaucetGateway instance', () => {
         beforeEach(() => {
           fakeUrqlSubscriptionFn = jest.spyOn(fakeUrqlClient, 'subscription').mockImplementation(
             (): Source<
-              OperationResult<MSendTokensSubscription, MSendTokensSubscriptionVariables>
+              OperationResult<SSendTokensSubscription, SSendTokensSubscriptionVariables>
               // @ts-ignore
-            > => fromValue({
-              operation: fakeOperation,
-              data: expectedData,
-              ...(hasError && {
-                error: {
-                  name: 'test-error',
-                  message: 'test-message',
-                  graphQLErrors: [],
-                  networkError: new Error()
-                }
+            > =>
+              fromValue({
+                operation: fakeOperation,
+                data: expectedData,
+                ...(hasError && {
+                  error: {
+                    name: 'test-error',
+                    message: 'test-message',
+                    graphQLErrors: [],
+                    networkError: new Error()
+                  }
+                })
               })
-            })
           )
         })
 
