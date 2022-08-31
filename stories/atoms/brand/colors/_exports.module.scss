@@ -10,6 +10,7 @@
     primary: {
       primary-brand: $color-light-primary-brand;
       primary-variant: $color-light-primary-variant;
+      primary-invariant: $color-light-primary-invariant;
     }
     secondary: {
       secondary-button: $color-light-secondary-button;
@@ -18,7 +19,9 @@
     neutral: {
       text: $color-light-text;
       highlighted-text: $color-light-highlighted-text;
+      inverted-text: $color-light-inverted-text;
       field: $color-light-field;
+      field-high-contrast: $color-light-field-high-contrast;
       border: $color-light-border;
       primary-background: $color-light-background;
       secondary-background: $color-light-background-variant;
@@ -37,6 +40,7 @@
     primary: {
       primary-brand: $color-dark-primary-brand;
       primary-variant: $color-dark-primary-variant;
+      primary-invariant: $color-dark-primary-invariant;
     }
     secondary: {
       secondary-button: $color-dark-secondary-button;
@@ -45,7 +49,9 @@
     neutral: {
       text: $color-dark-text;
       highlighted-text: $color-dark-highlighted-text;
+      inverted-text: $color-dark-inverted-text;
       field: $color-dark-field;
+      field-high-contrast: $color-dark-field-high-contrast;
       border: $color-dark-border;
       primary-background: $color-dark-background;
       secondary-background: $color-dark-background-variant;
@@ -54,10 +60,10 @@
       footer-block-background: $gradient-dark-background-footer-block;
     }
     semantic: {
-      success: $color-light-success;
-      warning: $color-light-warning;
-      error: $color-light-error;
-      info: $color-light-info;
+      success: $color-dark-success;
+      warning: $color-dark-warning;
+      error: $color-dark-error;
+      info: $color-dark-info;
     }
   }
 }

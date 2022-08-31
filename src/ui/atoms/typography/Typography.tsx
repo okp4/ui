@@ -27,7 +27,15 @@ export type TypographyProps = DeepReadonly<{
    * The color applied to the final rendering of the typography,
    * regarding the current theme and following semantic color naming.
    */
-  readonly color?: 'text' | 'highlighted-text' | 'success' | 'warning' | 'error' | 'info'
+  readonly color?:
+    | 'text'
+    | 'highlighted-text'
+    | 'inverted-text'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'info'
+    | 'primary-invariant'
   /**
    * Handles the `white-space` property in the element.
    * If true, the text will not wrap, but instead will truncate with a text overflow ellipsis.

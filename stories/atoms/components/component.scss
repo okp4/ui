@@ -11,5 +11,9 @@
     &.language-switcher {
       background: themed('footer-background');
     }
+
+    .high-contrast-component-background {
+      background: themed('field-high-contrast');
+    }
   }
 }
