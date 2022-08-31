@@ -19,6 +19,8 @@ export type Scalars = {
   Long: BigUint64Array;
   /** An unsigned 64-bit integer */
   UInt64: BigUint64Array;
+  /** Represent a void return type, representing no value */
+  Void: string;
 };
 
 /** Represent the actual server configuration */
@@ -43,8 +45,14 @@ export type Configuration = {
 /** List of all mutations */
 export type Mutation = {
   readonly __typename?: 'Mutation';
-  /** Send the configured amount of token to the given address. */
-  readonly send: TxResponse;
+  /**
+   * Send the configured amount of token to the given address, returning nothing as the transaction is made
+   * asynchronously. A successful invocation means that the send operation is queued and will be processed, but it'll
+   * does not necessary lead to a successful transaction.
+   *
+   * For clients needing information on the underlying transaction state, consider using the `send` subscription.
+   */
+  readonly send?: Maybe<Scalars['Void']>;
 };
 
 
@@ -68,6 +76,26 @@ export type SendInput = {
   readonly toAddress: Scalars['Address'];
 };
 
+/** List of all subscriptions */
+export type Subscription = {
+  readonly __typename?: 'Subscription';
+  /**
+   * Send the configured amount of token to the given address.
+   *
+   * By opening the subscription the send message is added to a queue, once the transaction is successfully submitted
+   * with all the queued messages it'll return the corresponding before closing the stream. A successful submission does
+   * not mean it has been successfully written in a block, it is the client's responsibility to make additional checks
+   * through the transaction's code and hash.
+   */
+  readonly send: TxResponse;
+};
+
+
+/** List of all subscriptions */
+export type SubscriptionSendArgs = {
+  input: SendInput;
+};
+
 /** Represent a transaction response */
 export type TxResponse = {
   readonly __typename?: 'TxResponse';
@@ -86,9 +114,9 @@ export type TxResponse = {
   readonly rawLog?: Maybe<Scalars['String']>;
 };
 
-export type MSendTokensMutationVariables = Exact<{
+export type SSendTokensSubscriptionVariables = Exact<{
   input: SendInput;
 }>;
 
 
-export type MSendTokensMutation = { readonly __typename?: 'Mutation', readonly send: { readonly __typename?: 'TxResponse', readonly hash: string } };
+export type SSendTokensSubscription = { readonly __typename?: 'Subscription', readonly send: { readonly __typename?: 'TxResponse', readonly hash: string, readonly code: number } };

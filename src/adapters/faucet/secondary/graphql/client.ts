@@ -1,6 +1,36 @@
-import { createClient } from '@urql/core'
-import type { Client } from '@urql/core'
+import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core'
+import type { Client, ExecutionResult } from '@urql/core'
+import { createClient as createWSClient } from 'graphql-ws'
+import type {
+  ObserverLike,
+  SubscriptionOperation
+} from '@urql/core/dist/types/exchanges/subscription'
+import type { DeepReadonly } from 'superTypes'
 
-const client = (url: string): Client => createClient({ url, requestPolicy: 'network-only' })
+const urlReg = new RegExp('^(?<scheme>[a-z][a-z0-9+\\-.]*)://(?<target>.*)$')
+
+export const makeWSURL = (rawURL: string): string => {
+  const match = urlReg.exec(rawURL)
+  const wsProtocol = (): string => (match?.groups?.scheme === 'https' ? 'wss' : 'ws')
+  return `${wsProtocol()}://${match?.groups?.target}`
+}
+
+const client = (url: string): Client =>
+  createClient({
+    url,
+    requestPolicy: 'network-only',
+    exchanges: [
+      ...defaultExchanges,
+      subscriptionExchange({
+        forwardSubscription: (operation: DeepReadonly<SubscriptionOperation>) => ({
+          subscribe: (sink: DeepReadonly<ObserverLike<ExecutionResult>>) => ({
+            unsubscribe: createWSClient({
+              url: makeWSURL(url)
+            }).subscribe(operation, sink)
+          })
+        })
+      })
+    ]
+  })
 
 export default client

@@ -11,6 +11,7 @@ generates:
         Address: string
         Long: BigUint64Array
         UInt64: BigUint64Array
+        Void: string
       immutableTypes: true
       strictScalars: true
       useTypeImports: true
