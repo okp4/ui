@@ -1,5 +1,25 @@
 # OKP4 UI changelog
 
+# [1.13.0](https://github.com/okp4/ui/compare/v1.12.1...v1.13.0) (2022-08-31)
+
+
+### Bug Fixes
+
+* add SelectValue & SelectOption exports ([0b5dc7c](https://github.com/okp4/ui/commit/0b5dc7cbcc711fb5bb9a885d901d8129804d7809))
+* add UseState type export ([6a47a7b](https://github.com/okp4/ui/commit/6a47a7b005140e8ce062ec21d5b8eb35b2620815))
+* **faucet:** check tx code before consider success ([df28999](https://github.com/okp4/ui/commit/df289998b313df150f9a4d4d7abaf355c14267bc))
+
+
+### Features
+
+* **faucet:** add graphql void scalar ([b1b00f7](https://github.com/okp4/ui/commit/b1b00f71be5e93037b4f47219ff633f9a48f59db))
+* **faucet:** add progress bar while requesting funds ([74fe949](https://github.com/okp4/ui/commit/74fe949e33659d460cce6ce2b3abbf3285f9c4a3))
+* **faucet:** configure websocket graphql transport layer ([126ad70](https://github.com/okp4/ui/commit/126ad7016ae35ea812bf2ebd90ac1442b1652f08))
+* **faucet:** disable buttons while waiting tx ([97ab608](https://github.com/okp4/ui/commit/97ab608f3ad5c033cd5687afc31f69cad6d63318))
+* **faucet:** request fund through graphql subscription ([0826e9a](https://github.com/okp4/ui/commit/0826e9ada3cfd81c01e67dd3a1a2a9ac842fe24d))
+* **faucet:** update graphql generated types ([302278b](https://github.com/okp4/ui/commit/302278b38c7906dc7208c11cb1196abde96b1fe9))
+* **ui:** add loader for faucet ([4d7721e](https://github.com/okp4/ui/commit/4d7721e6cd58e6b2df01f0076a781a489fd8007e))
+
 ## [1.12.1](https://github.com/okp4/ui/compare/v1.12.0...v1.12.1) (2022-08-25)
 
 
