@@ -38,10 +38,12 @@ export const isFileTypeAccepted = (file: DeepReadonly<File>, acceptedFormat: str
   const mimeType = file.type.toLocaleLowerCase()
   const baseMimeType = mimeType.replace(suffixMimeTypeRegex, '')
 
+  const type = acceptedFormat.trim().toLocaleLowerCase()
   return (
-    mimeType === acceptedFormat ||
-    baseMimeType === acceptedFormat.replace(suffixMimeTypeRegex, '') ||
-    fileName.endsWith(acceptedFormat)
+    !type ||
+    mimeType === type ||
+    (type.endsWith('/*') && baseMimeType === type.replace(suffixMimeTypeRegex, '')) ||
+    (type.charAt(0) === '.' && fileName.endsWith(type))
   )
 }
 
