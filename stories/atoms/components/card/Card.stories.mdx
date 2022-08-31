@@ -24,17 +24,18 @@ import '../component.scss'
 
 # Card
 
-> OKP4 UI Card component.
+> A window that presents high level information to entice browsing users to learn more.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
+## Description
+
+Cards are an entry point for further exploration. They present summarized information meant to describe further content.
+
+Card have a `header`, `content` and a `footer` that allow you to fill it with information that catch the readers attention. You can also
+decide its `background` and `size`, as well as if it should be `withBorder`or not.
+
 ## Overview
-
-Card is a component laid out on the page. A card can have a content, a header and a footer, all optional.
-Content, header and footer accept React components to ensure maximum flexibility.
-Any component picked from OPK4 UI library e.g. Typography gets styled with colors of the current theme setting.
-
----
 
 <Story
   name="Overview"
@@ -59,56 +60,51 @@ Any component picked from OPK4 UI library e.g. Typography gets styled with color
     }
   }}
   args={{
-    header: (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-        <Typography
-          as="div"
-          fontFamily="brand"
-          fontSize="small"
-          fontWeight="light"
-          style={{ border: 'solid 1px', padding: '4px 8px' }}
-        >
-          Prim'Holstein
-        </Typography>
-      </div>
-    ),
-    content: (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography as="div" fontFamily="secondary" fontSize="x-large" fontWeight="xlight">
-          MVL
-        </Typography>
-      </div>
-    ),
-    footer: (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          marginBottom: '4px'
-        }}
-      >
-        <Typography as="div" fontFamily="brand" fontSize="medium" fontWeight="bold">
-          Mes vaches laitières
-        </Typography>
-      </div>
-    )
+    background: 'primary',
+    size: 'medium',
+    withBorder: true
   }}
 >
-  {args => {
-    return (
-      <div
-        style={{
-          padding: '10px 0 10px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        }}
-      >
-        <Card {...args} />
-      </div>
-    )
-  }}
+  {args => (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '24px 0'
+      }}
+    >
+      <Card
+        {...args}
+        header={
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Typography fontSize="small" style={{ border: 'solid 1px', padding: '4px 8px' }}>
+              Header
+            </Typography>
+          </div>
+        }
+        content={
+          <Typography
+            as="div"
+            style={{ textAlign: 'center' }}
+            fontFamily="secondary"
+            fontSize="x-large"
+            fontWeight="xlight"
+          >
+            Content
+          </Typography>
+        }
+        footer={
+          <Typography
+            as="div"
+            style={{ textAlign: 'start', marginBottom: '4px' }}
+            fontWeight="bold"
+          >
+            Footer
+          </Typography>
+        }
+      />
+    </div>
+  )}
 </Story>
 
 ---
@@ -117,324 +113,166 @@ Any component picked from OPK4 UI library e.g. Typography gets styled with color
 
 <ArgsTable story="Overview" />
 
-## Sizes
-
-Size options are `small`, `medium`(default) and `large`. The size also adjust itself according to the screen width.
-
-<Canvas>
-  <Story name="Sizes">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '40px'
-        }}
-      >
-        <Card
-          size="small"
-          background="primary"
-          withBorder="true"
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">small</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-        <Card
-          size="medium"
-          background="primary"
-          withBorder="true"
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">medium</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-        <Card
-          size="large"
-          background="primary"
-          withBorder="true"
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">large</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-      </div>
-    )}
-  </Story>
-</Canvas>
-
 ## Backgrounds
 
-Available background themes are `primary` and `secondary`. Default is `primary`.
+Card comes with two backgrounds to choose from:
+
+- **primary** (default): Discreet `background` with a solid color.
+- **secondary**: Gradient colored `background`. Makes the card stand out more.
 
 <Canvas>
   <Story name="Backgrounds">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '40px'
-        }}
-      >
-        <Card
-          size="medium"
-          background="primary"
-          withBorder="true"
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">primary</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-        <Card
-          size="medium"
-          background="secondary"
-          withBorder="true"
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">secondary</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-      </div>
-    )}
+    {() => {
+      const cards = {
+        primary: {
+          background: 'primary',
+          contentText: 'Primary',
+          footerText: 'ØKP4 Design System'
+        },
+        secondary: {
+          background: 'secondary',
+          contentText: 'Secondary',
+          footerText: 'Blockchain'
+        }
+      }
+      return (
+        <div
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '40px' }}
+        >
+          {Object.values(cards).map(({ background, contentText, footerText }) => (
+            <Card
+              background={background}
+              header={
+                <div style={{ display: 'flex' }}>
+                  <Typography fontSize="small" style={{ border: 'solid 1px', padding: '4px 8px' }}>
+                    Article
+                  </Typography>
+                </div>
+              }
+              content={
+                <Typography as="div" style={{ textAlign: 'center' }} fontSize="x-large">
+                  {contentText}
+                </Typography>
+              }
+              footer={
+                <Typography
+                  as="div"
+                  style={{ textAlign: 'end', marginBottom: '4px' }}
+                  fontSize="small"
+                >
+                  {footerText}
+                </Typography>
+              }
+            />
+          ))}
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Sizes
+
+There are three sizes to choose from:
+
+- **small**: Great for small screens where page real estate is limited and when you don't want your page to become too long.
+- **medium** (default): Middle ground option. Perfect for when you want the card to contain a lot of information but also want to render several cards.
+- **large**: Will take up a lot of the page and can contain a lot of information. Suitable for desktop pages.
+
+<Canvas>
+  <Story name="Sizes">
+    {() => {
+      const cards = {
+        small: {
+          size: 'small',
+          contentText: 'Small'
+        },
+        medium: {
+          size: 'medium',
+          contentText: 'Medium'
+        },
+        large: {
+          size: 'large',
+          contentText: 'Large'
+        }
+      }
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '40px'
+          }}
+        >
+          {Object.values(cards).map(({ size, contentText }) => (
+            <Card
+              size={size}
+              background="secondary"
+              withBorder="true"
+              content={
+                <Typography as="div" style={{ textAlign: 'center' }} fontSize="x-large">
+                  {contentText}
+                </Typography>
+              }
+            />
+          ))}
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
 ## Border
 
-Card border is optional.
+Using `withBorder` adds a thin border to the card, this can help you avoid problems with contrast.
+Card comes with a border as default value.
 
 <Canvas>
   <Story name="Border">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '40px'
-        }}
-      >
-        <Card
-          size="medium"
-          background="primary"
-          withBorder={false}
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">without border</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-        <Card
-          size="medium"
-          background="primary"
-          withBorder={true}
-          header={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Typography
-                as="div"
-                fontFamily="brand"
-                fontSize="small"
-                fontWeight="light"
-                style={{ border: 'solid 1px', padding: '4px 8px' }}
-              >
-                Triticum vulgare
-              </Typography>
-            </div>
-          }
-          content={
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography fontSize="x-large">with border</Typography>
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '4px'
-              }}
-            >
-              <Typography fontSize="small" fontWeight="light">
-                Wheat varieties
-              </Typography>
-            </div>
-          }
-        />
-      </div>
-    )}
+    {() => {
+      const cards = {
+        withBorder: {
+          withBorder: true,
+          headerText: 'With border',
+          footerText: '🫶 Ahh I can clearly see where the card ends'
+        },
+        withoutBorder: {
+          withBorder: false,
+          headerText: 'Without border',
+          footerText: '🙀 Where did the border go?!'
+        }
+      }
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '40px'
+          }}
+        >
+          {Object.values(cards).map(({ withBorder, headerText, footerText }) => (
+            <Card
+              withBorder={withBorder}
+              header={
+                <Typography as="div" fontSize="x-large">
+                  {headerText}
+                </Typography>
+              }
+              footer={
+                <Typography
+                  as="div"
+                  style={{ textAlign: 'end', marginBottom: '4px' }}
+                  fontSize="small"
+                >
+                  {footerText}
+                </Typography>
+              }
+            />
+          ))}
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
