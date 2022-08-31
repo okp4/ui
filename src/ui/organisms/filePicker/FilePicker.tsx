@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import short from 'short-uuid'
-import type { DeepReadonly, SizeUnit, UseState } from 'superTypes'
-import { asMutable } from 'utils'
+import type { DeepReadonly, ReadableSize, UseState } from 'superTypes'
+import { areFilesAccepted, asMutable, toReadableSize } from 'utils'
 import { useFileDispatch, useFileSelector } from 'hook/storeHook/fileHook'
 import { storeFiles, removeFile, removeAllFiles, getFiles } from 'domain/file'
 import type { ThunkResult } from 'domain/file/store/store'
@@ -14,7 +14,6 @@ import { Icon } from 'ui/atoms/icon/Icon'
 import { ListItem } from 'ui/atoms/listItem/ListItem'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { List } from 'ui/atoms/list/List'
-import { areFilesAccepted, toReadableSize } from './file-utils'
 import './filePicker.scss'
 import './i18n/index'
 
@@ -41,7 +40,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const [errorMessage, setErrorMessage]: UseState<string> = useState('')
 
   const displaySize = (size: number): string => {
-    const { value, unit }: { value: string; unit: SizeUnit } = toReadableSize(size)
+    const { value, unit }: ReadableSize = toReadableSize(size)
     const unitStr = t(`filePicker:filePicker.unit.${unit}`)
     return `${value} ${unitStr}`
   }
