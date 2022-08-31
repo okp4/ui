@@ -1,5 +1,5 @@
 import type { Reducer } from 'react'
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback, useMemo, useReducer } from 'react'
 import type { DeepReadonly, UseReducer } from 'superTypes'
 import './stepper.scss'
 import { Button } from '../../atoms/button/Button'
@@ -115,8 +115,11 @@ const stepperReducer = (
 ): DeepReadonly<StepperState> => {
   switch (action.type) {
     case 'previousClicked': {
+      const activeStepIndex = state.enabledSteps.indexOf(state.activeStepIndex)
       const previousStepIndex =
-        state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) - 1) ?? 0
+        activeStepIndex > 0
+          ? state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) - 1) ?? 0
+          : state.activeStepIndex
       return {
         ...state,
         stepsStatuses: state.stepsStatuses
@@ -127,7 +130,8 @@ const stepperReducer = (
     }
     case 'stepCompleted': {
       const nextStepIndex =
-        state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) + 1) ?? 0
+        state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) + 1) ??
+        state.activeStepIndex
       return {
         ...state,
         stepsStatuses: state.stepsStatuses
@@ -204,6 +208,16 @@ export const Stepper: React.FC<StepperProps> = ({
     dispatch({ type: 'stepperReseted', payload: List(steps) })
   }, [onReset, steps])
 
+  const isPreviousDisabled = useMemo(
+    () => state.activeStepIndex === state.enabledSteps.get(0),
+    [state.activeStepIndex, state.enabledSteps]
+  )
+
+  const isNextDisabled = useMemo(
+    () => state.activeStepIndex === state.enabledSteps.get(-1),
+    [state.activeStepIndex, state.enabledSteps]
+  )
+
   return (
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-header">
@@ -269,6 +283,7 @@ export const Stepper: React.FC<StepperProps> = ({
           <div>
             {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
               <Button
+                disabled={isPreviousDisabled}
                 icon={<Icon name="arrow-left" size={20} />}
                 label={t('stepper:step.button.previous')}
                 onClick={handlePreviousClick}
@@ -280,6 +295,7 @@ export const Stepper: React.FC<StepperProps> = ({
           <div>
             {state.activeStepIndex < steps.length - 1 && (
               <Button
+                disabled={isNextDisabled}
                 icon={<Icon name="arrow-right" size={20} />}
                 label={t('stepper:step.button.next')}
                 onClick={handleNextClick}
