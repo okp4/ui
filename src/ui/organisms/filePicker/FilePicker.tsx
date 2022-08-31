@@ -14,7 +14,7 @@ import { Icon } from 'ui/atoms/icon/Icon'
 import { ListItem } from 'ui/atoms/listItem/ListItem'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { List } from 'ui/atoms/list/List'
-import { areFilesAccepted, convertSize } from './file-utils'
+import { areFilesAccepted, toReadableSize } from './file-utils'
 import './filePicker.scss'
 import './i18n/index'
 
@@ -41,7 +41,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const [errorMessage, setErrorMessage]: UseState<string> = useState('')
 
   const displaySize = (size: number): string => {
-    const { value, unit }: { value: string; unit: SizeUnit } = convertSize(size)
+    const { value, unit }: { value: string; unit: SizeUnit } = toReadableSize(size)
     const unitStr = t(`filePicker:filePicker.unit.${unit}`)
     return `${value} ${unitStr}`
   }
