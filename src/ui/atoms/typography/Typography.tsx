@@ -24,7 +24,7 @@ export type TypographyProps = DeepReadonly<{
    */
   readonly fontWeight?: 'xlight' | 'light' | 'bold' | 'black'
   /**
-   * The different text decoration.
+   * Sets the appearance of decorative lines on text.
    */
   readonly textDecoration?: 'underline'
   /**
