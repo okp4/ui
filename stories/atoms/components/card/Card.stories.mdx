@@ -1,8 +1,12 @@
 import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { Card } from 'ui/atoms/card/Card'
+import { Icon } from 'ui/atoms/icon/Icon'
+import { Button } from 'ui/atoms/button/Button'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import PatrickStar from '../../../assets/patrick-star.png'
+import './card.scss'
 import '../component.scss'
 
 <Meta
@@ -271,6 +275,116 @@ Card comes with a border as default value.
               }
             />
           ))}
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## Header, Content and Footer
+
+The heart of the card is its `header`, `content` and `footer` elements. They constitute the content
+meant to inform and entice the reader.
+
+The elements are layed out the same way a page would be organised, with the header on top, content in the middle
+and footer on the bottom. These are just landmarks though and its up to you to style your card they way you want it.
+
+<Canvas>
+  <Story name="Header / Content / Footer">
+    {() => {
+      const handleClick = () => {
+        window.open('https://www.linkedin.com/company/okp4-open-knowledge-protocol-for/mycompany/')
+      }
+      const cards = {
+        shareData: {
+          headerElement: (
+            <div class="card-story-content-first-header">
+              <Typography as="h1" fontFamily="secondary" fontWeight="bold">
+                SHARE DATA
+              </Typography>
+            </div>
+          ),
+          footerElement: (
+            <div className="card-story-content-first-footer">
+              <img src={PatrickStar} alt="Patrick Star from Spongebob" />
+              <div className="card-story-content-first-footer-quote">
+                <Typography as="div" fontSize="small">
+                  “We're not cavemen, we have technology"
+                </Typography>
+              </div>
+            </div>
+          )
+        },
+        openWeatherData: {
+          headerElement: (
+            <Typography
+              as="div"
+              fontSize="small"
+              fontWeight="bold"
+              style={{
+                border: '1px solid',
+                padding: '6px 8px',
+                width: 'fit-content',
+                marginLeft: 'auto'
+              }}
+            >
+              Popular
+            </Typography>
+          ),
+          contentElement: (
+            <div class="card-story-content-second-content">
+              <Typography as="div" fontFamily="secondary">
+                Open Weather Data
+              </Typography>
+              <Typography as="div" fontSize="small">
+                Public data on the weather
+              </Typography>
+            </div>
+          ),
+          footerElement: (
+            <div class="card-story-content-second-footer">
+              <Typography as="div" fontSize="small" fontWeight="bold">
+                All Data Sets
+              </Typography>
+              <Icon name="next" />
+            </div>
+          )
+        },
+        linkedin: {
+          headerElement: (
+            <div class="card-story-content-third-header">
+              <Typography style={{ flexShrink: '0' }} fontFamily="secondary" fontWeight="bold">
+                Linkedin
+              </Typography>
+              <Icon name="linkedin-square" className="card-story-content-third-header-icon" />
+            </div>
+          ),
+          contentElement: (
+            <div class="card-story-content-third-content">
+              <Typography as="div" fontWeight="xlight">
+                Connect with ØKP4 on LinkedIn
+              </Typography>
+            </div>
+          ),
+          footerElement: (
+            <div class="card-story-content-third-footer">
+              <Button label="Connect nøw!" onClick={handleClick} />
+            </div>
+          )
+        }
+      }
+      return (
+        <div class="card-story-content">
+          {Object.values(cards).map(
+            ({ headerElement, contentElement, footerElement, background }) => (
+              <Card
+                header={headerElement}
+                content={contentElement}
+                footer={footerElement}
+                background="secondary"
+              />
+            )
+          )}
         </div>
       )
     }}
