@@ -178,13 +178,14 @@ As seen in the examples below you can rotate icons, add background colors, anima
   </Story>
 </Canvas>
 
-## Invert
+## Invert color
 
-The `invert` property allows you to invert the theme of the icon.  
-If it set to **true**, the icon will be in light theme in dark theme and in dark theme in light theme.
+The `invertColor` property allows you to invert the color of the icon, regarding the current theme.  
+If set to **true**, the icon will be displayed in **white** when the light theme is selected and in **blue** when the dark theme is active.
+In particular, this makes it possible to better manage high-contrast elements and thus offer the user an immersive User eXperience.
 
 <Canvas>
-  <Story name="Invert">
+  <Story name="Invert color">
     <div
       style={{
         display: 'grid',
@@ -200,7 +201,7 @@ If it set to **true**, the icon will be in light theme in dark theme and in dark
         </Typography>
       </div>
       <div className="icon-card invert">
-        <Icon name="wallet" invert />
+        <Icon name="wallet" invertColor />
         <Typography as="span" color="inverted-text" fontSize="x-small" fontFamily="secondary">
           Inverse theme
         </Typography>
