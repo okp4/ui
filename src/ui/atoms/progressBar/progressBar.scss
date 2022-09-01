@@ -26,7 +26,7 @@
   }
 
   @include with-theme {
-    background: themed(field-high-contrast);
+    background: themed(inverted-primary-background);
     border-radius: 10px;
 
     .okp4-progressbar-label {
