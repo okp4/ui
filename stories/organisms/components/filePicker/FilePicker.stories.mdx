@@ -136,13 +136,7 @@ const eventBusInstance = createEventBusInstance()
 const fileStore = new FileStoreBuilder().withEventBus(eventBusInstance).build()
 const fileStoreParameter: StoreParameter = [FileContext, fileStore]
 
-/** Init Error redux store
- * Needed to handle errors thrown by other domains
- */
-const errorStore = new ErrorStoreBuilder().withEventBus(eventBusInstance).build()
-const errorStoreParameter: StoreParameter = [ErrorContext, errorStore]
-
-export default List([fileStoreParameter, errorStoreParameter, taskStoreParameter])
+export default List([fileStoreParameter])
 ```
 
 ### 2. Wrap the `FilePicker` component into a store provider
