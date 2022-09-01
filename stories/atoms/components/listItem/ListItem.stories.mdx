@@ -76,8 +76,8 @@ The `ListItem` allows to display an element of a [List](/docs/atoms-list--overvi
   args={{
     title: 'Item',
     description: 'Description',
-    leftElement: <Icon name="wallet" invert />,
-    rightElement: <Icon name="close" invert />
+    leftElement: <Icon name="wallet" invertColor />,
+    rightElement: <Icon name="close" invertColor />
   }}
 >
   {args => <ListItem {...args} />}
@@ -145,18 +145,18 @@ Theses properties can be used to provide visual information or add interactions 
             <ListItem
               title="Item with left element"
               description="This item only has a left element."
-              leftElement={<Icon name="profile" invert />}
+              leftElement={<Icon name="profile" invertColor />}
             />
             <ListItem
               title="Item with right element"
               description="This item only has a right icon."
-              rightElement={<Icon name="check" invert />}
+              rightElement={<Icon name="check" invertColor />}
             />
             <ListItem
               title="Item with both left and right elements"
               description="This item has left and right elements."
-              leftElement={<Icon name="profile" invert />}
-              rightElement={<Icon name="check" invert />}
+              leftElement={<Icon name="profile" invertColor />}
+              rightElement={<Icon name="check" invertColor />}
             />
             <ListItem
               title="Item 5"
@@ -167,7 +167,7 @@ Theses properties can be used to provide visual information or add interactions 
                   backgroundColor="error"
                   size="small"
                   variant="icon"
-                  icon={<Icon name="cross" size="15" invert />}
+                  icon={<Icon name="cross" size="15" invertColor />}
                   onClick={handleClickCross}
                 />
               }
@@ -180,7 +180,7 @@ Theses properties can be used to provide visual information or add interactions 
             <ListItem
               title="Item 6"
               description="An other example with button"
-              leftElement={<Icon name="wallet" invert />}
+              leftElement={<Icon name="wallet" invertColor />}
               rightElement={
                 <Button
                   label="Select"
