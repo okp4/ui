@@ -35,11 +35,11 @@ export type TypographyProps = DeepReadonly<{
     | 'text'
     | 'highlighted-text'
     | 'inverted-text'
+    | 'invariant-text'
     | 'success'
     | 'warning'
     | 'error'
     | 'info'
-    | 'primary-invariant'
   /**
    * Handles the `white-space` property in the element.
    * If true, the text will not wrap, but instead will truncate with a text overflow ellipsis.

@@ -76,7 +76,7 @@ export const Button: React.FC<TButtonProps> = ({
     ) : (
       <div className="okp4-button-content">
         {leftIcon}
-        <Typography as="div" color="primary-invariant" fontSize="small" fontWeight="light">
+        <Typography as="div" color="invariant-text" fontSize="small" fontWeight="light">
           {label}
         </Typography>
         {rightIcon}
