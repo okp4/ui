@@ -1,10 +1,10 @@
-import { SizeUnit } from 'superTypes'
+import { FileSizeUnit } from 'superTypes'
 import {
   sortSelectOptionAsc,
   sortSelectOptionDesc,
   SelectOption,
   toPercent,
-  toReadableSize,
+  toReadableFileSize,
   isFileTypeAccepted,
   areFilesAccepted
 } from './utils'
@@ -110,10 +110,10 @@ describe('Considering the toReadableSize() function', () => {
     }: {
       size: number
       formatter: (size: number) => number
-      expectedResult: { value: string; unit: SizeUnit }
+      expectedResult: { value: string; unit: FileSizeUnit }
     }) => {
       describe('When calling function', () => {
-        const result = toReadableSize(size, formatter)
+        const result = toReadableFileSize(size, formatter)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)

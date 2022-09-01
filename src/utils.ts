@@ -1,4 +1,4 @@
-import type { DeepReadonly, SizeUnit, ReadableSize } from './superTypes'
+import type { DeepReadonly, FileSizeUnit, ReadableFileSize } from './superTypes'
 
 export const asImmutable = <T>(o?: T): DeepReadonly<T> => o as DeepReadonly<T>
 
@@ -67,9 +67,12 @@ export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectO
  * @param size The size to convert.
  * @returns An objects containing the value and the size unit.
  */
-export const toReadableSize = (size: number, formatter?: (size: number) => number): ReadableSize =>
-  (['KB', 'MB', 'GB', 'TB'] as SizeUnit[]).reduce<ReadableSize>(
-    (acc: DeepReadonly<ReadableSize>, curr: SizeUnit) =>
+export const toReadableFileSize = (
+  size: number,
+  formatter?: (size: number) => number
+): ReadableFileSize =>
+  (['KB', 'MB', 'GB', 'TB'] as FileSizeUnit[]).reduce<ReadableFileSize>(
+    (acc: DeepReadonly<ReadableFileSize>, curr: FileSizeUnit) =>
       acc.value < 1000
         ? { value: acc.value, unit: acc.unit }
         : { value: formatter ? formatter(acc.value / 1000) : acc.value / 1000, unit: curr },

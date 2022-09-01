@@ -1,6 +1,6 @@
 {
   "filePicker": {
-    "unit": {
+    "fileSizeUnit": {
       "B": "Bytes",
       "KB": "KB",
       "MB": "MB",
@@ -8,7 +8,7 @@
       "TB": "TB"
     },
     "errorMessage": {
-      "format": "This file format is not supported."
+      "type": "This file type is not supported."
     },
     "clearAll": "Clear all"
   }

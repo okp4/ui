@@ -1,6 +1,6 @@
 {
   "filePicker": {
-    "unit": {
+    "fileSizeUnit": {
       "B": "octets",
       "KB": "Ko",
       "MB": "Mo",
@@ -8,7 +8,7 @@
       "TB": "To"
     },
     "errorMessage": {
-      "format": "Ce format de fichier n'est pas accepté."
+      "type": "Ce type de fichier n'est pas accepté."
     },
     "clearAll": "Tout supprimer"
   }
