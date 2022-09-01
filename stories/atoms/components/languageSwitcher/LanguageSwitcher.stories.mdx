@@ -9,8 +9,10 @@ import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="component-story-main language-switcher">
+        <div className="story-theme-switcher">
           <ThemeSwitcher />
+        </div>
+        <div className="component-story-main language-switcher">
           <Story />
         </div>
       </ThemeProvider>
