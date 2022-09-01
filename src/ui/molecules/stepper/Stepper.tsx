@@ -274,7 +274,7 @@ export const Stepper: React.FC<StepperProps> = ({
           error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
         })}
       >
-        <div className={classNames('okp4-stepper-step-content')}>
+        <div className="okp4-stepper-step-content">
           {state.activeStepIndex === steps.length
             ? successContent
             : steps[state.activeStepIndex]?.content}
