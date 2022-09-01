@@ -67,21 +67,14 @@ export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectO
  * @param size The size to convert.
  * @returns An objects containing the value and the size unit.
  */
-export const toReadableSize = (size: number): ReadableSize => {
-  const units: SizeUnit[] = ['KB', 'MB', 'GB', 'TB']
-  const { value, unit }: { value: number; unit: SizeUnit } = units.reduce(
-    (acc: DeepReadonly<{ value: number; unit: SizeUnit }>, curr: SizeUnit) => {
-      return acc.value < 1000
+export const toReadableSize = (size: number, formatter?: (size: number) => number): ReadableSize =>
+  (['KB', 'MB', 'GB', 'TB'] as SizeUnit[]).reduce<ReadableSize>(
+    (acc: DeepReadonly<ReadableSize>, curr: SizeUnit) =>
+      acc.value < 1000
         ? { value: acc.value, unit: acc.unit }
-        : { value: acc.value / 1000, unit: curr }
-    },
-    {
-      value: size,
-      unit: 'B'
-    }
+        : { value: formatter ? formatter(acc.value / 1000) : acc.value / 1000, unit: curr },
+    { value: size, unit: 'B' }
   )
-  return { value: value.toFixed(2), unit }
-}
 
 /**
  * Check if the file has the given MIME type or extension

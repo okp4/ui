@@ -32,4 +32,4 @@ export type UseReducer<S, A> = [ReducerState<Reducer<S, A>>, Dispatch<ReducerAct
 export type Callback<U, V> = (value: U) => V
 
 export type SizeUnit = 'B' | 'KB' | 'MB' | 'GB' | 'TB'
-export type ReadableSize = { value: string; unit: SizeUnit }
+export type ReadableSize = { value: number; unit: SizeUnit }
