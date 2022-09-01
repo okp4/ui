@@ -269,12 +269,12 @@ export const Stepper: React.FC<StepperProps> = ({
           ))
         )}
       </div>
-      <div className="okp4-stepper-body">
-        <div
-          className={classNames('okp4-stepper-step-content', {
-            error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
-          })}
-        >
+      <div
+        className={classNames('okp4-stepper-body', {
+          error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
+        })}
+      >
+        <div className="okp4-stepper-step-content">
           {state.activeStepIndex === steps.length
             ? successContent
             : steps[state.activeStepIndex]?.content}
