@@ -82,36 +82,38 @@ describe('Considering the getOptions(Ascending|Descending)Sorted() function', ()
 
 describe('Considering the toReadableSize() function', () => {
   describe.each`
-    size                 | expectedResult
-    ${0}                 | ${{ value: '0.00', unit: 'B' }}
-    ${175}               | ${{ value: '175.00', unit: 'B' }}
-    ${1000}              | ${{ value: '1.00', unit: 'KB' }}
-    ${1755}              | ${{ value: '1.75', unit: 'KB' }}
-    ${1989}              | ${{ value: '1.99', unit: 'KB' }}
-    ${19891}             | ${{ value: '19.89', unit: 'KB' }}
-    ${198911}            | ${{ value: '198.91', unit: 'KB' }}
-    ${2777444}           | ${{ value: '2.78', unit: 'MB' }}
-    ${27774443}          | ${{ value: '27.77', unit: 'MB' }}
-    ${277744433}         | ${{ value: '277.74', unit: 'MB' }}
-    ${1234567890}        | ${{ value: '1.23', unit: 'GB' }}
-    ${12345678912}       | ${{ value: '12.35', unit: 'GB' }}
-    ${123456789123}      | ${{ value: '123.46', unit: 'GB' }}
-    ${1234567891234}     | ${{ value: '1.23', unit: 'TB' }}
-    ${12345678912345}    | ${{ value: '12.35', unit: 'TB' }}
-    ${123456789123456}   | ${{ value: '123.46', unit: 'TB' }}
-    ${1234567891234567}  | ${{ value: '1234.57', unit: 'TB' }}
-    ${12345678912345678} | ${{ value: '12345.68', unit: 'TB' }}
+    size                 | formatter                                   | expectedResult
+    ${0}                 | ${undefined}                                | ${{ value: 0, unit: 'B' }}
+    ${175}               | ${(n: number) => Math.round(n * 100) / 100} | ${{ value: 175.0, unit: 'B' }}
+    ${1000}              | ${undefined}                                | ${{ value: 1.0, unit: 'KB' }}
+    ${1755}              | ${undefined}                                | ${{ value: 1.755, unit: 'KB' }}
+    ${1989}              | ${undefined}                                | ${{ value: 1.989, unit: 'KB' }}
+    ${19891}             | ${(n: number) => Math.round(n * 100) / 100} | ${{ value: 19.89, unit: 'KB' }}
+    ${198911}            | ${undefined}                                | ${{ value: 198.911, unit: 'KB' }}
+    ${2777444}           | ${undefined}                                | ${{ value: 2.777444, unit: 'MB' }}
+    ${27774443}          | ${(n: number) => Number(n.toFixed(1))}      | ${{ value: 27.8, unit: 'MB' }}
+    ${277744433}         | ${(n: number) => Number(n.toFixed(2))}      | ${{ value: 277.74, unit: 'MB' }}
+    ${1234567890}        | ${(n: number) => Number(n.toFixed(2))}      | ${{ value: 1.23, unit: 'GB' }}
+    ${12345678912}       | ${(n: number) => Number(n.toFixed(2))}      | ${{ value: 12.35, unit: 'GB' }}
+    ${123456789123}      | ${(n: number) => Number(n.toFixed(2))}      | ${{ value: 123.46, unit: 'GB' }}
+    ${1234567891234}     | ${(n: number) => Number(n.toFixed(5))}      | ${{ value: 1.23457, unit: 'TB' }}
+    ${12345678912345}    | ${(n: number) => Number(n.toFixed(4))}      | ${{ value: 12.3457, unit: 'TB' }}
+    ${123456789123456}   | ${(n: number) => Number(n.toFixed(3))}      | ${{ value: 123.457, unit: 'TB' }}
+    ${1234567891234567}  | ${(n: number) => Number(n.toFixed(2))}      | ${{ value: 1234.57, unit: 'TB' }}
+    ${12345678912345678} | ${(n: number) => Number(n.toFixed(1))}      | ${{ value: 12345.7, unit: 'TB' }}
   `(
-    'Given the value <$size>',
+    'Given the value <$size> and the formatter<$formatter>',
     ({
       size,
+      formatter,
       expectedResult
     }: {
       size: number
+      formatter: (size: number) => number
       expectedResult: { value: string; unit: SizeUnit }
     }) => {
       describe('When calling function', () => {
-        const result = toReadableSize(size)
+        const result = toReadableSize(size, formatter)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
