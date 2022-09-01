@@ -14,6 +14,12 @@
   }
 }
 
+.inverted {
+  @include with-theme() {
+    background: themed('inverted-field');
+  }
+}
+
 .rotate-add {
   transform: rotate(45deg);
 }
