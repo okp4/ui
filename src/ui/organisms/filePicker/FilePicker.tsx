@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import short from 'short-uuid'
-import type { DeepReadonly, ReadableSize, UseState } from 'superTypes'
-import { areFilesAccepted, asMutable, toReadableSize } from 'utils'
+import type { DeepReadonly, ReadableFileSize, UseState } from 'superTypes'
+import { areFilesAccepted, asMutable, toReadableFileSize } from 'utils'
 import { useFileDispatch, useFileSelector } from 'hook/storeHook/fileHook'
 import { storeFiles, removeFile, removeAllFiles, getFiles } from 'domain/file'
 import type { ThunkResult } from 'domain/file/store/store'
@@ -39,12 +39,11 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const [isError, setError]: UseState<boolean> = useState(false)
   const [errorMessage, setErrorMessage]: UseState<string> = useState('')
 
-  const displaySize = (size: number): string => {
-    const { value, unit }: ReadableSize = toReadableSize(size, (size: number) =>
+  const displayFileSize = (size: number): string => {
+    const { value, unit }: ReadableFileSize = toReadableFileSize(size, (size: number) =>
       Number(size.toFixed(2))
     )
-    const unitStr = t(`filePicker:filePicker.unit.${unit}`)
-    return `${value} ${unitStr}`
+    return `${value} ${t(`filePicker:filePicker.fileSizeUnit.${unit}`)}`
   }
 
   const handleDropped = useCallback(
@@ -66,7 +65,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         )
       } else {
         setError(true)
-        setErrorMessage(t(`filePicker:filePicker.errorMessage.format`))
+        setErrorMessage(t(`filePicker:filePicker.errorMessage.type`))
       }
     },
     [acceptedFormats, fileDispatch, t]
@@ -92,7 +91,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
     <ListItem
       description={
         <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-          {displaySize(size)}
+          {displayFileSize(size)}
         </Typography>
       }
       key={id}
