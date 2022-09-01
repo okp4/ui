@@ -14,7 +14,7 @@
   }
 }
 
-.invert {
+.inverted {
   @include with-theme() {
     background: themed('inverted-field');
   }
