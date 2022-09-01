@@ -12138,6 +12138,13 @@ miscreant@0.3.2:
   resolved "https://registry.yarnpkg.com/miscreant/-/miscreant-0.3.2.tgz#a91c046566cca70bd6b5e9fbdd3f67617fa85034"
   integrity sha512-fL9KxsQz9BJB2KGPMHFrReioywkiomBiuaLk6EuChijK0BsJsIKJXdVomR+/bPj5mvbFD6wM0CM3bZio9g7OHA==
 
+miserables@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/miserables/-/miserables-2.0.0.tgz#1839925d92fc3ba860b974be11e1ed4f0993d414"
+  integrity sha512-J+4obMHbesciklE0SoVy4EJFsgeBW2RsRzrhBWGFhpBDcxCSJ3igSzDVz8SUaPx5PQaduImkt5UWus2Yx0a5/A==
+  dependencies:
+    ngraph.graph "^19.1.0"
+
 mississippi@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/mississippi/-/mississippi-3.0.0.tgz#ea0a3291f97e0b5e8776b363d5f0a12d94c67022"
@@ -12289,12 +12296,33 @@ ngraph.events@^1.2.1:
   resolved "https://registry.yarnpkg.com/ngraph.events/-/ngraph.events-1.2.2.tgz#3ceb92d676a04a4e7ce60a09fa8e17a4f0346d7f"
   integrity sha512-JsUbEOzANskax+WSYiAPETemLWYXmixuPAlmZmhIbIj6FH/WDgEGCGnRwUQBK0GjOnVm8Ui+e5IJ+5VZ4e32eQ==
 
+ngraph.generators@^20.1.0:
+  version "20.1.0"
+  resolved "https://registry.yarnpkg.com/ngraph.generators/-/ngraph.generators-20.1.0.tgz#8c9411a8cc2047eab92684ecc04d42fadf1f93c0"
+  integrity sha512-z/+R7HkNTFVgf5+o6KANgoKyr4FI9uiY+vSLYIzcLaTpz1scsCQuVbp+WsTf1MnJfeizlRjREhbgD4oeBZPqNA==
+  dependencies:
+    miserables "^2.0.0"
+    ngraph.graph "^20.0.0"
+    ngraph.random "^1.0.0"
+
+ngraph.graph@^19.1.0:
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/ngraph.graph/-/ngraph.graph-19.1.0.tgz#88910ed53f6b4bc374f1b67296f4f81aab814e24"
+  integrity sha512-9cws84qfPkrYa7BaBtT+KgZfLXrd6pNL9Gl5Do+MBO/0Hm6rOM7qK78MZaO1uEoIK6p2pgUs6lu29zn/6tP59w==
+  dependencies:
+    ngraph.events "^1.2.1"
+
 ngraph.graph@^20.0.0:
   version "20.0.0"
   resolved "https://registry.yarnpkg.com/ngraph.graph/-/ngraph.graph-20.0.0.tgz#96dcce92c74405085d6c27a86218f336769b4472"
   integrity sha512-tJqmik6U5geNDSbmTSwm4R6coTMDbkfFFHD8wdeSJtKU/cxIWFsKtXuwMva/wTk6tQQl1C2//lrzmwfPJXAXHw==
   dependencies:
     ngraph.events "^1.2.1"
+
+ngraph.random@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ngraph.random/-/ngraph.random-1.1.0.tgz#5345c4bb63865c85d98ee6f13eab1395d8545a90"
+  integrity sha512-h25UdUN/g8U7y29TzQtRm/GvGr70lK37yQPvPKXXuVfs7gCm82WipYFZcksQfeKumtOemAzBIcT7lzzyK/edLw==
 
 nice-try@^1.0.4:
   version "1.0.5"

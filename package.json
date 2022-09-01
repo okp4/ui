@@ -104,6 +104,7 @@
     "jest-environment-jsdom": "^29.0.1",
     "jest-transform-graphql": "^2.1.0",
     "nanoid": "^4.0.0",
+    "ngraph.generators": "^20.1.0",
     "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "4.2.1",
     "prettier": ">=2.5.1",
