@@ -40,7 +40,9 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const [errorMessage, setErrorMessage]: UseState<string> = useState('')
 
   const displaySize = (size: number): string => {
-    const { value, unit }: ReadableSize = toReadableSize(size)
+    const { value, unit }: ReadableSize = toReadableSize(size, (size: number) =>
+      Number(size.toFixed(2))
+    )
     const unitStr = t(`filePicker:filePicker.unit.${unit}`)
     return `${value} ${unitStr}`
   }
