@@ -1,8 +1,12 @@
 import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
+import { useState } from 'react'
 import { Button } from 'ui/atoms/button/Button'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { Icon } from 'ui/atoms/icon/Icon'
+import { Toast } from 'ui/atoms/toast/Toast'
+import { Typography } from 'ui/atoms/typography/Typography'
+import '../component.scss'
 
 <Meta
   title="Atoms/Button"
@@ -23,27 +27,26 @@ import { Icon } from 'ui/atoms/icon/Icon'
 
 # Button
 
-> Communicate _actions_ that users can take.
+> Communicate actions that users can take.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
-## Overview
+## Description
 
-### Description
+Buttons are mainly used to give the user options to act. They help users to find
+the most important actions throughout UI and enables them to perform these actions.
 
-Buttons are mainly used to show the user’s choice of options for actions. A button helps the users to find
-the most important actions throughout UI and enables them to perform these actions.  
-By using one or more of the **content** properties it's possible to create appealing and intuitive buttons
+By using one or more of the button properties it's possible to create appealing and intuitive buttons
 that will help users to find the action they're looking for.
 
----
+## Overview
 
 <Story
   name="Overview"
   argTypes={{
-    icon: { control: false, table: { type: { summary: 'JSX.Element' } } },
-    leftIcon: { control: false, table: { type: { summary: 'JSX.Element' } } },
-    rightIcon: { control: false, table: { type: { summary: 'JSX.Element' } } }
+    icon: { control: false, table: { type: { summary: 'Node' } } },
+    leftIcon: { control: false, table: { type: { summary: 'Node' } } },
+    rightIcon: { control: false, table: { type: { summary: 'Node' } } }
   }}
   args={{
     label: 'Connect wallet',
@@ -64,155 +67,204 @@ that will help users to find the action they're looking for.
   )}
 </Story>
 
----
-
-### Properties
+## Properties
 
 <ArgsTable story="Overview" />
 
+## Label
+
+The `label` is the text description of **Button** aswell as its [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
+If **Button** is an **icon** `variant` the `label` is not shown, however it is still there as a title attribut used for the [tooltip](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tooltip_Role).
+
+The `label` can have any length however **Button** width will never exceed 273px.
+
+<Canvas>
+  <Story name="Label">
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '50px'
+      }}
+    >
+      <Button label="Short label" />
+      <Button label="Here is how the button acts when you have a long label" />
+    </div>
+  </Story>
+</Canvas>
+
 ## Variants
 
-The `Button` component is available in two style versions:
+**Button** is available in three styled versions:
 
-- **Primary**: a rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
-- **Secondary**: a rounded version, softer, allowing to adapt in particular to smaller screens.
-- **Icon**: sets the button to be an icon button, requires users to supply an `icon` property.
+- **Primary** (_default_): A rectangular version, symbol of the brand and which reinforces the cosmic atmosphere.
+- **Secondary**: A rounded version, softer, allowing to adapt in particular to smaller screens.
+- **Icon**: Sets the button to be an icon button, requires users to supply an `icon` property.
 
 <Canvas>
   <Story name="Variants">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '25px'
-        }}
-      >
-        <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
-        <Button backgroundColor="primary" variant="secondary" label="Secondary" size="medium" />
-        <Button
-          backgroundColor="primary"
-          variant="icon"
-          label="Icon"
-          size="medium"
-          icon={<Icon name="wallet" size={22} />}
-        />
-      </div>
-    )}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '50px'
+      }}
+    >
+      <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
+      <Button backgroundColor="primary" variant="secondary" label="Secondary" size="medium" />
+      <Button
+        backgroundColor="primary"
+        variant="icon"
+        label="Icon"
+        size="medium"
+        icon={<Icon name="wallet" size={22} />}
+      />
+    </div>
   </Story>
 </Canvas>
 
 ## Sizes
 
-The `Button` component comes with three different sizes to allow its use according to its location within the interface.
+There are three different sizes to allow **Button** to be used according to its location within the interface.
 
-- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
-- **Medium**: makes it possible to adapt to a greater number of uses.
-- **Large**: particularly suitable for large screens or to embed icons befor or after.
+- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc.
+- **Medium** (_default_): makes it possible to adapt to a greater number of uses.
+- **Large**: particularly suitable for large screens or in conjonction with `leftIcon` / `rightIcon`.
 
 <Canvas>
   <Story name="Sizes">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '25px'
-        }}
-      >
-        <Button backgroundColor="primary" variant="primary" label="Small" size="small" />
-        <Button backgroundColor="primary" variant="primary" label="Medium" size="medium" />
-        <Button backgroundColor="primary" variant="primary" label="Large" size="large" />
-      </div>
-    )}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '50px'
+      }}
+    >
+      <Button backgroundColor="primary" variant="primary" label="Small" size="small" />
+      <Button backgroundColor="primary" variant="primary" label="Medium" size="medium" />
+      <Button backgroundColor="primary" variant="primary" label="Large" size="large" />
+    </div>
   </Story>
 </Canvas>
 
 ## Background colors
 
-The background color of the `Button` component is declined according to the selected theme and allows to better mark a user action.
+**Button** have a palette of background colors to choose from and allows to better mark a user action.
+The background color can be a visual aid as to what type of action the button executes.
+
+By _default_ `backgroundColor` is **primary**.
 
 <Canvas>
   <Story name="Background colors">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '25px',
-          flexWrap: 'wrap'
-        }}
-      >
-        <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
-        <Button backgroundColor="secondary" variant="primary" label="Secondary" size="medium" />
-        <Button backgroundColor="success" variant="primary" label="Success" size="medium" />
-        <Button backgroundColor="error" variant="primary" label="Error" size="medium" />
-        <Button backgroundColor="warning" variant="primary" label="Warning" size="medium" />
-        <Button backgroundColor="info" variant="primary" label="Info" size="medium" />
-      </div>
-    )}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '25px',
+        flexWrap: 'wrap'
+      }}
+    >
+      <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
+      <Button backgroundColor="secondary" variant="primary" label="Secondary" size="medium" />
+      <Button backgroundColor="success" variant="primary" label="Success" size="medium" />
+      <Button backgroundColor="error" variant="primary" label="Error" size="medium" />
+      <Button backgroundColor="warning" variant="primary" label="Warning" size="medium" />
+      <Button backgroundColor="info" variant="primary" label="Info" size="medium" />
+    </div>
   </Story>
 </Canvas>
 
 ## Disabled
 
-The `Button` can be disabled at any time, thus preventing any user interaction.
+**Button** can be `disabled` at any time, thus preventing any user interaction.
 
 <Canvas>
   <Story name="Disabled">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '25px',
-          flexWrap: 'wrap'
-        }}
-      >
-        <Button disabled variant="primary" label="I'm disabled" size="medium" />
-      </div>
-    )}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center'
+      }}
+    >
+      <Button disabled variant="primary" label="I'm disabled" size="medium" />
+    </div>
   </Story>
 </Canvas>
 
-## Content
+## Left / Right Icon
 
-The content can be customized to fit users needs through its properties `label`, `icon`,
-`leftIcon` and `rightIcon`.
-
-- `label` is the only obligatory property and is used to clearly indicate what action will be triggered, through the
-  tooltip and text.
-- `icon` sets the icon for the **variant** 'icon'.
-- `leftIcon` and `rightIcon` are auxilliary elements giving great freedom to embellish the button
-  together with the label.
+`leftIcon` and `rightIcon` are auxilliary elements giving great freedom to embellish the button
+together with the `label`.
 
 <Canvas>
-  <Story name="Content">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '25px',
-          flexWrap: 'wrap'
-        }}
-      >
-        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
-        <Button icon={<Icon name="wallet" size={22} />} label="wallet" variant="icon" />
-        <Button leftIcon={<Icon name="wallet" size={22} />} label="Get wallet address" />
-        <Button
-          label="Add wallet"
-          leftIcon={<Icon name="wallet" size={22} />}
-          rightIcon={<Icon name="add" size={22} />}
-        />
-      </div>
-    )}
+  <Story name="Left / Right Icon">
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '50px'
+      }}
+    >
+      <Button leftIcon={<Icon name="wallet" size={22} />} label="Get wallet address" />
+      <Button label="Add wallet" rightIcon={<Icon name="add" size={22} />} />
+    </div>
+  </Story>
+</Canvas>
+
+## OnClick
+
+`onClick` is what makes the magic happen, without it the button has no corresponding action.
+The function passed as value should correspond to the action described in `label`.
+
+<Canvas>
+  <Story name="OnClick">
+    {() => {
+      const [state, setState] = useState({ name: '', isOpened: false })
+      const handleState = (name, isOpened) => () => {
+        setState({ name, isOpened })
+      }
+      return (
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Button label="Click me!" onClick={handleState('button clicked', true)} />
+          </div>
+          <Toast
+            description={
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography color="highlighted-text" fontSize="small" fontWeight="light">
+                  {`Like this component? See `}
+                  <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
+                    <a
+                      href="/?path=/docs/atoms-toast--overview"
+                      rel="author noreferrer"
+                      target="_blank"
+                      style={{ color: 'inherit' }}
+                    >
+                      Toast
+                    </a>
+                  </Typography>
+                </Typography>
+              </div>
+            }
+            isOpened={Object.values(state).includes('button clicked') ? state['isOpened'] : false}
+            onOpenChange={handleState('button clicked', false)}
+            title="Button clicked!"
+            severityLevel="info"
+          />
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
