@@ -9,13 +9,9 @@ export type Task<T = string, I = string> = Entity<
     readonly lastUpdateDate: Date
     readonly type: T
     readonly status: TaskStatus
-    readonly messageKey: string
-    readonly initiator?: string
+    readonly initiator: string
   },
   I
 >
-
-export type UpdateTask = Pick<Task, 'id' | 'lastUpdateDate'> &
-  Partial<Pick<Task, 'messageKey' | 'status'>>
 
 export type Tasks<T = string, I = string> = List<Task<T, I>>
