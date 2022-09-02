@@ -1,18 +1,19 @@
 import { createSelector } from 'reselect'
 import type { AppState, TaskById, TaskByType } from '../appState'
-import type { Task, TaskStatus } from '../../entity/task'
 import type { DeepReadonly } from 'superTypes'
 import type { OrderedSet } from 'immutable'
 
+type Status = 'processing' | 'success' | 'error'
+
 const rootSelector = (state: DeepReadonly<AppState>): AppState => state
 
-export const getTaskById: (state: DeepReadonly<AppState>, id: string) => Task | undefined =
+export const getTaskStatusById: (state: DeepReadonly<AppState>, id: string) => Status | undefined =
   createSelector(
     [
       (state: DeepReadonly<AppState>): TaskById => state.task.byId,
       (_state: DeepReadonly<AppState>, id: string): string => id
     ],
-    (tasks: DeepReadonly<TaskById>, id: string) => tasks.get(id)
+    (tasks: DeepReadonly<TaskById>, id: string) => tasks.get(id)?.status
   )
 
 export const getTaskIdsByType: (
@@ -30,21 +31,21 @@ export const getTaskIdsByType: (
 export const getDisplayedTaskIdByTypeAndStatus: (
   state: DeepReadonly<AppState>,
   type: string,
-  status: TaskStatus
+  status: Status
 ) => string | undefined = createSelector(
   [
     rootSelector,
     (state: DeepReadonly<AppState>, type: string): OrderedSet<string> | undefined =>
       getTaskIdsByType(state, type),
-    (_state: DeepReadonly<AppState>, _type: string, status: TaskStatus): TaskStatus => status
+    (_state: DeepReadonly<AppState>, _type: string, status: Status): Status => status
   ],
   (
     state: DeepReadonly<AppState>,
     taskIdsByType: DeepReadonly<OrderedSet<string> | undefined>,
-    status: TaskStatus
+    status: Status
   ): string | undefined =>
     state.displayedTaskIds.find(
       (id: string) =>
-        (taskIdsByType?.includes(id) && getTaskById(state, id)?.status === status) ?? false
+        (taskIdsByType?.includes(id) && getTaskStatusById(state, id) === status) ?? false
     )
 )
