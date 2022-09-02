@@ -15,8 +15,8 @@ export class TaskBuilder {
         id: short.generate(),
         creationDate: timestamp,
         lastUpdateDate: timestamp,
-        messageKey: '',
         type: '',
+        initiator: '',
         status: 'processing'
       }
     }
@@ -41,13 +41,6 @@ export class TaskBuilder {
       throw new UnspecifiedError('Oops... A lastUpdateDate must be provided to build a task...')
     }
     return new TaskBuilder({ ...this.task, lastUpdateDate })
-  }
-
-  public withMessageKey(messageKey: string): TaskBuilder {
-    if (!messageKey.length) {
-      throw new UnspecifiedError('Oops... A messageKey must be provided to build a task...')
-    }
-    return new TaskBuilder({ ...this.task, messageKey })
   }
 
   public withType(type: string): TaskBuilder {
@@ -84,9 +77,8 @@ export class TaskBuilder {
       this.task.creationDate instanceof Date &&
       this.task.lastUpdateDate instanceof Date &&
       this.task.type.length > 0 &&
-      this.task.messageKey.length > 0 &&
       this.task.status.length > 0 &&
-      (this.task.initiator ? this.task.initiator.length > 0 : true)
+      this.task.initiator.length > 0
     )
   }
 }
