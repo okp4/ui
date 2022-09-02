@@ -1,27 +1,13 @@
-import { ThrowErrorActions, TaskActions } from 'domain/common/actionCreators'
+import short from 'short-uuid'
+import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import type { ReduxStore, ThunkResult } from 'domain/faucet/store/store'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
-import { UpdateTaskBuilder } from 'domain/task/builder/updateTask/updateTask.builder'
+import type { TaskRegisterReceivedPayload } from 'domain/task/event/taskRegisterReceived'
 import { checkOKP4Address } from '../../service/checkOKP4Address'
+import { RegisterTaskActions } from 'domain/task/usecase/register-task/actionCreators'
+import { AmendTaskStatusActions } from 'domain/task/usecase/amend-task-status/actionCreators'
 
 export const faucetTaskType = 'faucet#request-funds'
-
-const createTaskFactory = (): TaskBuilder =>
-  new TaskBuilder().withMessageKey('domain.task.proceeded').withType(faucetTaskType)
-
-const dispatchRequestFundsAmendedTask = (
-  dispatch: ReduxStore['dispatch'],
-  taskId: string,
-  hasError?: boolean
-): void => {
-  const updatedTask = new UpdateTaskBuilder()
-    .withId(taskId)
-    .withMessageKey(`domain.task.${hasError ? 'error' : 'success'}`)
-    .withStatus(hasError ? 'error' : 'success')
-    .build()
-  dispatch(TaskActions.taskAmended(updatedTask))
-}
 
 const dispatchRequestFundsError = (
   dispatch: ReduxStore['dispatch'],
@@ -30,20 +16,25 @@ const dispatchRequestFundsError = (
 ): void => {
   const errorToDispatch = ErrorMapper.mapRawErrorToEntity(error)
   dispatch(ThrowErrorActions.errorThrown(errorToDispatch))
-  dispatchRequestFundsAmendedTask(dispatch, taskId, true)
+  dispatch(AmendTaskStatusActions.taskStatusAmendReceived({ id: taskId, status: 'error' }))
 }
 
 export const requestFunds =
   (address: string): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, _getState, { faucetGateway }) => {
-    const createTask = createTaskFactory().build()
+    const taskToRegister: TaskRegisterReceivedPayload = {
+      id: short.generate(),
+      type: faucetTaskType
+    }
     try {
-      dispatch(TaskActions.taskCreated(createTask))
+      dispatch(RegisterTaskActions.taskRegisterReceived(taskToRegister))
       checkOKP4Address(address)
       await faucetGateway.requestFunds(address)
-      dispatchRequestFundsAmendedTask(dispatch, createTask.id)
+      dispatch(
+        AmendTaskStatusActions.taskStatusAmendReceived({ id: taskToRegister.id, status: 'success' })
+      )
     } catch (error: unknown) {
-      dispatchRequestFundsError(dispatch, createTask.id, error)
+      dispatchRequestFundsError(dispatch, taskToRegister.id, error)
     }
   }
