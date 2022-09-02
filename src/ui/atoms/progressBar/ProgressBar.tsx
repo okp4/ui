@@ -89,7 +89,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     <div className="okp4-progressbar-main">
       {label && (
         <div className="okp4-progressbar-label">
-          <Typography as="div" color="text" fontSize="small" fontWeight="bold">
+          <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
             {label}
           </Typography>
         </div>
@@ -97,12 +97,12 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       {!isUndetermined() && (
         <>
           <div className="okp4-progressbar-value">
-            <Typography as="div" color="text" fontSize="small" fontWeight="light">
+            <Typography as="div" color="inverted-text" fontSize="small" fontWeight="light">
               {currentValueFormatter(current)}
             </Typography>
           </div>
           <div className="okp4-progressbar-progress">
-            <Typography as="div" color="text" fontSize="small" fontWeight="bold">
+            <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
               {progressValueFormatter(current, minValue, maxValue)}
             </Typography>
           </div>

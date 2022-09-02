@@ -10,7 +10,6 @@
     primary: {
       primary-brand: $color-light-primary-brand;
       primary-variant: $color-light-primary-variant;
-      primary-invariant: $color-light-primary-invariant;
     }
     secondary: {
       secondary-button: $color-light-secondary-button;
@@ -20,11 +19,13 @@
       text: $color-light-text;
       highlighted-text: $color-light-highlighted-text;
       inverted-text: $color-light-inverted-text;
+      invariant-text: $color-light-invariant-text;
       field: $color-light-field;
       inverted-field: $color-light-inverted-field;
       border: $color-light-border;
       primary-background: $color-light-background;
       secondary-background: $color-light-background-variant;
+      inverted-primary-background: $color-light-inverted-background;
       header-background: $gradient-light-background-header;
       footer-background: $gradient-light-background-footer;
       footer-block-background: $color-light-background-footer-block;
@@ -40,7 +41,6 @@
     primary: {
       primary-brand: $color-dark-primary-brand;
       primary-variant: $color-dark-primary-variant;
-      primary-invariant: $color-dark-primary-invariant;
     }
     secondary: {
       secondary-button: $color-dark-secondary-button;
@@ -50,11 +50,13 @@
       text: $color-dark-text;
       highlighted-text: $color-dark-highlighted-text;
       inverted-text: $color-dark-inverted-text;
+      invariant-text: $color-dark-invariant-text;
       field: $color-dark-field;
       inverted-field: $color-dark-inverted-field;
       border: $color-dark-border;
       primary-background: $color-dark-background;
       secondary-background: $color-dark-background-variant;
+      inverted-primary-background: $color-dark-inverted-background;
       header-background: $gradient-dark-background-header;
       footer-background: $gradient-dark-background-footer;
       footer-block-background: $gradient-dark-background-footer-block;
