@@ -28,6 +28,10 @@ export const requestFunds =
       type: faucetTaskType
     }
     try {
+      /**
+       * The only way to communicate with the task domain.
+       * TODO: replace these events by a command which will be handle by a command bus.
+       * */
       dispatch(RegisterTaskActions.taskRegisterReceived(taskToRegister))
       checkOKP4Address(address)
       await faucetGateway.requestFunds(address)
