@@ -2238,6 +2238,24 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
+"@javelin/core@1.0.0-alpha.12":
+  version "1.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/@javelin/core/-/core-1.0.0-alpha.12.tgz#d80295ba22608123fccb2dd9cd3033265a2ce015"
+  integrity sha512-U3KgZjpMNwO6SF1cVcn4XedpE+AE17aaoNr1S6W973qF7MBrfhRaeoEMjiPM5U2g9VxBJMr4rD9XzZRtyZPaYA==
+
+"@javelin/ecs@^1.0.0-alpha.13":
+  version "1.0.0-alpha.13"
+  resolved "https://registry.yarnpkg.com/@javelin/ecs/-/ecs-1.0.0-alpha.13.tgz#16894895364b2692c778d4326b4dbded4d38c872"
+  integrity sha512-TzBOEtDtb8SEsH1Kpjp3fkmLN81/XTXm4N0S3eWBn05bPYCkqr9iHTREIZT2KPz4URaaMnIqzWSE+slXNegeZA==
+  dependencies:
+    "@javelin/core" "1.0.0-alpha.12"
+    "@javelin/isomorphic-utils" "1.0.0-alpha.12"
+
+"@javelin/isomorphic-utils@1.0.0-alpha.12":
+  version "1.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/@javelin/isomorphic-utils/-/isomorphic-utils-1.0.0-alpha.12.tgz#c2469341fefb499dc447d1cc607a51a461aff2c5"
+  integrity sha512-TBz3kD75v3QOdibJWCShVjexhhor1e+p4lHprQM+wq27HneDKz1e1JjZd8dY4N916fwgCaMgV/p1FYTtfw+Tng==
+
 "@jest/console@^29.1.2":
   version "29.1.2"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-29.1.2.tgz#0ae975a70004696f8320490fcaa1a4152f7b62e4"
