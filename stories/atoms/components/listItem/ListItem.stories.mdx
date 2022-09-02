@@ -76,8 +76,8 @@ The `ListItem` allows to display an element of a [List](/docs/atoms-list--overvi
   args={{
     title: 'Item',
     description: 'Description',
-    leftElement: <Icon name="wallet" />,
-    rightElement: <Icon name="close" />
+    leftElement: <Icon name="wallet" invertColor />,
+    rightElement: <Icon name="close" invertColor />
   }}
 >
   {args => <ListItem {...args} />}
@@ -108,7 +108,7 @@ The `description` property allows you to provide additional information. It can 
           title="Item 2"
           description={
             <div>
-              <Typography as="div" color="text" fontSize="small">
+              <Typography as="div" color="inverted-text" fontSize="small">
                 Additional information in Item 2 that may be more complex than a simple `string`.
                 The description can display any content.
               </Typography>
@@ -145,18 +145,18 @@ Theses properties can be used to provide visual information or add interactions 
             <ListItem
               title="Item with left element"
               description="This item only has a left element."
-              leftElement={<Icon name="profile" />}
+              leftElement={<Icon name="profile" invertColor />}
             />
             <ListItem
               title="Item with right element"
               description="This item only has a right icon."
-              rightElement={<Icon name="check" />}
+              rightElement={<Icon name="check" invertColor />}
             />
             <ListItem
               title="Item with both left and right elements"
               description="This item has left and right elements."
-              leftElement={<Icon name="profile" />}
-              rightElement={<Icon name="check" />}
+              leftElement={<Icon name="profile" invertColor />}
+              rightElement={<Icon name="check" invertColor />}
             />
             <ListItem
               title="Item 5"
@@ -167,12 +167,12 @@ Theses properties can be used to provide visual information or add interactions 
                   backgroundColor="error"
                   size="small"
                   variant="icon"
-                  icon={<Icon name="cross" size="15" />}
+                  icon={<Icon name="cross" size="15" invertColor />}
                   onClick={handleClickCross}
                 />
               }
               rightElement={
-                <Typography as="div" color="text" fontSize="small" fontWeight="bold">
+                <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
                   This is a simple text
                 </Typography>
               }
@@ -180,7 +180,7 @@ Theses properties can be used to provide visual information or add interactions 
             <ListItem
               title="Item 6"
               description="An other example with button"
-              leftElement={<Icon name="wallet" />}
+              leftElement={<Icon name="wallet" invertColor />}
               rightElement={
                 <Button
                   label="Select"

@@ -12,7 +12,7 @@
     'leftElement description rightElement';
 
   @include with-theme {
-    background-color: themed(field);
+    background-color: themed(inverted-primary-background);
     border-radius: 10px;
   }
 
