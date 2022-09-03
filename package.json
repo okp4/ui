@@ -65,7 +65,7 @@
     "ts-bus": "^2.3.1"
   },
   "devDependencies": {
-    "@babylonjs/core": "^5.5.5",
+    "@babylonjs/core": "^5.22.1",
     "@babylonjs/inspector": "^5.22.1",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.4.11",

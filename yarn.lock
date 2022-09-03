@@ -1622,10 +1622,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/inspector@^5.8.0":
-  version "5.19.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.19.0.tgz#98572376744761bef7f7e6041ee18ee1dba38274"
-  integrity sha512-2FU5I6p89GH2SRz0+nMVJS6BhUapWk1g6pebWMi9PwlXZ2MJg1pamdY7zVuYJuE/ft2w8XLk3Kv+vpoxjWJOAw==
+"@babylonjs/inspector@^5.22.1":
+  version "5.22.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.22.1.tgz#a1aa13f40ba948af79397328130906141d7b236b"
+  integrity sha512-Ro6LzDEKM8kWLik/SPHy7bGGLnHfuyCsnbU5tBxInk4rcm75poTHlEFp9RRvYsYT3Cklz+p4AETJaEeLZnZ4qA==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
