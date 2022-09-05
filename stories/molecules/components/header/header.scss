@@ -3,7 +3,13 @@
 .header-story-main {
   @include with-theme {
     width: 100%;
-    min-width: 240px;
+    min-width: 310px;
     background: themed('header-background');
+
+    a,
+    a:visited {
+      color: themed('inverted-primary-background');
+      text-decoration: none;
+    }
   }
 }
