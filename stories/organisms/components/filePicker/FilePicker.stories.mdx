@@ -23,9 +23,11 @@ import { default as storeParameters } from './store'
   decorators={[
     Story => (
       <ThemeProvider>
+        <div className="story-theme-switcher">
+          <ThemeSwitcher />
+        </div>
         <StoreProvider storeParameters={storeParameters}>
           <div className="component-story-main filePicker">
-            <ThemeSwitcher />
             <Story />
           </div>
         </StoreProvider>
