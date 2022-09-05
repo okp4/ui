@@ -50,7 +50,7 @@ export type SelectProps = SelectInputProps & {
 // eslint-disable-next-line max-lines-per-function, @typescript-eslint/prefer-readonly-parameter-types
 export const Select = ({
   placeholder,
-  size = 'small',
+  size = 'medium',
   disabled = false,
   hasError = false,
   multiple = false,
