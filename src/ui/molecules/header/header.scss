@@ -1,72 +1,111 @@
 @import '../../styles/main.scss';
 
-// .okp4-header-main {
-//   width: calc(100% - 50px);
-//   padding: 25px;
-//   justify-content: space-between;
-//   align-items: center;
-//   column-gap: 10px;
-//   display: grid;
-// grid-template-areas: 'firstElement navigationMenu navigationMenu themeswitch';
+.okp4-header-main {
+  width: calc(100% - 120px);
+  padding: 30px 60px 25px;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  display: grid;
 
-// @media screen and (max-width: 995px) {
-//   grid-template-areas: 'burgerMenu firstElement themeswitch';
-// }
+  &.without-navigation {
+    grid-template-areas: 'firstElement themeswitch';
 
-// // @media screen and (max-width: 768px) {
-// //   padding: 15px 10px;
-// //   width: calc(100% - 20px);
-// //   justify-content: space-evenly;
-// // }
+    @media screen and (max-width: 768px) {
+      padding: 15px 10px;
+      width: calc(100% - 20px);
+      justify-content: space-evenly;
+    }
 
-// // @media screen and (max-width: 360px) {
-// //   grid-template-areas:
-// //     'firstElement'
-// //     'navigationMenu'
-// //     'themeswitch';
-// //   justify-items: center;
-// //   row-gap: 10px;
-// // }
+    @media screen and (max-width: 360px) {
+      grid-template-areas:
+        'firstElement'
+        'themeswitch';
+      justify-items: center;
+      row-gap: 10px;
+    }
+  }
 
-// .okp4-header-navigation-burger-menu {
-//   grid-area: burgerMenu;
-//   @media screen and (max-width: 415px) {
-//     :first-child {
-//       width: 25px;
-//     }
-//   }
-// }
+  &.with-navigation {
+    grid-template-areas: 'firstElement navigationMenu navigationMenu navigationMenu . . themeswitch';
 
-// .okp4-header-first-element-container {
-//   grid-area: firstElement;
+    &.burger-list {
+      grid-template-areas:
+        'burgerMenu firstElement themeswitch'
+        'burgerMenuList burgerMenuList burgerMenuList';
+    }
 
-//   :first-child {
-//     max-width: 270px;
-//     max-height: 72px;
-//   }
+    @media screen and (max-width: 1200px) {
+      width: calc(100% - 60px);
+      padding: 30px;
+    }
 
-//   &.x-small {
-//     :first-child {
-//       max-width: 220px;
+    @media screen and (max-width: 995px) {
+      grid-template-areas: 'burgerMenu firstElement themeswitch';
+      width: calc(100% - 40px);
+      padding: 15px 20px;
+    }
 
-//       @media screen and (max-width: 415px) {
-//         max-width: 170px;
-//       }
-//     }
-//   }
-// }
+    @media screen and (max-width: 768px) {
+      padding: 15px;
+      width: calc(100% - 30px);
+    }
 
-// .okp4-header-navigation-menu-container {
-//   grid-area: navigationMenu;
-//   margin: 0 20px;
-//   display: flex;
-//   justify-content: space-between;
-//   .okp4-header-navigation-menu-item {
-//     margin: 0 4px;
-//   }
-// }
+    .okp4-header-navigation-burger-menu {
+      grid-area: burgerMenu;
+      cursor: pointer;
 
-// .okp4-header-theme-switcher-container {
-//   grid-area: themeswitch;
-// }
-// }
+      &.rotate-up {
+        transform: rotate(90deg);
+        transition: transform 0.1s linear;
+      }
+
+      &.rotate-down {
+        transform: rotate(0deg);
+        transition: transform 0.1s linear;
+      }
+    }
+
+    .okp4-header-navigation-menu-list {
+      grid-area: navigationMenu;
+      margin: 0 20px;
+      display: flex;
+      justify-content: space-between;
+
+      .okp4-header-navigation-menu-item {
+        margin-right: 10px;
+      }
+    }
+
+    .okp4-header-navigation-burger-menu-list {
+      grid-area: burgerMenuList;
+      margin-top: 10px;
+      animation: fadeIn 1s;
+
+      .okp4-header-navigation-burger-menu-item {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  .okp4-header-first-element-container {
+    grid-area: firstElement;
+
+    :first-child {
+      max-width: 270px;
+      max-height: 72px;
+
+      @media screen and (max-width: 550px) {
+        max-width: 230px;
+      }
+
+      @media screen and (max-width: 480px) {
+        max-width: 180px;
+      }
+    }
+  }
+
+  .okp4-header-theme-switcher-container {
+    grid-area: themeswitch;
+  }
+}
