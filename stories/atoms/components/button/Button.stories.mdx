@@ -1,5 +1,6 @@
 import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { useState } from 'react'
+import { useTheme } from 'hook/useTheme'
 import { Button } from 'ui/atoms/button/Button'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
@@ -50,25 +51,28 @@ that will help users to find the action they're looking for.
   }}
   args={{
     label: 'Connect wallet',
-    icon: <Icon name="wallet" size={22} />,
     variant: 'primary',
     size: 'medium',
     backgroundColor: 'primary',
     disabled: false
   }}
 >
-  {args => (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '25px'
-      }}
-    >
-      <Button {...args} />
-    </div>
-  )}
+  {args => {
+    const { theme } = useTheme()
+    const invert = theme === 'light'
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '25px'
+        }}
+      >
+        <Button {...args} icon={<Icon name="wallet" size={22} invertColor={invert} />} />
+      </div>
+    )
+  }}
 </Story>
 
 ## Properties
@@ -84,19 +88,29 @@ The `label` can have any length however Button width will never exceed 273px.
 
 <Canvas>
   <Story name="Label">
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: '50px'
-      }}
-    >
-      <Button label="Short label" />
-      <Button label="Here is how the button acts when it has a long label" />
-      <Button label="icon button" variant="icon" icon={<Icon name="profile" size={22} />} />
-    </div>
+    {() => {
+      const { theme } = useTheme()
+      const invert = theme === 'light'
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '50px'
+          }}
+        >
+          <Button label="Short label" />
+          <Button label="Here is how the button acts when it has a long label" />
+          <Button
+            label="icon button"
+            variant="icon"
+            icon={<Icon name="profile" size={22} invertColor={invert} />}
+          />
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
@@ -108,21 +122,31 @@ Requires Button to be an **icon** `variant`, without it the button content will 
 
 <Canvas>
   <Story name="Icon">
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: '50px'
-      }}
-    >
-      <Button label="icon button" icon={<Icon name="calendar" size={22} />} variant="icon" />
-      <Button
-        label="Icon passed without the icon variant"
-        icon={<Icon name="calendar" size={22} />}
-      />
-    </div>
+    {() => {
+      const { theme } = useTheme()
+      const invert = theme === 'light'
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '50px'
+          }}
+        >
+          <Button
+            label="icon button"
+            icon={<Icon name="calendar" size={22} invertColor={invert} />}
+            variant="icon"
+          />
+          <Button
+            label="Icon passed without the icon variant"
+            icon={<Icon name="calendar" size={22} />}
+          />
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
@@ -136,25 +160,31 @@ Button is available in three styled versions:
 
 <Canvas>
   <Story name="Variants">
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: '50px'
-      }}
-    >
-      <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
-      <Button backgroundColor="primary" variant="secondary" label="Secondary" size="medium" />
-      <Button
-        backgroundColor="primary"
-        variant="icon"
-        label="Icon"
-        size="medium"
-        icon={<Icon name="wallet" size={22} />}
-      />
-    </div>
+    {() => {
+      const { theme } = useTheme()
+      const invert = theme === 'light'
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '50px'
+          }}
+        >
+          <Button backgroundColor="primary" variant="primary" label="Primary" size="medium" />
+          <Button backgroundColor="primary" variant="secondary" label="Secondary" size="medium" />
+          <Button
+            backgroundColor="primary"
+            variant="icon"
+            label="Icon"
+            size="medium"
+            icon={<Icon name="wallet" size={22} invertColor={invert} />}
+          />
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
@@ -236,17 +266,29 @@ together with the `label`.
 
 <Canvas>
   <Story name="Left / Right Icon">
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: '50px'
-      }}
-    >
-      <Button leftIcon={<Icon name="wallet" size={22} />} label="Get wallet address" />
-      <Button label="Add wallet" rightIcon={<Icon name="add" size={22} />} />
-    </div>
+    {() => {
+      const { theme } = useTheme()
+      const invert = theme === 'light'
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '50px'
+          }}
+        >
+          <Button
+            leftIcon={<Icon name="wallet" size={22} invertColor={invert} />}
+            label="Get wallet address"
+          />
+          <Button
+            label="Add wallet"
+            rightIcon={<Icon name="add" size={22} invertColor={invert} />}
+          />
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
