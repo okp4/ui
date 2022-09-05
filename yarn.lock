@@ -4652,9 +4652,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@urql/core@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@urql/core/-/core-3.0.1.tgz#76be27b0ac0b0e3ca02c5240fc1c19735b63df75"
-  integrity sha512-VMnAx1JsV32XjuCQVHHeq2BAn39XBSr6qEJd3xSE3Gwrc2NGndTZeFd6loZKmYF9XTHmvj8YbY2BFfHW7nGbmg==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-3.0.3.tgz#da054babb4d4aed26dc4503806b310ba6dd6eea1"
+  integrity sha512-raQP51ERNtg5BvlN8x8mHVRvk4K0ugWQ69n53BdkjKpXVV5kuWp7trnwriGv1fQKa8HuiGNSCfyslUucc0OVQg==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.1"
     wonka "^6.0.0"
