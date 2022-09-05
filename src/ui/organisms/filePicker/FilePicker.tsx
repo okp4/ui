@@ -83,14 +83,20 @@ export const FilePicker: React.FC<FilePickerProps> = ({
 
   const RemoveIcon = (id: string): JSX.Element => (
     <div className="okp4-file-picker-list-delete" onClick={handleRemove(id)}>
-      <Icon name="close" />
+      <Icon invertColor name="close" />
     </div>
   )
 
   const FileItem = ({ id, name, size }: FileDescriptor): JSX.Element => (
     <ListItem
       description={
-        <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+        <Typography
+          as="div"
+          color="inverted-text"
+          fontFamily="brand"
+          fontSize="small"
+          fontWeight="xlight"
+        >
           {displayFileSize(size)}
         </Typography>
       }
