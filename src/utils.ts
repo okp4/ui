@@ -63,9 +63,9 @@ export const sortSelectOptionDesc = (options: Readonly<SelectOption[]>): SelectO
   [...options].sort(selectOptionDescComparator)
 
 /**
- * Convert a byte size into its more readable value.
+ * Convert a byte size into a more readable value.
  * @param size The size to convert.
- * @returns An objects containing the value and the size unit.
+ * @returns An object containing the value and the size unit.
  */
 export const toReadableFileSize = (
   size: number,
@@ -110,10 +110,9 @@ export const areFilesAccepted = (
   files: DeepReadonly<File[]>,
   acceptedFormats?: Readonly<string[]>
 ): boolean =>
-  files.every((file: DeepReadonly<File>) => {
-    return (
+  files.every(
+    (file: DeepReadonly<File>) =>
       !acceptedFormats ||
       !acceptedFormats.length ||
       acceptedFormats.some((format: string) => isFileTypeAccepted(file, format))
-    )
-  })
+  )

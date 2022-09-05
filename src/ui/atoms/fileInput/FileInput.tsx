@@ -24,7 +24,7 @@ export type FileInputProps = {
    */
   readonly acceptedFormats?: string[]
   /**
-   * The size of the component.
+   * The size of the file input area.
    */
   readonly size?: 'large' | 'medium' | 'small'
   /**
@@ -75,7 +75,7 @@ export const FileInput: React.FC<FileInputProps> = ({
     event.stopPropagation()
   }, [])
 
-  const allowSelectSameFile = useCallback(
+  const clearInputValue = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
     // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     (event: React.MouseEvent<HTMLInputElement>): void => {
@@ -151,7 +151,7 @@ export const FileInput: React.FC<FileInputProps> = ({
           accept={acceptedFormats?.join(', ')}
           multiple={multiple}
           onChange={handleChange}
-          onClick={allowSelectSameFile}
+          onClick={clearInputValue}
           type="file"
         />
         <div>

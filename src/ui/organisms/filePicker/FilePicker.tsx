@@ -30,7 +30,6 @@ export type FilePickerProps = Pick<
 // eslint-disable-next-line max-lines-per-function
 export const FilePicker: React.FC<FilePickerProps> = ({
   clearAll,
-  acceptedFormats,
   ...props
 }: DeepReadonly<FilePickerProps>) => {
   const { t }: UseTranslationResponse = useTranslation()
@@ -48,7 +47,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
 
   const handleDropped = useCallback(
     (files: DeepReadonly<File[]>) => {
-      if (areFilesAccepted(files, acceptedFormats)) {
+      if (areFilesAccepted(files, props.acceptedFormats)) {
         setError(false)
         fileDispatch(
           storeFiles(
@@ -68,7 +67,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         setErrorMessage(t(`filePicker:filePicker.errorMessage.type`))
       }
     },
-    [acceptedFormats, fileDispatch, t]
+    [props.acceptedFormats, fileDispatch, t]
   )
 
   const handleRemove = useCallback(
@@ -110,7 +109,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
     <div className="okp4-file-picker-main">
       <FileInput
         {...props}
-        acceptedFormats={asMutable(acceptedFormats)}
+        acceptedFormats={asMutable(props.acceptedFormats)}
         error={isError}
         errorMessage={errorMessage}
         onDropped={handleDropped}
