@@ -1,44 +1,72 @@
 @import '../../styles/main.scss';
 
-.okp4-header-main {
-  width: calc(100% - 50px);
-  padding: 25px;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 10px;
-  display: grid;
-  grid-template-areas: 'firstElement themeswitch';
+// .okp4-header-main {
+//   width: calc(100% - 50px);
+//   padding: 25px;
+//   justify-content: space-between;
+//   align-items: center;
+//   column-gap: 10px;
+//   display: grid;
+// grid-template-areas: 'firstElement navigationMenu navigationMenu themeswitch';
 
-  @media screen and (max-width: 768px) {
-    padding: 15px 10px;
-    width: calc(100% - 20px);
-    justify-content: space-evenly;
-  }
+// @media screen and (max-width: 995px) {
+//   grid-template-areas: 'burgerMenu firstElement themeswitch';
+// }
 
-  @media screen and (max-width: 360px) {
-    grid-template-areas:
-      'firstElement'
-      'themeswitch';
-    justify-items: center;
-    row-gap: 10px;
-  }
+// // @media screen and (max-width: 768px) {
+// //   padding: 15px 10px;
+// //   width: calc(100% - 20px);
+// //   justify-content: space-evenly;
+// // }
 
-  .okp4-header-first-element-container {
-    grid-area: firstElement;
+// // @media screen and (max-width: 360px) {
+// //   grid-template-areas:
+// //     'firstElement'
+// //     'navigationMenu'
+// //     'themeswitch';
+// //   justify-items: center;
+// //   row-gap: 10px;
+// // }
 
-    :first-child {
-      max-width: 270px;
-      max-height: 72px;
-    }
+// .okp4-header-navigation-burger-menu {
+//   grid-area: burgerMenu;
+//   @media screen and (max-width: 415px) {
+//     :first-child {
+//       width: 25px;
+//     }
+//   }
+// }
 
-    &.x-small {
-      :first-child {
-        max-width: 220px;
-      }
-    }
-  }
+// .okp4-header-first-element-container {
+//   grid-area: firstElement;
 
-  .okp4-header-theme-switcher-container {
-    grid-area: themeswitch;
-  }
-}
+//   :first-child {
+//     max-width: 270px;
+//     max-height: 72px;
+//   }
+
+//   &.x-small {
+//     :first-child {
+//       max-width: 220px;
+
+//       @media screen and (max-width: 415px) {
+//         max-width: 170px;
+//       }
+//     }
+//   }
+// }
+
+// .okp4-header-navigation-menu-container {
+//   grid-area: navigationMenu;
+//   margin: 0 20px;
+//   display: flex;
+//   justify-content: space-between;
+//   .okp4-header-navigation-menu-item {
+//     margin: 0 4px;
+//   }
+// }
+
+// .okp4-header-theme-switcher-container {
+//   grid-area: themeswitch;
+// }
+// }

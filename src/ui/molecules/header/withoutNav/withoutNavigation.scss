@@ -1,0 +1,44 @@
+@import '../../../styles/main.scss';
+
+.okp4-header-main-without-nav {
+  width: calc(100% - 50px);
+  padding: 25px;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  display: grid;
+  grid-template-areas: 'firstElement themeswitch';
+
+  @media screen and (max-width: 768px) {
+    padding: 15px 10px;
+    width: calc(100% - 20px);
+    justify-content: space-evenly;
+  }
+
+  @media screen and (max-width: 360px) {
+    grid-template-areas:
+      'firstElement'
+      'themeswitch';
+    justify-items: center;
+    row-gap: 10px;
+  }
+
+  .okp4-header-first-element-container {
+    grid-area: firstElement;
+
+    :first-child {
+      max-width: 270px;
+      max-height: 72px;
+    }
+
+    &.x-small {
+      :first-child {
+        max-width: 220px;
+      }
+    }
+  }
+
+  .okp4-header-theme-switcher-container {
+    grid-area: themeswitch;
+  }
+}
