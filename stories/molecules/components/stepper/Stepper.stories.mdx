@@ -26,8 +26,10 @@ import './stepper.scss'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="component-story-main">
+        <div className="story-theme-switcher">
           <ThemeSwitcher />
+        </div>
+        <div className="component-story-main">
           <Story />
         </div>
       </ThemeProvider>

@@ -24,8 +24,10 @@ import { useState } from 'react'
   decorators={[
     Story => (
       <ThemeProvider>
-        <div className="component-story-main">
+        <div className="story-theme-switcher">
           <ThemeSwitcher />
+        </div>
+        <div className="component-story-main">
           <div
             style={{
               display: 'grid',

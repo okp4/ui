@@ -2,7 +2,7 @@
 
 .component-story-main {
   @include with-theme {
-    padding: 20px 30px 35px 30px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -16,4 +16,8 @@
       background: themed('inverted-field');
     }
   }
+}
+
+.story-theme-switcher {
+  padding: 5px 15px 13px;
 }

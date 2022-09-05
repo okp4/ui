@@ -23,9 +23,11 @@ import * as env from './env.json'
   decorators={[
     Story => (
       <ThemeProvider>
+        <div className="story-theme-switcher">
+          <ThemeSwitcher />
+        </div>
         <StoreProvider storeParameters={storeParameters}>
           <div className="component-story-main faucet">
-            <ThemeSwitcher />
             <Story />
           </div>
         </StoreProvider>
@@ -50,10 +52,7 @@ For the OKP4 testnets, the Faucet service is configured to send 1 KNOW per reque
 
 ## Overview
 
-<Story
-  name="Overview"
-  args={{ chainId: env.chainId }}
->
+<Story name="Overview" args={{ chainId: env.chainId }}>
   {args => {
     const { theme } = useTheme()
     console.log(JSON.prettyenv)
@@ -81,6 +80,7 @@ To configure the organism, the [@okp4/ui](https://www.npmjs.com/package/@okp4/ui
 ### 1. Create a `config.json` file that declares the COSMOS blockchain configuration
 
 This file contains all the information the organism needs to configure itself:
+
 - the identifier of the COSMOS blockchain (aka the `chainId`).
 - the URL of the [Faucet service](https://github.com/okp4/cosmos-faucet) endpoint on the backend. This service supports any Cosmos based blockchain and is available for the OKP4 testnets networks.
 - the complete description of the blockchain for the registration on Keplr. This is required to request adding new Cosmos-SDK based blockchains that isn't natively integrated to Keplr extension.
@@ -89,11 +89,11 @@ The following `config.json` file is a configuration example for connecting to th
 
 **`config.json`**
 
-<Source code={JSON.stringify(env.default, null, 2)} language='json'/>
+<Source code={JSON.stringify(env.default, null, 2)} language="json" />
 
 ### 2. Instanciate redux stores to init the component
 
-To work, the component uses [redux](https://redux.js.org/) as a state manager and an `eventBus` instance to facilitate communication between the business domains.  
+To work, the component uses [redux](https://redux.js.org/) as a state manager and an `eventBus` instance to facilitate communication between the business domains.
 
 To do this, all you have to do is declare the store parameters in a `store.ts` file to be able to import them later into a `Provider` component that will take care of injecting them into the React context.
 
