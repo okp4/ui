@@ -180,7 +180,7 @@ Button is available in three styled versions:
             variant="icon"
             label="Icon"
             size="medium"
-            icon={<Icon name="wallet" size={22} invertColor={invert} />}
+            icon={<Icon name="alert" size={22} invertColor={invert} />}
           />
         </div>
       )
@@ -317,9 +317,9 @@ It is triggered when a click is registered on the button.
           <Toast
             description={
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography color="highlighted-text" fontSize="small" fontWeight="light">
+                <Typography color="inverted-text" fontSize="small" fontWeight="light">
                   {`Like this component? See `}
-                  <Typography color="highlighted-text" fontSize="small" fontWeight="bold">
+                  <Typography color="inverted-text" fontSize="small" fontWeight="bold">
                     <a
                       href="/?path=/docs/atoms-toast--overview"
                       rel="author noreferrer"
@@ -334,8 +334,12 @@ It is triggered when a click is registered on the button.
             }
             isOpened={opened}
             onOpenChange={handleOpened(false)}
-            title="Button clicked!"
-            severityLevel="success"
+            title={
+              <Typography color="inverted-text" fontSize="small" fontWeight="bold">
+                Button clicked!
+              </Typography>
+            }
+            severityLevel="info"
           />
         </div>
       )
