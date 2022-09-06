@@ -29,7 +29,7 @@ export type FilePickerProps = Pick<
 
 // eslint-disable-next-line max-lines-per-function
 export const FilePicker: React.FC<FilePickerProps> = ({
-  clearAll,
+  clearAll = true,
   ...props
 }: DeepReadonly<FilePickerProps>) => {
   const { t }: UseTranslationResponse = useTranslation()
@@ -89,13 +89,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   const FileItem = ({ id, name, size }: FileDescriptor): JSX.Element => (
     <ListItem
       description={
-        <Typography
-          as="div"
-          color="inverted-text"
-          fontFamily="brand"
-          fontSize="small"
-          fontWeight="xlight"
-        >
+        <Typography as="div" color="inverted-text" fontSize="small" fontWeight="xlight">
           {displayFileSize(size)}
         </Typography>
       }
@@ -116,7 +110,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
       />
       {clearAll && fileList.length > 1 && (
         <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
-          <Typography as="span" fontSize="x-small" fontWeight="xlight" textDecoration="underline">
+          <Typography fontSize="x-small" fontWeight="xlight" textDecoration="underline">
             {t(`filePicker:filePicker.clearAll`)}
           </Typography>
         </div>
