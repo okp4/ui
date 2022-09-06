@@ -21,6 +21,7 @@ export type IconName =
   | 'facebook'
   | 'linkedin'
   | 'meeting'
+  | 'menu'
   | 'moon'
   | 'next'
   | 'podcast'
