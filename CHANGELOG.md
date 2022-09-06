@@ -1,5 +1,19 @@
 # OKP4 UI changelog
 
+# [1.14.0](https://github.com/okp4/ui/compare/v1.13.0...v1.14.0) (2022-09-06)
+
+
+### Bug Fixes
+
+* **stepper:** disable buttons if necessary ([1375537](https://github.com/okp4/ui/commit/1375537bb0528e17a7384bb5365765ec3d1fc63f))
+
+
+### Features
+
+* add invert prop to icon ([0c25c8e](https://github.com/okp4/ui/commit/0c25c8e0d43b4704e991e5fe965d28f4ae0cae23))
+* **theme:** remove secondary invariant color ([04649ce](https://github.com/okp4/ui/commit/04649ceb6ee1d79db6671ecced927739538780d7))
+* **typography:** add text decoration property ([0800553](https://github.com/okp4/ui/commit/0800553fa02c1f4f1337ab9cbf2c1c419e594cf7))
+
 # [1.13.0](https://github.com/okp4/ui/compare/v1.12.1...v1.13.0) (2022-08-31)
 
 
