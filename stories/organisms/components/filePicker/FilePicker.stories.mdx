@@ -12,14 +12,6 @@ import { default as storeParameters } from './store'
 <Meta
   title="Organisms/FilePicker"
   component={FilePicker}
-  parameters={{
-    actions: { argTypesRegex: '^on.*' },
-    docs: {
-      source: {
-        type: 'code'
-      }
-    }
-  }}
   decorators={[
     Story => (
       <ThemeProvider>
@@ -38,14 +30,14 @@ import { default as storeParameters } from './store'
 
 # OKP4 File Picker
 
-> Allows to select files and display them.
+> Allows the selection, the deselection and the visualization of files.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
-The `FilePicker` component is a component that displays a file input and the list of the selected files.  
-It is a combination of the [FileInput](/docs/atoms-fileinput--overview) component and the [List](/docs/atoms-list--overview) and [Listitem](/docs/atoms-listitem--overview) components.
+FilePicker allows to input files and display them in a list.  
+It is a combination of the [FileInput](/docs/atoms-fileinput--overview) and the [List](/docs/atoms-list--overview) (with [Listitem](/docs/atoms-listitem--overview)) components.
 
 ## Overview
 
@@ -67,16 +59,9 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) componen
   }}
   args={{
     label: 'Drop your files here, or browse',
-    description: (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-          Supports images like .png, .jpg, .jpeg, etc. and CSV files
-        </Typography>
-      </div>
-    ),
     multiple: true,
     acceptedFormats: ['image/*', '.csv'],
-    size: 'large',
+    size: 'medium',
     clearAll: true
   }}
 >
@@ -85,17 +70,22 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) componen
     return (
       <div
         style={{
-          padding: '10px 0',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '15px',
           backgroundImage: `url(${theme === 'dark' ? cosmosDark : cosmosLight})`,
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <FilePicker {...args} />
+        <FilePicker
+          {...args}
+          description={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+                Supports images like .png, .jpg, .jpeg, etc. and CSV files
+              </Typography>
+            </div>
+          }
+        />
       </div>
     )
   }}
@@ -107,22 +97,20 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) componen
 
 ## Usage
 
-To configure the organism, the [@okp4/ui](https://www.npmjs.com/package/@okp4/ui) library provides all the necessary elements. You will just have to follow these two steps:
+To configure the FilePicker, the [@okp4/ui](https://www.npmjs.com/package/@okp4/ui) library provides all the necessary elements. You will just have to follow these two steps:
 
-### 1. Instanciate redux stores to init the component
+### 1. Instantiate redux stores
 
-To work, the component uses [redux](https://redux.js.org/) as a state manager and an `eventBus` instance to facilitate communication between the business domains.
+To work, FilePicker uses [redux](https://redux.js.org/) as a state manager and an **eventBus** instance to facilitate communication between the business domains.
 
-To do this, all you have to do is declare the store parameters in a `store.ts` file to be able to import them later into a `Provider` component that will take care of injecting them into the React context.
+To do this, all you have to do is declare the store parameters in a **store.ts** file to be able to import them later into a Provider component that will take care of injecting them into the React context.
 
 **`store.ts`**
 
 ```ts
 import { List } from 'immutable'
 import { FileStoreBuilder } from 'domain/file/store/builder/store.builder'
-import { ErrorStoreBuilder } from 'domain/error/store/builder/store.builder'
 import { FileContext } from 'context/storeContext/fileContext'
-import { ErrorContext } from 'context/storeContext/errorContext'
 import { createEventBusInstance } from 'eventBus/index'
 import type { StoreParameter } from 'ui/providers/storeProvider'
 import 'domain/error/index'
@@ -141,11 +129,11 @@ const fileStoreParameter: StoreParameter = [FileContext, fileStore]
 export default List([fileStoreParameter])
 ```
 
-### 2. Wrap the `FilePicker` component into a store provider
+### 2. Wrap the FilePicker component into a store provider
 
-Finally, it is necessary to wrap the `FilePicker` component in a `StoreProvider` which will auto-inject into the React context the configuration elements necessary for its proper functioning.
+Finally, it is necessary to wrap the FilePicker in a StoreProvider which will auto-inject into the React context the configuration elements necessary for its proper functioning.
 
-This `StoreProvider` component is directly provided by the `@okp4/ui` library, you simply have to pass it the parameters exported by the `store.ts` file as properties.
+This StoreProvider component is directly provided by the `@okp4/ui` library, you simply have to pass it the parameters exported by the **store.ts** file as properties.
 
 **`app.tsx`**
 
