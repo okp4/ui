@@ -19,7 +19,7 @@ export const amendTaskStatus =
     if (!getState().task.byId.has(id)) {
       dispatchError(
         new UnspecifiedError(
-          `Oops.. The provided id '${id}' does not exist, so we can't amend the status of an unknwom task..`
+          `Oops.. The provided id '${id}' does not exist, so we can't amend the status of an unknown task..`
         ),
         dispatch
       )

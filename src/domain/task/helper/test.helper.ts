@@ -23,7 +23,7 @@ export const getExpectedEventParameter = <T>(
 
 // Compute state after invoking removeTask* commands
 export const getExpectedStateAfterRemove = (
-  iniialState: DeepReadonly<AppState>,
+  initialState: DeepReadonly<AppState>,
   tasks: DeepReadonly<Task[]>,
   errorIndex?: number
 ): AppState =>
@@ -40,7 +40,7 @@ export const getExpectedStateAfterRemove = (
           displayedTaskIds: acc.displayedTaskIds.remove(cur.id)
         }
       : acc
-  }, iniialState)
+  }, initialState)
 
 export const expectEventParameters = <T>(
   expectedEventParameters: EventParameter<T>[],
