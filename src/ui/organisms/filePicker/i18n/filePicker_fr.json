@@ -2,7 +2,7 @@
   "filePicker": {
     "fileSizeUnit": {
       "B": "octets",
-      "KB": "Ko",
+      "KB": "ko",
       "MB": "Mo",
       "GB": "Go",
       "TB": "To"

@@ -1,8 +1,8 @@
 {
   "filePicker": {
     "fileSizeUnit": {
-      "B": "Bytes",
-      "KB": "KB",
+      "B": "bytes",
+      "KB": "kB",
       "MB": "MB",
       "GB": "GB",
       "TB": "TB"

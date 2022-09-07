@@ -104,7 +104,7 @@ export const isFileTypeAccepted = (file: DeepReadonly<File>, acceptedFormat: str
  * Check if each file has one of the MIME types or extensions.
  * @param files The files to check.
  * @param acceptedFormats The accepted formats (MIME type or extension) of the files.
- * @returns A boolean that indicates if the files match the MIME types or extensions.
+ * @returns A boolean that indicates if the files matches the MIME types or extensions.
  */
 export const areFilesAccepted = (
   files: DeepReadonly<File[]>,

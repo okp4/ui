@@ -64,7 +64,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         )
       } else {
         setError(true)
-        setErrorMessage(t(`filePicker:filePicker.errorMessage.type`))
+        setErrorMessage(t('filePicker:filePicker.errorMessage.type'))
       }
     },
     [props.acceptedFormats, fileDispatch, t]
@@ -80,8 +80,8 @@ export const FilePicker: React.FC<FilePickerProps> = ({
     [fileDispatch]
   )
 
-  const RemoveIcon = (id: string): JSX.Element => (
-    <div className="okp4-file-picker-list-delete" onClick={handleRemove(id)}>
+  const RemoveIcon = ({ id }: Readonly<{ id: string }>): JSX.Element => (
+    <div className="okp4-file-picker-list-item-delete" onClick={handleRemove(id)}>
       <Icon invertColor name="close" />
     </div>
   )
@@ -94,7 +94,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         </Typography>
       }
       key={id}
-      rightElement={RemoveIcon(id)}
+      rightElement={<RemoveIcon id={id} />}
       title={name}
     />
   )
@@ -111,7 +111,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
       {clearAll && fileList.length > 1 && (
         <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
           <Typography fontSize="x-small" fontWeight="xlight" textDecoration="underline">
-            {t(`filePicker:filePicker.clearAll`)}
+            {t('filePicker:filePicker.clearAll')}
           </Typography>
         </div>
       )}
