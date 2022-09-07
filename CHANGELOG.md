@@ -1,5 +1,30 @@
 # OKP4 UI changelog
 
+# [1.15.0](https://github.com/okp4/ui/compare/v1.14.0...v1.15.0) (2022-09-07)
+
+
+### Bug Fixes
+
+* export all hooks ([7cc79a9](https://github.com/okp4/ui/commit/7cc79a92c45cb7647901e29a2ceba2b63067ea87))
+* make client method asynchronous with event listeners ([c63d51d](https://github.com/okp4/ui/commit/c63d51d6afdbaa5dcf2d223d02b84c841f1c2c08))
+* update HTTPFaucetGateway to handle asynchronous client ([a362a68](https://github.com/okp4/ui/commit/a362a68b39054bc7c0c16f6c375b4df67983867c))
+
+
+### Features
+
+* add checkFileExtension function ([b9f3555](https://github.com/okp4/ui/commit/b9f3555052493fd5b285fa41666a4769fcc37c58))
+* add error to file picker ([6c4e758](https://github.com/okp4/ui/commit/6c4e758c42c7fae80fafa7bcd1181d1e79dfec4b))
+* add file picker component ([9bc34b2](https://github.com/okp4/ui/commit/9bc34b27b7b4c5eedd2b10c1f739a1aa22e448ea))
+* add underline to clear all ([1bc7088](https://github.com/okp4/ui/commit/1bc7088c8feebb73cdd5a9541ed25a280e126b82))
+* **core:** add convertSize function ([4d0f730](https://github.com/okp4/ui/commit/4d0f730af0ad47b3cee949705f39a0944d1f68cb))
+* **core:** add SizeUnit type ([c23a4ed](https://github.com/okp4/ui/commit/c23a4ed0cd653b68844772c785a583e3eb6d18ed))
+* display size of selected files in list ([68fa6a7](https://github.com/okp4/ui/commit/68fa6a7a0d94ea03158240b2f44b42553451f3f2))
+* **file input:** allow select same file ([d2b3c1e](https://github.com/okp4/ui/commit/d2b3c1e5fd4f3b76e2a44db6754f4f32f4a2cb04))
+* **file picker:** add clear all property ([a368755](https://github.com/okp4/ui/commit/a368755860c699fc5965d2c1beea9a8daee2ad39))
+* **file picker:** check file mime type & ext ([5054c7d](https://github.com/okp4/ui/commit/5054c7d1fd1e43a4f81317b6986e08e4a9353f15))
+* **file picker:** clear all true by default ([c5cc9c2](https://github.com/okp4/ui/commit/c5cc9c25392e28879b75517a271bbfa140855ab4))
+* **file picker:** display files most recent first ([c4b1a6c](https://github.com/okp4/ui/commit/c4b1a6c1e7c811bc6bcf86483727c50c5d897ca8))
+
 # [1.14.0](https://github.com/okp4/ui/compare/v1.13.0...v1.14.0) (2022-09-06)
 
 
