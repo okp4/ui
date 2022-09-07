@@ -8,7 +8,7 @@ jobs:
   notify:
     runs-on: ubuntu-22.04
     steps:
-    - name: Deploy Stage
+    - name: Discord Notify
       uses: fjogeleit/http-request-action@v1
       with:
         url: ${{ secrets.discord_webhook }}
