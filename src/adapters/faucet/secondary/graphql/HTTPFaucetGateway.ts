@@ -1,5 +1,7 @@
-import client from './client'
+import type { OperationResult } from '@urql/core'
 import { pipe, toPromise } from 'wonka'
+import type { FaucetClient } from './client'
+import client from './client'
 import { SEND_TOKENS_SUBSCRIPTION } from './documents/sendTokens'
 import type { SSendTokensSubscription, SSendTokensSubscriptionVariables } from './generated/types'
 import { FaucetGatewayError, UnspecifiedError } from 'domain/faucet/entity/error'
@@ -13,26 +15,43 @@ export class HTTPFaucetGateway implements FaucetPort {
   }
 
   public requestFunds = async (address: string): Promise<string> => {
-    const result = await pipe(
-      client(this.faucetUrl).subscription<
-        SSendTokensSubscription,
-        SSendTokensSubscriptionVariables
-      >(SEND_TOKENS_SUBSCRIPTION, {
-        input: {
-          toAddress: address
-        }
-      }),
-      toPromise
+    return (
+      client(this.faucetUrl)
+        // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+        .then(async ({ gqlClient, unsuscribe }: FaucetClient) =>
+          pipe(
+            gqlClient.subscription<SSendTokensSubscription, SSendTokensSubscriptionVariables>(
+              SEND_TOKENS_SUBSCRIPTION,
+              {
+                input: {
+                  toAddress: address
+                }
+              }
+            ),
+            toPromise
+          )
+            // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+            .then(({ data, error }: OperationResult<SSendTokensSubscription>) => {
+              if (error) {
+                throw new FaucetGatewayError(error.message)
+              }
+
+              if (!data || data.send.code !== 0) {
+                throw new UnspecifiedError(
+                  'Oooops... An unspecified error occured while requesting funds..'
+                )
+              }
+              return data.send.hash
+            })
+            .catch(() => {
+              throw new UnspecifiedError(
+                'Oooops... An unspecified error occured while requesting funds..'
+              )
+            })
+            .finally(() => {
+              unsuscribe()
+            })
+        )
     )
-
-    if (result.error) {
-      throw new FaucetGatewayError(result.error.message)
-    }
-
-    if (!result.data || result.data.send.code !== 0) {
-      throw new UnspecifiedError('Oooops... An unspecified error occured while requesting funds..')
-    }
-
-    return result.data.send.hash
   }
 }
