@@ -14,7 +14,10 @@ jobs:
         url: ${{ secrets.discord_webhook }}
         method: 'POST'
         customHeaders: '{"Content-Type": "application/json"}'
-        data: '{"content": "
+        data: '{            
+            "avatar_url": "https://avatars.githubusercontent.com/u/98603954?v=4",
+            "username": "Bot Anik",
+            "content": "
         🚨 A new version of @${{github.repository}} ${{ github.event.tagName }} has been released! 🎉
 
         👉 Changelog: https://github.com/${{ github.repository }/releases/tag/${{ github.event.tagName }}
