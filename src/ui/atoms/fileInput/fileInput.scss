@@ -16,6 +16,7 @@ $sizes-map: (
 .okp4-fileinput-main {
   width: 100%;
   height: 100%;
+  margin: auto;
 
   @include with-theme() {
     @each $size in $sizes {

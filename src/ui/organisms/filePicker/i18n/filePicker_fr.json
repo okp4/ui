@@ -1,0 +1,15 @@
+{
+  "filePicker": {
+    "fileSizeUnit": {
+      "B": "octets",
+      "KB": "ko",
+      "MB": "Mo",
+      "GB": "Go",
+      "TB": "To"
+    },
+    "errorMessage": {
+      "type": "Ce type de fichier n'est pas accepté."
+    },
+    "clearAll": "Tout supprimer"
+  }
+}

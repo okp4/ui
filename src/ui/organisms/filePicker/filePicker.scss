@@ -1,0 +1,16 @@
+.okp4-file-picker-main {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .okp4-file-picker-list-item-delete {
+    cursor: pointer;
+  }
+
+  .okp4-file-picker-clear-all {
+    margin-top: 20px;
+    text-align: end;
+    cursor: pointer;
+  }
+}

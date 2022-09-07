@@ -8,35 +8,35 @@ import { truthy } from 'utils'
 
 export type FileInputProps = {
   /**
-   * The main title
+   * The main title of the file input.
    */
   readonly label?: string
   /**
-   * Context information for the user
+   * Context information for the user.
    */
   readonly description?: JSX.Element
   /**
-   * Drop one or several files
+   * Drop one or several files.
    */
   readonly multiple?: boolean
   /**
-   * The list of the accepted formats
+   * The list of the accepted formats.
    */
   readonly acceptedFormats?: string[]
   /**
-   * The size of the component
+   * The size of the file input area.
    */
   readonly size?: 'large' | 'medium' | 'small'
   /**
-   * Make the component in an error state or not
+   * Make the component in an error state or not.
    */
   readonly error?: boolean
   /**
-   * An error message displayed when the component is in the error state
+   * An error message displayed when the component is in the error state.
    */
   readonly errorMessage?: string
   /**
-   * Callback method called when files are dropped
+   * Callback method called when files are dropped.
    */
   // lint rule bypassed in method props arguments
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -74,6 +74,15 @@ export const FileInput: React.FC<FileInputProps> = ({
     event.preventDefault()
     event.stopPropagation()
   }, [])
+
+  const clearInputValue = useCallback(
+    // lint rule bypassed because of type 'Element' is not compatible with readonly
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    (event: React.MouseEvent<HTMLInputElement>): void => {
+      event.currentTarget.value = ''
+    },
+    []
+  )
 
   const getFilesFromEvent = useCallback(
     // lint rule bypassed because of type 'Element' is not compatible with readonly
@@ -142,6 +151,7 @@ export const FileInput: React.FC<FileInputProps> = ({
           accept={acceptedFormats?.join(', ')}
           multiple={multiple}
           onChange={handleChange}
+          onClick={clearInputValue}
           type="file"
         />
         <div>
