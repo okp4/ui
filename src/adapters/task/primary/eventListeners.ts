@@ -1,18 +1,36 @@
 import type { EventBus } from 'ts-bus'
-import type { TaskAmendedEvent, TaskCreatedEvent } from 'domain/common/actionCreators'
+import { amendTaskStatus } from 'domain/task/usecase/amend-task-status/amendTaskStatus'
 import { registerTask } from 'domain/task/usecase/register-task/registerTask'
-import { updateTask } from 'domain/task/usecase/update-task/updateTask'
 import type { ReduxStore } from 'domain/task/store/store'
 import type { DeepReadonly } from 'superTypes'
+import type { TypedBusEvent } from 'eventBus/eventBus'
+import type { RegisterTaskActions } from 'domain/task/usecase/register-task/actionCreators'
+import type { AmendTaskStatusActions } from 'domain/task/usecase/amend-task-status/actionCreators'
 
 export const initTaskEventListeners = (
   store: DeepReadonly<ReduxStore>,
   eventBus: DeepReadonly<EventBus>
 ): void => {
-  eventBus.subscribe('task/taskCreated', (event: DeepReadonly<TaskCreatedEvent>) => {
-    store.dispatch(registerTask({ ...event.payload, initiator: event.meta.initiator }))
-  })
-  eventBus.subscribe('task/taskAmended', (event: DeepReadonly<TaskAmendedEvent>) => {
-    store.dispatch(updateTask(event.payload))
-  })
+  eventBus.subscribe(
+    'task/taskRegisterReceived',
+    (
+      event: DeepReadonly<
+        TypedBusEvent<DeepReadonly<ReturnType<typeof RegisterTaskActions['taskRegisterReceived']>>>
+      >
+    ) => {
+      store.dispatch(registerTask({ ...event.payload, initiator: event.meta.initiator }))
+    }
+  )
+  eventBus.subscribe(
+    'task/taskStatusAmendReceived',
+    (
+      event: DeepReadonly<
+        TypedBusEvent<
+          DeepReadonly<ReturnType<typeof AmendTaskStatusActions['taskStatusAmendReceived']>>
+        >
+      >
+    ) => {
+      store.dispatch(amendTaskStatus(event.payload))
+    }
+  )
 }

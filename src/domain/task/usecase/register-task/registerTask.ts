@@ -1,9 +1,10 @@
 import type { ReduxStore, ThunkResult } from 'domain/task/store/store'
-import type { Task } from 'domain/task/entity/task'
 import { RegisterTaskActions } from './actionCreators'
 import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { UnspecifiedError } from 'domain/task/entity/error'
+import type { RegisterTask } from 'domain/task/command/registerTask'
+import type { DeepReadonly } from 'superTypes'
 
 const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
   const errorToDispatch = ErrorMapper.mapRawErrorToEntity(error)
@@ -11,17 +12,27 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void =
 }
 
 export const registerTask =
-  (task: Task): ThunkResult<Promise<void>> =>
+  (registerTaskPayload: DeepReadonly<RegisterTask>): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
-    if (getState().task.byId.has(task.id)) {
+    const { id, timestamp = new Date(), type, initiator }: RegisterTask = registerTaskPayload
+    if (getState().task.byId.has(id)) {
       dispatchError(
         new UnspecifiedError(
-          `Oops.. The provided id '${task.id}' already exists, so we can't perform a task register..`
+          `Oops.. The provided id '${id}' already exists, so we can't perform a task registering..`
         ),
         dispatch
       )
       return
     }
-    dispatch(RegisterTaskActions.taskRegistered(task))
+
+    dispatch(
+      RegisterTaskActions.taskRegistered({
+        id,
+        timestamp,
+        initiator,
+        status: 'processing',
+        type
+      })
+    )
   }

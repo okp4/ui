@@ -54,7 +54,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   }, [errorDispatch])
 
   const acknowledgeFaucetTask = useCallback(() => {
-    transactionSuccessId && taskDispatch(acknowledgeTask(transactionSuccessId))
+    transactionSuccessId && taskDispatch(acknowledgeTask({ id: transactionSuccessId }))
   }, [taskDispatch, transactionSuccessId])
 
   const cleanUIStates = useCallback(async () => {

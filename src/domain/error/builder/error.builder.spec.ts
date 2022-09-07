@@ -21,18 +21,11 @@ type Data = Readonly<
 describe('Build an error', () => {
   const aDate = new Date(1995, 11, 17)
   const aBadDate = {}
-  const fakedDate = new Date(2022, 1, 1)
+  const fakedDate = new Date('2021-01-01T09:00:00.000Z')
   const fakedUuid = 'foobar'
 
   beforeAll(() => {
     short.generate = jest.fn(() => fakedUuid as short.SUUID)
-
-    jest.useFakeTimers()
-    jest.setSystemTime(fakedDate)
-  })
-
-  afterAll(() => {
-    jest.useRealTimers()
   })
 
   describe.each`

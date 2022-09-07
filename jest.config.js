@@ -5,7 +5,8 @@ module.exports = {
   moduleDirectories: ['node_modules'],
   coveragePathIgnorePatterns: [
     '<rootDir>/src/adapters/faucet/secondary/graphql/documents/',
-    'index.ts'
+    'index.ts',
+    'test.helper.ts'
   ],
   globals: {
     window: {}

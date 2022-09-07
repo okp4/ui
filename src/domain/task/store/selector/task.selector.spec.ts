@@ -2,9 +2,13 @@ import { Map, OrderedMap, OrderedSet } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { Task, TaskStatus } from 'domain/task/entity/task'
 import type { AppState } from '../../store/appState'
-import { getTaskById, getTaskIdsByType, getDisplayedTaskIdByTypeAndStatus } from './task.selector'
+import {
+  getTaskStatusById,
+  getTaskIdsByType,
+  getDisplayedTaskIdByTypeAndStatus
+} from './task.selector'
 import type { DeepReadonly } from 'superTypes'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
+import { TaskBuilder } from 'domain/task/builder/task.builder'
 import { TaskStoreBuilder } from '../builder/store.builder'
 
 type Data = DeepReadonly<{
@@ -12,7 +16,7 @@ type Data = DeepReadonly<{
   taskId: string
   taskType: string
   taskStatus: TaskStatus
-  expectedTask: ReturnType<typeof getTaskById>
+  expectedTaskStatus: ReturnType<typeof getTaskStatusById>
   expectedTaskIds: ReturnType<typeof getTaskIdsByType>
   exptectedDisplayedTaskIdByTypeAndStatus: ReturnType<typeof getDisplayedTaskIdByTypeAndStatus>
 }>
@@ -23,25 +27,25 @@ const task1 = new TaskBuilder()
   .withId('#id-1')
   .withCreationDate(aDate)
   .withLastUpdateDate(aDate)
-  .withMessageKey('domain.task.success')
   .withType('foo')
   .withStatus('success')
+  .withInitiator('domain:test')
   .build()
 const task2 = new TaskBuilder()
   .withId('#id-2')
   .withCreationDate(bDate)
   .withLastUpdateDate(bDate)
-  .withMessageKey('domain.task.processing')
   .withType('foo')
   .withStatus('success')
+  .withInitiator('domain:test')
   .build()
 const task3 = new TaskBuilder()
   .withId('#id-3')
   .withCreationDate(bDate)
   .withLastUpdateDate(bDate)
-  .withMessageKey('domain.task.success')
   .withType('bar')
   .withStatus('success')
+  .withInitiator('domain:test')
   .build()
 
 const state1: AppState = {
@@ -55,10 +59,10 @@ const state1: AppState = {
 }
 
 describe.each`
-  state        | taskId          | taskType         | taskStatus         | expectedTask | expectedTaskIds                             | exptectedDisplayedTaskIdByTypeAndStatus
-  ${undefined} | ${'#id-1'}      | ${undefined}     | ${undefined}       | ${undefined} | ${undefined}                                | ${undefined}
-  ${state1}    | ${'#id-broken'} | ${'broken-type'} | ${'broken-status'} | ${undefined} | ${undefined}                                | ${undefined}
-  ${state1}    | ${'#id-3'}      | ${'foo'}         | ${'success'}       | ${task3}     | ${OrderedSet<string>([task1.id, task2.id])} | ${task1.id}
+  state        | taskId          | taskType         | taskStatus         | expectedTaskStatus | expectedTaskIds                             | exptectedDisplayedTaskIdByTypeAndStatus
+  ${undefined} | ${'#id-1'}      | ${undefined}     | ${undefined}       | ${undefined}       | ${undefined}                                | ${undefined}
+  ${state1}    | ${'#id-broken'} | ${'broken-type'} | ${'broken-status'} | ${undefined}       | ${undefined}                                | ${undefined}
+  ${state1}    | ${'#id-3'}      | ${'foo'}         | ${'success'}       | ${task3.status}    | ${OrderedSet<string>([task1.id, task2.id])} | ${task1.id}
 `(
   'Given that state is <$state>, taskId is <$taskId>, taskType is <$taskType> and taskStatus is <$taskStatus>',
   ({
@@ -66,7 +70,7 @@ describe.each`
     taskId,
     taskType,
     taskStatus,
-    expectedTask,
+    expectedTaskStatus,
     expectedTaskIds,
     exptectedDisplayedTaskIdByTypeAndStatus
   }: Data): void => {
@@ -78,11 +82,11 @@ describe.each`
       }
       return storeBuilder.withEventBus(eventBusInstance).build()
     }
-    describe('When performing selection getTaskById', () => {
-      const v = getTaskById(store().getState(), taskId)
+    describe('When performing selection getTaskStatusById', () => {
+      const v = getTaskStatusById(store().getState(), taskId)
 
-      test(`Then, expect value to be ${expectedTask}`, () => {
-        expect(v).toEqual(expectedTask)
+      test(`Then, expect value to be ${expectedTaskStatus}`, () => {
+        expect(v).toEqual(expectedTaskStatus)
       })
     })
 

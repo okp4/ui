@@ -6,23 +6,22 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
-import type { EventParameter } from '../../helper/test.helper'
+import { EventParameter, expectEventParameters } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
+import { RemoveTasks } from 'domain/task/command/removeTasks'
 import { TaskRemovedPayload } from 'domain/task/event/taskRemoved'
-import { expectEventParameters } from 'domain/task/helper/test.helper'
-import { AcknowledgeTask } from 'domain/task/command/acknowledgeTask'
-import { TaskAcknowledgedPayload } from 'domain/task/event/taskAcknowledged'
-import { acknowledgeTask } from './acknowledgeTask'
+import { removeTasks } from './removeTasks'
+import { getExpectedStateAfterRemove } from 'domain/task/helper/test.helper'
 
 type InitialProps = Readonly<{
   store: ReduxStore
 }>
 
 type Data = {
-  taskToAcknowledge: AcknowledgeTask
+  tasksToRemove: RemoveTasks
   expectedState: AppState
-  expectedEventParameters: EventParameter<TaskAcknowledgedPayload>[]
+  expectedEventParameters: EventParameter<TaskRemovedPayload>[]
 }
 
 const eventBus = new EventBus()
@@ -37,22 +36,22 @@ const init = (preloadedState: AppState): InitialProps => {
   return { store }
 }
 
-describe('Acknowledge a task', () => {
+describe('Remove tasks', () => {
   const fakedDate = new Date('2021-01-01T09:00:00.000Z')
   const fakedUuid = 'foobar'
   const initiator = 'domain:task'
 
   // Commands
-  const taskToAcknowledge1: AcknowledgeTask = { id: 'id1' }
-  const taskToAcknowledge2: AcknowledgeTask = { id: 'id2' }
-  const taskToAcknowledge3: AcknowledgeTask = { id: fakedUuid }
+  const tasksToRemove1: RemoveTasks = ['id1']
+  const tasksToRemove2: RemoveTasks = ['id1', 'id2']
+  const tasksToRemove3: RemoveTasks = ['id1', fakedUuid]
 
   // Event payloads
-  const taskAcknowledgedPayload1: TaskRemovedPayload = {
+  const taskRemovedPayload1: TaskRemovedPayload = {
     id: 'id1'
   }
 
-  const taskAcknowledgedPayload2: TaskRemovedPayload = {
+  const taskRemovedPayload2: TaskRemovedPayload = {
     id: 'id2'
   }
 
@@ -94,37 +93,36 @@ describe('Acknowledge a task', () => {
     displayedTaskIds: OrderedSet<string>([task1.id, task2.id])
   }
 
-  const expectedDisplayedTaskIds1 = { displayedTaskIds: OrderedSet<string>([task2.id]) }
-  const expectedDisplayedTaskIds2 = { displayedTaskIds: OrderedSet<string>([task1.id]) }
+  const initialState: AppState = {
+    task: { byId: OrderedMap<string, Task>(), byType: OrderedMap<string, OrderedSet<string>>() },
+    displayedTaskIds: OrderedSet<string>()
+  }
 
   beforeAll(() => {
     short.generate = jest.fn(() => fakedUuid as short.SUUID)
   })
-
   describe.each`
-    taskToAcknowledge     | expectedState                                          | expectedEventParameters
-    ${{}}                 | ${preloadedState}                                      | ${[]}
-    ${taskToAcknowledge1} | ${{ ...preloadedState, ...expectedDisplayedTaskIds1 }} | ${[getExpectedEventParameter('task/taskAcknowledged', taskAcknowledgedPayload1, initiator, fakedDate)]}
-    ${taskToAcknowledge2} | ${{ ...preloadedState, ...expectedDisplayedTaskIds2 }} | ${[getExpectedEventParameter('task/taskAcknowledged', taskAcknowledgedPayload2, initiator, fakedDate)]}
-    ${taskToAcknowledge3} | ${preloadedState}                                      | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
+    tasksToRemove     | expectedState                                           | expectedEventParameters
+    ${[]}             | ${preloadedState}                                       | ${[]}
+    ${undefined}      | ${initialState}                                         | ${[getExpectedEventParameter('task/taskRemoved', taskRemovedPayload1, initiator, fakedDate), getExpectedEventParameter('task/taskRemoved', taskRemovedPayload2, initiator, fakedDate)]}
+    ${tasksToRemove1} | ${getExpectedStateAfterRemove(preloadedState, [task1])} | ${[getExpectedEventParameter('task/taskRemoved', taskRemovedPayload1, initiator, fakedDate)]}
+    ${tasksToRemove2} | ${initialState}                                         | ${[getExpectedEventParameter('task/taskRemoved', taskRemovedPayload1, initiator, fakedDate), getExpectedEventParameter('task/taskRemoved', taskRemovedPayload2, initiator, fakedDate)]}
+    ${tasksToRemove3} | ${preloadedState}                                       | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
-    `Given a task to acknowledge <$taskToAcknowledge>`,
-    ({ taskToAcknowledge, expectedState, expectedEventParameters }: Data): void => {
+    `Given a list of task to remove <$tasksToRemove>`,
+    ({ tasksToRemove, expectedState, expectedEventParameters }: Data): void => {
       const { store }: InitialProps = init(preloadedState)
 
-      describe('When acknowledging a task', () => {
+      describe('When removing tasks', () => {
         afterAll(() => {
           jest.clearAllMocks()
         })
         test(`Then, expect state to be ${JSON.stringify(
           expectedState
         )} and eventParameters to be ${JSON.stringify(expectedEventParameters)}`, async () => {
-          await store.dispatch(acknowledgeTask(taskToAcknowledge))
+          await store.dispatch(removeTasks(tasksToRemove))
           expect(store.getState()).toStrictEqual(expectedState)
-          expectEventParameters<TaskAcknowledgedPayload>(
-            expectedEventParameters,
-            mockedEventBusPublish
-          )
+          expectEventParameters<TaskRemovedPayload>(expectedEventParameters, mockedEventBusPublish)
         })
       })
     }

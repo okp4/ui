@@ -5,7 +5,7 @@ import { UnspecifiedError } from 'domain/task/entity/error'
 import { TaskStoreBuilder } from './store.builder'
 import type { TaskStoreParameters } from './store.builder'
 import type { AppState } from '../appState'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
+import { TaskBuilder } from 'domain/task/builder/task.builder'
 import { Task } from 'domain/task/entity/task'
 
 type Data = Readonly<
@@ -22,9 +22,9 @@ const task1 = new TaskBuilder()
   .withId('id1')
   .withCreationDate(new Date())
   .withLastUpdateDate(new Date())
-  .withMessageKey('domain.task.test')
   .withType('task-test')
   .withStatus('processing')
+  .withInitiator('domain:task')
   .build()
 
 const state1: AppState = {

@@ -7,19 +7,21 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly } from 'superTypes'
-import { TaskBuilder } from 'domain/task/builder/task/task.builder'
-import type { EventParameter } from '../../helper/test.helper'
+import { TaskBuilder } from 'domain/task/builder/task.builder'
+import { EventParameter, expectEventParameters } from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
+import { RegisterTask } from 'domain/task/command/registerTask'
+import { TaskRegisteredPayload } from 'domain/task/event/taskRegistered'
 
 type InitialProps = Readonly<{
   store: ReduxStore
 }>
 
 type Data = {
-  task: Task[]
+  tasksToRegister: RegisterTask[]
   expectedState: AppState
-  expectedEventParameters: EventParameter[]
+  expectedEventParameters: EventParameter<TaskRegisteredPayload>[]
 }
 
 const eventBus = new EventBus()
@@ -54,36 +56,76 @@ const getExpectedState = (tasks: DeepReadonly<Task[]>, errorIndex?: number): App
   )
 
 describe('Register a task', () => {
-  const fakedDate = new Date(2022, 1, 1)
+  const fakedDate = new Date('2021-01-01T09:00:00.000Z')
   const fakedUuid = 'foobar'
   const aDate = new Date()
   const initiator = 'domain:task'
 
+  // Commands
+  const taskToRegister1: RegisterTask = {
+    id: 'id1',
+    timestamp: aDate,
+    type: 'test#register-task',
+    initiator
+  }
+
+  const taskToRegister2: RegisterTask = {
+    id: 'id2',
+    timestamp: aDate,
+    type: 'test#register-task',
+    initiator
+  }
+
+  const taskToRegister3: RegisterTask = {
+    id: 'id1',
+    timestamp: aDate,
+    type: 'test#register-task',
+    initiator
+  }
+
+  // Event payloads
+  const taskRegisteredPayload1: TaskRegisteredPayload = {
+    id: taskToRegister1.id,
+    timestamp: taskToRegister1.timestamp as Date,
+    type: taskToRegister1.type,
+    status: 'processing',
+    initiator
+  }
+
+  const taskRegisteredPayload2: TaskRegisteredPayload = {
+    id: taskToRegister2.id,
+    timestamp: taskToRegister2.timestamp as Date,
+    type: taskToRegister2.type,
+    status: 'processing',
+    initiator
+  }
+
+  // Entities
   const task1 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
+    .withId(taskToRegister1.id)
+    .withCreationDate(taskToRegister1.timestamp as Date)
+    .withLastUpdateDate(taskToRegister1.timestamp as Date)
+    .withType(taskToRegister1.type)
     .withStatus('processing')
+    .withInitiator(initiator)
     .build()
 
   const task2 = new TaskBuilder()
-    .withId('id2')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
+    .withId(taskToRegister2.id)
+    .withCreationDate(taskToRegister2.timestamp as Date)
+    .withLastUpdateDate(taskToRegister2.timestamp as Date)
+    .withType(taskToRegister2.type)
     .withStatus('processing')
+    .withInitiator(initiator)
     .build()
 
   const task3 = new TaskBuilder()
-    .withId('id1')
-    .withCreationDate(aDate)
-    .withLastUpdateDate(aDate)
-    .withMessageKey('domain.task.test')
-    .withType('task-test')
+    .withId(taskToRegister3.id)
+    .withCreationDate(taskToRegister3.timestamp as Date)
+    .withLastUpdateDate(taskToRegister3.timestamp as Date)
+    .withType(taskToRegister3.type)
     .withStatus('processing')
+    .withInitiator(initiator)
     .build()
 
   const error = new ErrorBuilder()
@@ -94,41 +136,35 @@ describe('Register a task', () => {
     .build()
 
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(fakedDate)
     short.generate = jest.fn(() => fakedUuid as short.SUUID)
   })
 
-  afterAll(() => {
-    jest.useRealTimers()
-  })
-
   describe.each`
-    task                     | expectedState                                 | expectedEventParameters
-    ${[]}                    | ${getExpectedState([])}                       | ${[]}
-    ${[task1]}               | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate)]}
-    ${[task1, task2]}        | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate)]}
-    ${[task1, task2, task3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', task1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', task2, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
+    tasksToRegister                                        | expectedState                                 | expectedEventParameters
+    ${[]}                                                  | ${getExpectedState([])}                       | ${[]}
+    ${[taskToRegister1]}                                   | ${getExpectedState([task1])}                  | ${[getExpectedEventParameter('task/taskRegistered', taskRegisteredPayload1, initiator, fakedDate)]}
+    ${[taskToRegister1, taskToRegister2]}                  | ${getExpectedState([task1, task2])}           | ${[getExpectedEventParameter('task/taskRegistered', taskRegisteredPayload1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', taskRegisteredPayload2, initiator, fakedDate)]}
+    ${[taskToRegister1, taskToRegister2, taskToRegister3]} | ${getExpectedState([task1, task2, task3], 2)} | ${[getExpectedEventParameter('task/taskRegistered', taskRegisteredPayload1, initiator, fakedDate), getExpectedEventParameter('task/taskRegistered', taskRegisteredPayload2, initiator, fakedDate), getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
-    `Given that there are $task.length task(s) to register`,
-    ({ task, expectedState, expectedEventParameters }: DeepReadonly<Data>): void => {
+    `Given that there are $tasksToRegister.length task(s) to register`,
+    ({ tasksToRegister, expectedState, expectedEventParameters }: Data): void => {
       const { store }: InitialProps = init()
 
       describe('When registering a task', () => {
         afterAll(() => {
           jest.clearAllMocks()
         })
-        test('Then, expect state and eventParameters to be', async () => {
-          await task.forEach((elt: Task) => {
+        test(`Then, expect state to be ${JSON.stringify(
+          expectedState
+        )}  and eventParameters to be ${JSON.stringify(expectedEventParameters)}`, async () => {
+          await tasksToRegister.forEach((elt: RegisterTask) => {
             store.dispatch(registerTask(elt))
           })
           expect(store.getState()).toStrictEqual(expectedState)
-          if (expectedEventParameters.length) {
-            expectedEventParameters.forEach((elt: DeepReadonly<EventParameter>, index: number) => {
-              const [first, second]: Readonly<EventParameter> = elt
-              expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
-            })
-          }
+          expectEventParameters<TaskRegisteredPayload>(
+            expectedEventParameters,
+            mockedEventBusPublish
+          )
         })
       })
     }
