@@ -35,30 +35,35 @@ import './icon.scss'
 
 Icons help convey ideas to users in a quick and simple way,
 reducing the need for text that can be hard to read and less intuitive.  
-**Icon** has the following properties:
+Icon has the following properties:
 
-- `name` the name of the icon you want to use. All icons come in both light and dark theme.
-- `size` optional size property applied to both the width and height of the icon.
-- `className` optional class name for custom css styling.
+- `name`: the name of the icon you want to use. All icons come in both light and dark theme.
+- `size`: optional size property applied to both the width and height of the icon.
+- `invertColor`: optional property to invert the icon color.
+- `className`: optional class name for custom CSS styling.
 
 ## Overview
 
 <Story
   name="Overview"
   argTypes={{ className: { control: false } }}
-  args={{ name: 'profile', size: 30 }}
+  args={{ name: 'profile', size: 30, invertColor: false }}
 >
-  {args => (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
-        justifyContent: 'center'
-      }}
-    >
-      <Icon {...args} />
-    </div>
-  )}
+  {args => {
+    const inverted = args.invertColor ? 'inverted' : ''
+    return (
+      <div
+        style={{
+          display: 'grid',
+          justifyContent: 'center'
+        }}
+      >
+        <div className={`icon-card ${inverted}`} style={{ width: '150px' }}>
+          <Icon {...args} />
+        </div>
+      </div>
+    )
+  }}
 </Story>
 
 ---
@@ -69,8 +74,10 @@ reducing the need for text that can be hard to read and less intuitive.
 
 ## Name
 
-The component has several icons to choose from and they are all thematized. To use an icon you pass
-the **name** of the icon you want as the property value.
+The component has several icons to choose from and they are all themed. To use an icon you just have to pass
+the name of the icon you want as the property value.
+
+Below you will find all available icons with their respective name.
 
 <Canvas>
   <Story name="Name">
@@ -113,7 +120,7 @@ the **name** of the icon you want as the property value.
           {iconNames.map(icon => (
             <div className="icon-card" key={icon}>
               <Icon name={icon} />
-              <Typography as="span" fontSize="x-small" fontFamily="secondary">
+              <Typography fontSize="x-small" fontFamily="secondary">
                 {icon}
               </Typography>
             </div>
@@ -126,8 +133,8 @@ the **name** of the icon you want as the property value.
 
 ## Size
 
-The **size** is squared and can be adjusted by passing a number value.  
-By `default` the size is **30** pixels.
+The `size` is squared and can be adjusted by passing a number value.  
+By default the size is **30** pixels.
 
 <Canvas>
   <Story name="Size">
@@ -139,15 +146,14 @@ By `default` the size is **30** pixels.
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(75px,auto))',
             justifyContent: 'center',
-            justifyItems: 'center',
-            alignItems: 'center',
+            placeItems: 'center',
             gap: '10px'
           }}
         >
           {sizes.map(size => (
             <div className="icon-size" key={size}>
               <Icon name="wallet" size={size} />
-              <Typography as="span" fontSize="x-small" fontFamily="secondary">
+              <Typography fontSize="x-small" fontFamily="secondary">
                 {size}
               </Typography>
             </div>
@@ -158,31 +164,9 @@ By `default` the size is **30** pixels.
   </Story>
 </Canvas>
 
-## Class Name
-
-The **className** property allows you to style the svg with css properties.  
-As seen in the examples below you can rotate icons, add background colors, animate them and more!
-
-<Canvas>
-  <Story name="Class Name">
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
-        justifyContent: 'center',
-        gap: '30px'
-      }}
-    >
-      <Icon name="add" className="rotate-add" />
-      <Icon name="arrow-right" className="bg-arrow-right" />
-      <Icon name="chat" className="bouncing-chat" />
-    </div>
-  </Story>
-</Canvas>
-
 ## Invert color
 
-The `invertColor` property allows you to invert the color of the icon, regarding the current theme.  
+The `invertColor` property allows you to invert the themed color of the icon, by default this property is **false**.  
 If set to **true**, the icon will be displayed in **white** when the light theme is selected and in **blue** when the dark theme is active.
 In particular, this makes it possible to better manage high-contrast elements and thus offer the user an immersive User eXperience.
 
@@ -198,16 +182,38 @@ In particular, this makes it possible to better manage high-contrast elements an
     >
       <div className="icon-card">
         <Icon name="wallet" />
-        <Typography as="span" color="text" fontSize="x-small" fontFamily="secondary">
+        <Typography color="text" fontSize="x-small" fontFamily="secondary">
           Current theme
         </Typography>
       </div>
       <div className="icon-card inverted">
         <Icon name="wallet" invertColor />
-        <Typography as="span" color="inverted-text" fontSize="x-small" fontFamily="secondary">
+        <Typography color="inverted-text" fontSize="x-small" fontFamily="secondary">
           Inverse theme
         </Typography>
       </div>
+    </div>
+  </Story>
+</Canvas>
+
+## Class Name
+
+The `className` property allows you to style the icon with CSS properties.  
+As seen in the examples below you can rotate icons, add background colors, animate them and more!
+
+<Canvas>
+  <Story name="Class name">
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(30px,auto))',
+        justifyContent: 'center',
+        gap: '30px'
+      }}
+    >
+      <Icon name="add" className="rotate-add" />
+      <Icon name="arrow-right" className="bg-arrow-right" />
+      <Icon name="chat" className="bouncing-chat" />
     </div>
   </Story>
 </Canvas>
