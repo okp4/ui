@@ -115,7 +115,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
           </Typography>
         </div>
       )}
-      <List>{fileList.map((file: FileDescriptor) => FileItem(file))}</List>
+      <List>{fileList.reverse().map((file: FileDescriptor) => FileItem(file))}</List>
     </div>
   )
 }
