@@ -4,12 +4,13 @@ import { Typography } from '../typography/Typography'
 import './listItem.scss'
 import { isString } from 'utils'
 import classNames from 'classnames'
+import type { ListProps } from '../list/List'
 
-export type ListItemProps = {
+export type ListItemProps = Pick<ListProps, 'layout'> & {
   /**
    * The main title of the item.
    */
-  readonly title?: string
+  readonly title?: string | JSX.Element
   /**
    * Additional information about the item
    */
@@ -29,37 +30,60 @@ export type ListItemProps = {
   readonly onClick?: () => void
 }
 
+type TitleProps = Pick<ListItemProps, 'title'>
+type DescriptionProps = Pick<ListItemProps, 'description'>
+
+const Title: React.FC<TitleProps> = ({ title }: DeepReadonly<TitleProps>) => {
+  if (!title) return null
+
+  const titleTypography = (
+    <div className="okp4-listitem-title">
+      <Typography color="inverted-text" fontSize="small" fontWeight="bold">
+        {title}
+      </Typography>
+    </div>
+  )
+
+  return isString(title) ? titleTypography : <div className="okp4-listitem-title">{title}</div>
+}
+
+const Description: React.FC<DescriptionProps> = ({
+  description
+}: DeepReadonly<DescriptionProps>) => {
+  if (!description) return null
+
+  const descriptionTypography = (
+    <div className="okp4-listitem-description">
+      <Typography color="inverted-text" fontSize="small">
+        {description}
+      </Typography>
+    </div>
+  )
+
+  return isString(description) ? (
+    descriptionTypography
+  ) : (
+    <div className="okp4-listitem-description">{description}</div>
+  )
+}
 export const ListItem: React.FC<ListItemProps> = ({
   title,
   description,
   firstElement,
   lastElement,
-  onClick
+  onClick,
+  layout
 }: DeepReadonly<ListItemProps>): JSX.Element => {
-  const renderDescription = (): string | JSX.Element | undefined =>
-    description && (
-      <div className="okp4-listitem-description">
-        {isString(description) ? (
-          <Typography as="div" color="inverted-text" fontSize="small">
-            {description}
-          </Typography>
-        ) : (
-          description
-        )}
-      </div>
-    )
-
+  const className = classNames('okp4-listitem-main', {
+    'layout-list': layout === 'list',
+    'layout-grid': layout === 'grid',
+    clickable: !!onClick
+  })
   return (
-    <div className={classNames('okp4-listitem-main', { clickable: !!onClick })} onClick={onClick}>
+    <div className={className} onClick={onClick}>
       {firstElement && <div className="okp4-listitem-first-element">{firstElement}</div>}
-      {title && (
-        <div className="okp4-listitem-title">
-          <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
-            {title}
-          </Typography>
-        </div>
-      )}
-      {renderDescription()}
+      <Title title={title} />
+      <Description description={description} />
       {lastElement && <div className="okp4-listitem-last-element">{lastElement}</div>}
     </div>
   )
