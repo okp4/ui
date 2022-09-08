@@ -1,5 +1,17 @@
 # OKP4 UI changelog
 
+# [1.16.0](https://github.com/okp4/ui/compare/v1.15.0...v1.16.0) (2022-09-08)
+
+
+### Bug Fixes
+
+* correct typo ([5632e3a](https://github.com/okp4/ui/commit/5632e3ab505a92fbbaefd1ad9670fcf8f1eaa982))
+
+
+### Features
+
+* add x-small size to logo ([864170c](https://github.com/okp4/ui/commit/864170cb320ead19246b5186f6d1bb1e251332fc))
+
 # [1.15.0](https://github.com/okp4/ui/compare/v1.14.0...v1.15.0) (2022-09-07)
 
 
