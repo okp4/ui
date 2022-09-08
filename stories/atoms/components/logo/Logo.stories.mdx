@@ -63,11 +63,12 @@ The logo helps our users identify our brand when using our services. It must hav
 
 ## Sizes
 
-The logo comes with three different sizes to allow its use according to its location within the interface.
+The logo comes with four different sizes to allow its use according to its location within the interface:
 
-- **Small**: particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
-- **Medium**: makes it possible to adapt to a greater number of uses, both to represent the brand and to be used in content elements.
-- **Large**: particularly allows to affix the OKP4 brand within an interface and to set the tone of the visual used. Should not be used in content elements.
+- **x-small**: This size permits the use of the logo in cases where space is really limited.
+- **small**: Particularly suitable for small screens and must not saturate the space. This size should also be used for integrations in content spaces such as cards, footers, etc...
+- **medium**: Makes it possible to adapt to a greater number of uses, both to represent the brand and to be used in content elements.
+- **large**: Particularly allows to affix the OKP4 brand within an interface and to set the tone of the visual used. Should not be used in content elements.
 
 <Canvas>
   <Story name="Sizes">
@@ -81,6 +82,7 @@ The logo comes with three different sizes to allow its use according to its loca
           gap: '25px'
         }}
       >
+        <Logo type="logo" size="x-small" />
         <Logo type="logo" size="small" />
         <Logo type="logo" size="medium" />
         <Logo type="logo" size="large" />
@@ -93,10 +95,10 @@ The logo comes with three different sizes to allow its use according to its loca
 
 The logo comes with a property called `type` which allows to directly use the standalone logo or to freely compose destructured logo's elements.
 
-- **Logo**: the standalone logo, mainly designed to mark the visual identity of OKP4. Can be used in a header for example.
-- **Logotype**: has an immediate visual impact on the perception of the company, can be used in particular in cards or as a favicon.
-- **Logomark**: represents the OKP4 name in order to mark the membership and not to weigh down the interface by being smoothed with the elements of content.
-- **Slogan**: the slogan is used to add strength to OKP4 content, especially in terms of protocol usage. It can be used in presentation elements to assert the visual impact of the interface.
+- **logo**: The standalone logo, mainly designed to mark the visual identity of OKP4. Can be used in a header for example.
+- **logotype**: Has an immediate visual impact on the perception of the company, can be used in particular in cards or as a favicon.
+- **logomark**: Represents the OKP4 name in order to mark the membership and not to weigh down the interface by being smoothed with the elements of content.
+- **slogan**: The slogan is used to add strength to OKP4 content, especially in terms of protocol usage. It can be used in presentation elements to assert the visual impact of the interface.
 
 <Canvas>
   <Story name="Types">
