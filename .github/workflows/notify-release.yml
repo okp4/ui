@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  notify:
+  notify-discord:
     runs-on: ubuntu-22.04
     steps:
       - name: Notify Discord
