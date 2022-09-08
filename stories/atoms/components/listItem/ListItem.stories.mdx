@@ -57,32 +57,49 @@ The `ListItem` allows to display an element of a [List](/docs/atoms-list--overvi
 <Story
   name="Overview"
   argTypes={{
+    title: {
+      table: {
+        type: { summary: 'string | Node' }
+      }
+    },
     description: {
       table: {
-        type: { summary: 'string | JSX.Element' }
+        type: { summary: 'string | Node' }
       }
     },
-    leftElement: {
+    firstElement: {
       control: false,
       table: {
-        type: { summary: 'JSX.Element' }
+        type: { summary: 'Node' }
       }
     },
-    rightElement: {
+    lastElement: {
       control: false,
       table: {
-        type: { summary: 'JSX.Element' }
+        type: { summary: 'Node' }
       }
+    },
+    layout: {
+      description: 'The layout props from the List component.'
+    },
+    onClick: {
+      control: 'boolean'
     }
   }}
   args={{
     title: 'Item',
     description: 'Description',
-    leftElement: <Icon name="wallet" invertColor />,
-    rightElement: <Icon name="close" invertColor />
+    layout: 'list',
+    onClick: false
   }}
 >
-  {args => <ListItem {...args} />}
+  {args => (
+    <ListItem
+      {...args}
+      firstElement={<Icon name="wallet" invertColor />}
+      lastElement={<Icon name="close" invertColor />}
+    />
+  )}
 </Story>
 
 ## Properties
@@ -123,13 +140,200 @@ The `description` property allows you to provide additional information. It can 
   </Story>
 </Canvas>
 
-## Right and left elements
+## Grid layout
 
-The `leftElement` and `rightElement` properties allow you to provide any `JSX.Element` as icons, buttons, text, etc. to an item in the list.  
+If used within a List component the style of the listItem can be changed to a grid style.
+Depending on what type of layout you will use to present the listItems in you will have to style it differently.
+
+<Canvas>
+  <Story name="Grid layout">
+    <List layout="grid">
+      <ListItem
+        title="Title"
+        description="Description"
+        firstElement={
+          <Typography color="inverted-text" fontSize="small">
+            First element
+          </Typography>
+        }
+        lastElement={
+          <Typography color="inverted-text" fontSize="small">
+            Last element
+          </Typography>
+        }
+      />
+      <ListItem
+        title="What is ØKP4?"
+        description="OKP4 is a blockchain built for distributed applications.
+OKP4 is the only public layer-1 blockchain designed for coordination of distributed 
+components such as datasets, algorithms, software, storage or computation.
+ Developers can find development kits, governance templates and easy-to-integrate
+ applications to design their own applications and data sharing ecosystems.
+  Participants can provide any off-chain component they want to make it 
+  findable, available and interoperable with other components of the ecosystem."
+        lastElement={
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'right',
+              alignItems: 'center',
+              gap: '10px',
+              marginTop: '10px'
+            }}
+          >
+            <Typography color="inverted-text" fontSize="small" fontWeight="bold">
+              <a
+                style={{ color: 'inherit' }}
+                href="https://docs.okp4.network/docs/whitepaper/what-is-okp4-global-overview"
+                target="_blank"
+              >
+                Read more
+              </a>
+            </Typography>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Typography as="div" color="inverted-text" fontSize="x-small">
+                8 min
+              </Typography>
+              <Icon name="clock" size={20} invertColor />
+            </div>
+          </div>
+        }
+      />
+      <ListItem
+        title={
+          <Typography color="inverted-text" fontWeight="bold">
+            ØKP4
+          </Typography>
+        }
+        description={
+          <div style={{ display: 'grid', gap: '10px' }}>
+            <Typography color="inverted-text">Dataset</Typography>
+            <Typography color="inverted-text" fontSize="small">
+              Data Spaces, Open source, Web3 design system
+            </Typography>
+          </div>
+        }
+        firstElement={
+          <Typography
+            as="div"
+            color="inverted-text"
+            fontSize="small"
+            fontWeight="bold"
+            noWrap
+            style={{ textAlign: 'right' }}
+          >
+            PUBLIC
+          </Typography>
+        }
+        lastElement={
+          <Typography
+            as="div"
+            color="inverted-text"
+            fontSize="x-small"
+            fontWeight="x-light"
+            style={{ textAlign: 'right' }}
+          >
+            By ØKP4 - The data sharing protocol
+          </Typography>
+        }
+      />
+    </List>
+  </Story>
+</Canvas>
+
+## On click
+
+The `onClick` property makes the listItem clickable with a subtle animation and a change in cursor on hover.
+This facilitate its use by users that are used to clear visual cues as to when something is clickable.
+
+If a listItem does not have a `onClick` property it will not have this behaviour.
+
+<Canvas>
+  <Story name="On click">
+    {() => {
+      const handleClick = () => {
+        window.open('https://okp4.network/')
+      }
+      return (
+        <List layout="grid">
+          <ListItem
+            title={
+              <Typography color="inverted-text" fontWeight="bold">
+                ØKP4
+              </Typography>
+            }
+            description={
+              <Typography
+                as="div"
+                style={{
+                  display: 'grid',
+                  textAlign: 'center',
+                  alignItems: 'center',
+                  height: '100%'
+                }}
+                color="inverted-text"
+              >
+                The Next Generation of Data Applications
+              </Typography>
+            }
+            lastElement={
+              <Typography
+                as="div"
+                color="inverted-text"
+                fontSize="x-small"
+                fontWeight="x-light"
+                style={{ textAlign: 'right' }}
+              >
+                Clickable
+              </Typography>
+            }
+            onClick={handleClick}
+          />
+          <ListItem
+            title={
+              <Typography color="inverted-text" fontWeight="bold">
+                ØKP4
+              </Typography>
+            }
+            description={
+              <Typography
+                as="div"
+                style={{
+                  display: 'grid',
+                  textAlign: 'center',
+                  alignItems: 'center',
+                  height: '100%'
+                }}
+                color="inverted-text"
+              >
+                The Next Generation of Data Applications
+              </Typography>
+            }
+            lastElement={
+              <Typography
+                as="div"
+                color="inverted-text"
+                fontSize="x-small"
+                fontWeight="x-light"
+                style={{ textAlign: 'right' }}
+              >
+                Not clickable
+              </Typography>
+            }
+          />
+        </List>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## First and last elements
+
+The `firstElement` and `lastElement` properties allow you to provide any `JSX.Element` as icons, buttons, text, etc. to an item in the list.  
 Theses properties can be used to provide visual information or add interactions with an item in the list.
 
 <Canvas>
-  <Story name="Right and left elements">
+  <Story name="First and last elements">
     {() => {
       const [open1, setOpen1] = useState(false)
       const handleOpenChange1 = () => setOpen1(false)
@@ -145,25 +349,25 @@ Theses properties can be used to provide visual information or add interactions 
               description="This item does not have any element."
             />
             <ListItem
-              title="Item with left element"
-              description="This item only has a left element."
-              leftElement={<Icon name="profile" invertColor />}
+              title="Item with first element"
+              description="This item only has a first element."
+              firstElement={<Icon name="profile" invertColor />}
             />
             <ListItem
-              title="Item with right element"
-              description="This item only has a right icon."
-              rightElement={<Icon name="check" invertColor />}
+              title="Item with last element"
+              description="This item only has a last icon."
+              lastElement={<Icon name="check" invertColor />}
             />
             <ListItem
-              title="Item with both left and right elements"
-              description="This item has left and right elements."
-              leftElement={<Icon name="profile" invertColor />}
-              rightElement={<Icon name="check" invertColor />}
+              title="Item with both first and last elements"
+              description="This item has first and last elements."
+              firstElement={<Icon name="profile" invertColor />}
+              lastElement={<Icon name="check" invertColor />}
             />
             <ListItem
               title="Item 5"
               description="Elements can be button or simple text."
-              leftElement={
+              firstElement={
                 <Button
                   label="A button"
                   backgroundColor="error"
@@ -173,7 +377,7 @@ Theses properties can be used to provide visual information or add interactions 
                   onClick={handleClickCross}
                 />
               }
-              rightElement={
+              lastElement={
                 <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
                   This is a simple text
                 </Typography>
@@ -182,8 +386,8 @@ Theses properties can be used to provide visual information or add interactions 
             <ListItem
               title="Item 6"
               description="An other example with button"
-              leftElement={<Icon name="wallet" invertColor />}
-              rightElement={
+              firstElement={<Icon name="wallet" invertColor />}
+              lastElement={
                 <Button
                   label="Select"
                   backgroundColor="success"
