@@ -1,40 +1,92 @@
 @import '../../styles/themes.scss';
 
 .okp4-listitem-main {
-  display: grid;
-  column-gap: 10px;
-  padding: 10px;
-  align-items: center;
-  grid-template-columns: minmax(30px, 8%) auto auto;
-  grid-template-rows: repeat(2, auto);
-  grid-template-areas:
-    'firstElement title lastElement'
-    'firstElement description lastElement';
-
   @include with-theme {
     background-color: themed(inverted-primary-background);
+    display: grid;
     border-radius: 10px;
-  }
+    column-gap: 10px;
+    padding: 10px;
+    overflow: auto;
 
-  .okp4-listitem-title {
-    grid-area: title;
-    justify-content: start;
-    margin: 3px;
-  }
+    &.clickable:hover {
+      cursor: pointer;
+      box-shadow: 0 2px 4px themed(primary-brand);
+      animation: 0.2s ease-out hover-animation forwards;
+    }
 
-  .okp4-listitem-description {
-    grid-area: description;
-    justify-content: start;
-    margin: 3px;
-  }
+    &.layout-list {
+      align-items: center;
+      grid-template-columns: minmax(30px, 8%) auto auto;
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas:
+        'firstElement title lastElement'
+        'firstElement description lastElement';
 
-  .okp4-listitem-first-element {
-    grid-area: firstElement;
-    margin: 5px auto 5px 5px;
-  }
+      .okp4-listitem-title {
+        grid-area: title;
+        justify-content: start;
+        margin: 3px;
+      }
 
-  .okp4-listitem-last-element {
-    grid-area: lastElement;
-    margin: 5px 5px 5px auto;
+      .okp4-listitem-description {
+        grid-area: description;
+        justify-content: start;
+        margin: 3px;
+      }
+
+      .okp4-listitem-first-element {
+        grid-area: firstElement;
+        margin: 5px auto 5px 5px;
+      }
+
+      .okp4-listitem-last-element {
+        grid-area: lastElement;
+        margin: 5px 5px 5px auto;
+      }
+    }
+
+    &.layout-grid {
+      grid-template-columns: 5fr 2fr;
+      grid-template-rows: max-content;
+      grid-template-areas:
+        'title firstElement'
+        'description description'
+        'lastElement lastElement';
+
+      .okp4-listitem-title {
+        grid-area: title;
+        padding: 10px 0 5px 20px;
+        height: fit-content;
+      }
+
+      .okp4-listitem-description {
+        grid-area: description;
+        padding: 0 20px;
+      }
+
+      .okp4-listitem-first-element {
+        grid-area: firstElement;
+        padding: 10px 20px 0 0;
+        height: fit-content;
+      }
+
+      .okp4-listitem-last-element {
+        grid-area: lastElement;
+        padding: 0 20px 20px;
+        align-self: end;
+        height: fit-content;
+      }
+    }
+
+    @keyframes hover-animation {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-3px);
+      }
+    }
   }
 }
