@@ -10,7 +10,7 @@ export type LogoProps = Readonly<{
   /**
    * The size of the logo, must be determined according to its use and location.
    */
-  readonly size?: 'small' | 'medium' | 'large'
+  readonly size?: 'x-small' | 'small' | 'medium' | 'large'
   /**
    * The type of the logo, flexible according to use and location.
    */
@@ -21,6 +21,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'medium', type = 'logo' }: Lo
   const { theme }: ThemeContextType = useTheme()
 
   const imageClassname = classNames('okp4-logo-main', {
+    'x-small': size === 'x-small',
     small: size === 'small',
     medium: size === 'medium',
     large: size === 'large',

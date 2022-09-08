@@ -67,4 +67,26 @@
       height: 6px;
     }
   }
+
+  &.x-small {
+    &.logo {
+      width: 170px;
+      height: 48px;
+    }
+
+    &.logotype {
+      width: 40px;
+      height: 30px;
+    }
+
+    &.logomark {
+      width: 100px;
+      height: 32px;
+    }
+
+    &.slogan {
+      width: 150px;
+      height: 6px;
+    }
+  }
 }
