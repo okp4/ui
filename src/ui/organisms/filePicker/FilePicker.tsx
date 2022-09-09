@@ -30,6 +30,7 @@ export type FilePickerProps = Pick<
 // eslint-disable-next-line max-lines-per-function
 export const FilePicker: React.FC<FilePickerProps> = ({
   clearAll = true,
+  size = 'large',
   ...props
 }: DeepReadonly<FilePickerProps>) => {
   const { t }: UseTranslationResponse = useTranslation()
@@ -107,6 +108,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         error={isError}
         errorMessage={errorMessage}
         onDropped={handleDropped}
+        size={size}
       />
       {clearAll && fileList.length > 1 && (
         <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
