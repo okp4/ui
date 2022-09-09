@@ -13,4 +13,16 @@ export * from './domain/file/index'
 export * from './eventBus/index'
 export * from './adapters/index'
 export type { Truthy, SelectOption } from './utils'
-export { truthy, isString } from './utils'
+export {
+  truthy,
+  isString,
+  toPercent,
+  toReadableFileSize,
+  isFileTypeAccepted,
+  areFilesAccepted,
+  sortSelectOptionAsc,
+  sortSelectOptionDesc,
+  compareStrings,
+  asImmutable,
+  asMutable
+} from './utils'
