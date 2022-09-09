@@ -61,7 +61,7 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) and the 
     label: 'Drop your files here, or browse',
     multiple: true,
     acceptedFormats: ['image/*', '.csv'],
-    size: 'medium',
+    size: 'large',
     clearAll: true
   }}
 >
@@ -71,6 +71,8 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) and the 
       <div
         style={{
           display: 'flex',
+          width: '80%',
+          margin: 'auto',
           backgroundImage: `url(${theme === 'dark' ? cosmosDark : cosmosLight})`,
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat'
