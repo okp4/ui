@@ -1,5 +1,12 @@
 # OKP4 UI changelog
 
+# [1.17.0](https://github.com/okp4/ui/compare/v1.16.0...v1.17.0) (2022-09-09)
+
+
+### Features
+
+* **utils:** export all declared functions to lib ([5c62ce9](https://github.com/okp4/ui/commit/5c62ce995f2537930393e5e53392c86badd1b9e9))
+
 # [1.16.0](https://github.com/okp4/ui/compare/v1.15.0...v1.16.0) (2022-09-08)
 
 
