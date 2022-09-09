@@ -96,8 +96,7 @@ export class TaskBuilder {
     return (
       progress.current <= progress.max &&
       progress.current >= progress.min &&
-      progress.max > progress.min &&
-      progress.min < progress.max
+      progress.max > progress.min
     )
   }
 }

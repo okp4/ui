@@ -55,7 +55,7 @@ export const expectEventParameters = <T>(
 }
 
 export const getExpectedStateAfterAmend = (
-  iniialState: DeepReadonly<AppState>,
+  initialState: DeepReadonly<AppState>,
   tasks: DeepReadonly<Task[]>,
   errorIndex?: number
 ): AppState =>
@@ -70,4 +70,4 @@ export const getExpectedStateAfterAmend = (
           displayedTaskIds: acc.displayedTaskIds.add(cur.id)
         }
       : acc
-  }, iniialState)
+  }, initialState)
