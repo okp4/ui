@@ -53,3 +53,21 @@ export const expectEventParameters = <T>(
     })
   }
 }
+
+export const getExpectedStateAfterAmend = (
+  iniialState: DeepReadonly<AppState>,
+  tasks: DeepReadonly<Task[]>,
+  errorIndex?: number
+): AppState =>
+  tasks.reduce<AppState>((acc: DeepReadonly<AppState>, cur: Task, index: number): AppState => {
+    const foundTask = acc.task.byId.get(cur.id)
+    return index !== errorIndex
+      ? {
+          task: {
+            byId: foundTask ? acc.task.byId.set(cur.id, { ...foundTask, ...cur }) : acc.task.byId,
+            byType: acc.task.byType
+          },
+          displayedTaskIds: acc.displayedTaskIds.add(cur.id)
+        }
+      : acc
+  }, iniialState)
