@@ -1,4 +1,4 @@
-import type { Status } from './type'
+import type { Status, Progress } from './type'
 
 export type TaskRegisteredPayload<T = string, I = string> = {
   readonly id: I
@@ -6,4 +6,5 @@ export type TaskRegisteredPayload<T = string, I = string> = {
   readonly type: T
   readonly initiator: string
   readonly status: Status
+  readonly progress?: Progress
 }
