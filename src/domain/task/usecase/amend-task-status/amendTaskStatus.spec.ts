@@ -6,9 +6,12 @@ import { amendTaskStatus } from './amendTaskStatus'
 import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
-import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
-import { EventParameter, expectEventParameters } from '../../helper/test.helper'
+import {
+  EventParameter,
+  expectEventParameters,
+  getExpectedStateAfterAmend
+} from '../../helper/test.helper'
 import { getExpectedEventParameter } from '../../helper/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 import { AmendTaskStatus } from 'domain/task/command/amendTaskStatus'
@@ -35,24 +38,6 @@ const init = (preloadedState: AppState): InitialProps => {
     .build()
   return { store }
 }
-
-const getExpectedState = (
-  iniialState: DeepReadonly<AppState>,
-  tasks: DeepReadonly<Task[]>,
-  errorIndex?: number
-): AppState =>
-  tasks.reduce<AppState>((acc: DeepReadonly<AppState>, cur: Task, index: number): AppState => {
-    const foundTask = acc.task.byId.get(cur.id)
-    return index !== errorIndex
-      ? {
-          task: {
-            byId: foundTask ? acc.task.byId.set(cur.id, { ...foundTask, ...cur }) : acc.task.byId,
-            byType: acc.task.byType
-          },
-          displayedTaskIds: acc.displayedTaskIds.add(cur.id)
-        }
-      : acc
-  }, iniialState)
 
 describe('Amend the status property of a task', () => {
   const fakedDate = new Date('2021-01-01T09:00:00.000Z')
@@ -154,11 +139,11 @@ describe('Amend the status property of a task', () => {
   })
 
   describe.each`
-    taskStatusesToAmend                         | expectedState                                     | expectedEventParameters
-    ${[]}                                       | ${initialState}                                   | ${[]}
-    ${[taskStatusToAmend1]}                     | ${getExpectedState(initialState, [task1])}        | ${[getExpectedEventParameter('task/taskStatusAmended', taskStatusAmendedPayload1, initiator, fakedDate)]}
-    ${[taskStatusToAmend1, taskStatusToAmend2]} | ${getExpectedState(initialState, [task1, task2])} | ${[getExpectedEventParameter('task/taskStatusAmended', taskStatusAmendedPayload1, initiator, fakedDate), getExpectedEventParameter('task/taskStatusAmended', taskStatusAmendedPayload2, initiator, fakedDate)]}
-    ${[taskStatusToAmend3]}                     | ${getExpectedState(initialState, [task3], 0)}     | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
+    taskStatusesToAmend                         | expectedState                                               | expectedEventParameters
+    ${[]}                                       | ${initialState}                                             | ${[]}
+    ${[taskStatusToAmend1]}                     | ${getExpectedStateAfterAmend(initialState, [task1])}        | ${[getExpectedEventParameter('task/taskStatusAmended', taskStatusAmendedPayload1, initiator, fakedDate)]}
+    ${[taskStatusToAmend1, taskStatusToAmend2]} | ${getExpectedStateAfterAmend(initialState, [task1, task2])} | ${[getExpectedEventParameter('task/taskStatusAmended', taskStatusAmendedPayload1, initiator, fakedDate), getExpectedEventParameter('task/taskStatusAmended', taskStatusAmendedPayload2, initiator, fakedDate)]}
+    ${[taskStatusToAmend3]}                     | ${getExpectedStateAfterAmend(initialState, [task3], 0)}     | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
   `(
     `Given that there are $taskStatusesToAmend.length task status(es) to amend`,
     ({ taskStatusesToAmend, expectedState, expectedEventParameters }: Data): void => {
