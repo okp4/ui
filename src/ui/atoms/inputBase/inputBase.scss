@@ -19,6 +19,10 @@
       }
     }
 
+    &.border {
+      border: 1px solid themed(text);
+    }
+
     &.error {
       color: themed('error');
       border: 1px solid themed('error');
