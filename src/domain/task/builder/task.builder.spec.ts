@@ -30,26 +30,36 @@ describe('Build a task', () => {
   })
 
   describe.each`
-    initialTask     | id           | creationDate | lastUpdateDate | type           | initiator | status          | progress                                   | expectedStatus
-    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${true}
-    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 1234567, min: 0, current: 5678 }} | ${true}
-    ${undefined}    | ${'#id2'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${undefined}    | ${undefined}                               | ${true}
-    ${undefined}    | ${'#id3'}    | ${aDate}     | ${undefined}   | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${true}
-    ${undefined}    | ${undefined} | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${true}
-    ${undefined}    | ${'#id4'}    | ${undefined} | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${true}
-    ${undefined}    | ${''}        | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${false}
-    ${undefined}    | ${'#id5'}    | ${aDate}     | ${aDate}       | ${''}          | ${'test'} | ${'processing'} | ${undefined}                               | ${false}
-    ${{ type: '' }} | ${'#id6'}    | ${undefined} | ${aDate}       | ${undefined}   | ${'test'} | ${'processing'} | ${undefined}                               | ${false}
-    ${undefined}    | ${'#id7'}    | ${aBadDate}  | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${false}
-    ${undefined}    | ${'#id8'}    | ${aDate}     | ${aBadDate}    | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                               | ${false}
-    ${undefined}    | ${'#id9'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${''}     | ${'processing'} | ${undefined}                               | ${false}
-    ${undefined}    | ${'#id10'}   | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${''}           | ${undefined}                               | ${false}
-    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 123, min: 0, current: 1234 }}     | ${false}
-    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 8, min: 10, current: 7 }}         | ${false}
-    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 100, current: 7 }}      | ${false}
-    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 0, current: -10 }}      | ${false}
+    initialTask     | id           | creationDate | lastUpdateDate | type           | initiator | status          | progress                               | expectedStatus
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 0, current: 55 }}   | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ current: 10 }}                     | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, current: 10 }}           | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ min: 10, current: 12 }}            | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 10 }}                         | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 0 }}                          | ${true}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 10, min: 0 }}                 | ${true}
+    ${undefined}    | ${'#id2'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${undefined}    | ${undefined}                           | ${true}
+    ${undefined}    | ${'#id3'}    | ${aDate}     | ${undefined}   | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${true}
+    ${undefined}    | ${undefined} | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${true}
+    ${undefined}    | ${'#id4'}    | ${undefined} | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${true}
+    ${undefined}    | ${''}        | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${false}
+    ${undefined}    | ${'#id5'}    | ${aDate}     | ${aDate}       | ${''}          | ${'test'} | ${'processing'} | ${undefined}                           | ${false}
+    ${{ type: '' }} | ${'#id6'}    | ${undefined} | ${aDate}       | ${undefined}   | ${'test'} | ${'processing'} | ${undefined}                           | ${false}
+    ${undefined}    | ${'#id7'}    | ${aBadDate}  | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${false}
+    ${undefined}    | ${'#id8'}    | ${aDate}     | ${aBadDate}    | ${'test-task'} | ${'test'} | ${'processing'} | ${undefined}                           | ${false}
+    ${undefined}    | ${'#id9'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${''}     | ${'processing'} | ${undefined}                           | ${false}
+    ${undefined}    | ${'#id10'}   | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${''}           | ${undefined}                           | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 123, min: 0, current: 1234 }} | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 8, min: 10, current: 7 }}     | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 100, current: 7 }}  | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 0, current: -10 }}  | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ min: 0, current: -10 }}            | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, current: 101 }}          | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 0, min: 10 }}                 | ${false}
+    ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 101 }}              | ${false}
   `(
-    'Given that id is <$id>, creationDate is <$creationDate>, lastUpdateDate is <$lastUpdateDate>, type is <$type>, initiator is <$initiator> and status is <$status>',
+    'Given that id is <$id>, creationDate is <$creationDate>, lastUpdateDate is <$lastUpdateDate>, type is <$type>, initiator is <$initiator>, status is <$status> and progres is <$progress>',
     ({
       initialTask,
       id,
