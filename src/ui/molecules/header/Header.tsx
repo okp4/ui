@@ -12,31 +12,31 @@ export type HeaderProps = {
    */
   readonly firstElement: JSX.Element
   /**
-   * The list of navigable links that make up the menu
+   * The list of navigable links that make up the menu.
    */
   readonly navigationMenu?: JSX.Element[]
 }
 
 const BurgerMenu = ({
   isOpened,
-  onBurgerMenuOpen
-}: DeepReadonly<{ isOpened: boolean; onBurgerMenuOpen: () => void }>): JSX.Element => (
+  onToggle
+}: DeepReadonly<{ isOpened: boolean; onToggle: () => void }>): JSX.Element => (
   <div
     className={classNames(
       'okp4-header-navigation-burger-menu',
-      isOpened ? 'rotate-up' : 'rotate-down'
+      isOpened ? 'rotate-down' : 'rotate-up'
     )}
-    onClick={onBurgerMenuOpen}
+    onClick={onToggle}
   >
-    <Icon name="menu" />
+    <Icon name="menu" size={38} />
   </div>
 )
 
 const BurgerMenuList = ({
-  navigationMenu
-}: DeepReadonly<{ navigationMenu: JSX.Element[] }>): JSX.Element => (
+  navigation
+}: DeepReadonly<{ navigation: JSX.Element[] }>): JSX.Element => (
   <div className="okp4-header-navigation-burger-menu-list">
-    {navigationMenu.map((link: Readonly<JSX.Element>, index: number) => (
+    {navigation.map((link: Readonly<JSX.Element>, index: number) => (
       <div className="okp4-header-navigation-burger-menu-item" key={index}>
         {link}
       </div>
@@ -44,20 +44,34 @@ const BurgerMenuList = ({
   </div>
 )
 
-const RowMenuList = ({
-  navigationMenu
-}: DeepReadonly<{ navigationMenu: JSX.Element[] }>): JSX.Element => (
-  <div className="okp4-header-navigation-menu-list">
-    {navigationMenu.map((link: Readonly<JSX.Element>, index: number) => (
-      <div className="okp4-header-navigation-menu-item" key={index}>
+const RowMenuList = ({ navigation }: DeepReadonly<{ navigation: JSX.Element[] }>): JSX.Element => (
+  <div className="okp4-header-navigation-row-list">
+    {navigation.map((link: Readonly<JSX.Element>, index: number) => (
+      <div className="okp4-header-navigation-row-item" key={index}>
         {link}
       </div>
     ))}
   </div>
 )
 
-const ThemeSwitcher = (): JSX.Element => (
-  <div className="okp4-header-theme-switcher-container">
+const FirstElement = ({
+  firstElement,
+  hasBurger
+}: DeepReadonly<{
+  firstElement: JSX.Element
+  hasBurger?: boolean
+}>): JSX.Element => (
+  <div
+    className={classNames('okp4-header-first-element', {
+      'with-burger': hasBurger
+    })}
+  >
+    {firstElement}
+  </div>
+)
+
+const ThemeSwitcher = ({ className }: DeepReadonly<{ className?: string }>): JSX.Element => (
+  <div className={classNames('okp4-header-theme-switcher-container', className)}>
     <Switcher />
   </div>
 )
@@ -66,9 +80,10 @@ export const Header: React.FC<HeaderProps> = ({
   firstElement,
   navigationMenu
 }: DeepReadonly<HeaderProps>): JSX.Element => {
-  const [isMenuOpened, setIsMenuOpened]: UseState<boolean> = useState<boolean>(false)
-  const showBurgerMenu = useMediaType('(max-width: 995px)')
-  const showBurgerMenuList = showBurgerMenu && isMenuOpened
+  const [isBurgerMenuOpened, setIsBurgerMenuOpened]: UseState<boolean> = useState<boolean>(false)
+  const displayHeaderWithBurgerMenu = useMediaType('(max-width: 995px)')
+
+  const showBurgerMenuList = displayHeaderWithBurgerMenu && isBurgerMenuOpened
   const headerClassname = classNames(
     'okp4-header-main',
     navigationMenu ? 'with-navigation' : 'without-navigation',
@@ -77,26 +92,26 @@ export const Header: React.FC<HeaderProps> = ({
     }
   )
 
-  const handleBurgerMenuOpen = useCallback((): void => {
-    setIsMenuOpened(!isMenuOpened)
-  }, [isMenuOpened, setIsMenuOpened])
+  const toggleBurgerMenu = useCallback((): void => {
+    setIsBurgerMenuOpened(!isBurgerMenuOpened)
+  }, [isBurgerMenuOpened, setIsBurgerMenuOpened])
 
   return (
     <div className={headerClassname}>
       {navigationMenu ? (
         <>
-          {showBurgerMenu && (
-            <BurgerMenu isOpened={isMenuOpened} onBurgerMenuOpen={handleBurgerMenuOpen} />
+          {displayHeaderWithBurgerMenu && (
+            <BurgerMenu isOpened={isBurgerMenuOpened} onToggle={toggleBurgerMenu} />
           )}
-          {showBurgerMenuList && <BurgerMenuList navigationMenu={navigationMenu} />}
-          <div className="okp4-header-first-element-container">{firstElement}</div>
-          {!showBurgerMenu && <RowMenuList navigationMenu={navigationMenu} />}
+          {showBurgerMenuList && <BurgerMenuList navigation={navigationMenu} />}
+          <FirstElement firstElement={firstElement} hasBurger={displayHeaderWithBurgerMenu} />
+          {!displayHeaderWithBurgerMenu && <RowMenuList navigation={navigationMenu} />}
           <ThemeSwitcher />
         </>
       ) : (
         <>
-          <div className="okp4-header-first-element-container">{firstElement}</div>
-          <ThemeSwitcher />
+          <FirstElement firstElement={firstElement} />
+          <ThemeSwitcher className="without-navigation" />
         </>
       )}
     </div>

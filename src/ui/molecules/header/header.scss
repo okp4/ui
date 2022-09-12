@@ -1,111 +1,123 @@
 @import '../../styles/main.scss';
+@import '../../styles/themes.scss';
 
 .okp4-header-main {
-  width: calc(100% - 120px);
-  padding: 30px 60px 25px;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 10px;
-  display: grid;
-
-  &.without-navigation {
-    grid-template-areas: 'firstElement themeswitch';
+  @include with-theme() {
+    display: grid;
+    width: calc(100% - 120px);
+    padding: 15px 60px;
+    align-items: center;
+    column-gap: 10px;
 
     @media screen and (max-width: 768px) {
-      padding: 15px 10px;
-      width: calc(100% - 20px);
-      justify-content: space-evenly;
-    }
-
-    @media screen and (max-width: 360px) {
-      grid-template-areas:
-        'firstElement'
-        'themeswitch';
-      justify-items: center;
-      row-gap: 10px;
-    }
-  }
-
-  &.with-navigation {
-    grid-template-areas: 'firstElement navigationMenu navigationMenu navigationMenu . . themeswitch';
-
-    &.burger-list {
-      grid-template-areas:
-        'burgerMenu firstElement themeswitch'
-        'burgerMenuList burgerMenuList burgerMenuList';
-    }
-
-    @media screen and (max-width: 1200px) {
-      width: calc(100% - 60px);
-      padding: 30px;
-    }
-
-    @media screen and (max-width: 995px) {
-      grid-template-areas: 'burgerMenu firstElement themeswitch';
-      width: calc(100% - 40px);
-      padding: 15px 20px;
-    }
-
-    @media screen and (max-width: 768px) {
-      padding: 15px;
       width: calc(100% - 30px);
+      padding: 15px;
     }
 
-    .okp4-header-navigation-burger-menu {
-      grid-area: burgerMenu;
-      cursor: pointer;
+    &.without-navigation {
+      grid-template-columns: auto auto;
 
-      &.rotate-up {
-        transform: rotate(90deg);
-        transition: transform 0.1s linear;
+      @media screen and (max-width: 768px) {
+        justify-content: space-evenly;
       }
 
-      &.rotate-down {
-        transform: rotate(0deg);
-        transition: transform 0.1s linear;
-      }
-    }
-
-    .okp4-header-navigation-menu-list {
-      grid-area: navigationMenu;
-      margin: 0 20px;
-      display: flex;
-      justify-content: space-between;
-
-      .okp4-header-navigation-menu-item {
-        margin-right: 10px;
+      @media screen and (max-width: 360px) {
+        grid-template: 2fr 1fr / 1fr;
+        justify-items: center;
+        row-gap: 10px;
       }
     }
 
-    .okp4-header-navigation-burger-menu-list {
-      grid-area: burgerMenuList;
-      margin-top: 10px;
-      animation: fadeIn 1s;
+    &.with-navigation {
+      grid-template-columns: auto 2fr 1fr;
 
-      .okp4-header-navigation-burger-menu-item {
-        margin-top: 15px;
+      @media screen and (max-width: 995px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      &.burger-list {
+        grid-template: auto 1fr / repeat(3, 1fr);
+        background-color: themed('header-navigation-background');
+        box-shadow: 10px 10px 10px themed('header-navigation-background');
+
+        .okp4-header-navigation-burger-menu-list {
+          grid-area: 2 / 1 / 2 / 4;
+          margin: 10px 0 10px 10px;
+          animation: fadeIn 1s;
+
+          .okp4-header-navigation-burger-menu-item {
+            margin-top: 20px;
+          }
+        }
+      }
+
+      .okp4-header-navigation-burger-menu {
+        grid-area: 1 / 1;
+        width: fit-content;
+        cursor: pointer;
+
+        &.rotate-down {
+          transform: rotate(90deg);
+          transition: transform 0.1s linear;
+        }
+
+        &.rotate-up {
+          transform: rotate(0deg);
+          transition: transform 0.1s linear;
+        }
+      }
+
+      .okp4-header-navigation-row-list {
+        grid-area: 1 / 2;
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0 20px;
+
+        .okp4-header-navigation-row-item {
+          margin-left: 10px;
+        }
       }
     }
-  }
 
-  .okp4-header-first-element-container {
-    grid-area: firstElement;
+    .okp4-header-first-element {
+      grid-column: 1;
+      justify-self: flex-start;
 
-    :first-child {
-      max-width: 270px;
-      max-height: 72px;
-
-      @media screen and (max-width: 550px) {
-        max-width: 230px;
+      @media screen and (max-width: 768px) {
+        justify-self: center;
       }
 
-      @media screen and (max-width: 480px) {
-        max-width: 180px;
+      :first-child {
+        max-width: 270px;
+        max-height: 72px;
+
+        @media screen and (max-width: 550px) {
+          max-width: 250px;
+        }
+
+        @media screen and (max-width: 480px) {
+          max-width: 220px;
+        }
+      }
+
+      &.with-burger {
+        grid-area: 1 / 2;
+        justify-self: center;
       }
     }
-  }
 
-  .okp4-header-theme-switcher-container {
-    grid-area: themeswitch;
+    .okp4-header-theme-switcher-container {
+      justify-self: flex-end;
+      grid-area: 1 / 3;
+
+      &.without-navigation {
+        grid-column: 2;
+
+        @media screen and (max-width: 360px) {
+          grid-area: 2/1;
+          justify-self: unset;
+        }
+      }
+    }
   }
 }
