@@ -2,6 +2,7 @@ import short from 'short-uuid'
 import type { DeepReadonly } from 'superTypes'
 import { UnspecifiedError } from 'domain/task/entity/error'
 import type { Task, TaskProgress, TaskStatus } from 'domain/task/entity/task'
+import { progressInvariant } from 'domain/task/utils/task.utils'
 
 export class TaskBuilder {
   private readonly task: Task
@@ -65,7 +66,7 @@ export class TaskBuilder {
   }
 
   public withProgress(progress: DeepReadonly<TaskProgress>): TaskBuilder {
-    if (!this.progressInvariant(progress)) {
+    if (!progressInvariant(progress)) {
       throw new UnspecifiedError(
         'Oops... A valid progress object must be provided to build a task..'
       )
@@ -88,15 +89,7 @@ export class TaskBuilder {
       this.task.type.length > 0 &&
       this.task.status.length > 0 &&
       this.task.initiator.length > 0 &&
-      (this.task.progress ? this.progressInvariant(this.task.progress) : true)
-    )
-  }
-
-  private progressInvariant(progress: DeepReadonly<TaskProgress>): boolean {
-    return (
-      progress.current <= progress.max &&
-      progress.current >= progress.min &&
-      progress.max > progress.min
+      (this.task.progress ? progressInvariant(this.task.progress) : true)
     )
   }
 }
