@@ -59,7 +59,7 @@ describe('Build a task', () => {
     ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 0, min: 10 }}                 | ${false}
     ${undefined}    | ${'#id1'}    | ${aDate}     | ${aDate}       | ${'test-task'} | ${'test'} | ${'processing'} | ${{ max: 100, min: 101 }}              | ${false}
   `(
-    'Given that id is <$id>, creationDate is <$creationDate>, lastUpdateDate is <$lastUpdateDate>, type is <$type>, initiator is <$initiator>, status is <$status> and progres is <$progress>',
+    'Given that id is <$id>, creationDate is <$creationDate>, lastUpdateDate is <$lastUpdateDate>, type is <$type>, initiator is <$initiator>, status is <$status> and progress is <$progress>',
     ({
       initialTask,
       id,

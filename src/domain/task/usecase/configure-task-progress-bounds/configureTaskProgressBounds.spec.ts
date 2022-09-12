@@ -83,6 +83,12 @@ describe('Configure the progress bounds of a task', () => {
     progressBounds: { min: 40, max: 80 }
   }
 
+  const taskProgressBoundsToConfigure8: ConfigureTaskProgressBounds = {
+    id: 'id1',
+    timestamp: fakedDate,
+    progressBounds: {}
+  }
+
   // Event payloads
   const taskProgressBoundsToConfigurePayload1: TaskProgressBoundsConfiguredPayload = {
     id: taskProgressBoundsToConfigure1.id,
@@ -191,8 +197,9 @@ describe('Configure the progress bounds of a task', () => {
     ${[taskProgressBoundsToConfigure5]} | ${state5}      | ${state5}     | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
     ${[taskProgressBoundsToConfigure6]} | ${state5}      | ${state5}     | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
     ${[taskProgressBoundsToConfigure7]} | ${state2}      | ${state2}     | ${[getExpectedEventParameter('error/errorThrown', error, initiator, fakedDate)]}
+    ${[taskProgressBoundsToConfigure8]} | ${state2}      | ${state2}     | ${[]}
   `(
-    `Given that there are $taskProgressValuesToSet.length task progress values to set`,
+    `Given that there are $taskProgressBoundsToConfigure.length task progress values to set`,
     ({
       taskProgressBoundsToConfigure,
       preloadedState,

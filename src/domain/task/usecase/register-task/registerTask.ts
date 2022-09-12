@@ -58,7 +58,7 @@ export const registerTask =
       })
     )
 
-    if (progress) {
+    if (progress && Object.keys(progress).length > 0) {
       const { min, max, current }: Progress = progress
 
       if (max !== undefined || min !== undefined) {
