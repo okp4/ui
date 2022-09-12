@@ -24,7 +24,8 @@ $themes: (
     warning: $color-light-warning,
     error: $color-light-error,
     info: $color-light-info,
-    disabled: $color-light-disabled
+    disabled: $color-light-disabled,
+    header-navigation-background: $color-light-background-header
   ),
   dark: (
     primary-brand: $color-dark-primary-brand,
@@ -49,7 +50,8 @@ $themes: (
     warning: $color-dark-warning,
     error: $color-dark-error,
     info: $color-dark-info,
-    disabled: $color-dark-disabled
+    disabled: $color-dark-disabled,
+    header-navigation-background: $color-dark-background-header
   )
 );
 
