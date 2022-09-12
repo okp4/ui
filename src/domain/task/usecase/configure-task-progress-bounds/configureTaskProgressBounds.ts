@@ -34,26 +34,28 @@ export const configureTaskProgressBounds =
       return
     }
 
-    const progressEntity = getState().task.byId.get(id)?.progress
-    const progressFuture = { ...progressEntity, ...progressBounds }
+    if (Object.keys(progressBounds).length > 0) {
+      const progressEntity = getState().task.byId.get(id)?.progress
+      const progressFuture = { ...progressEntity, ...progressBounds }
 
-    if (!progressInvariant(progressFuture)) {
-      dispatchError(
-        new UnspecifiedError(
-          `Oops.. The provided progress bounds '${JSON.stringify(
-            progressBounds
-          )}' are not valid, so we can't configure the progress bounds..`
-        ),
-        dispatch
+      if (!progressInvariant(progressFuture)) {
+        dispatchError(
+          new UnspecifiedError(
+            `Oops.. The provided progress bounds '${JSON.stringify(
+              progressBounds
+            )}' are not valid, so we can't configure the progress bounds..`
+          ),
+          dispatch
+        )
+        return
+      }
+
+      dispatch(
+        ConfigureTaskProgressBoundsActions.taskProgressBoundsConfigured({
+          id,
+          timestamp,
+          progressBounds
+        })
       )
-      return
     }
-
-    dispatch(
-      ConfigureTaskProgressBoundsActions.taskProgressBoundsConfigured({
-        id,
-        timestamp,
-        progressBounds
-      })
-    )
   }
