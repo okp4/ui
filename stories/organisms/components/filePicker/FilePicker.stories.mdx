@@ -97,6 +97,34 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) and the 
 
 <ArgsTable story="Overview" />
 
+## Clear all
+
+The `clearAll` property allows the user to add a clickable text to delete all selected files.  
+This text appears automatically if at least two files have been selected.  
+By default the `clearAll` value is `true`.
+
+<Canvas>
+  <Story name="Clear all">
+    <div
+      style={{
+        display: 'flex'
+      }}
+    >
+      <FilePicker
+        label="Drop your files here, or browse"
+        clearAll={true}
+        description={
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Display `Clear all` to remove all the selected files.
+            </Typography>
+          </div>
+        }
+      />
+    </div>
+  </Story>
+</Canvas>
+
 ## Usage
 
 To configure the FilePicker, the [@okp4/ui](https://www.npmjs.com/package/@okp4/ui) library provides all the necessary elements. You will just have to follow these two steps:
