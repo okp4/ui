@@ -1,6 +1,6 @@
-import { progressInvariant } from './task.utils'
+import { isProgressValid } from './task.utils'
 
-describe('Considering the progressInvariant() function', () => {
+describe('Considering the isProgressValid() function', () => {
   describe.each`
     current      | min          | max          | expectedResult
     ${undefined} | ${undefined} | ${undefined} | ${true}
@@ -14,10 +14,10 @@ describe('Considering the progressInvariant() function', () => {
     ${10}        | ${20}        | ${100}       | ${false}
     ${110}       | ${0}         | ${100}       | ${false}
   `(
-    'Given a value <$value> with [<$min>, <$max>] bounding interval',
+    'Given a value <$current> with [<$min>, <$max>] bounding interval',
     ({ current, min, max, expectedResult }) => {
       describe('When calling function', () => {
-        const result = progressInvariant({ current, min, max })
+        const result = isProgressValid({ current, min, max })
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)

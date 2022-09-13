@@ -6,7 +6,7 @@ import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { UnspecifiedError } from 'domain/task/entity/error'
 import type { RegisterTask } from 'domain/task/command/registerTask'
 import type { DeepReadonly } from 'superTypes'
-import { progressInvariant } from 'domain/task/utils/task.utils'
+import { isProgressValid } from 'domain/task/utils/task.utils'
 import { ConfigureTaskProgressBoundsActions } from '../configure-task-progress-bounds/actionCreators'
 import type { Progress } from 'domain/task/command/type'
 import { SetTaskProgressValueActions } from '../set-task-progress-value/actionCreators'
@@ -36,7 +36,7 @@ export const registerTask =
       )
       return
     }
-    if (progress && !progressInvariant(progress)) {
+    if (progress && !isProgressValid(progress)) {
       dispatchError(
         new UnspecifiedError(
           `Oops.. The provided progress object '${JSON.stringify(

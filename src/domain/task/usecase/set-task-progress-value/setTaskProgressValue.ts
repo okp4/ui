@@ -4,7 +4,7 @@ import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { UnspecifiedError } from 'domain/task/entity/error'
 import type { DeepReadonly } from 'superTypes'
-import { progressInvariant } from 'domain/task/utils/task.utils'
+import { isProgressValid } from 'domain/task/utils/task.utils'
 import { SetTaskProgressValueActions } from '../set-task-progress-value/actionCreators'
 import type { SetTaskProgressValue } from 'domain/task/command/setTaskProgressValue'
 
@@ -25,7 +25,7 @@ export const setTaskProgressValue =
     if (!getState().task.byId.has(id)) {
       dispatchError(
         new UnspecifiedError(
-          `Oops.. The provided id '${id}' does not exist, so we can't set the progress value of an unknown task..`
+          `Oops... The provided id '${id}' does not exist, so we can't set the progress value of an unknown task...`
         ),
         dispatch
       )
@@ -34,10 +34,10 @@ export const setTaskProgressValue =
 
     const progressEntity = getState().task.byId.get(id)?.progress
     const progressFuture = { ...progressEntity, current: progressValue }
-    if (!progressInvariant(progressFuture)) {
+    if (!isProgressValid(progressFuture)) {
       dispatchError(
         new UnspecifiedError(
-          `Oops.. The provided progress value '${progressValue}' is not valid, so we can't set the progress value..`
+          `Oops... The provided progress value '${progressValue}' is not valid, so we can't set the progress value...`
         ),
         dispatch
       )

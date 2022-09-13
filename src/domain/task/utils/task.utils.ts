@@ -2,7 +2,7 @@ import type { DeepReadonly } from 'superTypes'
 
 type Progress = { min?: number; max?: number; current?: number }
 
-export const progressInvariant = (progress: DeepReadonly<Progress>): boolean => {
+export const isProgressValid = (progress: DeepReadonly<Progress>): boolean => {
   const { max, min, current }: Progress = progress
 
   // force undefined explicit assertion to ensure that 0 and negative values are excluded
