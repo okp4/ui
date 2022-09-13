@@ -57,6 +57,10 @@
         outline: none;
       }
 
+      &.resize-height {
+        resize: vertical;
+      }
+
       &.disable-resize {
         resize: none;
       }

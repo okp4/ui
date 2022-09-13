@@ -26,18 +26,25 @@ export const TextField: React.FC<TextFieldProps> = ({
   size = 'medium',
   helperText,
   fullWidth = false,
+  multiline = false,
+  disableAreaResize = false,
   ...props
 }: TextFieldProps): JSX.Element => {
   const containerClass = classNames(
-    `okp4-text-field-main ${props.multiline && !props.disableAreaResize ? 'auto' : size}`,
+    `okp4-text-field-main ${multiline && !disableAreaResize ? 'auto' : size}`,
     {
-      'full-width': !props.multiline && fullWidth
+      'full-width': fullWidth
     }
   )
 
   return (
     <div className={containerClass}>
-      <InputBase {...props} />
+      <InputBase
+        {...props}
+        disableAreaResize={disableAreaResize}
+        multiline={multiline}
+        resizeHeightOnly={fullWidth}
+      />
       {helperText && (
         <Typography
           as="div"
