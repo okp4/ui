@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import type { DeepReadonly, UseState } from 'superTypes'
 import classNames from 'classnames'
 import { useMediaType } from 'hook/useMediaType'
@@ -92,6 +92,10 @@ export const Header: React.FC<HeaderProps> = ({
   const toggleBurgerMenu = useCallback((): void => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen)
   }, [isBurgerMenuOpen])
+
+  useEffect(() => {
+    if (!isSmallScreen) setIsBurgerMenuOpen(false)
+  }, [isSmallScreen])
 
   return (
     <div className={headerClassname}>
