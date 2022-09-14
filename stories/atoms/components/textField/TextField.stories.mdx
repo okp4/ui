@@ -86,7 +86,7 @@ import '../component.scss'
 Size options are `x-small`, `small`, `medium` (default), `large`, `x-large` and will be automatically adjusted responsively to the screen size.  
 If the [multiline](/docs/atoms-textfield--multiline) property is `true` and [disableAreaResize](/docs/atoms-textfield--disable-area-resize) is `false`, then the size is automatically `auto`.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Sizes">
     <div
       style={{
@@ -116,7 +116,7 @@ If the [multiline](/docs/atoms-textfield--multiline) property is `true` and [dis
 
 The `TextField` component can be disabled by setting the `disabled` property to `true`.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Disabled">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField disabled defaultValue="This text field is disabled" />
@@ -128,7 +128,7 @@ The `TextField` component can be disabled by setting the `disabled` property to 
 
 When set to `true`, makes the element not mutable, meaning the user can not edit the control.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Readonly">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField readOnly defaultValue="This text field is readonly" />
@@ -141,7 +141,7 @@ When set to `true`, makes the element not mutable, meaning the user can not edit
 The `TextField` component comes with a property called `helperText` which provides additional context to the input field.
 This property is optional and is displayed with an `info` semantic color (except if `hasError` has been set to `true`)
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Helper text">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField helperText="Phone number must begin with +33" placeholder="Phone number" />
@@ -154,7 +154,7 @@ This property is optional and is displayed with an `info` semantic color (except
 If `hasError` property is set to `true`, the `TextField` component will be displayed with an `error` semantic color.
 In addition, the `helperText` property can be set to display an error message below the `TextField`.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Error state">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField
@@ -170,7 +170,7 @@ In addition, the `helperText` property can be set to display an error message be
 
 If set to `true`, the `TextField` component will take 100% of its container's width.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Full width">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField defaultValue="I'm set with full width" fullWidth />
@@ -184,7 +184,7 @@ When the component is controlled, the parent passes a value to the `TextField` w
 Parent has its own state in order to control the value which is passed, and it also specify an `onChange` handler property which will be called when user updates the value.  
 In the example below, everytime the input value changes, current state is updated and a log message displays the content of the value.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Controlled">
     {() => {
       const [value, setValue] = useState('I am controlled!')
@@ -208,7 +208,7 @@ It can be used when the component in uncontrolled, which implies that no value i
 Data is handled by the DOM itself, this is the source of truth.
 If you want to access the value, you can use a ref to get value from the DOM, but it is recommended to interact with values by choosing a controlled component which is more appropriated.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Uncontrolled">
     {() => {
       const textFieldRef = useRef()
@@ -225,7 +225,7 @@ If you want to access the value, you can use a ref to get value from the DOM, bu
 
 This property allows the user to add a custom `icon` at the right of the input area.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Right icon">
     {() => {
       const [value, setValue] = useState('Clear me!')
@@ -252,12 +252,24 @@ This property allows the user to add a custom `icon` at the right of the input a
   </Story>
 </Canvas>
 
+## Border
+
+The `withBorder` property allows you to add a themed border to the textField and thus to bring more visual impact within the interface.
+
+<Canvas>
+  <Story name="Border">
+    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
+      <TextField defaultValue="I'm with a themed border." withBorder />
+    </div>
+  </Story>
+</Canvas>
+
 ## Multiline
 
 The `multiline` property allows you to write text on several lines. The simple text field becomes a text area.  
 When `multiline` is `true` and [disableAreaResize](/docs/atoms-textfield--disable-area-resize) is `false` the [size](/docs/atoms-textfield--sizes) is automatically `auto`.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Multiline">
     <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
       <TextField placeholder="I'm a multiline text field." multiline size="large" />
@@ -267,10 +279,10 @@ When `multiline` is `true` and [disableAreaResize](/docs/atoms-textfield--disabl
 
 ## Number of lines
 
-If the text field is multiline, the property `numberOfLines` defines the initial heigth of the text field.  
+If the text field is multiline, the property `numberOfLines` defines the initial height of the text field.  
 By default, the text area is initialized with two lines.
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Number of lines">
     <div
       style={{
@@ -304,7 +316,7 @@ By default, the text area is initialized with two lines.
 If the text field is multiline, the property `disableAreaResize` allows to disable the resizing of the text area.
 When `disableAreaResize` is `false`, then users can define a [size](/docs/atoms-textfield--sizes).
 
-<Canvas isColumn>
+<Canvas>
   <Story name="Disable area resize">
     <div
       style={{

@@ -55,6 +55,10 @@ export type InputBaseProps = {
    * If true and multiline, the user can't resize the text area.
    */
   readonly disableAreaResize?: boolean
+  /**
+   * Whether input has a themed border.
+   */
+  readonly withBorder?: boolean
 }
 
 type IconProps = {
@@ -65,6 +69,7 @@ const RightIcon = ({ icon }: IconProps): JSX.Element => (
   <div className="okp4-input-right-icon">{icon}</div>
 )
 
+// eslint-disable-next-line max-lines-per-function
 export const InputBase = ({
   defaultValue,
   disabled = false,
@@ -77,12 +82,14 @@ export const InputBase = ({
   readOnly = false,
   multiline = false,
   numberOfLines,
-  disableAreaResize = false
+  disableAreaResize = false,
+  withBorder = false
 }: InputBaseProps): JSX.Element => {
   const containerClass = classNames(`okp4-input-base-container`, {
     'with-icon': !!rightIcon,
     error: hasError,
-    disabled
+    disabled,
+    border: withBorder
   })
   const inputClass = classNames(`okp4-input-base-main`, {
     error: hasError
