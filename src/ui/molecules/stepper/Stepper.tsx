@@ -109,6 +109,7 @@ const initState = (steps: DeepReadonly<List<Step>>): StepperState => {
  * @param action the dispatch action of the reducer.
  * @returns the new state of the stepper.
  */
+// eslint-disable-next-line max-lines-per-function
 const stepperReducer = (
   state: DeepReadonly<StepperState>,
   action: DeepReadonly<StepperAction>
@@ -120,10 +121,14 @@ const stepperReducer = (
         activeStepIndex > 0
           ? state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) - 1) ?? 0
           : state.activeStepIndex
+      const currentStepState = state.stepsStatuses.get(activeStepIndex)
       return {
         ...state,
         stepsStatuses: state.stepsStatuses
-          .set(state.activeStepIndex, 'uncompleted')
+          .set(
+            state.activeStepIndex,
+            currentStepState !== 'invalid' ? 'uncompleted' : currentStepState
+          )
           .set(previousStepIndex, 'active'),
         activeStepIndex: previousStepIndex
       }
