@@ -4,6 +4,7 @@ import { Header } from 'ui/molecules/header/Header.tsx'
 import { Logo } from 'ui/atoms/logo/Logo.tsx'
 import BotAnikImage from '../../../assets/botanik-logo.png'
 import { Typography } from 'ui/atoms/typography/Typography.tsx'
+import { useMediaType } from 'hook/useMediaType'
 
 import './header.scss'
 
@@ -39,10 +40,11 @@ import './header.scss'
 
 ## Description
 
-**Header** is a responsive component which embeds two main elements:
+**Header** is a responsive component which embeds three main elements:
 
 - A `firstElement` that comes first in the reading flow. Typically used for logos. Will resize if larger than max size.
 - A `ThemeSwitcher` which allows each application to automatically manage the themes offered by the ØKP4 design system (Blue Stone / Light Stone).
+- A `NavigationMenu` that displays the main navigation of your site. This set of links will be wrapped in a burger menu to fit smaller screens.
 
 ## Overview
 
@@ -52,12 +54,18 @@ import './header.scss'
     firstElement: {
       control: false,
       table: {
-        type: { summary: 'JSX.Element' }
+        type: { summary: 'Node' }
+      }
+    },
+    navigationMenu: {
+      control: false,
+      table: {
+        type: { summary: 'Node' }
       }
     }
   }}
 >
-  <Header firstElement={<Logo />} />
+  <Header firstElement={<Logo size="small" />} />
 </Story>
 
 ---
@@ -85,6 +93,48 @@ elements conform to the layout.
         </div>
       }
     />
+  </Story>
+</Canvas>
+
+## Navigation menu
+
+The optional `navigationMenu` is used to hightlight the main navigation of your website.  
+This responsive menu provides the user with a set of navigable links and greatly improves his experience by providing several easily accessible shortcuts.
+
+You just have to provide it with an array of `JSX.Element` which will then be displayed on a single line on a large or medium screen, or accessible via a burger menu on a smaller or mobile screen.  
+Please shorten the window to let the magic happen!
+
+<Canvas>
+  <Story name="Navigation menu">
+    {() => {
+      const changeHeaderDisplay = useMediaType('(max-width: 995px)')
+      const links = [
+        { name: 'Welcome', url: 'https://ui.okp4.space/?path=/docs/welcome--page' },
+        { name: 'Philosophy', url: 'https://ui.okp4.space/?path=/docs/philosophy--page' },
+        { name: 'Start', url: 'https://ui.okp4.space/?path=/docs/getting-started--page' },
+        {
+          name: 'Languages',
+          url: 'https://ui.okp4.space/?path=/docs/guidelines-internationalization--page'
+        },
+        {
+          name: 'Responsiveness',
+          url: 'https://ui.okp4.space/?path=/docs/guidelines-responsive-web-design--page'
+        }
+      ]
+      const navigationMenu = links.map(link => (
+        <Typography as="div" fontSize="small" fontWeight="bold">
+          <a href={link.url} target="_blank" style={{ wordBreak: 'normal' }}>
+            {link.name}
+          </a>
+        </Typography>
+      ))
+      return (
+        <Header
+          firstElement={<Logo size={changeHeaderDisplay ? 'x-small' : 'small'} />}
+          navigationMenu={navigationMenu}
+        />
+      )
+    }}
   </Story>
 </Canvas>
 
