@@ -39,7 +39,7 @@ const NavigationMenu = ({
   const menuType = withBurgerMenu ? 'burger' : 'row'
   return (
     <div className={`okp4-header-navigation-${menuType}-list`}>
-      {navigation.map((link: Readonly<JSX.Element>, index: number) => (
+      {navigation.map((link: DeepReadonly<JSX.Element>, index: number) => (
         <div className={`okp4-header-navigation-${menuType}-item`} key={index}>
           {link}
         </div>
@@ -75,9 +75,12 @@ export const Header: React.FC<HeaderProps> = ({
   navigationMenu
 }: DeepReadonly<HeaderProps>): JSX.Element => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen]: UseState<boolean> = useState<boolean>(false)
-  const displayHeaderWithBurgerMenu = useMediaType('(max-width: 995px)')
+  const isSmallScreen = useMediaType('(max-width: 995px)')
 
-  const showBurgerMenuList = displayHeaderWithBurgerMenu && isBurgerMenuOpen
+  const showBurgerMenu = isSmallScreen && !!navigationMenu
+  const showRowMenu = !isSmallScreen && !!navigationMenu
+  const showBurgerMenuList = showBurgerMenu && isBurgerMenuOpen
+
   const headerClassname = classNames(
     'okp4-header-main',
     navigationMenu ? 'with-navigation' : 'without-navigation',
@@ -88,26 +91,15 @@ export const Header: React.FC<HeaderProps> = ({
 
   const toggleBurgerMenu = useCallback((): void => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen)
-  }, [isBurgerMenuOpen, setIsBurgerMenuOpen])
+  }, [isBurgerMenuOpen])
 
   return (
     <div className={headerClassname}>
-      {navigationMenu ? (
-        <>
-          {displayHeaderWithBurgerMenu && (
-            <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />
-          )}
-          {showBurgerMenuList && <NavigationMenu navigation={navigationMenu} withBurgerMenu />}
-          <FirstElement firstElement={firstElement} hasBurger={displayHeaderWithBurgerMenu} />
-          {!displayHeaderWithBurgerMenu && <NavigationMenu navigation={navigationMenu} />}
-          <ThemeSwitcher />
-        </>
-      ) : (
-        <>
-          <FirstElement firstElement={firstElement} />
-          <ThemeSwitcher className="without-navigation" />
-        </>
-      )}
+      {showBurgerMenu && <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />}
+      {showBurgerMenuList && <NavigationMenu navigation={navigationMenu} withBurgerMenu />}
+      <FirstElement firstElement={firstElement} hasBurger={showBurgerMenu} />
+      {showRowMenu && <NavigationMenu navigation={navigationMenu} />}
+      <ThemeSwitcher className={classNames({ 'with-navigation': !!navigationMenu })} />
     </div>
   )
 }
