@@ -2,6 +2,11 @@ import type { List } from 'immutable'
 import type { Entity } from 'domain/common/type'
 
 export type TaskStatus = 'processing' | 'success' | 'error'
+export type TaskProgress = {
+  min?: number
+  max?: number
+  current?: number
+}
 
 export type Task<T = string, I = string> = Entity<
   {
@@ -10,6 +15,7 @@ export type Task<T = string, I = string> = Entity<
     readonly type: T
     readonly status: TaskStatus
     readonly initiator: string
+    readonly progress?: TaskProgress
   },
   I
 >

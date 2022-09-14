@@ -1,4 +1,4 @@
-type Status = 'processing' | 'success' | 'error'
+import type { Status } from './type'
 
 export type AmendTaskStatus<I = string> = {
   readonly id: I

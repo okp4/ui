@@ -1,7 +1,8 @@
 import short from 'short-uuid'
 import type { DeepReadonly } from 'superTypes'
 import { UnspecifiedError } from 'domain/task/entity/error'
-import type { Task, TaskStatus } from 'domain/task/entity/task'
+import type { Task, TaskProgress, TaskStatus } from 'domain/task/entity/task'
+import { isProgressValid } from 'domain/task/utils/task.utils'
 
 export class TaskBuilder {
   private readonly task: Task
@@ -64,6 +65,15 @@ export class TaskBuilder {
     return new TaskBuilder({ ...this.task, initiator })
   }
 
+  public withProgress(progress: DeepReadonly<TaskProgress>): TaskBuilder {
+    if (!isProgressValid(progress)) {
+      throw new UnspecifiedError(
+        'Oops... A valid progress object must be provided to build a task..'
+      )
+    }
+    return new TaskBuilder({ ...this.task, progress })
+  }
+
   public build(): Task {
     if (!this.invariant()) {
       throw new UnspecifiedError()
@@ -78,7 +88,8 @@ export class TaskBuilder {
       this.task.lastUpdateDate instanceof Date &&
       this.task.type.length > 0 &&
       this.task.status.length > 0 &&
-      this.task.initiator.length > 0
+      this.task.initiator.length > 0 &&
+      (!this.task.progress || isProgressValid(this.task.progress))
     )
   }
 }
