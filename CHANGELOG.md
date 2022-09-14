@@ -1,5 +1,36 @@
 # OKP4 UI changelog
 
+# [1.18.0](https://github.com/okp4/ui/compare/v1.17.0...v1.18.0) (2022-09-14)
+
+
+### Bug Fixes
+
+* force menu close when screen is larger ([9ecc870](https://github.com/okp4/ui/commit/9ecc870c8fdfccf3d1c6ed067b338a9f3d405386))
+* **stepper:** keep error state when click previous ([40bbcb8](https://github.com/okp4/ui/commit/40bbcb8df88fb9240ace6786f6a480793c87f7e8))
+
+
+### Features
+
+* add menu icon ([03ce490](https://github.com/okp4/ui/commit/03ce4908b5dee8ad5dfdf1dccf563611dee915ac))
+* add navigation prop to Header ([74842b4](https://github.com/okp4/ui/commit/74842b4dec28b1219edd686afbdacdab35820c78))
+* **builder:** add withProgress method and invariant ([a54544c](https://github.com/okp4/ui/commit/a54544ce485eb65acf0d20dab0a2dad466c93d11))
+* **core:** add commands for setting bounds and value ([ef822c9](https://github.com/okp4/ui/commit/ef822c9937dd601950ae4760b40dbb872f5e2515))
+* **core:** add configureTaskProgressBounds use-case ([b08bbec](https://github.com/okp4/ui/commit/b08bbecd93159cbae6f6abf2e7fd7bb440d00df1))
+* **core:** add event payloads to handle progress at register & amend ([057f45b](https://github.com/okp4/ui/commit/057f45b31b90553c8d5d57303e6aaf6eac45430e))
+* **core:** add generic getExpectedStateAfterAmend helper method for tests ([ab1ac83](https://github.com/okp4/ui/commit/ab1ac83da34719b40cc134cd174e034fe4af3b1a))
+* **core:** add progress property to task entity ([50d2d23](https://github.com/okp4/ui/commit/50d2d234e3543ef3eec50f39152414cf02193f25))
+* **core:** add progressInvariant utilitary method ([96c004f](https://github.com/okp4/ui/commit/96c004fcbaf51a71ab93ef90fdb1cdf06addf07b))
+* **core:** add setTaskProgressValue use-case ([34faaa8](https://github.com/okp4/ui/commit/34faaa8972af2f5a9a4134b5d8382e5fdd80000c))
+* **core:** clean progress invariants ([a7161d8](https://github.com/okp4/ui/commit/a7161d88c2a9e3e9be2a6357e8416a0154ea1c36))
+* **core:** enhance configureTaskProgressBounds use case ([2bab390](https://github.com/okp4/ui/commit/2bab3905b54b35b7ce0c9a65e8f193171c6ae252))
+* **core:** export commands and usecases to lib ([3ed0284](https://github.com/okp4/ui/commit/3ed0284f4e030fb9f037e8cbc80dc3af394a7d15))
+* **core:** export new commands and use-cases to lib ([02da1df](https://github.com/okp4/ui/commit/02da1dfa865031f7633110b4392f277c9c35e685))
+* **core:** update registerTask usecase to handle progress ([370a841](https://github.com/okp4/ui/commit/370a84170f423502ddbfaf6781726d0a47fb416c))
+* **file picker:** define default size to large ([c25cdcd](https://github.com/okp4/ui/commit/c25cdcdb988a60bf3050438f8e9c0f7875d071a6))
+* improve grid layout ([ef2d594](https://github.com/okp4/ui/commit/ef2d594e25bb7cebcbbdd3c5ee90c7d8ee98d834))
+* **redux:** update reducer to handle progress property ([b4cb71f](https://github.com/okp4/ui/commit/b4cb71f9124ed9cd75f31f0fcd8af088237444c1))
+* **text field:** add withBorder property ([4a6a63f](https://github.com/okp4/ui/commit/4a6a63ffdb0a0f1e0194d6a3a90fd99a6e5e480f))
+
 # [1.17.0](https://github.com/okp4/ui/compare/v1.16.0...v1.17.0) (2022-09-09)
 
 
