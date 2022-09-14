@@ -18,13 +18,13 @@ export type HeaderProps = {
 }
 
 const BurgerMenu = ({
-  isOpened,
+  isOpen,
   onToggle
-}: DeepReadonly<{ isOpened: boolean; onToggle: () => void }>): JSX.Element => (
+}: DeepReadonly<{ isOpen: boolean; onToggle: () => void }>): JSX.Element => (
   <div
     className={classNames(
       'okp4-header-navigation-burger-menu',
-      isOpened ? 'rotate-down' : 'rotate-up'
+      isOpen ? 'rotate-down' : 'rotate-up'
     )}
     onClick={onToggle}
   >
@@ -80,10 +80,10 @@ export const Header: React.FC<HeaderProps> = ({
   firstElement,
   navigationMenu
 }: DeepReadonly<HeaderProps>): JSX.Element => {
-  const [isBurgerMenuOpened, setIsBurgerMenuOpened]: UseState<boolean> = useState<boolean>(false)
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen]: UseState<boolean> = useState<boolean>(false)
   const displayHeaderWithBurgerMenu = useMediaType('(max-width: 995px)')
 
-  const showBurgerMenuList = displayHeaderWithBurgerMenu && isBurgerMenuOpened
+  const showBurgerMenuList = displayHeaderWithBurgerMenu && isBurgerMenuOpen
   const headerClassname = classNames(
     'okp4-header-main',
     navigationMenu ? 'with-navigation' : 'without-navigation',
@@ -93,15 +93,15 @@ export const Header: React.FC<HeaderProps> = ({
   )
 
   const toggleBurgerMenu = useCallback((): void => {
-    setIsBurgerMenuOpened(!isBurgerMenuOpened)
-  }, [isBurgerMenuOpened, setIsBurgerMenuOpened])
+    setIsBurgerMenuOpen(!isBurgerMenuOpen)
+  }, [isBurgerMenuOpen, setIsBurgerMenuOpen])
 
   return (
     <div className={headerClassname}>
       {navigationMenu ? (
         <>
           {displayHeaderWithBurgerMenu && (
-            <BurgerMenu isOpened={isBurgerMenuOpened} onToggle={toggleBurgerMenu} />
+            <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />
           )}
           {showBurgerMenuList && <BurgerMenuList navigation={navigationMenu} />}
           <FirstElement firstElement={firstElement} hasBurger={displayHeaderWithBurgerMenu} />
