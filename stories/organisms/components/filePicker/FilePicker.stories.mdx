@@ -62,7 +62,7 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) and the 
     multiple: true,
     acceptedFormats: ['image/*', '.csv'],
     size: 'large',
-    clearAll: true
+    showClearAll: false
   }}
 >
   {args => {
@@ -96,6 +96,36 @@ It is a combination of the [FileInput](/docs/atoms-fileinput--overview) and the 
 ## Properties
 
 <ArgsTable story="Overview" />
+
+## Show clear all
+
+Need to clear all selected files at once?  
+We thought it would be handy to offer you a turnkey way to do it!  
+For that, you only have to pass `showClearAll` to the filePicker and that's it!
+The displayed text is themed and internationalized (english and french) and fits harmoniously above the list.
+By default the `showClearAll` value is **false**.
+
+<Canvas>
+  <Story name="Show clear all">
+    <div
+      style={{
+        display: 'flex'
+      }}
+    >
+      <FilePicker
+        label="Drop your files here, or browse"
+        showClearAll
+        description={
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
+              Display `Clear all` to remove all the selected files.
+            </Typography>
+          </div>
+        }
+      />
+    </div>
+  </Story>
+</Canvas>
 
 ## Usage
 

@@ -24,12 +24,12 @@ export type FilePickerProps = Pick<
   /**
    * Displays a clickable text to delete all selected files.
    */
-  readonly clearAll?: boolean
+  readonly showClearAll?: boolean
 }
 
 // eslint-disable-next-line max-lines-per-function
 export const FilePicker: React.FC<FilePickerProps> = ({
-  clearAll = true,
+  showClearAll = false,
   size = 'large',
   ...props
 }: DeepReadonly<FilePickerProps>) => {
@@ -110,7 +110,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         onDropped={handleDropped}
         size={size}
       />
-      {clearAll && fileList.length > 1 && (
+      {showClearAll && fileList.length > 1 && (
         <div className="okp4-file-picker-clear-all" onClick={handleRemoveAll}>
           <Typography fontSize="x-small" fontWeight="xlight" textDecoration="underline">
             {t('filePicker:filePicker.clearAll')}
