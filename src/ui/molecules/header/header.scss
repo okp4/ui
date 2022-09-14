@@ -40,12 +40,12 @@
         background-color: themed('header-navigation-background');
         box-shadow: 10px 10px 10px themed('header-navigation-background');
 
-        .okp4-header-navigation-burger-menu-list {
+        .okp4-header-navigation-burger-list {
           grid-area: 2 / 1 / 2 / 4;
           margin: 10px 0 10px 10px;
           animation: fadeIn 1s;
 
-          .okp4-header-navigation-burger-menu-item {
+          .okp4-header-navigation-burger-item {
             margin-top: 20px;
           }
         }

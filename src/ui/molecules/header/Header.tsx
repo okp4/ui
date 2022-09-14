@@ -32,27 +32,21 @@ const BurgerMenu = ({
   </div>
 )
 
-const BurgerMenuList = ({
-  navigation
-}: DeepReadonly<{ navigation: JSX.Element[] }>): JSX.Element => (
-  <div className="okp4-header-navigation-burger-menu-list">
-    {navigation.map((link: Readonly<JSX.Element>, index: number) => (
-      <div className="okp4-header-navigation-burger-menu-item" key={index}>
-        {link}
-      </div>
-    ))}
-  </div>
-)
-
-const RowMenuList = ({ navigation }: DeepReadonly<{ navigation: JSX.Element[] }>): JSX.Element => (
-  <div className="okp4-header-navigation-row-list">
-    {navigation.map((link: Readonly<JSX.Element>, index: number) => (
-      <div className="okp4-header-navigation-row-item" key={index}>
-        {link}
-      </div>
-    ))}
-  </div>
-)
+const NavigationMenu = ({
+  navigation,
+  withBurgerMenu
+}: DeepReadonly<{ navigation: JSX.Element[]; withBurgerMenu?: boolean }>): JSX.Element => {
+  const menuType = withBurgerMenu ? 'burger' : 'row'
+  return (
+    <div className={`okp4-header-navigation-${menuType}-list`}>
+      {navigation.map((link: Readonly<JSX.Element>, index: number) => (
+        <div className={`okp4-header-navigation-${menuType}-item`} key={index}>
+          {link}
+        </div>
+      ))}
+    </div>
+  )
+}
 
 const FirstElement = ({
   firstElement,
@@ -103,9 +97,9 @@ export const Header: React.FC<HeaderProps> = ({
           {displayHeaderWithBurgerMenu && (
             <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />
           )}
-          {showBurgerMenuList && <BurgerMenuList navigation={navigationMenu} />}
+          {showBurgerMenuList && <NavigationMenu navigation={navigationMenu} withBurgerMenu />}
           <FirstElement firstElement={firstElement} hasBurger={displayHeaderWithBurgerMenu} />
-          {!displayHeaderWithBurgerMenu && <RowMenuList navigation={navigationMenu} />}
+          {!displayHeaderWithBurgerMenu && <NavigationMenu navigation={navigationMenu} />}
           <ThemeSwitcher />
         </>
       ) : (
