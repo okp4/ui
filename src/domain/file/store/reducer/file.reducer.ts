@@ -3,8 +3,10 @@ import { combineReducers } from 'redux'
 import type { FileEntity } from 'domain/file/entity/file'
 import type { FileState } from '../appState'
 import type { DeepReadonly } from 'superTypes'
-import type { StoreFilesActionTypes } from 'domain/file/usecase/store-files/actionCreators'
-import type { RemoveFileActionTypes } from 'domain/file/usecase/remove-file/actionCreators'
+import type { StoreFileActionTypes } from 'domain/file/events/file-stored/actionCreators'
+import type { RemoveFileActionTypes } from 'domain/file/events/file-removed/actionCreators'
+import type { FileStoredPayload } from 'domain/file/events/file-stored/fileStored'
+import type { FileRemovedPayload } from 'domain/file/events/file-removed/fileRemoved'
 
 const initialFileState: FileState<string> = {
   byId: OrderedMap<string, FileEntity>(),
@@ -13,11 +15,11 @@ const initialFileState: FileState<string> = {
 
 const file = (
   state: DeepReadonly<FileState> = initialFileState,
-  action: DeepReadonly<StoreFilesActionTypes | RemoveFileActionTypes>
+  action: DeepReadonly<StoreFileActionTypes | RemoveFileActionTypes>
 ): FileState => {
   switch (action.type) {
     case 'file/fileStored': {
-      const { id, type }: FileEntity = action.payload
+      const { id, type }: FileStoredPayload = action.payload
       const foundList = state.byType.get(type)
       return {
         ...state,
@@ -26,14 +28,15 @@ const file = (
       }
     }
     case 'file/fileRemoved': {
-      const foundFileById = state.byId.get(action.payload)
+      const { id }: FileRemovedPayload = action.payload
+      const foundFileById = state.byId.get(id)
       return {
         ...state,
         ...(foundFileById && {
-          byId: state.byId.remove(action.payload)
+          byId: state.byId.remove(id)
         }),
         byType: state.byType
-          .map((value: Readonly<OrderedSet<string>>) => value.delete(action.payload))
+          .map((value: Readonly<OrderedSet<string>>) => value.delete(id))
           .filter((value: Readonly<OrderedSet<string>>) => !value.isEmpty())
       }
     }
