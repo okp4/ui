@@ -1,25 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import type { OrderedSet } from 'immutable'
-import type { Error } from 'domain/error/entity/error'
-import type { EventMetadata } from 'eventBus/eventBus'
-import type { DeepReadonly, Pair } from 'superTypes'
+import type { DeepReadonly } from 'superTypes'
 import type { Task } from '../entity/task'
 import type { AppState } from '../store/appState'
-
-export type EventParameter<T> = Pair<{ type: string; payload: Payload<T> }, EventMetadata>
-type Payload<T> = Error | T
-
-export const getExpectedEventParameter = <T>(
-  type: string,
-  payload: Payload<T>,
-  initiator: string,
-  date: Readonly<Date>
-): EventParameter<T> => {
-  return [
-    { ...{ type }, ...{ payload } },
-    { initiator, timestamp: date }
-  ]
-}
 
 // Compute state after invoking removeTask* commands
 export const getExpectedStateAfterRemove = (
@@ -41,18 +24,6 @@ export const getExpectedStateAfterRemove = (
         }
       : acc
   }, initialState)
-
-export const expectEventParameters = <T>(
-  expectedEventParameters: EventParameter<T>[],
-  mockedEventBusPublish: jest.SpyInstance
-): void => {
-  if (expectedEventParameters.length) {
-    expectedEventParameters.forEach((elt: EventParameter<T>, index: number) => {
-      const [first, second]: EventParameter<T> = elt
-      expect(mockedEventBusPublish).toHaveBeenNthCalledWith(index + 1, first, second)
-    })
-  }
-}
 
 export const getExpectedStateAfterAmend = (
   initialState: DeepReadonly<AppState>,
