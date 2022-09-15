@@ -1,9 +1,8 @@
 import { uniqBy } from 'lodash'
 import type { ReduxStore, ThunkResult } from 'domain/file/store/store'
-import type { StoreFilePayload, StoreFilesPayload } from 'domain/file/command/storeFile'
-import { StoreFilesActions } from './actionCreators'
+import type { StoreFile, StoreFiles } from 'domain/file/command/storeFiles'
+import { StoreFileActions } from '../../events/file-stored/actionCreators'
 import type { DeepReadonly } from 'superTypes'
-import { FileMapper } from 'adapters/file/mapper/file.mapper'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { ThrowErrorActions } from 'domain/common/actionCreators'
 import { UnspecifiedError } from 'domain/file/entity/error'
@@ -14,25 +13,27 @@ const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void =
 }
 
 export const storeFiles =
-  (files: DeepReadonly<StoreFilesPayload<string>>): ThunkResult<Promise<void>> =>
+  (storeFilesPayload: DeepReadonly<StoreFiles>): ThunkResult<Promise<void>> =>
   // eslint-disable-next-line @typescript-eslint/typedef
   async (dispatch, getState) => {
-    const hasDuplicatedIdInState = files.some((file: DeepReadonly<StoreFilePayload<string>>) =>
+    const hasDuplicatedIdInState = storeFilesPayload.some((file: DeepReadonly<StoreFile>) =>
       getState().file.byId.has(file.id)
     )
-    const isCommandPayloadValid = uniqBy(files, 'id').length === files.length
+    const isCommandPayloadValid =
+      uniqBy(storeFilesPayload, 'id').length === storeFilesPayload.length
 
     if (hasDuplicatedIdInState || !isCommandPayloadValid) {
       dispatchError(
         new UnspecifiedError(
-          `You are trying either to store a file whose id already exists or to store files with the same id... So we can't perform a storeFiles command..`
+          `You are trying either to store a file whose id already exists or to store files with the same id... So we can't store these files...`
         ),
         dispatch
       )
       return
     }
 
-    files.forEach((file: DeepReadonly<StoreFilePayload<string>>) => {
-      dispatch(StoreFilesActions.fileStored(FileMapper.mapCommandPayloadToEntity(file)))
+    storeFilesPayload.forEach((fileToStore: DeepReadonly<StoreFile>) => {
+      const { id, name, size, stream, type }: StoreFile = fileToStore
+      dispatch(StoreFileActions.fileStored({ id, name, size, stream, type }))
     })
   }
