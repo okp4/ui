@@ -72,7 +72,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
   )
 
   const handleRemove = useCallback(
-    (id: string) => (): ThunkResult<Promise<void>> => fileDispatch(removeFile(id)),
+    (id: string) => (): ThunkResult<Promise<void>> => fileDispatch(removeFile({ id })),
     [fileDispatch]
   )
 
