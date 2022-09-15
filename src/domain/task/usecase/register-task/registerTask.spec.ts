@@ -8,8 +8,11 @@ import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
-import { EventParameter, expectEventParameters } from '../../helper/test.helper'
-import { getExpectedEventParameter } from '../../helper/test.helper'
+import {
+  getExpectedEventParameter,
+  EventParameter,
+  expectEventParameters
+} from 'domain/common/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 import { RegisterTask } from 'domain/task/command/registerTask'
 import { TaskRegisteredPayload } from 'domain/task/event/taskRegistered'
