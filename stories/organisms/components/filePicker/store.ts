@@ -1,4 +1,4 @@
-import { List } from 'immutable'
+import { List as ImmutableList } from 'immutable'
 import { FileStoreBuilder } from 'domain/file/store/builder/store.builder'
 import { FileContext } from 'context/storeContext/fileContext'
 import { createEventBusInstance } from 'eventBus/index'
@@ -11,4 +11,4 @@ const eventBusInstance = createEventBusInstance()
 const fileStore = new FileStoreBuilder().withEventBus(eventBusInstance).build()
 const fileStoreParameter: StoreParameter = [FileContext, fileStore]
 
-export default List([fileStoreParameter])
+export default ImmutableList([fileStoreParameter])

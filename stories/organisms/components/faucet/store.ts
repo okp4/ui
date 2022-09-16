@@ -1,4 +1,4 @@
-import { List } from 'immutable'
+import { List as ImmutableList } from 'immutable'
 import { HTTPFaucetGateway } from 'adapters/faucet/secondary/graphql/HTTPFaucetGateway'
 import { KeplrWalletGateway } from 'adapters/wallet/secondary/KeplrWalletGateway'
 import { WalletRegistryGateway } from 'adapters/wallet/secondary/WalletRegistryGateway'
@@ -43,7 +43,7 @@ const walletStore = new WalletStoreBuilder()
   .build()
 const walletStoreParameter: StoreParameter = [WalletContext, walletStore]
 
-export default List([
+export default ImmutableList([
   faucetStoreParameter,
   errorStoreParameter,
   walletStoreParameter,
