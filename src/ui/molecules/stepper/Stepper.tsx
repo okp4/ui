@@ -1,174 +1,129 @@
-import type { Reducer } from 'react'
-import React, { useCallback, useMemo, useReducer } from 'react'
-import type { DeepReadonly, UseReducer } from 'superTypes'
-import './stepper.scss'
-import { Button } from 'ui/atoms/button/Button'
 import classNames from 'classnames'
-import './i18n/index'
-import { useTranslation } from 'hook/useTranslation'
-import type { UseTranslationResponse } from 'hook/useTranslation'
-import { Typography } from 'ui/atoms/typography/Typography'
-import { List as ImmutableList } from 'immutable'
 import type { Breakpoints } from 'hook/useBreakpoint'
 import { useBreakpoint } from 'hook/useBreakpoint'
+import type { UseTranslationResponse } from 'hook/useTranslation'
+import { useTranslation } from 'hook/useTranslation'
+import React, { useMemo } from 'react'
+import type { DeepReadonly } from 'superTypes'
+import { Button } from 'ui/atoms/button/Button'
 import { Icon } from 'ui/atoms/icon/Icon'
+import { Typography } from 'ui/atoms/typography/Typography'
+import './i18n/index'
+import './stepper.scss'
 
-export type StepStatus = 'disabled' | 'invalid' | 'completed' | 'active' | 'uncompleted'
-
+/**
+ * The index of a step in a step array.
+ */
 export type StepIndex = number
-
-type StepperState = {
-  enabledSteps: ImmutableList<StepIndex>
-  stepsStatuses: ImmutableList<StepStatus>
-  activeStepIndex: StepIndex
-}
-
-type StepperAction =
-  | { type: 'previousClicked' }
-  | { type: 'stepCompleted' }
-  | { type: 'stepFailed' }
-  | { type: 'stepperSubmitted' }
-  | { type: 'stepperReseted'; payload: ImmutableList<Step> }
+/**
+ * The ID of the step.
+ */
+export type StepId = string
+/**
+ * The status of a step in the Stepper.
+ */
+export type StepStatus = 'disabled' | 'invalid' | 'completed' | 'uncompleted'
+type StepState = StepStatus | 'active'
 
 export type Step = {
   /**
-   * The title of the step
+   * The ID of the step.
    */
-  readonly label: string
+  readonly id: StepId
   /**
-   * The initial status of the step
+   * The title of the step.
+   */
+  readonly label?: string
+  /**
+   * The status of the step.
    */
   readonly status?: StepStatus
   /**
-   * The content of the step
+   * The content of the step.
    */
   readonly content?: JSX.Element
   /**
-   * Callback method called when clicking on the next button
-   * to validate the step and go to the next one
+   * Callback method which allows to validate the step.
    */
   readonly onValidate?: () => boolean
 }
 
 export type StepperProps = {
   /**
-   * The list of the steps
+   * The list of steps.
    */
-  readonly steps: Step[]
+  readonly steps: DeepReadonly<Step[]>
+  /**
+   * The index of the current step in the step array.
+   */
+  readonly current?: StepIndex
+
+  /**
+   * Defines if the previous button is disabled.
+   */
+  readonly isPreviousDisabled?: boolean
+
+  /**
+   * Defines if the next button is disabled.
+   */
+  readonly isNextDisabled?: boolean
+
+  /**
+   * Defines if the submit button is disabled.
+   */
+  readonly isSubmitDisabled?: boolean
+
+  /**
+   * Defines if the reset button is disabled.
+   */
+  readonly isResetDisabled?: boolean
   /**
    * The label of the submit button
    */
   readonly submitButtonLabel?: string
   /**
-   * The label of the reset button
+   * The label of the reset button.
    */
   readonly resetButtonLabel?: string
   /**
-   * The content displayed after submission
+   * Defines if the submission succeed and allows to display the `successContent`.
+   */
+  readonly isSubmitSucceed?: boolean
+  /**
+   * The content displayed after submission succeed.
    */
   readonly successContent?: JSX.Element
   /**
-   * Callback method called on click on next button
+   * Callback method called when previous button is clicked.
+   */
+  readonly onPrevious?: () => void
+  /**
+   * Callback method called when next button is clicked.
    */
   readonly onNext?: () => void
   /**
-   * Callback method called when clicking on the submit button in the last step
+   * Callback method called when clicking on the submit button in the last step.
    */
   readonly onSubmit?: () => void
   /**
-   * Callback method called when clicking on the reset button after the last step
+   * Callback method called when clicking on the reset button after submission succeed in the last step.
    */
   readonly onReset?: () => void
-}
-
-/**
- * Returns the inital state of the stepper.
- *
- * @param steps the steps of the stepper.
- * @returns the initial state of the stepper.
- */
-const initState = (steps: DeepReadonly<ImmutableList<Step>>): StepperState => {
-  const firstActiveIndex = steps.findIndex((step: DeepReadonly<Step>) => step.status === 'active')
-  const initialActiveStep = firstActiveIndex > -1 ? firstActiveIndex : 0
-  return {
-    enabledSteps: steps.reduce(
-      (acc: DeepReadonly<ImmutableList<StepIndex>>, curr: DeepReadonly<Step>, index: number) => {
-        return curr.status !== 'disabled' ? ImmutableList([...acc, index]) : acc
-      },
-      ImmutableList()
-    ),
-    stepsStatuses: steps.map((step: DeepReadonly<Step>, index: number) =>
-      index === initialActiveStep ? 'active' : step.status ?? 'uncompleted'
-    ),
-    activeStepIndex: initialActiveStep
-  }
-}
-
-/**
- * @param state the state of the stepper.
- * @param action the dispatch action of the reducer.
- * @returns the new state of the stepper.
- */
-// eslint-disable-next-line max-lines-per-function
-const stepperReducer = (
-  state: DeepReadonly<StepperState>,
-  action: DeepReadonly<StepperAction>
-): DeepReadonly<StepperState> => {
-  switch (action.type) {
-    case 'previousClicked': {
-      const activeStepIndex = state.enabledSteps.indexOf(state.activeStepIndex)
-      const previousStepIndex =
-        activeStepIndex > 0
-          ? state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) - 1) ?? 0
-          : state.activeStepIndex
-      const currentStepState = state.stepsStatuses.get(activeStepIndex)
-      return {
-        ...state,
-        stepsStatuses: state.stepsStatuses
-          .set(
-            state.activeStepIndex,
-            currentStepState !== 'invalid' ? 'uncompleted' : currentStepState
-          )
-          .set(previousStepIndex, 'active'),
-        activeStepIndex: previousStepIndex
-      }
-    }
-    case 'stepCompleted': {
-      const nextStepIndex =
-        state.enabledSteps.get(state.enabledSteps.indexOf(state.activeStepIndex) + 1) ??
-        state.activeStepIndex
-      return {
-        ...state,
-        stepsStatuses: state.stepsStatuses
-          .set(state.activeStepIndex, 'completed')
-          .set(nextStepIndex, 'active'),
-        activeStepIndex: nextStepIndex
-      }
-    }
-    case 'stepFailed':
-      return {
-        ...state,
-        stepsStatuses: state.stepsStatuses.set(state.activeStepIndex, 'invalid')
-      }
-    case 'stepperSubmitted':
-      return {
-        ...state,
-        stepsStatuses: state.stepsStatuses.set(state.activeStepIndex, 'completed'),
-        activeStepIndex: state.activeStepIndex + 1
-      }
-    case 'stepperReseted':
-      return initState(action.payload)
-    default:
-      return state
-  }
 }
 
 // eslint-disable-next-line max-lines-per-function
 export const Stepper: React.FC<StepperProps> = ({
   steps = [],
+  current = 0,
+  isPreviousDisabled,
+  isNextDisabled,
+  isSubmitDisabled,
+  isResetDisabled,
   submitButtonLabel,
   resetButtonLabel,
   successContent,
+  isSubmitSucceed,
+  onPrevious,
   onNext,
   onSubmit,
   onReset
@@ -177,98 +132,107 @@ export const Stepper: React.FC<StepperProps> = ({
   const { isXSmall, isSmall }: Breakpoints = useBreakpoint()
   const isMobile = (): boolean => isXSmall || isSmall
 
-  const [state, dispatch]: UseReducer<StepperState, StepperAction> = useReducer<
-    Reducer<StepperState, StepperAction>,
-    DeepReadonly<ImmutableList<Step>>
-  >(stepperReducer, ImmutableList(steps), initState)
+  const currentStep = useMemo(() => steps[current], [steps, current])
 
-  const handlePreviousClick = useCallback((): void => {
-    dispatch({ type: 'previousClicked' })
-  }, [])
+  const isFirstStep = useMemo(() => current === 0, [current])
 
-  const handleNextClick = useCallback((): void => {
-    const clickOnNextSucceed =
-      !steps[state.activeStepIndex].onValidate || steps[state.activeStepIndex].onValidate?.()
-    if (clickOnNextSucceed) {
-      onNext?.()
-      dispatch({ type: 'stepCompleted' })
-    } else {
-      dispatch({ type: 'stepFailed' })
-    }
-  }, [onNext, state.activeStepIndex, steps])
+  const isLastStep = useMemo(() => current === steps.length - 1, [steps, current])
 
-  const handleSubmit = useCallback((): void => {
-    const isStepValid =
-      !steps[state.activeStepIndex].onValidate || steps[state.activeStepIndex].onValidate?.()
-    if (isStepValid) {
-      onSubmit?.()
-      dispatch({ type: 'stepperSubmitted' })
-    } else {
-      dispatch({ type: 'stepFailed' })
-    }
-  }, [onSubmit, state.activeStepIndex, steps])
+  const getStepStatus = (step: DeepReadonly<Step>, index: StepIndex): StepState =>
+    index === current
+      ? step.status === 'completed'
+        ? 'completed'
+        : 'active'
+      : step.status ?? 'uncompleted'
 
-  const handleReset = useCallback((): void => {
-    onReset?.()
-    dispatch({ type: 'stepperReseted', payload: ImmutableList(steps) })
-  }, [onReset, steps])
-
-  const isPreviousDisabled = useMemo(
-    () => state.activeStepIndex === state.enabledSteps.get(0),
-    [state.activeStepIndex, state.enabledSteps]
+  const MobileHeader = (): JSX.Element => (
+    <div className="okp4-stepper-progress">
+      <div className={classNames('okp4-stepper-step-label', currentStep.status)}>
+        <Typography as="div" fontSize="small" fontWeight="bold">
+          {steps.indexOf(currentStep) < steps.length
+            ? `${currentStep.label} (${steps.indexOf(currentStep) + 1}/${steps.length})`
+            : `${steps[steps.length - 1].label} (${steps.indexOf(currentStep)}/${steps.length})`}
+        </Typography>
+      </div>
+      <div className="okp4-stepper-step-states-mobile">
+        {steps.map((step: DeepReadonly<Step>, index: StepIndex) => (
+          <div
+            className={classNames('okp4-stepper-step-state', getStepStatus(step, index))}
+            key={index}
+          ></div>
+        ))}
+      </div>
+    </div>
   )
 
-  const isNextDisabled = useMemo(
-    () => state.activeStepIndex === state.enabledSteps.get(-1),
-    [state.activeStepIndex, state.enabledSteps]
+  const Buttons = (): JSX.Element => (
+    <div className="okp4-stepper-buttons">
+      <div>
+        {!isFirstStep && (
+          <Button
+            disabled={isPreviousDisabled}
+            icon={<Icon name="arrow-left" size={20} />}
+            label={t('stepper:step.button.previous')}
+            onClick={onPrevious}
+            size="small"
+            variant="icon"
+          />
+        )}
+      </div>
+      <div>
+        {!isLastStep && (
+          <Button
+            disabled={isNextDisabled}
+            icon={<Icon name="arrow-right" size={20} />}
+            label={t('stepper:step.button.next')}
+            onClick={onNext}
+            size="small"
+            variant="icon"
+          />
+        )}
+        {isLastStep && currentStep.status !== 'completed' && (
+          <Button
+            backgroundColor="success"
+            disabled={isSubmitDisabled}
+            label={submitButtonLabel ?? t('stepper:step.button.submit')}
+            onClick={onSubmit}
+            size="small"
+            variant="secondary"
+          />
+        )}
+        {isLastStep && currentStep.status === 'completed' && (
+          <Button
+            backgroundColor="secondary"
+            disabled={isResetDisabled}
+            label={resetButtonLabel ?? t('stepper:step.button.reset')}
+            onClick={onReset}
+            size="small"
+            variant="secondary"
+          />
+        )}
+      </div>
+    </div>
   )
 
   return (
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-header">
         {isMobile() ? (
-          <div className="okp4-stepper-progress">
-            <div
-              className={classNames(
-                'okp4-stepper-step-label',
-                state.stepsStatuses.get(state.activeStepIndex)
-              )}
-            >
-              <Typography as="div" fontSize="small" fontWeight="bold">
-                {state.activeStepIndex < steps.length
-                  ? `${steps[state.activeStepIndex].label} (${state.activeStepIndex + 1}/${
-                      steps.length
-                    })`
-                  : `${steps[state.activeStepIndex - 1].label} (${state.activeStepIndex}/${
-                      steps.length
-                    })`}
-              </Typography>
-            </div>
-            <div className="okp4-stepper-step-states-mobile">
-              {steps.map((_step: DeepReadonly<Step>, index: number) => (
-                <div
-                  className={classNames('okp4-stepper-step-state', state.stepsStatuses.get(index))}
-                  key={index}
-                ></div>
-              ))}
-            </div>
-          </div>
+          <MobileHeader />
         ) : (
-          steps.map((step: DeepReadonly<Step>, index: number) => (
+          steps.map((step: DeepReadonly<Step>, index: StepIndex) => (
             <div className="okp4-stepper-progress" key={index}>
-              <div
-                className={classNames('okp4-stepper-step-label', state.stepsStatuses.get(index))}
-              >
+              <div className={classNames('okp4-stepper-step-label', getStepStatus(step, index))}>
                 <Typography
                   as="div"
                   fontSize="x-small"
-                  fontWeight={state.stepsStatuses.get(index) === 'active' ? 'bold' : 'light'}
+                  fontWeight={index === current ? 'bold' : 'light'}
                 >
                   {step.label}
                 </Typography>
               </div>
               <div
-                className={classNames('okp4-stepper-step-state', state.stepsStatuses.get(index))}
+                className={classNames('okp4-stepper-step-state', getStepStatus(step, index))}
               ></div>
             </div>
           ))
@@ -276,58 +240,13 @@ export const Stepper: React.FC<StepperProps> = ({
       </div>
       <div
         className={classNames('okp4-stepper-body', {
-          error: state.stepsStatuses.get(state.activeStepIndex) === 'invalid'
+          error: currentStep.status === 'invalid'
         })}
       >
         <div className="okp4-stepper-step-content">
-          {state.activeStepIndex === steps.length
-            ? successContent
-            : steps[state.activeStepIndex]?.content}
+          {isSubmitSucceed ? successContent : currentStep.content}
         </div>
-        <div className="okp4-stepper-buttons">
-          <div>
-            {state.activeStepIndex > 0 && state.activeStepIndex < steps.length && (
-              <Button
-                disabled={isPreviousDisabled}
-                icon={<Icon name="arrow-left" size={20} />}
-                label={t('stepper:step.button.previous')}
-                onClick={handlePreviousClick}
-                size="small"
-                variant="icon"
-              />
-            )}
-          </div>
-          <div>
-            {state.activeStepIndex < steps.length - 1 && (
-              <Button
-                disabled={isNextDisabled}
-                icon={<Icon name="arrow-right" size={20} />}
-                label={t('stepper:step.button.next')}
-                onClick={handleNextClick}
-                size="small"
-                variant="icon"
-              />
-            )}
-            {state.activeStepIndex === steps.length - 1 && (
-              <Button
-                backgroundColor="success"
-                label={submitButtonLabel ?? t('stepper:step.button.submit')}
-                onClick={handleSubmit}
-                size="small"
-                variant="secondary"
-              />
-            )}
-            {state.activeStepIndex === steps.length && (
-              <Button
-                backgroundColor="secondary"
-                label={resetButtonLabel ?? t('stepper:step.button.reset')}
-                onClick={handleReset}
-                size="small"
-                variant="secondary"
-              />
-            )}
-          </div>
-        </div>
+        <Buttons />
       </div>
     </div>
   )
