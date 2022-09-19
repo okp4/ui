@@ -1,0 +1,280 @@
+{
+  "Elisabeth II": {
+    "name": "Elisabeth II",
+    "title": "Queen of the United Kingdom",
+    "gender": "female",
+    "dateOfBirth": "21/04/1926",
+    "dateOfDeath": "08/09/2022",
+    "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F1.webp",
+    "parents": {
+      "George VI": {
+        "name": "George VI",
+        "title": "King of the United Kingdom",
+        "gender": "male",
+        "dateOfBirth": "14/12/1895",
+        "dateOfDeath": "06/02/1952",
+        "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F3946.webp",
+        "parents": {
+          "George V": {
+            "name": "George V",
+            "title": "King of the United Kingdom",
+            "gender": "male",
+            "dateOfBirth": "03/06/1865",
+            "dateOfDeath": "20/01/1936",
+            "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F3947.webp",
+            "parents": {
+              "Edward VII": {
+                "name": "Edward VII",
+                "title": "King of the United Kingdom",
+                "gender": "male",
+                "dateOfBirth": "09/11/1841",
+                "dateOfDeath": "06/05/1910",
+                "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/King-Edward-VII (cropped).jpg",
+                "parents": {
+                  "Albert": {
+                    "name": "Albert",
+                    "title": "Prince Consort",
+                    "gender": "male",
+                    "dateOfBirth": "26/08/1819",
+                    "dateOfDeath": "14/12/1861",
+                    "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F3992.webp"
+                  },
+                  "Victoria": {
+                    "name": "Victoria",
+                    "title": "Queen of the United Kingdom",
+                    "gender": "female",
+                    "dateOfBirth": "24/05/1819",
+                    "dateOfDeath": "22/01/1901",
+                    "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F3986.webp"
+                  }
+                }
+              },
+              "Alexandra of Denmark": {
+                "name": "Alexandra of Denmark",
+                "title": "Queen-empress consort as wife of Edward VII",
+                "gender": "female",
+                "dateOfBirth": "01/12/1844",
+                "dateOfDeath": "20/11/1925",
+                "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Queen Alexandra, the Princess of Wales.jpg",
+                "parents": {
+                  "Christian IX of Denmark": {
+                    "name": "Christian IX of Denmark",
+                    "title": "King of Denmark",
+                    "gender": "male",
+                    "dateOfBirth": "08/04/1818",
+                    "dateOfDeath": "29/01/1906",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Christian IX af Henrik Olrik.jpg"
+                  },
+                  "Louise of Hesse-Kassel": {
+                    "name": "Louise of Hesse-Kassel",
+                    "title": "Queen-consort of Denmark",
+                    "gender": "female",
+                    "dateOfBirth": "07/09/1817",
+                    "dateOfDeath": "29/09/1898",
+                    "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F2320.webp"
+                  }
+                }
+              }
+            }
+          },
+          "Mary of Teck": {
+            "name": "Mary of Teck",
+            "title": "Queen-consort of the United Kingdom Empress of India",
+            "gender": "female",
+            "dateOfBirth": "26/05/1867",
+            "dateOfDeath": "24/03/1953",
+            "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F3978.webp",
+            "parents": {
+              "Francis": {
+                "name": "Francis",
+                "title": "Duke of Teck, British Army General",
+                "gender": "male",
+                "dateOfBirth": "28/08/1837",
+                "dateOfDeath": "21/01/1900",
+                "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Franz von Teck.jpg",
+                "parents": {
+                  "Alexander": {
+                    "name": "Alexander",
+                    "title": "Duke of Württemberg",
+                    "gender": "male",
+                    "dateOfBirth": "09/09/1804",
+                    "dateOfDeath": "04/07/1885",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Alexander von Wuerttemberg.jpg"
+                  },
+                  "Claudine Rhédey von Kis-Rhéde": {
+                    "name": "Claudine Rhédey von Kis-Rhéde",
+                    "title": "Countess",
+                    "gender": "female",
+                    "dateOfBirth": "21/09/1812",
+                    "dateOfDeath": "01/10/1841",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Countess Claudine Rhédey von Kis-Rhéde, Countess of Hohenstein.jpg"
+                  }
+                }
+              },
+              "Mary Adelaide": {
+                "name": "Mary Adelaide",
+                "title": "Princess, Dutchess of Cambridge",
+                "gender": "female",
+                "dateOfBirth": "27/11/1833",
+                "dateOfDeath": "27/10/1897",
+                "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Princess Mary Adelaide, Duchess of Teck (1833–1897).png",
+                "parents": {
+                  "Adolphus": {
+                    "name": "Adolphus",
+                    "title": "Prince, Duke of Cambridge",
+                    "gender": "male",
+                    "dateOfBirth": "24/02/1774",
+                    "dateOfDeath": "08/07/1850",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Prince Adolphus Frederick, Duke of Cambridge, KG (1774-1850).jpg"
+                  },
+                  "Augusta of Hesse-Kassel": {
+                    "name": "Augusta of Hesse-Kassel",
+                    "title": "Princess",
+                    "gender": "female",
+                    "dateOfBirth": "25/07/1797",
+                    "dateOfDeath": "06/04/1889",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Augusta, Duchess of Cambridge - Beechey 1818.jpg"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Elisabeth": {
+        "name": "Elisabeth",
+        "title": "Queen Mother",
+        "gender": "female",
+        "dateOfBirth": "04/08/1900",
+        "dateOfDeath": "30/03/2002",
+        "portrait": "https://storage.googleapis.com/entitree-images.appspot.com/uploads%2Fface%2F3977.webp",
+        "parents": {
+          "Claude Bowes-Lyon": {
+            "name": "Claude Bowes-Lyon",
+            "title": "14th Earl of Strathmore and Kinghorne",
+            "gender": "male",
+            "dateOfBirth": "14/03/1855",
+            "dateOfDeath": "07/11/1944",
+            "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Claude George Bowes-Lyon, 14th Earl of Strathmore and Kinghorne.jpg",
+            "parents": {
+              "Claude Bowes-Lyon": {
+                "name": "Claude Bowes-Lyon",
+                "title": "13th Earl of Strathmore and Kinghorne",
+                "gender": "male",
+                "dateOfBirth": "21/07/1824",
+                "dateOfDeath": "16/02/1904",
+                "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Claud Bowes-Lyon, 13th Earl of Strathmore and Kinghorne.jpg",
+                "parents": {
+                  "Thomas Lyon-Bowes": {
+                    "name": "Thomas Lyon-Bowes",
+                    "title": "Lord Glamis",
+                    "gender": "male",
+                    "dateOfBirth": "06/02/1801",
+                    "dateOfDeath": "27/01/1834",
+                    "portrait": ""
+                  },
+                  "Charlotte Lyon-Bowes": {
+                    "name": "Charlotte Lyon-Bowes",
+                    "title": "Lady Glamis",
+                    "gender": "female",
+                    "dateOfBirth": "22/01/1797",
+                    "dateOfDeath": "19/01/1881",
+                    "portrait": ""
+                  }
+                }
+              },
+              "Frances Bowes-Lyon": {
+                "name": "Frances Bowes-Lyon",
+                "title": "Countess of Strathmore and Kinghorne",
+                "gender": "female",
+                "dateOfBirth": "29/07/1832",
+                "dateOfDeath": "05/02/1922",
+                "portrait": "",
+                "parents": {
+                  "Oswald Smith": {
+                    "name": "Oswald Smith",
+                    "title": "",
+                    "gender": "male",
+                    "dateOfBirth": "07/07/1794",
+                    "dateOfDeath": "18/06/1863",
+                    "portrait": ""
+                  },
+                  "Henrietta Mildred Hodgson": {
+                    "name": "Henrietta Mildred Hodgson",
+                    "title": "",
+                    "gender": "female",
+                    "dateOfBirth": "06/01/1805",
+                    "dateOfDeath": "19/11/1891",
+                    "portrait": ""
+                  }
+                }
+              }
+            }
+          },
+          "Cecilia Bowes-Lyon": {
+            "name": "Cecilia Bowes-Lyon",
+            "title": "Countess of Strathmore and Kinghorne",
+            "gender": "female",
+            "dateOfBirth": "11/09/1862",
+            "dateOfDeath": "23/06/1938",
+            "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Cecilia Bowes-Lyon from wedding portrait of Duke and Duchess of York (cropped).jpg",
+            "parents": {
+              "Charles Cavendish-Bentinck": {
+                "name": "Charles Cavendish-Bentinck",
+                "title": "",
+                "gender": "male",
+                "dateOfBirth": "08/11/1817",
+                "dateOfDeath": "17/08/1865",
+                "portrait": "",
+                "parents": {
+                  "Lord Charles Bentinck": {
+                    "name": "Lord Charles Bentinck",
+                    "title": "British Politician",
+                    "gender": "male",
+                    "dateOfBirth": "20/05/1780",
+                    "dateOfDeath": "28/04/1826",
+                    "portrait": ""
+                  },
+                  "Lady Charles Bentinck": {
+                    "name": "Lady Charles Bentinck",
+                    "title": "",
+                    "gender": "female",
+                    "dateOfBirth": "29/02/1788",
+                    "dateOfDeath": "19/03/1875",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Sir Thomas Lawrence - Portrait of Lady Charles Cavendish Bentinck.jpg"
+                  }
+                }
+              },
+              "Louisa Burnaby": {
+                "name": "Louisa Burnaby",
+                "title": "",
+                "gender": "female",
+                "dateOfBirth": "23/11/1832",
+                "dateOfDeath": "06/07/1918",
+                "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Luisa Burnaby.jpg",
+                "parents": {
+                  "Edwyn Burnaby": {
+                    "name": "Edwyn Burnaby",
+                    "title": "English Landowner",
+                    "gender": "male",
+                    "dateOfBirth": "29/09/1798",
+                    "dateOfDeath": "18/07/1867",
+                    "portrait": ""
+                  },
+                  "Anne Caroline Salisbury": {
+                    "name": "Anne Caroline Salisbury",
+                    "title": "",
+                    "gender": "female",
+                    "dateOfBirth": "01/01/1805",
+                    "dateOfDeath": "03/05/1881",
+                    "portrait": "https://commons.wikimedia.org/wiki/Special:FilePath/Anne Caroline Salisbury.jpg"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

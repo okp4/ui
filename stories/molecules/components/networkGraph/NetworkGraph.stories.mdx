@@ -1,0 +1,173 @@
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs/blocks'
+import { NetworkGraph } from 'ui/molecules/networkGraph/NetworkGraph'
+import { useElementSize } from 'hook/useElementSize'
+import {
+  familyTreeNodeMeshFactory,
+  validatorNodeMeshFactory,
+  buildFamilyTreeGraph,
+  buildValidatorGraph
+} from './meshFactory'
+import { familyTreeTooltipExtractor, validatorTooltipExtractor } from './tooltipExtractors'
+import familyTree from './usecases/elisabeth2-family-tree.json'
+import validatorData from './usecases/evmos-validators.json'
+import createGraph from 'ngraph.graph'
+import generator from 'ngraph.generators'
+import { GraphLayoutSystem } from 'ui/molecules/networkGraph/ecs/system/graphLayoutSystem'
+import { InstallCameraSystem } from 'ui/molecules/networkGraph/ecs/system/installCameraSystem'
+import { InstallLightSystem } from 'ui/molecules/networkGraph/ecs/system/installLightSystem'
+import { NodeLabelSystem } from 'ui/molecules/networkGraph/ecs/system/nodeLabelSystem'
+import { NodeTooltipSystem } from 'ui/molecules/networkGraph/ecs/system/nodeTooltipSystem'
+import { PrepareSceneSystem } from 'ui/molecules/networkGraph/ecs/system/prepareSceneSystem'
+import { SpawnGraphSystem } from 'ui/molecules/networkGraph/ecs/system/spawnGraphSystem'
+import {
+  UpdateLinksMeshSystem,
+  UpdateNodesMeshSystem
+} from 'ui/molecules/networkGraph/ecs/system/updateMeshSystem'
+import './networkGraph.scss'
+
+<Meta
+  title="Molecules/NetworkGraph"
+  component={NetworkGraph}
+  decorators={[
+    Story => (
+      <ThemeProvider>
+        <div className="networkgraph-story-main">
+          <Story />
+        </div>
+      </ThemeProvider>
+    )
+  ]}
+/>
+
+# NetworkGraph
+
+> Component to visualize and explore Network graphs in 3D.
+
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
+
+## Description
+
+<<<<<<< Updated upstream
+qsdqsd
+=======
+This NetworkGraph component brings the Network Graph visualisation capability to the <a href="\?path=/docs/welcome--page" target="_blank">Design System</a>.
+
+It introduces the main features by which <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)" target="_blank">graphs</a> can be represented in a 3D scene, with a
+very high degree of configurability to allow a very large number of uses, in terms of rendering and behavior.
+>>>>>>> Stashed changes
+
+## Overview
+
+<Story
+  name="Overview"
+  argTypes={{
+    onEngineCreated: {
+      control: false
+    },
+    graph: {
+      control: { type: 'select' },
+      options: ['No Links Graph', 'Binary Tree', 'Grid', '3D Grid', 'Circular Ladder']
+    },
+    systems: {
+      control: false
+    },
+    options: {
+      control: false
+    },
+    antialias: {
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      }
+    },
+    adaptToDeviceRatio: {
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      }
+    },
+    touchActionNone: {
+      table: {
+        defaultValue: {
+          summary: true
+        }
+      }
+    },
+    disableScrolling: {
+      table: {
+        defaultValue: {
+          summary: true
+        }
+      }
+    }
+  }}
+  args={{
+    antialias: false,
+    height: 680,
+    adaptToDeviceRatio: false,
+    touchActionNone: false,
+    disableScrolling: true,
+    graph: 'No Links Graph'
+  }}
+>
+  {args => {
+    const [size, divRef] = useElementSize()
+    const gridGraph = generator.grid(10, 10)
+    const grid3Graph = generator.grid3(5, 5, 5)
+    const circularLadderGraph = generator.circularLadder(10)
+    const binaryTreeGraph = createGraph()
+    buildFamilyTreeGraph(familyTree, null, binaryTreeGraph)
+    const noLinksGraph = generator.noLinks(validatorData.validators.length)
+    buildValidatorGraph(validatorData, noLinksGraph)
+    switch (args.graph) {
+      case 'No Links Graph':
+        const validatorSystems = [
+          PrepareSceneSystem(),
+          InstallCameraSystem(),
+          InstallLightSystem(),
+          SpawnGraphSystem({ nodeMeshFactory: validatorNodeMeshFactory }),
+          GraphLayoutSystem(),
+          NodeTooltipSystem({ tooltipExtractor: validatorTooltipExtractor }),
+          UpdateNodesMeshSystem(),
+          UpdateLinksMeshSystem()
+        ]
+        args.graph = noLinksGraph
+        args.systems = validatorSystems
+        break
+      case 'Binary Tree':
+        const familyTreeSystems = [
+          PrepareSceneSystem(),
+          InstallCameraSystem(),
+          InstallLightSystem(),
+          SpawnGraphSystem({ nodeMeshFactory: familyTreeNodeMeshFactory }),
+          GraphLayoutSystem(),
+          NodeTooltipSystem({ tooltipExtractor: familyTreeTooltipExtractor }),
+          UpdateNodesMeshSystem(),
+          UpdateLinksMeshSystem()
+        ]
+        args.graph = binaryTreeGraph
+        args.systems = familyTreeSystems
+        break
+      case 'Grid':
+        args.graph = gridGraph
+        break
+      case '3D Grid':
+        args.graph = grid3Graph
+        break
+      case 'Circular Ladder':
+        args.graph = circularLadderGraph
+        break
+    }
+    return (
+      <div style={{ display: 'grid', justifyContent: 'center' }} ref={divRef}>
+        <NetworkGraph width={size?.width} {...args} />
+      </div>
+    )
+  }}
+</Story>
+
+## Properties
+
+<ArgsTable story="Overview" />

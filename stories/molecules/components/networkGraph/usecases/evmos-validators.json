@@ -1,0 +1,2165 @@
+{
+  "validators": [
+    {
+      "address": "y1pjuR6PTujbk1lCy+JXJGNkeeA=",
+      "voting_power": "20308918"
+    },
+    {
+      "address": "nQKBeGhy07vlPFj77KEY2G+oIXc=",
+      "voting_power": "10954260"
+    },
+    {
+      "address": "4I+6D+mZcH0UlrqrdD6rJ3hNwcU=",
+      "voting_power": "9020194"
+    },
+    {
+      "address": "Jz9y7lWYevp3GyfTcPoTH2CLg6w=",
+      "voting_power": "7780109"
+    },
+    {
+      "address": "ZraWZuv3dufry+GXq6RmpxLicHY=",
+      "voting_power": "6079445"
+    },
+    {
+      "address": "BvRcNvy5V+VdkjptTpBcLXFRFa0=",
+      "voting_power": "5736134"
+    },
+    {
+      "address": "FqFplRqHgkfb4lj93HFjj2YG0VY=",
+      "voting_power": "4786291"
+    },
+    {
+      "address": "hEKQUx7lm0D+795SWYVzaL9xGew=",
+      "voting_power": "3836786"
+    },
+    {
+      "address": "YjmkmMIt8+w/sMovltFVNfbzOHo=",
+      "voting_power": "3820298"
+    },
+    {
+      "address": "A8AWq37DLZ+Nd6/bGR+/U+oI2Rc=",
+      "voting_power": "3797440"
+    },
+    {
+      "address": "2pZWTSN5rO4A3Z+qVYaBu0mXV/0=",
+      "voting_power": "3733122"
+    },
+    {
+      "address": "Ex/HnnoBLZ5+7yHeO6XVAz/NvB8=",
+      "voting_power": "3695729"
+    },
+    {
+      "address": "BMg6og91Y7vLz2qhUO9rDIGAjao=",
+      "voting_power": "3445159"
+    },
+    {
+      "address": "nnyuAJ7/9NFj8/uHgaB7JcKxCzI=",
+      "voting_power": "3422388"
+    },
+    {
+      "address": "mQY7kZQEtpUKeaajHjcDeP4HAg0=",
+      "voting_power": "3185251"
+    },
+    {
+      "address": "doqCcA4wRuba+ElmRXnmSVl8wbQ=",
+      "voting_power": "3114224"
+    },
+    {
+      "address": "E4/Zq3q+C67RTKfUHYhbeAUqSqE=",
+      "voting_power": "3021700"
+    },
+    {
+      "address": "GwArbr64ZTxyEwGxtWRysbTeckc=",
+      "voting_power": "3006975"
+    },
+    {
+      "address": "rxlZQ+RP4dYlAHa4vBkQ6ryF8fI=",
+      "voting_power": "3002748"
+    },
+    {
+      "address": "cd+NmHnCBWOk4qvtqVzR/Ffb9qo=",
+      "voting_power": "2975418"
+    },
+    {
+      "address": "jgVFsSIue1yFzmntx48oDLK3nRg=",
+      "voting_power": "2825373"
+    },
+    {
+      "address": "2eyXOczPBRoFhhrLiiIYqaR1Y5A=",
+      "voting_power": "2592895"
+    },
+    {
+      "address": "0kt6MkEzOMKqJvwAFtkfvnO7Xq4=",
+      "voting_power": "2298349"
+    },
+    {
+      "address": "ICL+jMSeSGMMdhYOEaiARZIZ0kQ=",
+      "voting_power": "2295042"
+    },
+    {
+      "address": "oGtbaCtCWtIGo1yvJG/XDdCY5QY=",
+      "voting_power": "2157399"
+    },
+    {
+      "address": "oW5IBSTWNrLaKtGEgzJ8LhCl6KA=",
+      "voting_power": "2140898"
+    },
+    {
+      "address": "fvJEhowwSqWzSIk3Li34dK/WNc0=",
+      "voting_power": "1937501"
+    },
+    {
+      "address": "dvcGrnOoJRZSvHLLgB5ClOITWvs=",
+      "voting_power": "1910351"
+    },
+    {
+      "address": "4ZHmVNBrn3IVaLuUWy61Hdwcj9w=",
+      "voting_power": "1826771"
+    },
+    {
+      "address": "lDVHysspxVeX4SGstOWGxJ2dOf0=",
+      "voting_power": "1751380"
+    },
+    {
+      "address": "2KbFTFSiNtSEO6VmUgugP2DwnjU=",
+      "voting_power": "1683174"
+    },
+    {
+      "address": "ix1WdvTAyHGgx4ZIUNRR1qisjjs=",
+      "voting_power": "1543984"
+    },
+    {
+      "address": "zMrHB2fJzXku4KDQn3e5QiuK/f0=",
+      "voting_power": "1503024"
+    },
+    {
+      "address": "IO/hhtqRoArH8ELNbLah6ILFg8c=",
+      "voting_power": "1497691"
+    },
+    {
+      "address": "8/Vdoku0faYLD7cewanJJ0vO7bI=",
+      "voting_power": "1392700"
+    },
+    {
+      "address": "adBgUinGZZdOu3Nvx34WJFw/eao=",
+      "voting_power": "1362885"
+    },
+    {
+      "address": "wC9THZu7pJB1Ee8mgEIc5xShHjs=",
+      "voting_power": "1283746"
+    },
+    {
+      "address": "6PehLXdU5Gm1qsOCjSF6B4rmpIk=",
+      "voting_power": "1257075"
+    },
+    {
+      "address": "nL8u/9VXCzqaQTRiRHV82j4Y1AE=",
+      "voting_power": "1254473"
+    },
+    {
+      "address": "8ZTdSorYMyPD6cKpPbJfBJYhx7Q=",
+      "voting_power": "1248082"
+    },
+    {
+      "address": "IzVGWye5VIMTqvRlIXeH/Y5hE9M=",
+      "voting_power": "1174232"
+    },
+    {
+      "address": "Y0gfbcqvcz0vyVOjNcIgDuGQhiw=",
+      "voting_power": "1097799"
+    },
+    {
+      "address": "lbAC3mdwcxPRI9BkkvGnpYR45UY=",
+      "voting_power": "1078795"
+    },
+    {
+      "address": "qcTg4q8AGD2hFDTtQTIZkF6aho0=",
+      "voting_power": "1049001"
+    },
+    {
+      "address": "crFInvtXpoBXeoOKW6rr4WKnyAI=",
+      "voting_power": "1018763"
+    },
+    {
+      "address": "ThVMkojjFDa6gU3ZLRfE7Wzv0/E=",
+      "voting_power": "993726"
+    },
+    {
+      "address": "5cuhmeBF5wNnEdgU5X4rZsPMA5E=",
+      "voting_power": "991098"
+    },
+    {
+      "address": "nL7Iy9TtOq1LsrA0bvyGpsQfkWA=",
+      "voting_power": "981928"
+    },
+    {
+      "address": "P/bJiHmcGt86yg2lYUPIFjiQhZo=",
+      "voting_power": "959542"
+    },
+    {
+      "address": "l6/kU5W3TnhMiNReXMoplQGfrgg=",
+      "voting_power": "924644"
+    },
+    {
+      "address": "zv59ZUtSPeoqntcYpZESbHQXFok=",
+      "voting_power": "896324"
+    },
+    {
+      "address": "ftsAZSJhDFgoPjBkShTye8wNMu0=",
+      "voting_power": "893940"
+    },
+    {
+      "address": "9HCur10UXFTaLosUxWR41oZs4qY=",
+      "voting_power": "878154"
+    },
+    {
+      "address": "X5maS+JUhpklp/L+oE17O4Ns/ws=",
+      "voting_power": "873366"
+    },
+    {
+      "address": "7096bqyIO25JHlRm5r7HZMH7mcM=",
+      "voting_power": "808324"
+    },
+    {
+      "address": "wCrLp2U6w3gnULU9A6Zy4ZHwA2E=",
+      "voting_power": "755773"
+    },
+    {
+      "address": "AApZWWNLQpbk3lNkgd4AqKDrmlg=",
+      "voting_power": "751579"
+    },
+    {
+      "address": "LCRnGAu6hPLx1FZeZvVlo0AD7k8=",
+      "voting_power": "749356"
+    },
+    {
+      "address": "OTJ2ksJYpXlw71Pwqk08APlZiLg=",
+      "voting_power": "742879"
+    },
+    {
+      "address": "lm/Ymx21FTXy2JjPmw8U2jdO+5Y=",
+      "voting_power": "708321"
+    },
+    {
+      "address": "mZOElUB8CbNDViquw6tVGlwkYjI=",
+      "voting_power": "670489"
+    },
+    {
+      "address": "2812XbJkBjGUbBOTuiVYdsdto44=",
+      "voting_power": "666619"
+    },
+    {
+      "address": "aKOTx+1JaHEVDAp8rQysCbjkWPs=",
+      "voting_power": "651309"
+    },
+    {
+      "address": "cSvIka63IdpycyvDDVMeDB6u2uA=",
+      "voting_power": "648992"
+    },
+    {
+      "address": "XoCekeq2nThXhNGRFA6cjPbdEDc=",
+      "voting_power": "645479"
+    },
+    {
+      "address": "UdfQWmWSCKZXYZCuu+jwdgOFFRU=",
+      "voting_power": "642109"
+    },
+    {
+      "address": "BERtoLzEMQAD+Xsb7QerKr7G/qc=",
+      "voting_power": "592932"
+    },
+    {
+      "address": "Rt6hN8+xC8QZsld6qaWHGGgOGLo=",
+      "voting_power": "511649"
+    },
+    {
+      "address": "N0kIa22FvePaz75EhePflecJtts=",
+      "voting_power": "508207"
+    },
+    {
+      "address": "8jPgNiSKNvxzwVT/p5JhvL3Eu3Y=",
+      "voting_power": "502527"
+    },
+    {
+      "address": "c2S+bMe25AS9HCBQzLanRyeG47Y=",
+      "voting_power": "485672"
+    },
+    {
+      "address": "aSF0s/+7qAOUqU3JJmXcAUT7qDc=",
+      "voting_power": "482976"
+    },
+    {
+      "address": "j0FX6AE/VQsOf4O74KuFWbrhIJ8=",
+      "voting_power": "460906"
+    },
+    {
+      "address": "fg7XaJtlw0XRyBfFsDMv0TLeWHU=",
+      "voting_power": "460582"
+    },
+    {
+      "address": "f8HaQLJWjdvVPP87dsSc6JrihoA=",
+      "voting_power": "457777"
+    },
+    {
+      "address": "fVPXby24a+MKmybK3qaQeFMaubs=",
+      "voting_power": "456983"
+    },
+    {
+      "address": "DOuRfeTfHEtPjt/ErOb9bTnx5h4=",
+      "voting_power": "449226"
+    },
+    {
+      "address": "iTq+y9U7eN/UgCf0ELZFWHFBiLE=",
+      "voting_power": "445055"
+    },
+    {
+      "address": "3g+TtZ36Cw8CRe56+rOjdwnPs18=",
+      "voting_power": "428639"
+    },
+    {
+      "address": "4SzvOHG5WV7xVAHu0kZukxDkgWs=",
+      "voting_power": "416806"
+    },
+    {
+      "address": "nNahmikKL8hS/tVKdRD01YSy+PA=",
+      "voting_power": "412289"
+    },
+    {
+      "address": "3QaaaQHXSTh6Ou6YRv+OEnBbRqA=",
+      "voting_power": "411528"
+    },
+    {
+      "address": "4G2t60E4KVWPfJUzn/thSZxaG7k=",
+      "voting_power": "411193"
+    },
+    {
+      "address": "PojnxU9kZCqYsuHd1b26SHlPBsc=",
+      "voting_power": "393725"
+    },
+    {
+      "address": "L01nMEdkBxla88G/Q4thy214W5U=",
+      "voting_power": "392744"
+    },
+    {
+      "address": "BhQIjEHmqF+1vzRFUqUSDloBOfw=",
+      "voting_power": "392665"
+    },
+    {
+      "address": "PIDZiRCQdTEtz6PYqXDfWOW1XFs=",
+      "voting_power": "381382"
+    },
+    {
+      "address": "kB/RIsxRLvE96OGj15U7/dwHhtY=",
+      "voting_power": "368074"
+    },
+    {
+      "address": "c0HpcLmz7/grIGDTRp/FDXrwQUY=",
+      "voting_power": "355539"
+    },
+    {
+      "address": "lJZTWo8pRb22BXIBXS1vchq2/tk=",
+      "voting_power": "349996"
+    },
+    {
+      "address": "lypoTzZMzjFGmzep1DmYURXrWkA=",
+      "voting_power": "348280"
+    },
+    {
+      "address": "9ng9j7MOKDCBwWOYKT9ILcoOkS0=",
+      "voting_power": "347239"
+    },
+    {
+      "address": "3VdRYT/X0xqVI1MBS9Of9WCc4q8=",
+      "voting_power": "342089"
+    },
+    {
+      "address": "P/cZ8WZL7pPUgrSAZ3wDpH7AtkM=",
+      "voting_power": "335110"
+    },
+    {
+      "address": "2krxmjeMCbVMJsNGfLCt+IkpKVQ=",
+      "voting_power": "332919"
+    },
+    {
+      "address": "LdbSKWnufCyh+LQo0TqJlcBDBEw=",
+      "voting_power": "328293"
+    },
+    {
+      "address": "QUb9ehq4uGG3AYl4vNE9LR+mPr4=",
+      "voting_power": "316576"
+    },
+    {
+      "address": "4kLbLLkp1vRKGi/khcx9P2IP+us=",
+      "voting_power": "315408"
+    },
+    {
+      "address": "yeYVKJ0dkuUCksOwvYNY2bLkApA=",
+      "voting_power": "308905"
+    },
+    {
+      "address": "n47C71gc4lYwyBnxm1SEA550jRo=",
+      "voting_power": "302091"
+    },
+    {
+      "address": "Y2zX/0e6h6uvK9QDJgHSnftJ+mU=",
+      "voting_power": "301252"
+    },
+    {
+      "address": "pXL8eQ7bNlPwqC3Mkshll1ykkl0=",
+      "voting_power": "285359"
+    },
+    {
+      "address": "4jr88ANfsBrNAv6W9oAGaXTXBys=",
+      "voting_power": "285281"
+    },
+    {
+      "address": "gBS6IS7TiFl1ENBkJY9eMKow1ZE=",
+      "voting_power": "284261"
+    },
+    {
+      "address": "Bqo0vW0d00EZ49wXPvrZT0MKt04=",
+      "voting_power": "270672"
+    },
+    {
+      "address": "ag2+XQuS5XFGWvUuK3dmWDjC5Rw=",
+      "voting_power": "265012"
+    },
+    {
+      "address": "roLu8ogO/Y9QfJsOPvv6jBrDmRo=",
+      "voting_power": "264159"
+    },
+    {
+      "address": "QbVD6RR5qVzVyp8QnCbfrBSRJvo=",
+      "voting_power": "255171"
+    },
+    {
+      "address": "IGWL9A7UjtAaLQh8f/eHTyGlYzM=",
+      "voting_power": "254653"
+    },
+    {
+      "address": "Ff7BBBbjWcwd20JMaRZrJnHyUUg=",
+      "voting_power": "248808"
+    },
+    {
+      "address": "YKQz0osIeIxy4hM1VL1cxodp3Ow=",
+      "voting_power": "243996"
+    },
+    {
+      "address": "sVBp5BsaYP8Dro2PdB94x7EUT74=",
+      "voting_power": "243032"
+    },
+    {
+      "address": "GR6JahHAp3qWqZq+6YaipANVwEQ=",
+      "voting_power": "235564"
+    },
+    {
+      "address": "yg8qcSH4bTttkTSXMBVbmloxxVQ=",
+      "voting_power": "230935"
+    },
+    {
+      "address": "kO3Jgh2oA6hzOc9KtnUBsdEhdFE=",
+      "voting_power": "226479"
+    },
+    {
+      "address": "L4nX09HhR4+I7zrYqtdqiBifYSQ=",
+      "voting_power": "220153"
+    },
+    {
+      "address": "fFqoflIDxm6jXGQmL1du3Sm62YA=",
+      "voting_power": "214742"
+    },
+    {
+      "address": "4gAEUVMRsgVhj61QT7Upo97uLnE=",
+      "voting_power": "210189"
+    },
+    {
+      "address": "CWDvP9WP59u48g/JgmnTuEBFFgM=",
+      "voting_power": "205347"
+    },
+    {
+      "address": "kSffphdQ3R1Wyx0qiPiDGis/mw4=",
+      "voting_power": "203666"
+    },
+    {
+      "address": "Ti8OSeGkebKiE6hB5eih87x2s/c=",
+      "voting_power": "200942"
+    },
+    {
+      "address": "FXEDi1qqtDHsAR9qsQlEY8btmEI=",
+      "voting_power": "199757"
+    },
+    {
+      "address": "IrpZrCkYr6TBtW0+b4YIPkcM2Ms=",
+      "voting_power": "185975"
+    },
+    {
+      "address": "gA/0eJfRnc334gzzCMmT4wTm6pM=",
+      "voting_power": "181239"
+    },
+    {
+      "address": "e4VGcQ1XUpRIYrIE2RMbGOZRMMI=",
+      "voting_power": "179762"
+    },
+    {
+      "address": "fhHtfdBvrnsL7bRpchFR8vMcu2o=",
+      "voting_power": "178740"
+    },
+    {
+      "address": "6A0fVRmls8nSkNPqMU+gVWRTXBo=",
+      "voting_power": "178387"
+    },
+    {
+      "address": "jYy5wmdAunSiqgq/nSuvmCJkhaY=",
+      "voting_power": "177197"
+    },
+    {
+      "address": "RuUzjvGak509OwsLeKHGZfD6Geg=",
+      "voting_power": "165490"
+    },
+    {
+      "address": "X4Wz+AjihJHrIZuwNFZoyi1iBhg=",
+      "voting_power": "164427"
+    },
+    {
+      "address": "vU+A8MGme0lQdyZi9uvK1YoliTM=",
+      "voting_power": "164298"
+    },
+    {
+      "address": "2AelXH1pqE+3WfsL2Wu02lCtuic=",
+      "voting_power": "163980"
+    },
+    {
+      "address": "fVtALhivJQ76lc2UAtLYId+suHY=",
+      "voting_power": "162080"
+    },
+    {
+      "address": "DFXBjZxmibjNb3dd1+xGMx/2YuI=",
+      "voting_power": "157811"
+    },
+    {
+      "address": "DFYur4JHOayPmZyTtaAb59WKZrE=",
+      "voting_power": "154608"
+    },
+    {
+      "address": "y1pjuR6PTujbk1lCy+JXJGNkeeA=",
+      "voting_power": "20308919"
+    },
+    {
+      "address": "nQKBeGhy07vlPFj77KEY2G+oIXc=",
+      "voting_power": "10954260"
+    },
+    {
+      "address": "4I+6D+mZcH0UlrqrdD6rJ3hNwcU=",
+      "voting_power": "9020194"
+    },
+    {
+      "address": "Jz9y7lWYevp3GyfTcPoTH2CLg6w=",
+      "voting_power": "7780109"
+    },
+    {
+      "address": "ZraWZuv3dufry+GXq6RmpxLicHY=",
+      "voting_power": "6079445"
+    },
+    {
+      "address": "BvRcNvy5V+VdkjptTpBcLXFRFa0=",
+      "voting_power": "5736134"
+    },
+    {
+      "address": "FqFplRqHgkfb4lj93HFjj2YG0VY=",
+      "voting_power": "4786291"
+    },
+    {
+      "address": "hEKQUx7lm0D+795SWYVzaL9xGew=",
+      "voting_power": "3836786"
+    },
+    {
+      "address": "YjmkmMIt8+w/sMovltFVNfbzOHo=",
+      "voting_power": "3820298"
+    },
+    {
+      "address": "A8AWq37DLZ+Nd6/bGR+/U+oI2Rc=",
+      "voting_power": "3797440"
+    },
+    {
+      "address": "2pZWTSN5rO4A3Z+qVYaBu0mXV/0=",
+      "voting_power": "3733122"
+    },
+    {
+      "address": "Ex/HnnoBLZ5+7yHeO6XVAz/NvB8=",
+      "voting_power": "3695729"
+    },
+    {
+      "address": "BMg6og91Y7vLz2qhUO9rDIGAjao=",
+      "voting_power": "3445159"
+    },
+    {
+      "address": "nnyuAJ7/9NFj8/uHgaB7JcKxCzI=",
+      "voting_power": "3422388"
+    },
+    {
+      "address": "mQY7kZQEtpUKeaajHjcDeP4HAg0=",
+      "voting_power": "3185252"
+    },
+    {
+      "address": "doqCcA4wRuba+ElmRXnmSVl8wbQ=",
+      "voting_power": "3114226"
+    },
+    {
+      "address": "E4/Zq3q+C67RTKfUHYhbeAUqSqE=",
+      "voting_power": "3021700"
+    },
+    {
+      "address": "GwArbr64ZTxyEwGxtWRysbTeckc=",
+      "voting_power": "3006975"
+    },
+    {
+      "address": "rxlZQ+RP4dYlAHa4vBkQ6ryF8fI=",
+      "voting_power": "3002748"
+    },
+    {
+      "address": "cd+NmHnCBWOk4qvtqVzR/Ffb9qo=",
+      "voting_power": "2975418"
+    },
+    {
+      "address": "jgVFsSIue1yFzmntx48oDLK3nRg=",
+      "voting_power": "2825373"
+    },
+    {
+      "address": "2eyXOczPBRoFhhrLiiIYqaR1Y5A=",
+      "voting_power": "2592895"
+    },
+    {
+      "address": "0kt6MkEzOMKqJvwAFtkfvnO7Xq4=",
+      "voting_power": "2298349"
+    },
+    {
+      "address": "ICL+jMSeSGMMdhYOEaiARZIZ0kQ=",
+      "voting_power": "2295077"
+    },
+    {
+      "address": "oGtbaCtCWtIGo1yvJG/XDdCY5QY=",
+      "voting_power": "2157399"
+    },
+    {
+      "address": "oW5IBSTWNrLaKtGEgzJ8LhCl6KA=",
+      "voting_power": "2140898"
+    },
+    {
+      "address": "fvJEhowwSqWzSIk3Li34dK/WNc0=",
+      "voting_power": "1937501"
+    },
+    {
+      "address": "dvcGrnOoJRZSvHLLgB5ClOITWvs=",
+      "voting_power": "1910351"
+    },
+    {
+      "address": "4ZHmVNBrn3IVaLuUWy61Hdwcj9w=",
+      "voting_power": "1826771"
+    },
+    {
+      "address": "lDVHysspxVeX4SGstOWGxJ2dOf0=",
+      "voting_power": "1751380"
+    },
+    {
+      "address": "2KbFTFSiNtSEO6VmUgugP2DwnjU=",
+      "voting_power": "1683174"
+    },
+    {
+      "address": "ix1WdvTAyHGgx4ZIUNRR1qisjjs=",
+      "voting_power": "1543984"
+    },
+    {
+      "address": "zMrHB2fJzXku4KDQn3e5QiuK/f0=",
+      "voting_power": "1503024"
+    },
+    {
+      "address": "IO/hhtqRoArH8ELNbLah6ILFg8c=",
+      "voting_power": "1497691"
+    },
+    {
+      "address": "8/Vdoku0faYLD7cewanJJ0vO7bI=",
+      "voting_power": "1392700"
+    },
+    {
+      "address": "adBgUinGZZdOu3Nvx34WJFw/eao=",
+      "voting_power": "1362885"
+    },
+    {
+      "address": "wC9THZu7pJB1Ee8mgEIc5xShHjs=",
+      "voting_power": "1283746"
+    },
+    {
+      "address": "6PehLXdU5Gm1qsOCjSF6B4rmpIk=",
+      "voting_power": "1257075"
+    },
+    {
+      "address": "nL8u/9VXCzqaQTRiRHV82j4Y1AE=",
+      "voting_power": "1255251"
+    },
+    {
+      "address": "8ZTdSorYMyPD6cKpPbJfBJYhx7Q=",
+      "voting_power": "1248082"
+    },
+    {
+      "address": "IzVGWye5VIMTqvRlIXeH/Y5hE9M=",
+      "voting_power": "1174232"
+    },
+    {
+      "address": "Y0gfbcqvcz0vyVOjNcIgDuGQhiw=",
+      "voting_power": "1097799"
+    },
+    {
+      "address": "lbAC3mdwcxPRI9BkkvGnpYR45UY=",
+      "voting_power": "1078795"
+    },
+    {
+      "address": "qcTg4q8AGD2hFDTtQTIZkF6aho0=",
+      "voting_power": "1049001"
+    },
+    {
+      "address": "crFInvtXpoBXeoOKW6rr4WKnyAI=",
+      "voting_power": "1018763"
+    },
+    {
+      "address": "ThVMkojjFDa6gU3ZLRfE7Wzv0/E=",
+      "voting_power": "993726"
+    },
+    {
+      "address": "5cuhmeBF5wNnEdgU5X4rZsPMA5E=",
+      "voting_power": "991098"
+    },
+    {
+      "address": "nL7Iy9TtOq1LsrA0bvyGpsQfkWA=",
+      "voting_power": "981928"
+    },
+    {
+      "address": "P/bJiHmcGt86yg2lYUPIFjiQhZo=",
+      "voting_power": "959542"
+    },
+    {
+      "address": "l6/kU5W3TnhMiNReXMoplQGfrgg=",
+      "voting_power": "924644"
+    },
+    {
+      "address": "zv59ZUtSPeoqntcYpZESbHQXFok=",
+      "voting_power": "896324"
+    },
+    {
+      "address": "ftsAZSJhDFgoPjBkShTye8wNMu0=",
+      "voting_power": "893940"
+    },
+    {
+      "address": "9HCur10UXFTaLosUxWR41oZs4qY=",
+      "voting_power": "878154"
+    },
+    {
+      "address": "X5maS+JUhpklp/L+oE17O4Ns/ws=",
+      "voting_power": "873366"
+    },
+    {
+      "address": "7096bqyIO25JHlRm5r7HZMH7mcM=",
+      "voting_power": "808324"
+    },
+    {
+      "address": "wCrLp2U6w3gnULU9A6Zy4ZHwA2E=",
+      "voting_power": "755773"
+    },
+    {
+      "address": "AApZWWNLQpbk3lNkgd4AqKDrmlg=",
+      "voting_power": "751579"
+    },
+    {
+      "address": "LCRnGAu6hPLx1FZeZvVlo0AD7k8=",
+      "voting_power": "749356"
+    },
+    {
+      "address": "OTJ2ksJYpXlw71Pwqk08APlZiLg=",
+      "voting_power": "742879"
+    },
+    {
+      "address": "lm/Ymx21FTXy2JjPmw8U2jdO+5Y=",
+      "voting_power": "708321"
+    },
+    {
+      "address": "mZOElUB8CbNDViquw6tVGlwkYjI=",
+      "voting_power": "670489"
+    },
+    {
+      "address": "2812XbJkBjGUbBOTuiVYdsdto44=",
+      "voting_power": "666619"
+    },
+    {
+      "address": "aKOTx+1JaHEVDAp8rQysCbjkWPs=",
+      "voting_power": "651309"
+    },
+    {
+      "address": "cSvIka63IdpycyvDDVMeDB6u2uA=",
+      "voting_power": "648992"
+    },
+    {
+      "address": "XoCekeq2nThXhNGRFA6cjPbdEDc=",
+      "voting_power": "645491"
+    },
+    {
+      "address": "UdfQWmWSCKZXYZCuu+jwdgOFFRU=",
+      "voting_power": "642109"
+    },
+    {
+      "address": "BERtoLzEMQAD+Xsb7QerKr7G/qc=",
+      "voting_power": "592932"
+    },
+    {
+      "address": "Rt6hN8+xC8QZsld6qaWHGGgOGLo=",
+      "voting_power": "511649"
+    },
+    {
+      "address": "N0kIa22FvePaz75EhePflecJtts=",
+      "voting_power": "508207"
+    },
+    {
+      "address": "8jPgNiSKNvxzwVT/p5JhvL3Eu3Y=",
+      "voting_power": "502527"
+    },
+    {
+      "address": "c2S+bMe25AS9HCBQzLanRyeG47Y=",
+      "voting_power": "485672"
+    },
+    {
+      "address": "aSF0s/+7qAOUqU3JJmXcAUT7qDc=",
+      "voting_power": "482976"
+    },
+    {
+      "address": "j0FX6AE/VQsOf4O74KuFWbrhIJ8=",
+      "voting_power": "460906"
+    },
+    {
+      "address": "fg7XaJtlw0XRyBfFsDMv0TLeWHU=",
+      "voting_power": "460582"
+    },
+    {
+      "address": "f8HaQLJWjdvVPP87dsSc6JrihoA=",
+      "voting_power": "457777"
+    },
+    {
+      "address": "fVPXby24a+MKmybK3qaQeFMaubs=",
+      "voting_power": "456983"
+    },
+    {
+      "address": "DOuRfeTfHEtPjt/ErOb9bTnx5h4=",
+      "voting_power": "449226"
+    },
+    {
+      "address": "iTq+y9U7eN/UgCf0ELZFWHFBiLE=",
+      "voting_power": "445055"
+    },
+    {
+      "address": "3g+TtZ36Cw8CRe56+rOjdwnPs18=",
+      "voting_power": "428639"
+    },
+    {
+      "address": "4SzvOHG5WV7xVAHu0kZukxDkgWs=",
+      "voting_power": "416806"
+    },
+    {
+      "address": "nNahmikKL8hS/tVKdRD01YSy+PA=",
+      "voting_power": "412289"
+    },
+    {
+      "address": "3QaaaQHXSTh6Ou6YRv+OEnBbRqA=",
+      "voting_power": "411528"
+    },
+    {
+      "address": "4G2t60E4KVWPfJUzn/thSZxaG7k=",
+      "voting_power": "411193"
+    },
+    {
+      "address": "PojnxU9kZCqYsuHd1b26SHlPBsc=",
+      "voting_power": "393725"
+    },
+    {
+      "address": "L01nMEdkBxla88G/Q4thy214W5U=",
+      "voting_power": "392744"
+    },
+    {
+      "address": "BhQIjEHmqF+1vzRFUqUSDloBOfw=",
+      "voting_power": "392665"
+    },
+    {
+      "address": "PIDZiRCQdTEtz6PYqXDfWOW1XFs=",
+      "voting_power": "381382"
+    },
+    {
+      "address": "kB/RIsxRLvE96OGj15U7/dwHhtY=",
+      "voting_power": "368074"
+    },
+    {
+      "address": "c0HpcLmz7/grIGDTRp/FDXrwQUY=",
+      "voting_power": "355539"
+    },
+    {
+      "address": "lJZTWo8pRb22BXIBXS1vchq2/tk=",
+      "voting_power": "349996"
+    },
+    {
+      "address": "lypoTzZMzjFGmzep1DmYURXrWkA=",
+      "voting_power": "348280"
+    },
+    {
+      "address": "9ng9j7MOKDCBwWOYKT9ILcoOkS0=",
+      "voting_power": "347239"
+    },
+    {
+      "address": "3VdRYT/X0xqVI1MBS9Of9WCc4q8=",
+      "voting_power": "342089"
+    },
+    {
+      "address": "P/cZ8WZL7pPUgrSAZ3wDpH7AtkM=",
+      "voting_power": "335110"
+    },
+    {
+      "address": "2krxmjeMCbVMJsNGfLCt+IkpKVQ=",
+      "voting_power": "332919"
+    },
+    {
+      "address": "LdbSKWnufCyh+LQo0TqJlcBDBEw=",
+      "voting_power": "328293"
+    },
+    {
+      "address": "QUb9ehq4uGG3AYl4vNE9LR+mPr4=",
+      "voting_power": "316576"
+    },
+    {
+      "address": "4kLbLLkp1vRKGi/khcx9P2IP+us=",
+      "voting_power": "315408"
+    },
+    {
+      "address": "yeYVKJ0dkuUCksOwvYNY2bLkApA=",
+      "voting_power": "308905"
+    },
+    {
+      "address": "n47C71gc4lYwyBnxm1SEA550jRo=",
+      "voting_power": "302091"
+    },
+    {
+      "address": "Y2zX/0e6h6uvK9QDJgHSnftJ+mU=",
+      "voting_power": "301252"
+    },
+    {
+      "address": "pXL8eQ7bNlPwqC3Mkshll1ykkl0=",
+      "voting_power": "285359"
+    },
+    {
+      "address": "4jr88ANfsBrNAv6W9oAGaXTXBys=",
+      "voting_power": "285281"
+    },
+    {
+      "address": "gBS6IS7TiFl1ENBkJY9eMKow1ZE=",
+      "voting_power": "284261"
+    },
+    {
+      "address": "Bqo0vW0d00EZ49wXPvrZT0MKt04=",
+      "voting_power": "270672"
+    },
+    {
+      "address": "ag2+XQuS5XFGWvUuK3dmWDjC5Rw=",
+      "voting_power": "265012"
+    },
+    {
+      "address": "roLu8ogO/Y9QfJsOPvv6jBrDmRo=",
+      "voting_power": "264159"
+    },
+    {
+      "address": "QbVD6RR5qVzVyp8QnCbfrBSRJvo=",
+      "voting_power": "255171"
+    },
+    {
+      "address": "IGWL9A7UjtAaLQh8f/eHTyGlYzM=",
+      "voting_power": "254653"
+    },
+    {
+      "address": "Ff7BBBbjWcwd20JMaRZrJnHyUUg=",
+      "voting_power": "248808"
+    },
+    {
+      "address": "YKQz0osIeIxy4hM1VL1cxodp3Ow=",
+      "voting_power": "243996"
+    },
+    {
+      "address": "sVBp5BsaYP8Dro2PdB94x7EUT74=",
+      "voting_power": "243032"
+    },
+    {
+      "address": "GR6JahHAp3qWqZq+6YaipANVwEQ=",
+      "voting_power": "235564"
+    },
+    {
+      "address": "yg8qcSH4bTttkTSXMBVbmloxxVQ=",
+      "voting_power": "230935"
+    },
+    {
+      "address": "kO3Jgh2oA6hzOc9KtnUBsdEhdFE=",
+      "voting_power": "226479"
+    },
+    {
+      "address": "L4nX09HhR4+I7zrYqtdqiBifYSQ=",
+      "voting_power": "220153"
+    },
+    {
+      "address": "fFqoflIDxm6jXGQmL1du3Sm62YA=",
+      "voting_power": "214742"
+    },
+    {
+      "address": "4gAEUVMRsgVhj61QT7Upo97uLnE=",
+      "voting_power": "210189"
+    },
+    {
+      "address": "CWDvP9WP59u48g/JgmnTuEBFFgM=",
+      "voting_power": "205347"
+    },
+    {
+      "address": "kSffphdQ3R1Wyx0qiPiDGis/mw4=",
+      "voting_power": "203666"
+    },
+    {
+      "address": "Ti8OSeGkebKiE6hB5eih87x2s/c=",
+      "voting_power": "200942"
+    },
+    {
+      "address": "FXEDi1qqtDHsAR9qsQlEY8btmEI=",
+      "voting_power": "199757"
+    },
+    {
+      "address": "IrpZrCkYr6TBtW0+b4YIPkcM2Ms=",
+      "voting_power": "185975"
+    },
+    {
+      "address": "gA/0eJfRnc334gzzCMmT4wTm6pM=",
+      "voting_power": "181239"
+    },
+    {
+      "address": "e4VGcQ1XUpRIYrIE2RMbGOZRMMI=",
+      "voting_power": "179762"
+    },
+    {
+      "address": "fhHtfdBvrnsL7bRpchFR8vMcu2o=",
+      "voting_power": "178740"
+    },
+    {
+      "address": "6A0fVRmls8nSkNPqMU+gVWRTXBo=",
+      "voting_power": "178387"
+    },
+    {
+      "address": "jYy5wmdAunSiqgq/nSuvmCJkhaY=",
+      "voting_power": "177197"
+    },
+    {
+      "address": "RuUzjvGak509OwsLeKHGZfD6Geg=",
+      "voting_power": "165490"
+    },
+    {
+      "address": "X4Wz+AjihJHrIZuwNFZoyi1iBhg=",
+      "voting_power": "164427"
+    },
+    {
+      "address": "vU+A8MGme0lQdyZi9uvK1YoliTM=",
+      "voting_power": "164298"
+    },
+    {
+      "address": "2AelXH1pqE+3WfsL2Wu02lCtuic=",
+      "voting_power": "163980"
+    },
+    {
+      "address": "fVtALhivJQ76lc2UAtLYId+suHY=",
+      "voting_power": "162080"
+    },
+    {
+      "address": "DFXBjZxmibjNb3dd1+xGMx/2YuI=",
+      "voting_power": "157811"
+    },
+    {
+      "address": "DFYur4JHOayPmZyTtaAb59WKZrE=",
+      "voting_power": "154608"
+    },
+    {
+      "address": "y1pjuR6PTujbk1lCy+JXJGNkeeA=",
+      "voting_power": "20308919"
+    },
+    {
+      "address": "nQKBeGhy07vlPFj77KEY2G+oIXc=",
+      "voting_power": "10954260"
+    },
+    {
+      "address": "4I+6D+mZcH0UlrqrdD6rJ3hNwcU=",
+      "voting_power": "9020194"
+    },
+    {
+      "address": "Jz9y7lWYevp3GyfTcPoTH2CLg6w=",
+      "voting_power": "7780109"
+    },
+    {
+      "address": "ZraWZuv3dufry+GXq6RmpxLicHY=",
+      "voting_power": "6079445"
+    },
+    {
+      "address": "BvRcNvy5V+VdkjptTpBcLXFRFa0=",
+      "voting_power": "5736134"
+    },
+    {
+      "address": "FqFplRqHgkfb4lj93HFjj2YG0VY=",
+      "voting_power": "4786291"
+    },
+    {
+      "address": "hEKQUx7lm0D+795SWYVzaL9xGew=",
+      "voting_power": "3836786"
+    },
+    {
+      "address": "YjmkmMIt8+w/sMovltFVNfbzOHo=",
+      "voting_power": "3820298"
+    },
+    {
+      "address": "A8AWq37DLZ+Nd6/bGR+/U+oI2Rc=",
+      "voting_power": "3797440"
+    },
+    {
+      "address": "2pZWTSN5rO4A3Z+qVYaBu0mXV/0=",
+      "voting_power": "3733122"
+    },
+    {
+      "address": "Ex/HnnoBLZ5+7yHeO6XVAz/NvB8=",
+      "voting_power": "3695729"
+    },
+    {
+      "address": "BMg6og91Y7vLz2qhUO9rDIGAjao=",
+      "voting_power": "3445159"
+    },
+    {
+      "address": "nnyuAJ7/9NFj8/uHgaB7JcKxCzI=",
+      "voting_power": "3422388"
+    },
+    {
+      "address": "mQY7kZQEtpUKeaajHjcDeP4HAg0=",
+      "voting_power": "3185252"
+    },
+    {
+      "address": "doqCcA4wRuba+ElmRXnmSVl8wbQ=",
+      "voting_power": "3114226"
+    },
+    {
+      "address": "E4/Zq3q+C67RTKfUHYhbeAUqSqE=",
+      "voting_power": "3021700"
+    },
+    {
+      "address": "GwArbr64ZTxyEwGxtWRysbTeckc=",
+      "voting_power": "3006975"
+    },
+    {
+      "address": "rxlZQ+RP4dYlAHa4vBkQ6ryF8fI=",
+      "voting_power": "3002748"
+    },
+    {
+      "address": "cd+NmHnCBWOk4qvtqVzR/Ffb9qo=",
+      "voting_power": "2975418"
+    },
+    {
+      "address": "jgVFsSIue1yFzmntx48oDLK3nRg=",
+      "voting_power": "2825373"
+    },
+    {
+      "address": "2eyXOczPBRoFhhrLiiIYqaR1Y5A=",
+      "voting_power": "2592895"
+    },
+    {
+      "address": "0kt6MkEzOMKqJvwAFtkfvnO7Xq4=",
+      "voting_power": "2298349"
+    },
+    {
+      "address": "ICL+jMSeSGMMdhYOEaiARZIZ0kQ=",
+      "voting_power": "2295077"
+    },
+    {
+      "address": "oGtbaCtCWtIGo1yvJG/XDdCY5QY=",
+      "voting_power": "2157399"
+    },
+    {
+      "address": "oW5IBSTWNrLaKtGEgzJ8LhCl6KA=",
+      "voting_power": "2140898"
+    },
+    {
+      "address": "fvJEhowwSqWzSIk3Li34dK/WNc0=",
+      "voting_power": "1937501"
+    },
+    {
+      "address": "dvcGrnOoJRZSvHLLgB5ClOITWvs=",
+      "voting_power": "1910351"
+    },
+    {
+      "address": "4ZHmVNBrn3IVaLuUWy61Hdwcj9w=",
+      "voting_power": "1826771"
+    },
+    {
+      "address": "lDVHysspxVeX4SGstOWGxJ2dOf0=",
+      "voting_power": "1751380"
+    },
+    {
+      "address": "2KbFTFSiNtSEO6VmUgugP2DwnjU=",
+      "voting_power": "1683174"
+    },
+    {
+      "address": "ix1WdvTAyHGgx4ZIUNRR1qisjjs=",
+      "voting_power": "1543984"
+    },
+    {
+      "address": "zMrHB2fJzXku4KDQn3e5QiuK/f0=",
+      "voting_power": "1503024"
+    },
+    {
+      "address": "IO/hhtqRoArH8ELNbLah6ILFg8c=",
+      "voting_power": "1497691"
+    },
+    {
+      "address": "8/Vdoku0faYLD7cewanJJ0vO7bI=",
+      "voting_power": "1392700"
+    },
+    {
+      "address": "adBgUinGZZdOu3Nvx34WJFw/eao=",
+      "voting_power": "1362885"
+    },
+    {
+      "address": "wC9THZu7pJB1Ee8mgEIc5xShHjs=",
+      "voting_power": "1283746"
+    },
+    {
+      "address": "6PehLXdU5Gm1qsOCjSF6B4rmpIk=",
+      "voting_power": "1257075"
+    },
+    {
+      "address": "nL8u/9VXCzqaQTRiRHV82j4Y1AE=",
+      "voting_power": "1255251"
+    },
+    {
+      "address": "8ZTdSorYMyPD6cKpPbJfBJYhx7Q=",
+      "voting_power": "1248082"
+    },
+    {
+      "address": "IzVGWye5VIMTqvRlIXeH/Y5hE9M=",
+      "voting_power": "1174232"
+    },
+    {
+      "address": "Y0gfbcqvcz0vyVOjNcIgDuGQhiw=",
+      "voting_power": "1097799"
+    },
+    {
+      "address": "lbAC3mdwcxPRI9BkkvGnpYR45UY=",
+      "voting_power": "1078795"
+    },
+    {
+      "address": "qcTg4q8AGD2hFDTtQTIZkF6aho0=",
+      "voting_power": "1049001"
+    },
+    {
+      "address": "crFInvtXpoBXeoOKW6rr4WKnyAI=",
+      "voting_power": "1018763"
+    },
+    {
+      "address": "ThVMkojjFDa6gU3ZLRfE7Wzv0/E=",
+      "voting_power": "993726"
+    },
+    {
+      "address": "5cuhmeBF5wNnEdgU5X4rZsPMA5E=",
+      "voting_power": "991098"
+    },
+    {
+      "address": "nL7Iy9TtOq1LsrA0bvyGpsQfkWA=",
+      "voting_power": "981928"
+    },
+    {
+      "address": "P/bJiHmcGt86yg2lYUPIFjiQhZo=",
+      "voting_power": "959542"
+    },
+    {
+      "address": "l6/kU5W3TnhMiNReXMoplQGfrgg=",
+      "voting_power": "924644"
+    },
+    {
+      "address": "zv59ZUtSPeoqntcYpZESbHQXFok=",
+      "voting_power": "896324"
+    },
+    {
+      "address": "ftsAZSJhDFgoPjBkShTye8wNMu0=",
+      "voting_power": "893940"
+    },
+    {
+      "address": "9HCur10UXFTaLosUxWR41oZs4qY=",
+      "voting_power": "878154"
+    },
+    {
+      "address": "X5maS+JUhpklp/L+oE17O4Ns/ws=",
+      "voting_power": "873366"
+    },
+    {
+      "address": "7096bqyIO25JHlRm5r7HZMH7mcM=",
+      "voting_power": "808324"
+    },
+    {
+      "address": "wCrLp2U6w3gnULU9A6Zy4ZHwA2E=",
+      "voting_power": "755773"
+    },
+    {
+      "address": "AApZWWNLQpbk3lNkgd4AqKDrmlg=",
+      "voting_power": "751579"
+    },
+    {
+      "address": "LCRnGAu6hPLx1FZeZvVlo0AD7k8=",
+      "voting_power": "749356"
+    },
+    {
+      "address": "OTJ2ksJYpXlw71Pwqk08APlZiLg=",
+      "voting_power": "742879"
+    },
+    {
+      "address": "lm/Ymx21FTXy2JjPmw8U2jdO+5Y=",
+      "voting_power": "708321"
+    },
+    {
+      "address": "mZOElUB8CbNDViquw6tVGlwkYjI=",
+      "voting_power": "670489"
+    },
+    {
+      "address": "2812XbJkBjGUbBOTuiVYdsdto44=",
+      "voting_power": "666619"
+    },
+    {
+      "address": "aKOTx+1JaHEVDAp8rQysCbjkWPs=",
+      "voting_power": "651309"
+    },
+    {
+      "address": "cSvIka63IdpycyvDDVMeDB6u2uA=",
+      "voting_power": "648992"
+    },
+    {
+      "address": "XoCekeq2nThXhNGRFA6cjPbdEDc=",
+      "voting_power": "645491"
+    },
+    {
+      "address": "UdfQWmWSCKZXYZCuu+jwdgOFFRU=",
+      "voting_power": "642109"
+    },
+    {
+      "address": "BERtoLzEMQAD+Xsb7QerKr7G/qc=",
+      "voting_power": "592932"
+    },
+    {
+      "address": "Rt6hN8+xC8QZsld6qaWHGGgOGLo=",
+      "voting_power": "511649"
+    },
+    {
+      "address": "N0kIa22FvePaz75EhePflecJtts=",
+      "voting_power": "508207"
+    },
+    {
+      "address": "8jPgNiSKNvxzwVT/p5JhvL3Eu3Y=",
+      "voting_power": "502527"
+    },
+    {
+      "address": "c2S+bMe25AS9HCBQzLanRyeG47Y=",
+      "voting_power": "485672"
+    },
+    {
+      "address": "aSF0s/+7qAOUqU3JJmXcAUT7qDc=",
+      "voting_power": "482976"
+    },
+    {
+      "address": "j0FX6AE/VQsOf4O74KuFWbrhIJ8=",
+      "voting_power": "460906"
+    },
+    {
+      "address": "fg7XaJtlw0XRyBfFsDMv0TLeWHU=",
+      "voting_power": "460582"
+    },
+    {
+      "address": "f8HaQLJWjdvVPP87dsSc6JrihoA=",
+      "voting_power": "457777"
+    },
+    {
+      "address": "fVPXby24a+MKmybK3qaQeFMaubs=",
+      "voting_power": "456983"
+    },
+    {
+      "address": "DOuRfeTfHEtPjt/ErOb9bTnx5h4=",
+      "voting_power": "449226"
+    },
+    {
+      "address": "iTq+y9U7eN/UgCf0ELZFWHFBiLE=",
+      "voting_power": "445055"
+    },
+    {
+      "address": "3g+TtZ36Cw8CRe56+rOjdwnPs18=",
+      "voting_power": "428639"
+    },
+    {
+      "address": "4SzvOHG5WV7xVAHu0kZukxDkgWs=",
+      "voting_power": "416806"
+    },
+    {
+      "address": "nNahmikKL8hS/tVKdRD01YSy+PA=",
+      "voting_power": "412289"
+    },
+    {
+      "address": "3QaaaQHXSTh6Ou6YRv+OEnBbRqA=",
+      "voting_power": "411528"
+    },
+    {
+      "address": "4G2t60E4KVWPfJUzn/thSZxaG7k=",
+      "voting_power": "411193"
+    },
+    {
+      "address": "PojnxU9kZCqYsuHd1b26SHlPBsc=",
+      "voting_power": "393725"
+    },
+    {
+      "address": "L01nMEdkBxla88G/Q4thy214W5U=",
+      "voting_power": "392744"
+    },
+    {
+      "address": "BhQIjEHmqF+1vzRFUqUSDloBOfw=",
+      "voting_power": "392665"
+    },
+    {
+      "address": "PIDZiRCQdTEtz6PYqXDfWOW1XFs=",
+      "voting_power": "381382"
+    },
+    {
+      "address": "kB/RIsxRLvE96OGj15U7/dwHhtY=",
+      "voting_power": "368074"
+    },
+    {
+      "address": "c0HpcLmz7/grIGDTRp/FDXrwQUY=",
+      "voting_power": "355539"
+    },
+    {
+      "address": "lJZTWo8pRb22BXIBXS1vchq2/tk=",
+      "voting_power": "349996"
+    },
+    {
+      "address": "lypoTzZMzjFGmzep1DmYURXrWkA=",
+      "voting_power": "348280"
+    },
+    {
+      "address": "9ng9j7MOKDCBwWOYKT9ILcoOkS0=",
+      "voting_power": "347239"
+    },
+    {
+      "address": "3VdRYT/X0xqVI1MBS9Of9WCc4q8=",
+      "voting_power": "342089"
+    },
+    {
+      "address": "P/cZ8WZL7pPUgrSAZ3wDpH7AtkM=",
+      "voting_power": "335110"
+    },
+    {
+      "address": "2krxmjeMCbVMJsNGfLCt+IkpKVQ=",
+      "voting_power": "332919"
+    },
+    {
+      "address": "LdbSKWnufCyh+LQo0TqJlcBDBEw=",
+      "voting_power": "328293"
+    },
+    {
+      "address": "QUb9ehq4uGG3AYl4vNE9LR+mPr4=",
+      "voting_power": "316576"
+    },
+    {
+      "address": "4kLbLLkp1vRKGi/khcx9P2IP+us=",
+      "voting_power": "315408"
+    },
+    {
+      "address": "yeYVKJ0dkuUCksOwvYNY2bLkApA=",
+      "voting_power": "308905"
+    },
+    {
+      "address": "n47C71gc4lYwyBnxm1SEA550jRo=",
+      "voting_power": "302091"
+    },
+    {
+      "address": "Y2zX/0e6h6uvK9QDJgHSnftJ+mU=",
+      "voting_power": "301252"
+    },
+    {
+      "address": "pXL8eQ7bNlPwqC3Mkshll1ykkl0=",
+      "voting_power": "285359"
+    },
+    {
+      "address": "4jr88ANfsBrNAv6W9oAGaXTXBys=",
+      "voting_power": "285281"
+    },
+    {
+      "address": "gBS6IS7TiFl1ENBkJY9eMKow1ZE=",
+      "voting_power": "284261"
+    },
+    {
+      "address": "Bqo0vW0d00EZ49wXPvrZT0MKt04=",
+      "voting_power": "270672"
+    },
+    {
+      "address": "ag2+XQuS5XFGWvUuK3dmWDjC5Rw=",
+      "voting_power": "265012"
+    },
+    {
+      "address": "roLu8ogO/Y9QfJsOPvv6jBrDmRo=",
+      "voting_power": "264159"
+    },
+    {
+      "address": "QbVD6RR5qVzVyp8QnCbfrBSRJvo=",
+      "voting_power": "255171"
+    },
+    {
+      "address": "IGWL9A7UjtAaLQh8f/eHTyGlYzM=",
+      "voting_power": "254653"
+    },
+    {
+      "address": "Ff7BBBbjWcwd20JMaRZrJnHyUUg=",
+      "voting_power": "248808"
+    },
+    {
+      "address": "YKQz0osIeIxy4hM1VL1cxodp3Ow=",
+      "voting_power": "243996"
+    },
+    {
+      "address": "sVBp5BsaYP8Dro2PdB94x7EUT74=",
+      "voting_power": "243032"
+    },
+    {
+      "address": "GR6JahHAp3qWqZq+6YaipANVwEQ=",
+      "voting_power": "235564"
+    },
+    {
+      "address": "yg8qcSH4bTttkTSXMBVbmloxxVQ=",
+      "voting_power": "230935"
+    },
+    {
+      "address": "kO3Jgh2oA6hzOc9KtnUBsdEhdFE=",
+      "voting_power": "226479"
+    },
+    {
+      "address": "L4nX09HhR4+I7zrYqtdqiBifYSQ=",
+      "voting_power": "220153"
+    },
+    {
+      "address": "fFqoflIDxm6jXGQmL1du3Sm62YA=",
+      "voting_power": "214742"
+    },
+    {
+      "address": "4gAEUVMRsgVhj61QT7Upo97uLnE=",
+      "voting_power": "210189"
+    },
+    {
+      "address": "CWDvP9WP59u48g/JgmnTuEBFFgM=",
+      "voting_power": "205347"
+    },
+    {
+      "address": "kSffphdQ3R1Wyx0qiPiDGis/mw4=",
+      "voting_power": "203666"
+    },
+    {
+      "address": "Ti8OSeGkebKiE6hB5eih87x2s/c=",
+      "voting_power": "200942"
+    },
+    {
+      "address": "FXEDi1qqtDHsAR9qsQlEY8btmEI=",
+      "voting_power": "199757"
+    },
+    {
+      "address": "IrpZrCkYr6TBtW0+b4YIPkcM2Ms=",
+      "voting_power": "185975"
+    },
+    {
+      "address": "gA/0eJfRnc334gzzCMmT4wTm6pM=",
+      "voting_power": "181239"
+    },
+    {
+      "address": "e4VGcQ1XUpRIYrIE2RMbGOZRMMI=",
+      "voting_power": "179762"
+    },
+    {
+      "address": "fhHtfdBvrnsL7bRpchFR8vMcu2o=",
+      "voting_power": "178740"
+    },
+    {
+      "address": "6A0fVRmls8nSkNPqMU+gVWRTXBo=",
+      "voting_power": "178387"
+    },
+    {
+      "address": "jYy5wmdAunSiqgq/nSuvmCJkhaY=",
+      "voting_power": "177197"
+    },
+    {
+      "address": "RuUzjvGak509OwsLeKHGZfD6Geg=",
+      "voting_power": "165490"
+    },
+    {
+      "address": "X4Wz+AjihJHrIZuwNFZoyi1iBhg=",
+      "voting_power": "164427"
+    },
+    {
+      "address": "vU+A8MGme0lQdyZi9uvK1YoliTM=",
+      "voting_power": "164298"
+    },
+    {
+      "address": "2AelXH1pqE+3WfsL2Wu02lCtuic=",
+      "voting_power": "163980"
+    },
+    {
+      "address": "fVtALhivJQ76lc2UAtLYId+suHY=",
+      "voting_power": "162080"
+    },
+    {
+      "address": "DFXBjZxmibjNb3dd1+xGMx/2YuI=",
+      "voting_power": "157811"
+    },
+    {
+      "address": "DFYur4JHOayPmZyTtaAb59WKZrE=",
+      "voting_power": "154608"
+    },
+    {
+      "address": "y1pjuR6PTujbk1lCy+JXJGNkeeA=",
+      "voting_power": "20308919"
+    },
+    {
+      "address": "nQKBeGhy07vlPFj77KEY2G+oIXc=",
+      "voting_power": "10954260"
+    },
+    {
+      "address": "4I+6D+mZcH0UlrqrdD6rJ3hNwcU=",
+      "voting_power": "9020194"
+    },
+    {
+      "address": "Jz9y7lWYevp3GyfTcPoTH2CLg6w=",
+      "voting_power": "7780109"
+    },
+    {
+      "address": "ZraWZuv3dufry+GXq6RmpxLicHY=",
+      "voting_power": "6079445"
+    },
+    {
+      "address": "BvRcNvy5V+VdkjptTpBcLXFRFa0=",
+      "voting_power": "5736134"
+    },
+    {
+      "address": "FqFplRqHgkfb4lj93HFjj2YG0VY=",
+      "voting_power": "4786291"
+    },
+    {
+      "address": "hEKQUx7lm0D+795SWYVzaL9xGew=",
+      "voting_power": "3836786"
+    },
+    {
+      "address": "YjmkmMIt8+w/sMovltFVNfbzOHo=",
+      "voting_power": "3820298"
+    },
+    {
+      "address": "A8AWq37DLZ+Nd6/bGR+/U+oI2Rc=",
+      "voting_power": "3797440"
+    },
+    {
+      "address": "2pZWTSN5rO4A3Z+qVYaBu0mXV/0=",
+      "voting_power": "3733122"
+    },
+    {
+      "address": "Ex/HnnoBLZ5+7yHeO6XVAz/NvB8=",
+      "voting_power": "3695729"
+    },
+    {
+      "address": "BMg6og91Y7vLz2qhUO9rDIGAjao=",
+      "voting_power": "3445159"
+    },
+    {
+      "address": "nnyuAJ7/9NFj8/uHgaB7JcKxCzI=",
+      "voting_power": "3422388"
+    },
+    {
+      "address": "mQY7kZQEtpUKeaajHjcDeP4HAg0=",
+      "voting_power": "3185252"
+    },
+    {
+      "address": "doqCcA4wRuba+ElmRXnmSVl8wbQ=",
+      "voting_power": "3114226"
+    },
+    {
+      "address": "E4/Zq3q+C67RTKfUHYhbeAUqSqE=",
+      "voting_power": "3021700"
+    },
+    {
+      "address": "GwArbr64ZTxyEwGxtWRysbTeckc=",
+      "voting_power": "3006975"
+    },
+    {
+      "address": "rxlZQ+RP4dYlAHa4vBkQ6ryF8fI=",
+      "voting_power": "3002748"
+    },
+    {
+      "address": "cd+NmHnCBWOk4qvtqVzR/Ffb9qo=",
+      "voting_power": "2975418"
+    },
+    {
+      "address": "jgVFsSIue1yFzmntx48oDLK3nRg=",
+      "voting_power": "2825373"
+    },
+    {
+      "address": "2eyXOczPBRoFhhrLiiIYqaR1Y5A=",
+      "voting_power": "2592895"
+    },
+    {
+      "address": "0kt6MkEzOMKqJvwAFtkfvnO7Xq4=",
+      "voting_power": "2298349"
+    },
+    {
+      "address": "ICL+jMSeSGMMdhYOEaiARZIZ0kQ=",
+      "voting_power": "2295077"
+    },
+    {
+      "address": "oGtbaCtCWtIGo1yvJG/XDdCY5QY=",
+      "voting_power": "2157399"
+    },
+    {
+      "address": "oW5IBSTWNrLaKtGEgzJ8LhCl6KA=",
+      "voting_power": "2140898"
+    },
+    {
+      "address": "fvJEhowwSqWzSIk3Li34dK/WNc0=",
+      "voting_power": "1937501"
+    },
+    {
+      "address": "dvcGrnOoJRZSvHLLgB5ClOITWvs=",
+      "voting_power": "1910351"
+    },
+    {
+      "address": "4ZHmVNBrn3IVaLuUWy61Hdwcj9w=",
+      "voting_power": "1826771"
+    },
+    {
+      "address": "lDVHysspxVeX4SGstOWGxJ2dOf0=",
+      "voting_power": "1751380"
+    },
+    {
+      "address": "2KbFTFSiNtSEO6VmUgugP2DwnjU=",
+      "voting_power": "1683174"
+    },
+    {
+      "address": "ix1WdvTAyHGgx4ZIUNRR1qisjjs=",
+      "voting_power": "1543984"
+    },
+    {
+      "address": "zMrHB2fJzXku4KDQn3e5QiuK/f0=",
+      "voting_power": "1503024"
+    },
+    {
+      "address": "IO/hhtqRoArH8ELNbLah6ILFg8c=",
+      "voting_power": "1497691"
+    },
+    {
+      "address": "8/Vdoku0faYLD7cewanJJ0vO7bI=",
+      "voting_power": "1392700"
+    },
+    {
+      "address": "adBgUinGZZdOu3Nvx34WJFw/eao=",
+      "voting_power": "1362885"
+    },
+    {
+      "address": "wC9THZu7pJB1Ee8mgEIc5xShHjs=",
+      "voting_power": "1283746"
+    },
+    {
+      "address": "6PehLXdU5Gm1qsOCjSF6B4rmpIk=",
+      "voting_power": "1257075"
+    },
+    {
+      "address": "nL8u/9VXCzqaQTRiRHV82j4Y1AE=",
+      "voting_power": "1255251"
+    },
+    {
+      "address": "8ZTdSorYMyPD6cKpPbJfBJYhx7Q=",
+      "voting_power": "1248082"
+    },
+    {
+      "address": "IzVGWye5VIMTqvRlIXeH/Y5hE9M=",
+      "voting_power": "1174232"
+    },
+    {
+      "address": "Y0gfbcqvcz0vyVOjNcIgDuGQhiw=",
+      "voting_power": "1097799"
+    },
+    {
+      "address": "lbAC3mdwcxPRI9BkkvGnpYR45UY=",
+      "voting_power": "1078795"
+    },
+    {
+      "address": "qcTg4q8AGD2hFDTtQTIZkF6aho0=",
+      "voting_power": "1049001"
+    },
+    {
+      "address": "crFInvtXpoBXeoOKW6rr4WKnyAI=",
+      "voting_power": "1018763"
+    },
+    {
+      "address": "ThVMkojjFDa6gU3ZLRfE7Wzv0/E=",
+      "voting_power": "993726"
+    },
+    {
+      "address": "5cuhmeBF5wNnEdgU5X4rZsPMA5E=",
+      "voting_power": "991098"
+    },
+    {
+      "address": "nL7Iy9TtOq1LsrA0bvyGpsQfkWA=",
+      "voting_power": "981928"
+    },
+    {
+      "address": "P/bJiHmcGt86yg2lYUPIFjiQhZo=",
+      "voting_power": "959542"
+    },
+    {
+      "address": "l6/kU5W3TnhMiNReXMoplQGfrgg=",
+      "voting_power": "924644"
+    },
+    {
+      "address": "zv59ZUtSPeoqntcYpZESbHQXFok=",
+      "voting_power": "896324"
+    },
+    {
+      "address": "ftsAZSJhDFgoPjBkShTye8wNMu0=",
+      "voting_power": "893940"
+    },
+    {
+      "address": "9HCur10UXFTaLosUxWR41oZs4qY=",
+      "voting_power": "878154"
+    },
+    {
+      "address": "X5maS+JUhpklp/L+oE17O4Ns/ws=",
+      "voting_power": "873366"
+    },
+    {
+      "address": "7096bqyIO25JHlRm5r7HZMH7mcM=",
+      "voting_power": "808324"
+    },
+    {
+      "address": "wCrLp2U6w3gnULU9A6Zy4ZHwA2E=",
+      "voting_power": "755773"
+    },
+    {
+      "address": "AApZWWNLQpbk3lNkgd4AqKDrmlg=",
+      "voting_power": "751579"
+    },
+    {
+      "address": "LCRnGAu6hPLx1FZeZvVlo0AD7k8=",
+      "voting_power": "749356"
+    },
+    {
+      "address": "OTJ2ksJYpXlw71Pwqk08APlZiLg=",
+      "voting_power": "742879"
+    },
+    {
+      "address": "lm/Ymx21FTXy2JjPmw8U2jdO+5Y=",
+      "voting_power": "708321"
+    },
+    {
+      "address": "mZOElUB8CbNDViquw6tVGlwkYjI=",
+      "voting_power": "670489"
+    },
+    {
+      "address": "2812XbJkBjGUbBOTuiVYdsdto44=",
+      "voting_power": "666619"
+    },
+    {
+      "address": "aKOTx+1JaHEVDAp8rQysCbjkWPs=",
+      "voting_power": "651309"
+    },
+    {
+      "address": "cSvIka63IdpycyvDDVMeDB6u2uA=",
+      "voting_power": "648992"
+    },
+    {
+      "address": "XoCekeq2nThXhNGRFA6cjPbdEDc=",
+      "voting_power": "645491"
+    },
+    {
+      "address": "UdfQWmWSCKZXYZCuu+jwdgOFFRU=",
+      "voting_power": "642109"
+    },
+    {
+      "address": "BERtoLzEMQAD+Xsb7QerKr7G/qc=",
+      "voting_power": "592932"
+    },
+    {
+      "address": "Rt6hN8+xC8QZsld6qaWHGGgOGLo=",
+      "voting_power": "511649"
+    },
+    {
+      "address": "N0kIa22FvePaz75EhePflecJtts=",
+      "voting_power": "508207"
+    },
+    {
+      "address": "8jPgNiSKNvxzwVT/p5JhvL3Eu3Y=",
+      "voting_power": "502527"
+    },
+    {
+      "address": "c2S+bMe25AS9HCBQzLanRyeG47Y=",
+      "voting_power": "485672"
+    },
+    {
+      "address": "aSF0s/+7qAOUqU3JJmXcAUT7qDc=",
+      "voting_power": "482976"
+    },
+    {
+      "address": "j0FX6AE/VQsOf4O74KuFWbrhIJ8=",
+      "voting_power": "460906"
+    },
+    {
+      "address": "fg7XaJtlw0XRyBfFsDMv0TLeWHU=",
+      "voting_power": "460582"
+    },
+    {
+      "address": "f8HaQLJWjdvVPP87dsSc6JrihoA=",
+      "voting_power": "457777"
+    },
+    {
+      "address": "fVPXby24a+MKmybK3qaQeFMaubs=",
+      "voting_power": "456983"
+    },
+    {
+      "address": "DOuRfeTfHEtPjt/ErOb9bTnx5h4=",
+      "voting_power": "449226"
+    },
+    {
+      "address": "iTq+y9U7eN/UgCf0ELZFWHFBiLE=",
+      "voting_power": "445055"
+    },
+    {
+      "address": "3g+TtZ36Cw8CRe56+rOjdwnPs18=",
+      "voting_power": "428639"
+    },
+    {
+      "address": "4SzvOHG5WV7xVAHu0kZukxDkgWs=",
+      "voting_power": "416806"
+    },
+    {
+      "address": "nNahmikKL8hS/tVKdRD01YSy+PA=",
+      "voting_power": "412289"
+    },
+    {
+      "address": "3QaaaQHXSTh6Ou6YRv+OEnBbRqA=",
+      "voting_power": "411528"
+    },
+    {
+      "address": "4G2t60E4KVWPfJUzn/thSZxaG7k=",
+      "voting_power": "411193"
+    },
+    {
+      "address": "PojnxU9kZCqYsuHd1b26SHlPBsc=",
+      "voting_power": "393725"
+    },
+    {
+      "address": "L01nMEdkBxla88G/Q4thy214W5U=",
+      "voting_power": "392744"
+    },
+    {
+      "address": "BhQIjEHmqF+1vzRFUqUSDloBOfw=",
+      "voting_power": "392665"
+    },
+    {
+      "address": "PIDZiRCQdTEtz6PYqXDfWOW1XFs=",
+      "voting_power": "381382"
+    },
+    {
+      "address": "kB/RIsxRLvE96OGj15U7/dwHhtY=",
+      "voting_power": "368074"
+    },
+    {
+      "address": "c0HpcLmz7/grIGDTRp/FDXrwQUY=",
+      "voting_power": "355539"
+    },
+    {
+      "address": "lJZTWo8pRb22BXIBXS1vchq2/tk=",
+      "voting_power": "349996"
+    },
+    {
+      "address": "lypoTzZMzjFGmzep1DmYURXrWkA=",
+      "voting_power": "348280"
+    },
+    {
+      "address": "9ng9j7MOKDCBwWOYKT9ILcoOkS0=",
+      "voting_power": "347239"
+    },
+    {
+      "address": "3VdRYT/X0xqVI1MBS9Of9WCc4q8=",
+      "voting_power": "342089"
+    },
+    {
+      "address": "P/cZ8WZL7pPUgrSAZ3wDpH7AtkM=",
+      "voting_power": "335110"
+    },
+    {
+      "address": "2krxmjeMCbVMJsNGfLCt+IkpKVQ=",
+      "voting_power": "332919"
+    },
+    {
+      "address": "LdbSKWnufCyh+LQo0TqJlcBDBEw=",
+      "voting_power": "328293"
+    },
+    {
+      "address": "QUb9ehq4uGG3AYl4vNE9LR+mPr4=",
+      "voting_power": "316576"
+    },
+    {
+      "address": "4kLbLLkp1vRKGi/khcx9P2IP+us=",
+      "voting_power": "315408"
+    },
+    {
+      "address": "yeYVKJ0dkuUCksOwvYNY2bLkApA=",
+      "voting_power": "308905"
+    },
+    {
+      "address": "n47C71gc4lYwyBnxm1SEA550jRo=",
+      "voting_power": "302091"
+    },
+    {
+      "address": "Y2zX/0e6h6uvK9QDJgHSnftJ+mU=",
+      "voting_power": "301252"
+    },
+    {
+      "address": "pXL8eQ7bNlPwqC3Mkshll1ykkl0=",
+      "voting_power": "285359"
+    },
+    {
+      "address": "4jr88ANfsBrNAv6W9oAGaXTXBys=",
+      "voting_power": "285281"
+    },
+    {
+      "address": "gBS6IS7TiFl1ENBkJY9eMKow1ZE=",
+      "voting_power": "284261"
+    },
+    {
+      "address": "Bqo0vW0d00EZ49wXPvrZT0MKt04=",
+      "voting_power": "270672"
+    },
+    {
+      "address": "ag2+XQuS5XFGWvUuK3dmWDjC5Rw=",
+      "voting_power": "265012"
+    },
+    {
+      "address": "roLu8ogO/Y9QfJsOPvv6jBrDmRo=",
+      "voting_power": "264159"
+    },
+    {
+      "address": "QbVD6RR5qVzVyp8QnCbfrBSRJvo=",
+      "voting_power": "255171"
+    },
+    {
+      "address": "IGWL9A7UjtAaLQh8f/eHTyGlYzM=",
+      "voting_power": "254653"
+    },
+    {
+      "address": "Ff7BBBbjWcwd20JMaRZrJnHyUUg=",
+      "voting_power": "248808"
+    },
+    {
+      "address": "YKQz0osIeIxy4hM1VL1cxodp3Ow=",
+      "voting_power": "243996"
+    },
+    {
+      "address": "sVBp5BsaYP8Dro2PdB94x7EUT74=",
+      "voting_power": "243032"
+    },
+    {
+      "address": "GR6JahHAp3qWqZq+6YaipANVwEQ=",
+      "voting_power": "235564"
+    },
+    {
+      "address": "yg8qcSH4bTttkTSXMBVbmloxxVQ=",
+      "voting_power": "230935"
+    },
+    {
+      "address": "kO3Jgh2oA6hzOc9KtnUBsdEhdFE=",
+      "voting_power": "226479"
+    },
+    {
+      "address": "L4nX09HhR4+I7zrYqtdqiBifYSQ=",
+      "voting_power": "220153"
+    },
+    {
+      "address": "fFqoflIDxm6jXGQmL1du3Sm62YA=",
+      "voting_power": "214742"
+    },
+    {
+      "address": "4gAEUVMRsgVhj61QT7Upo97uLnE=",
+      "voting_power": "210189"
+    },
+    {
+      "address": "CWDvP9WP59u48g/JgmnTuEBFFgM=",
+      "voting_power": "205347"
+    },
+    {
+      "address": "kSffphdQ3R1Wyx0qiPiDGis/mw4=",
+      "voting_power": "203666"
+    },
+    {
+      "address": "Ti8OSeGkebKiE6hB5eih87x2s/c=",
+      "voting_power": "200942"
+    },
+    {
+      "address": "FXEDi1qqtDHsAR9qsQlEY8btmEI=",
+      "voting_power": "199757"
+    },
+    {
+      "address": "IrpZrCkYr6TBtW0+b4YIPkcM2Ms=",
+      "voting_power": "185975"
+    },
+    {
+      "address": "gA/0eJfRnc334gzzCMmT4wTm6pM=",
+      "voting_power": "181239"
+    },
+    {
+      "address": "e4VGcQ1XUpRIYrIE2RMbGOZRMMI=",
+      "voting_power": "179762"
+    },
+    {
+      "address": "fhHtfdBvrnsL7bRpchFR8vMcu2o=",
+      "voting_power": "178740"
+    },
+    {
+      "address": "6A0fVRmls8nSkNPqMU+gVWRTXBo=",
+      "voting_power": "178387"
+    },
+    {
+      "address": "jYy5wmdAunSiqgq/nSuvmCJkhaY=",
+      "voting_power": "177197"
+    },
+    {
+      "address": "RuUzjvGak509OwsLeKHGZfD6Geg=",
+      "voting_power": "165490"
+    },
+    {
+      "address": "X4Wz+AjihJHrIZuwNFZoyi1iBhg=",
+      "voting_power": "164427"
+    },
+    {
+      "address": "vU+A8MGme0lQdyZi9uvK1YoliTM=",
+      "voting_power": "164298"
+    },
+    {
+      "address": "2AelXH1pqE+3WfsL2Wu02lCtuic=",
+      "voting_power": "163980"
+    },
+    {
+      "address": "fVtALhivJQ76lc2UAtLYId+suHY=",
+      "voting_power": "162080"
+    },
+    {
+      "address": "DFXBjZxmibjNb3dd1+xGMx/2YuI=",
+      "voting_power": "157811"
+    },
+    {
+      "address": "DFYur4JHOayPmZyTtaAb59WKZrE=",
+      "voting_power": "154608"
+    }
+  ],
+  "total_voting_power": "752431803"
+}
