@@ -56,9 +56,9 @@ export type InputBaseProps = {
    */
   readonly disableAreaResize?: boolean
   /**
-   * If true, the user can only resize the height of the text area.
+   * If true, the input will take 100% of its parent's size.
    */
-  readonly resizeHeightOnly?: boolean
+  readonly fullWidth?: boolean
   /**
    * Whether input has a themed border.
    */
@@ -87,7 +87,7 @@ export const InputBase = ({
   multiline = false,
   numberOfLines,
   disableAreaResize = false,
-  resizeHeightOnly = false,
+  fullWidth = false,
   withBorder = false
 }: InputBaseProps): JSX.Element => {
   const containerClass = classNames(`okp4-input-base-container`, {
@@ -101,7 +101,7 @@ export const InputBase = ({
   })
   const textareaClass = classNames(inputClass, 'okp4-input-base-textarea', {
     'disable-resize': multiline && disableAreaResize,
-    'resize-height': resizeHeightOnly
+    'resize-height-only': fullWidth && multiline
   })
   const props = {
     defaultValue,

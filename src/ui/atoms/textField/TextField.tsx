@@ -16,20 +16,14 @@ export type TextFieldProps = InputBaseProps & {
    * Displays a message to the user below the input area.
    */
   readonly helperText?: string
-  /**
-   * If true, the TextField will take 100% of its parent's size.
-   */
-  readonly fullWidth?: boolean
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
   size = 'medium',
   helperText,
-  fullWidth = false,
-  multiline = false,
-  disableAreaResize = false,
   ...props
 }: TextFieldProps): JSX.Element => {
+  const { multiline, disableAreaResize, fullWidth, hasError }: InputBaseProps = props
   const containerClass = classNames(
     `okp4-text-field-main ${multiline && !disableAreaResize ? 'auto' : size}`,
     {
@@ -39,16 +33,11 @@ export const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div className={containerClass}>
-      <InputBase
-        {...props}
-        disableAreaResize={disableAreaResize}
-        multiline={multiline}
-        resizeHeightOnly={fullWidth}
-      />
+      <InputBase {...props} />
       {helperText && (
         <Typography
           as="div"
-          color={props.hasError ? 'error' : 'info'}
+          color={hasError ? 'error' : 'info'}
           fontSize="x-small"
           fontWeight="bold"
           noWrap
