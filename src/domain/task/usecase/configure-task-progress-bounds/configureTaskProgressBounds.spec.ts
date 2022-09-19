@@ -6,8 +6,11 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
-import { EventParameter, expectEventParameters } from '../../helper/test.helper'
-import { getExpectedEventParameter } from '../../helper/test.helper'
+import {
+  getExpectedEventParameter,
+  EventParameter,
+  expectEventParameters
+} from 'domain/common/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 import { ConfigureTaskProgressBounds } from 'domain/task/command/configureTaskProgressBounds'
 import { TaskProgressBoundsConfiguredPayload } from 'domain/task/event/taskProgressBoundsConfigured'

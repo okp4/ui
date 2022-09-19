@@ -6,11 +6,13 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
-import type { EventParameter } from '../../helper/test.helper'
-import { getExpectedEventParameter } from '../../helper/test.helper'
+import {
+  getExpectedEventParameter,
+  expectEventParameters,
+  EventParameter
+} from 'domain/common/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 import { TaskRemovedPayload } from 'domain/task/event/taskRemoved'
-import { expectEventParameters } from 'domain/task/helper/test.helper'
 import { AcknowledgeTask } from 'domain/task/command/acknowledgeTask'
 import { TaskAcknowledgedPayload } from 'domain/task/event/taskAcknowledged'
 import { acknowledgeTask } from './acknowledgeTask'

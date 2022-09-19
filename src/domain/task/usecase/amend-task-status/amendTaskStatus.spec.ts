@@ -7,12 +7,12 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
+import { getExpectedStateAfterAmend } from '../../helper/test.helper'
 import {
+  getExpectedEventParameter,
   EventParameter,
-  expectEventParameters,
-  getExpectedStateAfterAmend
-} from '../../helper/test.helper'
-import { getExpectedEventParameter } from '../../helper/test.helper'
+  expectEventParameters
+} from 'domain/common/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 import { AmendTaskStatus } from 'domain/task/command/amendTaskStatus'
 import { TaskStatusAmendedPayload } from 'domain/task/event/taskStatusAmended'

@@ -6,13 +6,16 @@ import { ErrorBuilder } from 'domain/error/builder/error.builder'
 import type { Task } from 'domain/task/entity/task'
 import type { AppState } from 'domain/task/store/appState'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
-import type { EventParameter } from '../../helper/test.helper'
-import { getExpectedEventParameter } from '../../helper/test.helper'
+import {
+  getExpectedEventParameter,
+  EventParameter,
+  expectEventParameters
+} from 'domain/common/test.helper'
 import { TaskStoreBuilder } from 'domain/task/store/builder/store.builder'
 import { TaskRemovedPayload } from 'domain/task/event/taskRemoved'
 import { removeTask } from './removeTask'
 import { RemoveTask } from 'domain/task/command/removeTask'
-import { getExpectedStateAfterRemove, expectEventParameters } from 'domain/task/helper/test.helper'
+import { getExpectedStateAfterRemove } from 'domain/task/helper/test.helper'
 
 type InitialProps = Readonly<{
   store: ReduxStore
