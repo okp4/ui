@@ -1,7 +1,7 @@
 import { uniqBy } from 'lodash'
 import type { ReduxStore, ThunkResult } from 'domain/file/store/store'
 import type { StoreFile, StoreFiles } from 'domain/file/command/storeFiles'
-import { StoreFileActions } from '../../events/file-stored/actionCreators'
+import { StoreFileActions } from '../../event/file-stored/actionCreators'
 import type { DeepReadonly } from 'superTypes'
 import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import { ThrowErrorActions } from 'domain/common/actionCreators'

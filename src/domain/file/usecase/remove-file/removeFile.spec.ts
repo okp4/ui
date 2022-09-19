@@ -10,7 +10,7 @@ import {
   expectEventParameters
 } from 'domain/common/test.helper'
 import { RemoveFile } from 'domain/file/command/removeFile'
-import { FileRemovedPayload } from 'domain/file/events/file-removed/fileRemoved'
+import { FileRemovedPayload } from 'domain/file/event/file-removed/fileRemoved'
 import { FileStoreBuilder } from 'domain/file/store/builder/store.builder'
 import { FileBuilder } from 'domain/file/builder/file.builder'
 import { FileEntity } from 'domain/file/entity/file'

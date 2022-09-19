@@ -10,7 +10,7 @@ import {
   getExpectedEventParameter
 } from 'domain/common/test.helper'
 import { StoreFile, StoreFiles } from 'domain/file/command/storeFiles'
-import { FileStoredPayload } from 'domain/file/events/file-stored/fileStored'
+import { FileStoredPayload } from 'domain/file/event/file-stored/fileStored'
 import { FileStoreBuilder } from 'domain/file/store/builder/store.builder'
 import { FileEntity } from 'domain/file/entity/file'
 import { FileBuilder } from 'domain/file/builder/file.builder'

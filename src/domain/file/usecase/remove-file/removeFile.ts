@@ -4,7 +4,7 @@ import { ErrorMapper } from 'domain/error/mapper/error.mapper'
 import type { RemoveFile } from 'domain/file/command/removeFile'
 import type { ReduxStore, ThunkResult } from 'domain/file/store/store'
 import type { DeepReadonly } from 'superTypes'
-import { RemoveFileActions } from '../../events/file-removed/actionCreators'
+import { RemoveFileActions } from '../../event/file-removed/actionCreators'
 
 const dispatchError = (error: unknown, dispatch: ReduxStore['dispatch']): void => {
   const errorToDispatch = ErrorMapper.mapRawErrorToEntity(error)

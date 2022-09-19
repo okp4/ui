@@ -3,10 +3,10 @@ import { combineReducers } from 'redux'
 import type { FileEntity } from 'domain/file/entity/file'
 import type { FileState } from '../appState'
 import type { DeepReadonly } from 'superTypes'
-import type { StoreFileActionTypes } from 'domain/file/events/file-stored/actionCreators'
-import type { RemoveFileActionTypes } from 'domain/file/events/file-removed/actionCreators'
-import type { FileStoredPayload } from 'domain/file/events/file-stored/fileStored'
-import type { FileRemovedPayload } from 'domain/file/events/file-removed/fileRemoved'
+import type { StoreFileActionTypes } from 'domain/file/event/file-stored/actionCreators'
+import type { RemoveFileActionTypes } from 'domain/file/event/file-removed/actionCreators'
+import type { FileStoredPayload } from 'domain/file/event/file-stored/fileStored'
+import type { FileRemovedPayload } from 'domain/file/event/file-removed/fileRemoved'
 
 const initialFileState: FileState<string> = {
   byId: OrderedMap<string, FileEntity>(),

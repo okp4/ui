@@ -1,6 +1,6 @@
 import type { FileEntity } from 'domain/file/entity/file'
 import type { ThunkResult } from 'domain/file/store/store'
-import { RemoveFileActions } from 'domain/file/events/file-removed/actionCreators'
+import { RemoveFileActions } from 'domain/file/event/file-removed/actionCreators'
 
 export const removeAllFiles =
   (): ThunkResult<Promise<void>> =>
