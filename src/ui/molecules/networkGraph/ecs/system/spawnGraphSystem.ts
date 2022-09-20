@@ -7,7 +7,16 @@ import type { Link, Node } from 'ngraph.graph'
 import { LinkComponent, MeshComponent, NodeComponent, PositionComponent } from '../schema'
 import type { SystemFactory, World, WorldTickData } from '../type'
 
-const newNodeMesh = (node: Node, scene: Scene): Mesh => {
+type MeshFactory<T> = (o: T, scene: Scene) => Mesh
+export type NodeMeshFactory = MeshFactory<Node>
+export type LinkMeshFactory = MeshFactory<Link>
+
+export type SpawnGraphSystemOptions = {
+  nodeMeshFactory: NodeMeshFactory
+  linkMeshFactory: LinkMeshFactory
+}
+
+const defaultNodeMeshFactory: NodeMeshFactory = (node: Node, scene: Scene): Mesh => {
   const material = new StandardMaterial('material#node', scene)
   material.diffuseColor = new Color3(1, 1, 0.7)
   material.alpha = 0.9
@@ -29,7 +38,7 @@ const newNodeMesh = (node: Node, scene: Scene): Mesh => {
   return mesh
 }
 
-const newLinkMesh = (link: Link, scene: Scene): Mesh => {
+const defaultLinkMeshFactory: LinkMeshFactory = (link: Link, scene: Scene): Mesh => {
   const mesh = MeshBuilder.CreateLines(
     `link:line#${link.id}`,
     {
@@ -43,36 +52,39 @@ const newLinkMesh = (link: Link, scene: Scene): Mesh => {
   return mesh
 }
 
-export const SpawnGraphSystem: SystemFactory = () => (world: World) => {
-  if (useInit()) {
-    const { graph, scene }: WorldTickData = world.latestTickData
+export const SpawnGraphSystem: SystemFactory<SpawnGraphSystemOptions> =
+  (options?: SpawnGraphSystemOptions) => (world: World) => {
+    if (useInit()) {
+      const nodeMeshFactory = options?.nodeMeshFactory ?? defaultNodeMeshFactory
+      const linkMeshFactory = options?.linkMeshFactory ?? defaultLinkMeshFactory
+      const { graph, scene }: WorldTickData = world.latestTickData
 
-    const nodes: Map<number, number> = new Map()
-    graph.forEachNode((node: Node) => {
-      const id = node.id as number
-      const mesh = newNodeMesh(node, scene)
+      const nodes: Map<number, number> = new Map()
+      graph.forEachNode((node: Node) => {
+        const id = node.id as number
+        const mesh = nodeMeshFactory(node, scene)
 
-      nodes.set(
-        id,
+        nodes.set(
+          id,
+          world.create(
+            component(NodeComponent, { id }),
+            component(PositionComponent, { x: 0, y: 0, z: 0 }),
+            toComponent(mesh, MeshComponent)
+          )
+        )
+      })
+
+      graph.forEachLink((link: Link) => {
+        const mesh = linkMeshFactory(link, scene)
+
         world.create(
-          component(NodeComponent, { id }),
-          component(PositionComponent, { x: 0, y: 0, z: 0 }),
+          component(LinkComponent, {
+            id: link.id,
+            fromEntity: nodes.get(link.fromId as number),
+            toEntity: nodes.get(link.toId as number)
+          }),
           toComponent(mesh, MeshComponent)
         )
-      )
-    })
-
-    graph.forEachLink((link: Link) => {
-      const mesh = newLinkMesh(link, scene)
-
-      world.create(
-        component(LinkComponent, {
-          id: link.id,
-          fromEntity: nodes.get(link.fromId as number),
-          toEntity: nodes.get(link.toId as number)
-        }),
-        toComponent(mesh, MeshComponent)
-      )
-    })
+      })
+    }
   }
-}
