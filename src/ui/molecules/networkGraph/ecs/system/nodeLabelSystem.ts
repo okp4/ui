@@ -18,7 +18,7 @@ export type NodeLabelSystemOptions<T = any> = {
   labelExtractor: LabelExtractor<T>
 }
 
-const defaultLabelExtractor = (node: Node<Record<string, string> | null>): string | null => {
+export const defaultLabelExtractor = (node: Node<Record<string, string> | null>): string | null => {
   return node.data?.['label'] ?? null
 }
 

@@ -16,7 +16,7 @@ export type GraphLayoutSystemOptions = Partial<{
   physicsSettings: Partial<PhysicsSettings>
 }>
 
-const defaultPhysicsSettings = {
+export const defaultPhysicsSettings = {
   dimensions: 3,
   timeStep: 0.9,
   springLength: 10,
