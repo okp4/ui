@@ -16,11 +16,15 @@ export type ListItemProps = Pick<ListProps, 'layout'> & {
    */
   readonly description?: string | JSX.Element
   /**
-   * An element that can provide visual information or allow interactions on the left side.
+   * An element that can provide visual information or allow interactions.
+   * If layout is in list mode, it will be displayed on the left side.
+   * If layout is in grid mode, it will be displayed on the top right corner.
    */
   readonly firstElement?: JSX.Element
   /**
-   * An element that can provide visual information or allow interactions on the right side.
+   * An element that can provide visual information or allow interactions.
+   * If layout is in list mode, it will be displayed on the right side.
+   * If layout is in grid mode, it will be displayed at the bottom.
    */
   readonly lastElement?: JSX.Element
   /**
