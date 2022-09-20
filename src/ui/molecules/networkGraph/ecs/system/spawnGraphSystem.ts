@@ -52,6 +52,10 @@ const defaultLinkMeshFactory: LinkMeshFactory = (link: Link, scene: Scene): Mesh
   return mesh
 }
 
+/**
+ * The SpawnGraphSystem system manages the relation between the graph domain and its representation in the scene, 
+ * by applying creational functions that turns graph nodes and links into meshes.
+ */
 export const SpawnGraphSystem: SystemFactory<SpawnGraphSystemOptions> =
   (options?: SpawnGraphSystemOptions) => (world: World) => {
     if (useInit()) {
