@@ -25,6 +25,10 @@ export const defaultPhysicsSettings = {
   dragCoefficient: 0.9
 }
 
+/**
+ * The GraphLayoutSystem is resposible for managing (and maintaining) the layouting of the graph
+ * using a direct-force algorithm.
+ */
 export const GraphLayoutSystem: SystemFactory<GraphLayoutSystemOptions> =
   (options?: GraphLayoutSystemOptions) => (world: World) => {
     const layoutRef = useRef<Layout<Graph> | null>(null)

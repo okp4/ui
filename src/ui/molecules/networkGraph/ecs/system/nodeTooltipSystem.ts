@@ -33,6 +33,10 @@ const createTooltipDiv = (scene: Scene): HTMLDivElement | null => {
   return null
 }
 
+/**
+ * The NodeTooltipSystem is in charge of displaying a tooltip (in html) during the hover of an entity with the components
+ * label, mesh and node.
+ */
 // eslint-disable-next-line max-lines-per-function
 export const NodeTooltipSystem: SystemFactory = () => (world: World) => {
   const { scene }: WorldTickData = world.latestTickData

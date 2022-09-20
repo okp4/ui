@@ -4,6 +4,9 @@ import { Color3, HemisphericLight, Vector3 } from '@babylonjs/core'
 import { useInit } from '@javelin/ecs'
 import type { SystemFactory, World, WorldTickData } from '../type'
 
+/**
+ * The InstallLightSystem just installs some lights in the scene on initialization.
+ */
 export const InstallLightSystem: SystemFactory = () => (world: World) => {
   if (useInit()) {
     const { scene }: WorldTickData = world.latestTickData

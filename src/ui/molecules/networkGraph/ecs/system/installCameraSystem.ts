@@ -20,6 +20,9 @@ export const defaultArcRorateCamera = {
   target: Vector3.Zero()
 }
 
+/**
+ * The InstallCameraSystem just installs the camera in the scene on initialization.
+ */
 export const InstallCameraSystem: SystemFactory<InstallCameraSystemOptions> =
   (options?: InstallCameraSystemOptions) => (world: World) => {
     if (useInit()) {

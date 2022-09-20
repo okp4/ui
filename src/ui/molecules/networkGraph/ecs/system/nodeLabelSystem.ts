@@ -22,6 +22,10 @@ export const defaultLabelExtractor = (node: Node<Record<string, string> | null>)
   return node.data?.['label'] ?? null
 }
 
+/**
+ * The NodelabelSystem is responsible for extracting the labels of the nodes of the graph (using an extraction 
+ * function provided in parameter) and associating a component to the corresponding node entity.
+ */
 // eslint-disable-next-line max-lines-per-function
 export const NodeLabelSystem: SystemFactory<NodeLabelSystemOptions> =
   (options?: NodeLabelSystemOptions) => (world: World) => {
