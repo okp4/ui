@@ -1,4 +1,4 @@
-import type { List } from 'immutable'
+import type { List as ImmutableList } from 'immutable'
 import React from 'react'
 import type { ReactReduxContextValue } from 'react-redux'
 import { Provider } from 'react-redux'
@@ -13,7 +13,7 @@ export type StoreContext = React.Context<ReactReduxContextValue<any>>
 export type StoreParameter = [StoreContext, Store<any>]
 
 export type StoreProviderProps = DeepReadonly<{
-  storeParameters: List<StoreParameter>
+  storeParameters: ImmutableList<StoreParameter>
   children: React.ReactElement
 }>
 

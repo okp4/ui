@@ -6,7 +6,7 @@ import { WalletStoreBuilder } from './store.builder'
 import type { WalletStoreParameters } from './store.builder'
 import type { AppState } from '../appState'
 import { Dependencies } from '../store'
-import { List, Map } from 'immutable'
+import { List as ImmutableList, Map } from 'immutable'
 import { Account, Accounts, ChainId, ConnectionStatus } from 'domain/wallet/entities/wallet'
 
 type Data = Readonly<
@@ -26,7 +26,9 @@ const state: AppState = {
   connectionStatuses: Map<ChainId, ConnectionStatus>().set('#chain1', 'connected'),
   accounts: Map<ChainId, Accounts>().set(
     '#chain1',
-    List<Account>([{ address: '12345', algorithm: 'ed25519', publicKey: new Uint8Array(2) }])
+    ImmutableList<Account>([
+      { address: '12345', algorithm: 'ed25519', publicKey: new Uint8Array(2) }
+    ])
   )
 }
 

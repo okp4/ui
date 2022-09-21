@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable'
+import { Map, List as ImmutableList } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { ReduxStore } from '../../store/store'
 import type { AppState } from '../../store/appState'
@@ -145,13 +145,13 @@ describe('Enable wallet', () => {
     const { inMemoryGateway1, store, initialState }: InitialProps = init()
     inMemoryGateway1.setAvailable(true)
     inMemoryGateway1.setConnected(true)
-    inMemoryGateway1.setAccounts(chainId1, List([account1]))
+    inMemoryGateway1.setAccounts(chainId1, ImmutableList([account1]))
     await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
     const statuses: ConnectionStatuses = Map({
       [chainId1]: 'connected'
     })
     const accountsByChainId: AccountsByChainId = Map({
-      [chainId1]: List([account1])
+      [chainId1]: ImmutableList([account1])
     })
     expectEnabledWallet(store, initialState)(statuses, accountsByChainId)
   })
@@ -160,13 +160,13 @@ describe('Enable wallet', () => {
     const { inMemoryGateway1, store, initialState }: InitialProps = init()
     inMemoryGateway1.setAvailable(true)
     inMemoryGateway1.setConnected(true)
-    inMemoryGateway1.setAccounts(chainId1, List([account1, account2]))
+    inMemoryGateway1.setAccounts(chainId1, ImmutableList([account1, account2]))
     await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
     const statuses: ConnectionStatuses = Map({
       [chainId1]: 'connected'
     })
     const accountsByChainId: AccountsByChainId = Map({
-      [chainId1]: List([account1, account2])
+      [chainId1]: ImmutableList([account1, account2])
     })
     expectEnabledWallet(store, initialState)(statuses, accountsByChainId)
   })
@@ -175,8 +175,8 @@ describe('Enable wallet', () => {
     const { inMemoryGateway1, store, initialState }: InitialProps = init()
     inMemoryGateway1.setAvailable(true)
     inMemoryGateway1.setConnected(true)
-    inMemoryGateway1.setAccounts(chainId1, List([account1, account2]))
-    inMemoryGateway1.setAccounts(chainId2, List([account3]))
+    inMemoryGateway1.setAccounts(chainId1, ImmutableList([account1, account2]))
+    inMemoryGateway1.setAccounts(chainId2, ImmutableList([account3]))
     await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
     await dispatchEnableWallet(inMemoryGateway1, chainId2, store)
     const statuses: ConnectionStatuses = Map({
@@ -184,8 +184,8 @@ describe('Enable wallet', () => {
       [chainId2]: 'connected'
     })
     const accountsByChainId: AccountsByChainId = Map({
-      [chainId1]: List([account1, account2]),
-      [chainId2]: List([account3])
+      [chainId1]: ImmutableList([account1, account2]),
+      [chainId2]: ImmutableList([account3])
     })
     expectEnabledWallet(store, initialState)(statuses, accountsByChainId)
   })
@@ -194,13 +194,13 @@ describe('Enable wallet', () => {
     const { inMemoryGateway1, store }: InitialProps = init()
     inMemoryGateway1.setAvailable(true)
     inMemoryGateway1.setConnected(true)
-    inMemoryGateway1.setAccounts(chainId1, List([account1]))
+    inMemoryGateway1.setAccounts(chainId1, ImmutableList([account1]))
     await dispatchEnableWallet(inMemoryGateway1, chainId1, store)
     expect(mockedEventBusPublish).toHaveBeenCalledTimes(2)
     expect(mockedEventBusPublish).toHaveBeenCalledWith(
       {
         type: 'wallet/accountsRetrieved',
-        payload: { chainId: chainId1, accounts: List([account1]) }
+        payload: { chainId: chainId1, accounts: ImmutableList([account1]) }
       },
       expect.objectContaining({ initiator: 'domain:wallet' })
     )

@@ -8,7 +8,7 @@ import './i18n/index'
 import { useTranslation } from 'hook/useTranslation'
 import type { UseTranslationResponse } from 'hook/useTranslation'
 import { Typography } from 'ui/atoms/typography/Typography'
-import { List } from 'immutable'
+import { List as ImmutableList } from 'immutable'
 import type { Breakpoints } from 'hook/useBreakpoint'
 import { useBreakpoint } from 'hook/useBreakpoint'
 import { Icon } from 'ui/atoms/icon/Icon'
@@ -18,8 +18,8 @@ export type StepStatus = 'disabled' | 'invalid' | 'completed' | 'active' | 'unco
 export type StepIndex = number
 
 type StepperState = {
-  enabledSteps: List<StepIndex>
-  stepsStatuses: List<StepStatus>
+  enabledSteps: ImmutableList<StepIndex>
+  stepsStatuses: ImmutableList<StepStatus>
   activeStepIndex: StepIndex
 }
 
@@ -28,7 +28,7 @@ type StepperAction =
   | { type: 'stepCompleted' }
   | { type: 'stepFailed' }
   | { type: 'stepperSubmitted' }
-  | { type: 'stepperReseted'; payload: List<Step> }
+  | { type: 'stepperReseted'; payload: ImmutableList<Step> }
 
 export type Step = {
   /**
@@ -87,15 +87,15 @@ export type StepperProps = {
  * @param steps the steps of the stepper.
  * @returns the initial state of the stepper.
  */
-const initState = (steps: DeepReadonly<List<Step>>): StepperState => {
+const initState = (steps: DeepReadonly<ImmutableList<Step>>): StepperState => {
   const firstActiveIndex = steps.findIndex((step: DeepReadonly<Step>) => step.status === 'active')
   const initialActiveStep = firstActiveIndex > -1 ? firstActiveIndex : 0
   return {
     enabledSteps: steps.reduce(
-      (acc: DeepReadonly<List<StepIndex>>, curr: DeepReadonly<Step>, index: number) => {
-        return curr.status !== 'disabled' ? List([...acc, index]) : acc
+      (acc: DeepReadonly<ImmutableList<StepIndex>>, curr: DeepReadonly<Step>, index: number) => {
+        return curr.status !== 'disabled' ? ImmutableList([...acc, index]) : acc
       },
-      List()
+      ImmutableList()
     ),
     stepsStatuses: steps.map((step: DeepReadonly<Step>, index: number) =>
       index === initialActiveStep ? 'active' : step.status ?? 'uncompleted'
@@ -179,8 +179,8 @@ export const Stepper: React.FC<StepperProps> = ({
 
   const [state, dispatch]: UseReducer<StepperState, StepperAction> = useReducer<
     Reducer<StepperState, StepperAction>,
-    DeepReadonly<List<Step>>
-  >(stepperReducer, List(steps), initState)
+    DeepReadonly<ImmutableList<Step>>
+  >(stepperReducer, ImmutableList(steps), initState)
 
   const handlePreviousClick = useCallback((): void => {
     dispatch({ type: 'previousClicked' })
@@ -210,7 +210,7 @@ export const Stepper: React.FC<StepperProps> = ({
 
   const handleReset = useCallback((): void => {
     onReset?.()
-    dispatch({ type: 'stepperReseted', payload: List(steps) })
+    dispatch({ type: 'stepperReseted', payload: ImmutableList(steps) })
   }, [onReset, steps])
 
   const isPreviousDisabled = useMemo(

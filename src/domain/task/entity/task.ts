@@ -1,4 +1,4 @@
-import type { List } from 'immutable'
+import type { List as ImmutableList } from 'immutable'
 import type { Entity } from 'domain/common/type'
 
 export type TaskStatus = 'processing' | 'success' | 'error'
@@ -20,4 +20,4 @@ export type Task<T = string, I = string> = Entity<
   I
 >
 
-export type Tasks<T = string, I = string> = List<Task<T, I>>
+export type Tasks<T = string, I = string> = ImmutableList<Task<T, I>>

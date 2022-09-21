@@ -1,4 +1,4 @@
-import { List } from 'immutable'
+import { List as ImmutableList } from 'immutable'
 import { EventBus } from 'ts-bus'
 import type { BusEvent } from 'ts-bus/types'
 import type { ReduxStore } from 'domain/faucet/store/store'
@@ -20,7 +20,7 @@ type Data = DeepReadonly<{
 
 const address = 'okp4196877dj4crpxmja2ww2hj2vgy45v6uspkzkt8l'
 const chainId = 'chain#1'
-const accounts = List([
+const accounts = ImmutableList([
   new AccountBuilder().withAddress(address).withPublicKey(new Uint8Array(2)).build()
 ])
 const meta: EventMetadata = { initiator: 'domain:test', timestamp: new Date() }

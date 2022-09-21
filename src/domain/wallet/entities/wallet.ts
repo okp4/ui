@@ -1,4 +1,4 @@
-import type { Map, List } from 'immutable'
+import type { Map, List as ImmutableList } from 'immutable'
 
 export type ChainId = string
 export type ConnectionStatus = 'connected' | 'not connected'
@@ -10,5 +10,5 @@ export type Account = {
   readonly algorithm: Algorithm
   readonly publicKey: Uint8Array
 }
-export type Accounts = List<Account>
+export type Accounts = ImmutableList<Account>
 export type AccountsByChainId = Map<ChainId, Accounts>

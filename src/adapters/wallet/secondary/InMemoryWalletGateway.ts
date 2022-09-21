@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable'
+import { Map, List as ImmutableList } from 'immutable'
 import { ConnectionError } from 'domain/wallet/entities/errors'
 import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
@@ -20,7 +20,7 @@ export class InMemoryWalletGateway implements Wallet {
     if (!this.isConnected()) {
       throw new ConnectionError()
     }
-    const accounts = this._accounts.get(chainId) ?? List()
+    const accounts = this._accounts.get(chainId) ?? ImmutableList()
     return Promise.resolve(accounts)
   }
 

@@ -7,7 +7,7 @@ import type { Wallet, WalletId } from 'domain/wallet/ports/walletPort'
 import type { Accounts, ChainId } from 'domain/wallet/entities/wallet'
 import { KeplrAccountMapper } from './mapper/account.mapper'
 import type { Keplr } from '@keplr-wallet/types'
-import { List } from 'immutable'
+import { List as ImmutableList } from 'immutable'
 import type { DeepReadonly } from 'superTypes'
 import { asMutable } from 'utils'
 
@@ -123,7 +123,7 @@ export class KeplrWalletGateway implements Wallet {
     if (this.isConnected()) {
       const offlineSigner = (window.keplr as Keplr).getOfflineSigner(chainId)
       const accounts = await offlineSigner.getAccounts()
-      return List(accounts.map(KeplrAccountMapper.mapAccount))
+      return ImmutableList(accounts.map(KeplrAccountMapper.mapAccount))
     }
     throw new ConnectionError(
       "Oops ... Account can't be retrieved because extension is not connected..."
