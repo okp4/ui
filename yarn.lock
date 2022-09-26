@@ -1616,11 +1616,9 @@
     to-fast-properties "^2.0.0"
 
 "@babylonjs/core@^5.5.5":
-  version "5.21.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.21.0.tgz#6aa38a0b792bce98e7389251791ae7108806cd75"
-  integrity sha512-kJrjFEMMzOPlSShbh8i3c6S48+LsUFDkiQNGc6rRP92kmFBxlsL7MC3tfdAiRPpXIr4rf0agYXFf9+P29brqTA==
-  dependencies:
-    tslib "^2.4.0"
+  version "5.25.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.25.0.tgz#aece076add1ef85c28cf449dfca6caa80743c5c9"
+  integrity sha512-pjUCrT5OPuJ0UU3bPtzovkRK+Xxl9bd1pIPG7aulqsC2Ci/hxiDNL2SwQnX9J/lcV5x6LTDyMUJ0IXSW8W+2sw==
 
 "@babylonjs/inspector@^5.8.0":
   version "5.19.0"
