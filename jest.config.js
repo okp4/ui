@@ -4,9 +4,10 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleDirectories: ['node_modules'],
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/adapters/faucet/secondary/graphql/documents/',
+    '<rootDir>/src/adapters/faucet/secondary/graphql/',
     'index.ts',
-    'test.helper.ts'
+    'test.helper.ts',
+    'InMemory'
   ],
   globals: {
     window: {}
