@@ -7,7 +7,7 @@ import type { TypedBusEvent } from 'eventBus/eventBus'
 import type { RegisterTaskActions } from 'domain/task/usecase/register-task/actionCreators'
 import type { AmendTaskStatusActions } from 'domain/task/usecase/amend-task-status/actionCreators'
 import type { SetTaskProgressValueActions } from 'domain/task/usecase/set-task-progress-value/actionCreators'
-import { setTaskProgressValue } from 'domain/task'
+import { setTaskProgressValue } from 'domain/task/usecase/set-task-progress-value/setTaskProgressValue'
 
 export const initTaskEventListeners = (
   store: DeepReadonly<ReduxStore>,
