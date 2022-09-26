@@ -8,8 +8,14 @@ import type { AppState } from './appState'
 import rootReducer from './reducer/file.reducer'
 import { eventBusMiddleware } from 'domain/common/store.helper'
 import type { DeepReadonly } from 'superTypes'
+import type { FileRegistryPort } from '../port/filePort'
+
+export interface Dependencies {
+  readonly fileRegistryGateway: FileRegistryPort
+}
 
 export const configureStore = (
+  dependencies: Partial<Dependencies>,
   eventBus: DeepReadonly<EventBus>,
   preloadedState?: DeepReadonly<AppState>
 ): Store<AppState> =>
@@ -18,13 +24,13 @@ export const configureStore = (
     preloadedState,
     composeWithDevTools(
       applyMiddleware(
-        thunk as ThunkMiddleware<AppState, Action>,
+        thunk.withExtraArgument(dependencies) as ThunkMiddleware<AppState, Action, Dependencies>,
         eventBusMiddleware(eventBus, 'domain:file')
       )
     )
   )
 
 export type ReduxStore = Store<AppState> & {
-  readonly dispatch: ThunkDispatch<AppState, undefined, Action>
+  readonly dispatch: ThunkDispatch<AppState, Dependencies, Action>
 }
-export type ThunkResult<R> = ThunkAction<R, AppState, undefined, Action>
+export type ThunkResult<R> = ThunkAction<R, AppState, Dependencies, Action>
