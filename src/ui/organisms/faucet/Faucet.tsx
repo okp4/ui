@@ -14,7 +14,7 @@ import { useWalletDispatch } from 'hook/storeHook/walletHook'
 import { useTranslation } from 'hook/useTranslation'
 import type { UseTranslationResponse } from 'hook/useTranslation'
 import { hasUnseenError, unseenErrorMessage } from 'domain/error/store/selector/error.selector'
-import { getDisplayedTaskIdByTypeAndStatus } from 'domain/task/store/selector/task.selector'
+import { getDisplayedTaskIdsByTypeAndStatus } from 'domain/task/store/selector/task.selector'
 import { Button } from 'ui/atoms/button/Button'
 import { TextField } from 'ui/atoms/textField/TextField'
 import { Toast } from 'ui/atoms/toast/Toast'
@@ -42,11 +42,13 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   const address = useFaucetSelector((state: DeepReadonly<FaucetAppState>) => state.address)
   const hasTransactionError = useErrorSelector(hasUnseenError)
   const errorMessage = useErrorSelector(unseenErrorMessage)
-  const transactionSuccessId = useTaskSelector((state: DeepReadonly<TaskAppState>) =>
-    getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'success')
+  const transactionSuccessId = useTaskSelector(
+    (state: DeepReadonly<TaskAppState>) =>
+      getDisplayedTaskIdsByTypeAndStatus(state, faucetTaskType, 'success')[0]
   )
-  const transactionLoading = useTaskSelector((state: DeepReadonly<TaskAppState>) =>
-    getDisplayedTaskIdByTypeAndStatus(state, faucetTaskType, 'processing')
+  const transactionLoading = useTaskSelector(
+    (state: DeepReadonly<TaskAppState>) =>
+      getDisplayedTaskIdsByTypeAndStatus(state, faucetTaskType, 'processing')[0]
   )
 
   const acknowledgeFaucetError = useCallback(() => {

@@ -27,12 +27,11 @@ export const getTaskIdsByType: (
   (tasks: DeepReadonly<TaskByType>, type: string) => tasks.get(type)
 )
 
-// Get only first displayed Id by a specified type and status
-export const getDisplayedTaskIdByTypeAndStatus: (
+export const getDisplayedTaskIdsByTypeAndStatus: (
   state: DeepReadonly<AppState>,
   type: string,
   status: Status
-) => string | undefined = createSelector(
+) => string[] = createSelector(
   [
     rootSelector,
     (state: DeepReadonly<AppState>, type: string): OrderedSet<string> | undefined =>
@@ -43,9 +42,10 @@ export const getDisplayedTaskIdByTypeAndStatus: (
     state: DeepReadonly<AppState>,
     taskIdsByType: DeepReadonly<OrderedSet<string> | undefined>,
     status: Status
-  ): string | undefined =>
-    state.displayedTaskIds.find(
-      (id: string) =>
-        (taskIdsByType?.includes(id) && getTaskStatusById(state, id) === status) ?? false
-    )
+  ): string[] =>
+    state.displayedTaskIds
+      .toArray()
+      .filter(
+        (id: string) => taskIdsByType?.includes(id) && getTaskStatusById(state, id) === status
+      )
 )
