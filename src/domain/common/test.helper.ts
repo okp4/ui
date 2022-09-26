@@ -29,3 +29,17 @@ export const expectEventParameters = <T>(
     })
   }
 }
+
+/**
+ * This is a hack to force error's payload context to be cleaned up in the publish first parameter when called with error event.
+ * WHY? --> it's not possible to mock only the stack property of the error because the mock applies to the entire Error class
+ */
+export const cleanErrorStack = (mockedEventBusPublish: jest.SpyInstance): void => {
+  const foundErrorEvent = mockedEventBusPublish.mock.calls
+    .flat()
+    // eslint-disable-next-line @typescript-eslint/typedef
+    .find(elt => elt.type === 'error/errorThrown')
+  if (foundErrorEvent?.payload?.context) {
+    foundErrorEvent.payload.context = {}
+  }
+}
