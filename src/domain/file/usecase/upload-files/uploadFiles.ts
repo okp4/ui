@@ -91,14 +91,14 @@ const processUpload = async (
     dispatch(RegisterTaskActions.taskRegisterReceived(taskToRegister))
     promises.push(executeGatewayUpload(file, target, fileGateway, taskToRegister.id, dispatch))
   })
-
   return Promise.all(promises)
 }
 
 /**
  * Upload files to any server.
  * @param uploadFilesPayload An object containing the id of the file gateway to use,
- * the target represented by either a root folder / bucket / etc. in which the file must be uploaded on server,
+ * the target represented by either a root folder / bucket / etc. in which the file must be uploaded
+ * on server (e.g 'MyBucketName' or '/rootFolderPath/'),
  * and optionally an array of file ids to be uploaded.
  * @return A Redux async ThunkResult.
  */
