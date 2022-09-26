@@ -20,7 +20,6 @@ import { AppState } from 'domain/file/store/appState'
 import { OrderedMap, OrderedSet } from 'immutable'
 import { FileEntity } from 'domain/file/entity/file'
 import { FileBuilder } from 'domain/file/builder/file.builder'
-import { UnspecifiedError, UploadError } from 'domain/file/entity/error'
 import { Error } from 'domain/error/entity/error'
 
 interface InitialProps {
@@ -45,7 +44,6 @@ interface Data {
 
 const eventBus = new EventBus()
 const mockedEventBusPublish = jest.spyOn(eventBus, 'publish')
-// jest.mock('../../entity/error')
 
 const init = (preloadedState: AppState): InitialProps => {
   const fileRegistryGateway = new FileRegistryGateway()
@@ -226,7 +224,7 @@ describe('Upload files', () => {
     ${false}       | ${false}            | ${false}                 | ${filesToUpload3} | ${state3}      | ${state1}     | ${expectedEventParameters1}
     ${false}       | ${false}            | ${false}                 | ${filesToUpload4} | ${state3}      | ${state1}     | ${expectedEventParameters1}
   `(
-    'Given that ',
+    'Given that there are file(s) to upload',
     ({
       hasUploadError,
       hasUnspecifiedError,
@@ -244,7 +242,9 @@ describe('Upload files', () => {
         afterAll(() => {
           jest.clearAllMocks()
         })
-        test('Then, ', async () => {
+        test(`Then, expect state to be ${JSON.stringify(
+          expectedState
+        )} and eventParameters to be ${JSON.stringify(expectedEventParameters)}`, async () => {
           await store.dispatch(uploadFiles(filesToUpload))
           expect(store.getState()).toStrictEqual(expectedState)
           cleanErrorStack(mockedEventBusPublish)
