@@ -8,7 +8,7 @@ i18n
   .init({
     debug: true,
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      order: ['navigator', 'localStorage', 'htmlTag'],
       lookupLocalStorage: 'i18nextLng',
       caches: ['localStorage'],
       htmlTag: document.documentElement
