@@ -1,10 +1,15 @@
 import { StepperState } from 'hook/useStepper'
 import { OrderedMap, List as ImmutableList } from 'immutable'
 import { StepId, StepStatus } from 'ui/index'
-import { Step, StepIndex } from './Stepper'
-import { getCurrent, getStepIndex, initStatus, updateStepStatus } from './stepperHelper'
+import { Step, StepIndex } from '../Stepper'
+import {
+  getCurrentStepIndex,
+  getStepIndex,
+  getStatusFromSteps,
+  getStepsWithUpdatedStatus
+} from './stepper.selector'
 
-describe('Considering the initStatus function', () => {
+describe('Considering the getStatusFromSteps function', () => {
   const steps: Step[] = [
     {
       id: 'step1',
@@ -51,7 +56,7 @@ describe('Considering the initStatus function', () => {
       expectedResult: OrderedMap<StepId, StepStatus>
     }) => {
       describe('When calling function', () => {
-        const result = initStatus(steps)
+        const result = getStatusFromSteps(steps)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
@@ -61,7 +66,7 @@ describe('Considering the initStatus function', () => {
   )
 })
 
-describe('Considering the updateStepStatus function', () => {
+describe('Considering the getStepsWithUpdatedStatus function', () => {
   const steps: Step[] = [
     {
       id: 'step1',
@@ -96,9 +101,7 @@ describe('Considering the updateStepStatus function', () => {
       .set('step4', 'uncompleted')
       .set('step5', 'disabled')
       .set('step6', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6']),
-    isAnyPreviousStepEnabled: true,
-    isAnyNextStepEnabled: true
+    enabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6'])
   }
 
   const updatedSteps: Step[] = [
@@ -143,7 +146,7 @@ describe('Considering the updateStepStatus function', () => {
       expectedResult: Step[]
     }) => {
       describe('When calling function', () => {
-        const result = updateStepStatus(steps, state)
+        const result = getStepsWithUpdatedStatus(steps, state)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
@@ -201,7 +204,7 @@ describe('Considering the getStepIndex function', () => {
   )
 })
 
-describe('Considering the getCurrent function', () => {
+describe('Considering the getCurrentStepIndex function', () => {
   const steps: Step[] = [
     {
       id: 'step1',
@@ -236,9 +239,7 @@ describe('Considering the getCurrent function', () => {
       .set('step4', 'uncompleted')
       .set('step5', 'disabled')
       .set('step6', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6']),
-    isAnyPreviousStepEnabled: true,
-    isAnyNextStepEnabled: true
+    enabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6'])
   }
 
   const state2: StepperState = {
@@ -268,7 +269,7 @@ describe('Considering the getCurrent function', () => {
       expectedResult: StepIndex
     }) => {
       describe('When calling function', () => {
-        const result = getCurrent(steps, state)
+        const result = getCurrentStepIndex(steps, state)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)
