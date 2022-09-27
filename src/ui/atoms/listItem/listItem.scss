@@ -1,4 +1,5 @@
 @import '../../styles/themes.scss';
+@import '../../styles/animations.scss';
 
 .okp4-listitem-main {
   @include with-theme {
@@ -76,16 +77,6 @@
         padding: 0 20px 20px;
         align-self: end;
         height: fit-content;
-      }
-    }
-
-    @keyframes hover-animation {
-      from {
-        transform: translateY(0);
-      }
-
-      to {
-        transform: translateY(-3px);
       }
     }
   }
