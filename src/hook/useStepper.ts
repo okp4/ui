@@ -18,14 +18,6 @@ export type StepperState = {
    * The list of the not disabled steps.
    */
   enabledSteps: ImmutableList<StepId>
-  /**
-   * Defines if there is a previous step not disabled.
-   */
-  isAnyPreviousStepEnabled: boolean
-  /**
-   * Defines if there is a next step not disabled.
-   */
-  isAnyNextStepEnabled: boolean
 }
 
 export type StepperAction =
@@ -48,9 +40,7 @@ const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState
   return {
     currentStep,
     stepStatus: initializerArgs.initialStatus,
-    enabledSteps,
-    isAnyPreviousStepEnabled: currentStep !== enabledSteps.first(),
-    isAnyNextStepEnabled: currentStep !== enabledSteps.last()
+    enabledSteps
   }
 }
 
@@ -69,9 +59,7 @@ export const stepperReducer = (
         stepStatus: state.stepStatus.set(
           state.currentStep,
           state.stepStatus.get(state.currentStep) !== 'invalid' ? 'uncompleted' : 'invalid'
-        ),
-        isAnyPreviousStepEnabled: previousStep !== state.enabledSteps.first(),
-        isAnyNextStepEnabled: previousStep !== state.enabledSteps.last()
+        )
       }
     }
     case 'stepCompleted': {
@@ -81,9 +69,7 @@ export const stepperReducer = (
       return {
         ...state,
         currentStep: nextStep,
-        stepStatus: state.stepStatus.set(state.currentStep, 'completed'),
-        isAnyPreviousStepEnabled: nextStep !== state.enabledSteps.first(),
-        isAnyNextStepEnabled: nextStep !== state.enabledSteps.last()
+        stepStatus: state.stepStatus.set(state.currentStep, 'completed')
       }
     }
     case 'stepFailed':
@@ -122,8 +108,8 @@ export type UseStepper = {
  * @returns The state of the Stepper and the associated dispatch callback function.
  */
 export const useStepper = (
-  currentStep: string,
-  status: Readonly<OrderedMap<string, StepStatus>>
+  currentStep: StepId,
+  status: Readonly<OrderedMap<StepId, StepStatus>>
 ): UseStepper => {
   const [state, dispatch]: UseReducer<StepperState, StepperAction> = useReducer<
     Reducer<StepperState, StepperAction>,
