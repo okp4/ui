@@ -86,14 +86,6 @@ export type StepperProps = {
    */
   readonly resetButtonLabel?: string
   /**
-   * Defines if the submission succeed and allows to display the `successContent`.
-   */
-  readonly isSubmitSucceed?: boolean
-  /**
-   * The content displayed after submission succeed.
-   */
-  readonly successContent?: JSX.Element
-  /**
    * Callback method called when previous button is clicked.
    */
   readonly onPrevious?: () => void
@@ -121,8 +113,6 @@ export const Stepper: React.FC<StepperProps> = ({
   isResetDisabled,
   submitButtonLabel,
   resetButtonLabel,
-  successContent,
-  isSubmitSucceed,
   onPrevious,
   onNext,
   onSubmit,
@@ -243,9 +233,7 @@ export const Stepper: React.FC<StepperProps> = ({
           error: currentStep.status === 'invalid'
         })}
       >
-        <div className="okp4-stepper-step-content">
-          {isSubmitSucceed ? successContent : currentStep.content}
-        </div>
+        <div className="okp4-stepper-step-content">{currentStep.content}</div>
         <Buttons />
       </div>
     </div>
