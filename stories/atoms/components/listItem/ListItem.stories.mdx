@@ -9,6 +9,7 @@ import { Icon } from 'ui/atoms/icon/Icon'
 import { Button } from 'ui/atoms/button/Button'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { useState } from 'react'
+import { useTheme } from 'hook/useTheme'
 
 <Meta
   title="Atoms/ListItem"
@@ -28,14 +29,7 @@ import { useState } from 'react'
           <ThemeSwitcher />
         </div>
         <div className="component-story-main">
-          <div
-            style={{
-              display: 'grid',
-              gap: '25px'
-            }}
-          >
-            <Story />
-          </div>
+          <Story />
         </div>
       </ThemeProvider>
     )
@@ -78,28 +72,37 @@ The `ListItem` allows to display an element of a [List](/docs/atoms-list--overvi
       table: {
         type: { summary: 'Node' }
       }
-    },
-    layout: {
-      description: 'The layout props from the List component.'
-    },
-    onClick: {
-      control: 'boolean'
     }
   }}
   args={{
     title: 'Item',
     description: 'Description',
     layout: 'list',
-    onClick: false
+    onClick: null
   }}
 >
-  {args => (
-    <ListItem
-      {...args}
-      firstElement={<Icon name="wallet" invertColor />}
-      lastElement={<Icon name="close" invertColor />}
-    />
-  )}
+  {args => {
+    const style = args.layout === 'list' ? null : { margin: 'auto' }
+    return (
+      <div style={style}>
+        <List layout={args.layout}>
+          <ListItem
+            {...args}
+            firstElement={
+              <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                <Icon name="wallet" invertColor />
+              </div>
+            }
+            lastElement={
+              <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                <Icon name="close" invertColor />
+              </div>
+            }
+          />
+        </List>
+      </div>
+    )
+  }}
 </Story>
 
 ## Properties
@@ -109,14 +112,28 @@ The `ListItem` allows to display an element of a [List](/docs/atoms-list--overvi
 ### Title
 
 The property `title` allows you to display a text which is the main title of the item.
+It can be either a simple string or a node element.
 
 <Canvas>
-  <Story name="Title">{() => <ListItem title="The title of the item." />}</Story>
+  <Story name="Title">
+    {() => (
+      <List>
+        <ListItem title="The title as a string" />
+        <ListItem
+          title={
+            <Typography color="inverted-text" fontWeight="bold">
+              The title as a node element
+            </Typography>
+          }
+        />
+      </List>
+    )}
+  </Story>
 </Canvas>
 
 ### Description
 
-The `description` property allows you to provide additional information. It can be either a `string` or a `JSX.Element`.
+The `description` property allows you to provide additional information. Like with `title` it can be a string or a node element.
 
 <Canvas>
   <Story name="Description">
@@ -140,188 +157,194 @@ The `description` property allows you to provide additional information. It can 
   </Story>
 </Canvas>
 
-## Grid layout
+## Layout
 
-If used within a List component the style of the listItem can be changed to a grid style.
-Be aware that if the selected `layout` of the List is **grid**, the style of the listItem will be different than the default **list** style.
+The `layout` of the listItem can be changed by passing either **list** (default) or **grid** as value.
+This rearranges how the listItem positions its content.
+
+ListItem is responsive and will adapt according to your contents size. The `title` and `description` properties carry more importance
+and are therefore given more space. Depending on your content you might need to do some additional styling to get your desired effect.
 
 <Canvas>
-  <Story name="Grid layout">
-    <List layout="grid">
-      <ListItem
-        title="Title"
-        description="Description"
-        firstElement={
-          <Typography color="inverted-text" fontSize="small">
-            First element
-          </Typography>
-        }
-        lastElement={
-          <Typography color="inverted-text" fontSize="small">
-            Last element
-          </Typography>
-        }
-      />
-      <ListItem
-        title="What is ØKP4?"
-        description="OKP4 is a blockchain built for distributed applications.
-OKP4 is the only public layer-1 blockchain designed for coordination of distributed 
-components such as datasets, algorithms, software, storage or computation.
- Developers can find development kits, governance templates and easy-to-integrate
- applications to design their own applications and data sharing ecosystems.
-  Participants can provide any off-chain component they want to make it 
-  findable, available and interoperable with other components of the ecosystem."
-        lastElement={
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'right',
-              alignItems: 'center',
-              gap: '10px',
-              marginTop: '10px'
-            }}
-          >
-            <Typography color="inverted-text" fontSize="small" fontWeight="bold">
-              <a
-                style={{ color: 'inherit' }}
-                href="https://docs.okp4.network/docs/whitepaper/what-is-okp4-global-overview"
-                target="_blank"
-              >
-                Read more
-              </a>
+  <Story name="Layout">
+    {() => {
+      const items = {
+        okp4: {
+          title: (
+            <Typography color="inverted-text" fontWeight="bold">
+              ØKP4
             </Typography>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Typography as="div" color="inverted-text" fontSize="x-small">
-                8 min
+          ),
+          description: (
+            <div style={{ display: 'grid', gap: '10px' }}>
+              <Typography color="inverted-text">Dataset</Typography>
+              <Typography color="inverted-text" fontSize="small">
+                Data Spaces, Open source, Web3 design system
               </Typography>
-              <Icon name="clock" size={20} invertColor />
             </div>
-          </div>
-        }
-      />
-      <ListItem
-        title={
-          <Typography color="inverted-text" fontWeight="bold">
-            ØKP4
-          </Typography>
-        }
-        description={
-          <div style={{ display: 'grid', gap: '10px' }}>
-            <Typography color="inverted-text">Dataset</Typography>
-            <Typography color="inverted-text" fontSize="small">
-              Data Spaces, Open source, Web3 design system
+          ),
+          firstElement: (
+            <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
+              PUBLIC
             </Typography>
-          </div>
+          ),
+          lastElement: (
+            <Typography as="div" color="inverted-text" fontSize="x-small" fontWeight="x-light">
+              By ØKP4 - The data sharing protocol
+            </Typography>
+          )
+        },
+        coloredSquares: {
+          title: (
+            <div style={{ borderRadius: '5px', backgroundColor: '#99ff99', height: '30px' }}></div>
+          ),
+          description: (
+            <div style={{ borderRadius: '5px', backgroundColor: '#9999ff', height: '140px' }}></div>
+          ),
+          firstElement: (
+            <div
+              style={{
+                backgroundColor: '#ffff99',
+                borderRadius: '5px',
+                height: '100%',
+                width: '100%'
+              }}
+            >
+              <div style={{ height: '18px', width: '61px' }}></div>
+            </div>
+          ),
+          lastElement: (
+            <div
+              style={{
+                backgroundColor: '#ff9999',
+                borderRadius: '5px',
+                height: '100%'
+              }}
+            >
+              <div
+                style={{
+                  width: '192px',
+                  height: '14px'
+                }}
+              ></div>
+            </div>
+          )
         }
-        firstElement={
-          <Typography
-            as="div"
-            color="inverted-text"
-            fontSize="small"
-            fontWeight="bold"
-            noWrap
-            style={{ textAlign: 'right' }}
-          >
-            PUBLIC
-          </Typography>
-        }
-        lastElement={
-          <Typography
-            as="div"
-            color="inverted-text"
-            fontSize="x-small"
-            fontWeight="x-light"
-            style={{ textAlign: 'right' }}
-          >
-            By ØKP4 - The data sharing protocol
-          </Typography>
-        }
-      />
-    </List>
+      }
+      const createList = layout => (
+        <List layout={layout}>
+          {Object.values(items).map(item => {
+            const { title, description, firstElement, lastElement } = item
+            return (
+              <ListItem
+                title={title}
+                description={description}
+                firstElement={firstElement}
+                lastElement={lastElement}
+                key={item}
+              />
+            )
+          })}
+        </List>
+      )
+      return (
+        <div style={{ display: 'grid', gap: '50px' }}>
+          {createList('list')}
+          {createList('grid')}
+        </div>
+      )
+    }}
   </Story>
 </Canvas>
 
 ## On click
 
 The `onClick` property makes the listItem clickable with a subtle animation and a change in cursor on hover.
-This facilitate its use by users that are used to clear visual cues as to when something is clickable.
-
-If a listItem does not have a `onClick` property it will not have this behaviour.
+This facilitates its use and makes it clear when something is clickable.
 
 <Canvas>
   <Story name="On click">
     {() => {
-      const handleClick = () => {
-        window.open('https://okp4.network/')
+      const [state, setState] = useState(false)
+      const handleState = isOpened => () => {
+        setState(isOpened)
       }
       return (
-        <List layout="grid">
-          <ListItem
-            title={
-              <Typography color="inverted-text" fontWeight="bold">
-                ØKP4
-              </Typography>
-            }
-            description={
-              <Typography
-                as="div"
-                style={{
-                  display: 'grid',
-                  textAlign: 'center',
-                  alignItems: 'center',
-                  height: '100%'
-                }}
-                color="inverted-text"
-              >
-                The Next Generation of Data Applications
-              </Typography>
-            }
-            lastElement={
-              <Typography
-                as="div"
-                color="inverted-text"
-                fontSize="x-small"
-                fontWeight="x-light"
-                style={{ textAlign: 'right' }}
-              >
-                Clickable
-              </Typography>
-            }
-            onClick={handleClick}
+        <>
+          <List layout="grid">
+            <ListItem
+              title={
+                <Typography color="inverted-text" fontWeight="bold">
+                  ØKP4
+                </Typography>
+              }
+              description={
+                <Typography
+                  as="div"
+                  style={{
+                    display: 'grid',
+                    textAlign: 'center',
+                    alignItems: 'center',
+                    height: '100%'
+                  }}
+                  color="inverted-text"
+                >
+                  The Next Generation of Data Applications
+                </Typography>
+              }
+              lastElement={
+                <Typography
+                  as="div"
+                  color="inverted-text"
+                  fontSize="x-small"
+                  fontWeight="x-light"
+                  style={{ textAlign: 'right' }}
+                >
+                  Clickable
+                </Typography>
+              }
+              onClick={handleState(true)}
+            />
+            <ListItem
+              title={
+                <Typography color="inverted-text" fontWeight="bold">
+                  ØKP4
+                </Typography>
+              }
+              description={
+                <Typography
+                  as="div"
+                  style={{
+                    display: 'grid',
+                    textAlign: 'center',
+                    alignItems: 'center',
+                    height: '100%'
+                  }}
+                  color="inverted-text"
+                >
+                  The Next Generation of Data Applications
+                </Typography>
+              }
+              lastElement={
+                <Typography
+                  as="div"
+                  color="inverted-text"
+                  fontSize="x-small"
+                  fontWeight="x-light"
+                  style={{ textAlign: 'right' }}
+                >
+                  Not clickable
+                </Typography>
+              }
+            />
+          </List>
+          <Toast
+            isOpened={state}
+            onOpenChange={handleState(false)}
+            title="ListItem clicked !"
+            severityLevel="success"
           />
-          <ListItem
-            title={
-              <Typography color="inverted-text" fontWeight="bold">
-                ØKP4
-              </Typography>
-            }
-            description={
-              <Typography
-                as="div"
-                style={{
-                  display: 'grid',
-                  textAlign: 'center',
-                  alignItems: 'center',
-                  height: '100%'
-                }}
-                color="inverted-text"
-              >
-                The Next Generation of Data Applications
-              </Typography>
-            }
-            lastElement={
-              <Typography
-                as="div"
-                color="inverted-text"
-                fontSize="x-small"
-                fontWeight="x-light"
-                style={{ textAlign: 'right' }}
-              >
-                Not clickable
-              </Typography>
-            }
-          />
-        </List>
+        </>
       )
     }}
   </Story>
@@ -329,18 +352,20 @@ If a listItem does not have a `onClick` property it will not have this behaviour
 
 ## First and last elements
 
-The `firstElement` and `lastElement` properties allow you to provide any `JSX.Element` as icons, buttons, text, etc. to an item in the list.  
-Theses properties can be used to provide visual information or add interactions with an item in the list.
+The `firstElement` and `lastElement` properties allow you to provide any node element as icons, buttons, text, etc. to an item in the list.
+The position of the properties changes depending on the `layout`, but `firstElement` will always position itself before `lastElement` in the reading flow.
+
+They can be used to provide visual information or add interactions with an item in the list.
 
 <Canvas>
   <Story name="First and last elements">
     {() => {
-      const [open1, setOpen1] = useState(false)
-      const handleOpenChange1 = () => setOpen1(false)
-      const [open2, setOpen2] = useState(false)
-      const handleOpenChange2 = () => setOpen2(false)
-      const handleClickCross = () => setOpen1(true)
-      const handleClickSelect = () => setOpen2(true)
+      const { theme } = useTheme()
+      const isLightTheme = theme === 'light'
+      const [state, setState] = useState({ name: '', isOpened: false })
+      const handleState = (name, isOpened) => () => {
+        setState({ name, isOpened })
+      }
       return (
         <>
           <List>
@@ -351,62 +376,88 @@ Theses properties can be used to provide visual information or add interactions 
             <ListItem
               title="Item with first element"
               description="This item only has a first element."
-              firstElement={<Icon name="profile" invertColor />}
+              firstElement={
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Icon name="profile" invertColor />
+                </div>
+              }
             />
             <ListItem
               title="Item with last element"
               description="This item only has a last icon."
-              lastElement={<Icon name="check" invertColor />}
+              lastElement={
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Icon name="check" invertColor />
+                </div>
+              }
             />
             <ListItem
               title="Item with both first and last elements"
               description="This item has first and last elements."
-              firstElement={<Icon name="profile" invertColor />}
-              lastElement={<Icon name="check" invertColor />}
+              firstElement={
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Icon name="profile" invertColor />
+                </div>
+              }
+              lastElement={
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Icon name="check" invertColor />
+                </div>
+              }
             />
             <ListItem
               title="Item 5"
               description="Elements can be button or simple text."
               firstElement={
-                <Button
-                  label="A button"
-                  backgroundColor="error"
-                  size="small"
-                  variant="icon"
-                  icon={<Icon name="cross" size="15" invertColor />}
-                  onClick={handleClickCross}
-                />
+                <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                  <Button
+                    label="A button"
+                    backgroundColor="error"
+                    size="small"
+                    variant="icon"
+                    icon={<Icon name="cross" size="15" invertColor={isLightTheme} />}
+                    onClick={handleState('cross-button', true)}
+                  />
+                </div>
               }
               lastElement={
-                <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
-                  This is a simple text
-                </Typography>
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
+                    This is a simple text
+                  </Typography>
+                </div>
               }
             />
             <ListItem
               title="Item 6"
               description="An other example with button"
-              firstElement={<Icon name="wallet" invertColor />}
+              firstElement={
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Icon name="wallet" invertColor />
+                </div>
+              }
               lastElement={
-                <Button
-                  label="Select"
-                  backgroundColor="success"
-                  size="small"
-                  variant="secondary"
-                  onClick={handleClickSelect}
-                />
+                <div style={{ display: 'grid', alignItems: 'center', height: '100%' }}>
+                  <Button
+                    label="Select"
+                    backgroundColor="success"
+                    size="small"
+                    variant="secondary"
+                    onClick={handleState('select-button', true)}
+                  />
+                </div>
               }
             />
           </List>
           <Toast
-            isOpened={open1}
-            onOpenChange={handleOpenChange1}
+            isOpened={Object.values(state).includes('cross-button') ? state['isOpened'] : false}
+            onOpenChange={handleState('cross-button', false)}
             title="Cross button clicked !"
             severityLevel="error"
           />
           <Toast
-            isOpened={open2}
-            onOpenChange={handleOpenChange2}
+            isOpened={Object.values(state).includes('select-button') ? state['isOpened'] : false}
+            onOpenChange={handleState('select-button', false)}
             title="Select button clicked !"
             severityLevel="success"
           />

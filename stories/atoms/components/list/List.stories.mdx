@@ -24,14 +24,7 @@ import { Icon } from 'ui/atoms/icon/Icon'
           <ThemeSwitcher />
         </div>
         <div className="component-story-main">
-          <div
-            style={{
-              display: 'grid',
-              gap: '25px'
-            }}
-          >
-            <Story />
-          </div>
+          <Story />
         </div>
       </ThemeProvider>
     )
@@ -109,158 +102,56 @@ These expected elements are [ListItem](/docs/atoms-listitem--overview) component
 
 ## Layout
 
-To allow for choice in the list `layout`, you can choose between the following:
+`layout` has two display modes:
 
 - **list** (default): This is a classic list with items being stacked upon each other tightly.
   It gives the user an easy and fast way of comparing items.
-- **grid**: organizes the items in 350px \* 210px grids. The grid `layout` allow for more detailed list items.
+- **grid**: organizes the items in 350px \* 210px grids. The grid `layout` gives the possibility to display items on multiples columns and rows.
 
 <Canvas>
   <Story name="Layout">
     <div style={{ display: 'grid', gap: '50px' }}>
       <List>
-        <ListItem
-          title="List 1"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="List 2"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="List 3"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="List 4"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="List 5"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
+        {[...Array(5).keys()].map(item => {
+          return (
+            <ListItem
+              key={`list-${item}`}
+              title={`List ${item + 1}`}
+              description="Description"
+              firstElement={
+                <Typography color="inverted-text" fontSize="small">
+                  First element
+                </Typography>
+              }
+              lastElement={
+                <Typography color="inverted-text" fontSize="small">
+                  Last element
+                </Typography>
+              }
+            />
+          )
+        })}
       </List>
       <List layout="grid">
-        <ListItem
-          title="Grid 1"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="Grid 2"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="Grid 3"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="Grid 4"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
-        <ListItem
-          title="Grid 5"
-          description="Description"
-          firstElement={
-            <Typography color="inverted-text" fontSize="small">
-              First element
-            </Typography>
-          }
-          lastElement={
-            <Typography color="inverted-text" fontSize="small">
-              Last element
-            </Typography>
-          }
-        />
+        {[...Array(5).keys()].map(item => {
+          return (
+            <ListItem
+              key={`grid -${item}`}
+              title={`Grid ${item + 1}`}
+              description="Description"
+              firstElement={
+                <Typography color="inverted-text" fontSize="small">
+                  First element
+                </Typography>
+              }
+              lastElement={
+                <Typography color="inverted-text" fontSize="small">
+                  Last element
+                </Typography>
+              }
+            />
+          )
+        })}
       </List>
     </div>
   </Story>
