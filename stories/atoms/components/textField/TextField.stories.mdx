@@ -266,13 +266,31 @@ The `withBorder` property allows you to add a themed border to the textField and
 
 ## Multiline
 
-The `multiline` property allows you to write text on several lines. The simple text field becomes a text area.  
-When `multiline` is `true` and [disableAreaResize](/docs/atoms-textfield--disable-area-resize) is `false` the [size](/docs/atoms-textfield--sizes) is automatically `auto`.
+The `multiline` property allows you to write text on several lines.  
+The simple text field becomes a text area and the [`size`](/docs/atoms-textfield--sizes) is automatically **auto**.  
+When `fullWidth` is **true** the user can only resize the height of the textField.
 
 <Canvas>
   <Story name="Multiline">
-    <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
-      <TextField placeholder="I'm a multiline text field." multiline size="large" />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        alignItems: 'center'
+      }}
+    >
+      <TextField
+        placeholder="I'm a multiline text field, so my size is automatically set to auto. You can resize my width and heigh."
+        multiline
+        numberOfLines={5}
+      />
+      <TextField
+        placeholder="I'm a multiline text field in full width. My size is automatically set to auto and you can only resize my heigh."
+        multiline
+        numberOfLines={5}
+        fullWidth
+      />
     </div>
   </Story>
 </Canvas>
@@ -314,7 +332,7 @@ By default, the text area is initialized with two lines.
 ## Disable resizing
 
 If the text field is multiline, the property `disableAreaResize` allows to disable the resizing of the text area.
-When `disableAreaResize` is `false`, then users can define a [size](/docs/atoms-textfield--sizes).
+When `disableAreaResize` is `false`, then users can define a [`size`](/docs/atoms-textfield--sizes).
 
 <Canvas>
   <Story name="Disable area resize">
