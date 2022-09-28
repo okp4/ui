@@ -6,7 +6,8 @@ import {
   getCurrentStepIndex,
   getStepIndex,
   getStatusFromSteps,
-  getStepsWithUpdatedStatus
+  getStepsWithUpdatedStatus,
+  getStepStatusByStepId
 } from './stepper.selector'
 
 describe('Considering the getStatusFromSteps function', () => {
@@ -57,6 +58,58 @@ describe('Considering the getStatusFromSteps function', () => {
     }) => {
       describe('When calling function', () => {
         const result = getStatusFromSteps(steps)
+
+        test(`Then, result value is ${expectedResult}`, () => {
+          expect(result).toEqual(expectedResult)
+        })
+      })
+    }
+  )
+})
+
+describe('Considering the getStepStatusByStepId function', () => {
+  const emptyState: StepperState = {
+    currentStep: '',
+    stepStatus: OrderedMap(),
+    enabledSteps: ImmutableList()
+  }
+
+  const state: StepperState = {
+    currentStep: 'step3',
+    stepStatus: OrderedMap<StepId, StepStatus>()
+      .set('step1', 'completed')
+      .set('step2', 'disabled')
+      .set('step3', 'invalid')
+      .set('step4', 'uncompleted')
+      .set('step5', 'disabled')
+      .set('step6', 'uncompleted'),
+    enabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6'])
+  }
+
+  describe.each`
+    id           | state         | expectedResult
+    ${undefined} | ${emptyState} | ${'uncompleted'}
+    ${undefined} | ${state}      | ${'uncompleted'}
+    ${''}        | ${state}      | ${'uncompleted'}
+    ${'step1'}   | ${state}      | ${'completed'}
+    ${'step2'}   | ${state}      | ${'disabled'}
+    ${'step3'}   | ${state}      | ${'invalid'}
+    ${'step4'}   | ${state}      | ${'uncompleted'}
+    ${'step5'}   | ${state}      | ${'disabled'}
+    ${'step6'}   | ${state}      | ${'uncompleted'}
+  `(
+    'Given a ID <$id> and a state <$state>',
+    ({
+      id,
+      state,
+      expectedResult
+    }: {
+      id: StepId
+      state: StepperState
+      expectedResult: OrderedMap<StepId, StepStatus>
+    }) => {
+      describe('When calling function', () => {
+        const result = getStepStatusByStepId(id, state)
 
         test(`Then, result value is ${expectedResult}`, () => {
           expect(result).toEqual(expectedResult)

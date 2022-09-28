@@ -19,10 +19,8 @@ export const getStatusFromSteps = (steps: DeepReadonly<Step[]>): OrderedMap<Step
  * @param state The React state of the Stepper
  * @returns The step status.
  */
-export const getStepStatusByStepId = (
-  id: StepId,
-  state: DeepReadonly<StepperState>
-): StepStatus | undefined => state.stepStatus.get(id)
+export const getStepStatusByStepId = (id: StepId, state: DeepReadonly<StepperState>): StepStatus =>
+  state.stepStatus.get(id) ?? 'uncompleted'
 
 /**
  * Update the status of the step thank to the Stepper React state.
