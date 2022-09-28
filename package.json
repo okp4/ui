@@ -92,6 +92,8 @@
     "@swc/core": "^1.2.204",
     "@swc/helpers": "^0.4.2",
     "@swc/jest": "^0.2.21",
+    "@testing-library/react": "12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.0.1",
     "@types/react": "^18.0.5",
     "@types/react-dom": "^17.0.13",
