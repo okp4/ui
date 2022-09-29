@@ -38,6 +38,8 @@ jobs:
             @semantic-release/changelog
             @semantic-release/git
             @semantic-release/npm
+          extends: |
+            conventional-changelog-conventionalcommits
         env:
           GITHUB_TOKEN: ${{ secrets.OKP4_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.OKP4_BOT_GIT_AUTHOR_NAME }}
