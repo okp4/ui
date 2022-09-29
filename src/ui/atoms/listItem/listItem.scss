@@ -6,7 +6,7 @@
     background-color: themed(inverted-primary-background);
     display: grid;
     border-radius: 10px;
-    column-gap: 10px;
+    gap: 10px;
     padding: 10px;
     overflow: auto;
 
@@ -16,35 +16,28 @@
       animation: 0.2s ease-out hover-animation forwards;
     }
 
+    .okp4-listitem-title {
+      grid-area: title;
+    }
+
+    .okp4-listitem-description {
+      grid-area: description;
+    }
+
+    .okp4-listitem-first-element {
+      grid-area: firstElement;
+    }
+
+    .okp4-listitem-last-element {
+      grid-area: lastElement;
+    }
+
     &.layout-list {
-      align-items: center;
-      grid-template-columns: minmax(30px, 8%) auto auto;
-      grid-template-rows: repeat(2, auto);
+      grid-template-columns: minmax(35px, auto) minmax(140px, 1fr) minmax(35px, auto);
+      grid-template-rows: min-content 1fr;
       grid-template-areas:
         'firstElement title lastElement'
         'firstElement description lastElement';
-
-      .okp4-listitem-title {
-        grid-area: title;
-        justify-content: start;
-        margin: 3px;
-      }
-
-      .okp4-listitem-description {
-        grid-area: description;
-        justify-content: start;
-        margin: 3px;
-      }
-
-      .okp4-listitem-first-element {
-        grid-area: firstElement;
-        margin: 5px auto 5px 5px;
-      }
-
-      .okp4-listitem-last-element {
-        grid-area: lastElement;
-        margin: 5px 5px 5px auto;
-      }
     }
 
     &.layout-grid {
@@ -55,29 +48,22 @@
         'description description'
         'lastElement lastElement';
 
-      .okp4-listitem-title {
-        grid-area: title;
-        padding: 10px 0 5px 20px;
-        height: fit-content;
-      }
-
-      .okp4-listitem-description {
-        grid-area: description;
-        padding: 0 20px;
-      }
-
       .okp4-listitem-first-element {
-        grid-area: firstElement;
-        padding: 10px 20px 0 0;
-        height: fit-content;
+        display: grid;
+        justify-items: right;
+        text-align: right;
       }
 
       .okp4-listitem-last-element {
-        grid-area: lastElement;
-        padding: 0 20px 20px;
         align-self: end;
-        height: fit-content;
       }
     }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .okp4-listitem-main.layout-list {
+    padding: 10px 2px;
+    column-gap: 6px;
   }
 }
