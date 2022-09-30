@@ -1,76 +1,40 @@
 import type { StepperState } from 'hook/useStepper'
-import { OrderedMap } from 'immutable'
 import type { DeepReadonly } from 'superTypes'
-import type { Step, StepId, StepIndex, StepStatus } from 'ui/index'
+import type { Step, StepId, StepStatus } from 'ui/index'
 
 /**
- * Get the status of the steps.
- * @param steps The step array.
- * @returns The map of the status of the step.
- */
-export const getStatusFromSteps = (steps: DeepReadonly<Step[]>): OrderedMap<StepId, StepStatus> =>
-  OrderedMap<StepId, StepStatus>(
-    steps.map((step: DeepReadonly<Step>) => [step.id, step.status ?? 'uncompleted'])
-  )
-
-/**
- * Retrieve the status of the step by its ID.
- * @param id The ID of the step.
- * @param state The React state of the Stepper
+ * Retrieve the status of the step by its id.
+ * @param stepId The id of the step.
+ * @param state The state of the Stepper
  * @returns The step status.
  */
-export const getStepStatusByStepId = (id: StepId, state: DeepReadonly<StepperState>): StepStatus =>
-  state.stepStatus.get(id) ?? 'uncompleted'
+export const getStepStatusByStepId = (
+  stepId: StepId,
+  state: DeepReadonly<StepperState>
+): StepStatus => state.stepsStatus.get(stepId) ?? 'uncompleted'
 
 /**
- * Update the status of the step thank to the Stepper React state.
+ * Get the updated steps with the new status from the Stepper state.
  * @param steps The step array.
- * @param state The React state of the Stepper.
- * @returns a step array with updated status.
+ * @param state The state of the Stepper.
+ * @returns A step array with updated status.
  */
-export const getStepsWithUpdatedStatus = (
+export const getUpdatedSteps = (
   steps: DeepReadonly<Step[]>,
   state: DeepReadonly<StepperState>
 ): DeepReadonly<Step[]> =>
-  steps.map((step: DeepReadonly<Step>) => {
-    return {
-      ...step,
-      status: state.stepStatus.get(step.id)
-    }
-  })
+  steps.map((step: DeepReadonly<Step>) => ({
+    ...step,
+    status: state.stepsStatus.get(step.id)
+  }))
 
 /**
- * Retrieve the index of the step.
- * @param steps The step array.
- * @param id The ID of the step.
- * @returns The index of the step.
+ * Retrieve the the current step.
+ * @param steps The steps array.
+ * @param state The state of the Stepper.
+ * @returns The current step.
  */
-export const getStepIndex = (steps: DeepReadonly<Step[]>, id: StepId): StepIndex =>
-  steps.findIndex((step: DeepReadonly<Step>) => step.id === id)
-
-/**
- * Retrieve the index of the current step.
- * @param steps The step array.
- * @param state The React state of the Stepper.
- * @returns The index of the current step.
- */
-export const getCurrentStepIndex = (
+export const getCurrentStep = (
   steps: DeepReadonly<Step[]>,
   state: DeepReadonly<StepperState>
-): StepIndex => getStepIndex(steps, state.currentStep)
-
-/**
- * Defines if there is any step not disabled before the current step.
- * @param state The React state of the Stepper.
- * @returns A boolean that defines if there is any step enabled before the current step.
- */
-export const isAnyPreviousStepEnabled = (state: DeepReadonly<StepperState>): boolean =>
-  state.currentStep !== state.enabledSteps.first()
-
-/**
- * Defines if there is any step not disabled after the current step.
- * @param state The React state of the Stepper.
- * @returns A boolean that defines if there is any step enabled after the current step.
- */
-export const isAnyNextStepEnabled = (state: DeepReadonly<StepperState>): boolean =>
-  state.currentStep !== state.enabledSteps.last()
+): Step | undefined => steps.find((step: DeepReadonly<Step>) => step.id === state.currentStepId)
