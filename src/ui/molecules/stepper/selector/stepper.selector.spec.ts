@@ -1,82 +1,19 @@
 import { StepperState } from 'hook/useStepper'
-import { OrderedMap, List as ImmutableList } from 'immutable'
+import { List as ImmutableList, OrderedMap } from 'immutable'
 import { StepId, StepStatus } from 'ui/index'
-import { Step, StepIndex } from '../Stepper'
-import {
-  getCurrentStepIndex,
-  getStepIndex,
-  getStatusFromSteps,
-  getStepsWithUpdatedStatus,
-  getStepStatusByStepId
-} from './stepper.selector'
-
-describe('Considering the getStatusFromSteps function', () => {
-  const steps: Step[] = [
-    {
-      id: 'step1',
-      status: 'completed'
-    },
-    {
-      id: 'step2',
-      status: 'disabled'
-    },
-    {
-      id: 'step3',
-      status: 'invalid'
-    },
-    {
-      id: 'step4'
-    },
-    {
-      id: 'step5',
-      status: 'disabled'
-    },
-    {
-      id: 'step6'
-    }
-  ]
-
-  const status: OrderedMap<StepId, StepStatus> = OrderedMap<StepId, StepStatus>()
-    .set('step1', 'completed')
-    .set('step2', 'disabled')
-    .set('step3', 'invalid')
-    .set('step4', 'uncompleted')
-    .set('step5', 'disabled')
-    .set('step6', 'uncompleted')
-
-  describe.each`
-    steps    | expectedResult
-    ${steps} | ${status}
-  `(
-    'Given a value <$steps>',
-    ({
-      steps,
-      expectedResult
-    }: {
-      steps: Step[]
-      expectedResult: OrderedMap<StepId, StepStatus>
-    }) => {
-      describe('When calling function', () => {
-        const result = getStatusFromSteps(steps)
-
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
-        })
-      })
-    }
-  )
-})
+import { Step } from '../Stepper'
+import { getCurrentStep, getStepStatusByStepId, getUpdatedSteps } from './stepper.selector'
 
 describe('Considering the getStepStatusByStepId function', () => {
   const emptyState: StepperState = {
-    currentStep: '',
-    stepStatus: OrderedMap(),
+    currentStepId: '',
+    stepsStatus: OrderedMap(),
     enabledSteps: ImmutableList()
   }
 
   const state: StepperState = {
-    currentStep: 'step3',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+    currentStepId: 'step3',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'disabled')
       .set('step3', 'invalid')
@@ -87,7 +24,7 @@ describe('Considering the getStepStatusByStepId function', () => {
   }
 
   describe.each`
-    id           | state         | expectedResult
+    stepId       | state         | expectedStatus
     ${undefined} | ${emptyState} | ${'uncompleted'}
     ${undefined} | ${state}      | ${'uncompleted'}
     ${''}        | ${state}      | ${'uncompleted'}
@@ -98,28 +35,28 @@ describe('Considering the getStepStatusByStepId function', () => {
     ${'step5'}   | ${state}      | ${'disabled'}
     ${'step6'}   | ${state}      | ${'uncompleted'}
   `(
-    'Given a ID <$id> and a state <$state>',
+    'Given a step id <$stepId> and a state',
     ({
-      id,
+      stepId,
       state,
-      expectedResult
+      expectedStatus
     }: {
-      id: StepId
+      stepId: StepId
       state: StepperState
-      expectedResult: OrderedMap<StepId, StepStatus>
+      expectedStatus: OrderedMap<StepId, StepStatus>
     }) => {
-      describe('When calling function', () => {
-        const result = getStepStatusByStepId(id, state)
+      describe('When calling getStepStatusByStepId function', () => {
+        const result = getStepStatusByStepId(stepId, state)
 
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
+        test(`Then, expected status is ${JSON.stringify(expectedStatus)}`, () => {
+          expect(result).toStrictEqual(expectedStatus)
         })
       })
     }
   )
 })
 
-describe('Considering the getStepsWithUpdatedStatus function', () => {
+describe('Considering the getUpdatedSteps function', () => {
   const steps: Step[] = [
     {
       id: 'step1',
@@ -146,8 +83,8 @@ describe('Considering the getStepsWithUpdatedStatus function', () => {
   ]
 
   const state: StepperState = {
-    currentStep: 'step4',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+    currentStepId: 'step4',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'disabled')
       .set('step3', 'completed')
@@ -185,107 +122,58 @@ describe('Considering the getStepsWithUpdatedStatus function', () => {
   ]
 
   describe.each`
-    steps    | state    | expectedResult
+    steps    | state    | expectedSteps
     ${steps} | ${state} | ${updatedSteps}
   `(
-    'Given a value <$steps> and <$state>',
+    'Given a steps array <$steps> and a state',
     ({
       steps,
       state,
-      expectedResult
+      expectedSteps
     }: {
       steps: Step[]
       state: StepperState
-      expectedResult: Step[]
+      expectedSteps: Step[]
     }) => {
-      describe('When calling function', () => {
-        const result = getStepsWithUpdatedStatus(steps, state)
+      describe('When calling getUpdatedSteps function', () => {
+        const result = getUpdatedSteps(steps, state)
 
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
+        test(`Then, updated steps are ${expectedSteps}`, () => {
+          expect(result).toStrictEqual(expectedSteps)
         })
       })
     }
   )
 })
 
-describe('Considering the getStepIndex function', () => {
-  const steps: Step[] = [
-    {
-      id: 'step1',
-      status: 'completed'
-    },
-    {
-      id: 'step2',
-      status: 'disabled'
-    },
-    {
-      id: 'step3',
-      status: 'invalid'
-    },
-    {
-      id: 'step4'
-    },
-    {
-      id: 'step5',
-      status: 'disabled'
-    },
-    {
-      id: 'step6'
-    }
-  ]
-
-  describe.each`
-    steps    | id         | expectedResult
-    ${steps} | ${'step1'} | ${0}
-    ${steps} | ${'step2'} | ${1}
-    ${steps} | ${'step3'} | ${2}
-    ${steps} | ${'step4'} | ${3}
-    ${steps} | ${'step5'} | ${4}
-    ${steps} | ${'step6'} | ${5}
-  `(
-    'Given a value <$steps> and <$id>',
-    ({ steps, id, expectedResult }: { steps: Step[]; id: StepId; expectedResult: StepIndex }) => {
-      describe('When calling function', () => {
-        const result = getStepIndex(steps, id)
-
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
-        })
-      })
-    }
-  )
-})
-
-describe('Considering the getCurrentStepIndex function', () => {
-  const steps: Step[] = [
-    {
-      id: 'step1',
-      status: 'completed'
-    },
-    {
-      id: 'step2',
-      status: 'disabled'
-    },
-    {
-      id: 'step3',
-      status: 'invalid'
-    },
-    {
-      id: 'step4'
-    },
-    {
-      id: 'step5',
-      status: 'disabled'
-    },
-    {
-      id: 'step6'
-    }
-  ]
+describe('Considering the getCurrentStep function', () => {
+  const step1: Step = {
+    id: 'step1',
+    status: 'completed'
+  }
+  const step2: Step = {
+    id: 'step2',
+    status: 'disabled'
+  }
+  const step3: Step = {
+    id: 'step3',
+    status: 'invalid'
+  }
+  const step4: Step = {
+    id: 'step4'
+  }
+  const step5: Step = {
+    id: 'step5',
+    status: 'disabled'
+  }
+  const step6: Step = {
+    id: 'step6'
+  }
+  const steps: Step[] = [step1, step2, step3, step4, step5, step6]
 
   const state1: StepperState = {
-    currentStep: 'step3',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+    currentStepId: 'step3',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'disabled')
       .set('step3', 'completed')
@@ -297,35 +185,35 @@ describe('Considering the getCurrentStepIndex function', () => {
 
   const state2: StepperState = {
     ...state1,
-    currentStep: 'step4'
+    currentStepId: 'step4'
   }
 
   const state3: StepperState = {
     ...state1,
-    currentStep: 'step6'
+    currentStepId: 'step6'
   }
 
   describe.each`
-    steps    | state     | expectedResult
-    ${steps} | ${state1} | ${2}
-    ${steps} | ${state2} | ${3}
-    ${steps} | ${state3} | ${5}
+    steps    | state     | expectedStep
+    ${steps} | ${state1} | ${step3}
+    ${steps} | ${state2} | ${step4}
+    ${steps} | ${state3} | ${step6}
   `(
-    'Given a value <$steps> and <$state>',
+    'Given a steps array <$steps> and a state',
     ({
       steps,
       state,
-      expectedResult
+      expectedStep
     }: {
       steps: Step[]
       state: StepperState
-      expectedResult: StepIndex
+      expectedStep: Step
     }) => {
-      describe('When calling function', () => {
-        const result = getCurrentStepIndex(steps, state)
+      describe('When calling getCurrentStep function', () => {
+        const result = getCurrentStep(steps, state)
 
-        test(`Then, result value is ${expectedResult}`, () => {
-          expect(result).toEqual(expectedResult)
+        test(`Then, the expected step is ${JSON.stringify(expectedStep)}`, () => {
+          expect(result).toStrictEqual(expectedStep)
         })
       })
     }
