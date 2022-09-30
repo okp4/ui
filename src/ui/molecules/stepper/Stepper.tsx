@@ -111,7 +111,11 @@ export const Stepper: React.FC<StepperProps> = ({
   )
 
   const getStepStatus = (step: DeepReadonly<Step>): StepStatus | 'active' =>
-    !isLastStep && step.id === currentStepId ? 'active' : step.status ?? 'uncompleted'
+    isLastStep && step.status === 'completed'
+      ? 'completed'
+      : step.id === currentStepId
+      ? 'active'
+      : step.status ?? 'uncompleted'
 
   const MobileHeader = (): JSX.Element | null =>
     currentStep ? (
@@ -187,7 +191,9 @@ export const Stepper: React.FC<StepperProps> = ({
                 <Typography
                   as="div"
                   fontSize="x-small"
-                  fontWeight={step.id === currentStepId ? 'bold' : 'light'}
+                  fontWeight={
+                    step.id === currentStepId && step.status !== 'completed' ? 'bold' : 'light'
+                  }
                 >
                   {step.label}
                 </Typography>
