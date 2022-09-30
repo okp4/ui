@@ -92,6 +92,10 @@
           align-self: center;
           display: grid;
           justify-items: center;
+
+          &.selected {
+            opacity: 0.6;
+          }
         }
       }
     }

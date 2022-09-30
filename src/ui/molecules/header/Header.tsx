@@ -10,6 +10,7 @@ import './header.scss'
 export type NavigationItem = {
   menuItem: JSX.Element
   subMenu?: NavigationItem[]
+  isSelectedFromStart?: boolean
 }
 
 export type HeaderProps = {
@@ -48,7 +49,11 @@ const NavigationMenu = ({
   const menuItemsWithIds: Map<string, DeepReadonly<NavigationItem>> = useMemo(
     () =>
       new Map(
-        navigation.map((navItem: DeepReadonly<NavigationItem>) => [short.generate(), navItem])
+        navigation.map((navItem: DeepReadonly<NavigationItem>) => {
+          const id = short.generate()
+          navItem.isSelectedFromStart && setSelectedMenuItemID(id)
+          return [id, navItem]
+        })
       ),
     [navigation]
   )
@@ -67,7 +72,9 @@ const NavigationMenu = ({
           const showSelected = selectedMenuItemId === id && menuType === 'row'
           return (
             <div
-              className={`okp4-header-navigation-${menuType}-item`}
+              className={classNames(`okp4-header-navigation-${menuType}-item`, {
+                selected: showSelected
+              })}
               key={id}
               onClick={handleMenuItemSelected(id)}
             >
