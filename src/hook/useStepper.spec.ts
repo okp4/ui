@@ -1,55 +1,67 @@
 import { List as ImmutableList, OrderedMap } from 'immutable'
 import type { StepId, StepStatus } from 'ui/index'
-import type { StepperState } from './useStepper'
+import type { InitializerArgs, InitialStepStatus, StepperAction, StepperState } from './useStepper'
 import { useStepper } from './useStepper'
 import { act } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 
-describe('Considering the stepperReducer function', () => {
-  const previousClicked = 'previousClicked'
-  const stepCompleted = 'stepCompleted'
-  const stepFailed = 'stepFailed'
-  const stepperSubmitted = 'stepperSubmitted'
-  const stepperReseted = 'stepperReseted'
+type Data = {
+  initialCurrentStepId: string
+  initialStepsStatus: InitialStepStatus[]
+  action: StepperAction
+  expectedState: StepperState
+}
 
+describe('Considering the useStepper hook', () => {
   const emptyState: StepperState = {
-    currentStep: '',
-    enabledSteps: ImmutableList(),
-    stepStatus: OrderedMap()
+    currentStepId: '',
+    stepsStatus: OrderedMap(),
+    enabledSteps: ImmutableList()
   }
 
-  const stepStatus1 = OrderedMap<StepId, StepStatus>()
-    .set('step1', 'uncompleted')
-    .set('step2', 'uncompleted')
-    .set('step3', 'uncompleted')
+  const initialStepsStatus1: InitialStepStatus[] = [
+    { id: 'step1' },
+    { id: 'step2' },
+    { id: 'step3' }
+  ]
 
-  const state1_stepCompleted: StepperState = {
-    currentStep: 'step2',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState1WhenInvalidAction: StepperState = {
+    currentStepId: 'step1',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
+      .set('step1', 'uncompleted')
+      .set('step2', 'uncompleted')
+      .set('step3', 'uncompleted'),
+    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+  }
+
+  const expectedState1WhenStepCompleted: StepperState = {
+    currentStepId: 'step2',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
     enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
-  const state1_stepFailed = {
-    currentStep: 'step1',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState1WhenStepFailed: StepperState = {
+    currentStepId: 'step1',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'invalid')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
     enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
-  const stepStatus2 = OrderedMap<StepId, StepStatus>()
-    .set('firstStep', 'completed')
-    .set('secondStep', 'uncompleted')
-    .set('thirdStep', 'disabled')
-    .set('fourthStep', 'uncompleted')
+  const initialStepsStatus2: InitialStepStatus[] = [
+    { id: 'firstStep', status: 'completed' },
+    { id: 'secondStep', status: 'uncompleted' },
+    { id: 'thirdStep', status: 'disabled' },
+    { id: 'fourthStep', status: 'uncompleted' }
+  ]
 
-  const state2_previousClicked = {
-    currentStep: 'firstStep',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState2WhenPreviousClicked: StepperState = {
+    currentStepId: 'firstStep',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('firstStep', 'completed')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'disabled')
@@ -57,9 +69,9 @@ describe('Considering the stepperReducer function', () => {
     enabledSteps: ImmutableList(['firstStep', 'secondStep', 'fourthStep'])
   }
 
-  const state2_stepCompleted = {
-    currentStep: 'fourthStep',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState2WhenStepCompleted: StepperState = {
+    currentStepId: 'fourthStep',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('firstStep', 'completed')
       .set('secondStep', 'completed')
       .set('thirdStep', 'disabled')
@@ -67,16 +79,17 @@ describe('Considering the stepperReducer function', () => {
     enabledSteps: ImmutableList(['firstStep', 'secondStep', 'fourthStep'])
   }
 
-  const stepStatus3 = OrderedMap<StepId, StepStatus>()
-    .set('firstStep', 'disabled')
-    .set('secondStep', 'uncompleted')
-    .set('thirdStep', 'uncompleted')
-    .set('fourthStep', 'uncompleted')
-    .set('fifthStep', 'disabled')
+  const initialStepsStatus3: InitialStepStatus[] = [
+    { id: 'firstStep', status: 'disabled' },
+    { id: 'secondStep', status: 'uncompleted' },
+    { id: 'thirdStep', status: 'uncompleted' },
+    { id: 'fourthStep', status: 'uncompleted' },
+    { id: 'fifthStep', status: 'disabled' }
+  ]
 
-  const state3_previousClicked = {
-    currentStep: 'secondStep',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState3WhenPreviousClicked: StepperState = {
+    currentStepId: 'secondStep',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'uncompleted')
@@ -85,9 +98,9 @@ describe('Considering the stepperReducer function', () => {
     enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
   }
 
-  const state3_stepCompleted = {
-    currentStep: 'fourthStep',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState3WhenStepCompleted: StepperState = {
+    currentStepId: 'fourthStep',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'completed')
@@ -96,70 +109,79 @@ describe('Considering the stepperReducer function', () => {
     enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
   }
 
-  const stepStatus4 = OrderedMap<StepId, StepStatus>()
-    .set('step1', 'completed')
-    .set('step2', 'completed')
-    .set('step3', 'uncompleted')
+  const initialStepsStatus4: InitialStepStatus[] = [
+    { id: 'step1', status: 'completed' },
+    { id: 'step2', status: 'completed' },
+    { id: 'step3', status: 'uncompleted' }
+  ]
 
-  const state4_stepperSubmitted: StepperState = {
-    currentStep: 'step3',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState4WhenStepperSubmitted: StepperState = {
+    currentStepId: 'step3',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'completed')
       .set('step3', 'completed'),
     enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
-  const state4_initializerArgs = {
-    initialActiveStep: 'step1',
-    initialStatus: OrderedMap<StepId, StepStatus>()
-      .set('step1', 'uncompleted')
-      .set('step2', 'uncompleted')
-      .set('step3', 'uncompleted')
+  const initialStepsStatus4ForReset: InitializerArgs = {
+    initialCurrentStepId: 'step1',
+    initialStepsStatus: [
+      { id: 'step1', status: 'uncompleted' },
+      { id: 'step2', status: 'uncompleted' },
+      { id: 'step3', status: 'uncompleted' }
+    ]
   }
 
-  const state4_stepperReseted: StepperState = {
-    currentStep: 'step1',
-    stepStatus: OrderedMap<StepId, StepStatus>()
+  const expectedState4WhenStepperReset: StepperState = {
+    currentStepId: 'step1',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
       .set('step1', 'uncompleted')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
     enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
+  const initialStepsStatus5: InitialStepStatus[] = [
+    { id: 'step1', status: 'completed' },
+    { id: 'step2', status: 'invalid' },
+    { id: 'step3', status: 'uncompleted' }
+  ]
+
+  const expectedState5WhenPreviousClicked: StepperState = {
+    currentStepId: 'step1',
+    stepsStatus: OrderedMap<StepId, StepStatus>()
+      .set('step1', 'completed')
+      .set('step2', 'invalid')
+      .set('step3', 'uncompleted'),
+    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+  }
+
   describe.each`
-    current         | status          | type                | payload                   | expectedResult
-    ${''}           | ${OrderedMap()} | ${undefined}        | ${undefined}              | ${emptyState}
-    ${'step1'}      | ${stepStatus1}  | ${stepCompleted}    | ${undefined}              | ${state1_stepCompleted}
-    ${'step1'}      | ${stepStatus1}  | ${stepFailed}       | ${undefined}              | ${state1_stepFailed}
-    ${'secondStep'} | ${stepStatus2}  | ${previousClicked}  | ${undefined}              | ${state2_previousClicked}
-    ${'secondStep'} | ${stepStatus2}  | ${stepCompleted}    | ${undefined}              | ${state2_stepCompleted}
-    ${'thirdStep'}  | ${stepStatus3}  | ${previousClicked}  | ${undefined}              | ${state3_previousClicked}
-    ${'thirdStep'}  | ${stepStatus3}  | ${stepCompleted}    | ${undefined}              | ${state3_stepCompleted}
-    ${'step3'}      | ${stepStatus4}  | ${stepperSubmitted} | ${undefined}              | ${state4_stepperSubmitted}
-    ${'step3'}      | ${stepStatus4}  | ${stepperReseted}   | ${state4_initializerArgs} | ${state4_stepperReseted}
+    initialCurrentStepId | initialStepsStatus     | action                                                              | expectedState
+    ${''}                | ${[]}                  | ${{ type: '' }}                                                     | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepCompleted' }}                                        | ${emptyState}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: '' }}                                                     | ${expectedState1WhenInvalidAction}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'foo' }}                                                  | ${expectedState1WhenInvalidAction}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepCompleted' }}                                        | ${expectedState1WhenStepCompleted}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepFailed' }}                                           | ${expectedState1WhenStepFailed}
+    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'previousClicked' }}                                      | ${expectedState2WhenPreviousClicked}
+    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'stepCompleted' }}                                        | ${expectedState2WhenStepCompleted}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'previousClicked' }}                                      | ${expectedState3WhenPreviousClicked}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                        | ${expectedState3WhenStepCompleted}
+    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                     | ${expectedState4WhenStepperSubmitted}
+    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReseted', payload: initialStepsStatus4ForReset }} | ${expectedState4WhenStepperReset}
+    ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                      | ${expectedState5WhenPreviousClicked}
   `(
-    'Given a value <$current> and <$status> and dispatch action of type <$type> with payload <$payload>',
-    ({
-      current,
-      status,
-      type,
-      payload,
-      expectedResult
-    }: {
-      current: StepId
-      status: OrderedMap<StepId, StepStatus>
-      type: any
-      payload: any
-      expectedResult: StepperState
-    }) => {
-      describe('When calling function', () => {
-        test('Test useStepper', () => {
-          const { result } = renderHook(() => useStepper(current, status))
+    'Given an initial current step id <$initialCurrentStepId> and an initial steps status array',
+    ({ initialCurrentStepId, initialStepsStatus, action, expectedState }: Data) => {
+      describe(`When dispatch the action of type ${action.type}`, () => {
+        test(`Then, expect state to be ${JSON.stringify(expectedState)}`, () => {
+          const { result } = renderHook(() => useStepper(initialCurrentStepId, initialStepsStatus))
           act(() => {
-            result.current.dispatch({ type, payload })
+            result.current.dispatch(action)
           })
-          expect(result.current.state).toEqual(expectedResult)
+          expect(result.current.state).toStrictEqual(expectedState)
         })
       })
     }
