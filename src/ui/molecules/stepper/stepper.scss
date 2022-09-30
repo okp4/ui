@@ -11,7 +11,7 @@ $colors: (
 .okp4-stepper-main {
   @include with-theme() {
     width: 100%;
-    min-height: inherit;
+    height: inherit;
     display: grid;
     row-gap: 15px;
     grid-template-rows: auto 1fr;

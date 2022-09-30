@@ -25,7 +25,7 @@ export type StepperAction =
   | { type: 'stepCompleted' }
   | { type: 'stepFailed' }
   | { type: 'stepperSubmitted' }
-  | { type: 'stepperReseted'; payload: InitializerArgs }
+  | { type: 'stepperReset'; payload: InitializerArgs }
 
 export type InitialStepStatus = {
   id: string
@@ -100,7 +100,7 @@ const stepperReducer = (
           stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
         }
       }
-      case 'stepperReseted':
+      case 'stepperReset':
         return initState(action.payload)
       default:
         return state

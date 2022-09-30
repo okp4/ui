@@ -38,7 +38,7 @@ export type Step = {
    */
   readonly content?: JSX.Element
   /**
-   * Callback method which allows to validate the step.
+   * Callback function which allows to validate the step.
    */
   readonly onValidate?: () => boolean
 }
@@ -49,7 +49,7 @@ export type StepperProps = {
    */
   readonly steps: DeepReadonly<Step[]>
   /**
-   * The id of the current step in the step array.
+   * The id of the current step.
    */
   readonly currentStepId?: StepId
   /**
@@ -65,19 +65,19 @@ export type StepperProps = {
    */
   readonly resetButtonLabel?: string
   /**
-   * Callback method called when previous button is clicked.
+   * Callback function called when previous button is clicked.
    */
   readonly onPrevious?: () => void
   /**
-   * Callback method called when next button is clicked.
+   * Callback function called when next button is clicked.
    */
   readonly onNext?: () => void
   /**
-   * Callback method called when clicking on the submit button in the last step.
+   * Callback function called when clicking on the submit button in the last step.
    */
   readonly onSubmit?: () => void
   /**
-   * Callback method called when clicking on the reset button after submission succeed in the last step.
+   * Callback function called when clicking on the reset button after submission succeed in the last step.
    */
   readonly onReset?: () => void
 }

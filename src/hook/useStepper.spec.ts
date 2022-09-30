@@ -158,20 +158,20 @@ describe('Considering the useStepper hook', () => {
   }
 
   describe.each`
-    initialCurrentStepId | initialStepsStatus     | action                                                              | expectedState
-    ${''}                | ${[]}                  | ${{ type: '' }}                                                     | ${emptyState}
-    ${''}                | ${[]}                  | ${{ type: 'stepCompleted' }}                                        | ${emptyState}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: '' }}                                                     | ${expectedState1WhenInvalidAction}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'foo' }}                                                  | ${expectedState1WhenInvalidAction}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepCompleted' }}                                        | ${expectedState1WhenStepCompleted}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepFailed' }}                                           | ${expectedState1WhenStepFailed}
-    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'previousClicked' }}                                      | ${expectedState2WhenPreviousClicked}
-    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'stepCompleted' }}                                        | ${expectedState2WhenStepCompleted}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'previousClicked' }}                                      | ${expectedState3WhenPreviousClicked}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                        | ${expectedState3WhenStepCompleted}
-    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                     | ${expectedState4WhenStepperSubmitted}
-    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReseted', payload: initialStepsStatus4ForReset }} | ${expectedState4WhenStepperReset}
-    ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                      | ${expectedState5WhenPreviousClicked}
+    initialCurrentStepId | initialStepsStatus     | action                                                            | expectedState
+    ${''}                | ${[]}                  | ${{ type: '' }}                                                   | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepCompleted' }}                                      | ${emptyState}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: '' }}                                                   | ${expectedState1WhenInvalidAction}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'foo' }}                                                | ${expectedState1WhenInvalidAction}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepCompleted' }}                                      | ${expectedState1WhenStepCompleted}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepFailed' }}                                         | ${expectedState1WhenStepFailed}
+    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'previousClicked' }}                                    | ${expectedState2WhenPreviousClicked}
+    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'stepCompleted' }}                                      | ${expectedState2WhenStepCompleted}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'previousClicked' }}                                    | ${expectedState3WhenPreviousClicked}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                      | ${expectedState3WhenStepCompleted}
+    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                   | ${expectedState4WhenStepperSubmitted}
+    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReset', payload: initialStepsStatus4ForReset }} | ${expectedState4WhenStepperReset}
+    ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                    | ${expectedState5WhenPreviousClicked}
   `(
     'Given an initial current step id <$initialCurrentStepId> and an initial steps status array',
     ({ initialCurrentStepId, initialStepsStatus, action, expectedState }: Data) => {
