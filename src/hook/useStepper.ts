@@ -1,23 +1,23 @@
-import type { OrderedMap } from 'immutable'
-import { List as ImmutableList } from 'immutable'
+import { List as ImmutableList, OrderedMap } from 'immutable'
 import type { Dispatch, Reducer } from 'react'
 import { useReducer } from 'react'
 import type { DeepReadonly, UseReducer } from 'superTypes'
-import type { StepId, StepStatus } from 'ui/index'
+
+type StepStatus = 'disabled' | 'invalid' | 'completed' | 'uncompleted'
 
 export type StepperState = {
   /**
-   * The ID of the step in progress.
+   * The id of the step in progress.
    */
-  currentStep: StepId
+  currentStepId: string | undefined
   /**
-   * The status of the steps.
+   * The status of each step.
    */
-  stepStatus: OrderedMap<StepId, StepStatus>
+  stepsStatus: OrderedMap<string, StepStatus>
   /**
-   * The list of the not disabled steps.
+   * The list of non-disabled steps.
    */
-  enabledSteps: ImmutableList<StepId>
+  enabledSteps: ImmutableList<string>
 }
 
 export type StepperAction =
@@ -27,67 +27,86 @@ export type StepperAction =
   | { type: 'stepperSubmitted' }
   | { type: 'stepperReseted'; payload: InitializerArgs }
 
-type InitializerArgs = DeepReadonly<{
-  initialActiveStep: string
-  initialStatus: OrderedMap<string, StepStatus>
+export type InitialStepStatus = {
+  id: string
+  status?: StepStatus
+}
+
+export type InitializerArgs = DeepReadonly<{
+  initialCurrentStepId: string
+  initialStepsStatus: InitialStepStatus[]
 }>
 
 const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState => {
-  const currentStep = initializerArgs.initialActiveStep
   const enabledSteps = ImmutableList(
-    initializerArgs.initialStatus.filter((status: StepStatus) => status !== 'disabled').keys()
+    initializerArgs.initialStepsStatus
+      .filter(
+        (initialStepStatus: DeepReadonly<InitialStepStatus>) =>
+          initialStepStatus.status !== 'disabled'
+      )
+      .map(
+        (filteredInitialStepStatus: DeepReadonly<InitialStepStatus>) => filteredInitialStepStatus.id
+      )
   )
+
   return {
-    currentStep,
-    stepStatus: initializerArgs.initialStatus,
+    currentStepId: initializerArgs.initialCurrentStepId,
+    stepsStatus: OrderedMap<string, StepStatus>(
+      initializerArgs.initialStepsStatus.map((step: DeepReadonly<InitialStepStatus>) => [
+        step.id,
+        step.status ?? 'uncompleted'
+      ])
+    ),
     enabledSteps
   }
 }
 
-export const stepperReducer = (
+// eslint-disable-next-line max-lines-per-function
+const stepperReducer = (
   state: DeepReadonly<StepperState>,
   action: DeepReadonly<StepperAction>
 ): DeepReadonly<StepperState> => {
-  switch (action.type) {
-    case 'previousClicked': {
-      const previousStep =
-        state.enabledSteps.get(state.enabledSteps.indexOf(state.currentStep) + -1) ??
-        state.currentStep
-      return {
-        ...state,
-        currentStep: previousStep,
-        stepStatus: state.stepStatus.set(
-          state.currentStep,
-          state.stepStatus.get(state.currentStep) !== 'invalid' ? 'uncompleted' : 'invalid'
+  if (state.currentStepId) {
+    switch (action.type) {
+      case 'previousClicked': {
+        const previousStep = state.enabledSteps.get(
+          state.enabledSteps.indexOf(state.currentStepId) - 1
         )
+        return {
+          ...state,
+          currentStepId: previousStep,
+          stepsStatus: state.stepsStatus.set(
+            state.currentStepId,
+            state.stepsStatus.get(state.currentStepId) !== 'invalid' ? 'uncompleted' : 'invalid'
+          )
+        }
       }
+      case 'stepCompleted': {
+        const nextStep = state.enabledSteps.get(state.enabledSteps.indexOf(state.currentStepId) + 1)
+        return {
+          ...state,
+          currentStepId: nextStep,
+          stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
+        }
+      }
+      case 'stepFailed':
+        return {
+          ...state,
+          stepsStatus: state.stepsStatus.set(state.currentStepId, 'invalid')
+        }
+      case 'stepperSubmitted': {
+        return {
+          ...state,
+          stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
+        }
+      }
+      case 'stepperReseted':
+        return initState(action.payload)
+      default:
+        return state
     }
-    case 'stepCompleted': {
-      const nextStep =
-        state.enabledSteps.get(state.enabledSteps.indexOf(state.currentStep) + 1) ??
-        state.currentStep
-      return {
-        ...state,
-        currentStep: nextStep,
-        stepStatus: state.stepStatus.set(state.currentStep, 'completed')
-      }
-    }
-    case 'stepFailed':
-      return {
-        ...state,
-        stepStatus: state.stepStatus.set(state.currentStep, 'invalid')
-      }
-    case 'stepperSubmitted': {
-      return {
-        ...state,
-        stepStatus: state.stepStatus.set(state.currentStep, 'completed')
-      }
-    }
-    case 'stepperReseted':
-      return initState(action.payload)
-    default:
-      return state
   }
+  return state
 }
 
 export type UseStepper = {
@@ -96,25 +115,29 @@ export type UseStepper = {
    */
   state: StepperState
   /**
-   * Callback method that allows to dispatch an action and updates the state.
+   * Function that allows to dispatch an action and updates the state.
    */
   dispatch: Dispatch<StepperAction>
 }
 
 /**
  * Facilitates management of the status and related actions of the Stepper.
- * @param currentStep The initial {@link StepId ID} of the current step.
- * @param status The initial {@link StepStatus status} of the steps of the Stepper.
- * @returns The state of the Stepper and the associated dispatch callback function.
+ * @param currentStepId The initial id of the current step.
+ * @param stepsStatus The initial steps {@link StepStatus status} of the Stepper.
+ * @returns The state of the Stepper and the dispatch function to update the state.
  */
 export const useStepper = (
-  currentStep: StepId,
-  status: Readonly<OrderedMap<StepId, StepStatus>>
+  currentStepId: string,
+  stepsStatus: DeepReadonly<InitialStepStatus[]>
 ): UseStepper => {
   const [state, dispatch]: UseReducer<StepperState, StepperAction> = useReducer<
     Reducer<StepperState, StepperAction>,
-    InitializerArgs
-  >(stepperReducer, { initialActiveStep: currentStep, initialStatus: status }, initState)
+    DeepReadonly<InitializerArgs>
+  >(
+    stepperReducer,
+    { initialCurrentStepId: currentStepId, initialStepsStatus: stepsStatus },
+    initState
+  )
 
   return {
     state,
