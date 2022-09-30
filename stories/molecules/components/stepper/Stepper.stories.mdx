@@ -8,8 +8,13 @@ import { Card } from 'ui/atoms/card/Card'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import { useState } from 'react'
-
+import { useCallback, useMemo, useState } from 'react'
+import { UseStepper, useStepper } from 'hook/useStepper'
+import {
+  getStepStatusByStepId,
+  getUpdatedSteps,
+  getCurrentStep
+} from 'ui/molecules/stepper/selector/stepper.selector'
 import './stepper.scss'
 
 <Meta
@@ -45,7 +50,7 @@ import './stepper.scss'
 
 ## Description
 
-The `Stepper` allows a user to follow a progression through different ordered steps.
+The Stepper allows a user to follow a progression through different ordered steps.
 Each step can be validated to move on to the next step. The last step also provides the possibility to perform an additional action upon validation. Once all steps are completed, the user can reset the stepper.  
 It is then up to the user to define the size (height and width) of the stepper, for example by placing it in a `div` and defining its size, as well as the content styles of each step. The content of the stepper is scrollable.
 
@@ -55,19 +60,16 @@ It is then up to the user to define the size (height and width) of the stepper, 
   name="Overview"
   argTypes={{
     steps: { control: false },
+    onPrevious: { control: false },
     onNext: { control: false },
     onSubmit: { control: false },
-    onReset: { control: false },
-    successContent: {
-      control: false,
-      table: {
-        type: { summary: 'JSX.Element' }
-      }
-    }
+    onReset: { control: false }
   }}
-  args={{
-    steps: [
+>
+  {() => {
+    const steps = [
       {
+        id: 'step1',
         label: 'Step 1',
         content: (
           <>
@@ -86,6 +88,7 @@ It is then up to the user to define the size (height and width) of the stepper, 
         )
       },
       {
+        id: 'step2',
         label: 'Step 2',
         content: (
           <>
@@ -109,6 +112,7 @@ It is then up to the user to define the size (height and width) of the stepper, 
         )
       },
       {
+        id: 'step3',
         label: 'Step 3',
         content: (
           <Typography as="div" fontFamily="brand" fontWeight="xlight">
@@ -117,15 +121,49 @@ It is then up to the user to define the size (height and width) of the stepper, 
         )
       }
     ]
-  }}
->
-  {args => {
+    const { state, dispatch } = useStepper(
+      'step1',
+      steps.map(step => ({ id: step.id, status: step.status }))
+    )
     const [submitted, setSubmitted] = useState(false)
-    const handleSubmit = () => setSubmitted(true)
     const handleOpenChange = () => setSubmitted(false)
+    const handlePrevious = useCallback(() => {
+      dispatch({
+        type: 'previousClicked'
+      })
+    }, [dispatch])
+    const handleNext = useCallback(() => {
+      dispatch({
+        type: 'stepCompleted'
+      })
+    }, [dispatch])
+    const handleSubmit = useCallback(() => {
+      setSubmitted(true)
+      dispatch({
+        type: 'stepperSubmitted'
+      })
+    }, [dispatch])
+    const handleReset = useCallback(() => {
+      setSubmitted(false)
+      dispatch({
+        type: 'stepperReset',
+        payload: {
+          initialCurrentStepId: 'step1',
+          initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+        }
+      })
+    }, [dispatch, steps])
     return (
-      <div className="stepper-container-x-small">
-        <Stepper {...args} onSubmit={handleSubmit} />
+      <div className="stepper-container-small">
+        <Stepper
+          currentStepId={state.currentStepId}
+          isSubmitDisabled={false}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
+          onReset={handleReset}
+          onSubmit={handleSubmit}
+          steps={getUpdatedSteps(steps, state)}
+        />
         <Toast
           isOpened={submitted}
           onOpenChange={handleOpenChange}
@@ -141,15 +179,270 @@ It is then up to the user to define the size (height and width) of the stepper, 
 
 <ArgsTable story="Overview" />
 
+## Stepper with `useStepper` hook and selectors
+
+To facilitate the use of Stepper, the `@okp4/ui` library provides a custom React hook to manage the status of steps during navigation.  
+Along with this hook, the library provides selectors. These selectors are functions that retrieve useful data from the state returned by the `useStepper` hook.
+
+We recommend using the `useStepper` hook with the selector functions to make it easier to use the Stepper. But you can also implement your own.
+The [example](/docs/molecules-stepper--example) below will give you everything you need to understand how to use Stepper with the `useStepper` hook and selectors.
+
+### `useStepper` hook
+
+The `useStepper` hook gives you :
+
+- The `state` object. It contains the following values:
+  - `currentStepId`: the id of the step in progress.
+  - `stepsStatus`: an ordered map that provides the status of each step.
+  - `enabledSteps`: the list of the non-disabled steps.
+- The `dispatch` funtion. It allows to dispatch one of the following actions :
+  - `previousClicked` : sets the current step as **uncompleted** (unless if it is **invalid**) and then sets the previous step as current.
+  - `stepCompleted` : sets the current step to **completed** and then set the next step as current.
+  - `stepFailed` : sets the current step to **invalid**.
+  - `stepperSubmitted` : sets the current step to **completed**.
+  - `stepperReset` : resets the status of all steps.
+
+To call the `useStepper` hook, or to dispatch the `stepperReset` action, you must provide two parameters :
+
+- the id of the current initial step
+- the initial status list
+
+Example :
+
+```tsx
+// Call the `useStepper` hook
+const { state, dispatch } = useStepper(
+  'protocol', // The initial current step id
+  steps.map(step => ({ id: step.id, status: step.status })) // the initial list of status
+)
+
+// Dispatch the `stepperReset` action
+const handleReset = useCallback(() => {
+  dispatch({
+    type: 'stepperReset',
+    payload: {
+      initialCurrentStepId: 'protocol', // The initial current step id
+      initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status })) // the initial list of status
+    }
+  })
+}, [dispatch, steps])
+```
+
+### Selectors
+
+The `@okp4/ui` library provides the following selector to facilitate the use of the hook with the Stepper :
+
+- `getUpdatedSteps`: Allows to get the steps with their updated status thanks to the state returned by the `useStepper` hook.
+
+### Example
+
+Here is a complete example of how to use the Stepper with the `useStepper` hook and selectors.
+
+First, define your steps :
+
+```tsx
+const steps = [
+  {
+    id: 'protocol',
+    label: 'ØKP4 Protocol',
+    status: 'uncompleted'
+  },
+  {
+    id: 'news-docs',
+    label: 'News & Docs',
+    status: 'uncompleted'
+  },
+  {
+    id: 'roadmap',
+    label: 'Røadmap',
+    status: 'uncompleted',
+    onValidate: () => true
+  },
+  {
+    id: 'team',
+    label: 'Team',
+    status: 'uncompleted'
+  }
+]
+```
+
+Then call the hook with the id of the initial current step and map your steps to keep only the id and the status.
+
+```tsx
+const { state, dispatch }: UseStepper = useStepper(
+  'protocol',
+  steps.map(step => ({ id: step.id, status: step.status }))
+)
+```
+
+Define your `onPrevious`, `onNext`, `onSubmit` and `onReset` callback functions.  
+These functions can then call the `dispatch` function of the hook to execute the appropriate actions and update the state.
+
+```tsx
+const handlePrevious = useCallback(() => {
+  // You can define your logic here and call the dispatch function with the appropriated action
+  dispatch({
+    type: 'previousClicked'
+  })
+}, [dispatch])
+
+const handleNext = useCallback(() => {
+  // You can check the step with the `onValidate` callback function of the step and then call the appropriate action
+  const currentStep = steps.find((step: Step) => step.id === state.currentStepId)
+  const stepCompleted = currentStep && (!currentStep.onValidate || currentStep.onValidate())
+  dispatch({
+    type: stepCompleted ? 'stepCompleted' : 'stepFailed'
+  })
+}, [dispatch, state.currentStepId, steps])
+
+const handleSubmit = useCallback(() => {
+  // You can check if the last step is valid and then call the appropriate action
+  const lastStep = steps[steps.length - 1]
+  const stepCompleted = !lastStep.onValidate || lastStep.onValidate()
+  dispatch({
+    type: stepCompleted ? 'stepperSubmitted' : 'stepFailed'
+  })
+}, [dispatch, steps])
+
+const handleReset = useCallback(() => {
+  dispatch({
+    type: 'stepperReset',
+    // The payload contains the data with which the Stepper must be reset
+    payload: {
+      initialCurrentStepId: 'protocol',
+      initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+    }
+  })
+}, [dispatch, steps])
+```
+
+Finally, return the Stepper with the appropriated props and the help of selector function
+
+```tsx
+return (
+  <div className="stepper-container-x-small">
+    <Stepper
+      steps={getUpdatedSteps(steps, state)}
+      currentStepId={state.currentStepId}
+      onPrevious={handlePrevious}
+      onNext={handleNext}
+      onSubmit={handleSubmit}
+      onReset={handleReset}
+      isSubmitDisabled={false}
+    />
+  </div>
+)
+```
+
+See the complete example below.
+
+<Canvas>
+  <Story name="Example">
+    {() => {
+      // Define your steps
+      const steps = [
+        {
+          id: 'protocol',
+          label: 'ØKP4 Protocol',
+          status: 'uncompleted'
+        },
+        {
+          id: 'news-docs',
+          label: 'News & Docs',
+          status: 'uncompleted'
+        },
+        {
+          id: 'roadmap',
+          label: 'Røadmap',
+          status: 'uncompleted',
+          onValidate: () => true
+        },
+        {
+          id: 'team',
+          label: 'Team',
+          status: 'uncompleted'
+        }
+      ]
+      // Call the hook with two parameters
+      const { state, dispatch } = useStepper(
+        'protocol',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      // Define your callback functions `onPrevious`, `onNext`, `onSubmit` and `onReset`
+      const handlePrevious = useCallback(() => {
+        // You can define your logic here and call the dispatch function with the appropriated action
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      // You can check the step with the `onValidate` callback function of the step
+      // and then call the appropriated action
+      const handleNext = useCallback(() => {
+        const currentStep = steps.find(step => step.id === state.currentStepId)
+        const stepCompleted = currentStep && (!currentStep.onValidate || currentStep.onValidate())
+        dispatch({
+          type: stepCompleted ? 'stepCompleted' : 'stepFailed'
+        })
+      }, [dispatch, state.currentStepId, steps])
+      // You can check if the last step is valid and then call the appropriated action
+      const handleSubmit = useCallback(() => {
+        const lastStep = steps[steps.length - 1]
+        const stepCompleted = !lastStep.onValidate || lastStep.onValidate()
+        dispatch({
+          type: stepCompleted ? 'stepperSubmitted' : 'stepFailed'
+        })
+      }, [dispatch, steps])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          // The payload contains the data with which the Stepper must be reset
+          payload: {
+            initialCurrentStepId: 'protocol',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
+      return (
+        <div className="stepper-container-x-small">
+          <Stepper
+            currentStepId={state.currentStepId}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+            onSubmit={handleSubmit}
+            onReset={handleReset}
+            steps={getUpdatedSteps(steps, state)}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
 ## Step
 
-The `Stepper` comes with a list of steps. A `Step` must respect the following type :
+The Stepper comes with a list of steps. A _Step_ must respect the following type :
 
 ```ts
 type Step = {
-  readonly label: string
-  readonly status?: 'disabled' | 'invalid' | 'completed' | 'active' | 'uncompleted'
+  /**
+   * The id of the step.
+   */
+  readonly id: string
+  /**
+   * The title of the step.
+   */
+  readonly label?: string
+  /**
+   * The status of the step.
+   */
+  readonly status?: 'disabled' | 'invalid' | 'completed' | 'uncompleted'
+  /**
+   * The content of the step.
+   */
   readonly content?: JSX.Element
+  /**
+   * Callback function which allows to validate the step.
+   */
   readonly onValidate?: () => boolean
 }
 ```
@@ -159,6 +452,7 @@ type Step = {
     {() => {
       const steps = [
         {
+          id: 'firstStep',
           label: 'This is the step label',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -167,10 +461,12 @@ type Step = {
           )
         },
         {
+          id: 'disabledStep',
           label: 'This is a disabled step',
           status: 'disabled'
         },
         {
+          id: 'lastStep',
           label: 'And then this is the last step',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -179,9 +475,44 @@ type Step = {
           )
         }
       ]
+      const { state, dispatch } = useStepper(
+        'firstStep',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'firstStep',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-x-small">
-          <Stepper steps={steps} />
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+          />
         </div>
       )
     }}
@@ -197,21 +528,60 @@ The `label` is the title of the step.
     {() => {
       const steps = [
         {
-          label: 'Personal Informations'
+          id: 'personal-information',
+          label: 'Personal Information'
         },
         {
+          id: 'addresses',
           label: 'Addresses'
         },
         {
+          id: 'payment',
           label: 'Payment'
         },
         {
+          id: 'confirmation',
           label: 'Confirmation'
         }
       ]
+      const { state, dispatch } = useStepper(
+        'personal-information',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'personal-information',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-x-small">
-          <Stepper steps={steps} />
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+          />
         </div>
       )
     }}
@@ -220,20 +590,20 @@ The `label` is the title of the step.
 
 ### Status
 
-It is possible to provide an initial status to each step. The initial status is one of the following values : `disabled`, `invalid`, `completed`, `active` or `uncompleted`.  
-By default, a step is `uncompleted`.
+It is possible to provide an initial status to each step. The initial status is one of the following values : **disabled**, **invalid**, **completed**, or **uncompleted**.  
+By default, a step will be **uncompleted**.
 
-- `disabled` - The step is disabled and can't be reached when clicked on the _Previous_ or the _Next_ button.
-- `invalid` - The step is in error. When it is reached, it becomes active. Then it becomes `uncompleted` if you go back to a previous step, `completed` if you go to the next step, or `invalid` if an error is detected (see the [onValidate](/docs/molecules-stepper--on-validate) section).
-- `completed` - The step is already completed.
-- `active` - The step is active.
-- `uncompleted` - The step is not completed yet. This status is the default status.
+- **disabled** - The step is disabled and can't be reached when clicked on the _Previous_ or the _Next_ button.
+- **invalid** - The step is in error. When it is reached, it becomes active. Then it becomes **completed** if you go to the next step without error, or **invalid** if an error is detected (see the [onValidate](/docs/molecules-stepper--on-validate) section).
+- **completed** - The step is already completed.
+- **uncompleted** - The step is not completed yet. This status is the default status.
 
 <Canvas>
   <Story name="Step status">
     {() => {
       const steps = [
         {
+          id: 'first',
           label: 'First step already completed',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -243,6 +613,7 @@ By default, a step is `uncompleted`.
           status: 'completed'
         },
         {
+          id: 'second',
           label: 'Second step disabled',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -252,25 +623,27 @@ By default, a step is `uncompleted`.
           status: 'disabled'
         },
         {
+          id: 'third',
           label: 'Third step in error',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              This step was in error. It becomes active when switching on it. And then uncompleted
-              when switching again
+              This step was in error. It becomes active when switching on it. It remains in error if
+              you click on Previous or becomes complete if click on Next.
             </Typography>
           ),
           status: 'invalid'
         },
         {
+          id: 'fourth',
           label: 'Fourth step',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
               The step 4 is the initial active step.
             </Typography>
-          ),
-          status: 'active'
+          )
         },
         {
+          id: 'fifth',
           label: 'Fifth step uncompleted',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -280,6 +653,7 @@ By default, a step is `uncompleted`.
           status: 'uncompleted'
         },
         {
+          id: 'sixth',
           label: 'Sixth step also uncompleted',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -288,9 +662,44 @@ By default, a step is `uncompleted`.
           )
         }
       ]
+      const { state, dispatch } = useStepper(
+        'fourth',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'fourth',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-x-small">
-          <Stepper steps={steps} />
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+          />
         </div>
       )
     }}
@@ -306,6 +715,7 @@ The `content` of the step can be any `JSX.Element`.
     {() => {
       const steps = [
         {
+          id: 'protocol',
           label: 'ØKP4 Protocol',
           content: (
             <div>
@@ -334,6 +744,7 @@ The `content` of the step can be any `JSX.Element`.
           )
         },
         {
+          id: 'news-docs',
           label: 'News & Docs',
           content: (
             <div
@@ -360,6 +771,7 @@ The `content` of the step can be any `JSX.Element`.
           )
         },
         {
+          id: 'roadmap',
           label: 'Røadmap',
           content: (
             <div
@@ -452,6 +864,7 @@ The `content` of the step can be any `JSX.Element`.
           )
         },
         {
+          id: 'team',
           label: 'Team',
           content: (
             <div>
@@ -472,18 +885,55 @@ The `content` of the step can be any `JSX.Element`.
           )
         }
       ]
+      const { state, dispatch } = useStepper(
+        'protocol',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'protocol',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-medium">
-          <Stepper steps={steps} submitButtonLabel="Finish" />
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+            submitButtonLabel="Finish"
+          />
         </div>
       )
     }}
   </Story>
 </Canvas>
 
-### Callback method `onValidate`
+### Callback function `onValidate`
 
-The method `onValidate` is provided to validate the step before going to the next one. The method is called when clicking on the next button. The stepper goes to the next step if the method returns `true`, else the step becomes in error status.
+The `onValidate` function is provided to validate the step before going to the next one. The function is called when clicking on the next button.  
+The Stepper goes to the next step if the function returns **true**, else the step becomes **invalid**.
 
 <Canvas>
   <Story name="onValidate">
@@ -500,30 +950,71 @@ The method `onValidate` is provided to validate the step before going to the nex
       }
       const steps = [
         {
+          id: 'type',
           label: 'Type of dough',
           onValidate: handleValidateTypeOfDough,
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              This step is always valid because `onValidate` method returns `true`.
+              This step is always valid because `onValidate` function returns `true`.
             </Typography>
           )
         },
         {
+          id: 'ingredients',
           label: 'Extra ingredients',
           onValidate: handleValidateExtraIngredients,
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              This step is never valid because `onValidate` method returns `false`.
+              This step is never valid because `onValidate` function returns `false`.
             </Typography>
           )
         },
         {
+          id: 'payment',
           label: 'Payment'
         }
       ]
+      const { state, dispatch } = useStepper(
+        'type',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        const currentStep = steps.find(step => step.id === state.currentStepId)
+        const stepCompleted = currentStep && (!currentStep.onValidate || currentStep.onValidate())
+        dispatch({
+          type: stepCompleted ? 'stepCompleted' : 'stepFailed'
+        })
+      }, [dispatch, state.currentStepId, steps])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'type',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-x-small">
-          <Stepper steps={steps} />
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+            submitButtonLabel="Finish"
+          />
           <Toast
             description="The step is completed : `onValidate` returns true"
             isOpened={isStepCompleted}
@@ -546,9 +1037,82 @@ The method `onValidate` is provided to validate the step before going to the nex
   </Story>
 </Canvas>
 
+## Disable submit button
+
+The `isSubmitButtonDisabled` optional property allows to disabled the _Submit_ button.
+
+<Canvas>
+  <Story name="Disable submit button">
+    {() => {
+      const steps = [
+        {
+          id: 'protocol',
+          label: 'ØKP4 Protocol',
+          status: 'completed'
+        },
+        {
+          id: 'news-docs',
+          label: 'News & Docs',
+          status: 'completed'
+        },
+        {
+          id: 'roadmap',
+          label: 'Røadmap',
+          status: 'completed'
+        },
+        {
+          id: 'team',
+          label: 'Team'
+        }
+      ]
+      const { state, dispatch } = useStepper(
+        'team',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'protocol',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
+      return (
+        <div className="stepper-container-x-small">
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+            isSubmitDisabled={true}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
 ## Buttons label
 
-Users can provide a label for the submit button with the `submitButtonLabel` property and for the reset button with the `resetButtonLabel` property.
+Users can provide a label for the _Submit_ button with the `submitButtonLabel` property and for the _Reset_ button with the `resetButtonLabel` property.
 By default the label is provided by the defaults translation files (see the Internationalization section).
 
 <Canvas>
@@ -556,6 +1120,7 @@ By default the label is provided by the defaults translation files (see the Inte
     {() => {
       const steps = [
         {
+          id: 'q1',
           label: 'Q1',
           status: 'completed',
           content: (
@@ -587,6 +1152,7 @@ By default the label is provided by the defaults translation files (see the Inte
           )
         },
         {
+          id: 'q2',
           label: 'Q2',
           status: 'completed',
           content: (
@@ -631,6 +1197,7 @@ By default the label is provided by the defaults translation files (see the Inte
           )
         },
         {
+          id: 'q3',
           label: 'Q3',
           status: 'completed',
           content: (
@@ -674,6 +1241,7 @@ By default the label is provided by the defaults translation files (see the Inte
           )
         },
         {
+          id: 'q4',
           label: 'Q4',
           status: 'active',
           content: (
@@ -711,9 +1279,46 @@ By default the label is provided by the defaults translation files (see the Inte
           )
         }
       ]
+      const { state, dispatch } = useStepper(
+        'q4',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'q1',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-large">
-          <Stepper steps={steps} submitButtonLabel="End of reading" resetButtonLabel="Read again" />
+          <Stepper
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+            submitButtonLabel="End of reading"
+            resetButtonLabel="Read again"
+          />
         </div>
       )
     }}
@@ -722,7 +1327,7 @@ By default the label is provided by the defaults translation files (see the Inte
 
 ## Internationalization
 
-`Stepper` is provided with its defaults translation files (`stepper_en.json` and `stepper_fr.json`).
+Stepper is provided with its defaults translation files (`stepper_en.json` and `stepper_fr.json`).
 It is possible to overwrite the translations or to add new translation keys if needed.
 Here are the keys and their english translations:
 
@@ -730,7 +1335,7 @@ Here are the keys and their english translations:
 
 ```json
 {
-  "step": {
+  "stepper": {
     "button": {
       "previous": "Previous",
       "next": "Next",
@@ -743,128 +1348,112 @@ Here are the keys and their english translations:
 
 See <a href="?path=/docs/guidelines-internationalization--page">internationalization</a> for information on how to load translations.
 
-## Success content
+## Callback functions `onPrevious`, `onNext`, `onSubmit` and `onReset`
 
-The `successContent` property is used to provide a `JSX.Element` content that is displayed at the end when the last step is completed.
-
-<Canvas>
-  <Story name="Success content">
-    {() => {
-      const steps = [
-        {
-          label: 'ØKP4 Protocol',
-          status: 'completed'
-        },
-        {
-          label: 'News & Docs',
-          status: 'completed'
-        },
-        {
-          label: 'Røadmap',
-          status: 'completed'
-        },
-        {
-          label: 'Team',
-          status: 'active',
-          content: (
-            <Typography as="p" fontFamily="brand" fontSize="small" fontWeight="xlight">
-              Meet the team on
-              <Typography fontFamily="brand" fontSize="small" fontWeight="bold">
-                <a
-                  href="https://okp4.network/#team"
-                  target="_blank"
-                  style={{ textDecoration: 'unset', color: 'inherit' }}
-                >
-                  {` ØKP4 `}
-                </a>
-              </Typography>
-              web site.
-            </Typography>
-          )
-        }
-      ]
-      return (
-        <div className="stepper-container-small">
-          <Stepper
-            steps={steps}
-            submitButtonLabel="Finish reading"
-            resetButtonLabel="Read again"
-            successContent={
-              <div>
-                <Typography as="div" fontFamily="brand" fontWeight="light" color="success">
-                  You're done reading everything !
-                </Typography>
-                <Typography as="div" fontFamily="brand" fontWeight="light">
-                  Do you want to read again ?
-                </Typography>
-              </div>
-            }
-          />
-        </div>
-      )
-    }}
-  </Story>
-</Canvas>
-
-## Callback methods `onNext`, `onSubmit` and `onReset`
-
-The `Stepper` provides the `onNext` and `onSubmit` properties.  
-The callback method `onNext` is called when clicking on the _Next_ button.  
-The callback method `onSubmit` is called when clicking on the _Submit_ button in the last step.  
-Once the last step is completed, the `Reset` button appears. The callback method `onReset` is called when clicking on this button.  
-The `Reset` corresponds to the reset of the stepper to its initial state (as it was originally set up by the user).
+The Stepper provides the `onPrevious`, `onNext`, `onSubmit` and `onReset` properties.  
+The callback function `onPrevious` is called when clicking on the _Previous_ button.  
+The callback function `onNext` is called when clicking on the _Next_ button.  
+The callback function `onSubmit` is called when clicking on the _Submit_ button in the last step.  
+Once the last step is completed, the _Reset_ button appears. The callback function `onReset` is called when clicking on this button.
 
 <Canvas>
-  <Story name="Callback methods">
+  <Story name="Callback functions">
     {() => {
+      const [isPreviousOpened, setPreviousOpened] = useState(false)
       const [isNextOpened, setNextOpened] = useState(false)
       const [isSubmitOpened, setSubmitOpened] = useState(false)
       const [isResetOpened, setResetOpened] = useState(false)
+      const handlePreviousOpened = bool => () => setNextOpened(bool)
       const handleNextOpened = bool => () => setNextOpened(bool)
       const handleSubmitOpened = bool => () => setSubmitOpened(bool)
       const handleResetOpened = bool => () => setResetOpened(bool)
       const steps = [
         {
+          id: 'protocol',
           label: 'ØKP4 Protocol'
         },
         {
+          id: 'news-docs',
           label: 'News & Docs'
         },
         {
+          id: 'roadmap',
           label: 'Røadmap'
         },
         {
+          id: 'team',
           label: 'Team'
         }
       ]
+      const { state, dispatch } = useStepper(
+        'protocol',
+        steps.map(step => ({ id: step.id, status: step.status }))
+      )
+      const handlePrevious = useCallback(() => {
+        setPreviousOpened(true)
+        dispatch({
+          type: 'previousClicked'
+        })
+      }, [dispatch])
+      const handleNext = useCallback(() => {
+        setNextOpened(true)
+        dispatch({
+          type: 'stepCompleted'
+        })
+      }, [dispatch])
+      const handleSubmit = useCallback(() => {
+        setSubmitOpened(true)
+        dispatch({
+          type: 'stepperSubmitted'
+        })
+      }, [dispatch])
+      const handleReset = useCallback(() => {
+        setResetOpened(true)
+        dispatch({
+          type: 'stepperReset',
+          payload: {
+            initialCurrentStepId: 'protocol',
+            initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
+          }
+        })
+      }, [dispatch, steps])
       return (
         <div className="stepper-container-x-small">
           <Stepper
-            steps={steps}
-            onNext={handleNextOpened(true)}
-            onSubmit={handleSubmitOpened(true)}
-            onReset={handleResetOpened(true)}
+            currentStepId={state.currentStepId}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            steps={getUpdatedSteps(steps, state)}
+          />
+          <Toast
+            description="You clicked on Previous button"
+            isOpened={isPreviousOpened}
+            onOpenChange={handlePreviousOpened(false)}
+            severityLevel="success"
+            title="onPrevious"
           />
           <Toast
             description="You clicked on Next button"
             isOpened={isNextOpened}
             onOpenChange={handleNextOpened(false)}
-            title="onNext"
             severityLevel="success"
+            title="onNext"
           />
           <Toast
             description="You clicked on Submit button"
             isOpened={isSubmitOpened}
             onOpenChange={handleSubmitOpened(false)}
-            title="onSubmit"
             severityLevel="success"
+            title="onSubmit"
           />
           <Toast
             description="You clicked on Reset button"
             isOpened={isResetOpened}
             onOpenChange={handleResetOpened(false)}
-            title="onReset"
             severityLevel="success"
+            title="onReset"
           />
         </div>
       )
