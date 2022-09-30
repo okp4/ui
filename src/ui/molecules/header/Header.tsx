@@ -1,10 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type { DeepReadonly, UseState } from 'superTypes'
 import classNames from 'classnames'
+import short from 'short-uuid'
 import { useMediaType } from 'hook/useMediaType'
 import { ThemeSwitcher as Switcher } from 'ui/atoms/theme/ThemeSwitcher'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './header.scss'
+
+export type NavigationItem = {
+  menuItem: JSX.Element
+  subMenu?: NavigationItem[]
+}
 
 export type HeaderProps = {
   /**
@@ -14,7 +20,7 @@ export type HeaderProps = {
   /**
    * The list of navigable links that make up the menu.
    */
-  readonly navigationMenu?: JSX.Element[]
+  readonly navigationMenu?: NavigationItem[]
 }
 
 const BurgerMenu = ({
@@ -35,15 +41,43 @@ const BurgerMenu = ({
 const NavigationMenu = ({
   navigation,
   withBurgerMenu
-}: DeepReadonly<{ navigation: JSX.Element[]; withBurgerMenu?: boolean }>): JSX.Element => {
+}: DeepReadonly<{ navigation: NavigationItem[]; withBurgerMenu?: boolean }>): JSX.Element => {
+  const [selectedMenuItemId, setSelectedMenuItemID]: UseState<string> = useState<string>('')
   const menuType = withBurgerMenu ? 'burger' : 'row'
+
+  const menuItemsWithIds: Map<string, DeepReadonly<NavigationItem>> = useMemo(
+    () =>
+      new Map(
+        navigation.map((navItem: DeepReadonly<NavigationItem>) => [short.generate(), navItem])
+      ),
+    [navigation]
+  )
+
+  const handleMenuItemSelected = useCallback(
+    (id: string) => (): void => {
+      setSelectedMenuItemID(id)
+    },
+    []
+  )
+
   return (
     <div className={`okp4-header-navigation-${menuType}-list`}>
-      {navigation.map((link: DeepReadonly<JSX.Element>, index: number) => (
-        <div className={`okp4-header-navigation-${menuType}-item`} key={index}>
-          {link}
-        </div>
-      ))}
+      {[...menuItemsWithIds].map(
+        ([id, navItem]: DeepReadonly<[string, DeepReadonly<NavigationItem>]>) => {
+          const showSelected = selectedMenuItemId === id && menuType === 'row'
+          return (
+            <div
+              className={`okp4-header-navigation-${menuType}-item`}
+              key={id}
+              onClick={handleMenuItemSelected(id)}
+            >
+              {showSelected && <Icon name="arrow-down" size={15} />}
+              {navItem.menuItem}
+              {showSelected && <Icon name="arrow-up" size={15} />}
+            </div>
+          )
+        }
+      )}
     </div>
   )
 }
