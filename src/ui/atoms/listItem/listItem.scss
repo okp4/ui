@@ -34,19 +34,28 @@
 
     &.layout-list {
       grid-template-columns: minmax(35px, auto) minmax(140px, 1fr) minmax(35px, auto);
-      grid-template-rows: min-content 1fr;
-      grid-template-areas:
-        'firstElement title lastElement'
-        'firstElement description lastElement';
+      grid-template-areas: 'firstElement title lastElement';
+
+      &.with-description {
+        grid-template-rows: min-content 1fr;
+        grid-template-areas:
+          'firstElement title lastElement'
+          'firstElement description lastElement';
+      }
     }
 
     &.layout-grid {
       grid-template-columns: 5fr 2fr;
-      grid-template-rows: max-content;
       grid-template-areas:
         'title firstElement'
-        'description description'
         'lastElement lastElement';
+
+      &.with-description {
+        grid-template-areas:
+          'title firstElement'
+          'description description'
+          'lastElement lastElement';
+      }
 
       .okp4-listitem-first-element {
         display: grid;

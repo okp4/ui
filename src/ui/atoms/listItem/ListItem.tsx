@@ -70,7 +70,8 @@ export const ListItem = ({
   layout = 'list'
 }: DeepReadonly<ListItemProps>): JSX.Element => {
   const className = classNames(`okp4-listitem-main layout-${layout}`, {
-    clickable: !!onClick
+    clickable: !!onClick,
+    'with-description': !!description
   })
   return (
     <div className={className} onClick={onClick}>
