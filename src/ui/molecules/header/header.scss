@@ -1,14 +1,5 @@
 @import '../../styles/themes.scss';
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
+@import 'ui/styles/animations.scss';
 
 .okp4-header-main {
   @include with-theme() {
@@ -43,7 +34,7 @@
     }
 
     &.with-navigation {
-      grid-template-columns: auto 2fr 1fr;
+      grid-template-columns: auto auto 1fr;
 
       @media screen and (max-width: 995px) {
         grid-template-columns: repeat(3, 1fr);
@@ -58,9 +49,44 @@
           grid-area: 2 / 1 / 2 / 4;
           margin: 10px 0 10px 10px;
           animation: fadeIn 1s;
+          width: fit-content;
 
-          .okp4-header-navigation-burger-item {
-            margin-top: 20px;
+          .okp4-header-navigation-item-container {
+            position: relative;
+
+            .okp4-header-navigation-burger-item {
+              margin-top: 20px;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+
+              & > svg {
+                margin-right: 5px;
+              }
+
+              &.selected {
+                opacity: 0.6;
+              }
+            }
+
+            .okp4-header-navigation-submenu {
+              // position: absolute;
+              // z-index: 10;
+              color: themed(text);
+              margin: 14px 0 0 22px;
+              // border: 1px solid themed(text);
+              // border-radius: 5px;
+              // top: -10px;
+              // left: 120%;
+
+              .okp4-header-navigation-submenu-item {
+                margin: 10px;
+
+                &:hover {
+                  opacity: 0.6;
+                }
+              }
+            }
           }
         }
       }
@@ -85,17 +111,45 @@
         grid-area: 1 / 2;
         display: flex;
         justify-content: space-evenly;
+        align-items: center;
         margin: 0 20px;
 
-        .okp4-header-navigation-row-item {
-          margin-left: 10px;
-          align-self: center;
-          display: grid;
-          justify-items: center;
+        .okp4-header-navigation-item-container {
+          position: relative;
 
-          &.selected {
-            opacity: 0.6;
+          .okp4-header-navigation-row-item {
+            margin-left: 10px;
+            align-self: center;
+            display: grid;
+            justify-items: center;
+            cursor: pointer;
+
+            &.selected {
+              opacity: 0.6;
+            }
           }
+
+          .okp4-header-navigation-submenu {
+            position: absolute;
+            z-index: 10;
+            color: themed(text);
+            border: 1px solid themed(text);
+            border-radius: 5px;
+
+            .okp4-header-navigation-submenu-item {
+              margin: 10px;
+
+              &:hover {
+                opacity: 0.6;
+              }
+            }
+          }
+        }
+
+        .okp4-header-navigation-submenu {
+          position: absolute;
+          top: 70px;
+          border: 1px solid black;
         }
       }
     }
