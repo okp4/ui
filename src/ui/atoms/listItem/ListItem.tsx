@@ -3,6 +3,7 @@ import type { DeepReadonly } from 'superTypes'
 import { Typography } from '../typography/Typography'
 import './listItem.scss'
 import { isString } from 'utils'
+import classNames from 'classnames'
 
 export type ListItemProps = {
   /**
@@ -21,13 +22,19 @@ export type ListItemProps = {
    * An element that can provide visual information or allow interactions on the right side.
    */
   readonly lastElement?: JSX.Element
+  /**
+   * The callback function called when the list item is clicked.
+   * The `onClick` function is an event handler attached to the list item.
+   */
+  readonly onClick?: () => void
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
   title,
   description,
   firstElement,
-  lastElement
+  lastElement,
+  onClick
 }: DeepReadonly<ListItemProps>): JSX.Element => {
   const renderDescription = (): string | JSX.Element | undefined =>
     description && (
@@ -43,7 +50,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     )
 
   return (
-    <div className="okp4-listitem-main">
+    <div className={classNames('okp4-listitem-main', { clickable: !!onClick })} onClick={onClick}>
       {firstElement && <div className="okp4-listitem-first-element">{firstElement}</div>}
       {title && (
         <div className="okp4-listitem-title">
