@@ -6,7 +6,7 @@ import './list.scss'
 export type ListProps = {
   /**
    * The elements passed as children of the List component.
-   * The expected children are `ListItem` components.
+   * The expected children are ListItem components.
    */
   readonly children: React.ReactNode
   /**
@@ -15,9 +15,6 @@ export type ListProps = {
   readonly layout?: 'grid' | 'list'
 }
 
-/**
- * Primary UI component for display a list of items.
- */
 export const List: React.FC<ListProps> = ({
   children,
   layout = 'list'
