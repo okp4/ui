@@ -8,8 +8,8 @@
   grid-template-columns: minmax(30px, 8%) auto auto;
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
-    'leftElement title rightElement'
-    'leftElement description rightElement';
+    'firstElement title lastElement'
+    'firstElement description lastElement';
 
   @include with-theme {
     background-color: themed(inverted-primary-background);
@@ -28,13 +28,13 @@
     margin: 3px;
   }
 
-  .okp4-listitem-left-element {
-    grid-area: leftElement;
+  .okp4-listitem-first-element {
+    grid-area: firstElement;
     margin: 5px auto 5px 5px;
   }
 
-  .okp4-listitem-right-element {
-    grid-area: rightElement;
+  .okp4-listitem-last-element {
+    grid-area: lastElement;
     margin: 5px 5px 5px auto;
   }
 }

@@ -16,18 +16,18 @@ export type ListItemProps = {
   /**
    * An element that can provide visual information or allow interactions on the left side.
    */
-  readonly leftElement?: JSX.Element
+  readonly firstElement?: JSX.Element
   /**
    * An element that can provide visual information or allow interactions on the right side.
    */
-  readonly rightElement?: JSX.Element
+  readonly lastElement?: JSX.Element
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
   title,
   description,
-  leftElement,
-  rightElement
+  firstElement,
+  lastElement
 }: DeepReadonly<ListItemProps>): JSX.Element => {
   const renderDescription = (): string | JSX.Element | undefined =>
     description && (
@@ -44,7 +44,7 @@ export const ListItem: React.FC<ListItemProps> = ({
 
   return (
     <div className="okp4-listitem-main">
-      {leftElement && <div className="okp4-listitem-left-element">{leftElement}</div>}
+      {firstElement && <div className="okp4-listitem-first-element">{firstElement}</div>}
       {title && (
         <div className="okp4-listitem-title">
           <Typography as="div" color="inverted-text" fontSize="small" fontWeight="bold">
@@ -53,7 +53,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         </div>
       )}
       {renderDescription()}
-      {rightElement && <div className="okp4-listitem-right-element">{rightElement}</div>}
+      {lastElement && <div className="okp4-listitem-last-element">{lastElement}</div>}
     </div>
   )
 }
