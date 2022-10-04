@@ -24,6 +24,8 @@ export type StepperAction =
   | { type: 'previousClicked' }
   | { type: 'stepCompleted' }
   | { type: 'stepFailed' }
+  | { type: 'stepRemoved'; payload: string }
+  | { type: 'stepAdded'; payload: { step: InitialStepStatus; order: number } }
   | { type: 'stepperSubmitted' }
   | { type: 'stepperReset'; payload: InitializerArgs }
 
@@ -32,10 +34,10 @@ export type InitialStepStatus = {
   status?: StepStatus
 }
 
-export type InitializerArgs = DeepReadonly<{
+export type InitializerArgs = {
   initialCurrentStepId: string
   initialStepsStatus: InitialStepStatus[]
-}>
+}
 
 const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState => {
   const enabledSteps = ImmutableList(
@@ -94,6 +96,29 @@ const stepperReducer = (
           ...state,
           stepsStatus: state.stepsStatus.set(state.currentStepId, 'invalid')
         }
+      case 'stepRemoved':
+        return action.payload !== state.currentStepId
+          ? {
+              ...state,
+              stepsStatus: state.stepsStatus.delete(action.payload),
+              enabledSteps: state.enabledSteps.delete(
+                state.enabledSteps.findIndex((id: string) => id === action.payload)
+              )
+            }
+          : state
+      case 'stepAdded': {
+        const stepsStatus = state.stepsStatus.toArray()
+        stepsStatus.splice(action.payload.order, 0, [
+          action.payload.step.id,
+          action.payload.step.status ?? 'uncompleted'
+        ])
+        return initState({
+          initialCurrentStepId: state.currentStepId,
+          initialStepsStatus: stepsStatus.map(
+            ([id, status]: DeepReadonly<[string, StepStatus]>) => ({ id, status })
+          )
+        })
+      }
       case 'stepperSubmitted': {
         return {
           ...state,
