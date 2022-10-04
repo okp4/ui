@@ -1,4 +1,14 @@
 .okp4-list-main {
-  display: grid;
-  row-gap: 5px;
+  &.layout-list {
+    display: grid;
+    row-gap: 5px;
+  }
+
+  &.layout-grid {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 350px));
+    grid-auto-rows: 210px;
+    justify-content: center;
+  }
 }

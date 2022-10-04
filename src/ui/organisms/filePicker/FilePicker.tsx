@@ -95,7 +95,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({
         </Typography>
       }
       key={id}
-      rightElement={<RemoveIcon id={id} />}
+      lastElement={<RemoveIcon id={id} />}
       title={name}
     />
   )
