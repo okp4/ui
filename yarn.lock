@@ -8267,13 +8267,14 @@ escodegen@^2.0.0:
     source-map "~0.6.1"
 
 eslint-plugin-functional@>=4.0.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.2.2.tgz#d4c10fec0f45db892590255a03f2f9ad06eddd24"
-  integrity sha512-sDz61AoXnR5dIipurwqoxvZ/CHzF1FHVGR5bUR+vJjqYiRNp+Y/m2SXEpyDqYwv8zSdZpBP77g8WR3+ZiJdZpw==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.4.0.tgz#695a06b02f742cc5c5ced31caccec28ab13431db"
+  integrity sha512-DY/Iax9knIgzvxhVeSe+KoF9e4imLvzCvUEN1a+bWciDiBi3s1CG/1fw7AQVXoAqoNw9eYuP7C2u3OtHzMFy+A==
   dependencies:
     "@typescript-eslint/utils" "^5.10.2"
     deepmerge-ts "^4.0.3"
     escape-string-regexp "^4.0.0"
+    semver "^7.3.7"
 
 eslint-plugin-react-hooks@>=4.3.0:
   version "4.6.0"
