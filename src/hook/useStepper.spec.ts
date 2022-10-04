@@ -109,6 +109,43 @@ describe('Considering the useStepper hook', () => {
     enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
   }
 
+  const expectedState3WhenStepRemoved: StepperState = {
+    currentStepId: 'thirdStep',
+    stepsStatus: OrderedMap<string, StepStatus>()
+      .set('firstStep', 'disabled')
+      .set('secondStep', 'uncompleted')
+      .set('thirdStep', 'uncompleted')
+      .set('fifthStep', 'disabled'),
+    enabledSteps: ImmutableList(['secondStep', 'thirdStep'])
+  }
+
+  const expectedState3WhenCurrentStepRemoved: StepperState = {
+    currentStepId: 'thirdStep',
+    stepsStatus: OrderedMap<string, StepStatus>()
+      .set('firstStep', 'disabled')
+      .set('secondStep', 'uncompleted')
+      .set('thirdStep', 'uncompleted')
+      .set('fourthStep', 'uncompleted')
+      .set('fifthStep', 'disabled'),
+    enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
+  }
+
+  const stepToAdd: InitialStepStatus = {
+    id: 'sixthStep'
+  }
+
+  const expectedState3WhenStepAdded: StepperState = {
+    currentStepId: 'thirdStep',
+    stepsStatus: OrderedMap<string, StepStatus>()
+      .set('firstStep', 'disabled')
+      .set('secondStep', 'uncompleted')
+      .set('thirdStep', 'uncompleted')
+      .set('fourthStep', 'uncompleted')
+      .set('sixthStep', 'uncompleted')
+      .set('fifthStep', 'disabled'),
+    enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep', 'sixthStep'])
+  }
+
   const initialStepsStatus4: InitialStepStatus[] = [
     { id: 'step1', status: 'completed' },
     { id: 'step2', status: 'completed' },
@@ -169,6 +206,9 @@ describe('Considering the useStepper hook', () => {
     ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'stepCompleted' }}                                      | ${expectedState2WhenStepCompleted}
     ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'previousClicked' }}                                    | ${expectedState3WhenPreviousClicked}
     ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                      | ${expectedState3WhenStepCompleted}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'fourthStep' }}                 | ${expectedState3WhenStepRemoved}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'thirdStep' }}                  | ${expectedState3WhenCurrentStepRemoved}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepAdded', payload: { step: stepToAdd, order: 4 } }}  | ${expectedState3WhenStepAdded}
     ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                   | ${expectedState4WhenStepperSubmitted}
     ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReset', payload: initialStepsStatus4ForReset }} | ${expectedState4WhenStepperReset}
     ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                    | ${expectedState5WhenPreviousClicked}
