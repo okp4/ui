@@ -25,7 +25,7 @@ export type StepperAction =
   | { type: 'stepCompleted' }
   | { type: 'stepFailed' }
   | { type: 'stepRemoved'; payload: string }
-  | { type: 'stepAdded'; payload: { step: InitialStepStatus; order: number } }
+  | { type: 'stepAdded'; payload: { step: InitialStepStatus; index: number } }
   | { type: 'stepperSubmitted' }
   | { type: 'stepperReset'; payload: InitializerArgs }
 
@@ -108,7 +108,7 @@ const stepperReducer = (
           : state
       case 'stepAdded': {
         const stepsStatus = state.stepsStatus.toArray()
-        stepsStatus.splice(action.payload.order, 0, [
+        stepsStatus.splice(action.payload.index, 0, [
           action.payload.step.id,
           action.payload.step.status ?? 'uncompleted'
         ])

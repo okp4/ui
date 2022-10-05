@@ -208,7 +208,7 @@ describe('Considering the useStepper hook', () => {
     ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                      | ${expectedState3WhenStepCompleted}
     ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'fourthStep' }}                 | ${expectedState3WhenStepRemoved}
     ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'thirdStep' }}                  | ${expectedState3WhenCurrentStepRemoved}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepAdded', payload: { step: stepToAdd, order: 4 } }}  | ${expectedState3WhenStepAdded}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepAdded', payload: { step: stepToAdd, index: 4 } }}  | ${expectedState3WhenStepAdded}
     ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                   | ${expectedState4WhenStepperSubmitted}
     ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReset', payload: initialStepsStatus4ForReset }} | ${expectedState4WhenStepperReset}
     ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                    | ${expectedState5WhenPreviousClicked}

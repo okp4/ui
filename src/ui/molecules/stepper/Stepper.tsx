@@ -47,7 +47,7 @@ export type StepperProps = {
   /**
    * The list of steps.
    */
-  readonly steps: DeepReadonly<Step[]>
+  readonly steps: Step[]
   /**
    * The id of the current step.
    */
