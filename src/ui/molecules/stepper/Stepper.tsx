@@ -84,7 +84,7 @@ export type StepperProps = {
 
 // eslint-disable-next-line max-lines-per-function
 export const Stepper: React.FC<StepperProps> = ({
-  steps = [],
+  steps,
   currentStepId,
   isSubmitDisabled,
   submitButtonLabel,
@@ -96,7 +96,8 @@ export const Stepper: React.FC<StepperProps> = ({
 }: DeepReadonly<StepperProps>): JSX.Element => {
   const { t }: UseTranslationResponse = useTranslation()
   const { isXSmall, isSmall }: Breakpoints = useBreakpoint()
-  const isMobile = (): boolean => isXSmall || isSmall
+
+  const isMobile = useMemo(() => isXSmall || isSmall, [isXSmall, isSmall])
 
   const currentStep = useMemo(
     () => steps.find((step: DeepReadonly<Step>) => step.id === currentStepId),
@@ -105,10 +106,7 @@ export const Stepper: React.FC<StepperProps> = ({
 
   const isFirstStep = useMemo(() => currentStepId === steps.at(0)?.id, [steps, currentStepId])
 
-  const isLastStep = useMemo(
-    () => currentStepId === steps.at(steps.length - 1)?.id,
-    [steps, currentStepId]
-  )
+  const isLastStep = useMemo(() => currentStepId === steps.at(-1)?.id, [steps, currentStepId])
 
   const getStepStatus = (step: DeepReadonly<Step>): StepStatus | 'active' =>
     isLastStep && step.status === 'completed'
@@ -121,14 +119,16 @@ export const Stepper: React.FC<StepperProps> = ({
     currentStep ? (
       <div className="okp4-stepper-progress">
         <div className={classNames('okp4-stepper-step-label', currentStep.status)}>
-          <Typography as="div" fontSize="small" fontWeight="bold">
+          <Typography fontSize="small" fontWeight="bold">
             {`${currentStep.label} (${steps.indexOf(currentStep) + 1}/${steps.length})`}
           </Typography>
         </div>
         <div className="okp4-stepper-step-states-mobile">
-          {steps.map((step: DeepReadonly<Step>) => (
-            <div className={classNames('okp4-stepper-step-state', step.status)} key={step.id}></div>
-          ))}
+          {steps.map(
+            (step: DeepReadonly<Step>): JSX.Element => (
+              <div className={classNames('okp4-stepper-step-state', step.status)} key={step.id} />
+            )
+          )}
         </div>
       </div>
     ) : null
@@ -182,25 +182,26 @@ export const Stepper: React.FC<StepperProps> = ({
   return (
     <div className="okp4-stepper-main">
       <div className="okp4-stepper-header">
-        {isMobile() ? (
+        {isMobile ? (
           <MobileHeader />
         ) : (
-          steps.map((step: DeepReadonly<Step>) => (
-            <div className="okp4-stepper-progress" key={step.id}>
-              <div className={classNames('okp4-stepper-step-label', getStepStatus(step))}>
-                <Typography
-                  as="div"
-                  fontSize="x-small"
-                  fontWeight={
-                    step.id === currentStepId && step.status !== 'completed' ? 'bold' : 'light'
-                  }
-                >
-                  {step.label}
-                </Typography>
+          steps.map(
+            (step: DeepReadonly<Step>): JSX.Element => (
+              <div className="okp4-stepper-progress" key={step.id}>
+                <div className={classNames('okp4-stepper-step-label', getStepStatus(step))}>
+                  <Typography
+                    fontSize="x-small"
+                    fontWeight={
+                      step.id === currentStepId && step.status !== 'completed' ? 'bold' : 'light'
+                    }
+                  >
+                    {step.label}
+                  </Typography>
+                </div>
+                <div className={classNames('okp4-stepper-step-state', getStepStatus(step))} />
               </div>
-              <div className={classNames('okp4-stepper-step-state', getStepStatus(step))}></div>
-            </div>
-          ))
+            )
+          )
         )}
       </div>
       <div
