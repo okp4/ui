@@ -236,7 +236,7 @@ export const Header: React.FC<HeaderProps> = ({
   }, [isSmallScreen])
 
   return (
-    <div className={headerClassname}>
+    <header className={headerClassname}>
       {showBurgerMenu && <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />}
       {showBurgerMenuList && (
         <NavigationMenu
@@ -255,6 +255,6 @@ export const Header: React.FC<HeaderProps> = ({
         />
       )}
       <ThemeSwitcher className={classNames({ 'with-navigation': !!navigationMenu })} />
-    </div>
+    </header>
   )
 }
