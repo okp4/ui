@@ -10,7 +10,14 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './header.scss'
 
-type NavigationItemsWithIds = DeepReadonly<Map<string, NavigationItem>>
+type NavigationItemsWithId = DeepReadonly<Map<string, NavigationItem>>
+
+export type NavigationMenuProps = {
+  navigation: NavigationItemsWithId
+  onNavItemSelection: (id: string, isSubItem?: boolean) => void
+  selectedNavItem?: string
+  withBurgerMenu?: boolean
+}
 
 export type NavigationItem = {
   menuItem: JSX.Element
@@ -66,85 +73,65 @@ const SubMenu = ({
 }: DeepReadonly<{
   onSubItemSelection: () => void
   subMenu: JSX.Element[]
-}>): JSX.Element => {
-  return (
-    <div className="okp4-header-navigation-submenu">
-      {subMenu.map((navItem: DeepReadonly<JSX.Element>) => (
-        // eslint-disable-next-line react/jsx-key
-        <div className="okp4-header-navigation-submenu-item" onClick={onSubItemSelection}>
-          <Typography fontSize="x-small" noWrap>
-            {navItem}
-          </Typography>
-        </div>
-      ))}
-    </div>
-  )
-}
+}>): JSX.Element => (
+  <div className="okp4-header-navigation-submenu">
+    {subMenu.map((navItem: DeepReadonly<JSX.Element>, index: number) => (
+      <div className="okp4-header-navigation-submenu-item" key={index} onClick={onSubItemSelection}>
+        <Typography fontSize="x-small" noWrap>
+          {navItem}
+        </Typography>
+      </div>
+    ))}
+  </div>
+)
 
 // eslint-disable-next-line max-lines-per-function
 const NavigationMenu = ({
   navigation,
   onNavItemSelection,
-  startNavItem,
+  selectedNavItem = '',
   withBurgerMenu
-}: DeepReadonly<{
-  navigation: NavigationItemsWithIds
-  onNavItemSelection?: (id: string, isSubItem?: boolean) => void
-  startNavItem?: string
-  withBurgerMenu?: boolean
-}>): JSX.Element => {
-  const [selectedMenuItemId, setSelectedMenuItemID]: UseState<string> = useState<string>(
-    startNavItem ?? ''
-  )
-  const [isSubMenuOpen, setIsSubMenuOpen]: UseState<boolean> = useState<boolean>(false)
+}: DeepReadonly<NavigationMenuProps>): JSX.Element => {
+  const [subMenuOpen, setSubMenuOpen]: UseState<boolean> = useState<boolean>(false)
   const menuType = withBurgerMenu ? 'burger' : 'row'
+  const navItemRef = useRef<HTMLDivElement | null>(null)
+
+  const closeSubMenu = useCallback(() => {
+    setSubMenuOpen(false)
+  }, [])
 
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   useOnKeyboard((event: DeepReadonly<KeyboardEvent>): void => {
     if (event.key === 'Escape') {
-      setIsSubMenuOpen(false)
+      setSubMenuOpen(false)
     }
   })
 
+  useOnClickOutside(navItemRef, closeSubMenu)
+
   const handleMenuItemSelected = useCallback(
-    (id: string, subMenu?: DeepReadonly<JSX.Element[]>) => (): void => {
-      if (selectedMenuItemId === id) {
-        subMenu && setIsSubMenuOpen(!isSubMenuOpen)
+    (id: string, hasMenu: boolean) => (): void => {
+      if (selectedNavItem === id) {
+        hasMenu && setSubMenuOpen(!subMenuOpen)
+      } else {
+        onNavItemSelection(id, hasMenu)
+        setSubMenuOpen(hasMenu)
       }
-      if (selectedMenuItemId !== id) {
-        setSelectedMenuItemID(id)
-        setIsSubMenuOpen(!!subMenu)
-      }
-      onNavItemSelection?.(id)
     },
-    [selectedMenuItemId, onNavItemSelection, isSubMenuOpen]
+    [subMenuOpen, selectedNavItem, onNavItemSelection]
   )
 
-  const handleSubItemSelection = useCallback(() => {
-    setIsSubMenuOpen(false)
-    onNavItemSelection?.(selectedMenuItemId, true)
-  }, [onNavItemSelection, selectedMenuItemId])
-
-  const closeSubMenuOnClickOutside = useCallback(() => {
-    setIsSubMenuOpen(false)
-  }, [])
-
-  const navItemRef = useRef(null)
-  useOnClickOutside(navItemRef, closeSubMenuOnClickOutside)
-
-  useEffect(() => {
-    console.log({ selectedMenuItemId })
-    setSelectedMenuItemID(
-      selectedMenuItemId ? selectedMenuItemId : startNavItem ? startNavItem : ''
-    )
-  }, [selectedMenuItemId, startNavItem])
+  const handleSubMenuItemSelected = useCallback(() => {
+    onNavItemSelection(selectedNavItem, false)
+    setSubMenuOpen(false)
+  }, [onNavItemSelection, selectedNavItem])
 
   return (
     <div className={`okp4-header-navigation-${menuType}-list`} ref={navItemRef}>
       {[...navigation].map(([id, navItem]: DeepReadonly<[string, NavigationItem]>) => {
         const { menuItem, subMenu }: DeepReadonly<NavigationItem> = navItem
-        const isSelected = selectedMenuItemId === id
-        const showSubMenu = isSelected && isSubMenuOpen && subMenu
+        const isSelected = selectedNavItem === id
+        const showSubMenu = isSelected && subMenu && subMenuOpen
 
         return (
           <div className="okp4-header-navigation-item-container" key={id}>
@@ -152,12 +139,12 @@ const NavigationMenu = ({
               className={classNames(`okp4-header-navigation-${menuType}-item`, {
                 selected: isSelected
               })}
-              onClick={handleMenuItemSelected(id, subMenu)}
+              onClick={handleMenuItemSelected(id, !!subMenu)}
             >
               <NavItem isItemSelected={isSelected} isRow={menuType === 'row'} item={menuItem} />
             </div>
             {showSubMenu && (
-              <SubMenu onSubItemSelection={handleSubItemSelection} subMenu={subMenu} />
+              <SubMenu onSubItemSelection={handleSubMenuItemSelected} subMenu={subMenu} />
             )}
           </div>
         )
@@ -200,7 +187,6 @@ export const Header: React.FC<HeaderProps> = ({
   const showBurgerMenu = isSmallScreen && !!navigationMenu
   const showRowMenu = !isSmallScreen && !!navigationMenu
   const showBurgerMenuList = showBurgerMenu && isBurgerMenuOpen
-
   const headerClassname = classNames(
     'okp4-header-main',
     navigationMenu ? 'with-navigation' : 'without-navigation',
@@ -209,27 +195,29 @@ export const Header: React.FC<HeaderProps> = ({
     }
   )
 
+  const navItemsWithId: NavigationItemsWithId = useMemo(
+    () =>
+      new Map(
+        navigationMenu?.map((navItem: DeepReadonly<NavigationItem>) => {
+          const id = short.generate()
+          navItem.isSelectedFromStart && setSelectedNavItem(id)
+          return [id, navItem]
+        })
+      ),
+    [navigationMenu]
+  )
+
   const toggleBurgerMenu = useCallback((): void => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen)
   }, [isBurgerMenuOpen])
 
   const handleNavItemSelection = useCallback(
-    (id: string, isSubItem?: boolean): void => {
+    (id: string, isSubMenuTitle?: boolean): void => {
       setSelectedNavItem(id)
-      isSubItem && isSmallScreen && setIsBurgerMenuOpen(false)
+      !isSubMenuTitle && isSmallScreen && setIsBurgerMenuOpen(false)
     },
     [isSmallScreen]
   )
-
-  const navItemsWithIds: NavigationItemsWithIds = useMemo(() => {
-    return new Map(
-      navigationMenu?.map((navItem: DeepReadonly<NavigationItem>) => {
-        const id = short.generate()
-        navItem.isSelectedFromStart && setSelectedNavItem(id)
-        return [id, navItem]
-      })
-    )
-  }, [navigationMenu])
 
   useEffect(() => {
     if (!isSmallScreen) setIsBurgerMenuOpen(false)
@@ -240,18 +228,18 @@ export const Header: React.FC<HeaderProps> = ({
       {showBurgerMenu && <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />}
       {showBurgerMenuList && (
         <NavigationMenu
-          navigation={navItemsWithIds}
+          navigation={navItemsWithId}
           onNavItemSelection={handleNavItemSelection}
-          startNavItem={selectedNavItem}
+          selectedNavItem={selectedNavItem}
           withBurgerMenu
         />
       )}
       <FirstElement firstElement={firstElement} hasBurger={showBurgerMenu} />
       {showRowMenu && (
         <NavigationMenu
-          navigation={navItemsWithIds}
+          navigation={navItemsWithId}
           onNavItemSelection={handleNavItemSelection}
-          startNavItem={selectedNavItem}
+          selectedNavItem={selectedNavItem}
         />
       )}
       <ThemeSwitcher className={classNames({ 'with-navigation': !!navigationMenu })} />
