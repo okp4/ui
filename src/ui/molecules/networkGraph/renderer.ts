@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable max-lines-per-function */
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import type { Engine } from '@babylonjs/core'
 import { Scene } from '@babylonjs/core'

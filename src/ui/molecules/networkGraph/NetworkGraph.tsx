@@ -20,12 +20,10 @@ export const NetworkGraph = <NODE_DATA, LINK_DATA>({
   graph,
   systems,
   ...props
-}: NetworkGraphProps<State, NODE_DATA, LINK_DATA>): JSX.Element => {
-  return (
-    <BabylonEngine
-      {...props}
-      onEngineCreated={onEngineCreated(graph, systems)}
-      onRender={onRender()}
-    />
-  )
-}
+}: NetworkGraphProps<State, NODE_DATA, LINK_DATA>): JSX.Element => (
+  <BabylonEngine
+    {...props}
+    onEngineCreated={onEngineCreated(graph, systems)}
+    onRender={onRender()}
+  />
+)

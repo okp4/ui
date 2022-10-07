@@ -26,7 +26,7 @@ export const defaultPhysicsSettings = {
 }
 
 /**
- * The GraphLayoutSystem is resposible for managing (and maintaining) the layouting of the graph
+ * The GraphLayoutSystem is responsible for managing (and maintaining) the layouting of the graph
  * using a direct-force algorithm.
  */
 export const GraphLayoutSystem: SystemFactory<GraphLayoutSystemOptions> =
