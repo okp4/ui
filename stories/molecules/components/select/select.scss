@@ -5,7 +5,6 @@ div {
       overflow: visible;
       > div:first-child {
         overflow: visible;
-        z-index: 2;
       }
       > div:nth-child(2) {
         bottom: 10px;
