@@ -1,4 +1,5 @@
 import { ArgsTable, Meta, Story, Canvas, Preview, Props } from '@storybook/addon-docs'
+import classNames from 'classnames'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { Header } from 'ui/molecules/header/Header.tsx'
 import { Logo } from 'ui/atoms/logo/Logo.tsx'
@@ -60,12 +61,114 @@ import './header.scss'
     navigationMenu: {
       control: false,
       table: {
-        type: { summary: 'Node' }
+        type: {
+          summary: `Array<{ menuItem: Node, subMenu?: Node[], isSelectedFromStart?: boolean>}>`
+        }
       }
     }
   }}
 >
-  <Header firstElement={<Logo size="small" />} />
+  {() => {
+    const FooterSubItem = (
+      <Typography as="div" fontSize="small" fontWeight="light">
+        <a
+          href="https://ui.okp4.space/?path=/docs/molecules-footer--overview"
+          target="_blank"
+          style={{ wordBreak: 'normal' }}
+        >
+          Footer
+        </a>
+      </Typography>
+    )
+    const SelectSubItem = (
+      <Typography as="div" fontSize="small" fontWeight="light">
+        <a
+          href="https://ui.okp4.space/?path=/docs/molecules-select--overview"
+          target="_blank"
+          style={{ wordBreak: 'normal' }}
+        >
+          Select
+        </a>
+      </Typography>
+    )
+    const StepperSubItem = (
+      <Typography as="div" fontSize="small" fontWeight="light">
+        <a
+          href="https://ui.okp4.space/?path=/docs/molecules-stepper--overview"
+          target="_blank"
+          style={{ wordBreak: 'normal' }}
+        >
+          Stepper
+        </a>
+      </Typography>
+    )
+    const FaucetSubItem = (
+      <Typography as="div" fontSize="small" fontWeight="light">
+        <a
+          href="https://ui.okp4.space/?path=/docs/organisms-faucet--overview"
+          target="_blank"
+          style={{ wordBreak: 'normal' }}
+        >
+          Faucet
+        </a>
+      </Typography>
+    )
+    const FilePickerSubItem = (
+      <Typography as="div" fontSize="small" fontWeight="light">
+        <a
+          href="https://ui.okp4.space/?path=/docs/organisms-filepicker--overview"
+          target="_blank"
+          style={{ wordBreak: 'normal' }}
+        >
+          File Picker
+        </a>
+      </Typography>
+    )
+    const HomeNavItemSelectedFromStart = {
+      menuItem: (
+        <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+          Home
+        </Typography>
+      ),
+      isSelectedFromStart: true
+    }
+    const WelcomeNavItem = {
+      menuItem: (
+        <Typography as="div" fontSize="small" fontWeight="bold">
+          <a
+            href="https://ui.okp4.space/?path=/docs/welcome--page"
+            target="_blank"
+            style={{ wordBreak: 'normal' }}
+          >
+            Welcome
+          </a>
+        </Typography>
+      )
+    }
+    const MoleculesNavItem = {
+      menuItem: (
+        <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+          Molecules
+        </Typography>
+      ),
+      subMenu: [FooterSubItem, SelectSubItem, StepperSubItem]
+    }
+    const OrganismsNavItem = {
+      menuItem: (
+        <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+          Organisms
+        </Typography>
+      ),
+      subMenu: [FaucetSubItem, FilePickerSubItem]
+    }
+    const navigationMenu = [
+      HomeNavItemSelectedFromStart,
+      WelcomeNavItem,
+      MoleculesNavItem,
+      OrganismsNavItem
+    ]
+    return <Header firstElement={<Logo size="small" />} navigationMenu={navigationMenu} />
+  }}
 </Story>
 
 ---
@@ -101,42 +204,159 @@ elements conform to the layout.
 The optional `navigationMenu` is used to hightlight the main navigation of your website.  
 This responsive menu provides the user with a set of navigable links and greatly improves his experience by providing several easily accessible shortcuts.
 
-You just have to provide it with an array of `JSX.Element` which will then be displayed on a single line on a large or medium screen, or accessible via a burger menu on a smaller or mobile screen.  
+You just have to provide it with an array of `NavigationItem` which will then be displayed on a single line on a large or medium screen, or accessible via a burger menu on a smaller or mobile screen.  
 Please shorten the window to let the magic happen!
 
 <Canvas>
-  <Story name="Navigation menu">
+  <Story name="Navigation menu with sub menus">
     {() => {
-      const changeHeaderDisplay = useMediaType('(max-width: 995px)')
-      const links = [
-        { name: 'Welcome', url: 'https://ui.okp4.space/?path=/docs/welcome--page' },
-        { name: 'Philosophy', url: 'https://ui.okp4.space/?path=/docs/philosophy--page' },
-        { name: 'Start', url: 'https://ui.okp4.space/?path=/docs/getting-started--page' },
-        {
-          name: 'Languages',
-          url: 'https://ui.okp4.space/?path=/docs/guidelines-internationalization--page'
-        },
-        {
-          name: 'Responsiveness',
-          url: 'https://ui.okp4.space/?path=/docs/guidelines-responsive-web-design--page'
-        }
-      ]
-      const navigationMenu = links.map(link => (
-        <Typography as="div" fontSize="small" fontWeight="bold">
-          <a href={link.url} target="_blank" style={{ wordBreak: 'normal' }}>
-            {link.name}
+      const PhilosophyNavItem = (
+        <Typography as="div" fontSize="small" fontWeight="light">
+          <a
+            href="https://ui.okp4.space/?path=/docs/philosophy--page"
+            target="_blank"
+            style={{ wordBreak: 'normal' }}
+          >
+            Philosophy
           </a>
         </Typography>
-      ))
+      )
+      const DesignSystemNavItem = (
+        <Typography as="div" fontSize="small" fontWeight="light">
+          <a
+            href="https://ui.okp4.space/?path=/docs/welcome--page"
+            target="_blank"
+            style={{ wordBreak: 'normal' }}
+          >
+            The OKP4 Design System
+          </a>
+        </Typography>
+      )
+      const StartNavItem = (
+        <Typography as="div" fontSize="small" fontWeight="light">
+          <a
+            href="https://ui.okp4.space/?path=/docs/getting-started--page"
+            target="_blank"
+            style={{ wordBreak: 'normal' }}
+          >
+            Launch project
+          </a>
+        </Typography>
+      )
+      const ThemesNavItem = (
+        <Typography as="div" fontSize="small" fontWeight="light">
+          <a
+            href="https://ui.okp4.space/?path=/docs/atoms-brand-identity-theming--theming"
+            target="_blank"
+            style={{ wordBreak: 'normal' }}
+          >
+            Theming
+          </a>
+        </Typography>
+      )
+      const ColorsNavItem = (
+        <Typography as="div" fontSize="small" fontWeight="light">
+          <a
+            href="https://ui.okp4.space/?path=/docs/atoms-brand-identity-colors--page"
+            target="_blank"
+            style={{ wordBreak: 'normal' }}
+          >
+            Colors
+          </a>
+        </Typography>
+      )
+      const HomeNavItemSelectedFromStart = {
+        menuItem: (
+          <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+            Home
+          </Typography>
+        ),
+        isSelectedFromStart: true
+      }
+      const NavItemWithSubMenusA = {
+        menuItem: (
+          <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+            Prerequisites
+          </Typography>
+        ),
+        subMenu: [PhilosophyNavItem, StartNavItem]
+      }
+      const NavItemWithSubMenusB = {
+        menuItem: (
+          <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+            UI
+          </Typography>
+        ),
+        subMenu: [DesignSystemNavItem, ThemesNavItem, ColorsNavItem]
+      }
+      const NavItemWithoutSubMenus = {
+        menuItem: (
+          <Typography as="div" fontSize="small" fontWeight="bold" noWrap>
+            No SubMenu
+          </Typography>
+        )
+      }
+      const navigationMenu = [
+        HomeNavItemSelectedFromStart,
+        NavItemWithSubMenusA,
+        NavItemWithSubMenusB,
+        NavItemWithoutSubMenus
+      ]
       return (
-        <Header
-          firstElement={<Logo size={changeHeaderDisplay ? 'x-small' : 'small'} />}
-          navigationMenu={navigationMenu}
-        />
+        <div className="header-story-with-submenu">
+          <Header firstElement={<Logo size="small" />} navigationMenu={navigationMenu} />
+        </div>
       )
     }}
   </Story>
 </Canvas>
+
+### Navigation Items
+
+This `navigationMenu` must respect the `NavigationItem` format which is defined as follows:
+
+```ts
+type NavigationItem = {
+/**
+ * Main item displayed on the header navigation bar
+ */
+  menuItem: Node
+/**
+ * The sub-menu attached to the main item
+ */
+  subMenu?: Node[]
+/**
+ * Allows to define if the main item must be selected at the beginning
+ */
+  isSelectedFromStart?: boolean
+```
+
+The user will be informed that he has clicked on a `menuItem` because its color will change and two arrows will surround the selected item.
+
+If this item has a sub-menu, it will be displayed. It can be closed in a number of ways:  
+by clicking away from the sub-menu, by pressing the **Esc** key or by clicking on the `menuItem` again.
+
+You may decide that a menu item (e.g. `Home`) should be pre-selected to indicate that the user, when arriving at your application, is on the `Home` page.
+In this case, simply set the `isSelectedFromStart` property of your `Home` item to `true`.
+
+### Application Routing System
+
+The `isSelectedFromStart` property is also useful when using a router system.  
+You might need to check which url the user is on in order to define if the menu item should be selected or not.
+
+For example:
+
+```tsx
+const ExploreNavItem: NavigationItem = {
+  // If user is on the "explore" page, the Explore menu item will be selected
+  isSelectedFromStart: router.pathname === '/explore',
+  menuItem: (
+    <Typography as="div" fontSize="small" fontWeight="bold">
+      <Link href="/explore">Explore</Link>
+    </Typography>
+  )
+}
+```
 
 ## Responsiveness
 
