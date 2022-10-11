@@ -12,7 +12,7 @@ export type InstallCameraSystemOptions = {
   target: Vector3
 }
 
-export const defaultArcRorateCamera = {
+export const defaultArcRotateCamera = {
   name: 'camera-world',
   alpha: Math.PI / 2,
   beta: Math.PI / 3,
@@ -28,11 +28,11 @@ export const InstallCameraSystem: SystemFactory<InstallCameraSystemOptions> =
     if (useInit()) {
       const { scene }: WorldTickData = world.latestTickData
       const camera = new ArcRotateCamera(
-        options?.name ?? defaultArcRorateCamera.name,
-        options?.alpha ?? defaultArcRorateCamera.alpha,
-        options?.beta ?? defaultArcRorateCamera.beta,
-        options?.radius ?? defaultArcRorateCamera.radius,
-        options?.target ?? defaultArcRorateCamera.target,
+        options?.name ?? defaultArcRotateCamera.name,
+        options?.alpha ?? defaultArcRotateCamera.alpha,
+        options?.beta ?? defaultArcRotateCamera.beta,
+        options?.radius ?? defaultArcRotateCamera.radius,
+        options?.target ?? defaultArcRotateCamera.target,
         scene
       )
       const canvas = scene.getEngine().getRenderingCanvas()
