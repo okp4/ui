@@ -1,0 +1,29 @@
+.networkgraph-story-main {
+  * {
+    margin: 0;
+  }
+  .networkgraph-story-tooltip {
+    display: grid;
+    gap: 20px;
+    min-width: 300px;
+    height: auto;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 10px;
+    background: transparent linear-gradient(180deg, #5678be 0%, #122a59 100%) 0% 0% no-repeat
+      padding-box;
+    font-family: Gotham, sans-serif;
+    font-weight: 700;
+
+    .networkgraph-story-dates-wrapper {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .networkgraph-story-portrait {
+      width: 200px;
+    }
+  }
+}
