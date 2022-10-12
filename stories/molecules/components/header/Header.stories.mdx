@@ -76,7 +76,7 @@ import './header.scss'
 
 ## First element
 
-**firstElement** allows the user to put any type of element in the `header`.  
+Optional **firstElement** allows the user to put any type of element in the `header`.  
 The size of the element is limited to a `max height` of `72px` and a responsive
 `max width` of `270px` and `220px` to limit its size, making sure injected
 elements conform to the layout.
@@ -103,6 +103,39 @@ This responsive menu provides the user with a set of navigable links and greatly
 
 You just have to provide it with an array of `JSX.Element` which will then be displayed on a single line on a large or medium screen, or accessible via a burger menu on a smaller or mobile screen.  
 Please shorten the window to let the magic happen!
+
+#### Navigation menu
+
+<Canvas>
+  <Story name="Navigation menu without first element">
+    {() => {
+      const changeHeaderDisplay = useMediaType('(max-width: 995px)')
+      const links = [
+        { name: 'Welcome', url: 'https://ui.okp4.space/?path=/docs/welcome--page' },
+        { name: 'Philosophy', url: 'https://ui.okp4.space/?path=/docs/philosophy--page' },
+        { name: 'Start', url: 'https://ui.okp4.space/?path=/docs/getting-started--page' },
+        {
+          name: 'Languages',
+          url: 'https://ui.okp4.space/?path=/docs/guidelines-internationalization--page'
+        },
+        {
+          name: 'Responsiveness',
+          url: 'https://ui.okp4.space/?path=/docs/guidelines-responsive-web-design--page'
+        }
+      ]
+      const navigationMenu = links.map(link => (
+        <Typography as="div" fontSize="small" fontWeight="bold">
+          <a href={link.url} target="_blank" style={{ wordBreak: 'normal' }}>
+            {link.name}
+          </a>
+        </Typography>
+      ))
+      return <Header navigationMenu={navigationMenu} />
+    }}
+  </Story>
+</Canvas>
+
+#### Navigation menu with first element
 
 <Canvas>
   <Story name="Navigation menu">
@@ -135,6 +168,17 @@ Please shorten the window to let the magic happen!
         />
       )
     }}
+  </Story>
+</Canvas>
+
+## Header with theme switcher only
+
+All the properties of the **Header** being optional, it can only contain the `ThemeSwitcher` which is directly integrated.  
+In this case, it simply looks like this:
+
+<Canvas>
+  <Story name="Header with them switcher only">
+    <Header />
   </Story>
 </Canvas>
 
