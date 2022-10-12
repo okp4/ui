@@ -10,7 +10,7 @@ export type HeaderProps = {
   /**
    * Element positioned first in the reading flow.
    */
-  readonly firstElement: JSX.Element
+  readonly firstElement?: JSX.Element
   /**
    * The list of navigable links that make up the menu.
    */
@@ -81,13 +81,12 @@ export const Header: React.FC<HeaderProps> = ({
   const showRowMenu = !isSmallScreen && !!navigationMenu
   const showBurgerMenuList = showBurgerMenu && isBurgerMenuOpen
 
-  const headerClassname = classNames(
-    'okp4-header-main',
-    navigationMenu ? 'with-navigation' : 'without-navigation',
-    {
-      'burger-list': showBurgerMenuList
-    }
-  )
+  const headerClassname = classNames('okp4-header-main', {
+    'with-first-element': firstElement && !navigationMenu,
+    'with-navigation': !firstElement && navigationMenu,
+    'with-first-element-and-navigation': firstElement && navigationMenu,
+    'burger-list': showBurgerMenuList
+  })
 
   const toggleBurgerMenu = useCallback((): void => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen)
@@ -101,7 +100,7 @@ export const Header: React.FC<HeaderProps> = ({
     <div className={headerClassname}>
       {showBurgerMenu && <BurgerMenu isOpen={isBurgerMenuOpen} onToggle={toggleBurgerMenu} />}
       {showBurgerMenuList && <NavigationMenu navigation={navigationMenu} withBurgerMenu />}
-      <FirstElement firstElement={firstElement} hasBurger={showBurgerMenu} />
+      {firstElement && <FirstElement firstElement={firstElement} hasBurger={showBurgerMenu} />}
       {showRowMenu && <NavigationMenu navigation={navigationMenu} />}
       <ThemeSwitcher className={classNames({ 'with-navigation': !!navigationMenu })} />
     </div>
