@@ -1615,10 +1615,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@^5.22.1":
-  version "5.27.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.27.1.tgz#a5c3c4dfdd002c8814fb3357e38ea55cae553931"
-  integrity sha512-Snk+ipzpDLJ2Xa0zi3SP83uRq3MhnYpxNhhE5oNIFgqn0vXyvg99mZdOWS+VCvXzjLEy++pff3egm7kMR/YsVg==
+"@babylonjs/core@^5.28.0":
+  version "5.28.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.28.0.tgz#01e45398985c30929a07b8f01f53f3c9faf12dda"
+  integrity sha512-muHxtHlQmkd8bH5VrF7iDDF4R1qxtzf3jsHLd+IdIJbKjbB1HDCJwekPROLHUA/GbPpb0F3Q4QGk2oixm1R9uQ==
 
 "@babylonjs/inspector@^5.22.1":
   version "5.22.1"
