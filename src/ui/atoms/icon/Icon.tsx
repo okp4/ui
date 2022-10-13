@@ -18,8 +18,12 @@ export type IconName =
   | 'clock'
   | 'close'
   | 'cross'
+  | 'discord-round'
   | 'facebook'
   | 'linkedin'
+  | 'github-round'
+  | 'linkedin-round'
+  | 'medium-round'
   | 'meeting'
   | 'menu'
   | 'moon'
@@ -29,7 +33,9 @@ export type IconName =
   | 'profile'
   | 'search'
   | 'sun'
+  | 'telegram-round'
   | 'twitter'
+  | 'twitter-round'
   | 'wallet'
 
 export type IconProps = {
