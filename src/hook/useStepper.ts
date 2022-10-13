@@ -17,7 +17,7 @@ export type StepperState = {
   /**
    * The list of non-disabled steps.
    */
-  enabledSteps: ImmutableList<string>
+  nonDisabledSteps: ImmutableList<string>
 }
 
 export type StepperAction =
@@ -40,7 +40,7 @@ export type InitializerArgs = {
 }
 
 const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState => {
-  const enabledSteps = ImmutableList(
+  const nonDisabledSteps = ImmutableList(
     initializerArgs.initialStepsStatus
       .filter(
         (initialStepStatus: DeepReadonly<InitialStepStatus>) =>
@@ -59,7 +59,7 @@ const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState
         step.status ?? 'uncompleted'
       ])
     ),
-    enabledSteps
+    nonDisabledSteps
   }
 }
 
@@ -71,12 +71,12 @@ const stepperReducer = (
   if (state.currentStepId) {
     switch (action.type) {
       case 'previousClicked': {
-        const previousStep = state.enabledSteps.get(
-          state.enabledSteps.indexOf(state.currentStepId) - 1
+        const previousStepId = state.nonDisabledSteps.get(
+          state.nonDisabledSteps.indexOf(state.currentStepId) - 1
         )
         return {
           ...state,
-          currentStepId: previousStep,
+          currentStepId: previousStepId,
           stepsStatus: state.stepsStatus.set(
             state.currentStepId,
             state.stepsStatus.get(state.currentStepId) !== 'invalid' ? 'uncompleted' : 'invalid'
@@ -84,10 +84,12 @@ const stepperReducer = (
         }
       }
       case 'stepCompleted': {
-        const nextStep = state.enabledSteps.get(state.enabledSteps.indexOf(state.currentStepId) + 1)
+        const nextStepId = state.nonDisabledSteps.get(
+          state.nonDisabledSteps.indexOf(state.currentStepId) + 1
+        )
         return {
           ...state,
-          currentStepId: nextStep,
+          currentStepId: nextStepId,
           stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
         }
       }
@@ -101,8 +103,8 @@ const stepperReducer = (
           ? {
               ...state,
               stepsStatus: state.stepsStatus.delete(action.payload),
-              enabledSteps: state.enabledSteps.delete(
-                state.enabledSteps.findIndex((id: string) => id === action.payload)
+              nonDisabledSteps: state.nonDisabledSteps.delete(
+                state.nonDisabledSteps.findIndex((id: string) => id === action.payload)
               )
             }
           : state

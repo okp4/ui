@@ -16,7 +16,7 @@ describe('Considering the useStepper hook', () => {
   const emptyState: StepperState = {
     currentStepId: '',
     stepsStatus: OrderedMap(),
-    enabledSteps: ImmutableList()
+    nonDisabledSteps: ImmutableList()
   }
 
   const initialStepsStatus1: InitialStepStatus[] = [
@@ -31,7 +31,7 @@ describe('Considering the useStepper hook', () => {
       .set('step1', 'uncompleted')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+    nonDisabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
   const expectedState1WhenStepCompleted: StepperState = {
@@ -40,7 +40,7 @@ describe('Considering the useStepper hook', () => {
       .set('step1', 'completed')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+    nonDisabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
   const expectedState1WhenStepFailed: StepperState = {
@@ -49,7 +49,7 @@ describe('Considering the useStepper hook', () => {
       .set('step1', 'invalid')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+    nonDisabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
   const initialStepsStatus2: InitialStepStatus[] = [
@@ -66,7 +66,7 @@ describe('Considering the useStepper hook', () => {
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'disabled')
       .set('fourthStep', 'uncompleted'),
-    enabledSteps: ImmutableList(['firstStep', 'secondStep', 'fourthStep'])
+    nonDisabledSteps: ImmutableList(['firstStep', 'secondStep', 'fourthStep'])
   }
 
   const expectedState2WhenStepCompleted: StepperState = {
@@ -76,7 +76,7 @@ describe('Considering the useStepper hook', () => {
       .set('secondStep', 'completed')
       .set('thirdStep', 'disabled')
       .set('fourthStep', 'uncompleted'),
-    enabledSteps: ImmutableList(['firstStep', 'secondStep', 'fourthStep'])
+    nonDisabledSteps: ImmutableList(['firstStep', 'secondStep', 'fourthStep'])
   }
 
   const initialStepsStatus3: InitialStepStatus[] = [
@@ -95,7 +95,7 @@ describe('Considering the useStepper hook', () => {
       .set('thirdStep', 'uncompleted')
       .set('fourthStep', 'uncompleted')
       .set('fifthStep', 'disabled'),
-    enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
+    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
   }
 
   const expectedState3WhenStepCompleted: StepperState = {
@@ -106,7 +106,7 @@ describe('Considering the useStepper hook', () => {
       .set('thirdStep', 'completed')
       .set('fourthStep', 'uncompleted')
       .set('fifthStep', 'disabled'),
-    enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
+    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
   }
 
   const expectedState3WhenStepRemoved: StepperState = {
@@ -116,7 +116,7 @@ describe('Considering the useStepper hook', () => {
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'uncompleted')
       .set('fifthStep', 'disabled'),
-    enabledSteps: ImmutableList(['secondStep', 'thirdStep'])
+    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep'])
   }
 
   const expectedState3WhenCurrentStepRemoved: StepperState = {
@@ -127,7 +127,7 @@ describe('Considering the useStepper hook', () => {
       .set('thirdStep', 'uncompleted')
       .set('fourthStep', 'uncompleted')
       .set('fifthStep', 'disabled'),
-    enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
+    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
   }
 
   const stepToAdd: InitialStepStatus = {
@@ -143,7 +143,7 @@ describe('Considering the useStepper hook', () => {
       .set('fourthStep', 'uncompleted')
       .set('sixthStep', 'uncompleted')
       .set('fifthStep', 'disabled'),
-    enabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep', 'sixthStep'])
+    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep', 'sixthStep'])
   }
 
   const initialStepsStatus4: InitialStepStatus[] = [
@@ -158,7 +158,7 @@ describe('Considering the useStepper hook', () => {
       .set('step1', 'completed')
       .set('step2', 'completed')
       .set('step3', 'completed'),
-    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+    nonDisabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
   const initialStepsStatus4ForReset: InitializerArgs = {
@@ -176,7 +176,7 @@ describe('Considering the useStepper hook', () => {
       .set('step1', 'uncompleted')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+    nonDisabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
   const initialStepsStatus5: InitialStepStatus[] = [
@@ -191,7 +191,7 @@ describe('Considering the useStepper hook', () => {
       .set('step1', 'completed')
       .set('step2', 'invalid')
       .set('step3', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step2', 'step3'])
+    nonDisabledSteps: ImmutableList(['step1', 'step2', 'step3'])
   }
 
   describe.each`

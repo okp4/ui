@@ -39,7 +39,7 @@ describe('Considering the getUpdatedSteps function', () => {
       .set('step4', 'uncompleted')
       .set('step5', 'disabled')
       .set('step6', 'uncompleted'),
-    enabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6'])
+    nonDisabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6'])
   }
 
   const updatedSteps: Step[] = [
@@ -73,7 +73,7 @@ describe('Considering the getUpdatedSteps function', () => {
     steps    | state    | expectedSteps
     ${steps} | ${state} | ${updatedSteps}
   `(
-    'Given a steps array <$steps> and a state',
+    'Given a steps array and a state <$state>',
     ({
       steps,
       state,
@@ -86,7 +86,7 @@ describe('Considering the getUpdatedSteps function', () => {
       describe('When calling getUpdatedSteps function', () => {
         const result = getUpdatedSteps(steps, state)
 
-        test(`Then, updated steps are ${expectedSteps}`, () => {
+        test(`Then, updated steps are ${JSON.stringify(expectedSteps)}`, () => {
           expect(result).toStrictEqual(expectedSteps)
         })
       })

@@ -6,7 +6,7 @@ import type { Step } from 'ui/index'
  * Get the updated steps with the new status from the Stepper state.
  * @param steps The step array.
  * @param state The state of the Stepper.
- * @returns A step array with updated status.
+ * @returns A steps array with updated status.
  */
 export const getUpdatedSteps = (
   steps: DeepReadonly<Step[]>,
