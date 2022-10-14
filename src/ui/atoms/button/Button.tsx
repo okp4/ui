@@ -4,7 +4,7 @@ import type { DeepReadonly } from 'superTypes'
 import { Typography } from 'ui/atoms/typography/Typography'
 import './button.scss'
 
-export type TButtonProps = DeepReadonly<{
+export type ButtonProps = DeepReadonly<{
   /**
    * The variant of the main button design.
    */
@@ -48,7 +48,7 @@ export type TButtonProps = DeepReadonly<{
 /**
  * Primary UI component for user interaction.
  */
-export const Button: React.FC<TButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   size = 'medium',
   backgroundColor = 'primary',
@@ -58,7 +58,7 @@ export const Button: React.FC<TButtonProps> = ({
   rightIcon,
   icon,
   onClick
-}: TButtonProps): JSX.Element => (
+}: ButtonProps): JSX.Element => (
   <button
     className={classNames('okp4-button-main', {
       [`variant-${variant}`]: true,

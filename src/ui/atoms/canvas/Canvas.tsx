@@ -3,11 +3,11 @@ import React, { useEffect, useRef } from 'react'
 import { useAnimationFrame } from 'hook/useAnimationFrame'
 import type { Callback, DeepReadonly } from 'superTypes'
 
-export type TCanvasCreatedCallback = Callback<HTMLCanvasElement, void>
-export type TCanvasDestroyedCallback = Callback<void, void>
-export type TRenderCanvasCallback = Callback<{ canvas: HTMLCanvasElement; deltaTime: number }, void>
+export type CanvasCreatedCallback = Callback<HTMLCanvasElement, void>
+export type CanvasDestroyedCallback = Callback<void, void>
+export type RenderCanvasCallback = Callback<{ canvas: HTMLCanvasElement; deltaTime: number }, void>
 
-export type TCanvasProps = Readonly<{
+export type CanvasProps = Readonly<{
   /**
    * Width of the canvas.
    */
@@ -37,23 +37,23 @@ export type TCanvasProps = Readonly<{
   /**
    * Called when canvas is created. Can be used to configure the canvas afterwards.
    */
-  readonly onCanvasCreated?: TCanvasCreatedCallback
+  readonly onCanvasCreated?: CanvasCreatedCallback
 
   /**
    * Called when canvas is about to be destroyed.
    */
-  readonly onCanvasDestroyed?: TCanvasDestroyedCallback
+  readonly onCanvasDestroyed?: CanvasDestroyedCallback
 
   /**
    * Called when rendering (if `animated` is set to true)
    */
-  readonly onRender?: TRenderCanvasCallback
+  readonly onRender?: RenderCanvasCallback
 }>
 
 /**
  * Canvas react component.
  */
-export const Canvas: React.FC<TCanvasProps> = ({
+export const Canvas: React.FC<CanvasProps> = ({
   touchActionNone = true,
   disableScrolling = true,
   width,
@@ -63,7 +63,7 @@ export const Canvas: React.FC<TCanvasProps> = ({
   onCanvasDestroyed,
   onRender,
   ...props
-}: TCanvasProps): JSX.Element => {
+}: CanvasProps): JSX.Element => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   // const windowSize = useWindowSize()
   const wheelEventListenerFnRef = useRef<EventListenerOrEventListenerObject | null>()
