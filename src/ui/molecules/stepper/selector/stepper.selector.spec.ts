@@ -4,7 +4,13 @@ import { StepId, StepStatus } from 'ui/index'
 import { Step } from '../Stepper'
 import { getUpdatedSteps } from './stepper.selector'
 
-describe('Considering the getUpdatedSteps function', () => {
+type Data = {
+  steps: Step[]
+  state: StepperState
+  expectedUpdatedSteps: Step[]
+}
+
+describe('Considering the getUpdatedSteps selector', () => {
   const steps: Step[] = [
     {
       id: 'step1',
@@ -70,26 +76,15 @@ describe('Considering the getUpdatedSteps function', () => {
   ]
 
   describe.each`
-    steps    | state    | expectedSteps
+    steps    | state    | expectedUpdatedSteps
     ${steps} | ${state} | ${updatedSteps}
-  `(
-    'Given a steps array and a state <$state>',
-    ({
-      steps,
-      state,
-      expectedSteps
-    }: {
-      steps: Step[]
-      state: StepperState
-      expectedSteps: Step[]
-    }) => {
-      describe('When calling getUpdatedSteps function', () => {
-        const result = getUpdatedSteps(steps, state)
+  `('Given a steps array and a state <$state>', ({ steps, state, expectedUpdatedSteps }: Data) => {
+    describe('When invoking getUpdatedSteps selector', () => {
+      const result = getUpdatedSteps(steps, state)
 
-        test(`Then, updated steps are ${JSON.stringify(expectedSteps)}`, () => {
-          expect(result).toStrictEqual(expectedSteps)
-        })
+      test(`Then, expect updated steps to be ${JSON.stringify(expectedUpdatedSteps)}`, () => {
+        expect(result).toStrictEqual(expectedUpdatedSteps)
       })
-    }
-  )
+    })
+  })
 })

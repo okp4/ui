@@ -9,7 +9,7 @@ export type StepperState = {
   /**
    * The id of the step in progress.
    */
-  currentStepId: string | undefined
+  currentStepId: string
   /**
    * The status of each step.
    */
@@ -76,7 +76,7 @@ const stepperReducer = (
         )
         return {
           ...state,
-          currentStepId: previousStepId,
+          currentStepId: previousStepId ?? state.currentStepId,
           stepsStatus: state.stepsStatus.set(
             state.currentStepId,
             state.stepsStatus.get(state.currentStepId) !== 'invalid' ? 'uncompleted' : 'invalid'
@@ -89,7 +89,7 @@ const stepperReducer = (
         )
         return {
           ...state,
-          currentStepId: nextStepId,
+          currentStepId: nextStepId ?? state.currentStepId,
           stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
         }
       }

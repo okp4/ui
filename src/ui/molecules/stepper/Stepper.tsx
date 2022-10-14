@@ -65,19 +65,19 @@ export type StepperProps = {
    */
   readonly resetButtonLabel?: string
   /**
-   * Callback function called when previous button is clicked.
+   * Callback method called when previous button is clicked.
    */
   readonly onPrevious?: () => void
   /**
-   * Callback function called when next button is clicked.
+   * Callback method called when next button is clicked.
    */
   readonly onNext?: () => void
   /**
-   * Callback function called when clicking on the submit button in the last step.
+   * Callback method called when clicking on the submit button in the last step.
    */
   readonly onSubmit?: () => void
   /**
-   * Callback function called when clicking on the reset button after submission succeed in the last step.
+   * Callback method called when clicking on the reset button after submission succeed in the last step.
    */
   readonly onReset?: () => void
 }
@@ -107,6 +107,11 @@ export const Stepper: React.FC<StepperProps> = ({
   const isFirstStep = useMemo(() => currentStepId === steps.at(0)?.id, [steps, currentStepId])
 
   const isLastStep = useMemo(() => currentStepId === steps.at(-1)?.id, [steps, currentStepId])
+
+  const isCurrentStepCompleted = useMemo(
+    () => currentStep && currentStep.status === 'completed',
+    [currentStep]
+  )
 
   const getStepStatus = (step: DeepReadonly<Step>): StepStatus | 'active' =>
     isLastStep && step.status === 'completed'
@@ -156,7 +161,7 @@ export const Stepper: React.FC<StepperProps> = ({
             variant="icon"
           />
         )}
-        {isLastStep && currentStep && currentStep.status !== 'completed' && (
+        {isLastStep && !isCurrentStepCompleted && (
           <Button
             backgroundColor="success"
             disabled={isSubmitDisabled}
@@ -166,7 +171,7 @@ export const Stepper: React.FC<StepperProps> = ({
             variant="secondary"
           />
         )}
-        {isLastStep && currentStep && currentStep.status === 'completed' && (
+        {isLastStep && isCurrentStepCompleted && (
           <Button
             backgroundColor="secondary"
             label={resetButtonLabel ?? t('stepper:stepper.button.reset')}
