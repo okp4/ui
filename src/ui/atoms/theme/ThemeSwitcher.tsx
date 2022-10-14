@@ -7,7 +7,7 @@ import { useLocalStorage } from 'hook/useLocalStorage'
 import type { LocalStorageState } from 'hook/useLocalStorage'
 import { useMediaType } from 'hook/useMediaType'
 import sprite from 'assets/icons/sprite.svg'
-import type { IconName } from '../icon/Icon'
+import type { IconName } from 'ui/atoms/icon/Icon'
 
 export type ThemeSwitcherProps = Readonly<{
   /**

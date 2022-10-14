@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import type { DeepReadonly } from '../../../superTypes'
+import type { DeepReadonly } from 'superTypes'
 import './typography.scss'
 import '../../styles/main.scss'
 

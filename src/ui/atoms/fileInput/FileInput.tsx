@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react'
 import './fileInput.scss'
 import classNames from 'classnames'
 import fileInputIcon from 'assets/images/file.png'
-import { Typography } from '../typography/Typography'
+import { Typography } from 'ui/atoms/typography/Typography'
 import type { DeepReadonly } from 'superTypes'
 import { truthy } from 'utils'
 

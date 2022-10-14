@@ -7,7 +7,7 @@ import {
   toReadableFileSize,
   isFileTypeAccepted,
   areFilesAccepted
-} from './utils'
+} from 'utils'
 
 describe('Considering the toPercent() function', () => {
   describe.each`

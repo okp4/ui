@@ -1,6 +1,6 @@
 import React from 'react'
-import type { Languages } from '../../../i18n/types'
-import { LanguageSwitcher } from '../../atoms/languageSwitcher/LanguageSwitcher'
+import type { Languages } from 'i18n/types'
+import { LanguageSwitcher } from 'ui/atoms/languageSwitcher/LanguageSwitcher'
 import type { DeepReadonly } from 'superTypes'
 import './footer.scss'
 

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import classNames from 'classnames'
 import React from 'react'
-import { Typography } from '../typography/Typography'
-import { InputBase } from '../inputBase/InputBase'
-import type { InputBaseProps } from '../inputBase/InputBase'
+import { Typography } from 'ui/atoms/typography/Typography'
+import { InputBase } from 'ui/atoms/inputBase/InputBase'
+import type { InputBaseProps } from 'ui/atoms/inputBase/InputBase'
 import './textField.scss'
 
 export type TextFieldProps = InputBaseProps & {

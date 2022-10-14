@@ -3,7 +3,7 @@ import type { Engine } from '@babylonjs/core'
 import { Scene } from '@babylonjs/core'
 import { createWorld } from '@javelin/ecs'
 import type { Graph } from 'ngraph.graph'
-import type { EngineCreatedCallback, RenderCallback } from '../../atoms/babylonEngine/BabylonEngine'
+import type { EngineCreatedCallback, RenderCallback } from 'ui/atoms/babylonEngine/BabylonEngine'
 import { GraphLayoutSystem } from './ecs/system/graphLayoutSystem'
 import { InstallCameraSystem } from './ecs/system/installCameraSystem'
 import { InstallLightSystem } from './ecs/system/installLightSystem'
@@ -49,7 +49,6 @@ export const onEngineCreated: <NODE_DATA, LINK_DATA>(
       data.time = performance.now()
       world.step(data)
     })
-
     ;(systems ?? defaultSystems()).forEach(world.addSystem)
 
     return { world, scene }
