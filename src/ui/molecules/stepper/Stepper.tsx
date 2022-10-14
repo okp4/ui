@@ -113,12 +113,15 @@ export const Stepper: React.FC<StepperProps> = ({
     [currentStep]
   )
 
-  const getStepStatus = (step: DeepReadonly<Step>): StepStatus | 'active' =>
-    isLastStep && step.status === 'completed'
-      ? 'completed'
-      : step.id === currentStepId
-      ? 'active'
-      : step.status ?? 'uncompleted'
+  const getStepStatus = (step: DeepReadonly<Step>): StepStatus | 'active' => {
+    if (isLastStep && step.status === 'completed') {
+      return 'completed'
+    }
+    if (step.id === currentStepId) {
+      return 'active'
+    }
+    return step.status ?? 'uncompleted'
+  }
 
   const MobileHeader = (): JSX.Element | null =>
     currentStep ? (
