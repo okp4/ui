@@ -1,4 +1,4 @@
-import { List as ImmutableList, OrderedMap } from 'immutable'
+import { List as ImmutableList, Map } from 'immutable'
 import type { Dispatch, Reducer } from 'react'
 import { useReducer } from 'react'
 import type { DeepReadonly, UseReducer } from 'superTypes'
@@ -13,7 +13,7 @@ export type StepperState = {
   /**
    * The status of each step.
    */
-  stepsStatus: OrderedMap<string, StepStatus>
+  stepsStatus: Map<string, StepStatus>
   /**
    * The list of non-disabled steps.
    */
@@ -53,7 +53,7 @@ const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState
 
   return {
     currentStepId: initializerArgs.initialCurrentStepId,
-    stepsStatus: OrderedMap<string, StepStatus>(
+    stepsStatus: Map<string, StepStatus>(
       initializerArgs.initialStepsStatus.map((step: DeepReadonly<InitialStepStatus>) => [
         step.id,
         step.status ?? 'uncompleted'

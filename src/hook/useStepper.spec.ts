@@ -1,6 +1,6 @@
 import { act } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import { List as ImmutableList, OrderedMap } from 'immutable'
+import { List as ImmutableList, Map } from 'immutable'
 import type { StepStatus } from 'ui/index'
 import type { InitializerArgs, InitialStepStatus, StepperAction, StepperState } from './useStepper'
 import { useStepper } from './useStepper'
@@ -15,7 +15,7 @@ type Data = {
 describe('Considering the useStepper hook', () => {
   const emptyState: StepperState = {
     currentStepId: '',
-    stepsStatus: OrderedMap(),
+    stepsStatus: Map(),
     nonDisabledSteps: ImmutableList()
   }
 
@@ -27,7 +27,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState1WhenInvalidAction: StepperState = {
     currentStepId: 'step1',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('step1', 'uncompleted')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
@@ -36,7 +36,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState1WhenStepCompleted: StepperState = {
     currentStepId: 'step2',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
@@ -45,7 +45,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState1WhenStepFailed: StepperState = {
     currentStepId: 'step1',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('step1', 'invalid')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
@@ -61,7 +61,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState2WhenPreviousClicked: StepperState = {
     currentStepId: 'firstStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'completed')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'disabled')
@@ -71,7 +71,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState2WhenStepCompleted: StepperState = {
     currentStepId: 'fourthStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'completed')
       .set('secondStep', 'completed')
       .set('thirdStep', 'disabled')
@@ -89,7 +89,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState3WhenPreviousClicked: StepperState = {
     currentStepId: 'secondStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'uncompleted')
@@ -100,7 +100,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState3WhenStepCompleted: StepperState = {
     currentStepId: 'fourthStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'completed')
@@ -111,7 +111,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState3WhenStepRemoved: StepperState = {
     currentStepId: 'thirdStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'uncompleted')
@@ -121,7 +121,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState3WhenCurrentStepRemoved: StepperState = {
     currentStepId: 'secondStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('fourthStep', 'uncompleted')
@@ -135,13 +135,13 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState3WhenStepAdded: StepperState = {
     currentStepId: 'thirdStep',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
       .set('thirdStep', 'uncompleted')
       .set('fourthStep', 'uncompleted')
-      .set('sixthStep', 'uncompleted')
-      .set('fifthStep', 'disabled'),
+      .set('fifthStep', 'disabled')
+      .set('sixthStep', 'uncompleted'),
     nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep', 'sixthStep'])
   }
 
@@ -153,7 +153,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState4WhenStepperSubmitted: StepperState = {
     currentStepId: 'step3',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'completed')
       .set('step3', 'completed'),
@@ -171,7 +171,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState4WhenStepperReset: StepperState = {
     currentStepId: 'step1',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('step1', 'uncompleted')
       .set('step2', 'uncompleted')
       .set('step3', 'uncompleted'),
@@ -186,7 +186,7 @@ describe('Considering the useStepper hook', () => {
 
   const expectedState5WhenPreviousClicked: StepperState = {
     currentStepId: 'step1',
-    stepsStatus: OrderedMap<string, StepStatus>()
+    stepsStatus: Map<string, StepStatus>()
       .set('step1', 'completed')
       .set('step2', 'invalid')
       .set('step3', 'uncompleted'),
