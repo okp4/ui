@@ -122,10 +122,12 @@ const stepperReducer = (
     case 'stepAdded': {
       return {
         ...state,
-        stepsStatus: state.stepsStatus.set(
-          action.payload.step.id,
-          action.payload.step.status ?? 'uncompleted'
-        ),
+        ...(action.payload.step.id && {
+          stepsStatus: state.stepsStatus.set(
+            action.payload.step.id,
+            action.payload.step.status ?? 'uncompleted'
+          )
+        }),
         ...(action.payload.step.status !== 'disabled' && {
           nonDisabledSteps: state.nonDisabledSteps.insert(
             action.payload.index,
@@ -137,7 +139,9 @@ const stepperReducer = (
     case 'stepperSubmitted': {
       return {
         ...state,
-        stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
+        ...(state.currentStepId && {
+          stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
+        })
       }
     }
     case 'stepperReset':

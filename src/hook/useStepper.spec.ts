@@ -19,6 +19,21 @@ describe('Considering the useStepper hook', () => {
     nonDisabledSteps: ImmutableList()
   }
 
+  const initialEmptyStepsStatus: InitializerArgs = {
+    initialCurrentStepId: '',
+    initialStepsStatus: []
+  }
+
+  const stepEmptyToAdd: InitialStepStatus = {
+    id: 'empty'
+  }
+
+  const expectedStateWhenEmpty: StepperState = {
+    currentStepId: '',
+    stepsStatus: Map<string, StepStatus>().set('empty', 'uncompleted'),
+    nonDisabledSteps: ImmutableList(['empty'])
+  }
+
   const initialStepsStatus1: InitialStepStatus[] = [
     { id: 'step1' },
     { id: 'step2' },
@@ -145,6 +160,23 @@ describe('Considering the useStepper hook', () => {
     nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep', 'sixthStep'])
   }
 
+  const stepDisabledToAdd: InitialStepStatus = {
+    id: 'sixthStep',
+    status: 'disabled'
+  }
+
+  const expectedState3WhenStepDisabledAdded: StepperState = {
+    currentStepId: 'thirdStep',
+    stepsStatus: Map<string, StepStatus>()
+      .set('firstStep', 'disabled')
+      .set('secondStep', 'uncompleted')
+      .set('thirdStep', 'uncompleted')
+      .set('fourthStep', 'uncompleted')
+      .set('fifthStep', 'disabled')
+      .set('sixthStep', 'disabled'),
+    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
+  }
+
   const initialStepsStatus4: InitialStepStatus[] = [
     { id: 'step1', status: 'completed' },
     { id: 'step2', status: 'completed' },
@@ -194,25 +226,30 @@ describe('Considering the useStepper hook', () => {
   }
 
   describe.each`
-    initialCurrentStepId | initialStepsStatus     | action                                                            | expectedState
-    ${''}                | ${[]}                  | ${{ type: '' }}                                                   | ${emptyState}
-    ${''}                | ${[]}                  | ${{ type: 'stepCompleted' }}                                      | ${emptyState}
-    ${''}                | ${[]}                  | ${{ type: 'previousClicked' }}                                    | ${emptyState}
-    ${''}                | ${[]}                  | ${{ type: 'stepFailed' }}                                         | ${emptyState}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: '' }}                                                   | ${expectedState1WhenInvalidAction}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'foo' }}                                                | ${expectedState1WhenInvalidAction}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepCompleted' }}                                      | ${expectedState1WhenStepCompleted}
-    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepFailed' }}                                         | ${expectedState1WhenStepFailed}
-    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'previousClicked' }}                                    | ${expectedState2WhenPreviousClicked}
-    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'stepCompleted' }}                                      | ${expectedState2WhenStepCompleted}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'previousClicked' }}                                    | ${expectedState3WhenPreviousClicked}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                      | ${expectedState3WhenStepCompleted}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'fourthStep' }}                 | ${expectedState3WhenStepRemoved}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'thirdStep' }}                  | ${expectedState3WhenCurrentStepRemoved}
-    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepAdded', payload: { step: stepToAdd, index: 4 } }}  | ${expectedState3WhenStepAdded}
-    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                   | ${expectedState4WhenStepperSubmitted}
-    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReset', payload: initialStepsStatus4ForReset }} | ${expectedState4WhenStepperReset}
-    ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                    | ${expectedState5WhenPreviousClicked}
+    initialCurrentStepId | initialStepsStatus     | action                                                                   | expectedState
+    ${''}                | ${[]}                  | ${{ type: '' }}                                                          | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'previousClicked' }}                                           | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepCompleted' }}                                             | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepFailed' }}                                                | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepRemoved' }}                                               | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepAdded', payload: { step: stepEmptyToAdd, index: 0 } }}    | ${expectedStateWhenEmpty}
+    ${''}                | ${[]}                  | ${{ type: 'stepperSubmitted' }}                                          | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepperReset', payload: initialEmptyStepsStatus }}            | ${emptyState}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: '' }}                                                          | ${expectedState1WhenInvalidAction}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'foo' }}                                                       | ${expectedState1WhenInvalidAction}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepCompleted' }}                                             | ${expectedState1WhenStepCompleted}
+    ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepFailed' }}                                                | ${expectedState1WhenStepFailed}
+    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'previousClicked' }}                                           | ${expectedState2WhenPreviousClicked}
+    ${'secondStep'}      | ${initialStepsStatus2} | ${{ type: 'stepCompleted' }}                                             | ${expectedState2WhenStepCompleted}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'previousClicked' }}                                           | ${expectedState3WhenPreviousClicked}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepCompleted' }}                                             | ${expectedState3WhenStepCompleted}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'fourthStep' }}                        | ${expectedState3WhenStepRemoved}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepRemoved', payload: 'thirdStep' }}                         | ${expectedState3WhenCurrentStepRemoved}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepAdded', payload: { step: stepToAdd, index: 4 } }}         | ${expectedState3WhenStepAdded}
+    ${'thirdStep'}       | ${initialStepsStatus3} | ${{ type: 'stepAdded', payload: { step: stepDisabledToAdd, index: 4 } }} | ${expectedState3WhenStepDisabledAdded}
+    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperSubmitted' }}                                          | ${expectedState4WhenStepperSubmitted}
+    ${'step3'}           | ${initialStepsStatus4} | ${{ type: 'stepperReset', payload: initialStepsStatus4ForReset }}        | ${expectedState4WhenStepperReset}
+    ${'step2'}           | ${initialStepsStatus5} | ${{ type: 'previousClicked' }}                                           | ${expectedState5WhenPreviousClicked}
   `(
     'Given an initial current step id <$initialCurrentStepId> and an initial steps status array',
     ({ initialCurrentStepId, initialStepsStatus, action, expectedState }: Data) => {
