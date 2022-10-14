@@ -68,72 +68,82 @@ const stepperReducer = (
   state: DeepReadonly<StepperState>,
   action: DeepReadonly<StepperAction>
 ): DeepReadonly<StepperState> => {
-  if (state.currentStepId) {
-    switch (action.type) {
-      case 'previousClicked': {
-        const previousStepId = state.nonDisabledSteps.get(
-          state.nonDisabledSteps.indexOf(state.currentStepId) - 1
-        )
-        return {
-          ...state,
-          currentStepId: previousStepId ?? state.currentStepId,
+  switch (action.type) {
+    case 'previousClicked': {
+      const previousStepId = state.nonDisabledSteps.get(
+        state.nonDisabledSteps.indexOf(state.currentStepId) - 1
+      )
+      return {
+        ...state,
+        ...(previousStepId && { currentStepId: previousStepId }),
+        ...(state.currentStepId && {
           stepsStatus: state.stepsStatus.set(
             state.currentStepId,
             state.stepsStatus.get(state.currentStepId) !== 'invalid' ? 'uncompleted' : 'invalid'
           )
-        }
-      }
-      case 'stepCompleted': {
-        const nextStepId = state.nonDisabledSteps.get(
-          state.nonDisabledSteps.indexOf(state.currentStepId) + 1
-        )
-        return {
-          ...state,
-          currentStepId: nextStepId ?? state.currentStepId,
-          stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
-        }
-      }
-      case 'stepFailed':
-        return {
-          ...state,
-          stepsStatus: state.stepsStatus.set(state.currentStepId, 'invalid')
-        }
-      case 'stepRemoved':
-        return action.payload !== state.currentStepId
-          ? {
-              ...state,
-              stepsStatus: state.stepsStatus.delete(action.payload),
-              nonDisabledSteps: state.nonDisabledSteps.delete(
-                state.nonDisabledSteps.findIndex((id: string) => id === action.payload)
-              )
-            }
-          : state
-      case 'stepAdded': {
-        const stepsStatus = state.stepsStatus.toArray()
-        stepsStatus.splice(action.payload.index, 0, [
-          action.payload.step.id,
-          action.payload.step.status ?? 'uncompleted'
-        ])
-        return initState({
-          initialCurrentStepId: state.currentStepId,
-          initialStepsStatus: stepsStatus.map(
-            ([id, status]: DeepReadonly<[string, StepStatus]>) => ({ id, status })
-          )
         })
       }
-      case 'stepperSubmitted': {
-        return {
-          ...state,
-          stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
-        }
-      }
-      case 'stepperReset':
-        return initState(action.payload)
-      default:
-        return state
     }
+    case 'stepCompleted': {
+      const nextStepId = state.nonDisabledSteps.get(
+        state.nonDisabledSteps.indexOf(state.currentStepId) + 1
+      )
+      return {
+        ...state,
+        ...(nextStepId && { currentStepId: nextStepId }),
+        ...(state.currentStepId && {
+          stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
+        })
+      }
+    }
+    case 'stepFailed':
+      return {
+        ...state,
+        ...(state.currentStepId && {
+          stepsStatus: state.stepsStatus.set(state.currentStepId, 'invalid')
+        })
+      }
+    case 'stepRemoved': {
+      const updatedState = {
+        ...state,
+        stepsStatus: state.stepsStatus.delete(action.payload),
+        nonDisabledSteps: state.nonDisabledSteps.delete(
+          state.nonDisabledSteps.findIndex((id: string) => id === action.payload)
+        )
+      }
+      return action.payload !== state.currentStepId
+        ? updatedState
+        : {
+            ...updatedState,
+            currentStepId: updatedState.nonDisabledSteps.first('')
+          }
+    }
+
+    case 'stepAdded': {
+      const stepsStatus = state.stepsStatus.toArray()
+      stepsStatus.splice(action.payload.index, 0, [
+        action.payload.step.id,
+        action.payload.step.status ?? 'uncompleted'
+      ])
+      return initState({
+        initialCurrentStepId: state.currentStepId,
+        initialStepsStatus: stepsStatus.map(([id, status]: DeepReadonly<[string, StepStatus]>) => ({
+          id,
+          status
+        }))
+      })
+    }
+    case 'stepperSubmitted': {
+      return {
+        ...state,
+        stepsStatus: state.stepsStatus.set(state.currentStepId, 'completed')
+      }
+    }
+    case 'stepperReset':
+      return initState(action.payload)
+    default:
+      return state
   }
-  return state
 }
 
 export type UseStepper = {

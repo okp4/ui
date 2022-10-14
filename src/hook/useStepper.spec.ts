@@ -120,14 +120,13 @@ describe('Considering the useStepper hook', () => {
   }
 
   const expectedState3WhenCurrentStepRemoved: StepperState = {
-    currentStepId: 'thirdStep',
+    currentStepId: 'secondStep',
     stepsStatus: OrderedMap<string, StepStatus>()
       .set('firstStep', 'disabled')
       .set('secondStep', 'uncompleted')
-      .set('thirdStep', 'uncompleted')
       .set('fourthStep', 'uncompleted')
       .set('fifthStep', 'disabled'),
-    nonDisabledSteps: ImmutableList(['secondStep', 'thirdStep', 'fourthStep'])
+    nonDisabledSteps: ImmutableList(['secondStep', 'fourthStep'])
   }
 
   const stepToAdd: InitialStepStatus = {
@@ -198,6 +197,8 @@ describe('Considering the useStepper hook', () => {
     initialCurrentStepId | initialStepsStatus     | action                                                            | expectedState
     ${''}                | ${[]}                  | ${{ type: '' }}                                                   | ${emptyState}
     ${''}                | ${[]}                  | ${{ type: 'stepCompleted' }}                                      | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'previousClicked' }}                                    | ${emptyState}
+    ${''}                | ${[]}                  | ${{ type: 'stepFailed' }}                                         | ${emptyState}
     ${'step1'}           | ${initialStepsStatus1} | ${{ type: '' }}                                                   | ${expectedState1WhenInvalidAction}
     ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'foo' }}                                                | ${expectedState1WhenInvalidAction}
     ${'step1'}           | ${initialStepsStatus1} | ${{ type: 'stepCompleted' }}                                      | ${expectedState1WhenStepCompleted}
