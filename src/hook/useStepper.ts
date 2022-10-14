@@ -120,18 +120,19 @@ const stepperReducer = (
     }
 
     case 'stepAdded': {
-      const stepsStatus = state.stepsStatus.toArray()
-      stepsStatus.splice(action.payload.index, 0, [
-        action.payload.step.id,
-        action.payload.step.status ?? 'uncompleted'
-      ])
-      return initState({
-        initialCurrentStepId: state.currentStepId,
-        initialStepsStatus: stepsStatus.map(([id, status]: DeepReadonly<[string, StepStatus]>) => ({
-          id,
-          status
-        }))
-      })
+      return {
+        ...state,
+        stepsStatus: state.stepsStatus.set(
+          action.payload.step.id,
+          action.payload.step.status ?? 'uncompleted'
+        ),
+        ...(action.payload.step.status !== 'disabled' && {
+          nonDisabledSteps: state.nonDisabledSteps.insert(
+            action.payload.index,
+            action.payload.step.id
+          )
+        })
+      }
     }
     case 'stepperSubmitted': {
       return {
