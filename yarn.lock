@@ -1620,10 +1620,10 @@
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.28.0.tgz#01e45398985c30929a07b8f01f53f3c9faf12dda"
   integrity sha512-muHxtHlQmkd8bH5VrF7iDDF4R1qxtzf3jsHLd+IdIJbKjbB1HDCJwekPROLHUA/GbPpb0F3Q4QGk2oixm1R9uQ==
 
-"@babylonjs/inspector@^5.22.1":
-  version "5.22.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.22.1.tgz#a1aa13f40ba948af79397328130906141d7b236b"
-  integrity sha512-Ro6LzDEKM8kWLik/SPHy7bGGLnHfuyCsnbU5tBxInk4rcm75poTHlEFp9RRvYsYT3Cklz+p4AETJaEeLZnZ4qA==
+"@babylonjs/inspector@^5.28.0":
+  version "5.28.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.28.0.tgz#9589f3e74c3fdf19eab7447bea07f9070c9f550a"
+  integrity sha512-YQNGxqaFPa2Z/dMgxkUYCG+k4OSZrUMUwBVgzeRtELmAv9VVe3/GXEg60l2r1UuzUBA5NPPo1ZGhlwyYtWN4dw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
