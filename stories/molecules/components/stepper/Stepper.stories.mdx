@@ -73,7 +73,7 @@ Each step of the Stepper can be validated to move on to the next step. The last 
   {args => {
     const steps = [
       {
-        id: 'step1',
+        id: 'TMPd6bsSkUiTauLbHa0aWw',
         label: 'Step 1',
         content: (
           <>
@@ -92,7 +92,7 @@ Each step of the Stepper can be validated to move on to the next step. The last 
         )
       },
       {
-        id: 'step2',
+        id: 'Z12X3iypAU2HIuoxhzKoTw',
         label: 'Step 2',
         content: (
           <>
@@ -116,7 +116,7 @@ Each step of the Stepper can be validated to move on to the next step. The last 
         )
       },
       {
-        id: 'step3',
+        id: 'YUlLCaAK80ixOpHMNG6wHw',
         label: 'Step 3',
         content: (
           <Typography as="div" fontFamily="brand" fontWeight="xlight">
@@ -126,7 +126,7 @@ Each step of the Stepper can be validated to move on to the next step. The last 
       }
     ]
     const { state, dispatch } = useStepper(
-      'step1',
+      'TMPd6bsSkUiTauLbHa0aWw',
       steps.map(step => ({ id: step.id, status: step.status }))
     )
     const [submitted, setSubmitted] = useState(false)
@@ -152,7 +152,7 @@ Each step of the Stepper can be validated to move on to the next step. The last 
       dispatch({
         type: 'stepperReset',
         payload: {
-          initialCurrentStepId: 'step1',
+          initialCurrentStepId: 'TMPd6bsSkUiTauLbHa0aWw',
           initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
         }
       })
@@ -218,10 +218,12 @@ Example :
 ```tsx
 // Call the `useStepper` hook
 const { state, dispatch } = useStepper(
-  'protocol', // The initial current step id
+  'DcKIvKNG1EOhV-oHJb85PA', // The initial current step id
   steps.map(step => ({ id: step.id, status: step.status })) // The initial list of status
 )
 ```
+
+We recommend to use strong and unique id as UUIDS.
 
 ##### The state
 
@@ -252,7 +254,7 @@ The `stepRemoved` action requires the id of the step to remove.
 const handleRemoveStep = useCallback(() => {
   dispatch({
     type: 'stepRemoved',
-    payload: 'protocol' // The id of the step to remove
+    payload: 'DcKIvKNG1EOhV-oHJb85PA' // The id of the step to remove
   })
 }, [dispatch])
 ```
@@ -267,7 +269,7 @@ const handleAddStep = useCallback(() => {
     type: 'stepAdded',
     payload: {
       step: {
-        id: 'development', // The id of the step to add
+        id: 'p_laQI3gf0idl_QNg-4GyQ', // The id of the step to add
         status: 'uncompleted' // The status of the step to add
       },
       index: 3 // The zero-based index in which the step will be inserted
@@ -284,7 +286,7 @@ const handleReset = useCallback(() => {
   dispatch({
     type: 'stepperReset',
     payload: {
-      initialCurrentStepId: 'protocol', // The initial current step id
+      initialCurrentStepId: 'DcKIvKNG1EOhV-oHJb85PA', // The initial current step id
       initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status })) // The initial list of status
     }
   })
@@ -307,23 +309,23 @@ First, define your steps :
 ```tsx
 const steps = [
   {
-    id: 'protocol',
+    id: 'eIi90zMum0SYOW-GPn7AOg',
     label: 'ØKP4 Protocol',
     status: 'uncompleted'
   },
   {
-    id: 'news-docs',
+    id: 'wSOOshtGhUGpixfKkZBoaQ',
     label: 'News & Docs',
     status: 'uncompleted'
   },
   {
-    id: 'roadmap',
+    id: 'pxJ9KKM5FkeezKZva-XOpQ',
     label: 'Røadmap',
     status: 'uncompleted',
     onValidate: () => true
   },
   {
-    id: 'team',
+    id: 'dlR3jRWttkCa9vW6FwDurA',
     label: 'Team',
     status: 'uncompleted'
   }
@@ -336,7 +338,7 @@ Then call the hook with the id of the initial current step and map your steps to
 
 ```tsx
 const { state, dispatch }: UseStepper = useStepper(
-  'protocol',
+  'eIi90zMum0SYOW-GPn7AOg',
   steps.map(step => ({ id: step.id, status: step.status }))
 )
 ```
@@ -377,7 +379,7 @@ const handleReset = useCallback(() => {
     type: 'stepperReset',
     // The payload contains the data with which the Stepper must be reset
     payload: {
-      initialCurrentStepId: 'protocol',
+      initialCurrentStepId: 'eIi90zMum0SYOW-GPn7AOg',
       initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
     }
   })
@@ -414,30 +416,30 @@ And here is the complete illustration of our example.
       // Define your steps
       const steps = [
         {
-          id: 'protocol',
+          id: 'eIi90zMum0SYOW-GPn7AOg',
           label: 'ØKP4 Protocol',
           status: 'uncompleted'
         },
         {
-          id: 'news-docs',
+          id: 'wSOOshtGhUGpixfKkZBoaQ',
           label: 'News & Docs',
           status: 'uncompleted'
         },
         {
-          id: 'roadmap',
+          id: 'pxJ9KKM5FkeezKZva-XOpQ',
           label: 'Røadmap',
           status: 'uncompleted',
           onValidate: () => true
         },
         {
-          id: 'team',
+          id: 'dlR3jRWttkCa9vW6FwDurA',
           label: 'Team',
           status: 'uncompleted'
         }
       ]
       // Call the hook with two parameters
       const { state, dispatch } = useStepper(
-        'protocol',
+        'eIi90zMum0SYOW-GPn7AOg',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       // Define your callback functions `onPrevious`, `onNext`, `onSubmit` and `onReset`
@@ -469,7 +471,7 @@ And here is the complete illustration of our example.
           type: 'stepperReset',
           // The payload contains the data with which the Stepper must be reset
           payload: {
-            initialCurrentStepId: 'protocol',
+            initialCurrentStepId: 'eIi90zMum0SYOW-GPn7AOg',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -524,7 +526,7 @@ type Step = {
     {() => {
       const steps = [
         {
-          id: 'firstStep',
+          id: 'Ppi_Ewca7kO8XPkJooI9jA',
           label: 'This is the step label',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -533,12 +535,12 @@ type Step = {
           )
         },
         {
-          id: 'disabledStep',
+          id: 'cfMEx_oTAEur4lg7WoHZ1A',
           label: 'This is a disabled step',
           status: 'disabled'
         },
         {
-          id: 'lastStep',
+          id: 'kqS6w9p31UKbukEM-J_vjg',
           label: 'And finally the last step',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -548,7 +550,7 @@ type Step = {
         }
       ]
       const { state, dispatch } = useStepper(
-        'firstStep',
+        'Ppi_Ewca7kO8XPkJooI9jA',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -570,7 +572,7 @@ type Step = {
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'firstStep',
+            initialCurrentStepId: 'Ppi_Ewca7kO8XPkJooI9jA',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -600,24 +602,24 @@ The `label` is the title of the step.
     {() => {
       const steps = [
         {
-          id: 'step1',
+          id: 'vFsGhDsnZEK0IqB2Y2VaEQ',
           label: 'Step 1 label'
         },
         {
-          id: 'step2',
+          id: 'NtlpCFPunUSmnnrrm7fGig',
           label: 'Step 2 label'
         },
         {
-          id: 'step3',
+          id: 'tyGwxwPvS0WH9SKZT5UxgA',
           label: 'Step 3 label'
         },
         {
-          id: 'step4',
+          id: 'nFAsHIMCkkSt3S95FOF2SQ',
           label: 'Step 4 label'
         }
       ]
       const { state, dispatch } = useStepper(
-        'step1',
+        'vFsGhDsnZEK0IqB2Y2VaEQ',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -639,7 +641,7 @@ The `label` is the title of the step.
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'step1',
+            initialCurrentStepId: 'vFsGhDsnZEK0IqB2Y2VaEQ',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -675,7 +677,7 @@ By default, a step will be **uncompleted**.
     {() => {
       const steps = [
         {
-          id: 'first',
+          id: 'o0vGP_CSf0SMJn1yLugEBw',
           label: 'First step already completed',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -685,7 +687,7 @@ By default, a step will be **uncompleted**.
           status: 'completed'
         },
         {
-          id: 'second',
+          id: 'nVqL02TVyUmRjtdU0DJRMg',
           label: 'Second step disabled',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -695,7 +697,7 @@ By default, a step will be **uncompleted**.
           status: 'disabled'
         },
         {
-          id: 'third',
+          id: 'IkiEpY147ES6trsLM8f--Q',
           label: 'Third step in error',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -705,7 +707,7 @@ By default, a step will be **uncompleted**.
           status: 'invalid'
         },
         {
-          id: 'fourth',
+          id: 'N5sSREHzwkW5HivBG6xG_g',
           label: 'Fourth step',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -714,7 +716,7 @@ By default, a step will be **uncompleted**.
           )
         },
         {
-          id: 'fifth',
+          id: 'x9Kl7ud6mEWg9aWIyxTxUA',
           label: 'Fifth step uncompleted',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -724,7 +726,7 @@ By default, a step will be **uncompleted**.
           status: 'uncompleted'
         },
         {
-          id: 'sixth',
+          id: 'GQTgLWIMVEqgCbovwkEtJQ',
           label: 'Sixth step also uncompleted',
           content: (
             <Typography as="div" fontFamily="brand" fontSize="small" fontWeight="xlight">
@@ -734,7 +736,7 @@ By default, a step will be **uncompleted**.
         }
       ]
       const { state, dispatch } = useStepper(
-        'fourth',
+        'N5sSREHzwkW5HivBG6xG_g',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -756,7 +758,7 @@ By default, a step will be **uncompleted**.
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'fourth',
+            initialCurrentStepId: 'N5sSREHzwkW5HivBG6xG_g',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -786,7 +788,7 @@ The `content` of the step can be any `JSX.Element`.
     {() => {
       const steps = [
         {
-          id: 'protocol',
+          id: '9CSubVYzIky5BQgM2eNUVQ',
           label: 'ØKP4 Protocol',
           content: (
             <div>
@@ -815,7 +817,7 @@ The `content` of the step can be any `JSX.Element`.
           )
         },
         {
-          id: 'news-docs',
+          id: 'P6O-gUx0g0awFyCKjuYTJA',
           label: 'News & Docs',
           content: (
             <div
@@ -842,7 +844,7 @@ The `content` of the step can be any `JSX.Element`.
           )
         },
         {
-          id: 'roadmap',
+          id: 'fCc7rBouj0S2O4MtgNEeVw',
           label: 'Røadmap',
           content: (
             <div
@@ -935,7 +937,7 @@ The `content` of the step can be any `JSX.Element`.
           )
         },
         {
-          id: 'team',
+          id: 'mwcYWxrvCkqwwt8GeZOGRg',
           label: 'Team',
           content: (
             <div>
@@ -957,7 +959,7 @@ The `content` of the step can be any `JSX.Element`.
         }
       ]
       const { state, dispatch } = useStepper(
-        'protocol',
+        '9CSubVYzIky5BQgM2eNUVQ',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -979,7 +981,7 @@ The `content` of the step can be any `JSX.Element`.
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'protocol',
+            initialCurrentStepId: '9CSubVYzIky5BQgM2eNUVQ',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -1021,7 +1023,7 @@ The Stepper goes to the next step if the function returns **true**, else the ste
       }
       const steps = [
         {
-          id: 'type',
+          id: 'zxnPnxshjUCmQHi9HF9KXA',
           label: 'Type of dough',
           onValidate: handleValidateTypeOfDough,
           content: (
@@ -1031,7 +1033,7 @@ The Stepper goes to the next step if the function returns **true**, else the ste
           )
         },
         {
-          id: 'ingredients',
+          id: '-oUkvVVTvkyEPz8PxCO1Qg',
           label: 'Extra ingredients',
           onValidate: handleValidateExtraIngredients,
           content: (
@@ -1041,12 +1043,12 @@ The Stepper goes to the next step if the function returns **true**, else the ste
           )
         },
         {
-          id: 'payment',
+          id: 'MNcGln9R8EWwTe4nKil6-w',
           label: 'Payment'
         }
       ]
       const { state, dispatch } = useStepper(
-        'type',
+        'zxnPnxshjUCmQHi9HF9KXA',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -1070,7 +1072,7 @@ The Stepper goes to the next step if the function returns **true**, else the ste
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'type',
+            initialCurrentStepId: 'zxnPnxshjUCmQHi9HF9KXA',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -1117,27 +1119,27 @@ The `isSubmitDisabled` property allows to disabled the _Submit_ button.
     {() => {
       const steps = [
         {
-          id: 'protocol',
+          id: 'DXHjI4R2_U64-hYFhrmbLw',
           label: 'ØKP4 Protocol',
           status: 'completed'
         },
         {
-          id: 'news-docs',
+          id: 'mqL8tTYpJE2oGSBkYiZChw',
           label: 'News & Docs',
           status: 'completed'
         },
         {
-          id: 'roadmap',
+          id: 'GHqgISIzaEC8ELqnBlsHcw',
           label: 'Røadmap',
           status: 'completed'
         },
         {
-          id: 'team',
+          id: 'N5XgeO4ffUaKn8ffAf2a8w',
           label: 'Team'
         }
       ]
       const { state, dispatch } = useStepper(
-        'team',
+        'N5XgeO4ffUaKn8ffAf2a8w',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -1159,7 +1161,7 @@ The `isSubmitDisabled` property allows to disabled the _Submit_ button.
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'protocol',
+            initialCurrentStepId: 'DXHjI4R2_U64-hYFhrmbLw',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
@@ -1191,7 +1193,7 @@ By default their labels are provided by the default translation files (respectiv
     {() => {
       const steps = [
         {
-          id: 'q1',
+          id: '3-rsCn8oPkyj1DDMlCfu3A',
           label: 'Q1',
           status: 'completed',
           content: (
@@ -1223,7 +1225,7 @@ By default their labels are provided by the default translation files (respectiv
           )
         },
         {
-          id: 'q2',
+          id: '7Dc3MyAr9US6NdIWB1a5jQ',
           label: 'Q2',
           status: 'completed',
           content: (
@@ -1268,7 +1270,7 @@ By default their labels are provided by the default translation files (respectiv
           )
         },
         {
-          id: 'q3',
+          id: 'Gu2WQlLxFkiBnTIfSeh_xw',
           label: 'Q3',
           status: 'completed',
           content: (
@@ -1312,7 +1314,7 @@ By default their labels are provided by the default translation files (respectiv
           )
         },
         {
-          id: 'q4',
+          id: 'CWGWpazGakaKUHoBnQmofw',
           label: 'Q4',
           status: 'active',
           content: (
@@ -1351,7 +1353,7 @@ By default their labels are provided by the default translation files (respectiv
         }
       ]
       const { state, dispatch } = useStepper(
-        'q4',
+        'CWGWpazGakaKUHoBnQmofw',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -1373,7 +1375,7 @@ By default their labels are provided by the default translation files (respectiv
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'q1',
+            initialCurrentStepId: '3-rsCn8oPkyj1DDMlCfu3A',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: 'uncompleted' }))
           }
         })
@@ -1441,24 +1443,24 @@ The Stepper provides the `onPrevious`, `onNext`, `onSubmit` and `onReset` proper
       const handleResetOpened = bool => () => setResetOpened(bool)
       const steps = [
         {
-          id: 'protocol',
+          id: 'UOfvE34NWU2vXiMgLVx6Dw',
           label: 'ØKP4 Protocol'
         },
         {
-          id: 'news-docs',
+          id: 'd7HBdh1ZW0ik-NcW7V45Uw',
           label: 'News & Docs'
         },
         {
-          id: 'roadmap',
+          id: '7v5rV05mlkqkt2ZyUzFfaw',
           label: 'Røadmap'
         },
         {
-          id: 'team',
+          id: 'EqDQEo9kBUqdH6Pz2193Ew',
           label: 'Team'
         }
       ]
       const { state, dispatch } = useStepper(
-        'protocol',
+        'UOfvE34NWU2vXiMgLVx6Dw',
         steps.map(step => ({ id: step.id, status: step.status }))
       )
       const handlePrevious = useCallback(() => {
@@ -1484,7 +1486,7 @@ The Stepper provides the `onPrevious`, `onNext`, `onSubmit` and `onReset` proper
         dispatch({
           type: 'stepperReset',
           payload: {
-            initialCurrentStepId: 'protocol',
+            initialCurrentStepId: 'UOfvE34NWU2vXiMgLVx6Dw',
             initialStepsStatus: steps.map(step => ({ id: step.id, status: step.status }))
           }
         })
