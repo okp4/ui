@@ -11,11 +11,11 @@
     "operationSucceeded": "Votre transaction a été envoyée avec succès!",
     "brand": {
       "title": "OKP4 Faucet",
-      "description": "Bonjour camarade! Utilisez ce faucet afin d'obtenir des jetons pour le dernier {{env}} OKP4. Veuillez ne pas abuser de ce service - le nombre de jetons disponibles est limité."
+      "description": "Bonjour camarade! Utilisez ce faucet afin d'obtenir des jetons pour la chaîne {{env}}. Veuillez ne pas abuser de ce service - le nombre de jetons disponibles est limité."
     },
     "info": {
       "limitation": "Vous recevrez 1 KNOW par demande, avec un maximum de 1 demande toutes les 5 secondes.",
-      "message1": "Vous n'avez pas d'adresse {{env}} ? Pour en obtenir une, le moyen le plus simple est d'utiliser Keplr, le wallet d'OKP4.",
+      "message1": "Vous n'avez pas d'adresse okp4 ? Pour en obtenir une, le moyen le plus simple est d'utiliser Keplr.",
       "message2": "Installez l'extension officielle Chrome ",
       "message3": " et connectez la chaîne {{chainId}} pour voir votre adresse.",
       "successMessage": "Votre demande a été envoyée avec succès, vérifiez votre portefeuille! 🚀"
