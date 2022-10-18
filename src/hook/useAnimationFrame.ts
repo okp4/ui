@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export type TAnimationFrameCallback = (deltaTime: number) => void
+export type AnimationFrameCallback = (deltaTime: number) => void
 
 /**
  * A hook to deal with requestAnimationFrame() in React.
@@ -8,8 +8,8 @@ export type TAnimationFrameCallback = (deltaTime: number) => void
  * @param callback the callback function to call when it's time to update the animation.
  * @param animated tells if a requestAnimationFrame
  */
-export const useAnimationFrame: (callback: TAnimationFrameCallback, animated?: boolean) => void = (
-  callback: TAnimationFrameCallback,
+export const useAnimationFrame: (callback: AnimationFrameCallback, animated?: boolean) => void = (
+  callback: AnimationFrameCallback,
   animated: boolean = true
 ) => {
   const requestRef = useRef<number>()
