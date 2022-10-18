@@ -203,7 +203,9 @@ export const Stepper: React.FC<StepperProps> = ({
                   <Typography
                     fontSize="x-small"
                     fontWeight={
-                      step.id === currentStepId && step.status !== 'completed' ? 'bold' : 'light'
+                      step.id === currentStepId && getStepStatus(step) !== 'completed'
+                        ? 'bold'
+                        : 'light'
                     }
                   >
                     {step.label}
