@@ -11,11 +11,11 @@
     "operationSucceeded": "Your transaction has been successfully sent!",
     "brand": {
       "title": "OKP4 Faucet",
-      "description": "Hello fellow data space invader! Use this faucet to get tokens for the latest OKP4 {{env}}. Please don't abuse this service—the number of available tokens is limited."
+      "description": "Hello fellow data space invader! Use this faucet to get tokens for the {{env}} chain. Please don't abuse this service—the number of available tokens is limited."
     },
     "info": {
-      "limitation": "You'll receive 1 KNOW per request, with a maximum of 1 request each 5 seconds.",
-      "message1": "Don't have a {{env}} address? To get one, the easiest way is to use Keplr, the crypto wallet for OKP4.",
+      "limitation": "You'll receive 1 KNOW per request, with a maximum of 1 request every hour.",
+      "message1": "Don't have an okp4 address? To get one, the easiest way is to use Keplr.",
       "message2": "Install the official Chrome extension  ",
       "message3": " and connect to the chain {{chainId}} to see your address.",
       "successMessage": "Your request has been sent successfully, check your wallet! 🚀"
