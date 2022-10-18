@@ -1,4 +1,4 @@
-import type { DeepReadonly, FileSizeUnit, ReadableFileSize } from './superTypes'
+import type { DeepReadonly, FileSizeUnit, ReadableFileSize } from 'superTypes'
 
 export const asImmutable = <T>(o?: T): DeepReadonly<T> => o as DeepReadonly<T>
 

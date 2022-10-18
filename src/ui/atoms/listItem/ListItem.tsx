@@ -1,6 +1,6 @@
 import React from 'react'
 import type { DeepReadonly } from 'superTypes'
-import { Typography } from '../typography/Typography'
+import { Typography } from 'ui/atoms/typography/Typography'
 import './listItem.scss'
 import { isString } from 'utils'
 import classNames from 'classnames'
