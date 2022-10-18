@@ -14,7 +14,7 @@
       "description": "Bonjour camarade! Utilisez ce faucet afin d'obtenir des jetons pour la chaîne {{env}}. Veuillez ne pas abuser de ce service - le nombre de jetons disponibles est limité."
     },
     "info": {
-      "limitation": "Vous recevrez 1 KNOW par demande, avec un maximum de 1 demande toutes les 5 secondes.",
+      "limitation": "Vous recevrez 1 KNOW par demande, avec un maximum de 1 demande toutes les heures.",
       "message1": "Vous n'avez pas d'adresse okp4 ? Pour en obtenir une, le moyen le plus simple est d'utiliser Keplr.",
       "message2": "Installez l'extension officielle Chrome ",
       "message3": " et connectez la chaîne {{chainId}} pour voir votre adresse.",
