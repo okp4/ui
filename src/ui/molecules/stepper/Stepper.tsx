@@ -126,7 +126,7 @@ export const Stepper: React.FC<StepperProps> = ({
   const MobileHeader = (): JSX.Element | null =>
     currentStep ? (
       <div className="okp4-stepper-progress">
-        <div className={classNames('okp4-stepper-step-label', currentStep.status)}>
+        <div className={classNames('okp4-stepper-step-label', getStepStatus(currentStep))}>
           <Typography fontSize="small" fontWeight="bold">
             {`${currentStep.label} (${steps.indexOf(currentStep) + 1}/${steps.length})`}
           </Typography>
@@ -134,7 +134,10 @@ export const Stepper: React.FC<StepperProps> = ({
         <div className="okp4-stepper-step-states-mobile">
           {steps.map(
             (step: DeepReadonly<Step>): JSX.Element => (
-              <div className={classNames('okp4-stepper-step-state', step.status)} key={step.id} />
+              <div
+                className={classNames('okp4-stepper-step-state', getStepStatus(step))}
+                key={step.id}
+              />
             )
           )}
         </div>

@@ -67,7 +67,7 @@ $colors: (
       @include background-opacity(themed('tertiary-background'), 0.3);
       grid-area: body;
       max-width: 100%;
-      overflow-y: auto;
+      overflow: hidden;
       display: grid;
       row-gap: 15px;
       grid-template-rows: 1fr auto;
