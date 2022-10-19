@@ -1,5 +1,59 @@
 # OKP4 UI changelog
 
+## [2.0.0](https://github.com/okp4/ui/compare/v1.18.0...v2.0.0) (2022-10-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* change icon names facebook, linkedin, twitter
+* remove useless T prefix from type names
+* rename leftelement and rightelement
+
+### Features
+
+* add a system to display tooltips (based on label) ([bb0dde3](https://github.com/okp4/ui/commit/bb0dde35af0dac5505a7d73c518e98bbe3234f37))
+* add new icons ([952a0cc](https://github.com/okp4/ui/commit/952a0ccf42a30bc3b4e57a66236e8001a667f8f5))
+* add onclick property to list item ([6dab489](https://github.com/okp4/ui/commit/6dab489f4ac2a9d23eee53578a2d3119b367da96))
+* add property layout to list ([6209cbb](https://github.com/okp4/ui/commit/6209cbb5b0b059f0b676318d01f0ef19c2005731))
+* add style to clickable & grid listitem ([378992b](https://github.com/okp4/ui/commit/378992b47cf294b6d0a6d29695dd7638edb6d199))
+* add system to extract labels from nodes into a component ([dcac4af](https://github.com/okp4/ui/commit/dcac4affe164183d7cfd16298cb06c4cc9f46e09))
+* add system to install the lights in the scene ([2e7e975](https://github.com/okp4/ui/commit/2e7e975f18dcb4d7f9f8236940a3d75a99248864))
+* add system to install the main camera ([624c1e8](https://github.com/okp4/ui/commit/624c1e8cdc050cee97d5ce8954356faa594470b9))
+* add system to layout the graph in 3D ([e1e3a8e](https://github.com/okp4/ui/commit/e1e3a8e775a4a1f3f560d729b465b9d3b82fd8f0))
+* add system to manage the update of all the meshes ([8e08d81](https://github.com/okp4/ui/commit/8e08d81abcc3740f72e8599d20f7707e583ac171))
+* add system to prepare the scene on first rendering ([b249b02](https://github.com/okp4/ui/commit/b249b02584735dc92d6bb9ca5b4a8672bc097a4e))
+* add system to transform a graph into entities ([f8cf605](https://github.com/okp4/ui/commit/f8cf605df278acd8f81d2c09ece3095a520ce60b))
+* cast the spell which creates minimal component ([b13322e](https://github.com/okp4/ui/commit/b13322e01cf2a4f9a5ab83da4f8a85b5ffe4e877))
+* catch layout property, add element type for title & refactor code for listitem ([80bd5a4](https://github.com/okp4/ui/commit/80bd5a424c2488a4e3ae68921203897889a6b856))
+* define schema (components) ([f6b882c](https://github.com/okp4/ui/commit/f6b882ca99f6b17ea6ab49fefea8e085b8be3967))
+* generate new sprites ([f3545d9](https://github.com/okp4/ui/commit/f3545d9e92d6a35ca7a4d66dfc145707c8e1c4c0))
+* implement the main rendering function (sync with the world) ([2d6bb7f](https://github.com/okp4/ui/commit/2d6bb7f668e1fe078bd7d8e2b0728bcee3244cec))
+* improve props description ([881a3b6](https://github.com/okp4/ui/commit/881a3b612aa8563fc7c457bb5eb8790c04995a4c))
+* **listitem:** simplify layout ([8eb25ad](https://github.com/okp4/ui/commit/8eb25ad40e0cf4acbe58b93569070fa0cd31e47d))
+* make description style conditional ([c8025b9](https://github.com/okp4/ui/commit/c8025b961f7b206459531429461d80e588070f8f))
+* make prepare scene system configurable (a bit) ([5764fb3](https://github.com/okp4/ui/commit/5764fb3075e800150fa48261015cf554cf1758c9))
+* make the install camera system configurable ([527c350](https://github.com/okp4/ui/commit/527c35026c657eb6e78c0a53325bbaf704075df6))
+* make the spawn graph system configurable ([cf6d8ce](https://github.com/okp4/ui/commit/cf6d8cec403f8dd41a5e7ad366205020eebfa3d7))
+* parameterize node tooltip system ([0b2bdaa](https://github.com/okp4/ui/commit/0b2bdaa15783557578816cd511dd784d3605c74b))
+* pass layout property to children ([8c78e9d](https://github.com/okp4/ui/commit/8c78e9d676b78904e92fe1b78b488d7d5ac074c8))
+* rename leftelement and rightelement ([11a30cc](https://github.com/okp4/ui/commit/11a30cc81376fa8862b5664019e4980c71ceead1))
+
+
+### Bug Fixes
+
+* change immutable list name import ([3e2898e](https://github.com/okp4/ui/commit/3e2898e0b8cae0c0c664d2db23fb384a5860cb25))
+* change sprite generator targets ([cec83dc](https://github.com/okp4/ui/commit/cec83dc9ecbbb891c3457ed2e8b4502c9f3735af))
+* remove z-index from select.scss story ([1d417d9](https://github.com/okp4/ui/commit/1d417d93250157656c1c877f223dd90dbe2d569c))
+* **text field:** add resizeHeightOnly property ([84268c9](https://github.com/okp4/ui/commit/84268c9ae840b635c56df4b539695491e65b6e16))
+* update description of faucet limitation rate ([06d50a6](https://github.com/okp4/ui/commit/06d50a602b1d1b1193a8abf40bc8fe10998b717d))
+* use correct sentences for texts of the faucet organism ([bd6bcbb](https://github.com/okp4/ui/commit/bd6bcbb25dc94c10859628a18cefaea2fdaa0067))
+
+
+### Code Refactoring
+
+* change icon names facebook, linkedin, twitter ([713bbeb](https://github.com/okp4/ui/commit/713bbebb1185f9bce85f036c17d5fcb18790aa11))
+* remove useless T prefix from type names ([4bd9b70](https://github.com/okp4/ui/commit/4bd9b702f160640f270915d0f44c44122f379da2))
+
 # [1.18.0](https://github.com/okp4/ui/compare/v1.17.0...v1.18.0) (2022-09-14)
 
 
