@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.037" height="22.596" viewBox="0 0 27.037 22.596">
-    <defs>
-        <clipPath id="clip-path">
-            <rect id="Rectangle_608" data-name="Rectangle 608" width="27.037" height="22.596" transform="translate(0 0)" fill="none"/>
-        </clipPath>
-    </defs>
-    <g id="Icone_Chat" transform="translate(0 0)">
-        <g id="Groupe_818" data-name="Groupe 818" clip-path="url(#clip-path)">
-            <path id="Tracé_1903" data-name="Tracé 1903" d="M19.643,6.915H1V21.821L5.094,18.48H19.643Z" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
-            <path id="Tracé_1904" data-name="Tracé 1904" d="M7.394,3.353V1H26.037V15.906L23.63,13.941" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="27.037" height="22.596"><defs><clipPath id="a"><path data-name="Rectangle 608" fill="none" d="M0 0h27.037v22.596H0z"/></clipPath></defs><g data-name="Groupe 818" clip-path="url(#a)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"><path data-name="Tracé 1903" d="M19.643 6.915H1v14.906l4.094-3.341h14.549Z"/><path data-name="Tracé 1904" d="M7.394 3.353V1h18.643v14.906l-2.407-1.965"/></g></svg>

@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21.36" height="12.98" viewBox="0 0 21.36 12.98">
-    <defs>
-        <clipPath id="clip-path">
-            <rect id="Rectangle_635" data-name="Rectangle 635" width="21.36" height="12.98" transform="translate(0 0)" fill="none"/>
-        </clipPath>
-    </defs>
-    <g id="Icone_Rencontres" transform="translate(0 0)">
-        <g id="Groupe_857" data-name="Groupe 857" clip-path="url(#clip-path)">
-            <path id="Tracé_1933" data-name="Tracé 1933" d="M12.488,6.49l-6,6-6-6,6-6L9.31,3.312" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="1.386"/>
-            <path id="Tracé_1934" data-name="Tracé 1934" d="M8.872,6.49l6-6,6,6-6,6L12.05,9.668" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="1.386"/>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="21.36" height="12.98"><defs><clipPath id="a"><path data-name="Rectangle 635" fill="none" d="M0 0h21.36v12.98H0z"/></clipPath></defs><g data-name="Groupe 857" clip-path="url(#a)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="1.386"><path data-name="Tracé 1933" d="m12.488 6.49-6 6-6-6 6-6L9.31 3.312"/><path data-name="Tracé 1934" d="m8.872 6.49 6-6 6 6-6 6-2.822-2.822"/></g></svg>
