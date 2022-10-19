@@ -1,4 +1,1 @@
-<svg id="Icone_Precedent" xmlns="http://www.w3.org/2000/svg" width="18.923" height="15.046" viewBox="0 0 18.923 15.046">
-  <path id="Tracé_1897" data-name="Tracé 1897" d="M6.815,0,8.229,1.415,3.12,6.523h15.8v2H.707L0,6.816Z" transform="translate(0 0)" fill="#fff"/>
-  <path id="Tracé_1898" data-name="Tracé 1898" d="M13.516,10.91l2.722,2.721-1.414,1.414L10.693,10.91Z" transform="translate(-8.009 0)" fill="#fff"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="18.923" height="15.046"><path data-name="Tracé 1897" d="m6.815 0 1.414 1.415L3.12 6.523h15.8v2H.707L0 6.816Z" fill="#fff"/><path data-name="Tracé 1898" d="m5.507 10.91 2.722 2.721-1.414 1.414-4.131-4.135Z" fill="#fff"/></svg>

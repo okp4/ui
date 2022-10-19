@@ -145,6 +145,10 @@ jobs:
         run: |
           yarn graphql:code-gen
 
+      - name: Clean svgs
+        run: |
+          yarn clean-svg
+
       - name: Generate svg sprites
         run: |
           yarn gen-svg-sprite

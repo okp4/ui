@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.037" height="40.755" viewBox="0 0 25.037 40.755">
-  <defs>
-    <clipPath id="clip-path">
-      <rect id="Rectangle_607" data-name="Rectangle 607" width="40.755" height="25.037" transform="translate(-4.308 -3)" fill="none" stroke="#13264d" stroke-width="5"/>
-    </clipPath>
-  </defs>
-  <g id="Groupe_864" data-name="Groupe 864" transform="translate(-56 591.424) rotate(-90)">
-    <g id="Icone_FlecheBas" transform="translate(554.978 59)">
-      <g id="Groupe_813" data-name="Groupe 813" clip-path="url(#clip-path)">
-        <line id="Ligne_293" data-name="Ligne 293" x1="16.017" y1="16.017" transform="translate(1.51 1.51)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="7"/>
-        <path id="Ligne_294" data-name="Ligne 294" d="M0,9.262,9.652,0" transform="translate(20.975 1.51)" fill="none" stroke="#13264d" stroke-width="7"/>
-      </g>
-    </g>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="25.037" height="40.755"><defs><clipPath id="a"><path data-name="Rectangle 607" fill="none" stroke="#13264d" stroke-width="5" d="M-4.308-3h40.755v25.037H-4.308z"/></clipPath></defs><g data-name="Groupe 864"><g data-name="Groupe 813" clip-path="url(#a)" fill="none" stroke="#13264d" stroke-width="7" transform="rotate(-90 19.723 16.723)"><path data-name="Ligne 293" stroke-linejoin="bevel" d="M17.527 17.527 1.51 1.51"/><path data-name="Ligne 294" d="m20.975 10.772 9.652-9.262"/></g></g></svg>

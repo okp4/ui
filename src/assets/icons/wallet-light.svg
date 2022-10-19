@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29.328" height="26.07" viewBox="0 0 29.328 26.07">
-    <defs>
-        <clipPath id="clip-path">
-            <rect id="Rectangle_594" data-name="Rectangle 594" width="29.328" height="26.07" transform="translate(0 0)" fill="none" stroke="#13264d" stroke-width="1"/>
-        </clipPath>
-    </defs>
-    <g id="Icone_Wallet" transform="translate(0 0)">
-        <g id="Groupe_798" data-name="Groupe 798" clip-path="url(#clip-path)">
-            <rect id="Rectangle_592" data-name="Rectangle 592" width="27.328" height="17.142" transform="translate(1 7.928)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
-            <path id="Tracé_1886" data-name="Tracé 1886" d="M23.5,7.928V.955L1,7.928" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
-            <rect id="Rectangle_593" data-name="Rectangle 593" width="9.664" height="4.839" transform="translate(18.664 14.08)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"/>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="29.328" height="26.07"><defs><clipPath id="a"><path data-name="Rectangle 594" fill="none" stroke="#13264d" d="M0 0h29.328v26.07H0z"/></clipPath></defs><g data-name="Groupe 798" clip-path="url(#a)" fill="none" stroke="#13264d" stroke-linejoin="bevel" stroke-width="2"><path data-name="Rectangle 592" d="M1 7.928h27.328V25.07H1z"/><path data-name="Tracé 1886" d="M23.5 7.928V.955L1 7.928"/><path data-name="Rectangle 593" d="M18.664 14.08h9.664v4.839h-9.664z"/></g></svg>
