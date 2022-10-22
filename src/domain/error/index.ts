@@ -1,4 +1,4 @@
-import 'i18n/index'
+import './i18n/index'
 export * from './store/builder/store.builder'
 export * from './store/selector/error.selector'
 export * from './usecase/index'
