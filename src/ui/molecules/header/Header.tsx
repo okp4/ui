@@ -10,12 +10,14 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import { Icon } from 'ui/atoms/icon/Icon'
 import './header.scss'
 
-type NavigationItemsWithId = DeepReadonly<Map<string, NavigationItem>>
+type NavigationItems = DeepReadonly<Map<Id, NavigationItem>>
+
+type Id = string
 
 export type NavigationMenuProps = {
-  navigation: NavigationItemsWithId
-  onNavItemSelection: (id: string, isSubItem?: boolean) => void
-  selectedNavItem?: string
+  navigation: NavigationItems
+  onNavItemSelection: (id: Id, isSubItem?: boolean) => void
+  selectedNavItemId?: Id
   withBurgerMenu?: boolean
 }
 
@@ -89,7 +91,7 @@ const SubMenu = ({
 const NavigationMenu = ({
   navigation,
   onNavItemSelection,
-  selectedNavItem = '',
+  selectedNavItemId = '',
   withBurgerMenu
 }: DeepReadonly<NavigationMenuProps>): JSX.Element => {
   const [subMenuOpen, setSubMenuOpen]: UseState<boolean> = useState<boolean>(false)
@@ -110,27 +112,27 @@ const NavigationMenu = ({
   useOnClickOutside(navItemRef, closeSubMenu)
 
   const handleMenuItemSelected = useCallback(
-    (id: string, hasMenu: boolean) => (): void => {
-      if (selectedNavItem === id) {
+    (id: Id, hasMenu: boolean) => (): void => {
+      if (selectedNavItemId === id) {
         hasMenu && setSubMenuOpen(!subMenuOpen)
       } else {
         onNavItemSelection(id, hasMenu)
         setSubMenuOpen(hasMenu)
       }
     },
-    [subMenuOpen, selectedNavItem, onNavItemSelection]
+    [subMenuOpen, selectedNavItemId, onNavItemSelection]
   )
 
   const handleSubMenuItemSelected = useCallback(() => {
-    onNavItemSelection(selectedNavItem, false)
+    onNavItemSelection(selectedNavItemId, false)
     setSubMenuOpen(false)
-  }, [onNavItemSelection, selectedNavItem])
+  }, [onNavItemSelection, selectedNavItemId])
 
   return (
     <div className={`okp4-header-navigation-${menuType}-list`} ref={navItemRef}>
-      {[...navigation].map(([id, navItem]: DeepReadonly<[string, NavigationItem]>) => {
+      {[...navigation].map(([id, navItem]: DeepReadonly<[Id, NavigationItem]>) => {
         const { menuItem, subMenu }: DeepReadonly<NavigationItem> = navItem
-        const isSelected = selectedNavItem === id
+        const isSelected = selectedNavItemId === id
         const showSubMenu = isSelected && subMenu && subMenuOpen
 
         return (
@@ -180,7 +182,7 @@ export const Header: React.FC<HeaderProps> = ({
   navigationMenu
 }: DeepReadonly<HeaderProps>): JSX.Element => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen]: UseState<boolean> = useState<boolean>(false)
-  const [selectedNavItem, setSelectedNavItem]: UseState<string> = useState<string>('')
+  const [selectedNavItemId, setSelectedNavItem]: UseState<Id> = useState<Id>('')
 
   const isSmallScreen = useMediaType('(max-width: 995px)')
 
@@ -195,7 +197,7 @@ export const Header: React.FC<HeaderProps> = ({
     }
   )
 
-  const navItemsWithId: NavigationItemsWithId = useMemo(
+  const navItemsWithId: NavigationItems = useMemo(
     () =>
       new Map(
         navigationMenu?.map((navItem: DeepReadonly<NavigationItem>) => {
@@ -212,7 +214,7 @@ export const Header: React.FC<HeaderProps> = ({
   }, [isBurgerMenuOpen])
 
   const handleNavItemSelection = useCallback(
-    (id: string, isSubMenuTitle?: boolean): void => {
+    (id: Id, isSubMenuTitle?: boolean): void => {
       setSelectedNavItem(id)
       !isSubMenuTitle && isSmallScreen && setIsBurgerMenuOpen(false)
     },
@@ -230,7 +232,7 @@ export const Header: React.FC<HeaderProps> = ({
         <NavigationMenu
           navigation={navItemsWithId}
           onNavItemSelection={handleNavItemSelection}
-          selectedNavItem={selectedNavItem}
+          selectedNavItemId={selectedNavItemId}
           withBurgerMenu
         />
       )}
@@ -239,7 +241,7 @@ export const Header: React.FC<HeaderProps> = ({
         <NavigationMenu
           navigation={navItemsWithId}
           onNavItemSelection={handleNavItemSelection}
-          selectedNavItem={selectedNavItem}
+          selectedNavItemId={selectedNavItemId}
         />
       )}
       <ThemeSwitcher className={classNames({ 'with-navigation': !!navigationMenu })} />
