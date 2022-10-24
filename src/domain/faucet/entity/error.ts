@@ -16,3 +16,9 @@ export class Bech32Error extends Error {
     this.name = 'Bech32Error'
   }
 }
+export class FaucetConnectionError extends Error {
+  constructor(message?: string) {
+    super(message)
+    this.name = 'FaucetConnectionError'
+  }
+}
