@@ -7,7 +7,8 @@
       "bech32-error": "Please enter an address that conforms to bech32 format and begins with okp4.",
       "faucet-gateway-error": "Oops, an error occurred while sending you your Know. $t(errorDomain:domain.error.contact-us)",
       "keplr-extension-unavailable-error": "The Keplr extension must be installed and activated in your browser in order to use it.",
-      "chain-suggestion-error": "Failed to suggest the chain. $t(errorDomain:domain.error.contact-us)"
+      "chain-suggestion-error": "Failed to suggest the chain. $t(errorDomain:domain.error.contact-us)",
+      "faucet-connection-error": "Failed to connect. This may be related to the limitation of the number of requests (you can only make one request per hour)."
     }
   }
 }
