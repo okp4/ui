@@ -7,6 +7,7 @@ import type {
   SubscriptionOperation
 } from '@urql/core/dist/types/exchanges/subscription'
 import type { DeepReadonly } from 'superTypes'
+import { FaucetConnectionError } from 'domain/faucet/entity/error'
 
 const urlReg = new RegExp('^(?<scheme>[a-z][a-z0-9+\\-.]*)://(?<target>.*)$')
 
@@ -25,7 +26,7 @@ const client = async (url: string): Promise<FaucetClient> => {
   return new Promise<GQLWSClient>(
     (
       resolve: (gqlWsClient: DeepReadonly<GQLWSClient>) => void,
-      reject: (reason: string) => void
+      reject: (reason: DeepReadonly<FaucetConnectionError>) => void
     ) => {
       const wsClient = createWSClient({
         url: makeWSURL(url),
@@ -33,7 +34,7 @@ const client = async (url: string): Promise<FaucetClient> => {
         on: {
           error: () => {
             wsClient.terminate()
-            reject('GQLWS client failed to connect')
+            reject(new FaucetConnectionError('GQLWS client failed to connect'))
           },
           connected: () => {
             resolve(wsClient)
