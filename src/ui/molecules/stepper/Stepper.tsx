@@ -51,7 +51,7 @@ export type StepperProps = {
   /**
    * The id of the current step.
    */
-  readonly currentStepId?: StepId
+  readonly activeStepId?: StepId
   /**
    * Defines if the submit button is disabled.
    */
@@ -85,7 +85,7 @@ export type StepperProps = {
 // eslint-disable-next-line max-lines-per-function
 export const Stepper: React.FC<StepperProps> = ({
   steps,
-  currentStepId,
+  activeStepId,
   isSubmitDisabled,
   submitButtonLabel,
   resetButtonLabel,
@@ -100,13 +100,13 @@ export const Stepper: React.FC<StepperProps> = ({
   const isMobile = useMemo(() => isXSmall || isSmall, [isXSmall, isSmall])
 
   const currentStep = useMemo(
-    () => steps.find((step: DeepReadonly<Step>) => step.id === currentStepId),
-    [steps, currentStepId]
+    () => steps.find((step: DeepReadonly<Step>) => step.id === activeStepId),
+    [steps, activeStepId]
   )
 
-  const isFirstStep = useMemo(() => currentStepId === steps.at(0)?.id, [steps, currentStepId])
+  const isFirstStep = useMemo(() => activeStepId === steps.at(0)?.id, [steps, activeStepId])
 
-  const isLastStep = useMemo(() => currentStepId === steps.at(-1)?.id, [steps, currentStepId])
+  const isLastStep = useMemo(() => activeStepId === steps.at(-1)?.id, [steps, activeStepId])
 
   const isCurrentStepCompleted = useMemo(
     () => currentStep && currentStep.status === 'completed',
@@ -117,7 +117,7 @@ export const Stepper: React.FC<StepperProps> = ({
     if (isLastStep && step.status === 'completed') {
       return 'completed'
     }
-    if (step.id === currentStepId) {
+    if (step.id === activeStepId) {
       return 'active'
     }
     return step.status ?? 'uncompleted'
@@ -203,7 +203,7 @@ export const Stepper: React.FC<StepperProps> = ({
                   <Typography
                     fontSize="x-small"
                     fontWeight={
-                      step.id === currentStepId && getStepStatus(step) !== 'completed'
+                      step.id === activeStepId && getStepStatus(step) !== 'completed'
                         ? 'bold'
                         : 'light'
                     }
