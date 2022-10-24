@@ -1,5 +1,19 @@
 # OKP4 UI changelog
 
+## [2.1.0](https://github.com/okp4/ui/compare/v2.0.0...v2.1.0) (2022-10-24)
+
+
+### Features
+
+* **core:** add FaucetConnectionError error entity ([1848d96](https://github.com/okp4/ui/commit/1848d96f223354291ac0d82c232884df480f7a73))
+* **i18n:** add translations for faucet-connection-error ([b2c77d1](https://github.com/okp4/ui/commit/b2c77d13b92826d20d7520608f8495d6ac404ec0))
+
+
+### Bug Fixes
+
+* **adapter:** reject GQLWS error with dedicated FaucetConnectionError ([219f97b](https://github.com/okp4/ui/commit/219f97b304b8b8ab9bc862e6a8b04628b76d2fad))
+* fix i18n import ([1665e0e](https://github.com/okp4/ui/commit/1665e0e76e40862cb0793b880023ac2283005d39))
+
 ## [2.0.0](https://github.com/okp4/ui/compare/v1.18.0...v2.0.0) (2022-10-19)
 
 
