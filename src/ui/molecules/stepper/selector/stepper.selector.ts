@@ -1,4 +1,4 @@
-import type { StepperState } from 'hook/useStepper'
+import type { StepperState, Step as StateStep } from 'hook/stepper/useStepper'
 import type { DeepReadonly } from 'superTypes'
 import type { Step } from 'ui/index'
 
@@ -14,5 +14,8 @@ export const getUpdatedSteps = (
 ): Step[] =>
   steps.map((step: DeepReadonly<Step>) => ({
     ...step,
-    status: state.stepsStatus.get(step.id)
+    status: state.steps.get(step.id)?.status
   }))
+
+export const getActiveStepId = (state: DeepReadonly<StepperState>): string | undefined =>
+  state.steps.findKey((step: DeepReadonly<StateStep>) => step.active)
