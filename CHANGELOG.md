@@ -1,5 +1,18 @@
 # OKP4 UI changelog
 
+## [3.0.0](https://github.com/okp4/ui/compare/v2.1.0...v3.0.0) (2022-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* change navigationMenu type & add arrows icons to selected nav item
+
+### Features
+
+* add isSelectedFromStart property to NavigationItem ([6eaaf3c](https://github.com/okp4/ui/commit/6eaaf3c0dfcff752615b67bc154e37542b2a175d))
+* add submenu ([6cda901](https://github.com/okp4/ui/commit/6cda90137a694ddf8b0c318823bbf288d84ee948))
+* change navigationMenu type & add arrows icons to selected nav item ([e5d6472](https://github.com/okp4/ui/commit/e5d647226bf42eeaeab7526f8901dae7e3ed2337))
+
 ## [2.1.0](https://github.com/okp4/ui/compare/v2.0.0...v2.1.0) (2022-10-24)
 
 
