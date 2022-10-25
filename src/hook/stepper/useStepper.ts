@@ -5,23 +5,56 @@ import { useState, useReducer } from 'react'
 import type { DeepReadonly, UseReducer, UseState } from 'superTypes'
 
 type StepStatus = 'disabled' | 'invalid' | 'completed' | 'uncompleted'
-type ActiveStep = [activeId: string, activeStep: Step]
+type ActiveStep = [activeId: string, activeStep: StepData]
 
-export type Step = {
+export type StepData = {
+  /**
+   * Defines if the step is active.
+   */
   active: boolean
+  /**
+   * Defines the order of the step in the list.
+   */
   order: number
+  /**
+   * The status of the step.
+   */
   status: StepStatus
+}
+
+export type InitialStep = {
+  /**
+   * The id of the step.
+   */
+  id: string
+  /**
+   * The status of the step.
+   */
+  status: StepStatus
+}
+
+export type StepWithBeforeOrder = InitialStep & {
+  /**
+   * The order of the step before.
+   */
+  beforeOrder: number
+}
+export type StepWithAfterOrder = InitialStep & {
+  /**
+   * The order of the step after.
+   */
+  afterOrder: number
 }
 
 export type StepperState = {
   /**
-   * The status of each step.
+   * The status and order of each step.
    */
-  steps: Map<string, Step>
+  steps: Map<string, StepData>
   /**
    * A state snapshot after first initialization.
    */
-  initialSteps: Map<string, Step>
+  initialSteps: Map<string, StepData>
 }
 
 export type StepperAction =
@@ -33,48 +66,43 @@ export type StepperAction =
   | { type: 'stepperSubmitted' }
   | { type: 'stepperReset' }
 
-export type InitialStep = {
-  id: string
-  status: StepStatus
-}
-
-export type StepWithBeforeOrder = InitialStep & {
-  beforeOrder: number
-}
-export type StepWithAfterOrder = InitialStep & {
-  afterOrder: number
-}
-
 export type InitializerArgs = {
+  /**
+   * The list of the initial steps.
+   */
   initialSteps: InitialStep[]
+  /**
+   * The id of initial active step.
+   */
   initialActiveStepId?: string
 }
 
 const initialState: StepperState = { steps: Map(), initialSteps: Map() }
 
-const getFilteredStepOrders = (steps: DeepReadonly<Map<string, Step>>): number[] =>
+const getFilteredStepOrders = (steps: DeepReadonly<Map<string, StepData>>): number[] =>
   steps
-    .filter((step: DeepReadonly<Step>) => step.status !== 'disabled')
-    .filter((step: DeepReadonly<Step>) => !step.active)
+    .filter((step: DeepReadonly<StepData>) => step.status !== 'disabled')
+    .filter((step: DeepReadonly<StepData>) => !step.active)
     .toIndexedSeq()
     .toArray()
-    .map((step: DeepReadonly<Step>) => step.order)
+    .map((step: DeepReadonly<StepData>) => step.order)
 
-const argsAreValid = (args: DeepReadonly<InitializerArgs>): boolean => {
+const isEachArgValid = (args: DeepReadonly<InitializerArgs>): boolean => {
   const { initialActiveStepId, initialSteps }: DeepReadonly<InitializerArgs> = args
   const stepKeys = initialSteps.map((step: DeepReadonly<InitialStep>) => step.id)
-  const initialStepsAreValid =
-    stepKeys.every((key: string) => key.length > 0) && uniq(stepKeys).length === stepKeys.length
-  const initialActiveStepIdIsValid =
-    initialActiveStepId !== undefined &&
-    initialActiveStepId.length > 0 &&
-    stepKeys.includes(initialActiveStepId)
-  return initialStepsAreValid && initialActiveStepIdIsValid
+  const isEachInitialStepValid =
+    initialSteps.length > 0 &&
+    stepKeys.every((key: string) => key.length > 0) &&
+    uniq(stepKeys).length === stepKeys.length
+  const isInitialActiveStepIdValid =
+    initialActiveStepId === undefined ||
+    (initialActiveStepId.length > 0 && stepKeys.includes(initialActiveStepId))
+  return isEachInitialStepValid && isInitialActiveStepIdValid
 }
 
 const initState = (initializerArgs: DeepReadonly<InitializerArgs>): StepperState => {
   const { initialActiveStepId, initialSteps }: DeepReadonly<InitializerArgs> = initializerArgs
-  const initialState = Map<string, Step>(
+  const initialState = Map<string, StepData>(
     initialSteps.map((step: DeepReadonly<InitialStep>, index: number) => {
       const active =
         (initialActiveStepId === undefined && step.status !== 'disabled' && index === 0) ||
@@ -103,12 +131,14 @@ const stepperReducer = (
   switch (action.type) {
     case 'previousClicked': {
       const [activeId, activeStep]: ActiveStep = state.steps.findEntry(
-        (step: DeepReadonly<Step>) => step.active
+        (step: DeepReadonly<StepData>) => step.active
       ) as ActiveStep
       const previousStep = getFilteredStepOrders(state.steps)
         .filter((nb: number) => nb < activeStep.order)
-        .reduce((prev: number, cur: number) => Math.max(cur, prev), Infinity)
-      const found = state.steps.findEntry((step: DeepReadonly<Step>) => step.order === previousStep)
+        .reduce((prev: number, cur: number) => Math.max(cur, prev), -Infinity)
+      const found = state.steps.findEntry(
+        (step: DeepReadonly<StepData>) => step.order === previousStep
+      )
       return {
         ...state,
         ...(found && {
@@ -124,12 +154,12 @@ const stepperReducer = (
     }
     case 'stepCompleted': {
       const [activeId, activeStep]: ActiveStep = state.steps.findEntry(
-        (step: DeepReadonly<Step>) => step.active
+        (step: DeepReadonly<StepData>) => step.active
       ) as ActiveStep
       const nextStep = getFilteredStepOrders(state.steps)
         .filter((nb: number) => nb > activeStep.order)
         .reduce((prev: number, cur: number) => Math.min(cur, prev), Infinity)
-      const found = state.steps.findEntry((step: DeepReadonly<Step>) => step.order === nextStep)
+      const found = state.steps.findEntry((step: DeepReadonly<StepData>) => step.order === nextStep)
       return {
         ...state,
         ...(found && {
@@ -145,7 +175,7 @@ const stepperReducer = (
     }
     case 'stepFailed': {
       const [activeId, activeStep]: ActiveStep = state.steps.findEntry(
-        (step: DeepReadonly<Step>) => step.active
+        (step: DeepReadonly<StepData>) => step.active
       ) as ActiveStep
 
       return {
@@ -153,7 +183,6 @@ const stepperReducer = (
         steps: state.steps.set(activeId, { ...activeStep, status: 'invalid' })
       }
     }
-
     case 'stepAddedBefore': {
       const { id, status, beforeOrder }: StepWithBeforeOrder = action.payload.step
       const payloadIsOk = id.length > 0 && !state.steps.keySeq().toArray().includes(id)
@@ -163,7 +192,7 @@ const stepperReducer = (
         ...state,
         ...(payloadIsOk && {
           steps: state.steps
-            .map((step: DeepReadonly<Step>) => ({
+            .map((step: DeepReadonly<StepData>) => ({
               ...step,
               order: step.order >= beforeOrder ? step.order + 1 : step.order
             }))
@@ -171,7 +200,6 @@ const stepperReducer = (
         })
       }
     }
-
     case 'stepAddedAfter': {
       const { id, status, afterOrder }: StepWithAfterOrder = action.payload.step
       const payloadIsOk = id.length > 0 && !state.steps.keySeq().toArray().includes(id)
@@ -182,7 +210,7 @@ const stepperReducer = (
         ...state,
         ...(payloadIsOk && {
           steps: state.steps
-            .map((step: DeepReadonly<Step>) => ({
+            .map((step: DeepReadonly<StepData>) => ({
               ...step,
               order: step.order > afterOrder ? step.order + 1 : step.order
             }))
@@ -190,10 +218,9 @@ const stepperReducer = (
         })
       }
     }
-
     case 'stepperSubmitted': {
       const [activeId, activeStep]: ActiveStep = state.steps.findEntry(
-        (step: DeepReadonly<Step>) => step.active
+        (step: DeepReadonly<StepData>) => step.active
       ) as ActiveStep
 
       return {
@@ -229,7 +256,7 @@ export type UseStepper = {
 
 /**
  * Facilitates management of the related actions of the Stepper.
- * @param steps The initial {@link Step steps} of the Stepper.
+ * @param steps The initial {@link StepData steps} of the Stepper.
  * @param activeStepId The initial id of the active step.
  * @returns The state of the Stepper and the dispatch function to update the state.
  */
@@ -245,8 +272,8 @@ export const useStepper = (
     stepperReducer,
     { initialActiveStepId: activeStepId, initialSteps: steps },
     (args: DeepReadonly<InitializerArgs>) => {
-      if (!argsAreValid(args)) {
-        setError(new Error('Intial state is invalid, check the parameters provided to the hook'))
+      if (!isEachArgValid(args)) {
+        setError(new Error('Intial state is invalid, check the parameters provided to the hook.'))
         return initialState
       }
       return initState(args)
