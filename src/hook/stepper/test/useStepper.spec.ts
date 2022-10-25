@@ -1,24 +1,41 @@
 import { act } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import type {
-  InitializerArgs,
-  InitialStep,
-  StepperAction,
-  StepperState,
-  Step,
-  StepWithBeforeOrder,
-  StepWithAfterOrder
-} from '../useStepper'
+import type { InitializerArgs, StepperAction, StepperState } from '../useStepper'
 import { useStepper } from '../useStepper'
 import {
-  hookError,
-  emptyState,
   emptyInitializerArgs,
+  emptyState,
+  expectedStateAfterFirstInitialization,
+  expectedStateAfterPreviousClicked,
+  expectedStateAfterPreviousClicked5,
+  expectedStateAfterPreviousClicked7,
+  stepToAdd1,
+  stepToAdd2,
+  stepToAdd3,
+  stepToAdd4,
+  stepToAdd5,
+  stepToAdd6,
+  expectedStateAfterStepAdded1,
+  expectedStateAfterStepAdded2,
+  expectedStateAfterStepAdded3,
+  expectedStateAfterStepAdded4,
+  expectedStateAfterStepAdded5,
+  expectedStateAfterStepAdded6,
+  expectedStateAfterStepCompleted1,
+  expectedStateAfterStepCompleted4,
+  expectedStateAfterStepCompleted6,
+  expectedStateAfterStepFailed,
+  expectedStateAfterStepperReset,
+  expectedStateAfterStepperSubmitted,
+  hookError,
   initializerArgs1,
   initializerArgs2,
   initializerArgs3,
-  expectedStateAfterInitialization,
-  expectedStateAfterStepCompleted
+  initializerArgs4,
+  initializerArgs5,
+  initializerArgs6,
+  initializerArgs7,
+  initializerArgs8
 } from './sut'
 
 type Data = {
@@ -29,227 +46,32 @@ type Data = {
 }
 
 describe('Considering the useStepper hook', () => {
-  // Initial steps
-
-  const initialStep1: InitialStep = {
-    id: '#id1',
-    status: 'uncompleted'
-  }
-
-  const initialStep2: InitialStep = {
-    id: '',
-    status: 'uncompleted'
-  }
-
-  const initialStep3: InitialStep = {
-    id: '#id3',
-    status: 'uncompleted'
-  }
-
-  const initialStep4: InitialStep = {
-    id: '#id4',
-    status: 'uncompleted'
-  }
-
-  const initialStep5: InitialStep = {
-    id: '#id27',
-    status: 'completed'
-  }
-
-  const initialStep6: InitialStep = {
-    id: '#id28',
-    status: 'uncompleted'
-  }
-
-  // Steps to add
-  const stepToAdd1: StepWithBeforeOrder = {
-    id: '#id5',
-    beforeOrder: 1,
-    status: 'uncompleted'
-  }
-
-  const stepToAdd2: StepWithBeforeOrder = {
-    id: '#id6',
-    beforeOrder: 12,
-    status: 'uncompleted'
-  }
-
-  const stepToAdd3: StepWithBeforeOrder = {
-    id: '#id7',
-    beforeOrder: -1,
-    status: 'uncompleted'
-  }
-
-  const stepToAdd4: StepWithAfterOrder = {
-    id: '#id5',
-    afterOrder: 1,
-    status: 'uncompleted'
-  }
-
-  // After "PreviousClicked" action dispatched
-  // const steps3 = emptyState.steps
-  //   .set(initialStep1.id, {
-  //     active: false,
-  //     status: 'uncompleted',
-  //     order: 0
-  //   })
-  //   .set(initialStep3.id, {
-  //     active: true,
-  //     status: 'uncompleted',
-  //     order: 1
-  //   })
-  //   .set(initialStep4.id, {
-  //     active: false,
-  //     status: 'uncompleted',
-  //     order: 2
-  //   })
-  // const expectedStateAfterPreviousClicked: StepperState = {
-  //   steps: steps3,
-  //   initialSteps: steps1.set(initialStep4.id, {
-  //     active: false,
-  //     status: 'uncompleted',
-  //     order: 2
-  //   })
-  // }
-
-  const expectedState4 = {
-    steps: emptyState.steps
-      .set(initialStep1.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 0
-      })
-      .set(initialStep3.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 1
-      })
-      .set(initialStep4.id, {
-        active: true,
-        status: 'invalid',
-        order: 2
-      })
-  }
-
-  const expectedState5 = {
-    steps: emptyState.steps
-      .set(initialStep1.id, {
-        active: true,
-        status: 'uncompleted',
-        order: 0
-      })
-      .set(initialStep3.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 2
-      })
-      .set(initialStep4.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 3
-      })
-      .set(stepToAdd1.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 1
-      })
-  }
-
-  const expectedState6 = {
-    steps: emptyState.steps
-      .set(initialStep1.id, {
-        active: true,
-        status: 'uncompleted',
-        order: 0
-      })
-      .set(initialStep3.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 1
-      })
-      .set(initialStep4.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 2
-      })
-      .set(stepToAdd2.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 3
-      })
-  }
-
-  const expectedState7 = {
-    steps: emptyState.steps
-      .set(initialStep1.id, {
-        active: true,
-        status: 'uncompleted',
-        order: 1
-      })
-      .set(initialStep3.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 2
-      })
-      .set(initialStep4.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 3
-      })
-      .set(stepToAdd3.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 0
-      })
-  }
-
-  const expectedState8 = {
-    steps: emptyState.steps
-      .set(initialStep5.id, {
-        active: false,
-        status: 'completed',
-        order: 0
-      })
-      .set(initialStep6.id, {
-        active: true,
-        status: 'completed',
-        order: 1
-      })
-  }
-
-  const expectedState9 = {
-    steps: emptyState.steps
-      .set(initialStep1.id, {
-        active: true,
-        status: 'uncompleted',
-        order: 0
-      })
-      .set(initialStep3.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 1
-      })
-      .set(initialStep4.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 3
-      })
-      .set(stepToAdd4.id, {
-        active: false,
-        status: 'uncompleted',
-        order: 2
-      })
-  }
-
   describe.each`
-    initializerArgs         | action                          | expectedState                       | expectedError
-    ${emptyInitializerArgs} | ${{ type: '' }}                 | ${emptyState}                       | ${hookError}
-    ${emptyInitializerArgs} | ${{ type: 'previousClicked' }}  | ${emptyState}                       | ${hookError}
-    ${initializerArgs1}     | ${{ type: '' }}                 | ${expectedStateAfterInitialization} | ${null}
-    ${initializerArgs2}     | ${{ type: '' }}                 | ${emptyState}                       | ${hookError}
-    ${initializerArgs3}     | ${{ type: '' }}                 | ${emptyState}                       | ${hookError}
-    ${initializerArgs3}     | ${{ type: 'stepperSubmitted' }} | ${emptyState}                       | ${hookError}
-    ${initializerArgs1}     | ${{ type: 'stepCompleted' }}    | ${expectedStateAfterStepCompleted}  | ${null}
+    initializerArgs         | action                                                        | expectedState                            | expectedError
+    ${emptyInitializerArgs} | ${{ type: '' }}                                               | ${emptyState}                            | ${hookError}
+    ${initializerArgs2}     | ${{ type: '' }}                                               | ${emptyState}                            | ${hookError}
+    ${initializerArgs3}     | ${{ type: '' }}                                               | ${emptyState}                            | ${hookError}
+    ${initializerArgs4}     | ${{ type: 'unknown' }}                                        | ${expectedStateAfterFirstInitialization} | ${null}
+    ${emptyInitializerArgs} | ${{ type: 'previousClicked' }}                                | ${emptyState}                            | ${hookError}
+    ${initializerArgs3}     | ${{ type: 'stepperSubmitted' }}                               | ${emptyState}                            | ${hookError}
+    ${initializerArgs1}     | ${{ type: 'stepCompleted' }}                                  | ${expectedStateAfterStepCompleted1}      | ${null}
+    ${initializerArgs2}     | ${{ type: 'stepCompleted' }}                                  | ${emptyState}                            | ${hookError}
+    ${initializerArgs3}     | ${{ type: 'stepCompleted' }}                                  | ${emptyState}                            | ${hookError}
+    ${initializerArgs4}     | ${{ type: 'stepCompleted' }}                                  | ${expectedStateAfterStepCompleted4}      | ${null}
+    ${initializerArgs6}     | ${{ type: 'stepCompleted' }}                                  | ${expectedStateAfterStepCompleted6}      | ${null}
+    ${initializerArgs8}     | ${{ type: 'stepCompleted' }}                                  | ${expectedStateAfterStepCompleted6}      | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepFailed' }}                                     | ${expectedStateAfterStepFailed}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'previousClicked' }}                                | ${expectedStateAfterPreviousClicked}     | ${null}
+    ${initializerArgs5}     | ${{ type: 'previousClicked' }}                                | ${expectedStateAfterPreviousClicked5}    | ${null}
+    ${initializerArgs7}     | ${{ type: 'previousClicked' }}                                | ${expectedStateAfterPreviousClicked7}    | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepAddedBefore', payload: { step: stepToAdd1 } }} | ${expectedStateAfterStepAdded1}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepAddedBefore', payload: { step: stepToAdd2 } }} | ${expectedStateAfterStepAdded2}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepAddedBefore', payload: { step: stepToAdd3 } }} | ${expectedStateAfterStepAdded3}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepAddedAfter', payload: { step: stepToAdd4 } }}  | ${expectedStateAfterStepAdded4}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepAddedAfter', payload: { step: stepToAdd5 } }}  | ${expectedStateAfterStepAdded5}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepAddedAfter', payload: { step: stepToAdd6 } }}  | ${expectedStateAfterStepAdded6}          | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepperSubmitted' }}                               | ${expectedStateAfterStepperSubmitted}    | ${null}
+    ${initializerArgs4}     | ${{ type: 'stepperReset' }}                                   | ${expectedStateAfterStepperReset}        | ${null}
   `(
     'Given an initial current step id <$initialActiveStepId> and an initial steps array',
     ({ initializerArgs, action, expectedState, expectedError }: Data) => {
@@ -267,11 +89,3 @@ describe('Considering the useStepper hook', () => {
     }
   )
 })
-
-// ${'#id4'}           | ${[initialStep1, initialStep3, initialStep4]} | ${{ type: 'previousClicked' }}                                | ${expectedStateAfterPreviousClicked} | ${null}
-// ${'#id4'}           | ${[initialStep1, initialStep3, initialStep4]} | ${{ type: 'stepFailed' }}                                     | ${expectedState4}                    | ${null}
-// ${'#id1'}           | ${[initialStep1, initialStep3, initialStep4]} | ${{ type: 'stepAddedBefore', payload: { step: stepToAdd1 } }} | ${expectedState5}                    | ${null}
-// ${'#id1'}           | ${[initialStep1, initialStep3, initialStep4]} | ${{ type: 'stepAddedBefore', payload: { step: stepToAdd2 } }} | ${expectedState6}                    | ${null}
-// ${'#id1'}           | ${[initialStep1, initialStep3, initialStep4]} | ${{ type: 'stepAddedBefore', payload: { step: stepToAdd3 } }} | ${expectedState7}                    | ${null}
-// ${'#id28'}          | ${[initialStep5, initialStep6]}               | ${{ type: 'stepperSubmitted' }}                               | ${expectedState8}                    | ${null}
-// ${'#id1'}           | ${[initialStep1, initialStep3, initialStep4]} | ${{ type: 'stepAddedAfter', payload: { step: stepToAdd4 } }}  | ${expectedState9}                    | ${null}

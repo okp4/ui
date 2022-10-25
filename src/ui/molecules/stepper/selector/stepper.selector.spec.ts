@@ -1,8 +1,8 @@
-import { StepperState } from 'hook/useStepper'
-import { List as ImmutableList, OrderedMap } from 'immutable'
+import { StepperState, StepData as StepState } from 'hook/stepper/useStepper'
+import { List as ImmutableList, Map, OrderedMap } from 'immutable'
 import { StepId, StepStatus } from 'ui/index'
 import { Step } from '../Stepper'
-import { getUpdatedSteps } from './stepper.selector'
+import { getActiveStepId, getUpdatedSteps } from './stepper.selector'
 
 type Data = {
   steps: Step[]
@@ -11,73 +11,143 @@ type Data = {
 }
 
 describe('Considering the getUpdatedSteps selector', () => {
-  const steps: Step[] = [
+  const steps1: Step[] = [
     {
-      id: 'step1',
+      id: '#id1',
       status: 'completed'
     },
     {
-      id: 'step2',
+      id: '#id2',
       status: 'disabled'
     },
     {
-      id: 'step3',
+      id: '#id3',
       status: 'invalid'
     },
     {
-      id: 'step4'
+      id: '#id4'
     },
     {
-      id: 'step5',
+      id: '#id5',
       status: 'disabled'
     },
     {
-      id: 'step6'
+      id: '#id6'
     }
   ]
 
-  const state: StepperState = {
-    currentStepId: 'step4',
-    stepsStatus: OrderedMap<StepId, StepStatus>()
-      .set('step1', 'completed')
-      .set('step2', 'disabled')
-      .set('step3', 'completed')
-      .set('step4', 'uncompleted')
-      .set('step5', 'disabled')
-      .set('step6', 'uncompleted'),
-    nonDisabledSteps: ImmutableList(['step1', 'step3', 'step4', 'step6'])
+  const state1: StepperState = {
+    steps: Map<string, StepState>()
+      .set('#id1', { order: 0, status: 'completed', active: false })
+      .set('#id2', { order: 1, status: 'disabled', active: false })
+      .set('#id3', { order: 2, status: 'completed', active: false })
+      .set('#id4', { order: 3, status: 'uncompleted', active: true })
+      .set('#id5', { order: 4, status: 'disabled', active: false })
+      .set('#id6', { order: 5, status: 'uncompleted', active: false }),
+    initialSteps: Map<string, StepState>()
   }
 
-  const updatedSteps: Step[] = [
+  const updatedSteps1: Step[] = [
     {
-      id: 'step1',
+      id: '#id1',
       status: 'completed'
     },
     {
-      id: 'step2',
+      id: '#id2',
       status: 'disabled'
     },
     {
-      id: 'step3',
+      id: '#id3',
       status: 'completed'
     },
     {
-      id: 'step4',
+      id: '#id4',
       status: 'uncompleted'
     },
     {
-      id: 'step5',
+      id: '#id5',
       status: 'disabled'
     },
     {
-      id: 'step6',
+      id: '#id6',
+      status: 'uncompleted'
+    }
+  ]
+
+  const steps2: Step[] = [
+    {
+      id: '#id1',
+      status: 'completed'
+    },
+    {
+      id: '#id2',
+      status: 'disabled'
+    },
+    {
+      id: '#id3',
+      status: 'invalid'
+    },
+    {
+      id: '#id4'
+    },
+    {
+      id: '#id4bis'
+    },
+    {
+      id: '#id5',
+      status: 'disabled'
+    },
+    {
+      id: '#id6'
+    }
+  ]
+  const state2: StepperState = {
+    steps: Map<string, StepState>()
+      .set('#id1', { order: 0, status: 'completed', active: false })
+      .set('#id2', { order: 1, status: 'disabled', active: false })
+      .set('#id3', { order: 2, status: 'completed', active: false })
+      .set('#id4', { order: 3, status: 'uncompleted', active: false })
+      .set('#id5', { order: 5, status: 'disabled', active: false })
+      .set('#id6', { order: 6, status: 'uncompleted', active: false })
+      .set('#id4bis', { order: 4, status: 'uncompleted', active: true }),
+    initialSteps: Map<string, StepState>()
+  }
+
+  const updatedSteps2: Step[] = [
+    {
+      id: '#id1',
+      status: 'completed'
+    },
+    {
+      id: '#id2',
+      status: 'disabled'
+    },
+    {
+      id: '#id3',
+      status: 'completed'
+    },
+    {
+      id: '#id4',
+      status: 'uncompleted'
+    },
+    {
+      id: '#id4bis',
+      status: 'uncompleted'
+    },
+    {
+      id: '#id5',
+      status: 'disabled'
+    },
+    {
+      id: '#id6',
       status: 'uncompleted'
     }
   ]
 
   describe.each`
-    steps    | state    | expectedUpdatedSteps
-    ${steps} | ${state} | ${updatedSteps}
+    steps     | state     | expectedUpdatedSteps
+    ${steps1} | ${state1} | ${updatedSteps1}
+    ${steps2} | ${state2} | ${updatedSteps2}
   `('Given a steps array and a state <$state>', ({ steps, state, expectedUpdatedSteps }: Data) => {
     describe('When invoking getUpdatedSteps selector', () => {
       const result = getUpdatedSteps(steps, state)
@@ -87,4 +157,51 @@ describe('Considering the getUpdatedSteps selector', () => {
       })
     })
   })
+})
+
+describe('Considering the getActiveStepId selector', () => {
+  const state1: StepperState = {
+    steps: Map<string, StepState>()
+      .set('#id1', { order: 0, status: 'completed', active: false })
+      .set('#id2', { order: 1, status: 'disabled', active: true })
+      .set('#id3', { order: 2, status: 'completed', active: false })
+      .set('#id4', { order: 3, status: 'uncompleted', active: false }),
+    initialSteps: Map<string, StepState>()
+  }
+
+  const state2: StepperState = {
+    steps: Map<string, StepState>()
+      .set('#id1', { order: 0, status: 'completed', active: false })
+      .set('#id2', { order: 1, status: 'disabled', active: false })
+      .set('#id3', { order: 2, status: 'completed', active: false })
+      .set('#id4', { order: 3, status: 'uncompleted', active: false }),
+    initialSteps: Map<string, StepState>()
+  }
+
+  const state3: StepperState = {
+    steps: Map<string, StepState>()
+      .set('#id1', { order: 0, status: 'completed', active: true })
+      .set('#id2', { order: 1, status: 'disabled', active: false })
+      .set('#id3', { order: 2, status: 'completed', active: true })
+      .set('#id4', { order: 3, status: 'uncompleted', active: false }),
+    initialSteps: Map<string, StepState>()
+  }
+
+  describe.each`
+    state     | expectedActiveStepId
+    ${state1} | ${'#id2'}
+    ${state2} | ${undefined}
+    ${state3} | ${'#id1'}
+  `(
+    'Given a state <$state>',
+    ({ state, expectedActiveStepId }: { state: StepperState; expectedActiveStepId: string }) => {
+      describe('When invoking getActiveStepId selector', () => {
+        const result = getActiveStepId(state)
+
+        test(`Then, expect active step id to be ${expectedActiveStepId}`, () => {
+          expect(result).toStrictEqual(expectedActiveStepId)
+        })
+      })
+    }
+  )
 })
