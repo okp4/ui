@@ -159,7 +159,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
             <Typography as="span" color="text" fontSize="x-small" fontWeight="bold">
               <a
                 className="okp4-faucet-content-info-link"
-                href="https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap"
+                href="https://www.keplr.app/download"
                 rel="noreferrer"
                 target="_blank"
               >
