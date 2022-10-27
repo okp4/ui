@@ -1,5 +1,35 @@
 # OKP4 UI changelog
 
+## [4.0.0](https://github.com/okp4/ui/compare/v3.0.0...v4.0.0) (2022-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **stepper selectors:** remove useless functions
+* **useStepper:** simplify initial args
+* **stepper:** simplify stepper props
+* **stepper:** separate logic & ui with hook
+
+### Features
+
+* add getActiveStepId seelctor ([50ace45](https://github.com/okp4/ui/commit/50ace45501d4df783a812b8378527d6eb6466b04))
+* add remove & add actions to useStepper hook ([d38df24](https://github.com/okp4/ui/commit/d38df248314a0bbe3bf53249bb1cb35c9f78137d))
+* **chore:** add useStepper hook ([738d29c](https://github.com/okp4/ui/commit/738d29cf392a31d169bc6104325fb060df391ccd))
+* **chore:** export useStepper hook ([d51452c](https://github.com/okp4/ui/commit/d51452cc7fb905df00a379deb30f9a48c1c7f7b8))
+* **hook:** enhance useStepper hook ([4859270](https://github.com/okp4/ui/commit/48592705894f84c360101fcd56a947e1c175433a))
+* **stepper:** add stepper helper functions ([961d7f0](https://github.com/okp4/ui/commit/961d7f04d04408e9a0918eadcf7be95a79f06494))
+* **stepper:** improve useStepper hook & selectors ([3fc2b61](https://github.com/okp4/ui/commit/3fc2b611aa042eccb43dc6a9a1730686dc67c1fa))
+* **ui:** rename currentStepId prop in stepper ([fe83d4f](https://github.com/okp4/ui/commit/fe83d4fea69d63c8fb6fd1716c7b5c30dc82689e))
+* use the official Keplr download page ([158d6e3](https://github.com/okp4/ui/commit/158d6e3f40dfd4ebf37ab3b650754fefbece15ac))
+
+
+### Code Refactoring
+
+* **stepper selectors:** remove useless functions ([195dbf7](https://github.com/okp4/ui/commit/195dbf7d008aced2039820a62c4175687e7ed300))
+* **stepper:** separate logic & ui with hook ([df3dc2b](https://github.com/okp4/ui/commit/df3dc2b834acf114ff3eeb2a3e6514370871807f))
+* **stepper:** simplify stepper props ([3c06f50](https://github.com/okp4/ui/commit/3c06f5052d05cfc7790b1ee280158411c5513f1c))
+* **useStepper:** simplify initial args ([a8c2ffa](https://github.com/okp4/ui/commit/a8c2ffa824d0de09f7951f1f8ffe47b36465fe59))
+
 ## [3.0.0](https://github.com/okp4/ui/compare/v2.1.0...v3.0.0) (2022-10-24)
 
 
