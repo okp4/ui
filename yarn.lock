@@ -1616,9 +1616,9 @@
     to-fast-properties "^2.0.0"
 
 "@babylonjs/core@^5.28.0":
-  version "5.28.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.28.0.tgz#01e45398985c30929a07b8f01f53f3c9faf12dda"
-  integrity sha512-muHxtHlQmkd8bH5VrF7iDDF4R1qxtzf3jsHLd+IdIJbKjbB1HDCJwekPROLHUA/GbPpb0F3Q4QGk2oixm1R9uQ==
+  version "5.30.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.30.0.tgz#1995a287f972f7108b6080c194c783838a04e6be"
+  integrity sha512-RNRjNXeZ3kMxUGfvgs4Kj07i8eXCfGWojZZBN4X8mxOEawsAeqX6reOXkxqd0G0qjv5saPTWI1K+OlIvdg/A3A==
 
 "@babylonjs/inspector@^5.28.0":
   version "5.28.0"
