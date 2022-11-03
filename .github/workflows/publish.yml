@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   publish-docker-images:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -56,7 +56,7 @@ jobs:
           labels: ${{ steps.docker_metadata.outputs.labels }}
 
   publish-npm-package:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         registry:
@@ -92,7 +92,7 @@ jobs:
 
   publish-storybook:
     timeout-minutes: 10
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
