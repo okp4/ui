@@ -7,7 +7,7 @@ on:
 jobs:
   publish-docker-images:
     if: ${{ github.event.issue.pull_request && github.event.comment.body  == '/publish' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: xt0rted/pull-request-comment-branch@v1
         id: comment-branch
@@ -50,7 +50,7 @@ jobs:
 
   publish-npm-package-okp4:
     if: ${{ github.event.issue.pull_request && github.event.comment.body  == '/publish' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: xt0rted/pull-request-comment-branch@v1
         id: comment-branch
