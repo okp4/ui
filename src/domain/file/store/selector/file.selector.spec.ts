@@ -4,12 +4,15 @@ import type { DeepReadonly } from 'superTypes'
 import type { AppState } from '../../store/appState'
 import { FileStoreBuilder } from '../builder/store.builder'
 import { FileBuilder } from '../../builder/file.builder'
-import { FileDescriptor, getFiles } from './file.selector'
+import { FileDescriptor, getFiles, getFilesSizeByIds, getTotalFilesSize } from './file.selector'
 import { FileEntity } from 'domain/file/entity/file'
 
 type Data = DeepReadonly<{
   state: AppState
+  fileIds: string[]
   expectedFiles: ReturnType<typeof getFiles>
+  expectedFilesSizeByIds: ReturnType<typeof getFilesSizeByIds>
+  expectedTotalFilesSize: ReturnType<typeof getTotalFilesSize>
 }>
 
 const file1 = new FileBuilder()
@@ -41,23 +44,48 @@ const expectedFiles = (): FileDescriptor[] =>
   [file1, file2].map(({ id, name, size, type }) => ({ id, name, size, type }))
 
 describe.each`
-  state             | expectedFiles
-  ${undefined}      | ${[]}
-  ${preloadedState} | ${expectedFiles()}
-`('Given that state is <$state>', ({ state, expectedFiles }: Data): void => {
-  const store = () => {
-    const eventBusInstance = new EventBus()
-    let storeBuilder = new FileStoreBuilder()
-    if (state) {
-      storeBuilder = storeBuilder.withPreloadedState(state)
+  state             | fileIds       | expectedFiles      | expectedFilesSizeByIds | expectedTotalFilesSize
+  ${undefined}      | ${[]}         | ${[]}              | ${0}                   | ${0}
+  ${preloadedState} | ${[]}         | ${expectedFiles()} | ${0}                   | ${200}
+  ${preloadedState} | ${['foobar']} | ${expectedFiles()} | ${0}                   | ${200}
+  ${preloadedState} | ${['id1']}    | ${expectedFiles()} | ${100}                 | ${200}
+`(
+  'Given that state is <$state> and fileIds are <$fileIds>',
+  ({
+    state,
+    fileIds,
+    expectedFiles,
+    expectedFilesSizeByIds,
+    expectedTotalFilesSize
+  }: Data): void => {
+    const store = () => {
+      const eventBusInstance = new EventBus()
+      let storeBuilder = new FileStoreBuilder()
+      if (state) {
+        storeBuilder = storeBuilder.withPreloadedState(state)
+      }
+      return storeBuilder.withEventBus(eventBusInstance).build()
     }
-    return storeBuilder.withEventBus(eventBusInstance).build()
-  }
-  describe('When performing selection getFiles', () => {
-    const v = getFiles(store().getState())
+    describe('When performing selection getFiles', () => {
+      const v = getFiles(store().getState())
 
-    test(`Then, expect value to be ${expectedFiles}`, () => {
-      expect(v).toEqual(expectedFiles)
+      test(`Then, expect value to be ${expectedFiles}`, () => {
+        expect(v).toEqual(expectedFiles)
+      })
     })
-  })
-})
+    describe('When performing selection getFilesSizeByIds', () => {
+      const v = getFilesSizeByIds(store().getState(), fileIds)
+
+      test(`Then, expect value to be ${expectedFilesSizeByIds}`, () => {
+        expect(v).toEqual(expectedFilesSizeByIds)
+      })
+    })
+    describe('When performing selection getTotalFilesSize', () => {
+      const v = getTotalFilesSize(store().getState())
+
+      test(`Then, expect value to be ${expectedTotalFilesSize}`, () => {
+        expect(v).toEqual(expectedTotalFilesSize)
+      })
+    })
+  }
+)

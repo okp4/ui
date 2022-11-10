@@ -4,9 +4,11 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleDirectories: ['node_modules'],
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/adapters/faucet/secondary/graphql/documents/',
+    '<rootDir>/src/adapters/faucet/secondary/graphql/',
     'index.ts',
-    'test.helper.ts'
+    'test.helper.ts',
+    '<rootDir>/src/adapters/file/secondary/s3/',
+    'InMemory'
   ],
   globals: {
     window: {}
@@ -19,7 +21,8 @@ module.exports = {
   moduleNameMapper: {
     '^domain/(.*)$': '<rootDir>/src/domain/$1',
     '^adapters/(.*)$': '<rootDir>/src/adapters/$1',
-    '^utils': '<rootDir>/src/utils.ts'
+    '^utils': '<rootDir>/src/utils.ts',
+    '^uuid$': require.resolve('uuid')
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.js']
 }

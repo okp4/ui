@@ -44,6 +44,8 @@
   },
   "dependencies": {
     "@javelin/ecs": "^1.0.0-alpha.13",
+    "@aws-sdk/client-s3": "^3.171.0",
+    "@aws-sdk/lib-storage": "^3.171.0",
     "@radix-ui/react-switch": "^1.0.0",
     "@radix-ui/react-toast": "^1.0.0",
     "@urql/core": "^3.0.1",

@@ -6,6 +6,8 @@ import type { DeepReadonly } from 'superTypes'
 import type { TypedBusEvent } from 'eventBus/eventBus'
 import type { RegisterTaskActions } from 'domain/task/usecase/register-task/actionCreators'
 import type { AmendTaskStatusActions } from 'domain/task/usecase/amend-task-status/actionCreators'
+import type { SetTaskProgressValueActions } from 'domain/task/usecase/set-task-progress-value/actionCreators'
+import { setTaskProgressValue } from 'domain/task/usecase/set-task-progress-value/setTaskProgressValue'
 
 export const initTaskEventListeners = (
   store: DeepReadonly<ReduxStore>,
@@ -31,6 +33,20 @@ export const initTaskEventListeners = (
       >
     ) => {
       store.dispatch(amendTaskStatus(event.payload))
+    }
+  )
+  eventBus.subscribe(
+    'task/taskProgressValueSetReceived',
+    (
+      event: DeepReadonly<
+        TypedBusEvent<
+          DeepReadonly<
+            ReturnType<typeof SetTaskProgressValueActions['taskProgressValueSetReceived']>
+          >
+        >
+      >
+    ) => {
+      store.dispatch(setTaskProgressValue(event.payload))
     }
   )
 }

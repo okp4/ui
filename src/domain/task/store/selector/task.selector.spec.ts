@@ -5,7 +5,7 @@ import type { AppState } from '../../store/appState'
 import {
   getTaskStatusById,
   getTaskIdsByType,
-  getDisplayedTaskIdByTypeAndStatus
+  getDisplayedTaskIdsByTypeAndStatus
 } from './task.selector'
 import type { DeepReadonly } from 'superTypes'
 import { TaskBuilder } from 'domain/task/builder/task.builder'
@@ -18,7 +18,7 @@ type Data = DeepReadonly<{
   taskStatus: TaskStatus
   expectedTaskStatus: ReturnType<typeof getTaskStatusById>
   expectedTaskIds: ReturnType<typeof getTaskIdsByType>
-  exptectedDisplayedTaskIdByTypeAndStatus: ReturnType<typeof getDisplayedTaskIdByTypeAndStatus>
+  exptectedDisplayedTaskIdsByTypeAndStatus: ReturnType<typeof getDisplayedTaskIdsByTypeAndStatus>
 }>
 
 const aDate = new Date(1995, 11, 17)
@@ -36,7 +36,7 @@ const task2 = new TaskBuilder()
   .withCreationDate(bDate)
   .withLastUpdateDate(bDate)
   .withType('foo')
-  .withStatus('success')
+  .withStatus('error')
   .withInitiator('domain:test')
   .build()
 const task3 = new TaskBuilder()
@@ -59,10 +59,10 @@ const state1: AppState = {
 }
 
 describe.each`
-  state        | taskId          | taskType         | taskStatus         | expectedTaskStatus | expectedTaskIds                             | exptectedDisplayedTaskIdByTypeAndStatus
-  ${undefined} | ${'#id-1'}      | ${undefined}     | ${undefined}       | ${undefined}       | ${undefined}                                | ${undefined}
-  ${state1}    | ${'#id-broken'} | ${'broken-type'} | ${'broken-status'} | ${undefined}       | ${undefined}                                | ${undefined}
-  ${state1}    | ${'#id-3'}      | ${'foo'}         | ${'success'}       | ${task3.status}    | ${OrderedSet<string>([task1.id, task2.id])} | ${task1.id}
+  state        | taskId          | taskType         | taskStatus         | expectedTaskStatus | expectedTaskIds                             | exptectedDisplayedTaskIdsByTypeAndStatus
+  ${undefined} | ${'#id-1'}      | ${undefined}     | ${undefined}       | ${undefined}       | ${undefined}                                | ${[]}
+  ${state1}    | ${'#id-broken'} | ${'broken-type'} | ${'broken-status'} | ${undefined}       | ${undefined}                                | ${[]}
+  ${state1}    | ${'#id-3'}      | ${'foo'}         | ${'success'}       | ${task3.status}    | ${OrderedSet<string>([task1.id, task2.id])} | ${[task1.id]}
 `(
   'Given that state is <$state>, taskId is <$taskId>, taskType is <$taskType> and taskStatus is <$taskStatus>',
   ({
@@ -72,7 +72,7 @@ describe.each`
     taskStatus,
     expectedTaskStatus,
     expectedTaskIds,
-    exptectedDisplayedTaskIdByTypeAndStatus
+    exptectedDisplayedTaskIdsByTypeAndStatus: exptectedDisplayedTaskIdByTypeAndStatus
   }: Data): void => {
     const store = () => {
       const eventBusInstance = new EventBus()
@@ -99,7 +99,7 @@ describe.each`
     })
 
     describe('When performing selection getDisplayedTaskIdsByTypeAndStatus', () => {
-      const v = getDisplayedTaskIdByTypeAndStatus(store().getState(), taskType, taskStatus)
+      const v = getDisplayedTaskIdsByTypeAndStatus(store().getState(), taskType, taskStatus)
 
       test(`Then, expect value to be ${exptectedDisplayedTaskIdByTypeAndStatus}`, () => {
         expect(v).toEqual(exptectedDisplayedTaskIdByTypeAndStatus)
