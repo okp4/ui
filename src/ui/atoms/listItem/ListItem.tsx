@@ -31,7 +31,8 @@ export type ListItemProps = {
   /**
    * The callback function called when the list item is clicked.
    */
-  readonly onClick?: () => void
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  readonly onClick?: (event?: React.MouseEvent<HTMLDivElement>) => void
 }
 
 type TitleProps = Required<Pick<ListItemProps, 'title'>>
