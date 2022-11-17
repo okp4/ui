@@ -42,7 +42,8 @@ export type ButtonProps = DeepReadonly<{
    * The `onClick` function is an event handler attached to the button just like a normal HTML
    * `<button>`.
    */
-  readonly onClick?: () => void
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  readonly onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void
 }>
 
 /**
