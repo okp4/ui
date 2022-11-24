@@ -45,13 +45,24 @@ Any possible combination of the following properties can be used and are detaile
       control: {
         type: 'text'
       }
+    },
+    textDecoration: {
+      control: {
+        type: 'select'
+      }
     }
   }}
   args={{
     children:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pretium sodales mi, quis\
       ultricies sapien convallis sed. Vivamus accumsan tortor quis molestie tempus.',
-    as: 'div'
+    as: 'div',
+    color: 'text',
+    textDecoration: undefined,
+    fontFamily: 'brand',
+    fontSize: 'medium',
+    fontWeight: 'light',
+    noWrap: false
   }}
 >
   {args => <Typography {...args} />}
