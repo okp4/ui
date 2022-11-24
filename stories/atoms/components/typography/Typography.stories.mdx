@@ -2,20 +2,11 @@ import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
-import themes from 'ui/styles/_exports.module.scss'
 import '../component.scss'
 
 <Meta
   title="Atoms/Typography"
   component={Typography}
-  parameters={{
-    actions: { argTypesRegex: '^on.*' },
-    docs: {
-      source: {
-        type: 'code'
-      }
-    }
-  }}
   decorators={[
     Story => (
       <ThemeProvider>
