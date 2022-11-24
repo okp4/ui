@@ -27,13 +27,13 @@ import '../component.scss'
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
-## Overview
+## Description
 
 **Typography** is the primitive component to display some text or pure HTML. It comes with limited styling capabilities to be easily integrated with OKP4 design system.
 
 Any possible combination of the following properties can be used and are detailed below.
 
----
+## Overview
 
 <Story
   name="Overview"
@@ -68,82 +68,9 @@ Any possible combination of the following properties can be used and are detaile
   {args => <Typography {...args} />}
 </Story>
 
----
-
-### Properties
+## Properties
 
 <ArgsTable story="Overview" />
-
-## Fonts
-
-The Typography component can be styled with two font families:
-
-### Main font
-
-The main font is `Gotham`, it is also the default one.
-
-<Canvas>
-  <Story name="Main font">
-    {args => (
-      <Typography as="div" fontFamily="brand" fontSize="medium">
-        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-        <p>abcdefghijklmnopqrstuvwxyz</p>
-        <p>123456789 !?.;:</p>
-      </Typography>
-    )}
-  </Story>
-</Canvas>
-
-### Secondary font
-
-You can also choose to use a secondary font called `NotoSansMono`.
-
-<Canvas>
-  <Story name="Secondary font">
-    {args => (
-      <Typography as="div" fontFamily="secondary" fontSize="medium">
-        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-        <p>abcdefghijklmnopqrstuvwxyz</p>
-        <p>123456789 !?.;:</p>
-      </Typography>
-    )}
-  </Story>
-</Canvas>
-
-## Sizes
-
-Size options are `x-small`, `small`, `medium`, `large`, `x-large`.  
-There is no default size to preserve what's being ultimately rendered.
-
-<Canvas>
-  <Story name="Sizes">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px'
-        }}
-      >
-        <Typography as="div" fontSize="x-small" fontFamily="brand">
-          x-small | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="small" fontFamily="brand">
-          small | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="medium" fontFamily="brand">
-          medium | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="large" fontFamily="brand">
-          large | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="x-large" fontFamily="brand">
-          x-large | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-      </div>
-    )}
-  </Story>
-</Canvas>
 
 ## Colors
 
@@ -218,6 +145,96 @@ the theme, the OKP4 palette addresses these issues by adding 2 more complex colo
   </Story>
 </Canvas>
 
+## Text decoration
+
+The `textDecoration` property adds context to the Typography component and thus optimizes user actions.
+At the moment, the available value is:
+
+- **underline** : underlines the text in the same color as the text itself.
+
+More options are already under development and will make it possible to take even more advantage of this property.
+
+<Canvas>
+  <Story name="Text decoration">
+    <div>
+      <Typography as="div" textDecoration="underline">
+        underline | OKP4 - At the core of the stakes of data valorisation
+      </Typography>
+    </div>
+  </Story>
+</Canvas>
+
+## Fonts
+
+The Typography component can be styled with two font families:
+
+### Main font
+
+The main font is `Gotham`, it is also the default one.
+
+<Canvas>
+  <Story name="Main font">
+    {args => (
+      <Typography as="div" fontFamily="brand" fontSize="medium">
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>123456789 !?.;:</p>
+      </Typography>
+    )}
+  </Story>
+</Canvas>
+
+### Secondary font
+
+You can also choose to use a secondary font called `NotoSansMono`.
+
+<Canvas>
+  <Story name="Secondary font">
+    {args => (
+      <Typography as="div" fontFamily="secondary" fontSize="medium">
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>123456789 !?.;:</p>
+      </Typography>
+    )}
+  </Story>
+</Canvas>
+
+## Sizes
+
+Size options are `x-small`, `small`, `medium`, `large`, `x-large`.  
+There is no default size to preserve what's being ultimately rendered.
+
+<Canvas>
+  <Story name="Sizes">
+    {args => (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}
+      >
+        <Typography as="div" fontSize="x-small" fontFamily="brand">
+          x-small | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="small" fontFamily="brand">
+          small | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="medium" fontFamily="brand">
+          medium | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="large" fontFamily="brand">
+          large | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+        <Typography as="div" fontSize="x-large" fontFamily="brand">
+          x-large | OKP4 - At the core of the stakes of data valorisation
+        </Typography>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
 ## Font weights
 
 Depending on the need, the font weight can be modified. The values are `xlight`, `light` (default), `bold`, `black`.
@@ -247,25 +264,6 @@ Internally, this parameter will actually select a variant of the selected font.
         </Typography>
       </div>
     )}
-  </Story>
-</Canvas>
-
-## Text decoration
-
-The `textDecoration` property adds context to the Typography component and thus optimizes user actions.
-At the moment, the available value is:
-
-- **underline** : underlines the text in the same color as the text itself.
-
-More options are already under development and will make it possible to take even more advantage of this property.
-
-<Canvas>
-  <Story name="Text decoration">
-    <div>
-      <Typography as="div" textDecoration="underline">
-        underline | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-    </div>
   </Story>
 </Canvas>
 
