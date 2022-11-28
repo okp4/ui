@@ -1,0 +1,7 @@
+@import 'ui/styles/themes.scss';
+
+.high-contrast-component-background {
+  @include with-theme {
+    background: themed('inverted-field');
+  }
+}
