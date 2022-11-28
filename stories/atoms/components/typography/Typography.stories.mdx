@@ -72,6 +72,99 @@ Any possible combination of the following properties can be used and are detaile
 
 <ArgsTable story="Overview" />
 
+## Children
+
+`Children` is the content upon which Typography applies itself. Most of the time `children` will
+be made up of text but really it can contain any valid node object.
+
+<Canvas>
+  <Story name="Children">
+    {() => {
+      const { isXSmall } = useBreakpoint()
+      return (
+        <>
+          <Typography as="div" fontSize={isXSmall ? 'small' : 'medium'} color="success">
+            {'<Typography>'}
+            <Typography fontSize={isXSmall ? 'small' : 'medium'}>
+              You can pass 👶 inside the tags
+            </Typography>
+            {'</Typography>'}
+          </Typography>
+          <Typography
+            color="warning"
+            children={
+              <Typography fontSize={isXSmall ? 'small' : 'medium'} as="div" color="success">
+                {'<Typography children="'}
+                {
+                  <Typography
+                    fontSize={isXSmall ? 'small' : 'medium'}
+                    color="warning"
+                    children={'Or as an attribute'}
+                  />
+                }" />
+              </Typography>
+            }
+          />
+        </>
+      )
+    }}
+  </Story>
+</Canvas>
+
+## As
+
+With `as` you decide the HTML tag of the element.
+
+Nesting Typography components in one another can be used to apply different style to
+targeted parts of the text.
+
+`as` can be any of the following values:
+
+- **div**: Generic container tag with no effect on its content.
+- **p**: Paragraph tag, groups related content on a new line.
+- **span** (default): Generic inline container tag.
+- **h1** - **h6**: Section heading tags.
+- **pre**: Preformatted text tag. Used to display text exactly as written inside the tag.
+- **ul**: An unordered list containing `<li>`, `<script>` or `<template>` elements.
+- **li**: List item tag. Must have a parent element such as `<ul>`, `<ol>` or `<menu>`.
+
+<Canvas>
+  <Story name="As">
+    <Typography as="div" color="info" fontWeight="xlight" fontSize="x-small">
+      <Typography as="h1" fontSize="large">
+        Typography
+      </Typography>
+      <Typography as="p">
+        <Typography as="span" color="highlighted-text">
+          {'Typography '}
+        </Typography>
+        is the art and technique of arranging type to make written language:
+      </Typography>
+      <Typography as="ul" color="highlighted-text">
+        <Typography as="li">Legible</Typography>
+        <li>Readable</li>
+        <Typography as="li">Aesthetically pleasing</Typography>
+      </Typography>
+      <Typography as="pre" fontSize="small" color="warning">
+        {`
+  <div>
+    <h1></h1>
+    <p>
+      <span></span>
+    </p>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <pre></pre>
+  </div>`}
+      </Typography>
+      <i>structure of this story</i>
+    </Typography>
+  </Story>
+</Canvas>
+
 ## Colors
 
 There are different color variants available referring to OKP4 palette and themes.  
