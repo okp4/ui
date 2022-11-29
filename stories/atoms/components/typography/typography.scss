@@ -1,7 +1,9 @@
 @import 'ui/styles/themes.scss';
 
-.high-contrast-component-background {
+.typography-story-color-inverted {
   @include with-theme {
     background: themed('inverted-field');
+    border-radius: 15px;
+    padding: 10px;
   }
 }

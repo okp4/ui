@@ -2,6 +2,7 @@ import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs'
 import { Typography } from 'ui/atoms/typography/Typography'
 import { ThemeProvider } from 'ui/atoms/theme/ThemeProvider'
 import { ThemeSwitcher } from 'ui/atoms/theme/ThemeSwitcher'
+import { useBreakpoint } from 'hook/useBreakpoint'
 import '../component.scss'
 import './typography.scss'
 
@@ -24,15 +25,17 @@ import './typography.scss'
 
 # Typography
 
-> OKP4 typography component.
+> Simplifies the creation of typographic elements.
 
 [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/emersion/stability-badges#unstable)
 
 ## Description
 
-**Typography** is the primitive component to display some text or pure HTML. It comes with limited styling capabilities to be easily integrated with OKP4 design system.
+Typography is the primitive component to display text or pure HTML. It comes with limited styling
+capabilities for easy use within the ØKP4 design system.
 
-Any possible combination of the following properties can be used and are detailed below.
+With Typography users have a ready to go typographic design that is readable and optimized for
+usability, to direct reader attention and to increase conversion rates.
 
 ## Overview
 
@@ -166,215 +169,161 @@ targeted parts of the text.
   </Story>
 </Canvas>
 
-## Colors
+## Color
 
-There are different color variants available referring to OKP4 palette and themes.  
-These variations have been developed to allow the Typography component to fit perfectly into any interface, regardless of the theme selected.
+There are different `color` values available referring to the ØKP4 palette and themes.  
+These variations have been developed to allow the Typography component to fit perfectly into any interface,
+regardless of the theme selected.
 
-You can choose from one of 6 basic color variants that meet most of your needs:
-
-- **text**: the default text color, follows the selected theme.
-- **highlighted-text**: the text is highlighted by a stronger color.
-- **info**: a light grey text color to give some information to the user.
-- **success**: a green text color to inform the user that something has succeeded.
-- **warning**: an orange text color to make the user pay attention.
-- **error**: a bright red text color to alert the user that an error has occurred.
-
-<Canvas>
-  <Story name="Basic colors">
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '20px',
-        gap: '20px'
-      }}
-    >
-      <Typography as="div" color="text" fontFamily="brand" fontSize="medium">
-        text | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-      <Typography as="div" color="highlighted-text" fontFamily="brand" fontSize="medium">
-        highlighted-text | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-      <Typography as="div" color="info" fontFamily="brand" fontSize="medium">
-        info | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-      <Typography as="div" color="success" fontFamily="brand" fontSize="medium">
-        success | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-      <Typography as="div" color="warning" fontFamily="brand" fontSize="medium">
-        warning | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-      <Typography as="div" color="error" fontFamily="brand" fontSize="medium">
-        error | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-    </div>
-  </Story>
-</Canvas>
-
-To allow the management of low contrast issues or cases where the color must remain the same according to
-the theme, the OKP4 palette addresses these issues by adding 2 more complex color effects:
-
-- **inverted-text**: inverts the theme of the text color. You can use this color when the text is displayed on low contrast backgrounds.
-- **invariant-text**: does not depend on the theme, it is always white.
+- **text** (default): This color has high contrast and suits large bodies of text.
+- **highlighted-text**: Highlights text to draw users attention, to be used scarcely.
+- **info**: A lower contrast color meant to convey informative details.
+- **success**: Green static color to indicate something has succeeded or have been accepted.
+- **warning**: Orange static color to warn users.
+- **error**: Red static color to alert users that an error has occurred.
+- **inverted-text**: Inverted text color for when the text has a low contrast background.
+- **invariant-text**: Static white color.
 
 <Canvas>
-  <Story name="Specific colors">
-    <div
-      className="high-contrast-component-background"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '20px',
-        gap: '20px'
-      }}
-    >
-      <Typography as="div" color="inverted-text" fontFamily="brand" fontSize="medium">
-        inverted-text | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-      <Typography as="div" color="invariant-text" fontFamily="brand" fontSize="medium">
-        invariant-text | OKP4 - At the core of the stakes of data valorisation
-      </Typography>
-    </div>
+  <Story name="Color">
+    {() => {
+      const colors = [
+        'text',
+        'highlighted-text',
+        'info',
+        'success',
+        'warning',
+        'error',
+        'inverted-text',
+        'invariant-text'
+      ]
+      return colors.map(color => {
+        const invertedBackground = color === 'inverted-text' || color === 'invariant-text'
+        const typography = (
+          <Typography as="div" color={color}>
+            {color} | ØKP4 - At the core of the stakes of data valorisation
+          </Typography>
+        )
+        return invertedBackground ? (
+          <div class="typography-story-color-inverted">{typography}</div>
+        ) : (
+          typography
+        )
+      })
+    }}
   </Story>
 </Canvas>
 
 ## Text decoration
 
-The `textDecoration` property adds context to the Typography component and thus optimizes user actions.
-At the moment, the available value is:
+The `textDecoration` property allows additional customization of the typography.
+For the moment, there is only one value available:
 
-- **underline** : underlines the text in the same color as the text itself.
+- **underline** : Underlines the text and attracts readers attention.
 
-More options are already under development and will make it possible to take even more advantage of this property.
+More options are under development and will make it possible to take further advantage of this property.
 
 <Canvas>
   <Story name="Text decoration">
-    <div>
-      <Typography as="div" textDecoration="underline">
-        underline | OKP4 - At the core of the stakes of data valorisation
+    <Typography as="p" color="highlighted-text">
+      {'ØKP4 - A proof of stake layer 1 '}
+      <Typography textDecoration="underline" color="highlighted-text">
+        Blockchain
       </Typography>
-    </div>
+      {' on the Cøsmos IBC protocol'}
+    </Typography>
   </Story>
 </Canvas>
 
-## Fonts
+## Font family
 
-The Typography component can be styled with two font families:
+`fontFamily` offers two different fonts, **brand** and **secondary**.
 
-### Main font
-
-The main font is `Gotham`, it is also the default one.
+These maintain harmony in the text composition while also providing
+contrasting choices.
 
 <Canvas>
-  <Story name="Main font">
-    {args => (
-      <Typography as="div" fontFamily="brand" fontSize="medium">
-        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-        <p>abcdefghijklmnopqrstuvwxyz</p>
-        <p>123456789 !?.;:</p>
-      </Typography>
-    )}
+  <Story name="Font family">
+    {() => {
+      const fontFamilies = ['brand', 'secondary']
+      return fontFamilies.map(fontFamily => (
+        <div>
+          <Typography
+            as="h2"
+            color="highlighted-text"
+            textDecoration="underline"
+            fontFamily={fontFamily}
+          >
+            {fontFamily.charAt(0).toUpperCase() + fontFamily.slice(1)}
+          </Typography>
+          <Typography as="p" color="success" fontFamily={fontFamily}>
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ
+          </Typography>
+          <Typography as="p" color="warning" fontFamily={fontFamily}>
+            abcdefghijklmnopqrstuvwxyz
+          </Typography>
+          <Typography as="p" color="error" fontFamily={fontFamily}>
+            0123456789
+          </Typography>
+        </div>
+      ))
+    }}
   </Story>
 </Canvas>
 
-### Secondary font
+## Font size
 
-You can also choose to use a secondary font called `NotoSansMono`.
+There are five `fontSize` options: **x-large**, **large**, **medium** (default), **small** and **x-small**.
 
 <Canvas>
-  <Story name="Secondary font">
-    {args => (
-      <Typography as="div" fontFamily="secondary" fontSize="medium">
-        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-        <p>abcdefghijklmnopqrstuvwxyz</p>
-        <p>123456789 !?.;:</p>
-      </Typography>
-    )}
+  <Story name="Font size">
+    {() => {
+      const sizes = ['x-large', 'large', 'medium', 'small', 'x-small']
+      return sizes.map(size => (
+        <Typography as="div" fontSize={size} noWrap>
+          {size} | ØKP4 Design System
+        </Typography>
+      ))
+    }}
   </Story>
 </Canvas>
 
-## Sizes
+## Font weight
 
-Size options are `x-small`, `small`, `medium`, `large`, `x-large`.  
-There is no default size to preserve what's being ultimately rendered.
+Depending on the need, the `fontWeight` can be modified to indicate the importance of a text or
+to make it more readable.
 
-<Canvas>
-  <Story name="Sizes">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px'
-        }}
-      >
-        <Typography as="div" fontSize="x-small" fontFamily="brand">
-          x-small | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="small" fontFamily="brand">
-          small | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="medium" fontFamily="brand">
-          medium | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="large" fontFamily="brand">
-          large | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontSize="x-large" fontFamily="brand">
-          x-large | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-      </div>
-    )}
-  </Story>
-</Canvas>
+The following font weights are supported:
 
-## Font weights
-
-Depending on the need, the font weight can be modified. The values are `xlight`, `light` (default), `bold`, `black`.
-Internally, this parameter will actually select a variant of the selected font.
+- **xlight**: Suitable for indicating less important text or to increase readability in a large body of text.
+- **light** (default): An easily read font weight. Does not convey a particular importance.
+- **bold**: Great for emphasizing part of a text or as a sub-header. Becomes less readable if
+  used on large bodies of text.
+- **black**: The boldest font weight available and a great choice for short headers.
 
 <Canvas>
   <Story name="Font weight">
-    {args => (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px'
-        }}
-      >
-        <Typography as="div" fontWeight="xlight" fontFamily="brand" fontSize="medium">
-          xlight | OKP4 - At the core of the stakes of data valorisation
+    {() => {
+      const fontWeights = ['xlight', 'light', 'bold', 'black']
+      return fontWeights.map(fontWeight => (
+        <Typography as="div" fontWeight={fontWeight}>
+          {fontWeight} | ØKP4 - Decentralized Data Spaces
         </Typography>
-        <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium">
-          light | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontWeight="bold" fontFamily="brand" fontSize="medium">
-          bold | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-        <Typography as="div" fontWeight="black" fontFamily="brand" fontSize="medium">
-          black | OKP4 - At the core of the stakes of data valorisation
-        </Typography>
-      </div>
-    )}
+      ))
+    }}
   </Story>
 </Canvas>
 
-## Text-wrap
+## No wrap
 
-By default, the element rendered will automatically wrap : newline characters in the source are handled the same as other white space. Lines are broken as necessary to fill line boxes.
-If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+By default, the element text content will wrap itself to fit the element width dimension.
+`noWrap` prevents this behaviour, and will instead truncate the text with an ellipsis
+upon reaching the width limit.
 
 <Canvas>
-  <Story name="Text wrap">
-    {args => (
-      <div>
-        <Typography as="div" fontWeight="light" fontFamily="brand" fontSize="medium" noWrap={true}>
-          At the core of the stakes of data valorisation. OKP4 offers an integrated solution that is
-          perfectly adapted to your use and your needs.
-        </Typography>
-      </div>
-    )}
+  <Story name="No wrap">
+    <Typography as="div" noWrap>
+      The greatest minds of ØKP4 are agreed, the secret to happiness is Ubuntu!
+    </Typography>
   </Story>
 </Canvas>
