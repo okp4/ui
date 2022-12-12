@@ -134,7 +134,7 @@
     "stylelint": "^14.8.5",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-scss": "^4.1.0",
-    "svg-sprite": "^1.5.4",
+    "svg-sprite": "^2.0.2",
     "svgo": "^2.8.0",
     "ts-node": "^10.8.1",
     "typed-scss-modules": "^7.0.0",
