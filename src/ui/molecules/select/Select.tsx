@@ -179,6 +179,10 @@ export const Select = ({
     }
   }, [menuOpened])
 
+  useEffect(() => {
+    setSelectValue(value)
+  }, [value])
+
   return (
     <div
       className={classNames(`okp4-select-container ${size}`, {
