@@ -1,5 +1,42 @@
 # OKP4 UI changelog
 
+## [5.0.0](https://github.com/okp4/ui/compare/v4.0.0...v5.0.0) (2023-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **redux:** update task selectors
+
+### Features
+
+* **adapter:** add taskProgressValueSetReceived event listener ([37965e3](https://github.com/okp4/ui/commit/37965e3c65482fb7ae5ecb254d8732fdc30d796b))
+* **adapter:** create fileRegistryGateway ([c07635b](https://github.com/okp4/ui/commit/c07635b632d18f18f13bb4d9fc480049ff970efb))
+* **adapter:** create s3 client ([7816af7](https://github.com/okp4/ui/commit/7816af7527100da92af40ed0e1fc9ad7500f7426))
+* **adapter:** create S3FileGateway ([f0231aa](https://github.com/okp4/ui/commit/f0231aad77e0b002e25a2fe35e78c4fc56159400))
+* **adapter:** export new file gateways ([4031e7b](https://github.com/okp4/ui/commit/4031e7b469dde0a660f9b07faefef59a80ec6b53))
+* add event argument to components onClick property ([b80e938](https://github.com/okp4/ui/commit/b80e9383c5b4b94f53965f0d9653fbc26b6640e1))
+* **core:** add UploadFiles command ([b945d5e](https://github.com/okp4/ui/commit/b945d5e92d3a755e4e204685ad1dacd8fe5d9921))
+* **core:** add UploadFiles use case ([37e3130](https://github.com/okp4/ui/commit/37e3130d921728f1f289ecbba50044852cdd8bbd))
+* **core:** declare file port interfaces ([f232587](https://github.com/okp4/ui/commit/f2325872f3bf1ca4cdd63ece2ee739f03caaacec))
+* **core:** declare new task events and action creators ([9007cd7](https://github.com/okp4/ui/commit/9007cd77e243ea5ca06928751d27f6e6d347880f))
+* **core:** enhance error entity ([2ab3447](https://github.com/okp4/ui/commit/2ab3447508279379ebf8f36c111f5e3939ff6278))
+* **redux:** modify store builder to handle thunk dependencies ([49776db](https://github.com/okp4/ui/commit/49776dbbdfa5b365aea12e4e992bdd7e1aa9a6fa))
+* **redux:** modify store to inject dependencies in thunk ([da5431e](https://github.com/okp4/ui/commit/da5431ef2158fedcabb9b8cfa1f24ffe2843782c))
+
+
+### Bug Fixes
+
+* **adapter:** switch cosmjs AccountData type to @keplr-wallet/types ([f107bbf](https://github.com/okp4/ui/commit/f107bbf4f2e773689121b37e61f2ade3d171d497))
+* couple select value props with select value hook ([796cba6](https://github.com/okp4/ui/commit/796cba683351a6d554687048a298a07ba81a4fea))
+* **i18n:** add CustomTypeOptions for returnNull config ([ea74fd7](https://github.com/okp4/ui/commit/ea74fd73cd15f3e187dc4a2607de58b7a2ba2a62))
+* rearrange textfield width properties & handle side effects ([b596063](https://github.com/okp4/ui/commit/b5960636bb018ba84b2bd3385757d9edacf6d95a))
+* remove circular dependency import ([7cc3206](https://github.com/okp4/ui/commit/7cc3206702e759be8281c2c55d24a485ec14c7e6))
+
+
+### Code Refactoring
+
+* **redux:** update task selectors ([c97dd2c](https://github.com/okp4/ui/commit/c97dd2c81625d4ec531c978acc2566f84cbb0362))
+
 ## [4.0.0](https://github.com/okp4/ui/compare/v3.0.0...v4.0.0) (2022-10-27)
 
 
