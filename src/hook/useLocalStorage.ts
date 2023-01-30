@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 export type LocalStorageState = [string | null, (value: string) => void]
 
@@ -8,9 +8,9 @@ const getLocalStorageValue = (key: string): string | null => {
 }
 
 export const useLocalStorage = (key: string): LocalStorageState => {
-  const [value, setValue]: LocalStorageState = React.useState(() => getLocalStorageValue(key))
+  const [value, setValue]: LocalStorageState = useState(() => getLocalStorageValue(key))
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!value) return
     localStorage.setItem(key, value)
   }, [key, value])
