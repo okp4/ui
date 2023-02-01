@@ -1,4 +1,4 @@
-import React from 'react'
+import { createContext } from 'react'
 
 export type Theme = 'light' | 'dark'
 export type ThemeContextType = Readonly<{
@@ -6,5 +6,5 @@ export type ThemeContextType = Readonly<{
   setTheme: (newTheme: Theme) => void
 }>
 
-const ThemeContext = React.createContext<ThemeContextType | null>(null)
+const ThemeContext = createContext<ThemeContextType | null>(null)
 export default ThemeContext
