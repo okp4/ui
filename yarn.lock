@@ -2507,9 +2507,9 @@
   integrity sha512-qWEDTwAkSi4qPRUBIJw/YDr9UtlLlTQPEhjM6u4anauoHbMtNdOkUqy6Q7+fLUAh6oVE5h+WPeBfBR2HVpewHw==
 
 "@babylonjs/inspector@^5.28.0":
-  version "5.28.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.28.0.tgz#9589f3e74c3fdf19eab7447bea07f9070c9f550a"
-  integrity sha512-YQNGxqaFPa2Z/dMgxkUYCG+k4OSZrUMUwBVgzeRtELmAv9VVe3/GXEg60l2r1UuzUBA5NPPo1ZGhlwyYtWN4dw==
+  version "5.46.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.46.0.tgz#dc50267687e375d9069aa66f57d11aca3e619c5f"
+  integrity sha512-o/t8uovrKn2pKR/A3PNAe3VZJC+4/o1L4i7Y8aJB1fMbh6wLppUdx0oBUaveUWlqGeg/4nfMgjKrYX27Wm5ipw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
