@@ -9,7 +9,7 @@ jobs:
     if: ${{ github.event.issue.pull_request && github.event.comment.body  == '/publish' }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: xt0rted/pull-request-comment-branch@v1
+      - uses: xt0rted/pull-request-comment-branch@v2
         id: comment-branch
 
       - name: Check out repository
@@ -52,7 +52,7 @@ jobs:
     if: ${{ github.event.issue.pull_request && github.event.comment.body  == '/publish' }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: xt0rted/pull-request-comment-branch@v1
+      - uses: xt0rted/pull-request-comment-branch@v2
         id: comment-branch
 
       - name: Check out repository
