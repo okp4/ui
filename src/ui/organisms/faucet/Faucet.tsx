@@ -22,6 +22,7 @@ import { Typography } from 'ui/atoms/typography/Typography'
 import type { DeepReadonly, UseState } from 'superTypes'
 import './i18n/index'
 import './faucet.scss'
+import { GReCaptcha } from 'ui/atoms/gReCaptcha/GReCaptchaImplicit'
 
 export type FaucetProps = Readonly<{
   chainId: string
@@ -33,6 +34,8 @@ type Initiator = 'wallet' | 'input' | null
 // eslint-disable-next-line max-lines-per-function
 export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
   const [initiator, setInitiator]: UseState<Initiator> = useState<Initiator>(null)
+  const [walletRecaptcha, setWalletRecaptcha]: UseState<boolean> = useState<boolean>(false)
+  const [addressRecaptcha, setAddressRecaptcha]: UseState<boolean> = useState<boolean>(false)
   const faucetDispatch = useFaucetDispatch()
   const walletDispatch = useWalletDispatch()
   const errorDispatch = useErrorDispatch()
@@ -76,18 +79,28 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
     [faucetDispatch]
   )
 
-  const handleRequestWithAddress = useCallback(async () => {
+  const handleAdressButton = useCallback(() => {
+    setAddressRecaptcha(true)
+  }, [])
+
+  const addressRequest = useCallback(async () => {
+    setAddressRecaptcha(false)
     await cleanUIStates()
     setInitiator('input')
     faucetDispatch(setAddress(''))
     faucetDispatch(requestFunds(address))
   }, [address, faucetDispatch, cleanUIStates])
 
-  const handleRequestWithWallet = useCallback(async () => {
+  const handleWalletButton = useCallback(() => {
+    setWalletRecaptcha(true)
+  }, [])
+
+  const walletRequest = useCallback(async () => {
+    setWalletRecaptcha(false)
     await cleanUIStates()
     setInitiator('wallet')
     walletDispatch(enableWallet('keplr', chainId))
-  }, [chainId, cleanUIStates, walletDispatch])
+  }, [chainId, cleanUIStates, setWalletRecaptcha, walletDispatch])
 
   return (
     <div className="okp4-faucet-main">
@@ -109,39 +122,59 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId }: FaucetProps) => {
             <Typography color="text" fontFamily="secondary" fontSize="small" fontWeight="bold">
               {t('faucet:faucet.requestFundsWithKeplr')}
             </Typography>
-            <img alt="Keplr logo" src={keplrImage} />
-            {transactionLoading && initiator === 'wallet' ? (
-              <div className="okp4-faucet-loader" />
-            ) : (
-              <Button
-                disabled={!!transactionLoading}
-                label={t('faucet:faucet.sendMeToken')}
-                onClick={handleRequestWithWallet}
-                size="large"
-                variant="secondary"
+
+            {walletRecaptcha ? (
+              <GReCaptcha
+                onSuccess={walletRequest}
+                siteKey="6LeYpVEmAAAAAGeDsoiisnTugYVvCfT2ydALE-dt"
               />
+            ) : (
+              <>
+                <img alt="Keplr logo" src={keplrImage} />
+                {transactionLoading && initiator === 'wallet' ? (
+                  <div className="okp4-faucet-loader" />
+                ) : (
+                  <Button
+                    disabled={!!transactionLoading}
+                    label={t('faucet:faucet.sendMeToken')}
+                    onClick={handleWalletButton}
+                    size="large"
+                    variant="secondary"
+                  />
+                )}
+              </>
             )}
           </div>
           <div className="okp4-faucet-content-action-item">
+            {' '}
             <Typography color="text" fontFamily="secondary" fontSize="small" fontWeight="bold">
               {t('faucet:faucet.requestFundsWithAddress')}
             </Typography>
-            <TextField
-              onChange={handleAddressChange}
-              placeholder={t('faucet:faucet.addressPlaceholder')}
-              size="small"
-              value={address}
-            />
-            {transactionLoading && initiator === 'input' ? (
-              <div className="okp4-faucet-loader" />
-            ) : (
-              <Button
-                disabled={!!transactionLoading}
-                label={t('faucet:faucet.sendMeToken')}
-                onClick={handleRequestWithAddress}
-                size="large"
-                variant="secondary"
+            {addressRecaptcha ? (
+              <GReCaptcha
+                onSuccess={addressRequest}
+                siteKey="6LeYpVEmAAAAAGeDsoiisnTugYVvCfT2ydALE-dt"
               />
+            ) : (
+              <>
+                <TextField
+                  onChange={handleAddressChange}
+                  placeholder={t('faucet:faucet.addressPlaceholder')}
+                  size="small"
+                  value={address}
+                />
+                {transactionLoading && initiator === 'input' ? (
+                  <div className="okp4-faucet-loader" />
+                ) : (
+                  <Button
+                    disabled={!!transactionLoading}
+                    label={t('faucet:faucet.sendMeToken')}
+                    onClick={handleAdressButton}
+                    size="large"
+                    variant="secondary"
+                  />
+                )}
+              </>
             )}
           </div>
         </div>
