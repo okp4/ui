@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import keplrImage from 'assets/images/keplr.png'
 import { acknowledgeError } from 'domain/error/usecase/acknowledge-error/acknowledgeError'
 import type { AppState as FaucetAppState } from 'domain/faucet/store/appState'
@@ -13,15 +13,13 @@ import { useTaskSelector, useTaskDispatch } from 'hook/storeHook/taskHook'
 import { useWalletDispatch } from 'hook/storeHook/walletHook'
 import { useTranslation } from 'hook/useTranslation'
 import type { UseTranslationResponse } from 'hook/useTranslation'
-import { useTheme } from 'hook/useTheme'
-import type { ThemeContextType } from 'context/themeContext'
 import { hasUnseenError, unseenErrorMessage } from 'domain/error/store/selector/error.selector'
 import { getDisplayedTaskIdsByTypeAndStatus } from 'domain/task/store/selector/task.selector'
 import { Button } from 'ui/atoms/button/Button'
 import { TextField } from 'ui/atoms/textField/TextField'
 import { Toast } from 'ui/atoms/toast/Toast'
 import { Typography } from 'ui/atoms/typography/Typography'
-import { GReCaptcha } from 'ui/atoms/grecaptcha/Grecaptcha'
+import { Captcha } from 'ui/molecules/captcha/captcha'
 import type { DeepReadonly, UseState } from 'superTypes'
 import './i18n/index'
 import './faucet.scss'
@@ -33,25 +31,26 @@ type ActionItemProps = {
 type AdressActionItemProps = ActionItemProps
 type WalletActionItemProps = ActionItemProps
 
-type Recaptcha = {
-  siteKey: string
+type FaucetCaptchaAPIKey = {
+  APIKey: string
+}
+
+type FaucetGRecaptcha = FaucetCaptchaAPIKey & {
   theme?: 'light' | 'dark'
 }
 
+type FaucetCaptcha = FaucetGRecaptcha
+
 export type FaucetProps = Readonly<{
   chainId: string
-  recaptcha?: Recaptcha
+  captcha?: FaucetCaptcha
 }>
 
 type Initiator = 'wallet' | 'input' | null
 
 // JSX function
 // eslint-disable-next-line max-lines-per-function
-export const Faucet: React.FC<FaucetProps> = ({
-  chainId,
-  recaptcha
-}: DeepReadonly<FaucetProps>) => {
-  const { theme: contextTheme }: ThemeContextType = useTheme()
+export const Faucet: React.FC<FaucetProps> = ({ chainId, captcha }: DeepReadonly<FaucetProps>) => {
   const [initiator, setInitiator]: UseState<Initiator> = useState<Initiator>(null)
   const [walletRecaptcha, setWalletRecaptcha]: UseState<boolean> = useState<boolean>(false)
   const [addressRecaptcha, setAddressRecaptcha]: UseState<boolean> = useState<boolean>(false)
@@ -163,6 +162,26 @@ export const Faucet: React.FC<FaucetProps> = ({
     </>
   )
 
+  const walletGRecaptchaParameters: Captcha = useMemo(
+    () => ({
+      captchaType: 'g-recaptcha',
+      sitekey: captcha ? captcha.APIKey : '',
+      onSuccess: walletRequest,
+      theme: captcha?.theme
+    }),
+    [captcha, walletRequest]
+  )
+
+  const addressGRecaptchaParameters: Captcha = useMemo(
+    () => ({
+      captchaType: 'g-recaptcha',
+      sitekey: captcha ? captcha.APIKey : '',
+      onSuccess: addressRequest,
+      theme: captcha?.theme
+    }),
+    [addressRequest, captcha]
+  )
+
   return (
     <div className="okp4-faucet-main">
       <div className="okp4-faucet-content">
@@ -184,13 +203,9 @@ export const Faucet: React.FC<FaucetProps> = ({
               {t('faucet:faucet.requestFundsWithKeplr')}
             </Typography>
 
-            {recaptcha ? (
+            {captcha ? (
               walletRecaptcha ? (
-                <GReCaptcha
-                  onSuccess={walletRequest}
-                  sitekey={recaptcha.siteKey}
-                  theme={recaptcha.theme ?? contextTheme}
-                />
+                <Captcha captcha={walletGRecaptchaParameters} />
               ) : (
                 <WalletActionItem onClick={handleWalletButton} />
               )
@@ -202,13 +217,9 @@ export const Faucet: React.FC<FaucetProps> = ({
             <Typography color="text" fontFamily="secondary" fontSize="small" fontWeight="bold">
               {t('faucet:faucet.requestFundsWithAddress')}
             </Typography>
-            {recaptcha ? (
+            {captcha ? (
               addressRecaptcha ? (
-                <GReCaptcha
-                  onSuccess={addressRequest}
-                  sitekey={recaptcha.siteKey}
-                  theme={recaptcha.theme ?? contextTheme}
-                />
+                <Captcha captcha={addressGRecaptchaParameters} />
               ) : (
                 <AdressActionItem onClick={handleAdressButton} />
               )
