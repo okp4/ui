@@ -15,12 +15,10 @@ export const useCaptcha = (
   const { theme: contextTheme }: ThemeContextType = useTheme()
   const scriptRef = useRef<HTMLScriptElement | null>(null)
 
-  // eslint-disable-next-line max-lines-per-function
   useEffect(() => {
     switch (captcha.captchaType) {
       case 'g-recaptcha': {
         const NORMAL_WIDGET_WIDTH = 304
-        const SCRIPT_ID = 'grecaptcha-script'
         const parentWidth = ref.current?.parentElement?.getBoundingClientRect().width ?? Infinity
         const widgetSize = parentWidth >= NORMAL_WIDGET_WIDTH ? 'normal' : 'compact'
 
@@ -44,7 +42,7 @@ export const useCaptcha = (
 
         const script = Object.assign(document.createElement('script'), {
           async: true,
-          id: SCRIPT_ID,
+          id: 'grecaptcha-script',
           defer: true,
           src: `https://www.google.com/recaptcha/api.js?onload=grecaptchaOnLoad&render=explicit&hl=${i18n.language}`
         })
