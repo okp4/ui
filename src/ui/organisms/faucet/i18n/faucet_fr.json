@@ -6,8 +6,8 @@
     },
     "sendMeToken": "Envoyez-moi des KNOW",
     "requestFundsWithKeplr": "Demander des fonds avec Keplr",
-    "requestFundsWithAddress": "Demander des fonds avec une adresse OKP4",
-    "addressPlaceholder": "adresse OKP4",
+    "requestFundsWithAddress": "Demander des fonds avec une adresse de la chaine OKP4",
+    "addressPlaceholder": "0xxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "operationSucceeded": "Votre transaction a été envoyée avec succès!",
     "brand": {
       "title": "OKP4 Faucet",
