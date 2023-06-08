@@ -52,7 +52,18 @@ For the OKP4 testnets, the Faucet service is configured to send 1 $KNOW per requ
 
 ## Overview
 
-<Story name="Overview" args={{ chainId: env.chainId }}>
+<Story
+  name="Overview"
+  argTypes={{
+    captcha: {
+      control: false,
+      table: {
+        type: { summary: 'FaucetCaptcha' }
+      }
+    }
+  }}
+  args={{ chainId: env.chainId }}
+>
   {args => {
     const { theme } = useTheme()
     console.log(JSON.prettyenv)
@@ -72,6 +83,32 @@ For the OKP4 testnets, the Faucet service is configured to send 1 $KNOW per requ
     )
   }}
 </Story>
+
+### Properties
+
+<ArgsTable story="Overview" />
+
+## Captcha
+
+The faucet can be implemented with a `captcha` to prevent abusive behaviour. The following captchas are available:
+
+```ts
+// Google ReCAPTCHA v2
+type FaucetGRecaptcha = {
+  APIKey: string
+  theme?: 'light' | 'dark'
+}
+
+```
+
+<Canvas>
+  <Story name="Captcha">
+    {() => {
+      const captcha = { APIKey: env.captcha.google.siteKey }
+      return <Faucet chainId={env.chainId} captcha={captcha} />
+    }}
+  </Story>
+</Canvas>
 
 ## Usage
 
