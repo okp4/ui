@@ -1,5 +1,16 @@
 # OKP4 UI changelog
 
+## [5.1.0](https://github.com/okp4/ui/compare/v5.0.0...v5.1.0) (2023-06-08)
+
+
+### Features
+
+* **captcha:** separate google captcha implementation and captcha component ([f39bf9b](https://github.com/okp4/ui/commit/f39bf9b221882097f1a8610dd6adf3aebb85614b))
+* **faucet:** add grecaptcha ([2bfbdfa](https://github.com/okp4/ui/commit/2bfbdfa21a36672f93845ed3bab173ddee39e39f))
+* **faucet:** improve address action wording ([1c5edb0](https://github.com/okp4/ui/commit/1c5edb09cb41d867bc37d3d90a295b0bc3e946e2))
+* **grecaptcha:** add grecaptcha component and hook ([ba642fb](https://github.com/okp4/ui/commit/ba642fb3c3edeaf3ce9cac691e43bfb6bb904039))
+* **grecaptcha:** extend window type ([ac93415](https://github.com/okp4/ui/commit/ac934155c5b4ef0217aa8a0432a78800eec1a42f))
+
 ## [5.0.0](https://github.com/okp4/ui/compare/v4.0.0...v5.0.0) (2023-01-25)
 
 
