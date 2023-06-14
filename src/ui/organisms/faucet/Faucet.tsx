@@ -134,7 +134,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId, captcha }: DeepReadonly
         <div className="okp4-faucet-loader" />
       ) : (
         <Button
-          disabled={!!transactionLoading}
+          disabled={!!transactionLoading || !!walletRecaptcha}
           label={t('faucet:faucet.sendMeToken')}
           onClick={onClick}
           size="large"
@@ -152,7 +152,7 @@ export const Faucet: React.FC<FaucetProps> = ({ chainId, captcha }: DeepReadonly
         <div className="okp4-faucet-loader" />
       ) : (
         <Button
-          disabled={!!transactionLoading}
+          disabled={!!transactionLoading || !!addressRecaptcha}
           label={t('faucet:faucet.sendMeToken')}
           onClick={onClick}
           size="large"
