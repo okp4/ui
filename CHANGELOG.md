@@ -1,5 +1,13 @@
 # OKP4 UI changelog
 
+## [5.1.1](https://github.com/okp4/ui/compare/v5.1.0...v5.1.1) (2023-06-14)
+
+
+### Bug Fixes
+
+* **faucet:** address placeholder ([8053287](https://github.com/okp4/ui/commit/8053287b9ea2b0b03083a3ec842ad12e7bbf04e6))
+* **faucet:** allow one captcha at a time ([03be723](https://github.com/okp4/ui/commit/03be7230e401b48841e5281cbb6567d43dd45801))
+
 ## [5.1.0](https://github.com/okp4/ui/compare/v5.0.0...v5.1.0) (2023-06-08)
 
 
