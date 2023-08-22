@@ -10,19 +10,16 @@ updates:
       - fredericvilcot
       - ErikssonJoakim
       - lolottetheclash
-      - JoeyDjr
     assignees:
       - ccamel
       - fredericvilcot
       - lolottetheclash
-      - JoeyDjr
     open-pull-requests-limit: 5
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
     reviewers:
-      - JoeyDjr
       - ccamel
       - fredericvilcot
       - ErikssonJoakim
@@ -31,5 +28,4 @@ updates:
       - ccamel
       - fredericvilcot
       - lolottetheclash
-      - JoeyDjr
     open-pull-requests-limit: 5
