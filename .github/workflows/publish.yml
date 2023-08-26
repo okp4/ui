@@ -112,8 +112,8 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.OKP4_TOKEN }}
+          personal_token: ${{ secrets.OKP4_TOKEN }}
           publish_dir: ./dist
-          commit-message: |
+          commit_message: |
             feat: update storybook site (auto)
           cname: ui.okp4.space
