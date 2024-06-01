@@ -115,7 +115,7 @@
     "nanoid": "^4.0.0",
     "ngraph.generators": "^20.1.0",
     "postcss": "^8.4.5",
-    "postcss-flexbugs-fixes": "4.2.1",
+    "postcss-flexbugs-fixes": "5.0.2",
     "prettier": ">=2.5.1",
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
